@@ -9,7 +9,7 @@
         padding: 2em;
     }
     #fb-button {
-        font-size: xx-large;
+        font-size: large;
     }
 }
 
@@ -91,6 +91,7 @@ div {
 #footer-logo {
     margin-top: 10em;
     display: block;
+    width: 100%;
     /*margin-left: 27%;*/
     /*margin-right: 27%;*/
 
