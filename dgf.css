@@ -1,13 +1,89 @@
+@font-face {
+  font-family: 'Gnuolane';
+  src: url('gnuolane-rg.ttf'); /* IE9 Compat Modes */
+  src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 body {
     background-color: #001222;
     color: #cccfd2;
-    font-family: Helvetica;
+    font-family: Gnuolane;
+    font-size: larger;
+    font-weight: lighter;
     padding-top: 10em;
-    padding-left: 30%;
-    padding-right: 30%;
+    height: auto;
+}
+
+div {
+    margin-top: 1em;
 }
 
 #main {
+    margin-left: 27%;
+    margin-right: 27%;
     align-content: center;
 }
 
+#dgf-logo {
+    width: 80%;
+    height: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#text-1 {
+    margin-top: 3em;
+}
+
+#fb-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cccfd2;
+    color: #001222;
+    padding: 0 0.5em;
+    margin-top: 2em;
+}
+
+#fb-button:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+#fb-button div {
+    margin-top: 0;
+}
+
+#fb-logo {
+    width: 40px;
+    height: 40px;
+    margin: 0.25em;
+}
+
+#footer-logo {
+    margin-top: 10em;
+    display: block;
+    margin-left: 27%;
+    margin-right: 27%;
+
+}
+#footer {
+    background-color: #182937;
+    padding-left: 27%;
+    padding-right: 27%;
+    padding-top: 1em;
+}
+
+#footer-title {
+    font-size: larger;
+}
+
+#footer-rest-top div {
+    margin-top: 0;
+}
+
+#footer-rest-bottom div {
+    margin-top: 0;
+}
