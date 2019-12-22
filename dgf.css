@@ -4,9 +4,9 @@
   src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
-*{
-    box-sizing: border-box
-}
+/**{*/
+/*    box-sizing: border-box*/
+/*}*/
 
 body {
     background-color: #001222;
@@ -77,27 +77,23 @@ div {
 
 }
 
-/*!* For mobile phones: *!*/
-/*[class*="col-"] {*/
-/*  width: 100%;*/
-/*    */
-/*}*/
-
-/*@media only screen and (min-width: 600px) {*/
-/*  !* For tablets: *!*/
-
-/*}*/
-/*@media only screen and (min-width: 768px) {*/
-/*  !* For desktop: *!*/
-
-/*}*/
-
 #footer {
     background-color: #182937;
-    padding-left: 27%;
-    padding-right: 27%;
-    padding-top: 2em;
-    padding-bottom: 2em;
+}
+
+/* For mobile phones: */
+[id="footer"] {
+  padding: 2em;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    #footer {
+        padding-left: 27%;
+        padding-right: 27%;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
 }
 
 #footer-title {
