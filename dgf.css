@@ -4,6 +4,22 @@
   src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+@media only screen and (max-width: 768px) {
+    #footer {
+        padding: 2em;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    #footer {
+        padding-left: 27%;
+        padding-right: 27%;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+}
+
 /**{*/
 /*    box-sizing: border-box*/
 /*}*/
@@ -79,21 +95,6 @@ div {
 
 #footer {
     background-color: #182937;
-}
-
-/* For mobile phones: */
-[id="footer"] {
-  padding: 2em;
-}
-
-@media only screen and (min-width: 768px) {
-    /* For desktop: */
-    #footer {
-        padding-left: 27%;
-        padding-right: 27%;
-        padding-top: 2em;
-        padding-bottom: 2em;
-    }
 }
 
 #footer-title {
