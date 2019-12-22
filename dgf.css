@@ -8,8 +8,14 @@
     #footer {
         padding: 2em;
     }
+
     #fb-button {
-        font-size: large;
+        font-size: x-large;
+    }
+
+    #footer-logo {
+        width: 80%;
+        height: 80%;
     }
 }
 
@@ -20,6 +26,11 @@
         padding-right: 27%;
         padding-top: 2em;
         padding-bottom: 2em;
+    }
+
+    #footer-logo {
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -88,10 +99,15 @@ div {
     margin: 0.25em;
 }
 
+#pre-footer {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+}
+
 #footer-logo {
     margin-top: 10em;
     display: block;
-    width: 100%;
     /*margin-left: 27%;*/
     /*margin-right: 27%;*/
 
