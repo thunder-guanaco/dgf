@@ -4,14 +4,16 @@
   src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+/* mobile */
 @media only screen and (max-width: 768px) {
 
     #body {
         padding-top: 0;
     }
 
-    #footer {
-        padding: 2em;
+    #dgf-logo {
+        width: 80%;
+        height: 80%;
     }
 
     #fb-button {
@@ -22,10 +24,26 @@
         width: 90%;
         height: 90%;
     }
+
+    #footer {
+        padding: 2em;
+    }
+
 }
 
+/* desktop */
 @media only screen and (min-width: 768px) {
-    /* For desktop: */
+
+    #dgf-logo {
+        width: 60%;
+        height: 60%;
+    }
+
+    #footer-logo {
+        width: 100%;
+        height: 100%;
+    }
+
     #footer {
         padding-left: 27%;
         padding-right: 27%;
@@ -33,10 +51,6 @@
         padding-bottom: 2em;
     }
 
-    #footer-logo {
-        width: 100%;
-        height: 100%;
-    }
 }
 
 /**{*/
@@ -69,8 +83,6 @@ div {
 }
 
 #dgf-logo {
-    width: 80%;
-    height: 80%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -78,6 +90,11 @@ div {
 
 #text-1 {
     margin-top: 3em;
+    text-align: justify;
+}
+
+#text-2 {
+    text-align: justify;
 }
 
 #fb-button {
