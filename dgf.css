@@ -11,17 +11,16 @@ body {
     font-size: larger;
     font-weight: lighter;
     padding-top: 10em;
-    height: auto;
 }
 
 div {
     margin-top: 1em;
 }
 
-#main {
-    margin-left: 27%;
-    margin-right: 27%;
-    align-content: center;
+#body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #dgf-logo {
@@ -40,6 +39,7 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    /*width: fit-content;*/
     align-items: center;
     background-color: #cccfd2;
     color: #001222;
@@ -65,10 +65,11 @@ div {
 #footer-logo {
     margin-top: 10em;
     display: block;
-    margin-left: 27%;
-    margin-right: 27%;
+    /*margin-left: 27%;*/
+    /*margin-right: 27%;*/
 
 }
+
 #footer {
     background-color: #182937;
     padding-left: 27%;
