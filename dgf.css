@@ -4,6 +4,10 @@
   src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+*{
+    box-sizing: border-box
+}
+
 body {
     background-color: #001222;
     color: #cccfd2;
@@ -72,6 +76,21 @@ div {
     /*margin-right: 27%;*/
 
 }
+
+/*!* For mobile phones: *!*/
+/*[class*="col-"] {*/
+/*  width: 100%;*/
+/*    */
+/*}*/
+
+/*@media only screen and (min-width: 600px) {*/
+/*  !* For tablets: *!*/
+
+/*}*/
+/*@media only screen and (min-width: 768px) {*/
+/*  !* For desktop: *!*/
+
+/*}*/
 
 #footer {
     background-color: #182937;
