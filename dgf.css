@@ -1,0 +1,13 @@
+body {
+    background-color: #001222;
+    color: #cccfd2;
+    font-family: Helvetica;
+    padding-top: 10em;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#main {
+    align-content: center;
+}
+
