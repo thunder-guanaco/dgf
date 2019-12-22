@@ -5,6 +5,11 @@
 }
 
 @media only screen and (max-width: 768px) {
+
+    #body {
+        padding-top: 0;
+    }
+
     #footer {
         padding: 2em;
     }
