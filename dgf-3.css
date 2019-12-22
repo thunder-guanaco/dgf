@@ -40,12 +40,12 @@ div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /*width: fit-content;*/
     align-items: center;
     background-color: #cccfd2;
     color: #001222;
     padding: 0 0.5em;
     margin-top: 2em;
+
 }
 
 #fb-button:hover {
