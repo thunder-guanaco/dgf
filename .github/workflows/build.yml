@@ -1,4 +1,4 @@
-name: build
+name: deploy
 
 on:
   push:
@@ -7,12 +7,17 @@ on:
 
 jobs:
   build:
-
+    name: deploy
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Build
-      run: |
-        echo "Building DGF Website"
-        echo EOF
+    - uses: actions/checkout@master
+    - name: copy file via scp
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.dgf_ssh_host }}
+        username: ${{ secrets.dgf_ssh_user }}
+        password: ${{ secrets.dgf_ssh_password }}
+        port: 22
+        source: "*"
+        target: "httpdocs"
+        
