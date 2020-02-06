@@ -31,11 +31,14 @@
     <body>
         {% cms_toolbar %}
         <div class="container">
-            <ul class="nav">
+            <ul>
                 {% show_menu 0 100 100 100 %}
             </ul>
             {% block content %}{% endblock content %}
         </div>
         {% render_block "js" %}
+        <footer>
+          {% static_placeholder 'footer' %}
+        </footer>
     </body>
 </html>
