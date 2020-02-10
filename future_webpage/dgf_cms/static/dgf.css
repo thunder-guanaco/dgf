@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'Gnuolane';
+  src: url('gnuolane-rg.ttf'); /* IE9 Compat Modes */
+  src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+body {
+    display: block;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    color: #1b2633;
+    font-family: Gnuolane;
+    font-size: larger;
+    font-weight: lighter;
+}
+
+#header {
+  padding: 40px;
+  text-align: center;
+  background-color: #1b2633;
+  color: white;
+}
+
+#header img {
+  max-width: 250px;
+  height: auto;
+}
+
+#friends-header {
+  padding: 30px;
+  text-align: center;
+}
+
+#navigation-bar {
+    width: 100%;
+    background-color: #1b2633;
+}
+
+#navigation-bar ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+#navigation-bar ul li {
+    display: inline;
+    padding: 20px;
+    list-style-type: none;
+}
+
+#navigation-bar ul li a:link, #navigation-bar ul li a:hover, #navigation-bar ul li a:active, #navigation-bar ul li a:visited {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* re-check this part below */
+
+.container {
+    width: 1000px;
+    min-height: 500px;
+    margin: 0 auto
+}
+.content {
+    float: left;
+    width: 80%;
+}
+.sidebar {
+    float: left;
+    width: 20%;
+}
+
+/* re-check this part above */
+
+#pre-footer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background-color: #1b2633;
+}
+
+#pre-footer img {
+    margin-top: 2em;
+    max-width: 400px;
+    height: auto;
+}
+
+
+footer {
+    padding: 2em;
+    background-color: #1b2633;
+    color: #ffffff;
+    font-size: larger;
+}
+
+footer p {
+    padding: 0;
+    margin: 3px;
+}
+
+footer p a:link, footer p a:hover, footer p a:active, footer p a:visited {
+    color: #ffffff;
+}

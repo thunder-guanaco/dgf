@@ -1,42 +1,45 @@
 {% load cms_tags menu_tags sekizai_tags %}
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <title>DGF - {% block title %}Disc Golf Friends{% endblock title %}</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <style type="text/css">
-            .nav {
-                padding-left: 0;
-            }
-            .nav li {
-                display: inline;
-                list-style-type: none;
-                padding-right: 20px;
-            }
-            .container {
-                width: 940px;
-                margin: 0 auto
-            }
-            .content {
-                float: left;
-                width: 80%;
-            }
-            .sidebar {
-                float: left;
-                width: 20%;
-            }
-        </style>
+        <link rel="icon" href="{% static 'img/dgf-favicon.png' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'dgf.css' %}">
         {% render_block "css" %}
     </head>
     <body>
         {% cms_toolbar %}
-        <div class="container">
+        <div id="header">
+            {%comment%}
+                {% static_placeholder 'header' %}
+                TODO: See what about default placeholders: http://docs.django-cms.org/en/latest/how_to/placeholders.html
+            {%endcomment%}
+            <img id="header-logo" src="{% static 'img/header.png' %}" alt="header-logo">
+        </div>
+        <div id="friends-header">
+            Coming soon...
+        </div>
+        <div id="navigation-bar">
             <ul>
-                {% show_menu 0 100 100 100 %}
+                {% show_menu 0 100 0 0 %}
             </ul>
+        </div>
+
+        {% comment %}
+            This is really cool and we should use it somewhere
+            {% show_breadcrumb %}
+        {% endcomment %}
+
+        <div class="container">
             {% block content %}{% endblock content %}
         </div>
         {% render_block "js" %}
+        <div id="pre-footer">
+            <img src="{% static 'img/pre-footer.png' %}" alt="pre-footer-logo">
+        </div>
         <footer>
           {% static_placeholder 'footer' %}
         </footer>
