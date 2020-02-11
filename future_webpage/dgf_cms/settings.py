@@ -185,6 +185,7 @@ INSTALLED_APPS = [
 LANGUAGES = (
     ## Customize this
     ('en', gettext('en')),
+    ('de', gettext('de')),
 )
 
 CMS_LANGUAGES = {
@@ -197,8 +198,16 @@ CMS_LANGUAGES = {
             'public': True,
             'hide_untranslated': False,
         },
+        {
+            'code': 'de',
+            'name': gettext('de'),
+            'redirect_on_fallback': True,
+            'public': True,
+            'hide_untranslated': False,
+        },
     ],
     'default': {
+        'fallbacks': ['en', 'de'],
         'redirect_on_fallback': True,
         'public': True,
         'hide_untranslated': False,
