@@ -1,5 +1,18 @@
-env
-.idea
+# python
 *.pyc
+env
+
+# django cms
+media/
+
+# sqlite
 *.db
+
+#pycharm
+.idea
+
+# gedit
 *~
+
+# git
+*.orig
