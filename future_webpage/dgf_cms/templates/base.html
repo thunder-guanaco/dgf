@@ -13,14 +13,7 @@
     <body>
         {% cms_toolbar %}
         <div id="header">
-            {%comment%}
-                {% static_placeholder 'header' %}
-                TODO: See what about default placeholders: http://docs.django-cms.org/en/latest/how_to/placeholders.html
-            {%endcomment%}
-            <img id="header-logo" src="{% static 'img/header.png' %}" alt="header-logo">
-        </div>
-        <div id="friends-header">
-            Coming soon...
+            {% static_placeholder 'header' %}
         </div>
         <div id="navigation-bar">
             <ul>
@@ -28,19 +21,14 @@
             </ul>
         </div>
 
-        {% comment %}
-            This is really cool and we should use it somewhere
-            {% show_breadcrumb %}
-        {% endcomment %}
-
         <div class="container">
             {% block content %}{% endblock content %}
         </div>
         {% render_block "js" %}
-        <div id="pre-footer">
-            <img src="{% static 'img/pre-footer.png' %}" alt="pre-footer-logo">
-        </div>
         <footer>
+            <div id="pre-footer">
+                {% static_placeholder 'pre-footer' %}
+            </div>
           {% static_placeholder 'footer' %}
         </footer>
     </body>
