@@ -33,3 +33,13 @@ This is a Django CMS project.
 `python manage.py runserver`
 
 All of this can be done at once by running the script [run.bash]
+
+
+## PDGA support:
+
+### ATTRIBUTION
+
+Every screen of your application that contains PDGA event or player information must contain the following attribution and link to pdga.com:
+Player and event data ©2015 PDGA (where 2015 is the current year)
+Everywhere a player name or event name is displayed, the name must link to the player or event page at pdga.com.
+
