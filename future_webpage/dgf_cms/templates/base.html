@@ -1,41 +1,35 @@
 {% load cms_tags menu_tags sekizai_tags %}
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <title>DGF - {% block title %}Disc Golf Friends{% endblock title %}</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <style type="text/css">
-            .nav {
-                padding-left: 0;
-            }
-            .nav li {
-                display: inline;
-                list-style-type: none;
-                padding-right: 20px;
-            }
-            .container {
-                width: 940px;
-                margin: 0 auto
-            }
-            .content {
-                float: left;
-                width: 80%;
-            }
-            .sidebar {
-                float: left;
-                width: 20%;
-            }
-        </style>
+        <link rel="icon" href="{% static 'dgf-favicon.png' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'dgf.css' %}">
         {% render_block "css" %}
     </head>
     <body>
         {% cms_toolbar %}
-        <div class="container">
-            <ul class="nav">
-                {% show_menu 0 100 100 100 %}
+        <div id="header">
+            {% static_placeholder 'header' %}
+        </div>
+        <div id="navigation-bar">
+            <ul>
+                {% show_menu 0 100 0 0 %}
             </ul>
+        </div>
+
+        <div class="container">
             {% block content %}{% endblock content %}
         </div>
         {% render_block "js" %}
+        <footer>
+            <div id="pre-footer">
+                {% static_placeholder 'pre-footer' %}
+            </div>
+          {% static_placeholder 'footer' %}
+        </footer>
     </body>
 </html>
