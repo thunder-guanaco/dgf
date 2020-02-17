@@ -7,6 +7,9 @@
 html {
     background-color: #ffffff;
     color: #1b2633;
+    font-family: Gnuolane;
+    font-size: larger;
+    font-weight: lighter;
 }
 
 a:link, a:hover, a:active, a:visited {
@@ -18,9 +21,6 @@ body {
     align-items: center;
     padding: 0;
     margin: 0;
-    font-family: Gnuolane;
-    font-size: larger;
-    font-weight: lighter;
 }
 
 #header {
