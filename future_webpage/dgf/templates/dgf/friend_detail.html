@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div style="float:left; margin: 40px">
+        <img src="/media/{{friend.main_photo}}" width="100px"/>
+    </div>
+    <div style="float:left">
+        <h1>{{friend.first_name}} {{friend.last_name}}</h1>
+        <h2>#{{friend.pdga_number}}</h2>
+        <p><b>City:</b> {{friend.city}}</p>
+    </div>
+
+{% endblock %}
