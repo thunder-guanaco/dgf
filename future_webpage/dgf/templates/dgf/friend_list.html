@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if friends %}
+        <ul>
+        {% for friend in friends %}
+            <li><a href="{% url 'dgf:friend_detail' friend.id %}">{{ friend }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no friends.</p>
+    {% endif %}
+
+{% endblock %}

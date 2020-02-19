@@ -140,6 +140,8 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf',
+
     'djangocms_admin_style',
     'django.contrib.auth',
     'django.contrib.contenttypes',
