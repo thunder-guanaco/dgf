@@ -107,5 +107,6 @@ def query_event(credentials, start_date, end_date, tournament_id=None, event_nam
         'limit': limit
     }))
 
-    return requests.get('{}/event{}'.format(base_url, query),
-                        headers={'Cookie': '{}={}'.format(credentials['session_name'], credentials['sessid'])})
+    return json.loads(requests.get('{}/event{}'.format(base_url, query),
+                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
+                                                                     credentials['sessid'])}).content)
