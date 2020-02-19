@@ -1,5 +1,7 @@
+# coding=utf-8
 import requests
-from urllib.parse import urlencode
+import json
+from urllib import urlencode
 
 base_url = 'https://api.pdga.com/services/json'
 
@@ -12,20 +14,34 @@ def logout(credentials):
                                                               'X-CSRF-Token: ': credentials['token']})
 
 
-def get_auth_token(credentials):
-    return credentials['token']
-
-
 def get_credentials(username, password):
+    """
+    This method returns the credentials provided from the PDGA.
+    This credentials have the following format:
+    {
+        "session_name": "SSESSf1f85588bb869a1781d21eec9fef1bff",
+        "sessid": "pR2J-dQygl7B8fufkt4YPu-E-KOTeNJsvYyKFLaXXi8”,
+        "token": "uemWB6CbC0qwseuSJ7wogG65FsC7JNBsEXVOnR-xzQc",
+        "user": {
+        ...
+        }
+    }
+
+    For making requests to the PDGA you need to build a cookie that is a combination of the session_name and the sessid.
+    """
     body = {'username': username, 'password': password}
 
     response = requests.post('{}/user/login'.format(base_url), json=body)
-    return response
+    return json.loads(response.content)
 
 
-def query_player(credentials, first_name, last_name, pdga_number, player_class, city, state_prov, country,
-                 last_modified, offset=0, limit=10):
-    query = '?' + urlencode({
+def query_player(credentials, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
+                 state_prov=None, country=None, last_modified=None, offset=0, limit=10):
+    """
+    This method allows you to fetch the basic information (personal data) of the queried players.
+    """
+
+    query = '?{}'.format(urlencode({
         'first_name': first_name,
         'last_name': last_name,
         'pdga_number': pdga_number,
@@ -36,15 +52,22 @@ def query_player(credentials, first_name, last_name, pdga_number, player_class, 
         'last_modified': last_modified,
         'offset': offset,
         'limit': limit
-    })
+    }))
 
-    requests.get('{}/players{}'.format(base_url, query),
-                 headers={'Cookie': '{}={}'.format(credentials['session_name'], credentials['sessid'])})
+    return json.loads(requests.get('{}/players{}'.format(base_url, query),
+                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
+                                                                     credentials['sessid'])}).content)['players']
 
 
-def query_player_statistics(credentials, year, player_class, gender, division_name, division_code, country, state_prov,
-                            pdga_number, last_modified, offset=0, limit=10):
-    query = '?' + urlencode({
+def query_player_statistics(credentials, year=None, player_class=None, gender=None, division_name=None,
+                            division_code=None, country=None, state_prov=None, pdga_number=None, last_modified=None,
+                            offset=0, limit=10):
+    """
+    This method allows you to query the statistics of a player. This method is returning the complete content at the
+    moment because on the testing time the PDGA was not returning anything more.
+    """
+
+    query = '?{}'.format(urlencode({
         'year': year,
         'class': player_class,
         'gender': gender,
@@ -56,15 +79,21 @@ def query_player_statistics(credentials, year, player_class, gender, division_na
         'last_modified': last_modified,
         'offset': offset,
         'limit': limit
-    })
+    }))
 
-    requests.get('{}/player-statistics{}'.format(base_url, query),
-                 headers={'Cookie': '{}={}'.format(credentials['session_name'], credentials['sessid'])})
+    return json.loads(requests.get('{}/player-statistics{}'.format(base_url, query),
+                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
+                                                                     credentials['sessid'])}).content)
 
 
-def query_event(credentials, tournament_id, event_name, start_date, end_date, country, state, province,
-                tier, classification, offset=0, limit=10):
-    query = '?' + urlencode({
+def query_event(credentials, start_date, end_date, tournament_id=None, event_name=None, country=None,
+                state=None, province=None, tier=None, classification=None, offset=0, limit=10):
+    """
+    This method allows you to query events. It is crucial to add the start and the end date in the format 'YYYY-MM-DD'.
+    This method is returning the complete content at the moment because on the testing time
+    the PDGA was not returning anything more.
+    """
+    query = '?{}'.format(urlencode({
         'tournament_id': tournament_id,
         'event_name': event_name,
         'start_date': start_date,
@@ -76,7 +105,7 @@ def query_event(credentials, tournament_id, event_name, start_date, end_date, co
         'classification': classification,
         'offset': offset,
         'limit': limit
-    })
+    }))
 
-    requests.get('{}/event{}'.format(base_url, query),
-                 headers={'Cookie': '{}={}'.format(credentials['session_name'], credentials['sessid'])})
+    return requests.get('{}/event{}'.format(base_url, query),
+                        headers={'Cookie': '{}={}'.format(credentials['session_name'], credentials['sessid'])})
