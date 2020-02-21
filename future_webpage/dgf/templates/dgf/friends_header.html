@@ -1,0 +1,40 @@
+{% if friends %}
+    <div class="arrow-left" onclick="scrollBack()"></div>
+    <div id="scrollable_header">
+        {% for friend in friends %}
+            <li>
+                <a href="{% url 'dgf:friend_detail' friend.id %}">
+                    {% if friend.main_photo %}
+                        <img src="/media/{{friend.main_photo}}" class="avatar-img" width="100px" height="100px"/>
+                    {% else %}
+                        <div class="avatar-container" style="width: 100px; height: 100px">
+                            <div class="avatar-initials" style="font-size: 28px; line-height: 100px;">
+                                {{friend.initials}}
+                            </div>
+                        </div>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+    <div class="arrow-right" onclick="scrollForward()"></div>
+{% else %}
+    <p>There are no friends.</p>
+{% endif %}
+
+<script>
+    function scrollForward() {
+      var element = document.getElementById("scrollable_header");
+      element.scroll({
+          left: element.scrollLeft + 200,
+          behavior: 'smooth'
+      });
+    }
+    function scrollBack() {
+      var element = document.getElementById("scrollable_header");
+      element.scroll({
+          left: element.scrollLeft - 200,
+          behavior: 'smooth'
+      });
+    }
+</script>
