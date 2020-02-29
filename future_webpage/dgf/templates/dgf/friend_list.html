@@ -5,7 +5,15 @@
     {% if friends %}
         <ul>
         {% for friend in friends %}
-            <li><a href="{% url 'dgf:friend_detail' friend.id %}">{{ friend }}</a></li>
+            <li>
+                <a href="{% url 'dgf:friend_detail' friend.slug %}">
+                    {% if friend.nickname %}
+                        {{ friend.first_name }} {{ friend.last_name }} ({{ friend.nickname }})
+                    {% else %}
+                        {{ friend.first_name }} {{ friend.last_name }}
+                    {% endif %}
+                </a>
+            </li>
         {% endfor %}
         </ul>
     {% else %}
