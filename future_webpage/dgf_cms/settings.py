@@ -1,4 +1,8 @@
 import os  # isort:skip
+
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management import CommandError
+
 gettext = lambda s: s
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
@@ -18,36 +22,28 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'am&gm^o2qg!%816hgo6qagnp&zxqt-doiv!2mxyi@cw$2(ic^5'
+ENV = os.getenv('DJANGO_ENV', default='dev')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
-
-
-
+if ENV == 'dev':
+    SECRET_KEY = 'development'
+    DEBUG = True
+    ALLOWED_HOSTS = []
+elif ENV == 'prod':
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+    DEBUG = os.getenv('DJANGO_DEBUG')
+    ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
+else:
+    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
-
-
 WSGI_APPLICATION = 'dgf_cms.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-
 
 
 # Password validation
@@ -68,7 +64,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -81,7 +76,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -96,11 +90,10 @@ STATICFILES_DIRS = (
 )
 SITE_ID = 1
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'dgf_cms', 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'dgf_cms', 'templates'), ],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -122,7 +115,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 MIDDLEWARE = [
     'cms.middleware.utils.ApphookReloadMiddleware',

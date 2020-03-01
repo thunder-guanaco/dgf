@@ -1,0 +1,34 @@
+name: Future Webpage - Deploy
+
+on: [push]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Release to GitHub
+        uses: opspresso/action-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: "release-${{ github.run_number }}"
+          NAME:  "release - ${{ github.run_number }}"
+          BODY: "Generated after a ${{ github.event_name }} by ${{ github.actor }}"
+          ASSET_PATH: future_webpage
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Copy files via scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
+          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
+          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
+          source: "future_webpage"
+          target: "django_project"
+          strip_components: 1
