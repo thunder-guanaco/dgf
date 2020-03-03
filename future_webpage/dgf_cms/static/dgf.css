@@ -97,3 +97,23 @@ footer p, footer td {
     padding: 0;
     margin: 5px 10px;
 }
+
+.avatar-img {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.avatar-container {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: #1b2633;
+}
+
+.avatar-initials {
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+}
