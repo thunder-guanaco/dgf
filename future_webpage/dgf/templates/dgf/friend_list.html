@@ -7,11 +7,7 @@
         {% for friend in friends %}
             <li>
                 <a href="{% url 'dgf:friend_detail' friend.slug %}">
-                    {% if friend.nickname %}
-                        {{ friend.first_name }} {{ friend.last_name }} ({{ friend.nickname }})
-                    {% else %}
-                        {{ friend.first_name }} {{ friend.last_name }}
-                    {% endif %}
+                    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
                 </a>
             </li>
         {% endfor %}

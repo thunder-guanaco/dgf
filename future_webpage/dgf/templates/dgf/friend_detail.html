@@ -1,24 +1,5 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <div style="float:left; margin: 40px">
-        {% if friend.main_photo %}
-            <img src="/media/{{friend.main_photo}}" class="avatar-img" width="200px" height="200px"/>
-        {% else %}
-            <div class="avatar-container" style="width: 200px; height: 200px">
-                <div class="avatar-initials" style="font-size: 56px; line-height: 200px;">
-                    {{friend.initials}}
-                </div>
-            </div>
-        {% endif %}
-    </div>
-    <div style="float:left">
-        <h1>{{friend.first_name}} {{friend.last_name}}</h1>
-        {% if friend.pdga_number %}
-            <h2>#{{friend.pdga_number}}</h2>
-        {% endif %}
-        <p><b>City: </b>{{friend.city | default:'-'}}</p>
-    </div>
-
+    {% include "dgf/includes/friend_mini_info.html" with friend=friend %}
 {% endblock %}

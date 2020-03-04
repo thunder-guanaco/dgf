@@ -1,0 +1,12 @@
+<div style="float:left; margin: 40px">
+    {% include "dgf/includes/friend_picture.html" with img_size="200px" font_size="56px" %}
+</div>
+<div style="float:left">
+    <h1>
+        {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+    </h1>
+    {% if friend.pdga_number %}
+        <h2>#{{friend.pdga_number}}</h2>
+    {% endif %}
+    <p><b>City: </b>{{friend.city | default:'-'}}</p>
+</div>

@@ -31,19 +31,9 @@ class Friend(User):
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
 
     def save(self, *args, **kwargs):
-
-        if self.slug:
-            logger.info('Setting slug for {} to {} (slug field)'.format(self.username, self.slug))
-            self.slug = self.slug.lower()
-
-        else:
-            if self.nickname:
-                logger.info('Setting slug for {} to {} (nickname field)'.format(self.username, self.nickname))
-                self.slug = slugify(self.nickname).lower()
-            else:
-                logger.info('Setting slug for {} to {} (first_name field)'.format(self.username, self.first_name))
-                self.slug = slugify(self.first_name).lower()
-
+        new_slug = self.slug or self.nickname or self.first_name or self.username
+        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
+        self.slug = slugify(new_slug).lower()
         super(Friend, self).save(*args, **kwargs)
 
 

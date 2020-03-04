@@ -3,17 +3,11 @@
     <div id="scrollable_header">
         {% for friend in friends %}
             <li>
-                <a href="{% url 'dgf:friend_detail' friend.id %}">
-                    {% if friend.main_photo %}
-                        <img src="/media/{{friend.main_photo}}" class="avatar-img" width="70px" height="70px"/>
-                    {% else %}
-                        <div class="avatar-container" style="width: 70px; height: 70px">
-                            <div class="avatar-initials" style="font-size: 28px; line-height: 70px;">
-                                {{friend.initials}}
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="friend-name">{{ friend.first_name }}</div>
+                <a href="{% url 'dgf:friend_detail' friend.slug %}">
+                    {% include "dgf/includes/friend_picture.html" with img_size="70px" font_size="30px" %}
+                    <div class="friend-name">
+                        {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+                    </div>
                 </a>
             </li>
         {% endfor %}
