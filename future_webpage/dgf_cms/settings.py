@@ -1,6 +1,6 @@
 import os  # isort:skip
+from gettext import gettext as _
 
-gettext = lambda s: s
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
 Django settings for dgf_cms project.
@@ -62,7 +62,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -172,24 +172,22 @@ INSTALLED_APPS = [
 ]
 
 LANGUAGES = (
-    ## Customize this
-    ('en', gettext('en')),
-    ('de', gettext('de')),
+    ('en', _('English')),
+    ('de', _('German')),
 )
 
 CMS_LANGUAGES = {
-    ## Customize this
     1: [
         {
             'code': 'en',
-            'name': gettext('en'),
+            'name': _('English'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
         },
         {
             'code': 'de',
-            'name': gettext('de'),
+            'name': _('German'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
@@ -204,7 +202,7 @@ CMS_LANGUAGES = {
 }
 
 CMS_TEMPLATES = (
-    ('fullwidth.html', 'Fullwidth'),
+    ('fullwidth.html', _('Fullwidth')),
 )
 
 CMS_PERMISSION = True
