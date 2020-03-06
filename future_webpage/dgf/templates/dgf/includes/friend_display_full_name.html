@@ -1,0 +1,5 @@
+{% if friend.nickname %}
+    {{ friend.nickname }} ({{ friend.first_name }} {{ friend.last_name }})
+{% else %}
+    {{ friend.first_name }} {{ friend.last_name }}
+{% endif %}
