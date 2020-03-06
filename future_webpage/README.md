@@ -9,6 +9,14 @@ This is a Django CMS project.
 
 ## HOWTOs
 
+### Set up server
+
+1. install gunicorn
+
+
+1. run it
+`gunicorn dgf_cms.wsgi:application --bind vps793990.ovh.net:8080`
+
 ### Set up the project
 
 1. Install virtualenv
