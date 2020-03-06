@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script will be executed the first time we set up the production server
 
 ROOT_INSTALLATION_PATH=/home/ubuntu
 
@@ -30,8 +31,24 @@ sudo apt-get install python3-pip
 pip3 install -U pip
 
 # create virtualenv
-cd ${ROOT_PATH}
+cd ${ROOT_INSTALLATION_PATH}
 python3 -m venv env
+
+# Activate the virtual environment
+. ../env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+##############
+### DJANGO ###
+##############
+
+# Collect static files
+yes yes | python manage.py collectstatic --clear
+
+# Apply migrations
+python manage.py migrate
 
 ################
 ### GUNICORN ###
@@ -39,9 +56,7 @@ python3 -m venv env
 
 # install
 sudo apt-get install gunicorn
-
-# create run script and allow it to be executed
-touch ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
+cp ci/start_gunicorn.bash ..
 sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 
 ##################
@@ -157,5 +172,5 @@ mkdir -p ${ROOT_INSTALLATION_PATH}/{static,media,logs}
 touch ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log
 touch ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log
 
-# give ubuntu user all the permissions
+# give ubuntu user all the permissions in the home folder
 chown -R  ubuntu ${ROOT_INSTALLATION_PATH}

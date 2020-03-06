@@ -4,14 +4,16 @@ on: [push]
 
 jobs:
   release:
+    name: "Release to GitHub"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+
+      - name: "Checkout files"
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
 
-      - name: Release to GitHub
+      - name: "Release to GitHub"
         uses: opspresso/action-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -19,11 +21,16 @@ jobs:
           NAME:  "release - ${{ github.run_number }}"
           BODY: "Generated after a ${{ github.event_name }} by ${{ github.actor }}"
           ASSET_PATH: future_webpage
+
   deploy:
+    name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Copy files via scp
+
+      - name: "Checkout files"
+        uses: actions/checkout@master
+
+      - name: "Copy project files via scp"
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DJANGO_DEPLOY_HOST }}
@@ -32,3 +39,12 @@ jobs:
           source: "future_webpage"
           target: "django_project"
           strip_components: 1
+          rm: true
+
+      - name: "Restart the server"
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
+          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
+          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
+          script: bash /home/ubuntu/django_project/ci/server-restart.bash
