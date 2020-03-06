@@ -18,6 +18,7 @@ jobs:
         username: ${{ secrets.dgf_ssh_user }}
         password: ${{ secrets.dgf_ssh_password }}
         port: 22
-        source: "*"
+        source: "static_page"
         target: "httpdocs"
+        strip_components: 1
         
