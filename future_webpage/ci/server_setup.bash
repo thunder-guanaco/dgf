@@ -41,35 +41,7 @@ python3 -m venv env
 sudo apt-get install gunicorn
 
 # create run script and allow it to be executed
-cat << EOF > ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
-#!/bin/bash
-
-echo "Starting Disc Golf Friends CMS application (dgf_cms)"
-
-# ENVIRONMENT VARIABLES
-export DJANGO_ENV="prod"
-export DJANGO_SECRET_KEY="delete-me-and-take-this-from-a-file"
-export DJANGO_DEBUG="False"
-export DJANGO_ALLOWED_HOSTS="vps793990.ovh.net"
-
-cd ${ROOT_INSTALLATION_PATH}/django_project
-
-# Activate the virtual environment
-. ../env/bin/activate
-
-# Apply migrations (if necessary)
-python manage.py migrate
-
-# Start Django Unicorn
-gunicorn dgf_cms.wsgi:application \
-  --name "dgf_cms" \
-  --workers 3 \
-  --user=ubuntu \
-  --bind=unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock \
-  --log-level=debug \
-  --log-file=- 
-EOF
-
+touch ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 
 ##################
@@ -82,11 +54,11 @@ sudo apt-get install supervisor
 # configuration
 cat << EOF > /etc/supervisor/conf.d/dgf_cms.conf
 [program:dgf_cms]
-command = ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash                  ; Command to start app
-user = ubuntu                                               ; User to run as
-stdout_logfile = ${ROOT_INSTALLATION_PATH}/logs/gunicorn_supervisor.log  ; Where to write log messages
-redirect_stderr = true                                      ; Save stderr in the same log
-environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8             ; Set UTF-8 as default encoding
+command = ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash                   ; Command to start app
+user = ubuntu                                                             ; User to run as
+stdout_logfile = ${ROOT_INSTALLATION_PATH}/logs/gunicorn_supervisor.log   ; Where to write log messages
+redirect_stderr = true                                                    ; Save stderr in the same log
+environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8                           ; Set UTF-8 as default encoding
 EOF
 
 # log folder and file for supervisor
@@ -180,8 +152,10 @@ ln -s /etc/nginx/sites-available/dgf_cms /etc/nginx/sites-enabled/dgf_cms
 rm /etc/nginx/sites-enabled/default
 service nginx restart
 
-# data folders
+# data folders and nginx logs
 mkdir -p ${ROOT_INSTALLATION_PATH}/{static,media,logs}
 touch ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log
 touch ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log
 
+# give ubuntu user all the permissions
+chown -R  ubuntu ${ROOT_INSTALLATION_PATH}
