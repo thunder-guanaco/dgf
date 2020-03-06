@@ -13,6 +13,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Friend
+    slug_field = 'slug'
     template_name = 'dgf/friend_detail.html'
 
     def get_queryset(self):

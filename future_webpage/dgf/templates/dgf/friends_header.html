@@ -1,0 +1,35 @@
+{% if friends %}
+    <div class="arrow-left" onclick="scrollBack()"></div>
+    <div id="scrollable_header">
+        {% for friend in friends %}
+            <li>
+                <a href="{% url 'dgf:friend_detail' friend.slug %}">
+                    {% include "dgf/includes/friend_picture.html" with img_size="70px" font_size="30px" %}
+                    <div class="friend-name">
+                        {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+    <div class="arrow-right" onclick="scrollForward()"></div>
+{% else %}
+    <p>There are no friends.</p>
+{% endif %}
+
+<script>
+    function scrollForward() {
+      var element = document.getElementById("scrollable_header");
+      element.scroll({
+          left: element.scrollLeft + 200,
+          behavior: 'smooth'
+      });
+    }
+    function scrollBack() {
+      var element = document.getElementById("scrollable_header");
+      element.scroll({
+          left: element.scrollLeft - 200,
+          behavior: 'smooth'
+      });
+    }
+</script>

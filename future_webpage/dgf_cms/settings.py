@@ -1,10 +1,8 @@
 import os  # isort:skip
+from gettext import gettext as _
 
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management import CommandError
 
-gettext = lambda s: s
-DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
 Django settings for dgf_cms project.
 
@@ -16,8 +14,6 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
-import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,10 +27,12 @@ if ENV == 'dev':
     SECRET_KEY = 'development'
     DEBUG = True
     ALLOWED_HOSTS = []
+    DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 elif ENV == 'prod':
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
     ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
+    DATA_DIR = '/home/ubuntu/'
 else:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
 
@@ -67,7 +65,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -177,24 +175,22 @@ INSTALLED_APPS = [
 ]
 
 LANGUAGES = (
-    ## Customize this
-    ('en', gettext('en')),
-    ('de', gettext('de')),
+    ('en', _('English')),
+    ('de', _('German')),
 )
 
 CMS_LANGUAGES = {
-    ## Customize this
     1: [
         {
             'code': 'en',
-            'name': gettext('en'),
+            'name': _('English'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
         },
         {
             'code': 'de',
-            'name': gettext('de'),
+            'name': _('German'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
@@ -209,7 +205,7 @@ CMS_LANGUAGES = {
 }
 
 CMS_TEMPLATES = (
-    ('fullwidth.html', 'Fullwidth'),
+    ('fullwidth.html', _('Fullwidth')),
 )
 
 CMS_PERMISSION = True
@@ -234,3 +230,32 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} (Thread-{thread:d} - {name}): {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'dgf': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    },
+}

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ROOT_INSTALLATION_PATH=/home/ubuntu
+
 #####################
 ### UPDATE SYSTEM ###
 #####################
@@ -28,7 +30,7 @@ sudo apt-get install python3-pip
 pip3 install -U pip
 
 # create virtualenv
-cd /home/ubuntu/django_project
+cd ${ROOT_PATH}
 python3 -m venv env
 
 ################
@@ -39,20 +41,21 @@ python3 -m venv env
 sudo apt-get install gunicorn
 
 # create run script and allow it to be executed
-cat << EOF > /home/ubuntu/start_gunicorn.bash
+cat << EOF > ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 #!/bin/bash
+
+echo "Starting Disc Golf Friends CMS application (dgf_cms)"
 
 # ENVIRONMENT VARIABLES
 export DJANGO_ENV="prod"
-export DJANGO_SECRET_KEY="delete-me"
+export DJANGO_SECRET_KEY="delete-me-and-take-this-from-a-file"
 export DJANGO_DEBUG="False"
 export DJANGO_ALLOWED_HOSTS="vps793990.ovh.net"
 
-echo "Starting Disc Golf Friends CMS application (dgf_cms)"
-cd /home/ubuntu/django_project
+cd ${ROOT_INSTALLATION_PATH}/django_project
 
 # Activate the virtual environment
-. env/bin/activate
+. ../env/bin/activate
 
 # Apply migrations (if necessary)
 python manage.py migrate
@@ -62,12 +65,12 @@ gunicorn dgf_cms.wsgi:application \
   --name "dgf_cms" \
   --workers 3 \
   --user=ubuntu \
-  --bind=unix:/home/ubuntu/gunicorn.sock \
+  --bind=unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock \
   --log-level=debug \
   --log-file=- 
 EOF
 
-sudo chmod u+x /home/ubuntu/start_gunicorn.bash
+sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 
 ##################
 ### SUPERVISOR ###
@@ -79,16 +82,16 @@ sudo apt-get install supervisor
 # configuration
 cat << EOF > /etc/supervisor/conf.d/dgf_cms.conf
 [program:dgf_cms]
-command = /home/ubuntu/start_gunicorn.bash                  ; Command to start app
+command = ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash                  ; Command to start app
 user = ubuntu                                               ; User to run as
-stdout_logfile = /home/ubuntu/logs/gunicorn_supervisor.log  ; Where to write log messages
+stdout_logfile = ${ROOT_INSTALLATION_PATH}/logs/gunicorn_supervisor.log  ; Where to write log messages
 redirect_stderr = true                                      ; Save stderr in the same log
 environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8             ; Set UTF-8 as default encoding
 EOF
 
 # log folder and file for supervisor
-mkdir -p /home/ubuntu/logs
-touch /home/ubuntu/logs/gunicorn_supervisor.log 
+mkdir -p ${ROOT_INSTALLATION_PATH}/logs
+touch ${ROOT_INSTALLATION_PATH}/logs/gunicorn_supervisor.log
 
 # make supervisor be aware of the new application
 sudo supervisorctl reread
@@ -111,7 +114,7 @@ upstream dgf_cms_app_server {
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
 
-  server unix:/home/ubuntu/gunicorn.sock fail_timeout=0;
+  server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
 }
 
 server {
@@ -121,15 +124,15 @@ server {
 
     client_max_body_size 4G;
 
-    access_log /home/ubuntu/logs/nginx-access.log;
-    error_log /home/ubuntu/logs/nginx-error.log;
+    access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
+    error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
 
     location /static/ {
-        alias   /home/ubuntu/django_project/static/;
+        alias   ${ROOT_INSTALLATION_PATH}/static/;
     }
-    
+
     location /media/ {
-        alias   /home/ubuntu/django_project/media/;
+        alias   ${ROOT_INSTALLATION_PATH}/media/;
     }
 
     location / {
@@ -167,12 +170,18 @@ server {
     # Error pages
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root /home/ubuntu/django_project/static/;
+        root ${ROOT_INSTALLATION_PATH}/static/;
     }
 }
 EOF
 
+# set dgf_cms to be the main application in nginx
 ln -s /etc/nginx/sites-available/dgf_cms /etc/nginx/sites-enabled/dgf_cms
-
 rm /etc/nginx/sites-enabled/default
 service nginx restart
+
+# data folders
+mkdir -p ${ROOT_INSTALLATION_PATH}/{static,media,logs}
+touch ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log
+touch ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log
+
