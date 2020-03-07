@@ -21,6 +21,13 @@ See `server_setup.bash`
 1. Create an environment
 `virtualenv env`
 
+1. Install MySQL and create the necessary user and tables (this code works with MySQL 8)
+```bash
+sudo apt-get install mysql-server libmysqlclient-dev
+sudo mysql -e "CREATE USER 'dgf'@'localhost' IDENTIFIED BY 'dgf';
+sudo mysql -e "CREATE DATABASE dgf_cms;"
+sudo mysql -e "GRANT ALL PRIVILEGES ON dgf_cms.* TO 'dgf'@'localhost' WITH GRANT OPTION;"
+```
 
 ### Start the server
 

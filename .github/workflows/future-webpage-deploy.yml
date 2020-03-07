@@ -1,9 +1,6 @@
 name: Future Webpage - Deploy
 
-on:
-  push:
-    branches:
-    - master
+on: [push]
 
 jobs:
   release:
@@ -50,4 +47,4 @@ jobs:
           host: ${{ secrets.DJANGO_DEPLOY_HOST }}
           username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
           key: ${{ secrets.DJANGO_DEPLOY_KEY }}
-          script: bash /home/ubuntu/django_project/ci/server-restart.bash
+          script: bash /home/ubuntu/django_project/ci/server_restart.bash

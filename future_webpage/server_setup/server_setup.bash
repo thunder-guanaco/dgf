@@ -22,9 +22,7 @@ read
 ##############
 
 # install
-sudo apt-get install python3
-sudo apt-get install python3-venv 
-sudo apt-get install python3-pip 
+sudo apt-get install python3 python3-venv python3-pip ipython3 tree
 pip3 install -U pip
 
 # create virtualenv
@@ -34,8 +32,17 @@ python3 -m venv env
 # Activate the virtual environment
 . ../env/bin/activate
 
-# Install dependencies
+# install dependencies
 pip install -r requirements.txt
+
+#############
+### MYSQL ###
+#############
+
+# Install
+sudo apt-get install mysql-server libmysqlclient-dev
+echo "Add a user called 'dgf' and a database called 'dgf_cms'"
+read
 
 ##############
 ### DJANGO ###

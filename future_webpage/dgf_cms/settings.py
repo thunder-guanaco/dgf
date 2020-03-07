@@ -212,17 +212,26 @@ CMS_PERMISSION = True
 
 CMS_PLACEHOLDER_CONF = {}
 
-DATABASES = {
-    'default': {
-        'CONN_MAX_AGE': 0,
-        'ENGINE': 'django.db.backends.sqlite3',
-        'HOST': 'localhost',
-        'NAME': 'project.db',
-        'PASSWORD': '',
-        'PORT': '',
-        'USER': ''
+if ENV == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': '/home/ubuntu/mysql.cnf',
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'NAME': 'dgf_cms',
+            'USER': 'dgf',
+            'PASSWORD': 'dgf',
+        }
+    }
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
