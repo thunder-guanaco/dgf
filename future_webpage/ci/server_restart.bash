@@ -18,9 +18,12 @@ yes yes | python manage.py collectstatic --clear
 # Apply migrations
 python manage.py migrate
 
-# Copy start script
-mv ci/start_gunicorn.bash ..
-sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
+# Copy scripts
+for i in start_gunicorn.bash start_shell.bash
+do
+  mv ci/$i ${ROOT_INSTALLATION_PATH}
+  sudo chmod u+x ${ROOT_INSTALLATION_PATH}/$i
+done
 
 # Restart server
 sudo supervisorctl restart dgf_cms
