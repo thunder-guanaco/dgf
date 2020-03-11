@@ -3,7 +3,7 @@ import requests
 import json
 from urllib.parse import urlencode
 
-from future_webpage.dgf_cms.settings import PDGA_CREDENTIALS
+from ..dgf_cms.settings import PDGA_CREDENTIALS
 
 base_url = 'https://api.pdga.com/services/json'
 
