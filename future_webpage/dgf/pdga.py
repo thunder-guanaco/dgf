@@ -2,21 +2,12 @@
 import requests
 import json
 from urllib.parse import urlencode
-
-from ..dgf_cms.settings import PDGA_CREDENTIALS
+from django.conf import settings
 
 base_url = 'https://api.pdga.com/services/json'
 
 
-def logout(credentials):
-    requests.post('{}/user/logout'.format(base_url), headers={'Content-type': 'application/json',
-                                                              'Cookie': '{}={}'.format(
-                                                                  credentials['session_name'],
-                                                                  credentials['sessid']),
-                                                              'X-CSRF-Token: ': credentials['token']})
-
-
-class Pdga:
+class PdgaApi:
 
     def __init__(self):
         """
@@ -33,11 +24,18 @@ class Pdga:
 
         For making requests to the PDGA you need to build a cookie that is a combination of the session_name and the sessid.
         """
-        response = requests.post('{}/user/login'.format(base_url), json=PDGA_CREDENTIALS)
+        response = requests.post('{}/user/login'.format(base_url), json=settings.PDGA_CREDENTIALS)
         if response.status_code != 200:
             raise BaseException("Credentials are not right")
 
         self.credentials = json.loads(response.content)
+
+    def logout(self):
+        requests.post('{}/user/logout'.format(base_url), headers={'Content-type': 'application/json',
+                                                                  'Cookie': '{}={}'.format(
+                                                                      self.credentials['session_name'],
+                                                                      self.credentials['sessid']),
+                                                                  'X-CSRF-Token: ': self.credentials['token']})
 
     def query_pdga(self, url, query_parameters):
         query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
