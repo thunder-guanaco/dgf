@@ -9,7 +9,11 @@ This is a Django CMS project.
 
 ## HOWTOs
 
-### Set up the project
+### Set up server
+
+See `server_setup.bash`
+
+### Set up the project to run locally
 
 1. Install virtualenv
 `sudo apt-get install virtualenv`
@@ -29,7 +33,11 @@ This is a Django CMS project.
 1. Migrate the database (this could take a while the first time)
 `python manage.py migrate`
 
-1. Run the server
-`python manage.py runserver`
+1. Tell application we're running locally
+`export DJANGO_ENV=dev`
 
-All of this can be done at once by running the script [run.bash]
+1. Run the server
+`python manage.py runserver 0.0.0.0:8000`
+
+All of this can be done at once by running the script [run_locally.bash]
+
