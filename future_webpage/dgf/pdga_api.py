@@ -1,7 +1,7 @@
 # coding=utf-8
 import requests
 import json
-from urllib import urlencode
+from urllib.parse import urlencode
 
 from future_webpage.dgf_cms.settings import PDGA_CREDENTIALS
 
