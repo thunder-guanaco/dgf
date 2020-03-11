@@ -1,3 +1,4 @@
+import json
 import os  # isort:skip
 from gettext import gettext as _
 
@@ -15,6 +16,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+ROOT_INSTALLATION_PATH = '/home/ubuntu'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,11 +31,13 @@ if ENV == 'dev':
     DEBUG = True
     ALLOWED_HOSTS = []
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+    PDGA_CREDENTIALS = {}
 elif ENV == 'prod':
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
     ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
     DATA_DIR = '/home/ubuntu/'
+    PDGA_CREDENTIALS = json.loads(open('{}/pdga-conf.json'.format(ROOT_INSTALLATION_PATH)).read())
 else:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
 

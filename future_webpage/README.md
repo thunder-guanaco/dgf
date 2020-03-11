@@ -16,11 +16,11 @@ See `server_setup.bash`
 ### Set up the project to run locally
 
 1. Install virtualenv
-`sudo apt-get install virtualenv`
+
+`sudo apt-get install python3-virtualenv`
 
 1. Create an environment
-`virtualenv env`
-
+`python3 -m venv ./env`
 
 ### Start the server
 
@@ -40,4 +40,13 @@ See `server_setup.bash`
 `python manage.py runserver 0.0.0.0:8000`
 
 All of this can be done at once by running the script [run_locally.bash]
+
+
+## PDGA support:
+
+### ATTRIBUTION
+
+Every screen of your application that contains PDGA event or player information must contain the following attribution and link to pdga.com:
+Player and event data ©2015 PDGA (where 2015 is the current year)
+Everywhere a player name or event name is displayed, the name must link to the player or event page at pdga.com.
 

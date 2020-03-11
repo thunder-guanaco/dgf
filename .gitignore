@@ -1,6 +1,7 @@
 # python
 *.pyc
 env
+venv
 
 # django cms
 media/
