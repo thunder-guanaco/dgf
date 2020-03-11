@@ -1,4 +1,4 @@
-name: deploy
+name: Static Page - Deploy
 
 on:
   push:

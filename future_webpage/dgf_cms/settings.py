@@ -1,5 +1,6 @@
 import os  # isort:skip
-gettext = lambda s: s
+from gettext import gettext as _
+
 DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 """
 Django settings for dgf_cms project.
@@ -18,7 +19,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -30,24 +30,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
-
-
 
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
-
-
 WSGI_APPLICATION = 'dgf_cms.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-
 
 
 # Password validation
@@ -68,11 +59,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -81,7 +71,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -96,11 +85,10 @@ STATICFILES_DIRS = (
 )
 SITE_ID = 1
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'dgf_cms', 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'dgf_cms', 'templates'), ],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -123,7 +111,6 @@ TEMPLATES = [
     },
 ]
 
-
 MIDDLEWARE = [
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -140,6 +127,8 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf',
+
     'djangocms_admin_style',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -183,24 +172,22 @@ INSTALLED_APPS = [
 ]
 
 LANGUAGES = (
-    ## Customize this
-    ('en', gettext('en')),
-    ('de', gettext('de')),
+    ('en', _('English')),
+    ('de', _('German')),
 )
 
 CMS_LANGUAGES = {
-    ## Customize this
     1: [
         {
             'code': 'en',
-            'name': gettext('en'),
+            'name': _('English'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
         },
         {
             'code': 'de',
-            'name': gettext('de'),
+            'name': _('German'),
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
@@ -215,7 +202,7 @@ CMS_LANGUAGES = {
 }
 
 CMS_TEMPLATES = (
-    ('fullwidth.html', 'Fullwidth'),
+    ('fullwidth.html', _('Fullwidth')),
 )
 
 CMS_PERMISSION = True
@@ -240,3 +227,32 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} (Thread-{thread:d} - {name}): {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'dgf': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    },
+}

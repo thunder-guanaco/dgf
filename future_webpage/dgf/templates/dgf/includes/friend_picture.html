@@ -1,0 +1,9 @@
+{% if friend.main_photo %}
+    <img src="/media/{{friend.main_photo}}" class="avatar-img" width="{{img_size}}" height="{{img_size}}"/>
+{% else %}
+    <div class="avatar-container" style="width: {{img_size}}; height: {{img_size}}">
+        <div class="avatar-initials" style="font-size: {{font_size}}; line-height: {{img_size}};">
+            {{friend.initials}}
+        </div>
+    </div>
+{% endif %}
