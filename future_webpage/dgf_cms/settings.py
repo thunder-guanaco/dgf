@@ -1,7 +1,8 @@
 import os  # isort:skip
 from gettext import gettext as _
 
-DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+from django.core.exceptions import ImproperlyConfigured
+
 """
 Django settings for dgf_cms project.
 
@@ -14,24 +15,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'am&gm^o2qg!%816hgo6qagnp&zxqt-doiv!2mxyi@cw$2(ic^5'
+ENV = os.getenv('DJANGO_ENV', default='dev')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-# Application definition
-
+if ENV == 'dev':
+    SECRET_KEY = 'development'
+    DEBUG = True
+    ALLOWED_HOSTS = []
+    DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+elif ENV == 'prod':
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+    DEBUG = os.getenv('DJANGO_DEBUG')
+    ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
+    DATA_DIR = '/home/ubuntu/'
+else:
+    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
