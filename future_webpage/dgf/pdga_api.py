@@ -32,6 +32,9 @@ def get_credentials(username, password):
     body = {'username': username, 'password': password}
 
     response = requests.post('{}/user/login'.format(base_url), json=body)
+    if response.status_code != 200:
+        raise BaseException("Credentials are not right")
+
     return json.loads(response.content)
 
 
