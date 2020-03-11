@@ -35,13 +35,20 @@ def get_credentials(username, password):
     return json.loads(response.content)
 
 
+def query_pdga(credentials, url, query_parameters):
+    query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
+    return json.loads(requests.get('{}/{}{}'.format(base_url, url, query),
+                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
+                                                                     credentials['sessid'])}).content)
+
+
 def query_player(credentials, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
                  state_prov=None, country=None, last_modified=None, offset=0, limit=10):
     """
     This method allows you to fetch the basic information (personal data) of the queried players.
     """
 
-    query = '?{}'.format(urlencode({
+    query_parameters = {
         'first_name': first_name,
         'last_name': last_name,
         'pdga_number': pdga_number,
@@ -52,11 +59,9 @@ def query_player(credentials, first_name=None, last_name=None, pdga_number=None,
         'last_modified': last_modified,
         'offset': offset,
         'limit': limit
-    }))
+    }
 
-    return json.loads(requests.get('{}/players{}'.format(base_url, query),
-                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
-                                                                     credentials['sessid'])}).content)['players']
+    return query_pdga(credentials, 'players', query_parameters)
 
 
 def query_player_statistics(credentials, year=None, player_class=None, gender=None, division_name=None,
@@ -67,7 +72,7 @@ def query_player_statistics(credentials, year=None, player_class=None, gender=No
     moment because on the testing time the PDGA was not returning anything more.
     """
 
-    query = '?{}'.format(urlencode({
+    query_parameters = {
         'year': year,
         'class': player_class,
         'gender': gender,
@@ -79,11 +84,9 @@ def query_player_statistics(credentials, year=None, player_class=None, gender=No
         'last_modified': last_modified,
         'offset': offset,
         'limit': limit
-    }))
+    }
 
-    return json.loads(requests.get('{}/player-statistics{}'.format(base_url, query),
-                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
-                                                                     credentials['sessid'])}).content)
+    return query_pdga(credentials, 'player-statistics', query_parameters)
 
 
 def query_event(credentials, start_date, end_date, tournament_id=None, event_name=None, country=None,
@@ -93,7 +96,7 @@ def query_event(credentials, start_date, end_date, tournament_id=None, event_nam
     This method is returning the complete content at the moment because on the testing time
     the PDGA was not returning anything more.
     """
-    query = '?{}'.format(urlencode({
+    query_parameters = {
         'tournament_id': tournament_id,
         'event_name': event_name,
         'start_date': start_date,
@@ -105,8 +108,6 @@ def query_event(credentials, start_date, end_date, tournament_id=None, event_nam
         'classification': classification,
         'offset': offset,
         'limit': limit
-    }))
+    }
 
-    return json.loads(requests.get('{}/event{}'.format(base_url, query),
-                                   headers={'Cookie': '{}={}'.format(credentials['session_name'],
-                                                                     credentials['sessid'])}).content)
+    return query_pdga(credentials, 'event', query_parameters)

@@ -16,11 +16,11 @@ See `server_setup.bash`
 ### Set up the project to run locally
 
 1. Install virtualenv
-`sudo apt-get install virtualenv`
+
+`sudo apt-get install python3-virtualenv`
 
 1. Create an environment
-`virtualenv env`
-
+`python3 -m venv ./env`
 
 ### Start the server
 
