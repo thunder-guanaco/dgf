@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 # Install
 sudo apt-get install mysql-server libmysqlclient-dev
-echo "Add a user called 'dgf' and a database called 'dgf_cms'"
+echo "Add a user called 'dgf' and a database called 'dgf_cms'. Check mysql_setup.sql"
 read
 
 ##############

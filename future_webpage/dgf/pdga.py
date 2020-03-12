@@ -4,7 +4,7 @@ import json
 from urllib.parse import urlencode
 from django.conf import settings
 
-BASE_URL = 'https://api.pdga.com/services/json'
+base_url = 'https://api.pdga.com/services/json'
 
 
 class PdgaApi:
@@ -24,14 +24,14 @@ class PdgaApi:
 
         For making requests to the PDGA you need to build a cookie that is a combination of the session_name and the sessid.
         """
-        response = requests.post('{}/user/login'.format(BASE_URL), json=settings.PDGA_CREDENTIALS)
+        response = requests.post('{}/user/login'.format(base_url), json=settings.PDGA_CREDENTIALS)
         if response.status_code != 200:
             raise BaseException("Credentials are not right")
 
         self.credentials = json.loads(response.content)
 
     def logout(self):
-        requests.post('{}/user/logout'.format(BASE_URL), headers={'Content-type': 'application/json',
+        requests.post('{}/user/logout'.format(base_url), headers={'Content-type': 'application/json',
                                                                   'Cookie': '{}={}'.format(
                                                                       self.credentials['session_name'],
                                                                       self.credentials['sessid']),
@@ -39,7 +39,7 @@ class PdgaApi:
 
     def query_pdga(self, url, query_parameters):
         query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
-        return json.loads(requests.get('{}/{}{}'.format(BASE_URL, url, query),
+        return json.loads(requests.get('{}/{}{}'.format(base_url, url, query),
                                        headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
                                                                          self.credentials['sessid'])}).content)
 
