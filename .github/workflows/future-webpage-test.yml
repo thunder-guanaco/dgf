@@ -32,3 +32,5 @@ jobs:
         python manage.py test
       env:
         DJANGO_ENV: test
+        DJANGO_PDGA_USERNAME: ${{ secrets.DJANGO_PDGA_USERNAME }}
+        DJANGO_PDGA_PASSWORD: ${{ secrets.DJANGO_PDGA_PASSWORD }}
