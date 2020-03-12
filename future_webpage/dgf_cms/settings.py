@@ -25,9 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 ENV = os.getenv('DJANGO_ENV')
-
-
-def raise_improperly_configured():
+if ENV not in ['dev', 'test', 'prod']:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
 
 
@@ -36,13 +34,11 @@ if ENV in ['dev', 'test']:
     DEBUG = True
     ALLOWED_HOSTS = []
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
-elif ENV == 'prod':
+else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
     ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
     DATA_DIR = ROOT_INSTALLATION_PATH
-else:
-    raise_improperly_configured()
 
 if ENV == 'dev':
     DATABASES = {
@@ -76,13 +72,16 @@ elif ENV == 'test':
             'USER': ''
         }
     }
-else:
-    raise_improperly_configured()
 
 # PDGA
-PDGA_BASE_URL = 'https://api.pdga.com/services/json'
-PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
-PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
+if ENV == 'test':
+    PDGA_BASE_URL = 'nowhere'
+    PDGA_USERNAME = 'nobody'
+    PDGA_PASSWORD = 'nothing'
+else:
+    PDGA_BASE_URL = 'https://api.pdga.com/services/json'
+    PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
+    PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
