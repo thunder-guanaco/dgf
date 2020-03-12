@@ -24,25 +24,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-ENV = os.getenv('DJANGO_ENV', default='dev')
+ENV = os.getenv('DJANGO_ENV')
 
 
 def raise_improperly_configured():
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
 
 
-if ENV == 'dev' or ENV == 'test':
-    SECRET_KEY = 'development'
+if ENV in ['dev', 'test']:
+    SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
     ALLOWED_HOSTS = []
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
-    PDGA_CREDENTIALS = {}
 elif ENV == 'prod':
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
     ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
-    DATA_DIR = '/home/ubuntu/'
-    PDGA_CREDENTIALS = json.loads(open('{}/pdga-conf.json'.format(ROOT_INSTALLATION_PATH)).read())
+    DATA_DIR = ROOT_INSTALLATION_PATH
 else:
     raise_improperly_configured()
 
@@ -80,6 +78,11 @@ elif ENV == 'test':
     }
 else:
     raise_improperly_configured()
+
+# PDGA
+PDGA_BASE_URL = 'https://api.pdga.com/services/json'
+PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
+PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 

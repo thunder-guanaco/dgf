@@ -17,3 +17,6 @@ media/
 
 # git
 *.orig
+
+# PDGA: NEVER EVER PUSH THIS FILE!!!
+pdga.cnf
