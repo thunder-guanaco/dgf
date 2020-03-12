@@ -26,7 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENV = os.getenv('DJANGO_ENV', default='dev')
 
-if ENV == 'dev':
+
+def raise_improperly_configured():
+    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
+
+
+if ENV == 'dev' or ENV == 'test':
     SECRET_KEY = 'development'
     DEBUG = True
     ALLOWED_HOSTS = []
@@ -39,7 +44,42 @@ elif ENV == 'prod':
     DATA_DIR = '/home/ubuntu/'
     PDGA_CREDENTIALS = json.loads(open('{}/pdga-conf.json'.format(ROOT_INSTALLATION_PATH)).read())
 else:
-    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
+    raise_improperly_configured()
+
+if ENV == 'dev':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'NAME': 'dgf_cms',
+            'USER': 'dgf',
+            'PASSWORD': 'dgf',
+        }
+    }
+elif ENV == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': '{}/mysql.cnf'.format(ROOT_INSTALLATION_PATH),
+            },
+        }
+    }
+elif ENV == 'test':
+    DATABASES = {
+        'default': {
+            'CONN_MAX_AGE': 0,
+            'ENGINE': 'django.db.backends.sqlite3',
+            'HOST': 'localhost',
+            'NAME': 'project.db',
+            'PASSWORD': '',
+            'PORT': '',
+            'USER': ''
+        }
+    }
+else:
+    raise_improperly_configured()
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
@@ -216,27 +256,6 @@ CMS_TEMPLATES = (
 CMS_PERMISSION = True
 
 CMS_PLACEHOLDER_CONF = {}
-
-if ENV == 'prod':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'read_default_file': '/home/ubuntu/mysql.cnf',
-            },
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'NAME': 'dgf_cms',
-            'USER': 'dgf',
-            'PASSWORD': 'dgf',
-        }
-    }
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
