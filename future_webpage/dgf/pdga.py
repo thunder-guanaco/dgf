@@ -3,8 +3,7 @@ import requests
 import json
 from urllib.parse import urlencode
 from django.conf import settings
-
-base_url = 'https://api.pdga.com/services/json'
+from django.core.exceptions import ImproperlyConfigured
 
 
 class PdgaApi:
@@ -22,26 +21,28 @@ class PdgaApi:
             }
         }
 
-        For making requests to the PDGA you need to build a cookie that is a combination of the session_name and the sessid.
+        For making requests to the PDGA you need to build a cookie that is a combination
+        of the session_name and the sessid.
         """
-        response = requests.post('{}/user/login'.format(base_url), json=settings.PDGA_CREDENTIALS)
+        response = requests.post('{}/user/login'.format(settings.PDGA_BASE_URL),
+                                 json={
+                                     'username': settings.PDGA_USERNAME,
+                                     'password': settings.PDGA_PASSWORD
+                                 })
+
         if response.status_code != 200:
-            raise BaseException("Credentials are not right")
+            raise ImproperlyConfigured('Credentials are not right. Please ensure that DJANGO_PDGA_USERNAME and '
+                                       'DJANGO_PDGA_PASSWORD environment variables are correctly set')
 
         self.credentials = json.loads(response.content)
 
     def logout(self):
-        requests.post('{}/user/logout'.format(base_url), headers={'Content-type': 'application/json',
-                                                                  'Cookie': '{}={}'.format(
-                                                                      self.credentials['session_name'],
-                                                                      self.credentials['sessid']),
-                                                                  'X-CSRF-Token: ': self.credentials['token']})
-
-    def query_pdga(self, url, query_parameters):
-        query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
-        return json.loads(requests.get('{}/{}{}'.format(base_url, url, query),
-                                       headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
-                                                                         self.credentials['sessid'])}).content)
+        requests.post('{}/user/logout'.format(settings.PDGA_BASE_URL), headers={'Content-type': 'application/json',
+                                                                                'Cookie': '{}={}'.format(
+                                                                                    self.credentials['session_name'],
+                                                                                    self.credentials['sessid']),
+                                                                                'X-CSRF-Token: ': self.credentials[
+                                                                                    'token']})
 
     def query_player(self, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
                      state_prov=None, country=None, last_modified=None, offset=0, limit=10):
@@ -62,7 +63,7 @@ class PdgaApi:
             'limit': limit
         }
 
-        return self.query_pdga('players', query_parameters)
+        return self._query_pdga('players', query_parameters)
 
     def query_player_statistics(self, year=None, player_class=None, gender=None, division_name=None,
                                 division_code=None, country=None, state_prov=None, pdga_number=None, last_modified=None,
@@ -86,7 +87,7 @@ class PdgaApi:
             'limit': limit
         }
 
-        return self.query_pdga('player-statistics', query_parameters)
+        return self._query_pdga('player-statistics', query_parameters)
 
     def query_event(self, start_date, end_date, tournament_id=None, event_name=None, country=None,
                     state=None, province=None, tier=None, classification=None, offset=0, limit=10):
@@ -109,4 +110,10 @@ class PdgaApi:
             'limit': limit
         }
 
-        return self.query_pdga('event', query_parameters)
+        return self._query_pdga('event', query_parameters)
+
+    def _query_pdga(self, url, query_parameters):
+        query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
+        return json.loads(requests.get('{}/{}{}'.format(settings.PDGA_BASE_URL, url, query),
+                                       headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
+                                                                         self.credentials['sessid'])}).content)

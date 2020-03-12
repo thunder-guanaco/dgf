@@ -32,8 +32,8 @@ class Friend(User):
 
     def save(self, *args, **kwargs):
         new_slug = self.slug or self.nickname or self.first_name or self.username
-        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         self.slug = slugify(new_slug).lower()
+        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         super(Friend, self).save(*args, **kwargs)
 
 

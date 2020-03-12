@@ -24,22 +24,64 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-ENV = os.getenv('DJANGO_ENV', default='dev')
+ENV = os.getenv('DJANGO_ENV')
+if ENV not in ['dev', 'test', 'prod']:
+    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
 
-if ENV == 'dev':
-    SECRET_KEY = 'development'
+
+if ENV in ['dev', 'test']:
+    SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
     ALLOWED_HOSTS = []
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
-    PDGA_CREDENTIALS = {}
-elif ENV == 'prod':
+else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
     ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
-    DATA_DIR = '/home/ubuntu/'
-    PDGA_CREDENTIALS = json.loads(open('{}/pdga-conf.json'.format(ROOT_INSTALLATION_PATH)).read())
+    DATA_DIR = ROOT_INSTALLATION_PATH
+
+if ENV == 'dev':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'NAME': 'dgf_cms',
+            'USER': 'dgf',
+            'PASSWORD': 'dgf',
+        }
+    }
+elif ENV == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': '{}/mysql.cnf'.format(ROOT_INSTALLATION_PATH),
+            },
+        }
+    }
+elif ENV == 'test':
+    DATABASES = {
+        'default': {
+            'CONN_MAX_AGE': 0,
+            'ENGINE': 'django.db.backends.sqlite3',
+            'HOST': 'localhost',
+            'NAME': 'project.db',
+            'PASSWORD': '',
+            'PORT': '',
+            'USER': ''
+        }
+    }
+
+# PDGA
+if ENV == 'test':
+    PDGA_BASE_URL = 'nowhere'
+    PDGA_USERNAME = 'nobody'
+    PDGA_PASSWORD = 'nothing'
 else:
-    raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be set either to \'dev\' or \'prod\'')
+    PDGA_BASE_URL = 'https://api.pdga.com/services/json'
+    PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
+    PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
@@ -216,18 +258,6 @@ CMS_TEMPLATES = (
 CMS_PERMISSION = True
 
 CMS_PLACEHOLDER_CONF = {}
-
-DATABASES = {
-    'default': {
-        'CONN_MAX_AGE': 0,
-        'ENGINE': 'django.db.backends.sqlite3',
-        'HOST': 'localhost',
-        'NAME': 'project.db',
-        'PASSWORD': '',
-        'PORT': '',
-        'USER': ''
-    }
-}
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',

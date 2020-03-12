@@ -1,11 +1,11 @@
 from django.test import TestCase
+
 from .models import Friend
 
 
 class FriendModelTest(TestCase):
 
     def test_slug_with_different_fields(self):
-
         self.expect_slug('antonio123', username='antonio123')
 
         self.expect_slug('antonio', username='antonio123', first_name='Antonio')
