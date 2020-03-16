@@ -1,3 +1,4 @@
+{% load i18n %}
 <div style="float:left; margin: 40px">
     {% include "dgf/includes/friend_picture.html" with img_size="200px" font_size="56px" %}
 </div>
@@ -8,5 +9,5 @@
     {% if friend.pdga_number %}
         <h2>#{{friend.pdga_number}}</h2>
     {% endif %}
-    <p><b>City: </b>{{friend.city | default:'-'}}</p>
+    <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
 </div>

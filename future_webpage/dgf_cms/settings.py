@@ -251,6 +251,10 @@ CMS_LANGUAGES = {
     },
 }
 
+LOCALE_PATHS = [
+    '{}/locale'.format(BASE_DIR),
+]
+
 CMS_TEMPLATES = (
     ('fullwidth.html', _('Fullwidth')),
 )
