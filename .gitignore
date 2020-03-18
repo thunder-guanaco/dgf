@@ -18,5 +18,5 @@ media/
 # git
 *.orig
 
-# PDGA: NEVER EVER PUSH THIS FILE!!!
-pdga.cnf
+# secrets from this project. NEVER PUSH THIS!!!
+secrets

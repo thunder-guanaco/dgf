@@ -24,10 +24,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+""""
+Rule of thumb:
+ * prod: sensible configuration data comes from environment variables
+ * dev or test: dummy configuration
+
+"""
 ENV = os.getenv('DJANGO_ENV')
 if ENV not in ['dev', 'test', 'prod']:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
-
 
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
@@ -55,9 +60,11 @@ elif ENV == 'prod':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'read_default_file': '{}/mysql.cnf'.format(ROOT_INSTALLATION_PATH),
-            },
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'NAME': os.getenv('DJANGO_DB_DATABASE'),
+            'USER': os.getenv('DJANGO_DB_USER'),
+            'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
         }
     }
 elif ENV == 'test':
@@ -250,6 +257,10 @@ CMS_LANGUAGES = {
         'hide_untranslated': False,
     },
 }
+
+LOCALE_PATHS = [
+    '{}/locale'.format(BASE_DIR),
+]
 
 CMS_TEMPLATES = (
     ('fullwidth.html', _('Fullwidth')),

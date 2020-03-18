@@ -4,7 +4,6 @@
 ROOT_INSTALLATION_PATH=/home/ubuntu
 
 export DJANGO_ENV="prod"
-export DJANGO_SECRET_KEY="delete-me-and-take-this-from-a-file"
 export DJANGO_DEBUG="False"
 export DJANGO_ALLOWED_HOSTS="vps793990.ovh.net"
-source ${ROOT_INSTALLATION_PATH}/pdga.cnf
+source ${ROOT_INSTALLATION_PATH}/secrets
