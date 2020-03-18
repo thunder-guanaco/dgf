@@ -15,14 +15,30 @@ msgstr "Friends Kopfzeile"
 msgid "City"
 msgstr "Stadt"
 
-#: dgf_cms/settings.py:225 dgf_cms/settings.py:233
+#: dgf_cms/settings.py:232 dgf_cms/settings.py:240
 msgid "English"
 msgstr "Englisch"
 
-#: dgf_cms/settings.py:226 dgf_cms/settings.py:240
+#: dgf_cms/settings.py:233 dgf_cms/settings.py:247
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:259
+#: dgf_cms/settings.py:266
 msgid "Fullwidth"
 msgstr "Volle Breite (standard)"
+
+#: dgf_cms/templates/404.html:8
+msgid "Out of Bounds!"
+msgstr "Out of Bounds!"
+
+#: dgf_cms/templates/404.html:9
+msgid "This is not the page you're looking for."
+msgstr "Das ist nicht die Seite, die du suchst."
+
+#: dgf_cms/templates/500.html:8
+msgid "WTF Richard?!"
+msgstr "WTF Richard?!"
+
+#: dgf_cms/templates/500.html:9
+msgid "It seems that we have a problem. Please let us work on that."
+msgstr "Uppsala! Etwas ist schiefgelaufen"
