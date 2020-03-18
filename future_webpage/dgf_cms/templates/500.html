@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+	<h1>{% trans "WTF Richard?!" %}</h1>
+	<p>{% trans "It seems that we have a problem. Please let us work on that." %}</p>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load i18n %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+	<h1>{% trans "Out of Bounds!" %}</h1>
+	<p>{% trans "This is not the page you're looking for." %}</p>
+{% endblock content %}
