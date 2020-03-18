@@ -1,0 +1,28 @@
+# German (de) translations for Disc Golf Friends
+#: dgf/cms_plugins.py:10 dgf/cms_plugins.py:22
+msgid "Disc Golf Friends"
+msgstr "Disc Golf Friends"
+
+#: dgf/cms_plugins.py:11
+msgid "Friend"
+msgstr "Friend"
+
+#: dgf/cms_plugins.py:23
+msgid "Friends Header"
+msgstr "Friends Kopfzeile"
+
+#: dgf/templates/dgf/includes/friend_mini_info.html:12
+msgid "City"
+msgstr "Stadt"
+
+#: dgf_cms/settings.py:225 dgf_cms/settings.py:233
+msgid "English"
+msgstr "Englisch"
+
+#: dgf_cms/settings.py:226 dgf_cms/settings.py:240
+msgid "German"
+msgstr "Deutsch"
+
+#: dgf_cms/settings.py:259
+msgid "Fullwidth"
+msgstr "Volle Breite (standard)"

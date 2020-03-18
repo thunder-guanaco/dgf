@@ -15,6 +15,9 @@ pip install -r requirements.txt
 # Collect static files
 yes yes | python manage.py collectstatic --clear
 
+# Compile messages for translations
+python manage.py compilemessages -l de
+
 # Apply migrations
 python manage.py migrate
 
