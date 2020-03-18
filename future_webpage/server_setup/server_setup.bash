@@ -77,7 +77,8 @@ command = ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash                   ; Comm
 user = ubuntu                                                             ; User to run as
 stdout_logfile = ${ROOT_INSTALLATION_PATH}/logs/gunicorn_supervisor.log   ; Where to write log messages
 redirect_stderr = true                                                    ; Save stderr in the same log
-environment=LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8                           ; Set UTF-8 as default encoding
+environment = LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8                         ; Set UTF-8 as default
+stopasgroup = true                                                        ; cascade signals also to its children
 EOF
 
 # log folder and file for supervisor
