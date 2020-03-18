@@ -15,4 +15,4 @@ then
   echo "WARNING! This file should not be pushed to the git repository"
   exit 1
 fi
-python manage.py runserver 0.0.0.0:8000
+python manage.py shell
