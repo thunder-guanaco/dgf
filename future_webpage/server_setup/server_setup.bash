@@ -22,7 +22,7 @@ read
 ##############
 
 # install
-sudo apt-get install python3 python3-venv python3-pip ipython3 tree
+sudo apt-get install python3 python3-venv python3-pip ipython3 tree gettext
 pip3 install -U pip
 
 # create virtualenv
