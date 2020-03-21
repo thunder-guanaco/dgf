@@ -53,10 +53,27 @@ body {
     list-style-type: none;
 }
 
-#navigation-bar ul li a:link, #navigation-bar ul li a:hover, #navigation-bar ul li a:active, #navigation-bar ul li a:visited {
+#navigation-bar a:link,
+#navigation-bar a:hover,
+#navigation-bar a:active,
+#navigation-bar a:visited {
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
+}
+
+#navigation-bar .selected a:link,
+#navigation-bar .selected a:hover,
+#navigation-bar .selected a:active,
+#navigation-bar .selected a:visited {
+    color: #8d1950;
+}
+
+#navigation-bar .ancestor a:link,
+#navigation-bar .ancestor a:hover,
+#navigation-bar .ancestor a:active,
+#navigation-bar .ancestor a:visited {
+    color: #888888;
 }
 
 .container {
