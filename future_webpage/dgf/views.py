@@ -18,5 +18,3 @@ class DetailView(generic.DetailView):
 
     def get_queryset(self):
         return Friend.objects.all()
-
-

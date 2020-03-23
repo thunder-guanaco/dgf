@@ -1,7 +1,8 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from .models import FriendPluginModel, Friend
 from django.utils.translation import ugettext as _
+
+from .models import FriendPluginModel, Friend
 
 
 @plugin_pool.register_plugin

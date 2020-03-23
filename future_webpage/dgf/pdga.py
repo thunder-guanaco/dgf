@@ -1,7 +1,8 @@
 # coding=utf-8
-import requests
 import json
 from urllib.parse import urlencode
+
+import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 

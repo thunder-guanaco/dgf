@@ -1,6 +1,6 @@
-from cms.utils.urlutils import admin_reverse
 from cms.toolbar_base import CMSToolbar
 from cms.toolbar_pool import toolbar_pool
+from cms.utils.urlutils import admin_reverse
 
 
 class FriendsToolbar(CMSToolbar):
@@ -18,5 +18,6 @@ class FriendsToolbar(CMSToolbar):
             name='New Friend',
             url=admin_reverse('dgf_friend_add'),
         )
-        
+
+
 toolbar_pool.register(FriendsToolbar)

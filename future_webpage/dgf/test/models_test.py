@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import Friend
+from ..models import Friend
 
 
 class FriendModelTest(TestCase):

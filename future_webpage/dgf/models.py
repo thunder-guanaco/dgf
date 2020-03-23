@@ -1,14 +1,14 @@
-from django.db import models
-from django.utils.text import slugify
-from cms.models import User, CMSPlugin
-from django.db.models.deletion import CASCADE
 import logging
+
+from cms.models import User, CMSPlugin
+from django.db import models
+from django.db.models.deletion import CASCADE
+from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
 
 
 class Friend(User):
-
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
@@ -17,7 +17,7 @@ class Friend(User):
     pdga_number = models.IntegerField(null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
-    
+
     nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)
 

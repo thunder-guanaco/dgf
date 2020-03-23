@@ -1,5 +1,4 @@
-import json
-import os  # isort:skip
+import os
 from gettext import gettext as _
 
 from django.core.exceptions import ImproperlyConfigured
