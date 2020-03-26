@@ -21,18 +21,19 @@ then
   exit 1
 fi
 
-# DATABASE  + ENV
+# ENV
 case "$1" in
 
   test)
     export DJANGO_ENV="test"
-    # sqlite, no migration needed
     ;;
   runserver|shell|makemessages)
     export DJANGO_ENV="dev"
-    python manage.py migrate
     ;;
 esac
+
+# DATABASE
+python manage.py migrate
 
 # COMMAND
 case "$1" in

@@ -9,6 +9,7 @@ media/
 
 # sqlite
 *.db
+*.db-journal
 
 #pycharm
 .idea
