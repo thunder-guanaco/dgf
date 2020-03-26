@@ -3,8 +3,9 @@
 env
 venv
 
-# django cms
+# django
 media/
+*.mo
 
 # sqlite
 *.db
