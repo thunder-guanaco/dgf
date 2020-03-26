@@ -21,6 +21,7 @@ jobs:
     - name: Test + Flake + PEP8 + Coverage
       run: |
         cd future_webpage
-        pytest --cov=dgf --ignore=env  --flakes --pep8
+        export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
+        pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
       env:
         DJANGO_ENV: test

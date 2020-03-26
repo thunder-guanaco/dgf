@@ -93,7 +93,8 @@ class PdgaApi:
     def query_event(self, start_date, end_date, tournament_id=None, event_name=None, country=None,
                     state=None, province=None, tier=None, classification=None, offset=0, limit=10):
         """
-        This method allows you to query events. It is crucial to add the start and the end date in the format 'YYYY-MM-DD'.
+        This method allows you to query events.
+        It is crucial to add the start and the end date in the format 'YYYY-MM-DD'.
         This method is returning the complete content at the moment because on the testing time
         the PDGA was not returning anything more.
         """

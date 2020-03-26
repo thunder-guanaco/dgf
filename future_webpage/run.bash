@@ -38,7 +38,8 @@ esac
 case "$1" in
 
   test)
-    pytest --cov=dgf --ignore=env  --flakes --pep8
+    export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
+    pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
     ;;
   runserver)
     python manage.py runserver 0.0.0.0:8000
