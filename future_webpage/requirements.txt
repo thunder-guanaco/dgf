@@ -27,3 +27,5 @@ requests==2.22.0
 urllib3==1.25.8
 mysqlclient==1.4.6
 PyMySQL==0.9.3
+django-cronjobs==0.2.3
+responses==0.10.12

@@ -117,3 +117,9 @@ class PdgaApi:
         return json.loads(requests.get('{}/{}{}'.format(settings.PDGA_BASE_URL, url, query),
                                        headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
                                                                          self.credentials['sessid'])}).content)
+
+
+
+pdga = PdgaApi()
+player = pdga.query_player(pdga_number=109371)
+a = 0

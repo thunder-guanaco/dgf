@@ -82,7 +82,7 @@ elif ENV == 'test':
 
 # PDGA
 if ENV == 'test':
-    PDGA_BASE_URL = 'nowhere'
+    PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
     PDGA_PASSWORD = 'nothing'
 else:
