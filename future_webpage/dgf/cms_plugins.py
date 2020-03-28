@@ -25,6 +25,6 @@ class FriendsHeaderPluginPublisher(CMSPluginBase):
     render_template = "dgf/friends_header.html"
 
     def render(self, context, instance, placeholder):
-        context.update({'friends': Friend.objects.all()})
+        context.update({'friends': Friend.objects.all().order_by('?')})
         print(context)
         return context
