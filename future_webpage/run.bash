@@ -21,24 +21,26 @@ then
   exit 1
 fi
 
-# DATABASE  + ENV
+# ENV
 case "$1" in
 
   test)
     export DJANGO_ENV="test"
-    # sqlite, no migration needed
     ;;
   runserver|shell|makemessages)
     export DJANGO_ENV="dev"
-    python manage.py migrate
     ;;
 esac
+
+# DATABASE
+python manage.py migrate
 
 # COMMAND
 case "$1" in
 
   test)
-    python manage.py test
+    export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
+    pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
     ;;
   runserver)
     python manage.py runserver 0.0.0.0:8000

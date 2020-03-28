@@ -1,8 +1,9 @@
-from django.db import models
-from django.utils.text import slugify
-from cms.models import User, CMSPlugin
-from django.db.models.deletion import CASCADE
 import logging
+
+from cms.models import User, CMSPlugin
+from django.db import models
+from django.db.models.deletion import CASCADE
+from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
 

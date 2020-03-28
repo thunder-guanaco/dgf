@@ -2,12 +2,14 @@
 *.pyc
 env
 venv
+.coverage
 
 # django cms
 media/
 
 # sqlite
 *.db
+*.db-journal
 
 #pycharm
 .idea
