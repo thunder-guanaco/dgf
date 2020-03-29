@@ -184,6 +184,7 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'dgf',
+    "django_cron",
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -304,3 +305,7 @@ LOGGING = {
         }
     },
 }
+
+CRON_CLASSES = [
+    'dgf.pdga'
+]

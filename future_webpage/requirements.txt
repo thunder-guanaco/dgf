@@ -36,5 +36,6 @@ pytest==5.4.1
 pytest-cov==2.8.1
 pytest-flakes==4.0.0
 pytest-pep8==1.0.6
-django-cronjobs==0.2.3
+django_cron==0.5.1
 responses==0.10.12
+ipdb==0.13.2
