@@ -11,19 +11,29 @@
 
     <h1>{% trans 'Your profile' %}</h1>
 
-    <form method="post">{% csrf_token %}
-        {% for field in form %}
-            <p class="field">
-                {{ field.label_tag }} {{ field }}
-            </p>
-            {% if field.errors %}
-                <p class="error">{{ field.errors }}</p>
-            {% endif %}
-            {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-            {% endif %}
-        {% endfor %}
-        <input type="submit" value="Update">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {% for field in form %}
+                {% if field.html_name == "main_photo" %}
+                    <div class="field main_photo">
+                        {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
+                        <div class="row">
+                            <input type="checkbox" name="main_photo-clear" id="main_photo-clear_id">
+                            <label for="main_photo-clear_id">{% trans "Clear" %}</label>
+                        </div>
+                    </div>
+                    <input class="change_avatar" type="file" name="main_photo" accept="image/*" id="id_main_photo">
+                    {{ field.errors }}
+                {% else %}
+                    <div class="field">
+                        {{ field.label_tag }} {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <input id="submit" type="submit" value="{% trans 'Update' %}">
     </form>
 
 {% endblock %}

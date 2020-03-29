@@ -79,8 +79,11 @@ body {
 .container {
     width: 1000px;
     min-height: 500px;
-    margin: 0 auto;
+    margin: 1em auto;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .content {
@@ -94,6 +97,10 @@ body {
 
 h1 {
     text-transform: uppercase;
+}
+
+ul {
+    padding: 0;
 }
 
 #pre-footer {
