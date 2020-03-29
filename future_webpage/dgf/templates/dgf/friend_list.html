@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
+{% load static i18n sekizai_tags %}
 
 {% block content %}
 
+    {% addtoblock "css" %}
+        <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
+    {% endaddtoblock "css" %}
+
     {% if friends %}
-        <ul>
-        {% for friend in friends %}
-            <li>
-                <a href="{% url 'dgf:friend_detail' friend.slug %}">
-                    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
-                </a>
+
+        <h1>{% trans "Stats" %}</h1>
+
+        <ul id="statistics">
+            <li class="line">
+                <h2>{% trans "Number of club members" %}</h2>
+                <div class="ball-container">
+                    <div class="ball">
+                        {{friends.count}}
+                    </div>
+                </div>
             </li>
-        {% endfor %}
+            <li>
+                <h2>{% trans "All friends" %}</h2>
+                <table>
+                    {% for friend in friends %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'dgf:friend_detail' friend.slug %}">
+                                    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </li>
         </ul>
+
     {% else %}
         <p>There are no friends.</p>
     {% endif %}
