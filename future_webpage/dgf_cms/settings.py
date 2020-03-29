@@ -81,7 +81,7 @@ elif ENV == 'test':
 
 # PDGA
 if ENV == 'test':
-    PDGA_BASE_URL = 'nowhere'
+    PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
     PDGA_PASSWORD = 'nothing'
 else:
@@ -184,7 +184,7 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'dgf',
-    'django_login',
+    "django_cron",
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -308,3 +308,7 @@ LOGGING = {
         }
     },
 }
+
+CRON_CLASSES = [
+    'dgf.cronjobs.PdgaFetcher'
+]
