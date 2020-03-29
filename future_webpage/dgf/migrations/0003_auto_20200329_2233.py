@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('dgf', '0002_friend_rating'),
     ]
@@ -14,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='friend',
             name='rating',
-            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(2000), django.core.validators.MinValueValidator(0)]),
+            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(2000),
+                                                                         django.core.validators.MinValueValidator(0)]),
         ),
     ]
