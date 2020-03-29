@@ -1,5 +1,4 @@
-import json
-import os  # isort:skip
+import os
 from gettext import gettext as _
 
 from django.core.exceptions import ImproperlyConfigured
@@ -73,7 +72,7 @@ elif ENV == 'test':
             'CONN_MAX_AGE': 0,
             'ENGINE': 'django.db.backends.sqlite3',
             'HOST': 'localhost',
-            'NAME': 'project.db',
+            'NAME': 'test.db',
             'PASSWORD': '',
             'PORT': '',
             'USER': ''
