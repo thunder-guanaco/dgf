@@ -307,5 +307,5 @@ LOGGING = {
 }
 
 CRON_CLASSES = [
-    'dgf.pdga'
+    'dgf.cronjobs.PdgaFetcher'
 ]

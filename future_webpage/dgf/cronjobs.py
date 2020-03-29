@@ -1,11 +1,13 @@
-import cronjobs
+import logging
+
 from django_cron import CronJobBase, Schedule
 
 from .models import Friend
 from .pdga import PdgaApi
 
+logger = logging.getLogger(__name__)
 
-@cronjobs.register
+
 class PdgaFetcher(CronJobBase):
     RUN_EVERY_MINS = 240  # every 4 hours
 
@@ -19,3 +21,4 @@ class PdgaFetcher(CronJobBase):
                 pdga_friend_response = pdga_service.query_player(pdga_number=friend.pdga_number)
                 friend.rating = int(pdga_friend_response['players'][0]['rating'])
                 friend.save()
+                logger.info('{} has now rating: {}'.format(friend.username, friend.rating))
