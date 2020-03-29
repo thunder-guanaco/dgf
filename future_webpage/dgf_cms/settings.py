@@ -184,6 +184,7 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'dgf',
+    'django_login',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -226,6 +227,9 @@ INSTALLED_APPS = [
     'djangocms_video',
     'dgf_cms'
 ]
+
+LOGIN_REDIRECT_URL = _('/profil')
+LOGOUT_REDIRECT_URL = '/'
 
 LANGUAGES = (
     ('en', _('English')),

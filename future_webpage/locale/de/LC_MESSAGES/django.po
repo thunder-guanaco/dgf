@@ -1,13 +1,13 @@
 # German (de) translations for Disc Golf Friends
-#: dgf/cms_plugins.py:10 dgf/cms_plugins.py:22
+#: dgf/cms_plugins.py:11 dgf/cms_plugins.py:23
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:11
+#: dgf/cms_plugins.py:12
 msgid "Friend"
 msgstr "Friend"
 
-#: dgf/cms_plugins.py:23
+#: dgf/cms_plugins.py:24
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
@@ -15,15 +15,23 @@ msgstr "Friends Kopfzeile"
 msgid "City"
 msgstr "Stadt"
 
-#: dgf_cms/settings.py:232 dgf_cms/settings.py:240
+#: dgf/templates/registration/login.html:16
+msgid "Login"
+msgstr "Anmelden"
+
+#: dgf_cms/settings.py:231
+msgid "/profil"
+msgstr "/profile"
+
+#: dgf_cms/settings.py:235 dgf_cms/settings.py:243
 msgid "English"
 msgstr "Englisch"
 
-#: dgf_cms/settings.py:233 dgf_cms/settings.py:247
+#: dgf_cms/settings.py:236 dgf_cms/settings.py:250
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:266
+#: dgf_cms/settings.py:269
 msgid "Fullwidth"
 msgstr "Volle Breite (standard)"
 

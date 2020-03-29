@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n sekizai_tags static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    {% addtoblock "css" %}
+        <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    {% endaddtoblock "css" %}
+
+  <h1>Login</h1>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">{% trans 'Login' %}</button>
+  </form>
+
+{% endblock %}
