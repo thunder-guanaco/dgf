@@ -18,3 +18,12 @@ class DetailView(generic.DetailView):
 
     def get_queryset(self):
         return Friend.objects.all()
+
+
+class UpdateView(generic.edit.UpdateView):
+    model = Friend
+    fields = ['username', 'first_name', 'last_name', 'nickname', 'pdga_number', 'city', 'main_photo']
+    template_name_suffix = '_profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.friend

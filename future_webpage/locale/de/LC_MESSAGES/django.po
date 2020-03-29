@@ -31,10 +31,6 @@ msgstr "Stadt"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf_cms/settings.py:231
-msgid "/profil"
-msgstr "/profile"
-
 #: dgf_cms/settings.py:235 dgf_cms/settings.py:243
 msgid "English"
 msgstr "Englisch"
