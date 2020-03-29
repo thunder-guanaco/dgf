@@ -92,6 +92,10 @@ body {
     width: 20%;
 }
 
+h1 {
+    text-transform: uppercase;
+}
+
 #pre-footer {
     display: flex;
     flex-flow: column;
