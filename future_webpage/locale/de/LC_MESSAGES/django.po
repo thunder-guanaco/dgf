@@ -11,6 +11,18 @@ msgstr "Friend"
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
+#: dgf/templates/dgf/friend_list.html:13
+msgid "Stats"
+msgstr "Erfolge/Statistiken der Disc Golf Friends"
+
+#: dgf/templates/dgf/friend_list.html:17
+msgid "Number of club members"
+msgstr "Anzahl der Mitglieder"
+
+#: dgf/templates/dgf/friend_list.html:25
+msgid "All friends"
+msgstr "Alle Friends"
+
 #: dgf/templates/dgf/includes/friend_mini_info.html:12
 msgid "City"
 msgstr "Stadt"

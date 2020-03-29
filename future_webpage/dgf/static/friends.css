@@ -1,0 +1,39 @@
+#friends {
+    position: relative;
+    min-height: inherit;
+}
+
+#statistics li {
+    list-style-type: none;
+}
+
+#statistics .line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ball-container {
+    border-radius: 50%;
+    line-height: 60px;
+    width: 60px;
+    object-fit: cover;
+    object-position: center;
+    background: #8d1950;
+}
+
+.ball {
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+#pdga-attribution {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}

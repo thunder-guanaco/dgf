@@ -100,6 +100,12 @@ sudo apt-get install nginx
 sudo service nginx start
 
 # configuration
+echo "create the 2 files containing the certificate and private key in /etc/nginx/ssl:"
+echo " * ssl/www.disc-golf-friends.de.crt"
+echo " * ssl/www.disc-golf-friends.de.key"
+echo
+read
+chmod 400  /etc/nginx/ssl/*
 cat << EOF > /etc/nginx/sites-available/dgf_cms
 upstream dgf_cms_app_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
@@ -110,9 +116,19 @@ upstream dgf_cms_app_server {
 }
 
 server {
-
-    listen   80;
+    listen 80 default_server;
     server_name vps793990.ovh.net;
+    return 301 https://$host$request_uri;
+}
+
+server {
+
+    listen              443 ssl;
+    server_name         vps793990.ovh.net;
+    ssl_certificate     ssl/www.disc-golf-friends.de.crt;
+    ssl_certificate_key ssl/www.disc-golf-friends.de.key;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
 
     client_max_body_size 4G;
 
