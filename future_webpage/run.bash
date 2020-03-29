@@ -27,7 +27,7 @@ case "$1" in
   test)
     export DJANGO_ENV="test"
     ;;
-  runserver|shell|makemessages|compilemessages)
+  runserver|shell|makemessages|compilemessages|compilemessages)
     export DJANGO_ENV="dev"
     ;;
 esac
@@ -40,7 +40,13 @@ case "$1" in
 
   test)
     export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
-    pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
+    pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8 -s
+    ;;
+  makemigrations)
+    python manage.py makemigrations
+    ;;
+  runcrons)
+    python manage.py runcrons
     ;;
   runserver)
     python manage.py runserver 0.0.0.0:8000
