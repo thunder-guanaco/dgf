@@ -228,6 +228,9 @@ INSTALLED_APPS = [
     'dgf_cms'
 ]
 
+LOGIN_REDIRECT_URL = _('/profil')
+LOGOUT_REDIRECT_URL = '/'
+
 LANGUAGES = (
     ('en', _('English')),
     ('de', _('German')),

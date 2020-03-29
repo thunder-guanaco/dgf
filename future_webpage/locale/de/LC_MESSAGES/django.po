@@ -31,15 +31,23 @@ msgstr "Rating"
 msgid "City"
 msgstr "Stadt"
 
-#: dgf_cms/settings.py:232 dgf_cms/settings.py:240
+#: dgf/templates/registration/login.html:16
+msgid "Login"
+msgstr "Anmelden"
+
+#: dgf_cms/settings.py:231
+msgid "/profil"
+msgstr "/profile"
+
+#: dgf_cms/settings.py:235 dgf_cms/settings.py:243
 msgid "English"
 msgstr "Englisch"
 
-#: dgf_cms/settings.py:233 dgf_cms/settings.py:247
+#: dgf_cms/settings.py:236 dgf_cms/settings.py:250
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:266
+#: dgf_cms/settings.py:269
 msgid "Fullwidth"
 msgstr "Volle Breite (standard)"
 

@@ -15,6 +15,7 @@ Django<2.3
 django-classy-tags>=0.9
 django-sekizai>=1.0
 django-mptt>0.9
+django-login==1.0
 html5lib>=1.0.1
 Pillow>=3.0
 six==1.12.0
