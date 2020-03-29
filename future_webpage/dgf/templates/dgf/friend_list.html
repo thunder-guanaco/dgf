@@ -3,11 +3,12 @@
 
 {% block content %}
 
-    {% addtoblock "css" %}
-        <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
-    {% endaddtoblock "css" %}
+    <div id="friends">
+        {% addtoblock "css" %}
+            <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
+        {% endaddtoblock "css" %}
 
-    {% if friends %}
+        {% if friends %}
 
         <h1>{% trans "Stats" %}</h1>
 
@@ -36,8 +37,12 @@
             </li>
         </ul>
 
-    {% else %}
-        <p>There are no friends.</p>
-    {% endif %}
+        {% else %}
+            <p>There are no friends.</p>
+        {% endif %}
+
+        {% include "dgf/includes/pdga_attribution.html" %}
+
+    </div>
 
 {% endblock %}
