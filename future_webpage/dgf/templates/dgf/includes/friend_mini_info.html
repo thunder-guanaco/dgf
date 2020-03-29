@@ -7,7 +7,8 @@
         {% include "dgf/includes/friend_display_name.html" with friend=friend %}
     </h1>
     {% if friend.pdga_number %}
-        <h2>#{{friend.pdga_number}}</h2>
+        <h2><a href="https://pdga.com/player/{{friend.pdga_number}}">#{{friend.pdga_number}}</a></h2>
+        <p>{% trans "Rating" %}: {{friend.rating}}</p>
     {% endif %}
     <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
 </div>

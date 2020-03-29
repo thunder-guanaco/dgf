@@ -1,13 +1,13 @@
 # German (de) translations for Disc Golf Friends
-#: dgf/cms_plugins.py:10 dgf/cms_plugins.py:22
+#: dgf/cms_plugins.py:11 dgf/cms_plugins.py:23
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:11
+#: dgf/cms_plugins.py:12
 msgid "Friend"
 msgstr "Friend"
 
-#: dgf/cms_plugins.py:23
+#: dgf/cms_plugins.py:24
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
@@ -23,7 +23,11 @@ msgstr "Anzahl der Mitglieder"
 msgid "All friends"
 msgstr "Alle Friends"
 
-#: dgf/templates/dgf/includes/friend_mini_info.html:12
+#: dgf/templates/dgf/includes/friend_mini_info.html:11
+msgid "Rating"
+msgstr "Rating"
+
+#: dgf/templates/dgf/includes/friend_mini_info.html:13
 msgid "City"
 msgstr "Stadt"
 
