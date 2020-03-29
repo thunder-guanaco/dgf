@@ -1,6 +1,7 @@
 import logging
 
 from cms.models import User, CMSPlugin
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.utils.text import slugify
@@ -20,6 +21,10 @@ class Friend(User):
 
     nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)
+    rating = models.IntegerField(null=True, blank=True, validators=[
+        MaxValueValidator(2000),
+        MinValueValidator(0)
+    ])
 
     @property
     def initials(self):

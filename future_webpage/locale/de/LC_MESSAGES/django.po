@@ -23,7 +23,11 @@ msgstr "Anzahl der Mitglieder"
 msgid "All friends"
 msgstr "Alle Friends"
 
-#: dgf/templates/dgf/includes/friend_mini_info.html:12
+#: dgf/templates/dgf/includes/friend_mini_info.html:11
+msgid "Rating"
+msgstr "Rating"
+
+#: dgf/templates/dgf/includes/friend_mini_info.html:13
 msgid "City"
 msgstr "Stadt"
 
