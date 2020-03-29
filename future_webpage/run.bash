@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # CHECK ARGUMENTS
-if [[ ! "$1" =~ (test|makemigrations|runcrons|runserver|shell|makemessages) ]]
+if [[ ! "$1" =~ (test|runserver|shell|makemessages|compilemessages) ]]
 then
-  echo -e "\n  Usage: $0 <test, makemigrations, runcrons, runserver, shell, makemessages>\n"
+  echo -e "\n  Usage: $0 <test, runserver, shell, makemessages, compilemessages>\n"
   exit 1
 fi
 
@@ -27,7 +27,7 @@ case "$1" in
   test)
     export DJANGO_ENV="test"
     ;;
-  makemigrations|runcrons|runserver|shell|makemessages)
+  runserver|shell|makemessages|compilemessages|compilemessages)
     export DJANGO_ENV="dev"
     ;;
 esac
@@ -56,5 +56,8 @@ case "$1" in
     ;;
   makemessages)
     python manage.py makemessages -l de -i env
+    ;;
+  compilemessages)
+    python manage.py compilemessages -l de
     ;;
 esac
