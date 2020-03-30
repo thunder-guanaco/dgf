@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n sekizai_tags static %}
+
+{% block title %}{% trans 'Profile' %}{% endblock %}
+
+{% block content %}
+
+    {% addtoblock "css" %}
+        <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+    {% endaddtoblock "css" %}
+
+    <h1>{% trans 'Your profile' %}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {% for field in form %}
+                {% if field.html_name == "main_photo" %}
+                    <div class="field main_photo">
+                        {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
+                        <div class="row">
+                            <input type="checkbox" name="main_photo-clear" id="main_photo-clear_id">
+                            <label for="main_photo-clear_id">{% trans "Clear" %}</label>
+                        </div>
+                    </div>
+                    <input class="change_avatar" type="file" name="main_photo" accept="image/*" id="id_main_photo">
+                    {{ field.errors }}
+                {% else %}
+                    <div class="field">
+                        {{ field.label_tag }} {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <input id="submit" type="submit" value="{% trans 'Update' %}">
+    </form>
+
+{% endblock %}

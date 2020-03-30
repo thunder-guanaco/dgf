@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views import generic
 
 from .models import Friend
@@ -18,3 +19,15 @@ class DetailView(generic.DetailView):
 
     def get_queryset(self):
         return Friend.objects.all()
+
+
+class UpdateView(generic.edit.UpdateView):
+    model = Friend
+    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'city', 'main_photo']
+    template_name_suffix = '_profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.friend
+
+    def get_success_url(self):
+        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
