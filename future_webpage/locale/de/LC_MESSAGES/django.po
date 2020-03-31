@@ -23,11 +23,27 @@ msgstr "Anzahl der Mitglieder"
 msgid "All friends"
 msgstr "Alle Friends"
 
-#: dgf/templates/dgf/includes/friend_mini_info.html:11
+#: dgf/templates/dgf/friend_profile.html:4
+msgid "Profile"
+msgstr "Profil"
+
+#: dgf/templates/dgf/friend_profile.html:12
+msgid "Your profile"
+msgstr "Dein Profil"
+
+#: dgf/templates/dgf/friend_profile.html:23
+msgid "Clear"
+msgstr "Zurücksetzen"
+
+#: dgf/templates/dgf/friend_profile.html:36
+msgid "Update"
+msgstr "Speichern"
+
+#: dgf/templates/dgf/includes/friend_mini_info.html:13
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/templates/dgf/includes/friend_mini_info.html:13
+#: dgf/templates/dgf/includes/friend_mini_info.html:15
 msgid "City"
 msgstr "Stadt"
 
