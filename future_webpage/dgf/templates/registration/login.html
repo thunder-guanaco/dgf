@@ -11,8 +11,10 @@
 
   <h1>Login</h1>
   <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
+      <div>
+          {% csrf_token %}
+          {{ form.as_p }}
+      </div>
       <button type="submit">{% trans 'Login' %}</button>
   </form>
 

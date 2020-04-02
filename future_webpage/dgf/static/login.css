@@ -1,6 +1,19 @@
-form p {
+.container {
+    align-items: center;
+}
+
+form {
     width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+form p {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+form button {
+    align-self: flex-end;
 }
