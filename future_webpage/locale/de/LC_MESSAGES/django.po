@@ -1,3 +1,5 @@
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 # German (de) translations for Disc Golf Friends
 #: dgf/cms_plugins.py:11 dgf/cms_plugins.py:23
 msgid "Disc Golf Friends"
