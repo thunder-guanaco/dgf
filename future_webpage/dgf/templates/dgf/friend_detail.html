@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static i18n sekizai_tags %}
 
+{% block title %}
+    {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+{% endblock %}
+
 {% block content %}
 
     <div id="friends">
