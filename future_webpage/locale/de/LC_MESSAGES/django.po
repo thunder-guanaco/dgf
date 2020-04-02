@@ -1,6 +1,16 @@
+# German (DE) translations for Disc Golf Friends
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DGF\n"
+"POT-Creation-Date: 2020-04-02 21:47+0200\n"
+"Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-# German (de) translations for Disc Golf Friends
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: dgf/cms_plugins.py:11 dgf/cms_plugins.py:23
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
@@ -52,18 +62,6 @@ msgstr "Stadt"
 #: dgf/templates/registration/login.html:16
 msgid "Login"
 msgstr "Anmelden"
-
-#: dgf_cms/settings.py:235 dgf_cms/settings.py:243
-msgid "English"
-msgstr "Englisch"
-
-#: dgf_cms/settings.py:236 dgf_cms/settings.py:250
-msgid "German"
-msgstr "Deutsch"
-
-#: dgf_cms/settings.py:269
-msgid "Fullwidth"
-msgstr "Volle Breite (standard)"
 
 #: dgf_cms/templates/404.html:8
 msgid "Out of Bounds!"

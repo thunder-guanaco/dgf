@@ -1,5 +1,4 @@
 import os
-from gettext import gettext as _
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -232,22 +231,22 @@ LOGIN_REDIRECT_URL = '/friends/profile'
 LOGOUT_REDIRECT_URL = '/'
 
 LANGUAGES = (
-    ('en', _('English')),
-    ('de', _('German')),
+    ('en', 'English'),
+    ('de', 'German'),
 )
 
 CMS_LANGUAGES = {
     1: [
         {
             'code': 'en',
-            'name': _('English'),
+            'name': 'English',
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
         },
         {
             'code': 'de',
-            'name': _('German'),
+            'name': 'German',
             'redirect_on_fallback': True,
             'public': True,
             'hide_untranslated': False,
@@ -266,7 +265,7 @@ LOCALE_PATHS = [
 ]
 
 CMS_TEMPLATES = (
-    ('fullwidth.html', _('Fullwidth')),
+    ('fullwidth.html', 'Fullwidth'),
 )
 
 CMS_PERMISSION = True
