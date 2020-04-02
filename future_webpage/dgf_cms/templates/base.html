@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>DGF - {% block title %}Disc Golf Friends{% endblock title %}</title>
+        <title>DGF - {% block title %}{% page_attribute "page_title" %}{% endblock title %}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="icon" href="{% static 'dgf-favicon.png' %}">
