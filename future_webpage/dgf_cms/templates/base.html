@@ -8,7 +8,17 @@
         <link rel="icon" href="{% static 'dgf-favicon.png' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'dgf.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'friends_header.css' %}">
+
         {% render_block "css" %}
+
+        {% comment %}
+            The block above is for the DjangoCMS CSS file(s)
+            The block below is for every other CSS we want to load
+        {% endcomment %}
+
+        {% block css %}
+        {% endblock css %}
+
     </head>
     <body>
         {% cms_toolbar %}

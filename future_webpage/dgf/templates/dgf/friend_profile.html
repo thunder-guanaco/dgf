@@ -5,11 +5,11 @@
     {% trans "Profile" %}
 {% endblock %}
 
-{% block content %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+{% endblock %}
 
-    {% addtoblock "css" %}
-        <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
-    {% endaddtoblock "css" %}
+{% block content %}
 
     <h1>{% trans "Your profile" %}</h1>
 

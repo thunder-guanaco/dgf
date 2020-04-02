@@ -1,6 +1,16 @@
-form p {
+form {
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+form p {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+form button {
+    align-self: flex-end;
 }

@@ -5,13 +5,13 @@
     {% include "dgf/includes/friend_display_name.html" with friend=friend %}
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
+{% endblock %}
+
 {% block content %}
 
     <div id="friends">
-        {% addtoblock "css" %}
-            <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
-        {% endaddtoblock "css" %}
-
         {% include "dgf/includes/friend_mini_info.html" with friend=friend %}
         {% include "dgf/includes/pdga_attribution.html" %}
     </div>
