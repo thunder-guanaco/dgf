@@ -183,7 +183,6 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'dgf',
-    "django_cron",
     "django_crontab",
 
     'djangocms_admin_style',
@@ -314,5 +313,5 @@ CRON_CLASSES = [
 ]
 
 CRONJOBS = [
-    ('* */6 * * *', 'dgf.cronjobs.PdgaFetcher', '>> ~/logs/cronjobs')
+    ('* */6 * * *', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs')
 ]

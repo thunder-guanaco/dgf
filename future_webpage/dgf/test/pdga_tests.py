@@ -2,7 +2,7 @@ import responses
 from django.conf import settings
 from django.test import TestCase
 
-from ..cronjobs import PdgaFetcher
+from ..cronjobs import fetch_rating
 from ..models import Friend
 
 
@@ -39,5 +39,5 @@ class PdgaApiTest(TestCase):
         friend = Friend()
         friend.pdga_number = 109371
         friend.save()
-        PdgaFetcher().do()
+        fetch_rating()
         self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
