@@ -9,6 +9,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+        $(window).on("load", function() {
+            $("a[href='/friends/profile']").parent().addClass("selected");
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <h1>{% trans "Your profile" %}</h1>
