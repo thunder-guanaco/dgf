@@ -21,6 +21,9 @@ python manage.py compilemessages -l de
 # Apply migrations
 python manage.py migrate
 
+# Add cronjobs
+python manage.py crontab add
+
 # Copy scripts
 for i in start_gunicorn.bash start_shell.bash
 do

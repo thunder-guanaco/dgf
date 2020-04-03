@@ -40,3 +40,4 @@ pytest-pep8==1.0.6
 django_cron==0.5.1
 responses==0.10.12
 ipdb==0.13.2
+django-crontab==0.7.1
