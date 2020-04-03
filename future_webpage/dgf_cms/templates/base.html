@@ -9,6 +9,15 @@
         <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
 
         {% render_block "css" %}
+
+        {% comment %}
+            The block above is for the DjangoCMS CSS file(s)
+            The block below is for every other CSS we want to load
+        {% endcomment %}
+
+        {% block css %}
+        {% endblock css %}
+
     </head>
     <body>
         {% cms_toolbar %}

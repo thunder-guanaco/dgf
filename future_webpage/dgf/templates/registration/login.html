@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load i18n sekizai_tags static %}
 
-{% block title %}Login{% endblock %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+{% endblock %}
 
 {% block content %}
-
-    {% addtoblock "css" %}
-        <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
-    {% endaddtoblock "css" %}
 
   <h1>Login</h1>
   <form method="post">
