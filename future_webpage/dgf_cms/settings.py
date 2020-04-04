@@ -313,5 +313,5 @@ CRON_CLASSES = [
 ]
 
 CRONJOBS = [
-    ('* */6 * * *', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs')
+    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs')
 ]
