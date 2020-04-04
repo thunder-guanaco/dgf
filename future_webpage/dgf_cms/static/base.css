@@ -76,6 +76,11 @@ body {
     color: #888888;
 }
 
+#headline img {
+    width: 100%;
+    height: auto;
+}
+
 .container {
     width: 1000px;
     min-height: 500px;
