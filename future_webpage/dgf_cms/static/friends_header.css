@@ -16,13 +16,13 @@
 }
 
 #friends-header li {
-    padding: 20px;
+    margin: 0 1em;
     list-style-type: none;
 }
 
 #friends-header .arrow-left {
     align-self: flex-start;
-    margin: 35px 10px 0 10px;
+    margin: 1em 0 0 1em;
     cursor: pointer;
     width: 0;
     height: 0;
@@ -33,7 +33,7 @@
 
 #friends-header .arrow-right {
     align-self: flex-start;
-    margin: 35px 10px 0 10px;
+    margin: 1em 0 0 1em;
     cursor: pointer;
     width: 0;
     height: 0;
@@ -52,19 +52,4 @@
     margin-top: 10px;
     color: #1b2633;
     text-align: center;
-}
-
-#friends-header-button {
-    margin-bottom: 2em;
-    display: flex;
-    justify-content: center;
-}
-
-#friends-header-button a{
-    background-color: #1b2633;
-    padding: 1em;
-    border-radius: 10px;
-    color: #ffffff;
-    text-decoration: none;
-    text-transform: uppercase;
 }
