@@ -20,6 +20,7 @@ def update_tournaments(pdga_service):
                 except KeyError:
                     # not all years have to have prizes
                     pass
+                tournaments += int(yearly_stats['tournaments'])
 
             friend.total_earnings = money_earned
             friend.total_tournaments = tournaments
