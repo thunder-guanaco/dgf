@@ -26,8 +26,12 @@ class Friend(User):
         MaxValueValidator(2000),
         MinValueValidator(0)
     ])
-    total_tournaments = models.IntegerField(null=True, blank=True)
-    total_earnings = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal(0.00))
+    total_tournaments = models.IntegerField(null=True, blank=True, default=0, validators=[
+        MinValueValidator(0)
+    ])
+    total_earnings = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal(0.00), validators=[
+        MinValueValidator(0)
+    ])
 
     @property
     def initials(self):
