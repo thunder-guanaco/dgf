@@ -26,5 +26,4 @@ class FriendsHeaderPluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({'friends': Friend.objects.all().order_by('?')})
-        print(context)
         return context
