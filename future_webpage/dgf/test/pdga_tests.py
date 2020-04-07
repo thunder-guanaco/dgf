@@ -30,8 +30,9 @@ class PdgaApiTest(TestCase):
         friend.username = 'kevin'
         friend.save()
         fetch_pdga_data()
-        self.assertEqual(Friend.objects.get(pdga_number='47163').total_tournaments, 97)
-        self.assertEqual(Friend.objects.get(pdga_number='47163').total_earnings, Decimal('3981.05'))
+        kevin = Friend.objects.get(pdga_number='47163')
+        self.assertEqual(kevin.total_tournaments, 97)
+        self.assertEqual(kevin.total_earnings, Decimal('3981.05'))
 
     def configure_responses(self):
         self.add_login()
