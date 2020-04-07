@@ -1,4 +1,5 @@
 import logging
+from decimal import Decimal
 
 from cms.models import User, CMSPlugin
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -23,6 +24,12 @@ class Friend(User):
     slug = models.SlugField(max_length=30, null=True, blank=True)
     rating = models.IntegerField(null=True, blank=True, validators=[
         MaxValueValidator(2000),
+        MinValueValidator(0)
+    ])
+    total_tournaments = models.IntegerField(null=True, blank=True, default=0, validators=[
+        MinValueValidator(0)
+    ])
+    total_earnings = models.DecimalField(max_digits=100, decimal_places=2, default=Decimal(0.00), validators=[
         MinValueValidator(0)
     ])
 

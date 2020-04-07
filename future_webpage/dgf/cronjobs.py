@@ -1,4 +1,5 @@
 import logging
+from decimal import Decimal
 
 from .models import Friend
 from .pdga import PdgaApi
@@ -6,8 +7,31 @@ from .pdga import PdgaApi
 logger = logging.getLogger(__name__)
 
 
-def fetch_rating():
-    pdga_service = PdgaApi()
+def update_tournaments(pdga_service):
+    for friend in Friend.objects.all():
+        if friend.pdga_number:
+            statistics = pdga_service.query_player_statistics(pdga_number=friend.pdga_number)
+
+            money_earned = 0
+            tournaments = 0
+            for yearly_stats in statistics['players']:
+                try:
+                    money_earned += Decimal(yearly_stats['prize'])
+                except KeyError:
+                    # not all years have to have prizes
+                    pass
+                try:
+                    tournaments += int(yearly_stats['tournaments'])
+                except KeyError:
+                    # maybe not all years have to have tournaments
+                    pass
+
+            friend.total_earnings = money_earned
+            friend.total_tournaments = tournaments
+            friend.save()
+
+
+def update_ratings(pdga_service):
     for friend in Friend.objects.all():
         if friend.pdga_number:
             pdga_friend_response = pdga_service.query_player(pdga_number=friend.pdga_number)
@@ -20,3 +44,9 @@ def fetch_rating():
                 logger.info(
                     '{} had no rating in the PDGA yet, possible reasons: membership outdated or new member'.format(
                         friend.username))
+
+
+def fetch_pdga_data():
+    pdga_service = PdgaApi()
+    update_ratings(pdga_service)
+    update_tournaments(pdga_service)
