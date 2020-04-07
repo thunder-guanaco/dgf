@@ -3,34 +3,49 @@
 
 ROOT_INSTALLATION_PATH=/home/ubuntu
 cd ${ROOT_INSTALLATION_PATH}/django_project
-
 source ci/ENVIRONMENT_VARIABLES
-
-# Activate the virtual environment
 . ../env/bin/activate
 
-# Install dependencies
+RED="\e[31m"
+GREEN="\e[32m"
+RESET="\e[0m"
+
+function exit_if_error() {
+  command=$1
+  return_code=$2
+  if [[ "${return_code}" -ne "0" ]]
+  then
+    echo -e "${command}${RED}[ERROR]${RESET}"
+    exit 1
+  else
+    echo -e "${command}${GREEN}[OK]${RESET}"
+  fi
+}
+
 pip install -r requirements.txt
+exit_if_error "Install dependencies" $?
 
-# Collect static files
 yes yes | python manage.py collectstatic --clear
+exit_if_error "Collect static files" $?
 
-# Compile messages for translations
 python manage.py compilemessages -l de
+exit_if_error "Compile messages for translations" $?
 
-# Apply migrations
 python manage.py migrate
+exit_if_error "Apply migrations" $?
 
-# Add cronjobs
 python manage.py crontab add
+exit_if_error "Add cronjobs" $?
 
-# Copy scripts
 for i in start_gunicorn.bash start_shell.bash
 do
   mv ci/$i ${ROOT_INSTALLATION_PATH}
+  exit_if_error "Copy script: ci/${i}" $?
+
   sudo chmod u+x ${ROOT_INSTALLATION_PATH}/$i
+  exit_if_error "Make script executable: ci/${i}" $?
 done
 
-# Restart server
 sudo supervisorctl restart dgf_cms
+exit_if_error "Restart server" $?
 
