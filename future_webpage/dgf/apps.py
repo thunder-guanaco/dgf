@@ -49,3 +49,6 @@ class DgfConfig(AppConfig):
     """
     name = 'dgf'
     update_approved_discs()
+
+    def ready(self):
+        pass
