@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase
 
 from ..apps import update_approved_discs
@@ -8,22 +9,31 @@ class DiscModelsTest(TestCase):
 
     # assumption: if first, last, and one in the middle discs are properly loaded, then the rest too.
     def test_pd3_is_loaded(self):
-        update_approved_discs()
-        pd3 = Disc.objects.get(mold='PD3')
-        self.assertEqual(pd3.mold, 'PD3')
-        self.assertEqual(pd3.manufacturer, 'Discmania')
+        Disc.objects.all().delete()
+        update_approved_discs('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
 
-    def test_wham_o_is_loaded(self):
-        update_approved_discs()
-        wham_o = Disc.objects.get(
-            mold='Professional (1, 4, 10, 14, 15, 16, 17, 20, 20 A, 21, 23A, 23B, 24A, 24B & Pro Classic molds)')
-        self.assertEqual(wham_o.mold,
-                         'Professional (1, 4, 10, 14, 15, 16, 17, 20, 20 A, 21, '
-                         '23A, 23B, 24A, 24B & Pro Classic molds)')
-        self.assertEqual(wham_o.manufacturer, 'Wham-O / DTW')
+        self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
-    def test_mirus_is_loaded(self):
-        update_approved_discs()
-        mirus = Disc.objects.get(mold='Mirus')
-        self.assertEqual(mirus.mold, 'Mirus')
-        self.assertEqual(mirus.manufacturer, 'Latitude 64')
+        self.assertNotEqual(Disc.objects.get(
+            mold='Professional (1, 4, 10, 14, 15, 16, 17, 20, 20 A, 21, 23A, 23B, 24A, 24B & Pro Classic molds)',
+            manufacturer='Wham-O / DTW'), None)
+
+        self.assertNotEqual(Disc.objects.get(mold='Mirus', manufacturer='Latitude 64'), None)
+
+    def test_different_molds_are_loaded(self):
+        Disc.objects.all().delete()
+        update_approved_discs('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
+        update_approved_discs(
+            '{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
+
+        self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
+
+        self.assertNotEqual(Disc.objects.get(
+            mold='Professional (1, 4, 10, 14, 15, 16, 17, 20, 20 A, 21, 23A, 23B, 24A, 24B & Pro Classic molds)',
+            manufacturer='Wham-O / DTW'), None)
+
+        self.assertNotEqual(Disc.objects.get(mold='Mirus', manufacturer='Latitude 64'), None)
+
+        self.assertNotEqual(Disc.objects.get(mold='Torque', manufacturer='Discraft'), None)
+
+        self.assertNotEqual(Disc.objects.get(mold='Pulse', manufacturer='Discraft'), None)

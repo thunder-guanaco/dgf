@@ -56,4 +56,4 @@ class FriendPluginModel(CMSPlugin):
 
 class Disc(models.Model):
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
-    mold = models.CharField(max_length=200, null=True, blank=True)
+    mold = models.CharField(max_length=200, null=True, blank=True, unique=True)

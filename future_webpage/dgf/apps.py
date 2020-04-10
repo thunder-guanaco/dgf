@@ -1,18 +1,16 @@
 import csv
 import logging
-import os
 
 from django.apps import AppConfig
+from django.conf import settings
 
 from .models import Disc
 
 logger = logging.getLogger(__name__)
 
 
-def load_discs():
-    script_dir = os.path.dirname(__file__)
-    join = os.path.join(script_dir, './resources/pdga-approved-disc-golf-discs.csv')
-    csv_reader = csv.reader(open(join), delimiter=',')
+def load_discs(filename):
+    csv_reader = csv.reader(open(filename), delimiter=',')
     discs = dict()
     row_count = 0  # for skipping the header
     for row in csv_reader:
@@ -24,22 +22,16 @@ def load_discs():
     return discs
 
 
-def update_approved_discs():
-    loaded_discs = load_discs()
-    stored_discs = Disc.objects.all()
-    all_stored_molds = []
-
-    # mold names are unique
-    for disc in stored_discs:
-        all_stored_molds.append(disc.mold)
+def update_approved_discs(filename):
+    loaded_discs = load_discs(filename)
+    stored_discs = [x for x in Disc.objects.all().values_list('mold', flat=True)]
 
     for mold in loaded_discs.keys():
-        if mold not in all_stored_molds:
+        if mold not in stored_discs:
             new_disc = Disc()
             new_disc.mold = mold
             new_disc.manufacturer = loaded_discs[mold]
             new_disc.save()
-            logger.info('New mold was found: {}'.format(new_disc))
 
 
 class DgfConfig(AppConfig):
@@ -48,4 +40,4 @@ class DgfConfig(AppConfig):
     That's why it is good to have the update of the approved discs done here.
     """
     name = 'dgf'
-    update_approved_discs()
+    update_approved_discs(settings.PDGA_APPROVED_DISCS)

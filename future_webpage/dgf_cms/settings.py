@@ -83,10 +83,12 @@ if ENV == 'test':
     PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
     PDGA_PASSWORD = 'nothing'
+    PDGA_APPROVED_DISCS = '{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(BASE_DIR)
 else:
     PDGA_BASE_URL = 'https://api.pdga.com/services/json'
     PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
     PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
+    PDGA_APPROVED_DISCS = '{}/dgf/resources/pdga-approved-disc-golf-discs.csv'.format(BASE_DIR)
 
 ROOT_URLCONF = 'dgf_cms.urls'
 
