@@ -1,17 +1,24 @@
+import responses
 from django.conf import settings
 from django.test import TestCase
 
-from ..apps import update_approved_discs
+from ..cronjobs import update_approved_discs_cron
 from ..models import Disc
+
+
+def configure_response(param):
+    responses.add(responses.GET,
+                  settings.APPROVED_DISCS_URL, body=param.read(),
+                  status=200)
 
 
 class DiscModelsTest(TestCase):
 
-    # assumption: if first, last, and one in the middle discs are properly loaded, then the rest too.
-    def test_pd3_is_loaded(self):
+    @responses.activate
+    def test_three_discs_are_loaded(self):
+        configure_response(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
         Disc.objects.all().delete()
-        update_approved_discs(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
-
+        update_approved_discs_cron()
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
         self.assertNotEqual(Disc.objects.get(
@@ -20,11 +27,16 @@ class DiscModelsTest(TestCase):
 
         self.assertNotEqual(Disc.objects.get(mold='Mirus', manufacturer='Latitude 64'), None)
 
+    @responses.activate
     def test_different_molds_are_loaded(self):
+        configure_response(
+            open('{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
+
         Disc.objects.all().delete()
-        update_approved_discs(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
-        update_approved_discs(open(
-            '{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
+        update_approved_discs_cron()
+
+        import ipdb
+        ipdb.set_trace()
 
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 

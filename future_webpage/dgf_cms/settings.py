@@ -79,6 +79,8 @@ elif ENV == 'test':
     }
 
 # PDGA
+APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
+
 if ENV == 'test':
     PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
