@@ -35,9 +35,6 @@ class DiscModelsTest(TestCase):
         Disc.objects.all().delete()
         update_approved_discs_cron()
 
-        import ipdb
-        ipdb.set_trace()
-
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
         self.assertNotEqual(Disc.objects.get(
