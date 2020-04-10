@@ -12,5 +12,11 @@
     {% if friend.rating %}
         <p><b>{% trans "Rating" %}: </b>{{friend.rating}}</p>
     {% endif %}
+    {% if friend.division %}
+        <div class="division">
+            <label>{% trans "Division" %}</label>
+            <div>{{friend.division.id}}</div>
+        </div>
+    {% endif %}
     <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
 </div>
