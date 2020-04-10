@@ -43,6 +43,18 @@
                     </div>
                 {% endif %}
             {% endfor %}
+            {{ highlights.management_form }}
+            <div class="field">
+                <div>Highlights</div>
+            </div>
+            <div>
+                {% for field in highlights %}
+                    <div class="highlight field">
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <input id="submit" type="submit" value="{% trans 'Update' %}">
     </form>
