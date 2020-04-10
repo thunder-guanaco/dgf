@@ -6,9 +6,9 @@ from ..cronjobs import update_approved_discs_cron
 from ..models import Disc
 
 
-def configure_response(param):
+def configure_response(opened_file):
     responses.add(responses.GET,
-                  settings.APPROVED_DISCS_URL, body=param.read(),
+                  settings.APPROVED_DISCS_URL, body=opened_file.read(),
                   status=200)
 
 
