@@ -310,10 +310,8 @@ LOGGING = {
     },
 }
 
-CRON_CLASSES = [
-    'dgf.cronjobs.PdgaFetcher'
-]
-
 CRONJOBS = [
-    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs')
+    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs'),
+    ('* * */7 * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.update_approved_discs_cron',
+     '>> ~/logs/cronjobs')
 ]

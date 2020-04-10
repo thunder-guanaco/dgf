@@ -1,6 +1,10 @@
 import logging
+import os
 from decimal import Decimal
 
+import requests
+
+from .apps import update_approved_discs
 from .models import Friend
 from .pdga import PdgaApi
 
@@ -50,3 +54,15 @@ def fetch_pdga_data():
     pdga_service = PdgaApi()
     update_ratings(pdga_service)
     update_tournaments(pdga_service)
+
+
+def update_approved_discs_cron():
+    # download CSV from
+    response = requests.get('https://www.pdga.com/technical-standards/equipment-certification/discs/export')
+    file = open('temporary', 'wb')
+    file.write(response.content)
+    file.flush()
+    file.close()
+    file = open('temporary', 'r')
+    update_approved_discs(file)
+    os.remove('temporary')

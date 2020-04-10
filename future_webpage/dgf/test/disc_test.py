@@ -10,7 +10,7 @@ class DiscModelsTest(TestCase):
     # assumption: if first, last, and one in the middle discs are properly loaded, then the rest too.
     def test_pd3_is_loaded(self):
         Disc.objects.all().delete()
-        update_approved_discs('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
+        update_approved_discs(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
 
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
@@ -22,9 +22,9 @@ class DiscModelsTest(TestCase):
 
     def test_different_molds_are_loaded(self):
         Disc.objects.all().delete()
-        update_approved_discs('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
-        update_approved_discs(
-            '{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR))
+        update_approved_discs(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
+        update_approved_discs(open(
+            '{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
 
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
