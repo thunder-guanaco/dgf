@@ -61,8 +61,6 @@ def load_discs(approved_discs):
     csv_reader = csv.reader(approved_discs, delimiter=',')
     discs = dict()
     count = 0
-    import ipdb
-    ipdb.set_trace()
     for row in csv_reader:
         if count != 0:
             # row[0] = manufacturer, row[1] = mold
