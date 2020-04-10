@@ -79,12 +79,11 @@ def update_approved_discs(approved_discs):
             new_disc = Disc()
             new_disc.mold = mold
             new_disc.manufacturer = loaded_discs[mold]
-            logger.info('saving: {} - {}'.format(new_disc.mold, new_disc.manufacturer))
             new_disc.save()
 
 
 def update_approved_discs_cron():
-    # download CSV from
+    # download CSV from the PDGA
     response = requests.get(settings.APPROVED_DISCS_URL)
     file = open('temporary', 'wb')
     file.write(response.content)
