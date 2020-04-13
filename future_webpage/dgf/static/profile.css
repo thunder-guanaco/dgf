@@ -3,7 +3,7 @@
 }
 
 form {
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -19,6 +19,22 @@ form .field {
 
 form label {
     margin-right: 1em;
+}
+
+form textarea {
+    width: -webkit-fill-available;
+}
+
+form .highlight {
+    margin-left: 2em;
+}
+
+form .highlight label {
+    display: none;
+}
+
+form .highlight input[type=text] {
+    width: 300px;
 }
 
 .main_photo {
