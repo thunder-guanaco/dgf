@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ class Friend(User):
                               self.last_name[0] if self.last_name else '')
 
     def __str__(self):
-        pdga_number = '#{}'.format(self.pdga_number) if self.pdga_number else ''
+        pdga_number = ' #{}'.format(self.pdga_number) if self.pdga_number else ''
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
 
     def save(self, *args, **kwargs):
@@ -65,3 +66,32 @@ class FriendPluginModel(CMSPlugin):
 class Disc(models.Model):
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
     mold = models.CharField(max_length=200, null=True, blank=True, unique=True)
+
+    def __str__(self):
+        return '{} [{}]'.format(self.mold, self.manufacturer)
+
+
+class DiscInBag(models.Model):
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['disc', 'friend'], name='unique_disc_for_friend'),
+        ]
+
+    PUTTER = 'P'
+    MID_RANGE = 'M'
+    FAIRWAY_DRIVER = 'F'
+    DISTANCE_DRIVER = 'D'
+    TYPE_CHOICES = (
+        (PUTTER, _('Putter')),
+        (MID_RANGE, _('Mid-range')),
+        (FAIRWAY_DRIVER, _('Fairway driver')),
+        (DISTANCE_DRIVER, _('Distance driver')),
+    )
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    amount = models.PositiveIntegerField(null=False, blank=False, default=1)
+    disc = models.ForeignKey(Disc, on_delete=CASCADE)
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs')
+
+    def __str__(self):
+        return '{}x {} ({})'.format(self.amount, self.disc.mold, self.get_type_display())

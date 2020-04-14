@@ -85,7 +85,6 @@ body {
     width: 1000px;
     min-height: 500px;
     margin: 1em auto;
-    overflow: auto;
     display: flex;
     flex-direction: column;
 }

@@ -29,8 +29,30 @@ form .highlight {
     margin-left: 2em;
 }
 
-form .highlight label {
+form .highlight label,
+form #bag label {
     display: none;
+}
+
+select {
+    font-family: Gnuolane !important;
+}
+
+form .discs select {
+    width: 100px;
+}
+
+form .discs input[type=number] {
+    width: 25px;
+}
+
+#bag {
+    display:flex;
+    flex-direction: column;
+}
+
+#bag .bag-elements {
+
 }
 
 form .highlight input[type=text] {
