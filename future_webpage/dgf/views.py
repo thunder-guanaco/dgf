@@ -37,14 +37,14 @@ class UpdateView(generic.edit.UpdateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
-            data["highlights"] = HighlightFormset(self.request.POST, instance=self.object)
+            data['highlights'] = HighlightFormset(self.request.POST, instance=self.object)
         else:
-            data["highlights"] = HighlightFormset(instance=self.object)
+            data['highlights'] = HighlightFormset(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        children = context["highlights"]
+        children = context['highlights']
         self.object = form.save()
         if children.is_valid():
             children.instance = self.object
