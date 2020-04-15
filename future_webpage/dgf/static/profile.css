@@ -29,20 +29,21 @@ form .highlight {
     margin-left: 2em;
 }
 
-form .highlight label,
-form #bag label {
-    display: none;
+.hidden,
+.highlight label,
+#bag label{
+    display: none !important;
 }
 
 select {
     font-family: Gnuolane !important;
 }
 
-form .discs select {
-    width: 100px;
+.discs {
+    margin-left: 1em;
 }
 
-form .discs input[type=number] {
+.discs input[type=number] {
     width: 25px;
 }
 
@@ -51,8 +52,14 @@ form .discs input[type=number] {
     flex-direction: column;
 }
 
-#bag .bag-elements {
-
+.bag-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+.bag-part p {
+    margin: 0;
 }
 
 form .highlight input[type=text] {
@@ -86,4 +93,15 @@ form .highlight input[type=text] {
 form #submit {
     align-self: flex-end;
     margin-top: 2em;
+}
+
+input[name$="DELETE"] {
+    -webkit-appearance: initial;
+    appearance: initial;
+    border: none;
+    cursor: pointer;
+}
+
+input[name$="DELETE"]:before {
+  content:"❌";
 }

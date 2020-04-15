@@ -30,6 +30,7 @@
         <div>
             {% for field in form %}
                 {% if field.html_name == "main_photo" %}
+                    {{ field.label_tag }}
                     <div class="field main_photo">
                         {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
                         <div class="row">
@@ -63,29 +64,29 @@
             {{ discs.management_form }}
             <div id="bag" class="field">
                 <p>In the bag</p>
-                <div id="bag-P" class="bag-part">
+                <div data-type="P" class="bag-part">
                     <p>{% trans "Putters" %}</p>
                 </div>
-                <div id="bag-M" class="bag-part">
+                <div data-type="M" class="bag-part">
                     <p>{% trans "Mid-ranges" %}</p>
                 </div>
-                <div id="bag-F" class="bag-part">
+                <div data-type="F" class="bag-part">
                     <p>{% trans "Fairway drivers" %}</p>
                 </div>
-                <div id="bag-D" class="bag-part">
+                <div data-type="D" class="bag-part">
                     <p>{% trans "Distance drivers" %}</p>
                 </div>
             </div>
             <div id="all-discs">
                 {% for field in discs %}
-                    <div class="discs field">
+                    <div class="discs">
                         {{ field }}
                         {{ field.errors }}
                     </div>
                 {% endfor %}
             </div>
             <div id="empty-form" style="display:none">
-                <div class="discs field">
+                <div class="discs">
                     {{ discs.empty_form }}
                 </div>
             </div>

@@ -40,6 +40,24 @@ class Friend(User):
         return '{} {}'.format(self.first_name[0] if self.first_name else '',
                               self.last_name[0] if self.last_name else '')
 
+    @property
+    def putters(self):
+        return self.discs.filter(type=DiscInBag.PUTTER)
+
+    @property
+    def mid_ranges(self):
+        return self.discs.filter(type=DiscInBag.MID_RANGE)
+
+    @property
+    def fairway_drivers(self):
+        return self.discs.filter(type=DiscInBag.FAIRWAY_DRIVER)
+
+    @property
+    def distance_drivers(self):
+        return self.discs.filter(type=DiscInBag.DISTANCE_DRIVER)
+
+
+
     def __str__(self):
         pdga_number = ' #{}'.format(self.pdga_number) if self.pdga_number else ''
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
