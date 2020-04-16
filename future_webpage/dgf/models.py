@@ -4,10 +4,24 @@ from decimal import Decimal
 from cms.models import User, CMSPlugin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import Model
 from django.db.models.deletion import CASCADE
 from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
+
+
+class Division(Model):
+    """
+    This needs to be filled with content from the PDGA:
+    https://www.pdga.com/pdga-documents/tour-documents/divisions-ratings-and-points-factors
+    """
+
+    id = models.CharField(max_length=10, null=False, blank=False, primary_key=True)
+    text = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return self.text
 
 
 class Friend(User):
@@ -17,6 +31,7 @@ class Friend(User):
         ]
 
     pdga_number = models.IntegerField(null=True, blank=True)
+    division = models.ForeignKey(Division, null=True, on_delete=models.SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
 

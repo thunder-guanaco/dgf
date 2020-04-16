@@ -10,6 +10,7 @@ class FriendAdmin(admin.ModelAdmin):
                 'username',
                 ('first_name', 'last_name', 'nickname'),
                 'pdga_number',
+                'division',
                 'city',
                 'main_photo'
             ]}
@@ -20,9 +21,9 @@ class FriendAdmin(admin.ModelAdmin):
             ]})
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'pdga_number')
+    list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')
 
-    search_fields = list_display + ('nickname', 'slug')
+    search_fields = ('username', 'first_name', 'last_name', 'pdga_number', 'nickname', 'slug')
 
 
 admin.site.register(Friend, FriendAdmin)

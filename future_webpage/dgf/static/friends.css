@@ -31,6 +31,18 @@
     text-transform: uppercase;
 }
 
+.division {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.division div {
+    color: #ffffff;
+    background-color: #8d1950;
+    padding: 0.25em;
+    display: inline;
+}
+
 #pdga-attribution {
     position: absolute;
     bottom: 0;

@@ -1,0 +1,338 @@
+[
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MPO",
+      "text": "MPO - Pro Open"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP40",
+      "text": "MP40 - Pro Master 40+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP50",
+      "text": "MP50 - Pro Master 50+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP55",
+      "text": "MP55 - Pro Master 55+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP60",
+      "text": "MP60 - Pro Master 60+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP65",
+      "text": "MP65 - Pro Master 65+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP70",
+      "text": "MP70 - Pro Master 70+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP75",
+      "text": "MP75 - Pro Master 75+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MP80",
+      "text": "MP80 - Pro Master 80+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FPO",
+      "text": "FPO - Pro Open Women"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP40",
+      "text": "FP40 - Pro Master Women 40+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP50",
+      "text": "FP50 - Pro Master Women 50+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP55",
+      "text": "FP55 - Pro Master Women 55+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP60",
+      "text": "FP60 - Pro Master Women 60+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP65",
+      "text": "FP65 - Pro Master Women 65+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FP70",
+      "text": "FP70 - Pro Master Women 70+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA1",
+      "text": "MA1 - Advanced"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA2",
+      "text": "MA2 - Intermediate"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA3",
+      "text": "MA3 - Recreational"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA4",
+      "text": "MA4 - Novice"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA40",
+      "text": "MA40 - Amateur Master 40+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA50",
+      "text": "MA50 - Amateur Master 50+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA55",
+      "text": "MA55 - Amateur Master 55+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA60",
+      "text": "MA60 - Amateur Master 60+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA65",
+      "text": "MA65 - Amateur Master 65+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MA70",
+      "text": "MA70 - Amateur Master 70+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA1",
+      "text": "FA1 - Advanced Women"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA2",
+      "text": "FA2 - Intermediate Women"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA3",
+      "text": "FA3 - Recreational Women"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA4",
+      "text": "FA4 - Novice Women"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA40",
+      "text": "FA40 - Amateur Master Women 40+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA50",
+      "text": "FA50 - Amateur Master Women 50+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA55",
+      "text": "FA55 - Amateur Master Women 55+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA60",
+      "text": "FA60 - Amateur Master Women 60+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA65",
+      "text": "FA65 - Amateur Master Women 65+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FA70",
+      "text": "FA70 - Amateur Master Women 70+"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ18",
+      "text": "MJ18 - Junior ≤ 18"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ15",
+      "text": "MJ15 - Junior ≤ 15"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ12",
+      "text": "MJ12 - Junior ≤ 12"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ10",
+      "text": "MJ10 - Junior ≤ 10"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ08",
+      "text": "MJ08 - Junior ≤ 8"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "MJ06",
+      "text": "MJ06 - Junior ≤ 6"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ18",
+      "text": "FJ18 - Junior Girls ≤ 18"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ15",
+      "text": "FJ15 - Junior Girls ≤ 15"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ12",
+      "text": "FJ12 - Junior Girls ≤ 12"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ10",
+      "text": "FJ10 - Junior Girls ≤ 10"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ08",
+      "text": "FJ08 - Junior Girls ≤ 8"
+    }
+  },
+  {
+    "model": "dgf.division",
+    "fields": {
+      "id": "FJ06",
+      "text": "FJ06 - Junior Girls ≤ 6"
+    }
+  }
+]
