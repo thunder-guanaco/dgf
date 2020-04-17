@@ -14,6 +14,19 @@ logger = logging.getLogger(__name__)
 MAX_AMOUNT_OF_HIGHLIGHTS = 5
 
 
+class Division(Model):
+    """
+    This needs to be filled with content from the PDGA:
+    https://www.pdga.com/pdga-documents/tour-documents/divisions-ratings-and-points-factors
+    """
+
+    id = models.CharField(max_length=10, null=False, blank=False, primary_key=True)
+    text = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return self.text
+
+
 class Friend(User):
     class Meta:
         constraints = [
@@ -21,6 +34,7 @@ class Friend(User):
         ]
 
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
+    division = models.ForeignKey(Division, null=True, on_delete=models.SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
     plays_since = models.PositiveIntegerField(null=True, blank=True,
@@ -56,8 +70,6 @@ class Friend(User):
     def distance_drivers(self):
         return self.discs.filter(type=DiscInBag.DISTANCE_DRIVER)
 
-
-
     def __str__(self):
         pdga_number = ' #{}'.format(self.pdga_number) if self.pdga_number else ''
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
@@ -90,7 +102,6 @@ class Disc(models.Model):
 
 
 class DiscInBag(models.Model):
-
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['disc', 'friend'], name='unique_disc_for_friend'),

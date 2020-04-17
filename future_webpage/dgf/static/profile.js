@@ -22,7 +22,6 @@ $(window).on("load", function() {
     });
 
     activateChosen($("#bag .chosen-select"));
-
     hideDeletedElements();
 
 });
@@ -62,6 +61,6 @@ function addNewDisc(type) {
 
 function hideDeletedElements() {
     $("input[name$='DELETE']").change(function() {
-        $(this).parent().addClass("hidden")
+        $(this).parent().addClass("hidden");
     });
 }

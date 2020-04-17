@@ -58,8 +58,9 @@ select {
     justify-content: space-between;
     margin-bottom: 1em;
 }
-.bag-part p {
-    margin: 0;
+
+.discs:last-child input[name$=DELETE] {
+    display: none;
 }
 
 form .highlight input[type=text] {

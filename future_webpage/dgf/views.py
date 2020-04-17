@@ -1,4 +1,4 @@
-from django.forms import inlineformset_factory, Textarea, SelectMultiple, Select
+from django.forms import inlineformset_factory, Select
 from django.urls import reverse
 from django.views import generic
 
@@ -35,7 +35,7 @@ DiscFormset = inlineformset_factory(
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
-    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'city', 'main_photo',
+    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'division', 'city', 'main_photo',
               'plays_since', 'free_text']
     template_name_suffix = '_profile'
 
@@ -52,14 +52,20 @@ class UpdateView(generic.edit.UpdateView):
     def form_valid(self, form):
         context = self.get_context_data()
         self.object = form.save()
-        self.validate_and_save_children(context['highlights'])
-        self.validate_and_save_children(context['discs'])
-        return super().form_valid(form)
 
-    def validate_and_save_children(self, children):
-        if children.is_valid():
-            children.instance = self.object
-            children.save()
+        if context['highlights'].is_valid():
+            context['highlights'].instance = self.object
+            context['highlights'].save()
+        else:
+            return super().form_invalid(form)
+
+        if context['discs'].is_valid():
+            context['discs'].instance = self.object
+            context['discs'].save()
+        else:
+            return super().form_invalid(form)
+
+        return super().form_valid(form)
 
     def get_object(self, queryset=None):
         return self.request.user.friend
