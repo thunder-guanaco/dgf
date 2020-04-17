@@ -1,7 +1,11 @@
+import csv
 import logging
 from decimal import Decimal
 
-from .models import Friend
+import requests
+from django.conf import settings
+
+from .models import Friend, Disc
 from .pdga import PdgaApi
 
 logger = logging.getLogger(__name__)
@@ -50,3 +54,21 @@ def fetch_pdga_data():
     pdga_service = PdgaApi()
     update_ratings(pdga_service)
     update_tournaments(pdga_service)
+
+
+def update_approved_discs(approved_discs):
+    loaded_discs = csv.DictReader(approved_discs, delimiter=',')
+    stored_discs = [x for x in Disc.objects.all().values_list('mold', flat=True)]
+
+    for disc in loaded_discs:
+        if disc['Disc Model'] not in stored_discs:
+            new_disc = Disc(mold=disc['Disc Model'],
+                            manufacturer=disc['Manufacturer / Distributor'])
+            new_disc.save()
+
+
+def update_approved_discs_cron():
+    # download CSV from the PDGA
+    response = requests.get(settings.APPROVED_DISCS_URL)
+    csv_list = str(response.content, 'utf-8').replace('\r\n', '\n').split('\n')
+    update_approved_discs(csv_list)

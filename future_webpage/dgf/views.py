@@ -30,7 +30,7 @@ HighlightFormset = inlineformset_factory(
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
-    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'city', 'main_photo',
+    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'division', 'city', 'main_photo',
               'plays_since', 'free_text']
     template_name_suffix = '_profile'
 

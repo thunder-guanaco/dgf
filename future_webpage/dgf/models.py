@@ -13,6 +13,19 @@ logger = logging.getLogger(__name__)
 MAX_AMOUNT_OF_HIGHLIGHTS = 5
 
 
+class Division(Model):
+    """
+    This needs to be filled with content from the PDGA:
+    https://www.pdga.com/pdga-documents/tour-documents/divisions-ratings-and-points-factors
+    """
+
+    id = models.CharField(max_length=10, null=False, blank=False, primary_key=True)
+    text = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return self.text
+
+
 class Friend(User):
     class Meta:
         constraints = [
@@ -20,6 +33,7 @@ class Friend(User):
         ]
 
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
+    division = models.ForeignKey(Division, null=True, on_delete=models.SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
     plays_since = models.PositiveIntegerField(null=True, blank=True,
@@ -60,3 +74,8 @@ class FriendPluginModel(CMSPlugin):
 
     def __str__(self):
         return str(self.friend)
+
+
+class Disc(models.Model):
+    manufacturer = models.CharField(max_length=200, null=True, blank=True)
+    mold = models.CharField(max_length=200, null=True, blank=True, unique=True)

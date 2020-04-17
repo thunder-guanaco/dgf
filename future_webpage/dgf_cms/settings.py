@@ -79,6 +79,8 @@ elif ENV == 'test':
     }
 
 # PDGA
+APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
+
 if ENV == 'test':
     PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
@@ -308,10 +310,8 @@ LOGGING = {
     },
 }
 
-CRON_CLASSES = [
-    'dgf.cronjobs.PdgaFetcher'
-]
-
 CRONJOBS = [
-    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs')
+    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs'),
+    ('* * */7 * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.update_approved_discs_cron',
+     '>> ~/logs/cronjobs')
 ]
