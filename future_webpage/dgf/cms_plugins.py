@@ -8,9 +8,9 @@ from .models import FriendPluginModel, Friend
 @plugin_pool.register_plugin
 class FriendPluginPublisher(CMSPluginBase):
     model = FriendPluginModel
-    module = _("Disc Golf Friends")
-    name = _("Friend")
-    render_template = "dgf/friend_plugin.html"
+    module = _('Disc Golf Friends')
+    name = _('Friend')
+    render_template = 'dgf/friend_plugin.html'
 
     def render(self, context, instance, placeholder):
         context.update({'instance': instance})
@@ -20,9 +20,9 @@ class FriendPluginPublisher(CMSPluginBase):
 @plugin_pool.register_plugin
 class FriendsHeaderPluginPublisher(CMSPluginBase):
     model = FriendPluginModel
-    module = _("Disc Golf Friends")
-    name = _("Friends Header")
-    render_template = "dgf/friends_header.html"
+    module = _('Disc Golf Friends')
+    name = _('Friends Header')
+    render_template = 'dgf/friends_header.html'
 
     def render(self, context, instance, placeholder):
         context.update({'friends': Friend.objects.all().order_by('?')})

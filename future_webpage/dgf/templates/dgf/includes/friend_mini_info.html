@@ -19,4 +19,12 @@
         </div>
     {% endif %}
     <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
+    <p><b>{% trans "Plays since" %}: </b>{{friend.plays_since|default:"-" }}</p>
+    <p><b>{% trans "Discovered disc golf..." %} </b>{{friend.free_text|default:"-"}}</p>
+    <p><b>{% trans "Highlights" %} </b></p>
+    <ul>
+        {% for highlight in friend.highlight_set.all %}
+            <li>{{highlight.content}}</li>
+        {% endfor %}
+    </ul>
 </div>

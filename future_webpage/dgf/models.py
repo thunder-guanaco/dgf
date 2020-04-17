@@ -10,6 +10,8 @@ from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
 
+MAX_AMOUNT_OF_HIGHLIGHTS = 5
+
 
 class Division(Model):
     """
@@ -30,21 +32,21 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
-    pdga_number = models.IntegerField(null=True, blank=True)
+    pdga_number = models.PositiveIntegerField(null=True, blank=True)
     division = models.ForeignKey(Division, null=True, on_delete=models.SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
+    plays_since = models.PositiveIntegerField(null=True, blank=True,
+                                              validators=[MinValueValidator(1926)])
+    free_text = models.TextField(null=True, blank=True)
 
     nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)
-    rating = models.IntegerField(null=True, blank=True, validators=[
-        MaxValueValidator(2000),
-        MinValueValidator(0)
+    rating = models.PositiveIntegerField(null=True, blank=True, validators=[
+        MaxValueValidator(2000)
     ])
-    total_tournaments = models.IntegerField(null=True, blank=True, default=0,
-                                            validators=[MinValueValidator(0)])
-    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.00),
-                                         validators=[MinValueValidator(0)])
+    total_tournaments = models.PositiveIntegerField(null=True, blank=True, default=0)
+    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
     def initials(self):
@@ -60,6 +62,11 @@ class Friend(User):
         self.slug = slugify(new_slug).lower()
         logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         super(Friend, self).save(*args, **kwargs)
+
+
+class Highlight(Model):
+    content = models.CharField(max_length=100, null=False, blank=False)
+    friend = models.ForeignKey(Friend, on_delete=CASCADE)
 
 
 class FriendPluginModel(CMSPlugin):
