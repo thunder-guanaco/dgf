@@ -1,6 +1,5 @@
 import csv
 import logging
-import os
 from decimal import Decimal
 
 import requests
@@ -57,38 +56,19 @@ def fetch_pdga_data():
     update_tournaments(pdga_service)
 
 
-def load_discs(approved_discs):
-    csv_reader = csv.reader(approved_discs, delimiter=',')
-    discs = dict()
-    count = 0
-    for row in csv_reader:
-        if count != 0:
-            # row[0] = manufacturer, row[1] = mold
-            discs[row[1]] = row[0]
-        count += 1
-    logger.info('Loaded {} discs.'.format(count))
-    return discs
-
-
 def update_approved_discs(approved_discs):
-    loaded_discs = load_discs(approved_discs)
+    loaded_discs = csv.DictReader(approved_discs, delimiter=',')
     stored_discs = [x for x in Disc.objects.all().values_list('mold', flat=True)]
 
-    for mold in loaded_discs.keys():
-        if mold not in stored_discs:
-            new_disc = Disc()
-            new_disc.mold = mold
-            new_disc.manufacturer = loaded_discs[mold]
+    for disc in loaded_discs:
+        if disc['Disc Model'] not in stored_discs:
+            new_disc = Disc(mold=disc['Disc Model'],
+                            manufacturer=disc['Manufacturer / Distributor'])
             new_disc.save()
 
 
 def update_approved_discs_cron():
     # download CSV from the PDGA
     response = requests.get(settings.APPROVED_DISCS_URL)
-    file = open('temporary', 'wb')
-    file.write(response.content)
-    file.flush()
-    file.close()
-    file = open('temporary', 'r')
-    update_approved_discs(file)
-    os.remove('temporary')
+    csv_list = str(response.content, 'utf-8').replace('\r\n', '\n').split('\n')
+    update_approved_discs(csv_list)
