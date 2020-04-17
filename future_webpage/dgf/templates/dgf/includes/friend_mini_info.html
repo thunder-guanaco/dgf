@@ -24,7 +24,32 @@
     <p><b>{% trans "Highlights" %} </b></p>
     <ul>
         {% for highlight in friend.highlight_set.all %}
-            <li>{{highlight.content}}</li>
+            <li style="margin-left: 2em;">{{highlight.content}}</li>
         {% endfor %}
     </ul>
-</div>
+    <p><b>{% trans "In the bag" %} </b></p>
+    <p style="margin-left: 1em;"><b>{% trans "Putters" %}</b></p>
+    <ul>
+        {% for disc in friend.putters %}
+            <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+        {% endfor %}
+    </ul>
+    <p style="margin-left: 1em;"><b>{% trans "Mid-ranges" %}</b></p>
+    <ul>
+        {% for disc in friend.mid_ranges %}
+            <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+        {% endfor %}
+    </ul>
+    <p style="margin-left: 1em;"><b>{% trans "Fairway drivers" %}</b></p>
+    <ul>
+        {% for disc in friend.fairway_drivers %}
+            <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+        {% endfor %}
+    </ul>
+    <p style="margin-left: 1em;"><b>{% trans "Distance drivers" %}</b></p>
+    <ul>
+        {% for disc in friend.distance_drivers %}
+            <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+        {% endfor %}
+    </ul>
+</>

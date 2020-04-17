@@ -78,3 +78,6 @@ msgstr "WTF Richard?!"
 #: dgf_cms/templates/500.html:9
 msgid "It seems that we have a problem. Please let us work on that."
 msgstr "Uppsala! Etwas ist schiefgelaufen"
+
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr "Du hast diese Scheibe bereits ausgewählt"

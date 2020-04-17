@@ -1,8 +1,8 @@
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, Select
 from django.urls import reverse
 from django.views import generic
 
-from .models import Friend, Highlight
+from .models import Friend, Highlight, DiscInBag
 
 
 class IndexView(generic.ListView):
@@ -27,6 +27,11 @@ HighlightFormset = inlineformset_factory(
     max_num=5, extra=5, validate_max=True
 )
 
+DiscFormset = inlineformset_factory(
+    Friend, DiscInBag, fields=('type', 'amount', 'disc'), extra=1,
+    widgets={'disc': Select(attrs={'class': 'chosen-select'})}
+)
+
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
@@ -38,17 +43,28 @@ class UpdateView(generic.edit.UpdateView):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
             data['highlights'] = HighlightFormset(self.request.POST, instance=self.object)
+            data['discs'] = DiscFormset(self.request.POST, instance=self.object)
         else:
             data['highlights'] = HighlightFormset(instance=self.object)
+            data['discs'] = DiscFormset(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        children = context['highlights']
         self.object = form.save()
-        if children.is_valid():
-            children.instance = self.object
-            children.save()
+
+        if context['highlights'].is_valid():
+            context['highlights'].instance = self.object
+            context['highlights'].save()
+        else:
+            return super().form_invalid(form)
+
+        if context['discs'].is_valid():
+            context['discs'].instance = self.object
+            context['discs'].save()
+        else:
+            return super().form_invalid(form)
+
         return super().form_valid(form)
 
     def get_object(self, queryset=None):

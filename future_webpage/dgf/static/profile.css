@@ -29,7 +29,37 @@ form .highlight {
     margin-left: 2em;
 }
 
-form .highlight label {
+.hidden,
+.highlight label,
+#bag label{
+    display: none !important;
+}
+
+select {
+    font-family: Gnuolane !important;
+}
+
+.discs {
+    margin-left: 1em;
+}
+
+.discs input[type=number] {
+    width: 25px;
+}
+
+#bag {
+    display:flex;
+    flex-direction: column;
+}
+
+.bag-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.discs:last-child input[name$=DELETE] {
     display: none;
 }
 
@@ -64,4 +94,15 @@ form .highlight input[type=text] {
 form #submit {
     align-self: flex-end;
     margin-top: 2em;
+}
+
+input[name$="DELETE"] {
+    -webkit-appearance: initial;
+    appearance: initial;
+    border: none;
+    cursor: pointer;
+}
+
+input[name$="DELETE"]:before {
+  content:"❌";
 }

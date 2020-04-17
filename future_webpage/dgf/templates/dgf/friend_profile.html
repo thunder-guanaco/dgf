@@ -7,10 +7,13 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'chosen.min-1.8.7.css' %}">
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="{% static 'jquery-3.5.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'chosen.jquery-1.8.7.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'profile.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/profile']").parent().addClass("selected");
@@ -27,6 +30,7 @@
         <div>
             {% for field in form %}
                 {% if field.html_name == "main_photo" %}
+                    {{ field.label_tag }}
                     <div class="field main_photo">
                         {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
                         <div class="row">
@@ -43,6 +47,7 @@
                     </div>
                 {% endif %}
             {% endfor %}
+
             {{ highlights.management_form }}
             <div class="field">
                 <div>Highlights</div>
@@ -51,10 +56,39 @@
                 {% for field in highlights %}
                     <div class="highlight field">
                         {{ field }}
-                        {{ field.errors }}
                     </div>
                 {% endfor %}
             </div>
+
+            {{ discs.management_form }}
+            <div id="bag" class="field">
+                <p>In the bag</p>
+                <div data-type="P" class="bag-part">
+                    <p>{% trans "Putters" %}</p>
+                </div>
+                <div data-type="M" class="bag-part">
+                    <p>{% trans "Mid-ranges" %}</p>
+                </div>
+                <div data-type="F" class="bag-part">
+                    <p>{% trans "Fairway drivers" %}</p>
+                </div>
+                <div data-type="D" class="bag-part">
+                    <p>{% trans "Distance drivers" %}</p>
+                </div>
+            </div>
+            <div id="all-discs">
+                {% for field in discs %}
+                    <div class="discs">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="empty-form" style="display:none">
+                <div class="discs">
+                    {{ discs.empty_form }}
+                </div>
+            </div>
+
         </div>
         <input id="submit" type="submit" value="{% trans 'Update' %}">
     </form>
