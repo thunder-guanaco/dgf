@@ -67,3 +67,8 @@ class FriendPluginModel(CMSPlugin):
 
     def __str__(self):
         return str(self.friend)
+
+
+class Disc(models.Model):
+    manufacturer = models.CharField(max_length=200, null=True, blank=True)
+    mold = models.CharField(max_length=200, null=True, blank=True, unique=True)
