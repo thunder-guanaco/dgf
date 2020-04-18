@@ -89,6 +89,10 @@ body {
     flex-direction: column;
 }
 
+.container > img {
+    width: fit-content;
+}
+
 .content {
     float: left;
     width: 80%;
