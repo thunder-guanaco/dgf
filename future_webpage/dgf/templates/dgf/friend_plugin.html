@@ -1,3 +1,15 @@
+{% load i18n %}
 <div class="friend-plugin">
-    {% include "dgf/includes/friend_mini_info.html" with friend=instance.friend %}
+    <div style="float:left; margin: 40px">
+        {% include "dgf/includes/friend_picture.html" with img_size="200px" font_size="56px" %}
+    </div>
+    <div style="float:left">
+        <h1>
+            {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+        </h1>
+        {% if friend.pdga_number %}
+            <h2><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></h2>
+        {% endif %}
+        <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
+    </div>
 </div>
