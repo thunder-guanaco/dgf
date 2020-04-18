@@ -1,0 +1,9 @@
+{% load i18n %}
+<li>
+    <h2>{% trans "All friends" %}</h2>
+    <div class="all-friends">
+        {% for friend in friends %}
+            {% include "dgf/includes/friend_ball.html" with friend=friend %}
+        {% endfor %}
+    </div>
+</li>

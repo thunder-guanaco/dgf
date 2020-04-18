@@ -152,3 +152,18 @@ footer p, footer td {
     color: #ffffff;
     text-transform: uppercase;
 }
+
+.friend-ball {
+    margin: 0 1em;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friend-name {
+    margin-top: 10px;
+    color: #1b2633;
+    text-align: center;
+    font-weight: bold;
+}
