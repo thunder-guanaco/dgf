@@ -62,9 +62,8 @@ def update_approved_discs(approved_discs):
 
     for disc in loaded_discs:
         if disc['Disc Model'] not in stored_discs:
-            new_disc = Disc(mold=disc['Disc Model'],
-                            manufacturer=disc['Manufacturer / Distributor'])
-            new_disc.save()
+            Disc.objects.get_or_create(mold=disc['Disc Model'],
+                                       defaults={'manufacturer': disc['Manufacturer / Distributor']})
 
 
 def update_approved_discs_cron():
