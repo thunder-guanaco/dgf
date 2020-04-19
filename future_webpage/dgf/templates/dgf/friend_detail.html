@@ -2,7 +2,7 @@
 {% load static i18n sekizai_tags %}
 
 {% block title %}
-    {% include "dgf/includes/friend_display_name.html" with friend=friend %}
+    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
 {% endblock %}
 
 {% block css %}
@@ -21,7 +21,70 @@
 {% block content %}
 
     <div id="friends">
-        {% include "dgf/includes/friend_mini_info.html" with friend=friend %}
+        <div style="float: left; margin-right: 2em; margin-top: 2em;">
+            {% include "dgf/includes/friend_picture.html" with friend=friend img_size="200px" font_size="56px" %}
+        </div>
+        <div style="float:left">
+            <h1>
+                {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
+            </h1>
+            {% if friend.pdga_number %}
+                <h2><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></h2>
+            {% endif %}
+            {% if friend.rating %}
+                <p><b>{% trans "Rating" %}: </b>{{friend.rating}}</p>
+            {% endif %}
+            {% if friend.division %}
+                <div class="division">
+                    <label>{% trans "Division" %}</label>
+                    <div>{{friend.division.id}}</div>
+                </div>
+            {% endif %}
+            {% if friend.city %}
+                <p><b>{% trans "City" %}: </b>{{friend.city}}</p>
+            {% endif %}
+            {% if friend.plays_since %}
+                <p><b>{% trans "Plays since" %}: </b>{{friend.plays_since}}</p>
+            {% endif %}
+            {% if friend.free_text %}
+                <p><b>{% trans "Discovered disc golf..." %} </b>{{friend.free_text}}</p>
+            {% endif %}
+            {% if friend.highlight_set.count %}
+                <p><b>{% trans "Highlights" %} </b></p>
+                <ul>
+                    {% for highlight in friend.highlight_set.all %}
+                        <li style="margin-left: 2em;">{{highlight.content}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if friend.discs.count %}
+                <p><b>{% trans "In the bag" %} </b></p>
+                <p style="margin-left: 1em;"><b>{% trans "Putters" %}</b></p>
+                <ul>
+                    {% for disc in friend.putters %}
+                        <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+                    {% endfor %}
+                </ul>
+                <p style="margin-left: 1em;"><b>{% trans "Mid-ranges" %}</b></p>
+                <ul>
+                    {% for disc in friend.mid_ranges %}
+                        <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+                    {% endfor %}
+                </ul>
+                <p style="margin-left: 1em;"><b>{% trans "Fairway drivers" %}</b></p>
+                <ul>
+                    {% for disc in friend.fairway_drivers %}
+                        <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+                    {% endfor %}
+                </ul>
+                <p style="margin-left: 1em;"><b>{% trans "Distance drivers" %}</b></p>
+                <ul>
+                    {% for disc in friend.distance_drivers %}
+                        <li style="margin-left: 3em;">{{disc.amount}}x {{disc.disc.mold}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         {% include "dgf/includes/pdga_attribution.html" %}
     </div>
 {% endblock %}
