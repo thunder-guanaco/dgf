@@ -22,28 +22,8 @@
             <h1>{% trans "Stats" %}</h1>
 
             <ul id="statistics">
-                <li class="line">
-                    <h2>{% trans "Number of club members" %}</h2>
-                    <div class="ball-container">
-                        <div class="ball">
-                            {{friends.count}}
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <h2>{% trans "All friends" %}</h2>
-                    <table>
-                        {% for friend in friends %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'dgf:friend_detail' friend.slug %}">
-                                        {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </li>
+                {% include "dgf/includes/overview/0_number_of_club_members.html" with friends=friends %}
+                {% include "dgf/includes/overview/1_all_friends.html" with friends=friends %}
             </ul>
 
         {% else %}
