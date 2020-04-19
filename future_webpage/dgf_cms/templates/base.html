@@ -31,11 +31,17 @@
             {% static_placeholder 'friends-header' %}
         </div>
         <div id="navigation-bar">
+            {% comment %}
+            Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
+            {% endcomment %}
             <ul>
                 {% show_menu 0 0 0 0 %}
             </ul>
             <ul>
-                {% show_sub_menu 100 1 %}
+                {% show_sub_menu 1 1 0 %}
+            </ul>
+            <ul>
+                {% show_sub_menu 1 2 0 %}
             </ul>
         </div>
         <div id="headline">
