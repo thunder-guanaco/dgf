@@ -34,7 +34,7 @@ class Friend(User):
         ]
 
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
-    division = models.ForeignKey(Division, null=True, on_delete=models.SET_NULL)
+    division = models.ForeignKey(Division, null=True, blank=True, on_delete=models.SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
     plays_since = models.PositiveIntegerField(null=True, blank=True,
