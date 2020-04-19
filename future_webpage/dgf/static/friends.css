@@ -43,6 +43,18 @@
     display: inline;
 }
 
+.all-friends {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.all-friends .friend-ball {
+    margin: 1em !important;
+}
+
 #pdga-attribution {
     position: absolute;
     bottom: 0;

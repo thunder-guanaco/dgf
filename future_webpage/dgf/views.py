@@ -10,7 +10,7 @@ class IndexView(generic.ListView):
     context_object_name = 'friends'
 
     def get_queryset(self):
-        return Friend.objects.all()
+        return Friend.objects.all().order_by('?')
 
 
 class DetailView(generic.DetailView):
