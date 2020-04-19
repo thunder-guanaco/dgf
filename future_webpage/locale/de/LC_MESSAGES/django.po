@@ -4,7 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
-"POT-Creation-Date: 2020-04-02 21:47+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-19 13:25+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,61 +24,127 @@ msgstr "Friend"
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
-#: dgf/templates/dgf/friend_list.html:13
-msgid "Stats"
-msgstr "Erfolge/Statistiken der Disc Golf Friends"
+#: dgf/models.py:117
+msgid "Putter"
+msgstr "Putter"
 
-#: dgf/templates/dgf/friend_list.html:17
-msgid "Number of club members"
-msgstr "Anzahl der Mitglieder"
+#: dgf/models.py:118
+msgid "Mid-range"
+msgstr "Midrange"
 
-#: dgf/templates/dgf/friend_list.html:25
-msgid "All friends"
-msgstr "Alle Friends"
+#: dgf/models.py:119
+msgid "Fairway driver"
+msgstr "Fairway Driver"
 
-#: dgf/templates/dgf/friend_profile.html:4
-msgid "Profile"
-msgstr "Profil"
+#: dgf/models.py:120
+msgid "Distance driver"
+msgstr "Distance Driver"
 
-#: dgf/templates/dgf/friend_profile.html:12
-msgid "Your profile"
-msgstr "Dein Profil"
+#: dgf/templates/dgf/friend_detail.html:39
+msgid "Sponsored by"
+msgstr "Gesponsert von"
 
-#: dgf/templates/dgf/friend_profile.html:23
-msgid "Clear"
-msgstr "Zurücksetzen"
-
-#: dgf/templates/dgf/friend_profile.html:36
-msgid "Update"
-msgstr "Speichern"
-
-#: dgf/templates/dgf/includes/friend_mini_info.html:13
+#: dgf/templates/dgf/friend_detail.html:42
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/templates/dgf/includes/friend_mini_info.html:15
+#: dgf/templates/dgf/friend_detail.html:46
+msgid "Division"
+msgstr "Division"
+
+#: dgf/templates/dgf/friend_detail.html:51
+#: dgf/templates/dgf/friend_plugin.html:13
 msgid "City"
 msgstr "Stadt"
 
-#: dgf/templates/registration/login.html:16
+#: dgf/templates/dgf/friend_detail.html:54
+msgid "Plays since"
+msgstr "Spielt Disc Golf seit"
+
+#: dgf/templates/dgf/friend_detail.html:57
+msgid "Discovered disc golf..."
+msgstr "... und ist so zum Sport gekommen"
+
+#: dgf/templates/dgf/friend_detail.html:60
+msgid "Highlights"
+msgstr "Highlights"
+
+#: dgf/templates/dgf/friend_detail.html:68
+msgid "In the bag"
+msgstr "In the bag"
+
+#: dgf/templates/dgf/friend_detail.html:69
+#: dgf/templates/dgf/friend_profile.html:78
+msgid "Putters"
+msgstr "Putters"
+
+#: dgf/templates/dgf/friend_detail.html:75
+#: dgf/templates/dgf/friend_profile.html:81
+msgid "Mid-ranges"
+msgstr "Midranges"
+
+#: dgf/templates/dgf/friend_detail.html:81
+#: dgf/templates/dgf/friend_profile.html:84
+msgid "Fairway drivers"
+msgstr "Fairway Drivers"
+
+#: dgf/templates/dgf/friend_detail.html:87
+#: dgf/templates/dgf/friend_profile.html:87
+msgid "Distance drivers"
+msgstr "Distance Drivers"
+
+#: dgf/templates/dgf/friend_list.html:5
+msgid "Friends"
+msgstr "Friends"
+
+#: dgf/templates/dgf/friend_list.html:23
+msgid "Stats"
+msgstr "Erfolge/Statistiken der Disc Golf Friends"
+
+#: dgf/templates/dgf/friend_profile.html:5
+msgid "Profile"
+msgstr "Profil"
+
+#: dgf/templates/dgf/friend_profile.html:26
+msgid "Your profile"
+msgstr "Dein Profil"
+
+#: dgf/templates/dgf/friend_profile.html:38
+#: dgf/templates/dgf/friend_profile.html:49
+msgid "Clear"
+msgstr "Löschen"
+
+#: dgf/templates/dgf/friend_profile.html:104
+msgid "Update"
+msgstr "Speichern"
+
+#: dgf/templates/dgf/includes/overview/0_number_of_club_members.html:3
+msgid "Number of club members"
+msgstr "Anzahl der Mitglieder"
+
+#: dgf/templates/dgf/includes/overview/1_all_friends.html:3
+msgid "All friends"
+msgstr "Alle Friends"
+
+#: dgf/templates/registration/login.html:20
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf_cms/templates/404.html:8
+#: dgf_cms/templates/404.html:6 dgf_cms/templates/404.html:10
 msgid "Out of Bounds!"
 msgstr "Out of Bounds!"
 
-#: dgf_cms/templates/404.html:9
+#: dgf_cms/templates/404.html:11
 msgid "This is not the page you're looking for."
 msgstr "Das ist nicht die Seite, die du suchst."
 
-#: dgf_cms/templates/500.html:8
+#: dgf_cms/templates/500.html:6 dgf_cms/templates/500.html:10
 msgid "WTF Richard?!"
 msgstr "WTF Richard?!"
 
-#: dgf_cms/templates/500.html:9
+#: dgf_cms/templates/500.html:11
 msgid "It seems that we have a problem. Please let us work on that."
 msgstr "Uppsala! Etwas ist schiefgelaufen"
 
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr "Du hast diese Scheibe bereits ausgewählt"
+#~ msgid "%(model_name)s with this %(field_labels)s already exists."
+#~ msgstr "Du hast diese Scheibe bereits ausgewählt"

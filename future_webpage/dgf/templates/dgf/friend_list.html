@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friends_base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friend_list.css' %}">
 {% endblock %}
 
 {% block headline %}
@@ -15,7 +16,7 @@
 
 {% block content %}
 
-    <div id="friends">
+    <div id="friends" class="contains-pdga-attribution">
 
         {% if friends %}
 

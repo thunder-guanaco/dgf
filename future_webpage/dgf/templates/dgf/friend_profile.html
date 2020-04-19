@@ -6,14 +6,14 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friend_profile.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'chosen.min-1.8.7.css' %}">
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{% static 'jquery-3.5.0.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'chosen.jquery-1.8.7.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'profile.js' %}"></script>
+    <script type="text/javascript" src="{% static 'friend_profile.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/profile']").parent().addClass("selected");
@@ -31,7 +31,7 @@
             {% for field in form %}
                 {% if field.html_name == "main_photo" %}
                     {{ field.label_tag }}
-                    <div class="field main_photo">
+                    <div class="field field-image">
                         {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
                         <div class="row">
                             <input type="checkbox" name="main_photo-clear" id="main_photo-clear_id">
@@ -39,6 +39,17 @@
                         </div>
                     </div>
                     <input class="change_avatar" type="file" name="main_photo" accept="image/*" id="id_main_photo">
+                    {{ field.errors }}
+                {% elif field.html_name == "sponsor_logo" %}
+                    {{ field.label_tag }}
+                    <div class="field field-image">
+                        <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="30px" height="30x"/>
+                        <div class="row">
+                            <input type="checkbox" name="sponsor_logo-clear" id="sponsor_logo-clear_id">
+                            <label for="sponsor_logo-clear_id">{% trans "Clear" %}</label>
+                        </div>
+                    </div>
+                    <input class="change_avatar" type="file" name="sponsor_logo" accept="image/*" id="id_sponsor_logo">
                     {{ field.errors }}
                 {% else %}
                     <div class="field">

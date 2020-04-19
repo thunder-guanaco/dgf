@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friends.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friends_base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friend_detail.css' %}">
 {% endblock %}
 
 {% block js %}
@@ -20,16 +21,22 @@
 
 {% block content %}
 
-    <div id="friends">
+    <div id="friend" class="contains-pdga-attribution">
         <div style="float: left; margin-right: 2em; margin-top: 2em;">
             {% include "dgf/includes/friend_picture.html" with friend=friend img_size="200px" font_size="56px" %}
         </div>
         <div style="float:left">
             <h1>
                 {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
+                {% if friend.sponsor_logo %}
+                    <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="50px" height="50px"/>
+                {% endif %}
             </h1>
             {% if friend.pdga_number %}
                 <h2><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></h2>
+            {% endif %}
+            {% if friend.sponsor %}
+                <p><b>{% trans "Sponsored by" %}: </b>{{friend.sponsor}}</p>
             {% endif %}
             {% if friend.rating %}
                 <p><b>{% trans "Rating" %}: </b>{{friend.rating}}</p>
