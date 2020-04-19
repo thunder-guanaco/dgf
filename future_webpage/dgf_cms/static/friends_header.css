@@ -8,16 +8,11 @@
     align-items: center;
 }
 
-#scrollable_header {
+#scrollable-header {
     overflow: hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-}
-
-#friends-header li {
-    margin: 0 1em;
-    list-style-type: none;
 }
 
 #friends-header .arrow-left {
@@ -46,10 +41,4 @@
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
-}
-
-#friends-header .friend-name {
-    margin-top: 10px;
-    color: #1b2633;
-    text-align: center;
 }
