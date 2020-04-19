@@ -1,0 +1,21 @@
+h1 {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+h1 img {
+    margin-left: 0.5em;
+}
+
+.division {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.division div {
+    color: #ffffff;
+    background-color: #8d1950;
+    padding: 0.25em;
+    display: inline;
+}

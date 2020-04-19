@@ -35,8 +35,8 @@ DiscFormset = inlineformset_factory(
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
-    fields = ['first_name', 'last_name', 'nickname', 'pdga_number', 'division', 'city', 'main_photo',
-              'plays_since', 'free_text']
+    fields = ['first_name', 'last_name', 'nickname', 'sponsor', 'sponsor_logo', 'pdga_number', 'division',
+              'city', 'main_photo', 'plays_since', 'free_text']
     template_name_suffix = '_profile'
 
     def get_context_data(self, **kwargs):

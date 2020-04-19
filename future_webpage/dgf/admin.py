@@ -1,10 +1,17 @@
 from django.contrib import admin
 
-from .models import Friend, Highlight
+from .models import Friend, Highlight, DiscInBag
 
 
 class HighlightInline(admin.TabularInline):
     model = Highlight
+
+
+class InTheBagInline(admin.TabularInline):
+    model = DiscInBag
+
+    def get_queryset(self, request):
+        return DiscInBag.objects.all().order_by('-type')
 
 
 class FriendAdmin(admin.ModelAdmin):
@@ -13,6 +20,8 @@ class FriendAdmin(admin.ModelAdmin):
             'fields': [
                 'username',
                 ('first_name', 'last_name', 'nickname'),
+                'sponsor',
+                'sponsor_logo',
                 'pdga_number',
                 'division',
                 'city',
@@ -27,7 +36,7 @@ class FriendAdmin(admin.ModelAdmin):
     ]
 
     inlines = [
-        HighlightInline,
+        HighlightInline, InTheBagInline
     ]
 
     list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')

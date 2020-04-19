@@ -67,17 +67,17 @@ form .highlight input[type=text] {
     width: 300px;
 }
 
-.main_photo {
+.field-image {
     justify-content: flex-start !important;
     margin: 0 !important;
 }
 
-.main_photo img {
+.field-image img {
     margin-right: 0.5em;
     margin-bottom: 0.5em;
 }
 
-.main_photo .row {
+.field-image .row {
     display: flex;
     flex-direction: row;
     align-items: center;
