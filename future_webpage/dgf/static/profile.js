@@ -24,6 +24,11 @@ $(window).on("load", function() {
     activateChosen($("#bag .chosen-select"));
     hideDeletedElements();
 
+    $("#id_division").chosen({
+        disable_search_threshold: 10,
+        width: "80%"
+    });
+
 });
 
 function activateChosen(selector) {
