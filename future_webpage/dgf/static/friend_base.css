@@ -1,6 +1,7 @@
 .contains-pdga-attribution {
     position: relative;
     min-height: inherit;
+    padding-bottom: 3em;
 }
 
 #pdga-attribution {

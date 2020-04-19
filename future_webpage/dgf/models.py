@@ -33,7 +33,7 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
-    sponsor = models.CharField(max_length=100, null=True, blank=True)
+    sponsor = models.CharField(max_length=200, null=True, blank=True)
     sponsor_logo = models.ImageField(null=True, blank=True)
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=models.SET_NULL)

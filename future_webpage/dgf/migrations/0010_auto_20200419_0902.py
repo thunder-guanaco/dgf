@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='friend',
             name='sponsor',
-            field=models.CharField(blank=True, max_length=100, null=True),
+            field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AddField(
             model_name='friend',

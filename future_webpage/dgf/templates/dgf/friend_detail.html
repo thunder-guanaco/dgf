@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friends_base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'friend_detail.css' %}">
 {% endblock %}
 
@@ -43,7 +43,7 @@
             {% endif %}
             {% if friend.division %}
                 <div class="division">
-                    <label>{% trans "Division" %}</label>
+                    <label>{% trans "Division" %}: </label>
                     <div>{{friend.division.id}}</div>
                 </div>
             {% endif %}
@@ -51,13 +51,13 @@
                 <p><b>{% trans "City" %}: </b>{{friend.city}}</p>
             {% endif %}
             {% if friend.plays_since %}
-                <p><b>{% trans "Plays since" %}: </b>{{friend.plays_since}}</p>
+                <p><b>{% trans "Plays since" %} </b>{{friend.plays_since}}</p>
             {% endif %}
             {% if friend.free_text %}
                 <p><b>{% trans "Discovered disc golf..." %} </b>{{friend.free_text}}</p>
             {% endif %}
             {% if friend.highlight_set.count %}
-                <p><b>{% trans "Highlights" %} </b></p>
+                <p><b>{% trans "Highlights" %}: </b></p>
                 <ul>
                     {% for highlight in friend.highlight_set.all %}
                         <li style="margin-left: 2em;">{{highlight.content}}</li>
@@ -65,7 +65,7 @@
                 </ul>
             {% endif %}
             {% if friend.discs.count %}
-                <p><b>{% trans "In the bag" %} </b></p>
+                <p><b>{% trans "In the bag" %}: </b></p>
                 <p style="margin-left: 1em;"><b>{% trans "Putters" %}</b></p>
                 <ul>
                     {% for disc in friend.putters %}
