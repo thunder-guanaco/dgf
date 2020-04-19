@@ -13,7 +13,7 @@ class FriendPluginPublisher(CMSPluginBase):
     render_template = 'dgf/friend_plugin.html'
 
     def render(self, context, instance, placeholder):
-        context.update({'instance': instance})
+        context.update({'friend': instance.friend})
         return context
 
 

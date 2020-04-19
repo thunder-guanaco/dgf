@@ -10,7 +10,7 @@ from ..models import Friend
 class DgfPluginsTests(TestCase):
 
     @parameterized.expand([
-        (FriendPluginPublisher, lambda context: context['instance'].friend),
+        (FriendPluginPublisher, lambda context: context['friend']),
         (FriendsHeaderPluginPublisher, lambda context: context['friends'][0]),
     ])
     def test_friend_plugin(self, plugin_class, how_to_get_a_friend):
