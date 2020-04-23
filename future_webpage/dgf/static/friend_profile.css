@@ -39,11 +39,11 @@ select {
     font-family: Gnuolane !important;
 }
 
-.discs {
+.disc {
     margin-left: 1em;
 }
 
-.discs input[type=number] {
+.disc input[type=number] {
     width: 25px;
 }
 
@@ -59,7 +59,7 @@ select {
     margin-bottom: 1em;
 }
 
-.discs:last-child input[name$=DELETE] {
+.disc:last-child input[name$=DELETE] {
     display: none;
 }
 
@@ -105,4 +105,16 @@ input[name$="DELETE"] {
 
 input[name$="DELETE"]:before {
   content:"❌";
+}
+
+.ace > li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ace {
+    margin-bottom: 1em;
 }

@@ -94,6 +94,14 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+            {% if friend.aces.count %}
+                <p><b>{% trans "Aces" %}: </b></p>
+                <ul>
+                    {% for ace in friend.aces.all %}
+                        <li style="margin-left: 2em;">{{ace}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         {% include "dgf/includes/pdga_attribution.html" %}
     </div>

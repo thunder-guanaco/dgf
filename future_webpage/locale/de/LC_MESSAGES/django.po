@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 13:25+0200\n"
+"POT-Creation-Date: 2020-04-24 01:13+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,21 +24,41 @@ msgstr "Friend"
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
-#: dgf/models.py:117
+#: dgf/models.py:144
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:118
+#: dgf/models.py:145
 msgid "Mid-range"
 msgstr "Midrange"
 
-#: dgf/models.py:119
+#: dgf/models.py:146
 msgid "Fairway driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:120
+#: dgf/models.py:147
 msgid "Distance driver"
 msgstr "Distance Driver"
+
+#: dgf/models.py:163
+msgid "Practice"
+msgstr "Übung"
+
+#: dgf/models.py:164
+msgid "Casual Round"
+msgstr "Spaßrunde"
+
+#: dgf/models.py:165
+msgid "Tournament"
+msgstr "Turnier"
+
+#: dgf/models.py:176
+msgid "Hole"
+msgstr "Bahn"
+
+#: dgf/models.py:177
+msgid "with a"
+msgstr "mit einer"
 
 #: dgf/templates/dgf/friend_detail.html:39
 msgid "Sponsored by"
@@ -66,32 +86,43 @@ msgid "Discovered disc golf..."
 msgstr "... und ist so zum Sport gekommen"
 
 #: dgf/templates/dgf/friend_detail.html:60
+msgid "Favorite course"
+msgstr "Lieblingsparcours"
+
+#: dgf/templates/dgf/friend_detail.html:63
+#: dgf/templates/dgf/friend_profile.html:64
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_detail.html:68
+#: dgf/templates/dgf/friend_detail.html:71
+#: dgf/templates/dgf/friend_profile.html:76
 msgid "In the bag"
 msgstr "In the bag"
 
-#: dgf/templates/dgf/friend_detail.html:69
+#: dgf/templates/dgf/friend_detail.html:72
 #: dgf/templates/dgf/friend_profile.html:78
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_detail.html:75
+#: dgf/templates/dgf/friend_detail.html:78
 #: dgf/templates/dgf/friend_profile.html:81
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_detail.html:81
+#: dgf/templates/dgf/friend_detail.html:84
 #: dgf/templates/dgf/friend_profile.html:84
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:87
+#: dgf/templates/dgf/friend_detail.html:90
 #: dgf/templates/dgf/friend_profile.html:87
 msgid "Distance drivers"
 msgstr "Distance Drivers"
+
+#: dgf/templates/dgf/friend_detail.html:98
+#: dgf/templates/dgf/friend_profile.html:105
+msgid "Aces"
+msgstr "Asse"
 
 #: dgf/templates/dgf/friend_list.html:5
 msgid "Friends"
@@ -114,7 +145,11 @@ msgstr "Dein Profil"
 msgid "Clear"
 msgstr "Löschen"
 
-#: dgf/templates/dgf/friend_profile.html:104
+#: dgf/templates/dgf/friend_profile.html:119
+msgid "Add ace"
+msgstr "Ass hinzufügen"
+
+#: dgf/templates/dgf/friend_profile.html:122
 msgid "Update"
 msgstr "Speichern"
 

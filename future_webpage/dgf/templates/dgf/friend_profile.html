@@ -61,9 +61,9 @@
 
             {{ highlights.management_form }}
             <div class="field">
-                <div>Highlights</div>
+                <div>{% trans "Highlights" %}</div>
             </div>
-            <div>
+            <div id="highlights">
                 {% for field in highlights %}
                     <div class="highlight field">
                         {{ field }}
@@ -73,7 +73,7 @@
 
             {{ discs.management_form }}
             <div id="bag" class="field">
-                <p>In the bag</p>
+                <p>{% trans "In the bag" %}</p>
                 <div data-type="P" class="bag-part">
                     <p>{% trans "Putters" %}</p>
                 </div>
@@ -89,16 +89,34 @@
             </div>
             <div id="all-discs">
                 {% for field in discs %}
-                    <div class="discs">
+                    <div class="disc">
                         {{ field }}
                     </div>
                 {% endfor %}
             </div>
-            <div id="empty-form" style="display:none">
-                <div class="discs">
+            <div id="empty-disc-form" class="hidden">
+                <div class="disc">
                     {{ discs.empty_form }}
                 </div>
             </div>
+
+            {{ aces.management_form }}
+            <div class="field">
+                <div>{% trans "Aces" %}</div>
+            </div>
+            <div id="aces">
+                {% for field in aces %}
+                    <div class="ace">
+                        {{ field.as_ul }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="empty-ace-form" class="hidden">
+                <div class="ace">
+                    {{ aces.empty_form.as_ul }}
+                </div>
+            </div>
+            <input id="add-ace" type="button" value="{% trans 'Add ace' %}">
 
         </div>
         <input id="submit" type="submit" value="{% trans 'Update' %}">
