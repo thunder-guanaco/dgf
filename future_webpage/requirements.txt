@@ -2,6 +2,7 @@ coverage==5.0.4
 Django<2.3
 django-classy-tags>=0.9
 django-cms>=3.7,<3.8
+django-countries==6.1.2
 djangocms-admin-style>=1.4,<1.5
 djangocms-bootstrap4>=1.5,<1.6
 djangocms-file>=2.3,<3.0
