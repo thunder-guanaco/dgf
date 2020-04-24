@@ -9,23 +9,6 @@
     align-items: center;
 }
 
-.ball-container {
-    border-radius: 50%;
-    line-height: 60px;
-    width: 60px;
-    object-fit: cover;
-    object-position: center;
-    background: #8d1950;
-}
-
-.ball {
-    font-size: 30px;
-    width: 100%;
-    text-align: center;
-    color: #ffffff;
-    text-transform: uppercase;
-}
-
 .all-friends {
     display: flex;
     flex-direction: row;
@@ -45,4 +28,13 @@
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
+}
+
+#friends .ball-container {
+    line-height: 3.5em;
+    width: 3.5em;
+}
+
+#friends .ball {
+    font-size: 1.75em;
 }

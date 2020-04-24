@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
@@ -90,6 +91,22 @@ class Friend(User):
                               self.last_name[0] if self.last_name else '')
 
     @property
+    def aces_before_current_year(self):
+        return self.aces.filter(date__year__lt=datetime.now().year).count()
+
+    @property
+    def aces_before_current_year_tournaments(self):
+        return self.aces.filter(date__year__lt=datetime.now().year, type=Ace.TOURNAMENT).count()
+
+    @property
+    def aces_current_year(self):
+        return self.aces.filter(date__year=datetime.now().year).count()
+
+    @property
+    def aces_current_year_tournaments(self):
+        return self.aces.filter(date__year=datetime.now().year, type=Ace.TOURNAMENT).count()
+
+    @property
     def putters(self):
         return self.discs.filter(type=DiscInBag.PUTTER)
 
@@ -156,6 +173,11 @@ class DiscInBag(models.Model):
     amount = models.PositiveIntegerField(default=1)
     disc = models.ForeignKey(Disc, on_delete=CASCADE)
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs')
+
+    @property
+    def in_the_bag(self):
+        count = '' if self.amount == 1 else '{}x '.format(self.amount)
+        return '{}{}'.format(count, self.disc.mold)
 
     def __str__(self):
         return '{}x {} ({})'.format(self.amount, self.disc.mold, self.get_type_display())

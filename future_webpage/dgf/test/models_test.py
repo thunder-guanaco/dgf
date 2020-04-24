@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import Friend, Course
+from ..models import Friend, Course, DiscInBag, Disc
 
 
 class FriendModelTest(TestCase):
@@ -49,3 +49,17 @@ class CourseModelTest(TestCase):
     def expect_representation(self, expected, **fields):
         course = Course(**fields)
         self.assertEqual(str(course), expected)
+
+
+class DiscInBagModelTest(TestCase):
+
+    def test_slug_with_different_fields(self):
+        self.expect_representation(expected='2x FD',
+                                   amount=2, disc_mold='FD')
+
+        self.expect_representation(expected='Explorer',
+                                   amount=1, disc_mold='Explorer')
+
+    def expect_representation(self, expected, amount, disc_mold):
+        disc_in_bag = DiscInBag(amount=amount, disc=Disc(mold=disc_mold))
+        self.assertEqual(disc_in_bag.in_the_bag, expected)

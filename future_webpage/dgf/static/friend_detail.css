@@ -1,21 +1,155 @@
-h1 {
+#friend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+#friend-picture {
+    width: 15%;
+}
+
+#friend-info {
+    width: 80%;
+}
+
+#friend-info h1 {
+    font-size: 1.5em;
     display: flex;
     flex-flow: row;
     align-items: center;
+    margin: 0;
 }
 
-h1 img {
+#friend-info h1 img {
     margin-left: 0.5em;
 }
 
-.division {
+#friend .friend-header-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#friend .pdga {
+    font-size: 1.5em;
+}
+
+#friend-info p {
+    margin: 0;
+}
+
+#friend-info hr {
+    border: none;
+    height: 2px;
+    width: -webkit-fill-available;
+    background-color: #1b2633;
+}
+
+.division,
+.rating {
     font-weight: bold;
-    display: inline-block;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .division div {
     color: #ffffff;
     background-color: #8d1950;
-    padding: 0.25em;
+    padding: 0.3em;
+    margin-left: 0.5em;
     display: inline;
+}
+
+.rating .ball-container {
+    margin-left: 0.5em;
+}
+
+#friend-header {
+    margin-bottom: 1.5em;
+}
+
+#friend-body {
+    display: flex;
+    flex-direction: column;
+}
+
+#friend-body > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+#friend-body div .label {
+    width: 15%;
+}
+
+#friend-body div .value {
+    width: 81%;
+}
+
+#friend-body div p.value:before {
+    content: '>\00a0\00a0\00a0';
+}
+
+#friend-body ul {
+    margin: 0 !important;
+}
+
+#friend-body li {
+    list-style-type: none;
+    margin: 0 !important;
+}
+
+#friend-body .highlights li:before {
+    content: '★\00a0\00a0\00a0';
+}
+
+#aces .value,
+#bag .value {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.table-line > p {
+    width: 25%;
+    text-align: center;
+}
+
+.table-line > div {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#aces .ball-container {
+    line-height: 2em;
+    width: 2em;
+}
+
+#aces .ball {
+    font-size: 1em;
+}
+
+#bag .table-line > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.table-line > div > p {
+    text-align: center;
+    font-size: 0.8em
 }
