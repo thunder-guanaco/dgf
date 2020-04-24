@@ -29,6 +29,11 @@ $(window).on("load", function() {
         width: "80%"
     });
 
+    $("#id_favorite_course").chosen({
+        disable_search_threshold: 10,
+        width: "70%"
+    });
+
 });
 
 function activateChosen(selector) {

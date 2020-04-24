@@ -8,6 +8,7 @@ from django.db.models import Model
 from django.db.models.deletion import CASCADE
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+from django_countries.fields import CountryField
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +28,31 @@ class Division(Model):
         return self.text
 
 
+class Course(Model):
+    """
+    This needs to be filled with content. Initially we provided a fixture (courses_de.json)
+    If needed, more models will be added via django admin
+    """
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'postal_code', 'country'], name='unique_course'),
+        ]
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+    postal_code = models.CharField(max_length=10, null=False, blank=False)
+    city = models.CharField(max_length=50, null=False, blank=False)
+    country = CountryField()
+
+    def __str__(self):
+        name = self.name
+        if self.name != self.city:
+            name = '{} ({})'.format(name, self.city)
+        if self.country != 'DE':
+            name = '{} [{}]'.format(name, self.country)
+        return name
+
+
 class Friend(User):
     class Meta:
         constraints = [
@@ -42,6 +68,7 @@ class Friend(User):
     plays_since = models.PositiveIntegerField(null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
     free_text = models.TextField(null=True, blank=True)
+    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.SET_NULL)
 
     nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)

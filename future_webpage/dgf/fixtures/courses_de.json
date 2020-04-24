@@ -1,0 +1,929 @@
+[
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Revierpark Wischlingen",
+      "postal_code": "44149",
+      "city": "Dortmund",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Seepark",
+      "postal_code": "44532",
+      "city": "L\u00fcnen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Alte Ziegelei",
+      "postal_code": "44532",
+      "city": "L\u00fcnen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Gysenbergpark",
+      "postal_code": "44627",
+      "city": "Herne",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Hindenburghain",
+      "postal_code": "58730",
+      "city": "Fr\u00f6ndenberg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Richard von Weizs\u00e4cker Berufskolleg",
+      "postal_code": "59348",
+      "city": "L\u00fcdinghausen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ludgeri Sportpark",
+      "postal_code": "48734",
+      "city": "Reken",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Meinerzhagen-Valbert",
+      "postal_code": "58540",
+      "city": "Meinerzhagen-Valbert",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Aktivpark Phoenix",
+      "postal_code": "59269",
+      "city": "Beckum",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Rennbahn",
+      "postal_code": "41460",
+      "city": "Neuss",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Bezirkssportanlage Weidenpesch",
+      "postal_code": "50737",
+      "city": "K\u00f6ln",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Bad Fredeburg",
+      "postal_code": "57392",
+      "city": "Schmallenberg-Bad",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Glandorf",
+      "postal_code": "49219",
+      "city": "Glandorf",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Altastenberg",
+      "postal_code": "59955",
+      "city": "Altastenberg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Obersee",
+      "postal_code": "33611",
+      "city": "Bielefeld",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Br\u00fcckenkopfpark",
+      "postal_code": "52428",
+      "city": "J\u00fclich",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "D\u00f6rentrup Pottkuhle",
+      "postal_code": "32694",
+      "city": "D\u00f6rentrup",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Martinhagen Freizeitpark",
+      "postal_code": "34270",
+      "city": "Schauenburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Kanzlers Weide",
+      "postal_code": "32423",
+      "city": "Minden",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Waldschwimmbad",
+      "postal_code": "34379",
+      "city": "Calden",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Grebenstein",
+      "postal_code": "34393",
+      "city": "Grebenstein",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "L\u00f6ningen",
+      "postal_code": "49624",
+      "city": "L\u00f6ningen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Frielendorf",
+      "postal_code": "34576",
+      "city": "Homberg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Bad Nauheim",
+      "postal_code": "61231",
+      "city": "Bad",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Eisenberg Feriendorf",
+      "postal_code": "36275",
+      "city": "Kirchheim",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Herbstein",
+      "postal_code": "36358",
+      "city": "Herbstein",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "G\u00f6ttingen Universit\u00e4t",
+      "postal_code": "37075",
+      "city": "G\u00f6ttingen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Sargenroth Jugendherberge",
+      "postal_code": "55471",
+      "city": "Sargenroth",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Freiensteinau /Nieder-Moos",
+      "postal_code": "36399",
+      "city": "Freiensteinau",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Mainz",
+      "postal_code": "55131",
+      "city": "Mainz",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ostpark",
+      "postal_code": "65428",
+      "city": "R\u00fcsselsheim",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ulenhoff",
+      "postal_code": "26810",
+      "city": "Westoverledingen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Vahrenheide",
+      "postal_code": "30179",
+      "city": "Hannover",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Drispenstedt",
+      "postal_code": "31135",
+      "city": "Hildesheim",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Roderbruch",
+      "postal_code": "30655",
+      "city": "Hannover",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Brinkum/Stuhr Disc Golf-Station",
+      "postal_code": "28816",
+      "city": "Stuhr",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Areal 56",
+      "postal_code": "28279",
+      "city": "Bremen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Weseruferpark",
+      "postal_code": "28197",
+      "city": "Bremen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Darmstadt",
+      "postal_code": "64287",
+      "city": "Darmstadt",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Bahrsplate",
+      "postal_code": "28779",
+      "city": "Bremen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "HochSchulSport-Park am Fallturm",
+      "postal_code": "28359",
+      "city": "Bremen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ilseder H\u00fctte",
+      "postal_code": "31241",
+      "city": "Ilsede",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Salzgittersee",
+      "postal_code": "38228",
+      "city": "Salzgitter",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Altenau",
+      "postal_code": "38707",
+      "city": "Altenau",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Rolling Hills",
+      "postal_code": "55774",
+      "city": "Baumholder",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Lengede",
+      "postal_code": "38268",
+      "city": "Lengede",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Peine Heywoodpark",
+      "postal_code": "31224",
+      "city": "Peine",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Celle-Nienhagen",
+      "postal_code": "29336",
+      "city": "Nienhagen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Stadtpark",
+      "postal_code": "67547",
+      "city": "Worms",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Westpark",
+      "postal_code": "38120",
+      "city": "Braunschweig",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Seeliger Park",
+      "postal_code": "38300",
+      "city": "Wolfenb\u00fcttel",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Gutspark",
+      "postal_code": "38300",
+      "city": "Wolfenb\u00fcttel",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "B\u00fcrgerpark",
+      "postal_code": "38102",
+      "city": "Braunschweig",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Lessing Gymnasium",
+      "postal_code": "38110",
+      "city": "Braunschweig",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Stadtpark",
+      "postal_code": "27574",
+      "city": "Bremerhaven",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Tankumsee",
+      "postal_code": "38550",
+      "city": "Isenb\u00fcttel",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Stadtpark",
+      "postal_code": "66424",
+      "city": "Homburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Sch\u00f6ningen",
+      "postal_code": "38364",
+      "city": "Sch\u00f6ningen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Wolfsburg",
+      "postal_code": "38448",
+      "city": "Wolfsburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Pirmasens Dynamikum",
+      "postal_code": "66954",
+      "city": "Pirmasens",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Piepenbrinkpark",
+      "postal_code": "38350",
+      "city": "Helmstedt",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Kurpark",
+      "postal_code": "74906",
+      "city": "Bad",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Wilhelmsburg",
+      "postal_code": "21109",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Volkspark",
+      "postal_code": "22525",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Kaltehofe Wasserkunst",
+      "postal_code": "20539",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Gretel Bergmann Schule",
+      "postal_code": "21035",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "City Nord",
+      "postal_code": "22297",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Norderstedt",
+      "postal_code": "22846",
+      "city": "Norderstedt",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Stadtteilschule Bergstedt",
+      "postal_code": "22395",
+      "city": "Hamburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ahrensburg",
+      "postal_code": "22926",
+      "city": "Ahrensburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "L\u00fctjensee",
+      "postal_code": "22952",
+      "city": "L\u00fctjensee",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "M\u00f6lln",
+      "postal_code": "23879",
+      "city": "M\u00f6lln",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Disc Golf Center",
+      "postal_code": "24598",
+      "city": "Boostedt",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Leinen Los",
+      "postal_code": "91327",
+      "city": "G\u00f6ssweinstein",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "AWO-Schullandheim \u201eSch\u00f6nsicht\u201c",
+      "postal_code": "08491",
+      "city": "Netzschkau",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Fichtelgebirge",
+      "postal_code": "95173",
+      "city": "Sch\u00f6nwald",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Wental",
+      "postal_code": "73566",
+      "city": "Bartholom\u00e4",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Achalm",
+      "postal_code": "72800",
+      "city": "Eningen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "S\u00f6hnstetten",
+      "postal_code": "89555",
+      "city": "Steinheim-S\u00f6hnstetten",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Feriendorf Hoher Hain",
+      "postal_code": "09212",
+      "city": "Limbach-Oberfrohna",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "K\u00f6nigsfeld",
+      "postal_code": "78126",
+      "city": "K\u00f6nigsfeld",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Kellenhusen",
+      "postal_code": "23746",
+      "city": "Kellenhusen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Flensburg",
+      "postal_code": "24943",
+      "city": "Flensburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Dietenbachpark",
+      "postal_code": "79114",
+      "city": "Freiburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Freizeitpark Wiley",
+      "postal_code": "89231",
+      "city": "Neu-Ulm",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Volkspark",
+      "postal_code": "14469",
+      "city": "Potsdam",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Kurpark",
+      "postal_code": "79189",
+      "city": "Bad",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Gut G\u00f6hlis",
+      "postal_code": "01591",
+      "city": "Riesa",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Rostock",
+      "postal_code": "18059",
+      "city": "Rostock",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Rennbahnstra\u00dfe",
+      "postal_code": "13086",
+      "city": "Berlin",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "B\u00fcrgerheide",
+      "postal_code": "03238",
+      "city": "Finsterwalde",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Uni",
+      "postal_code": "93053",
+      "city": "Regensburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "L\u00f6rrach",
+      "postal_code": "79539",
+      "city": "L\u00f6rrach",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Luitpoldpark",
+      "postal_code": "86830",
+      "city": "Schwabm\u00fcnchen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ravensburg",
+      "postal_code": "88214",
+      "city": "Ravensburg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Bad W\u00f6rishofen",
+      "postal_code": "86825",
+      "city": "Bad",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Eberswalde",
+      "postal_code": "16227",
+      "city": "Eberswalde",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Fr\u00f6ttmaninger Berg",
+      "postal_code": "80939",
+      "city": "M\u00fcnchen",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Greifswald",
+      "postal_code": "17491",
+      "city": "Greifswald",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ofterschwang",
+      "postal_code": "87544",
+      "city": "Gunzesried-Ofterschwang",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Neuen Bergehalde",
+      "postal_code": "82380",
+      "city": "Pei\u00dfenberg",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Weilheim in OB",
+      "postal_code": "82362",
+      "city": "Weilheim",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Ruhpolding",
+      "postal_code": "83324",
+      "city": "Ruhpolding",
+      "country": "DE"
+    }
+  }
+]

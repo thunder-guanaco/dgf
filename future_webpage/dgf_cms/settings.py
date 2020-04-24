@@ -186,6 +186,7 @@ MIDDLEWARE = [
 INSTALLED_APPS = [
     'dgf',
     'django_crontab',
+    'django_countries',
 
     'djangocms_admin_style',
     'django.contrib.auth',

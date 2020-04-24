@@ -56,6 +56,9 @@
             {% if friend.free_text %}
                 <p><b>{% trans "Discovered disc golf..." %} </b>{{friend.free_text}}</p>
             {% endif %}
+            {% if friend.favorite_course %}
+                <p><b>{% trans "Favorite course" %}: </b>{{friend.favorite_course}}</p>
+            {% endif %}
             {% if friend.highlight_set.count %}
                 <p><b>{% trans "Highlights" %}: </b></p>
                 <ul>
