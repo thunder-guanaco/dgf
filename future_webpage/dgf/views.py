@@ -1,8 +1,10 @@
-from django.forms import inlineformset_factory, Select
+from datetime import datetime
+
+from django.forms import inlineformset_factory, Select, SelectDateWidget
 from django.urls import reverse
 from django.views import generic
 
-from .models import Friend, Highlight, DiscInBag
+from .models import Friend, Highlight, DiscInBag, Ace
 
 
 class IndexView(generic.ListView):
@@ -32,38 +34,41 @@ DiscFormset = inlineformset_factory(
     widgets={'disc': Select(attrs={'class': 'chosen-select'})}
 )
 
+AceFormset = inlineformset_factory(
+    Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
+    extra=0, widgets={'date': SelectDateWidget(years=range(2000, datetime.now().year + 1))}
+)
+
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
     fields = ['first_name', 'last_name', 'nickname', 'sponsor', 'sponsor_logo', 'pdga_number', 'division',
               'city', 'main_photo', 'plays_since', 'free_text', 'favorite_course']
     template_name_suffix = '_profile'
+    formsets = [('highlights', HighlightFormset),
+                ('discs', DiscFormset),
+                ('aces', AceFormset)]
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        if self.request.POST:
-            data['highlights'] = HighlightFormset(self.request.POST, instance=self.object)
-            data['discs'] = DiscFormset(self.request.POST, instance=self.object)
-        else:
-            data['highlights'] = HighlightFormset(instance=self.object)
-            data['discs'] = DiscFormset(instance=self.object)
+        for formset in self.formsets:
+            if self.request.POST:
+                data[formset[0]] = formset[1](self.request.POST, instance=self.object)
+            else:
+                data[formset[0]] = formset[1](instance=self.object)
+
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         self.object = form.save()
 
-        if context['highlights'].is_valid():
-            context['highlights'].instance = self.object
-            context['highlights'].save()
-        else:
-            return super().form_invalid(form)
-
-        if context['discs'].is_valid():
-            context['discs'].instance = self.object
-            context['discs'].save()
-        else:
-            return super().form_invalid(form)
+        for formset in self.formsets:
+            if context[formset[0]].is_valid():
+                context[formset[0]].instance = self.object
+                context[formset[0]].save()
+            else:
+                return super().form_invalid(form)
 
         return super().form_valid(form)
 

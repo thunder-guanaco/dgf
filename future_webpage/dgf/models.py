@@ -5,7 +5,7 @@ from cms.models import User, CMSPlugin
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
-from django.db.models.deletion import CASCADE
+from django.db.models.deletion import CASCADE, SET_NULL
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
@@ -21,8 +21,8 @@ class Division(Model):
     https://www.pdga.com/pdga-documents/tour-documents/divisions-ratings-and-points-factors
     """
 
-    id = models.CharField(max_length=10, null=False, blank=False, primary_key=True)
-    text = models.CharField(max_length=100, null=False, blank=False)
+    id = models.CharField(max_length=10, primary_key=True)
+    text = models.CharField(max_length=100)
 
     def __str__(self):
         return self.text
@@ -39,9 +39,9 @@ class Course(Model):
             models.UniqueConstraint(fields=['name', 'postal_code', 'country'], name='unique_course'),
         ]
 
-    name = models.CharField(max_length=100, null=False, blank=False)
-    postal_code = models.CharField(max_length=10, null=False, blank=False)
-    city = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=10)
+    city = models.CharField(max_length=50)
     country = CountryField()
 
     def __str__(self):
@@ -62,13 +62,13 @@ class Friend(User):
     sponsor = models.CharField(max_length=200, null=True, blank=True)
     sponsor_logo = models.ImageField(null=True, blank=True)
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
-    division = models.ForeignKey(Division, null=True, blank=True, on_delete=models.SET_NULL)
+    division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
     main_photo = models.ImageField(null=True, blank=True)
     plays_since = models.PositiveIntegerField(null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
     free_text = models.TextField(null=True, blank=True)
-    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.SET_NULL)
+    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=SET_NULL)
 
     nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)
@@ -111,7 +111,7 @@ class Friend(User):
 
 
 class Highlight(Model):
-    content = models.CharField(max_length=100, null=False, blank=False)
+    content = models.CharField(max_length=100)
     friend = models.ForeignKey(Friend, on_delete=CASCADE)
 
 
@@ -147,9 +147,33 @@ class DiscInBag(models.Model):
         (DISTANCE_DRIVER, _('Distance driver')),
     )
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    amount = models.PositiveIntegerField(null=False, blank=False, default=1)
+    amount = models.PositiveIntegerField(default=1)
     disc = models.ForeignKey(Disc, on_delete=CASCADE)
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs')
 
     def __str__(self):
         return '{}x {} ({})'.format(self.amount, self.disc.mold, self.get_type_display())
+
+
+class Ace(models.Model):
+    PRACTICE = 'P'
+    CASUAL_ROUND = 'C'
+    TOURNAMENT = 'T'
+    TYPE_CHOICES = (
+        (PRACTICE, _('Practice')),
+        (CASUAL_ROUND, _('Casual Round')),
+        (TOURNAMENT, _('Tournament')),
+    )
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='aces')
+    disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL)
+    course = models.ForeignKey(Course, null=True, on_delete=SET_NULL)
+    hole = models.CharField(max_length=20)
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return '{} - {} {} {} {} [{}]'.format(self.course,
+                                              _('Hole'), self.hole,
+                                              _('with a'), self.disc.mold,
+                                              self.get_type_display(),
+                                              " - {}".format(self.date) if self.date else "")
