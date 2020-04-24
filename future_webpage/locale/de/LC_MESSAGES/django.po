@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-24 01:13+0200\n"
+"POT-Creation-Date: 2020-04-24 09:52+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,6 +23,31 @@ msgstr "Friend"
 #: dgf/cms_plugins.py:24
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
+
+#: dgf/cms_toolbars.py:12 dgf/templates/dgf/friend_list.html:5
+msgid "Friends"
+msgstr "Friends"
+
+#: dgf/cms_toolbars.py:15
+#: dgf/templates/dgf/includes/overview/1_all_friends.html:3
+msgid "All friends"
+msgstr "Alle Friends"
+
+#: dgf/cms_toolbars.py:19
+msgid "New friend"
+msgstr "Neue Friend"
+
+#: dgf/cms_toolbars.py:32
+msgid "Courses"
+msgstr "Parcours"
+
+#: dgf/cms_toolbars.py:35
+msgid "All courses"
+msgstr "Alle Parcours"
+
+#: dgf/cms_toolbars.py:39
+msgid "New course"
+msgstr "Neue Parcours"
 
 #: dgf/models.py:144
 msgid "Putter"
@@ -124,10 +149,6 @@ msgstr "Distance Drivers"
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_list.html:5
-msgid "Friends"
-msgstr "Friends"
-
 #: dgf/templates/dgf/friend_list.html:23
 msgid "Stats"
 msgstr "Erfolge/Statistiken der Disc Golf Friends"
@@ -157,10 +178,6 @@ msgstr "Speichern"
 msgid "Number of club members"
 msgstr "Anzahl der Mitglieder"
 
-#: dgf/templates/dgf/includes/overview/1_all_friends.html:3
-msgid "All friends"
-msgstr "Alle Friends"
-
 #: dgf/templates/registration/login.html:20
 msgid "Login"
 msgstr "Anmelden"
@@ -181,5 +198,6 @@ msgstr "WTF Richard?!"
 msgid "It seems that we have a problem. Please let us work on that."
 msgstr "Uppsala! Etwas ist schiefgelaufen"
 
-#~ msgid "%(model_name)s with this %(field_labels)s already exists."
-#~ msgstr "Du hast diese Scheibe bereits ausgewählt"
+#: DiscInBag form
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr "Du hast diese Scheibe bereits ausgewählt"

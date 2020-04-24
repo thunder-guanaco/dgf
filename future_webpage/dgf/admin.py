@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Friend, Highlight, DiscInBag, Course
+from .models import Friend, Highlight, DiscInBag, Course, Ace
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -30,6 +30,10 @@ class InTheBagInline(admin.TabularInline):
         return DiscInBag.objects.all().order_by('-type')
 
 
+class AceInline(admin.TabularInline):
+    model = Ace
+
+
 class FriendAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
@@ -42,7 +46,8 @@ class FriendAdmin(admin.ModelAdmin):
                 'division',
                 'city',
                 'main_photo',
-                ('plays_since', 'free_text')
+                ('plays_since', 'free_text'),
+                'favorite_course'
             ]}
          ),
         ('DANGER ZONE!', {
@@ -52,7 +57,7 @@ class FriendAdmin(admin.ModelAdmin):
     ]
 
     inlines = [
-        HighlightInline, InTheBagInline
+        HighlightInline, InTheBagInline, AceInline
     ]
 
     list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')
