@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import Friend
+from ..models import Friend, Course
 
 
 class FriendModelTest(TestCase):
@@ -23,3 +23,29 @@ class FriendModelTest(TestCase):
         friend = Friend(**fields)
         friend.save()
         self.assertEqual(friend.slug, expected_slug)
+
+
+class CourseModelTest(TestCase):
+
+    def test_slug_with_different_fields(self):
+        self.expect_representation(expected='Fröndenberg',
+                                   name='Fröndenberg', city='Fröndenberg', country='DE')
+
+        self.expect_representation(expected='Volkspark Potsdam',
+                                   name='Volkspark Potsdam', city='Potsdam', country='DE')
+
+        self.expect_representation(expected='Wischlingen (Dortmund)',
+                                   name='Wischlingen', city='Dortmund', country='DE')
+
+        self.expect_representation(expected='Mijas (ES)',
+                                   name='Mijas', city='Mijas', country='ES')
+
+        self.expect_representation(expected='DiscGolfPark Mijas (ES)',
+                                   name='DiscGolfPark Mijas', city='Mijas', country='ES')
+
+        self.expect_representation(expected='Purificación Tomás (Oviedo, ES)',
+                                   name='Purificación Tomás', city='Oviedo', country='ES')
+
+    def expect_representation(self, expected, **fields):
+        course = Course(**fields)
+        self.assertEqual(str(course), expected)
