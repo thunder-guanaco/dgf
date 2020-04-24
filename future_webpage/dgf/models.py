@@ -45,12 +45,18 @@ class Course(Model):
     country = CountryField()
 
     def __str__(self):
-        name = self.name
-        if self.name != self.city:
-            name = '{} ({})'.format(name, self.city)
-        if self.country != 'DE':
-            name = '{} [{}]'.format(name, self.country)
-        return name
+        if self.city in self.name:
+            if self.country == 'DE':
+                place = ''
+            else:
+                place = ' ({})'.format(self.country)
+        else:
+            if self.country == 'DE':
+                place = ' ({})'.format(self.city)
+            else:
+                place = ' ({}, {})'.format(self.city, self.country)
+
+        return '{}{}'.format(self.name, place)
 
 
 class Friend(User):
