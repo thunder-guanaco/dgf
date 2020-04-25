@@ -3,7 +3,6 @@
 }
 
 form {
-    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,6 +12,10 @@ form p {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+form label {
+    margin-right: 1em;
 }
 
 form button {

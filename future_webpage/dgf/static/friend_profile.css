@@ -3,7 +3,7 @@
 }
 
 form {
-    width: 400px;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -44,7 +44,7 @@ select {
 }
 
 .disc input[type=number] {
-    width: 25px;
+    width: 2.5em;
 }
 
 #bag {
@@ -64,7 +64,7 @@ select {
 }
 
 form .highlight input[type=text] {
-    width: 300px;
+    width: 90%;
 }
 
 .field-image {

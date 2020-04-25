@@ -26,3 +26,38 @@
     color: #ffffff;
     text-transform: uppercase;
 }
+
+.avatar-img {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.avatar-container {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: #1b2633;
+}
+
+.avatar-initials {
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.friend-ball {
+    margin: 0 1em;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friend-name {
+    margin-top: 0.5em;
+    color: #1b2633;
+    text-align: center;
+    font-weight: bold;
+}

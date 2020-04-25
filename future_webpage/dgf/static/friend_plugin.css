@@ -1,0 +1,8 @@
+.friend-plugin {
+    display: flex;
+    flex-direction: row;
+}
+
+.friend-plugin .picture {
+    margin-right: 2em;
+}

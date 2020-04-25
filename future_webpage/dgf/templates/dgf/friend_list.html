@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-{% load static i18n sekizai_tags %}
+{% load static i18n %}
 
 {% block title %}
     {% trans "Friends" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'friend_list.css' %}">
 {% endblock %}
 
