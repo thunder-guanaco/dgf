@@ -4,6 +4,25 @@
   src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
+/* mobile */
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 80%;
+        margin: 1em auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+/* desktop */
+@media only screen and (min-width: 600px) {
+    .container {
+        width: 60%;
+        margin: 1em auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 html {
     background-color: #ffffff;
     color: #1b2633;
@@ -24,7 +43,7 @@ body {
 }
 
 #header {
-  padding: 40px;
+  padding: 2em;
   text-align: center;
   background-color: #1b2633;
   color: #ffffff;
@@ -49,7 +68,7 @@ body {
 
 #navigation-bar ul li {
     display: inline;
-    padding: 20px;
+    padding: 1em;
     list-style-type: none;
 }
 
@@ -81,21 +100,13 @@ body {
     height: auto;
 }
 
-.container {
-    width: 1000px;
-    min-height: 500px;
-    margin: 1em auto;
-    display: flex;
-    flex-direction: column;
-}
-
 .container > img {
     width: fit-content;
 }
 
 .content {
     float: left;
-    width: 80%;
+    width: 100%;
 }
 .sidebar {
     float: left;
@@ -125,45 +136,10 @@ footer {
 }
 
 footer table {
-    width: 1000px !important;
+    width: 60%!important;
 }
 
 footer p, footer td {
     padding: 0;
-    margin: 5px 10px;
-}
-
-.avatar-img {
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.avatar-container {
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    background: #1b2633;
-}
-
-.avatar-initials {
-    width: 100%;
-    text-align: center;
-    color: #ffffff;
-    text-transform: uppercase;
-}
-
-.friend-ball {
-    margin: 0 1em;
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.friend-name {
-    margin-top: 10px;
-    color: #1b2633;
-    text-align: center;
-    font-weight: bold;
+    margin: 0.25em 0.5em;
 }

@@ -21,9 +21,9 @@
     cursor: pointer;
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 20px solid #1b2633;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-right: 1em solid #1b2633;
 }
 
 #friends-header .arrow-right {
@@ -32,9 +32,9 @@
     cursor: pointer;
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-left: 20px solid #1b2633;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-left: 1em solid #1b2633;
 }
 
 #friends-header a:link, #friends-header a:hover, #friends-header a:active, #friends-header a:visited {

@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
-{% load static i18n sekizai_tags %}
+{% load static i18n %}
 
 {% block title %}
     {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'friend_detail.css' %}">
 {% endblock %}
 
@@ -42,7 +41,7 @@
                         <p>{% trans "City" %}: {{friend.city}}</p>
                     {% endif %}
                     {% if friend.pdga_number %}
-                        <p class="pdga"><b>PDGA <a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
+                    <p class="pdga"><b>PDGA </b><b><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
                     {% endif %}
                 </div>
                 <hr>

@@ -1,9 +1,14 @@
-{% load i18n %}
+{% load i18n sekizai_tags static %}
+
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'friend_plugin.css' %}">
+{% endaddtoblock "css" %}
+
 <div class="friend-plugin">
-    <div style="float:left; margin: 40px">
+    <div class="picture">
         {% include "dgf/includes/friend_picture.html" with img_size="200px" font_size="56px" %}
     </div>
-    <div style="float:left">
+    <div class="content">
         <h1>
             {% include "dgf/includes/friend_display_name.html" with friend=friend %}
         </h1>
