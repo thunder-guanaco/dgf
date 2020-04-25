@@ -9,3 +9,20 @@
     bottom: 0;
     right: 0;
 }
+
+.ball-container {
+    border-radius: 50%;
+    line-height: 2.5em;
+    width: 2.5em;
+    object-fit: cover;
+    object-position: center;
+    background: #8d1950;
+}
+
+.ball {
+    font-size: 1.25em;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+}
