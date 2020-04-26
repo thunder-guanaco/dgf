@@ -163,14 +163,22 @@
     justify-content: space-around;
 }
 
+.table-line > p,
+.table-line > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0.25em;
+}
+
 #aces .table-line {
     align-items: center;
 }
 
-#aces .table-line > p {
-    width: 25%;
-    text-align: center;
-    margin: 0.25em;
+#aces .table-line > p,
+#aces .table-line > div {
+    width: 20%;
 }
 
 #aces .ball-container {
@@ -185,11 +193,6 @@
 #bag .table-line > p,
 #bag .table-line > div {
     width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0.25em;
 }
 
 #bag .table-line:first-child {
@@ -197,7 +200,7 @@
 }
 
 #bag .table-line:last-child {
-    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .table-line > div > p {
