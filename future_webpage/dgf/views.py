@@ -3,8 +3,9 @@ from datetime import datetime
 from django.forms import inlineformset_factory, Select, SelectDateWidget
 from django.urls import reverse
 from django.views import generic
+from django.views.generic import CreateView
 
-from .models import Friend, Highlight, DiscInBag, Ace
+from .models import Friend, Highlight, DiscInBag, Ace, Feedback
 
 
 class IndexView(generic.ListView):
@@ -38,6 +39,14 @@ AceFormset = inlineformset_factory(
     Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
     extra=0, widgets={'date': SelectDateWidget(years=range(2000, datetime.now().year + 1))}
 )
+
+
+class FeedbackCreate(CreateView):
+    model = Feedback
+    fields = ['title', 'feedback']
+
+    def get_success_url(self):
+        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
 
 
 class UpdateView(generic.edit.UpdateView):
