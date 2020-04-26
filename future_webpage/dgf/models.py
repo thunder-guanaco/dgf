@@ -133,6 +133,11 @@ class Friend(User):
         super(Friend, self).save(*args, **kwargs)
 
 
+class Feedback(Model):
+    title = models.CharField(max_length=200, null=False, blank=False)
+    feedback = models.TextField(null=False, blank=False)
+
+
 class Highlight(Model):
     content = models.CharField(max_length=100)
     friend = models.ForeignKey(Friend, on_delete=CASCADE)
