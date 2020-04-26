@@ -11,6 +11,8 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 
+from .post_actions import feedback_post_save
+
 logger = logging.getLogger(__name__)
 
 MAX_AMOUNT_OF_HIGHLIGHTS = 5
@@ -131,6 +133,18 @@ class Friend(User):
         self.slug = slugify(new_slug).lower()
         logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         super(Friend, self).save(*args, **kwargs)
+
+
+class Feedback(Model):
+    title = models.CharField(max_length=200, null=False, blank=False)
+    feedback = models.TextField(null=False, blank=False)
+
+    def save(self, *args, **kwargs):
+        super(Feedback, self).save(*args, **kwargs)
+        try:
+            feedback_post_save(self)
+        except:
+            logger.warning('I could not create this feedback as an issue in Github!')
 
 
 class Highlight(Model):
