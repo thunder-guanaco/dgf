@@ -32,6 +32,8 @@ ENV = os.getenv('DJANGO_ENV')
 if ENV not in ['dev', 'test', 'prod']:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
 
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
