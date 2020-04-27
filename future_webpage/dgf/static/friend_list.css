@@ -1,3 +1,25 @@
+/* mobile */
+@media only screen and (max-width: 600px) {
+
+    .all-friends .friend-ball img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .all-friends .friend-ball {
+        margin: 0.5em !important;
+    }
+}
+
+
+/* desktop */
+@media only screen and (min-width: 600px) {
+
+    .all-friends .friend-ball {
+        margin: 1em !important;
+    }
+}
+
 #statistics li {
     list-style-type: none;
 }
@@ -15,10 +37,6 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-}
-
-.all-friends .friend-ball {
-    margin: 1em !important;
 }
 
 .all-friends a:link,

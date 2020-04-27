@@ -1,17 +1,3 @@
-/* mobile */
-@media only screen and (max-width: 600px) {
-
-    #friend-picture img {
-        width: 150px !important;
-        height: 150px !important;
-    }
-
-    #friend-header h1 img {
-        width: 50px !important;
-        height: 50px !important;
-    }
-}
-
 .contains-pdga-attribution {
     position: relative;
     min-height: inherit;

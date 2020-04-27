@@ -11,6 +11,20 @@
         margin-bottom: 1em;
     }
 
+    #friend-picture img {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    #friend-header h1 img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    #friend-picture {
+        margin-bottom: 1em;
+    }
+
     #friend-info {
         width: 100%;
     }
