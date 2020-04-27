@@ -1,4 +1,5 @@
 import logging
+import re
 from datetime import datetime
 from decimal import Decimal
 
@@ -162,10 +163,15 @@ class FriendPluginModel(CMSPlugin):
 
 class Disc(models.Model):
     manufacturer = models.CharField(max_length=200, null=True, blank=True)
-    mold = models.CharField(max_length=200, null=True, blank=True, unique=True)
+    mold = models.CharField(max_length=200, unique=True)
+    display_name = models.CharField(max_length=200)
 
     def __str__(self):
         return '{} [{}]'.format(self.mold, self.manufacturer)
+
+    def save(self, *args, **kwargs):
+        self.display_name = re.sub(' *\(.*\)', '', self.mold)
+        super(Disc, self).save(*args, **kwargs)
 
 
 class DiscInBag(models.Model):
@@ -192,7 +198,7 @@ class DiscInBag(models.Model):
     @property
     def in_the_bag(self):
         count = '' if self.amount == 1 else '{}x '.format(self.amount)
-        return '{}{}'.format(count, self.disc.mold)
+        return '{}{}'.format(count, self.disc.display_name)
 
     def __str__(self):
         return '{}x {} ({})'.format(self.amount, self.disc.mold, self.get_type_display())
@@ -217,6 +223,6 @@ class Ace(models.Model):
     def __str__(self):
         return '{} - {} {} {} {} [{}]'.format(self.course,
                                               _('Hole'), self.hole,
-                                              _('with a'), self.disc.mold,
+                                              _('with a'), self.disc.display_name,
                                               self.get_type_display(),
                                               " - {}".format(self.date) if self.date else "")
