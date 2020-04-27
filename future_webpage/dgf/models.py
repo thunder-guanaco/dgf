@@ -95,22 +95,6 @@ class Friend(User):
                               self.last_name[0] if self.last_name else '')
 
     @property
-    def aces_before_current_year(self):
-        return self.aces.filter(date__year__lt=datetime.now().year).count()
-
-    @property
-    def aces_before_current_year_tournaments(self):
-        return self.aces.filter(date__year__lt=datetime.now().year, type=Ace.TOURNAMENT).count()
-
-    @property
-    def aces_current_year(self):
-        return self.aces.filter(date__year=datetime.now().year).count()
-
-    @property
-    def aces_current_year_tournaments(self):
-        return self.aces.filter(date__year=datetime.now().year, type=Ace.TOURNAMENT).count()
-
-    @property
     def putters(self):
         return self.discs.filter(type=DiscInBag.PUTTER)
 
