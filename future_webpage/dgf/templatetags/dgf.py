@@ -12,10 +12,11 @@ AMOUNT_OF_FAVORITE_DISCS = 3
 
 @register.simple_tag
 def favorite_course():
-    return Friend.objects.filter(favorite_course__isnull=False) \
+    course = Friend.objects.filter(favorite_course__isnull=False) \
         .values('favorite_course__name') \
         .annotate(count=Count('favorite_course__name')) \
-        .order_by('-count').first()['favorite_course__name']
+        .order_by('-count').first()
+    return course['favorite_course__name'] if course else ''
 
 
 @register.simple_tag
