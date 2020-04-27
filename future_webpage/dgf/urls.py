@@ -6,5 +6,6 @@ app_name = 'dgf'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='friend_index'),
     path('profile/', views.UpdateView.as_view(), name='friend_update'),
+    path('feedback/', views.FeedbackCreate.as_view(), name='feedback'),
     path('<str:slug>/', views.DetailView.as_view(), name='friend_detail'),
 ]

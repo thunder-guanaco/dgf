@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static i18n sekizai_tags %}
+
+{% block title %}
+    {% trans "Feedback" %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'feedback.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        {% trans "Thank you for the feedback" as thank_you %}
+        <input id="feedback_submit" type="submit" value="{% trans 'Save' %}" onclick="return alert('{{thank_you}}') == undefined;">
+    </form>
+{% endblock %}
