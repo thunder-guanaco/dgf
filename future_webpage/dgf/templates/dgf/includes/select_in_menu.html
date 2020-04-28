@@ -1,0 +1,6 @@
+<script type="text/javascript">
+    $(window).on("load", function() {
+        $("#navigation-bar a").parent().removeClass("selected");
+        $("#navigation-bar a[href='{{path}}']").parent().addClass("selected");
+    });
+</script>
