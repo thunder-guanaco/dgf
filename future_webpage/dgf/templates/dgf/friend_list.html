@@ -27,7 +27,10 @@
 
             <ul id="statistics">
                 {% include "dgf/includes/overview/0_number_of_club_members.html" with friends=friends %}
-                {% include "dgf/includes/overview/1_all_friends.html" with friends=friends %}
+                {% include "dgf/includes/overview/1_aces.html" with friends=friends %}
+                {% include "dgf/includes/overview/2_favorite_discs.html" with friends=friends %}
+                {% include "dgf/includes/overview/3_favorite_courses.html" with friends=friends %}
+                {% include "dgf/includes/overview/4_all_friends.html" with friends=friends %}
             </ul>
 
         {% else %}
