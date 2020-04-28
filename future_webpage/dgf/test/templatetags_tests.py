@@ -133,61 +133,44 @@ class TemplatetagsTest(TestCase):
     def test_favorite_discs(self):
         manolo = Friend.objects.create(username='manolo')
         fede = Friend.objects.create(username='fede')
+        mario = Friend.objects.create(username='mario')
 
         deputy = Disc.objects.create(mold='Deputy')
         aviar = Disc.objects.create(mold='Aviar')
 
         compass = Disc.objects.create(mold='Compass')
-        Disc.objects.create(mold='Buzzz')
+        buzz = Disc.objects.create(mold='Buzzz')
 
         fd = Disc.objects.create(mold='FD')
-        fd2 = Disc.objects.create(mold='FD2')
+        Disc.objects.create(mold='FD2')
 
         destroyer = Disc.objects.create(mold='Destroyer')
 
-        # each friend has a different one
-        DiscInBag.objects.create(friend=manolo, disc=deputy, amount=2, type=DiscInBag.PUTTER)
-        DiscInBag.objects.create(friend=fede, disc=aviar, amount=4, type=DiscInBag.PUTTER)
+        # a mold is owned only once
+        DiscInBag.objects.create(friend=manolo, disc=deputy, amount=1, type=DiscInBag.PUTTER)
+        DiscInBag.objects.create(friend=fede, disc=aviar, amount=1, type=DiscInBag.PUTTER)
+        DiscInBag.objects.create(friend=mario, disc=aviar, amount=1, type=DiscInBag.PUTTER)
 
-        # both have the same disc and the other one is in no bag
+        # someone one mold more than once
         DiscInBag.objects.create(friend=manolo, disc=compass, amount=1, type=DiscInBag.MID_RANGE)
-        DiscInBag.objects.create(friend=fede, disc=compass, amount=2, type=DiscInBag.MID_RANGE)
+        DiscInBag.objects.create(friend=fede, disc=compass, amount=1, type=DiscInBag.MID_RANGE)
+        DiscInBag.objects.create(friend=mario, disc=buzz, amount=5, type=DiscInBag.MID_RANGE)
 
-        # some are in one bag and some aren't
+        # some discs are in no bag
         DiscInBag.objects.create(friend=manolo, disc=fd, amount=2, type=DiscInBag.FAIRWAY_DRIVER)
         DiscInBag.objects.create(friend=fede, disc=fd, amount=1, type=DiscInBag.FAIRWAY_DRIVER)
-        DiscInBag.objects.create(friend=fede, disc=fd2, amount=1, type=DiscInBag.FAIRWAY_DRIVER)
+        DiscInBag.objects.create(friend=mario, disc=fd, amount=1, type=DiscInBag.FAIRWAY_DRIVER)
 
         # only one disc
         DiscInBag.objects.create(friend=manolo, disc=destroyer, amount=3, type=DiscInBag.DISTANCE_DRIVER)
         DiscInBag.objects.create(friend=fede, disc=destroyer, amount=2, type=DiscInBag.DISTANCE_DRIVER)
 
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.PUTTER)), self.display_names(aviar, deputy))
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), self.display_names(compass))
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), self.display_names(fd, fd2))
+        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), self.display_names(compass, buzz))
+        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), self.display_names(fd))
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.DISTANCE_DRIVER)), self.display_names(destroyer))
 
     def test_favorite_discs_without_bags(self):
-        Friend.objects.create(username='manolo')
-        Friend.objects.create(username='fede')
-
-        Disc.objects.create(mold='Deputy')
-        Disc.objects.create(mold='Aviar')
-
-        Disc.objects.create(mold='Compass')
-        Disc.objects.create(mold='Buzzz')
-
-        Disc.objects.create(mold='FD')
-        Disc.objects.create(mold='FD2')
-
-        Disc.objects.create(mold='Destroyer')
-
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.PUTTER)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.DISTANCE_DRIVER)), [])
-
-    def test_favorite_discs_without_friends(self):
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.PUTTER)), [])
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), [])
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), [])
