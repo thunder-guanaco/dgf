@@ -1,0 +1,39 @@
+{% load i18n dgf %}
+<li id="bag">
+    <h2>{% trans "Favorite discs" %}</h2>
+    <div class="inner-content">
+        <div class="table-line">
+            <p>{% trans "Putters" %}</p>
+            <p>{% trans "Mid-ranges" %}</p>
+            <p>{% trans "Fairway drivers" %}</p>
+            <p>{% trans "Distance drivers" %}</p>
+        </div>
+        <hr>
+        <div class="table-line">
+            <div>
+                {% favorite_discs "P" as favorite_putters %}
+                {% for disc in favorite_putters %}
+                    <p>{{disc}}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {% favorite_discs "M" as favorite_midranges %}
+                {% for disc in favorite_midranges %}
+                    <p>{{disc}}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {% favorite_discs "F" as favorite_fairway_drivers %}
+                {% for disc in favorite_fairway_drivers %}
+                    <p>{{disc}}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {% favorite_discs "D" as favorite_distance_drivers %}
+                {% for disc in favorite_distance_drivers %}
+                    <p>{{disc}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</li>

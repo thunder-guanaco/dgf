@@ -1,5 +1,6 @@
 /* mobile */
 @media only screen and (max-width: 600px) {
+
     #friend {
         display: flex;
         flex-direction: column;
@@ -36,14 +37,6 @@
         margin: 1em 0;
     }
 
-    #friend-body div .value {
-        width: 100%;
-    }
-
-    #friend-body div .label {
-        font-weight: bold;
-    }
-
     #friend .pdga b:first-child {
         display: none;
     }
@@ -51,6 +44,7 @@
 }
 /* desktop */
 @media only screen and (min-width: 600px) {
+
     #friend {
         display: flex;
         flex-direction: row;
@@ -71,9 +65,6 @@
         flex-direction: row;
         justify-content: space-between;
         margin: 1em 0;
-    }
-    #friend-body div .value {
-        width: 81%;
     }
 }
 
@@ -111,13 +102,6 @@
     margin: 0;
 }
 
-#friend-info hr {
-    border: none;
-    height: 2px;
-    width: -webkit-fill-available;
-    background-color: #1b2633;
-}
-
 .division,
 .rating {
     font-weight: bold;
@@ -148,10 +132,6 @@
     flex-direction: column;
 }
 
-#friend-body div p.value:before {
-    content: '>\00a0\00a0\00a0';
-}
-
 #friend-body ul {
     margin: 0 !important;
 }
@@ -163,61 +143,4 @@
 
 #friend-body .highlights li:before {
     content: '★\00a0\00a0\00a0';
-}
-
-#aces .value,
-#bag .value {
-    display: flex;
-    flex-direction: column;
-}
-
-.table-line {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.table-line > p,
-.table-line > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0.25em;
-}
-
-#aces .table-line {
-    align-items: center;
-}
-
-#aces .table-line > p,
-#aces .table-line > div {
-    width: 20%;
-}
-
-#aces .ball-container {
-    line-height: 2em;
-    width: 2em;
-}
-
-#aces .ball {
-    font-size: 1em;
-}
-
-#bag .table-line > p,
-#bag .table-line > div {
-    width: 25%;
-}
-
-#bag .table-line:first-child {
-    align-items: flex-end;
-}
-
-#bag .table-line:last-child {
-    align-items: flex-start;
-}
-
-.table-line > div > p {
-    text-align: center;
-    font-size: 0.8em
 }

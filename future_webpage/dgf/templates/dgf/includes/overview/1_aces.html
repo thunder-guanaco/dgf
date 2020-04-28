@@ -1,0 +1,8 @@
+{% load i18n dgf %}
+<li id="aces">
+    <h2>{% trans "Total aces" %}</h2>
+    {% all_aces as aces %}
+    <div class="inner-content">
+        {% include "dgf/includes/aces_table.html" with aces=aces %}
+    </div>
+</li>

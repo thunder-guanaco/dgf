@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static i18n %}
+{% load static i18n dgf %}
 
 {% block title %}
     {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
@@ -107,27 +107,7 @@
                     <div id="aces">
                         <p class="label">{% trans "Aces" %}</p>
                         <div class="value">
-                            <div class="table-line">
-                                <p>{% trans "until " %}{% now "Y" %}</p>
-                                <p>{% trans "in a tournament" %}</p>
-                                <p>{% now 'Y" %}</p>
-                                <p>{% trans "in a tournament" %}</p>
-                                <p>{% trans "TOTAL" %}</p>
-                            </div>
-                            <hr>
-                            <div class="table-line">
-                                <p>{{ friend.aces_before_current_year }}</p>
-                                <p>{{ friend.aces_before_current_year_tournaments }}</p>
-                                <p>{{ friend.aces_current_year }}</p>
-                                <p>{{ friend.aces_current_year_tournaments }}</p>
-                                <div>
-                                    <div class="ball-container">
-                                        <div class="ball">
-                                            {{ friend.aces.count }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
                         </div>
                     </div>
                 {% endif %}

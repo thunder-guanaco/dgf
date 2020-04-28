@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 16:04+0200\n"
+"POT-Creation-Date: 2020-04-28 00:52+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgid "Friends"
 msgstr "Friends"
 
 #: dgf/cms_toolbars.py:15
-#: dgf/templates/dgf/includes/overview/1_all_friends.html:3
+#: dgf/templates/dgf/includes/overview/4_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
@@ -97,80 +97,73 @@ msgstr "Danke für dein Feedback"
 msgid "Save"
 msgstr "Speichern"
 
-#: dgf/templates/dgf/friend_detail.html:37
+#: dgf/templates/dgf/friend_detail.html:44
+#: dgf/templates/dgf/friend_detail.html:46
 msgid "Sponsored by"
 msgstr "Gesponsert von"
 
-#: dgf/templates/dgf/friend_detail.html:41
+#: dgf/templates/dgf/friend_detail.html:51
 #: dgf/templates/dgf/friend_plugin.html:18
 msgid "City"
 msgstr "Stadt"
 
-#: dgf/templates/dgf/friend_detail.html:51
+#: dgf/templates/dgf/friend_detail.html:61
 msgid "Division"
 msgstr "Division"
 
-#: dgf/templates/dgf/friend_detail.html:57
+#: dgf/templates/dgf/friend_detail.html:67
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/templates/dgf/friend_detail.html:70
+#: dgf/templates/dgf/friend_detail.html:80
 msgid "plays since"
 msgstr "spielt Disc Golf seit"
 
-#: dgf/templates/dgf/friend_detail.html:76
+#: dgf/templates/dgf/friend_detail.html:86
 msgid "Discovered disc golf..."
 msgstr "... und ist so zum Sport gekommen"
 
-#: dgf/templates/dgf/friend_detail.html:82
+#: dgf/templates/dgf/friend_detail.html:92
+#: dgf/templates/dgf/includes/overview/3_favorite_courses.html:3
 msgid "Favorite course"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_detail.html:88
-#: dgf/templates/dgf/friend_profile.html:64
+#: dgf/templates/dgf/friend_detail.html:98
+#: dgf/templates/dgf/friend_profile.html:63
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_detail.html:98
-#: dgf/templates/dgf/friend_profile.html:105
+#: dgf/templates/dgf/friend_detail.html:108
+#: dgf/templates/dgf/friend_profile.html:104
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_detail.html:101
-msgid "until "
-msgstr "bis "
-
-#: dgf/templates/dgf/friend_detail.html:102
-#: dgf/templates/dgf/friend_detail.html:104
-msgid "in a tournament"
-msgstr "davon im Turnier"
-
-#: dgf/templates/dgf/friend_detail.html:105
-msgid "TOTAL"
-msgstr "GESAMT"
-
-#: dgf/templates/dgf/friend_detail.html:126
-#: dgf/templates/dgf/friend_profile.html:76
+#: dgf/templates/dgf/friend_detail.html:116
+#: dgf/templates/dgf/friend_profile.html:75
 msgid "In the bag"
 msgstr "In the bag"
 
-#: dgf/templates/dgf/friend_detail.html:129
-#: dgf/templates/dgf/friend_profile.html:78
+#: dgf/templates/dgf/friend_detail.html:119
+#: dgf/templates/dgf/friend_profile.html:77
+#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_detail.html:130
-#: dgf/templates/dgf/friend_profile.html:81
+#: dgf/templates/dgf/friend_detail.html:120
+#: dgf/templates/dgf/friend_profile.html:80
+#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_detail.html:131
-#: dgf/templates/dgf/friend_profile.html:84
+#: dgf/templates/dgf/friend_detail.html:121
+#: dgf/templates/dgf/friend_profile.html:83
+#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:132
-#: dgf/templates/dgf/friend_profile.html:87
+#: dgf/templates/dgf/friend_detail.html:122
+#: dgf/templates/dgf/friend_profile.html:86
+#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
@@ -182,26 +175,47 @@ msgstr "Erfolge/Statistiken der Disc Golf Friends"
 msgid "Profile"
 msgstr "Profil"
 
-#: dgf/templates/dgf/friend_profile.html:26
+#: dgf/templates/dgf/friend_profile.html:25
 msgid "Your profile"
 msgstr "Dein Profil"
 
-#: dgf/templates/dgf/friend_profile.html:38
-#: dgf/templates/dgf/friend_profile.html:49
+#: dgf/templates/dgf/friend_profile.html:37
+#: dgf/templates/dgf/friend_profile.html:48
 msgid "Clear"
 msgstr "Löschen"
 
-#: dgf/templates/dgf/friend_profile.html:119
+#: dgf/templates/dgf/friend_profile.html:118
 msgid "Add ace"
 msgstr "Ass hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:122
+#: dgf/templates/dgf/friend_profile.html:121
 msgid "Update"
 msgstr "Speichern"
+
+#: dgf/templates/dgf/includes/aces_table.html:3
+msgid "until "
+msgstr "bis "
+
+#: dgf/templates/dgf/includes/aces_table.html:4
+#: dgf/templates/dgf/includes/aces_table.html:6
+msgid "in a tournament"
+msgstr "davon im Turnier"
+
+#: dgf/templates/dgf/includes/aces_table.html:7
+msgid "TOTAL"
+msgstr "GESAMT"
 
 #: dgf/templates/dgf/includes/overview/0_number_of_club_members.html:3
 msgid "Number of club members"
 msgstr "Anzahl der Mitglieder"
+
+#: dgf/templates/dgf/includes/overview/1_aces.html:3
+msgid "Total aces"
+msgstr "Asse der Friends"
+
+#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:3
+msgid "Favorite discs"
+msgstr "Lieblingsscheiben"
 
 #: dgf/templates/registration/login.html:20
 msgid "Login"
