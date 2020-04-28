@@ -40,8 +40,10 @@ class FriendAdmin(admin.ModelAdmin):
             'fields': [
                 'username',
                 ('first_name', 'last_name', 'nickname'),
+                'club_role',
                 'sponsor',
                 'sponsor_logo',
+                'sponsor_link',
                 'pdga_number',
                 'division',
                 'city',
