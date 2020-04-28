@@ -5,6 +5,7 @@ $(window).on("load", function() {
     loadHighlights();
     loadAces();
     loadOther();
+    scrollToErrors();
 });
 
 function loadInTheBag(){
@@ -115,4 +116,13 @@ function hideGrandParentElementsOnClick(selector) {
     $(selector +  " input[name$='DELETE']").change(function() {
         $(this).parent().parent().addClass("hidden");
     });
+}
+
+function scrollToErrors() {
+
+    if ($('.errorlist').length) {
+        $('html, body').animate({
+            scrollTop: ($('.errorlist').offset().top - $(".errorlist").height()*5)
+        }, 500);
+    }
 }
