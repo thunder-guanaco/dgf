@@ -31,6 +31,17 @@
     align-items: center;
 }
 
+#statistics .string-list {
+    display: flex;
+    flex-direction: row;
+}
+
+#statistics .string-list p {
+    width: 33.33%;
+    text-align: center;
+    margin: 0;
+}
+
 .all-friends {
     display: flex;
     flex-direction: row;
