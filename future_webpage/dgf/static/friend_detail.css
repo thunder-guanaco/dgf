@@ -100,10 +100,10 @@
     font-size: 1.5em;
 }
 
-#friend .pdga a:link,
-#friend .pdga a:hover,
-#friend .pdga a:active,
-#friend .pdga a:visited {
+#friend a:link,
+#friend a:hover,
+#friend a:active,
+#friend a:visited {
     text-decoration: none;
 }
 
