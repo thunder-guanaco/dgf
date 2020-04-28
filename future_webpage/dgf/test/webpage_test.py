@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from django.test import Client
+from django.test import Client, override_settings
 from django.urls import reverse
 from parameterized import parameterized
 
@@ -14,6 +14,7 @@ class AddTestCase(TestCase):
         ('dgf:friend_detail', ['test']),
         ('dgf:friend_update', []),
     ])
+    @override_settings(ROOT_URLCONF='dgf.test.urls')
     def test_dgf_pages(self, url_name, args):
         friend, created = Friend.objects.get_or_create(defaults={'username': 'test',
                                                                  'slug': 'test'})
