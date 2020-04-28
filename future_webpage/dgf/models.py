@@ -121,8 +121,9 @@ class Friend(User):
 
 
 class Feedback(Model):
-    title = models.CharField(max_length=200, null=False, blank=False)
-    feedback = models.TextField(null=False, blank=False)
+    title = models.CharField(max_length=200)
+    feedback = models.TextField()
+    friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE)
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
