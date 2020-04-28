@@ -89,6 +89,15 @@ class Friend(User):
     total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
+    def full_name(self):
+        nickname = ' ({})'.format(self.nickname) if self.nickname else ''
+        return '{} {}{}'.format(self.first_name, self.last_name, nickname)
+
+    @property
+    def short_name(self):
+        return self.nickname if self.nickname else self.first_name
+
+    @property
     def initials(self):
         return '{} {}'.format(self.first_name[0] if self.first_name else '',
                               self.last_name[0] if self.last_name else '')
@@ -124,6 +133,9 @@ class Feedback(Model):
     title = models.CharField(max_length=200)
     feedback = models.TextField()
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE)
+
+    def __str__(self):
+        return '{} - {}'.format(self.friend.short_name if self.friend else None, self.title)
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
