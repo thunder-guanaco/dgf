@@ -45,6 +45,10 @@ class FeedbackCreate(CreateView):
     model = Feedback
     fields = ['title', 'feedback']
 
+    def form_valid(self, form):
+        form.instance.friend = self.request.user.friend
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
 

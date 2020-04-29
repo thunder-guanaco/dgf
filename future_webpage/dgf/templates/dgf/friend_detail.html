@@ -2,7 +2,7 @@
 {% load static i18n dgf %}
 
 {% block title %}
-    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
+    {{friend.full_name}}
 {% endblock %}
 
 {% block css %}
@@ -27,7 +27,7 @@
         <div id="friend-info">
             <div id="friend-header">
                 <h1>
-                    {% include "dgf/includes/friend_display_full_name.html" with friend=friend %}
+                    {{friend.full_name}}
                     {% if friend.sponsor_logo %}
                         {% if friend.sponsor_link %}
                             <a href="{{friend.sponsor_link}}" target="_blank">
