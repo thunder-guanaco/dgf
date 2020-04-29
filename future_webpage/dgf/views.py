@@ -4,6 +4,7 @@ from django.forms import inlineformset_factory, Select, SelectDateWidget
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import CreateView
+from partial_date import PartialDate
 
 from .models import Friend, Highlight, DiscInBag, Ace, Feedback
 
@@ -35,9 +36,38 @@ DiscFormset = inlineformset_factory(
     widgets={'disc': Select(attrs={'class': 'chosen-select'})}
 )
 
+
+class PartialDateWidget(SelectDateWidget):
+    is_localized = False
+
+    def format_value(self, value):
+        if isinstance(value, PartialDate):
+            date = value.date
+            return {
+                'year': date.year if value.precision >= PartialDate.YEAR else '',
+                'month': date.month if value.precision >= PartialDate.MONTH else '',
+                'day': date.day if value.precision >= PartialDate.DAY else '',
+            }
+        else:
+            return super().format_value(value)
+
+    def value_from_datadict(self, data, files, name):
+        y = data.get(self.year_field % name)
+        m = data.get(self.month_field % name)
+        d = data.get(self.day_field % name)
+        if not y:
+            return None
+        date_string = str(y)
+        if m:
+            date_string += '-{}'.format(m)
+        if d:
+            date_string += '-{}'.format(d)
+        return date_string
+
+
 AceFormset = inlineformset_factory(
     Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
-    extra=0, widgets={'date': SelectDateWidget(years=range(2000, datetime.now().year + 1))}
+    extra=0, widgets={'date': PartialDateWidget(years=range(2000, datetime.now().year + 1))}
 )
 
 

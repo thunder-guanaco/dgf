@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.test import TestCase
+from partial_date import PartialDate
 
 from ..models import Course, Friend, Disc, DiscInBag, Ace
 from ..templatetags import dgf
@@ -64,19 +65,19 @@ class TemplatetagsTest(TestCase):
 
         # before current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 2, 1, 1)))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}-{}'.format(datetime.now().year - 2, 2)))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.CASUAL_ROUND,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}'.format(datetime.now().year - 2)))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 1, month=1, day=1))
+                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 1, 6, 7)))
 
         # current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year, month=1, day=1))
+                           date=PartialDate('{}-{}'.format(datetime.now().year, 1, 12)))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
-                           date=datetime(year=datetime.now().year, month=1, day=1))
+                           date=PartialDate('{}'.format(datetime.now().year)))
 
         self.assertEquals(dgf.before_current_year(manolo.aces), 4)
         self.assertEquals(dgf.before_current_year_tournaments(manolo.aces), 3)
@@ -91,19 +92,19 @@ class TemplatetagsTest(TestCase):
 
         # before current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 2, 1, 1)))
         Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}-{}'.format(datetime.now().year - 2, 2)))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.CASUAL_ROUND,
-                           date=datetime(year=datetime.now().year - 2, month=1, day=1))
+                           date=PartialDate('{}'.format(datetime.now().year - 2)))
         Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year - 1, month=1, day=1))
+                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 1, 6, 7)))
 
         # current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=datetime(year=datetime.now().year, month=1, day=1))
+                           date=PartialDate('{}-{}'.format(datetime.now().year, 1, 12)))
         Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
-                           date=datetime(year=datetime.now().year, month=1, day=1))
+                           date=PartialDate('{}'.format(datetime.now().year)))
 
         all_aces = Ace.objects.all()
         self.assertEquals(dgf.before_current_year(all_aces), 4)

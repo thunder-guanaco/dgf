@@ -10,6 +10,7 @@ from django.db.models.deletion import CASCADE, SET_NULL
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
+from partial_date import PartialDateField
 
 from .post_actions import feedback_post_save
 
@@ -96,7 +97,7 @@ class Friend(User):
 
     @property
     def short_name(self):
-        return self.nickname if self.nickname else self.first_name
+        return self.nickname or self.first_name
 
     @property
     def initials(self):
@@ -107,7 +108,6 @@ class Friend(User):
     def putters(self):
         return self.discs.filter(type=DiscInBag.PUTTER)
 
-    @property
     def mid_ranges(self):
         return self.discs.filter(type=DiscInBag.MID_RANGE)
 
@@ -215,7 +215,7 @@ class Ace(models.Model):
     course = models.ForeignKey(Course, null=True, on_delete=SET_NULL)
     hole = models.CharField(max_length=20)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    date = models.DateField(null=True, blank=True)
+    date = PartialDateField(null=True, blank=True)
 
     def __str__(self):
         return '{} - {} {} {} {} [{}]'.format(self.course,
