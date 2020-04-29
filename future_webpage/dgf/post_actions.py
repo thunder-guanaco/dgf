@@ -9,7 +9,7 @@ def feedback_post_save(instance):
 
     # Create our issue
     issue = {
-        'title': instance.title,
+        'title': '{}: {}'.format(instance.friend.short_name, instance.title),
         'body': instance.feedback,
         'labels': ['Feedback']
     }

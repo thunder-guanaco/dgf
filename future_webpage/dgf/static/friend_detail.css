@@ -107,6 +107,10 @@
     font-size: 1.5em;
 }
 
+#friend .larger {
+    padding: 0.25em 0;
+}
+
 #friend a:link,
 #friend a:hover,
 #friend a:active,
