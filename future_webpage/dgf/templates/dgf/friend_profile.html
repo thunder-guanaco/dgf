@@ -13,11 +13,7 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'chosen.jquery-1.8.7.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'friend_profile.js' %}"></script>
-    <script type="text/javascript">
-        $(window).on("load", function() {
-            $("a[href='/friends/profile']").parent().addClass("selected");
-        });
-    </script>
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/profile" %}
 {% endblock %}
 
 {% block content %}

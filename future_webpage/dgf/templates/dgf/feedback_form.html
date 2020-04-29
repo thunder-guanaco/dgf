@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'feedback.css' %}">
 {% endblock %}
 
+{% block js %}
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/feedback" %}
+{% endblock %}
+
 {% block content %}
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
