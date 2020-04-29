@@ -1,5 +1,10 @@
 {% load i18n dgf %}
 <li>
-    <h2>{% trans "Favorite course" %}</h2>
-    <p class="value inner-content">{% favorite_course %}</p>
+    <h2>{% trans "Favorite courses" %}</h2>
+    {% favorite_courses as courses %}
+    <div class="inner-content string-list">
+        {% for course in courses %}
+            <p>{{course}}</p>
+        {% endfor %}
+    </div>
 </li>

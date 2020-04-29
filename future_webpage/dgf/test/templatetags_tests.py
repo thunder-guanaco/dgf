@@ -15,15 +15,17 @@ class TemplatetagsTest(TestCase):
         DiscInBag.objects.all().delete()
 
     def test_favorite_course(self):
-        mijas, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
-                                                                'Revierpark Wischlingen',
-                                                                'Söhnstetten'])
+        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
+                                                                         'Seepark Lünen',
+                                                                         'Revierpark Wischlingen',
+                                                                         'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(10)], favorite_courses=[mijas, mijas, mijas,
+        self.create_friends(['user_{}'.format(i) for i in range(15)], favorite_courses=[None, None, None, None, None,
+                                                                                        mijas, mijas, mijas, mijas,
+                                                                                        seepark, seepark, seepark,
                                                                                         wischlingen, wischlingen,
-                                                                                        soehnstetten,
-                                                                                        None, None, None, None])
-        self.assertEquals(dgf.favorite_course(), mijas.name)
+                                                                                        soehnstetten])
+        self.assertListEqual(list(dgf.favorite_courses()), [mijas.name, seepark.name, wischlingen.name])
 
     def test_favorite_course_without_favorites(self):
         self.create_courses(['DiscGolfPark Mijas',
@@ -32,19 +34,19 @@ class TemplatetagsTest(TestCase):
 
         self.create_friends(['user_{}'.format(i) for i in range(10)])
 
-        self.assertEquals(dgf.favorite_course(), '')
+        self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_favorite_course_without_friends(self):
         self.create_courses(['DiscGolfPark Mijas',
                              'Revierpark Wischlingen',
                              'Söhnstetten'])
 
-        self.assertEquals(dgf.favorite_course(), '')
+        self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_favorite_course_without_courses(self):
         self.create_friends(['user_{}'.format(i) for i in range(10)])
 
-        self.assertEquals(dgf.favorite_course(), '')
+        self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_all_aces(self):
         manolo = Friend.objects.create(username='manolo')
