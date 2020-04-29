@@ -1,23 +1,3 @@
-/* mobile */
-@media only screen and (max-width: 600px) {
-
-    #friend-body div .label {
-        font-weight: bold;
-    }
-
-    #friend-body div .value {
-        width: 100%;
-    }
-
-}
-/* desktop */
-@media only screen and (min-width: 600px) {
-
-    #friend-body div .value {
-        width: 81%;
-    }
-}
-
 .contains-pdga-attribution {
     position: relative;
     min-height: inherit;
@@ -82,7 +62,7 @@
     font-weight: bold;
 }
 
-.value:before {
+p.value:before {
     content: '>\00a0\00a0\00a0';
 }
 
