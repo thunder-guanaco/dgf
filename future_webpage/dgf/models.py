@@ -68,6 +68,7 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
+    club_role = models.CharField(max_length=200, null=True, blank=True)
     sponsor = models.CharField(max_length=200, null=True, blank=True)
     sponsor_logo = models.ImageField(null=True, blank=True)
     sponsor_link = models.URLField(null=True, blank=True)
@@ -87,6 +88,15 @@ class Friend(User):
     ])
     total_tournaments = models.PositiveIntegerField(null=True, blank=True, default=0)
     total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.00))
+
+    @property
+    def full_name(self):
+        nickname = ' ({})'.format(self.nickname) if self.nickname else ''
+        return '{} {}{}'.format(self.first_name, self.last_name, nickname)
+
+    @property
+    def short_name(self):
+        return self.nickname if self.nickname else self.first_name
 
     @property
     def initials(self):
@@ -121,8 +131,12 @@ class Friend(User):
 
 
 class Feedback(Model):
-    title = models.CharField(max_length=200, null=False, blank=False)
-    feedback = models.TextField(null=False, blank=False)
+    title = models.CharField(max_length=200)
+    feedback = models.TextField()
+    friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE)
+
+    def __str__(self):
+        return '{} - {}'.format(self.friend.short_name if self.friend else None, self.title)
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
