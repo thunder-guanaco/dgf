@@ -68,6 +68,7 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
+    club_role = models.CharField(max_length=200, null=True, blank=True)
     sponsor = models.CharField(max_length=200, null=True, blank=True)
     sponsor_logo = models.ImageField(null=True, blank=True)
     sponsor_link = models.URLField(null=True, blank=True)

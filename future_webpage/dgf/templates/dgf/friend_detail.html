@@ -39,12 +39,18 @@
                     {% endif %}
                 </h1>
                 {% if friend.sponsor %}
-
+                    <div class="larger">
                         {% if friend.sponsor_link %}
                             <p>{% trans "Sponsored by" %} <a href="{{friend.sponsor_link}}" target="_blank">{{friend.sponsor}}</a></p>
                         {% else %}
                             <p>{% trans "Sponsored by" %} {{friend.sponsor}}</p>
                         {% endif %}
+                    </div>
+                {% endif %}
+                {% if friend.club_role %}
+                    <div class="larger">
+                        <p>{{friend.club_role}}</p>
+                    </div>
                 {% endif %}
                 <div class="friend-header-line">
                     {% if friend.city %}

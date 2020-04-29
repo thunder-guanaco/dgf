@@ -55,7 +55,7 @@ class FeedbackCreate(CreateView):
 
 class UpdateView(generic.edit.UpdateView):
     model = Friend
-    fields = ['first_name', 'last_name', 'nickname', 'sponsor', 'sponsor_logo', 'sponsor_link',
+    fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
               'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'free_text', 'favorite_course']
     template_name_suffix = '_profile'
     formsets = [('highlights', HighlightFormset),
