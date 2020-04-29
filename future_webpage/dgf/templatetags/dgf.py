@@ -8,15 +8,16 @@ from ..models import Ace, Friend, DiscInBag
 register = template.Library()
 
 AMOUNT_OF_FAVORITE_DISCS = 3
+AMOUNT_OF_FAVORITE_COURSES = 3
 
 
 @register.simple_tag
-def favorite_course():
-    course = Friend.objects.filter(favorite_course__isnull=False) \
+def favorite_courses():
+    return Friend.objects.filter(favorite_course__isnull=False) \
         .values('favorite_course__name') \
         .annotate(count=Count('favorite_course__name')) \
-        .order_by('-count').first()
-    return course['favorite_course__name'] if course else ''
+        .order_by('-count')[:AMOUNT_OF_FAVORITE_COURSES]\
+        .values_list('favorite_course__name', flat=True)
 
 
 @register.simple_tag
