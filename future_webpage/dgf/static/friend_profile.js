@@ -1,11 +1,12 @@
 ALL_DISC_TYPES = ["P", "M", "F", "D"];
 
 $(window).on("load", function() {
+    scrollToErrors();
     loadInTheBag();
     loadHighlights();
     loadAces();
+    loadVideos();
     loadOther();
-    scrollToErrors();
 });
 
 function loadInTheBag(){
@@ -84,6 +85,26 @@ function activateAceChosen(selector){
     $(selector).chosen({
         disable_search_threshold: 10,
         width: "70%"
+    });
+}
+
+function loadVideos() {
+
+    activateVideoChosen("#videos .field select");
+
+    hideParentElementsOnClick("#videos");
+
+    $("#add-video").click(function(){
+        var new_index = addNewForm("videos", "#videos", "#empty-video-form");
+        activateVideoChosen("select[name='videos-" + new_index + "-type']");
+    });
+
+}
+
+function activateVideoChosen(selector){
+    $(selector).chosen({
+        disable_search_threshold: 10,
+        width: "20%"
     });
 }
 

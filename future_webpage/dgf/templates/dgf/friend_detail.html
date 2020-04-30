@@ -7,12 +7,19 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'friend_detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'grt-youtube-popup.css' %}">
+
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="{% static 'grt-youtube-popup.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/']").parent().addClass("ancestor");
+            $(".youtube-video").grtyoutube({
+                autoPlay:true,
+                theme: "dark"
+            });
         });
     </script>
 {% endblock %}
@@ -99,26 +106,29 @@
                         <p class="value">{{friend.favorite_course}}</p>
                     </div>
                 {% endif %}
-                {% if friend.highlight_set.count %}
+                {% if friend.highlights.count %}
                     <div class="highlights">
                         <p class="label">{% trans "Highlights" %}</p>
                         <ul class="value">
-                            {% for highlight in friend.highlight_set.all %}
+                            {% for highlight in friend.highlights.all %}
                                 <li style="margin-left: 2em;">{{highlight.content}}</li>
                             {% endfor %}
                         </ul>
                     </div>
                 {% endif %}
                 {% if friend.aces.count %}
-                    <div id="aces">
+                    <div id="aces" class="big-field">
                         <p class="label">{% trans "Aces" %}</p>
                         <div class="value">
                             {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
                         </div>
+                        {% if friend.ace_video %}
+                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.ace_video.youtube_id width="192" height="108"%}
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if friend.discs.count %}
-                    <div id="bag">
+                    <div id="bag" class="big-field">
                         <p class="label">{% trans "In the bag" %}</p>
                         <div class="value">
                             <div class="table-line">
@@ -150,6 +160,19 @@
                                     {% endfor %}
                                 </div>
                             </div>
+                        </div>
+                        {% if friend.in_the_bag_video %}
+                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.in_the_bag_video.youtube_id width="192" height="108"%}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if friend.other_videos.count %}
+                    <div id="videos" class="big-field">
+                        <p class="label">{% trans "Videos" %}</p>
+                        <div class="value">
+                            {% for video in friend.other_videos.all %}
+                                {% include "dgf/includes/youtube_video.html" with youtube_id=video.youtube_id width="192" height="108"%}
+                            {% endfor %}
                         </div>
                     </div>
                 {% endif %}
