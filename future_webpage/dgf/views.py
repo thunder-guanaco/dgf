@@ -65,9 +65,11 @@ class PartialDateWidget(SelectDateWidget):
         return date_string
 
 
+current_year = datetime.now().year
+
 AceFormset = inlineformset_factory(
     Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
-    extra=0, widgets={'date': PartialDateWidget(years=range(2000, datetime.now().year + 1))}
+    extra=0, widgets={'date': PartialDateWidget(years=range(current_year, current_year - 20, -1))}
 )
 
 VideoFormset = inlineformset_factory(
