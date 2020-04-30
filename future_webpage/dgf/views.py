@@ -128,11 +128,11 @@ class FeedbackCreate(CreateView):
 
     def get_success_url(self):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
-    
+
 
 class MediaIndex(generic.ListView):
     template_name = 'dgf/media_list.html'
     context_object_name = 'videos'
-
+    
     def get_queryset(self):
         return Video.objects.all().order_by('?')
