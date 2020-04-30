@@ -36,7 +36,7 @@
     flex-direction: row;
 }
 
-#statistics .string-list p {
+#statistics .string-list .item {
     width: 33.33%;
     text-align: center;
     margin: 0;
@@ -50,13 +50,11 @@
     align-items: flex-start;
 }
 
-.all-friends a:link,
-.all-friends a:hover,
-.all-friends a:active,
-.all-friends a:visited {
+#statistics a:link,
+#statistics a:hover,
+#statistics a:active,
+#statistics a:visited {
     text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
 }
 
 #friends .ball-container {
@@ -70,4 +68,12 @@
 
 #friends li .inner-content {
     margin-left: 20%;
+}
+
+#best-friends .friend-ball {
+    flex-direction: row !important;
+}
+
+#best-friends .friend-ball .friend-name {
+    margin: 0 0 0 0.5em !important;
 }
