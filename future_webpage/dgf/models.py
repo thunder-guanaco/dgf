@@ -240,6 +240,12 @@ class Ace(models.Model):
 
 
 class Video(Model):
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['url', 'friend'], name='unique_video_for_friend'),
+        ]
+
     IN_THE_BAG = 'B'
     ACE = 'A'
     OTHER = 'O'
@@ -254,8 +260,19 @@ class Video(Model):
 
     @property
     def youtube_id(self):
-        youtube_id_parameter = re.findall('v=[a-zA-Z0-9_-]+', str(self.url))[0]
-        return youtube_id_parameter.split('=')[1]
+
+        # full Youtube URL
+        matches = re.findall('v=[a-zA-Z0-9_-]+', str(self.url))
+        if matches:
+            return matches[0].split('=')[1]
+
+        # short Youtube URL
+        matches = re.findall('youtu.be/[a-zA-Z0-9_-]+', str(self.url))
+        if matches:
+            return matches[0].split('/')[1]
+
+        logger.warning('{} is not a valid Youtube URL'.format(self.url))
+        return None
 
     def __str__(self):
         return str(self.url)
