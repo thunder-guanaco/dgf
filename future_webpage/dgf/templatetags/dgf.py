@@ -27,22 +27,22 @@ def all_aces():
 
 @register.filter
 def before_current_year(aces):
-    return aces.filter(date__year__lt=datetime.now().year).count()
+    return aces.filter(date__lt=_current_year_as_str()).count()
 
 
 @register.filter
 def before_current_year_tournaments(aces):
-    return aces.filter(date__year__lt=datetime.now().year, type=Ace.TOURNAMENT).count()
+    return aces.filter(date__lt=_current_year_as_str(), type=Ace.TOURNAMENT).count()
 
 
 @register.filter
 def current_year(aces):
-    return aces.filter(date__year=datetime.now().year).count()
+    return aces.filter(date__gte=_current_year_as_str()).count()
 
 
 @register.filter
 def current_year_tournaments(aces):
-    return aces.filter(date__year=datetime.now().year, type=Ace.TOURNAMENT).count()
+    return aces.filter(date__gte=_current_year_as_str(), type=Ace.TOURNAMENT).count()
 
 
 @register.simple_tag
@@ -52,3 +52,7 @@ def favorite_discs(disc_type):
         .annotate(count=Count('disc__display_name')) \
         .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
         .values_list('disc__display_name', flat=True)
+
+
+def _current_year_as_str():
+    return datetime.now().strftime('%Y')
