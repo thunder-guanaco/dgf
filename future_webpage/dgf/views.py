@@ -133,6 +133,6 @@ class FeedbackCreate(CreateView):
 class MediaIndex(generic.ListView):
     template_name = 'dgf/media_list.html'
     context_object_name = 'videos'
-    
+
     def get_queryset(self):
         return Video.objects.all().order_by('?')
