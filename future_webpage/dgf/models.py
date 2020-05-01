@@ -69,10 +69,13 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
+    nickname = models.CharField(max_length=30, null=True, blank=True)
     club_role = models.CharField(max_length=200, null=True, blank=True)
+
     sponsor = models.CharField(max_length=200, null=True, blank=True)
     sponsor_logo = models.ImageField(null=True, blank=True)
     sponsor_link = models.URLField(null=True, blank=True)
+
     pdga_number = models.PositiveIntegerField(null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL)
     city = models.CharField(max_length=100, null=True, blank=True)
@@ -82,7 +85,6 @@ class Friend(User):
     free_text = models.TextField(null=True, blank=True)
     favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=SET_NULL)
 
-    nickname = models.CharField(max_length=30, null=True, blank=True)
     slug = models.SlugField(max_length=30, null=True, blank=True)
     rating = models.PositiveIntegerField(null=True, blank=True, validators=[
         MaxValueValidator(2000)
@@ -119,6 +121,18 @@ class Friend(User):
     def distance_drivers(self):
         return self.discs.filter(type=DiscInBag.DISTANCE_DRIVER)
 
+    @property
+    def in_the_bag_video(self):
+        return self.videos.filter(type=Video.IN_THE_BAG).first()
+
+    @property
+    def ace_video(self):
+        return self.videos.filter(type=Video.ACE).first()
+
+    @property
+    def other_videos(self):
+        return self.videos.filter(type=Video.OTHER)
+
     def __str__(self):
         pdga_number = ' #{}'.format(self.pdga_number) if self.pdga_number else ''
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
@@ -148,7 +162,7 @@ class Feedback(Model):
 
 class Highlight(Model):
     content = models.CharField(max_length=100)
-    friend = models.ForeignKey(Friend, on_delete=CASCADE)
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='highlights')
 
 
 class FriendPluginModel(CMSPlugin):
@@ -223,3 +237,42 @@ class Ace(models.Model):
                                               _('with a'), self.disc.display_name,
                                               self.get_type_display(),
                                               " - {}".format(self.date) if self.date else "")
+
+
+class Video(Model):
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['url', 'friend'], name='unique_video_for_friend'),
+        ]
+
+    IN_THE_BAG = 'B'
+    ACE = 'A'
+    OTHER = 'O'
+    TYPE_CHOICES = (
+        (IN_THE_BAG, _('In the bag')),
+        (ACE, _('Ace')),
+        (OTHER, _('Other')),
+    )
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=OTHER)
+    url = models.URLField()
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='videos')
+
+    @property
+    def youtube_id(self):
+
+        # full Youtube URL
+        matches = re.findall('v=[a-zA-Z0-9_-]+', str(self.url))
+        if matches:
+            return matches[0].split('=')[1]
+
+        # short Youtube URL
+        matches = re.findall('youtu.be/[a-zA-Z0-9_-]+', str(self.url))
+        if matches:
+            return matches[0].split('/')[1]
+
+        logger.warning('{} is not a valid Youtube URL'.format(self.url))
+        return None
+
+    def __str__(self):
+        return str(self.url)
