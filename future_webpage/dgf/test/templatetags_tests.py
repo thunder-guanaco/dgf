@@ -179,6 +179,28 @@ class TemplatetagsTest(TestCase):
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), [])
         self.assertListEqual(list(dgf.favorite_discs(DiscInBag.DISTANCE_DRIVER)), [])
 
+    def test_best_friends(self):
+        manolo, kevin, fede, mario = self.create_friends(['manolo', 'kevin', 'fede', 'mario'],
+                                                         ratings=[883, 1007, 903, 881])
+        all_friends = Friend.objects.all()
+        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, fede, manolo])
+
+    def test_best_friends_someone_without_rating(self):
+        manolo, kevin, wolfgang = self.create_friends(['manolo', 'kevin', 'wolfgang'],
+                                                      ratings=[883, 1007, None])
+        all_friends = Friend.objects.all()
+        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo, wolfgang])
+
+    def test_best_friends_only_not_enough(self):
+        manolo, kevin = self.create_friends(['manolo', 'kevin'],
+                                            ratings=[883, 1007])
+        all_friends = Friend.objects.all()
+        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo])
+
+    def test_best_friends_without_friends(self):
+        all_friends = Friend.objects.all()
+        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [])
+
     def display_names(self, *args):
         return [disc.display_name for disc in args]
 
@@ -192,15 +214,20 @@ class TemplatetagsTest(TestCase):
 
         return new_courses
 
-    def create_friends(self, usernames, favorite_courses=None):
+    def create_friends(self, usernames, favorite_courses=None, ratings=None):
 
         new_friends = []
 
         if type(favorite_courses) != list:
             favorite_courses = [favorite_courses for _ in range(len(usernames))]
 
+        if type(ratings) != list:
+            ratings = [ratings for _ in range(len(usernames))]
+
         for i, username in enumerate(usernames):
-            new_friend = Friend.objects.create(username=username, favorite_course=favorite_courses[i])
+            new_friend = Friend.objects.create(username=username,
+                                               favorite_course=favorite_courses[i],
+                                               rating=ratings[i])
             new_friends.append(new_friend)
 
         return new_friends
