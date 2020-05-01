@@ -120,22 +120,10 @@ input[name$="DELETE"]:before {
     margin-bottom: 1em;
 }
 
-#videos .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-}
-
-#videos .header p {
-    text-align: center;
-}
-
-#videos .header p:first-child,
 #videos input[name$="title"] {
     width: 25%
 }
 
-#videos .header p:last-child,
 #videos input[name$="url"] {
     width: 65%
 }
