@@ -130,3 +130,56 @@ hr {
     font-size: 0.8em;
     margin: 0.25em !important;
 }
+
+.youtube-video {
+    width: 192px;
+    height: 108px;
+    cursor: pointer;
+    transition: transform .2s;
+    position: relative;
+    margin: 1em;
+    -webkit-box-shadow: 0px 0px 8px 0px #8d1950;
+    -moz-box-shadow: 0px 0px 8px 0px #8d1950;
+    box-shadow: 0px 0px 8px 0px #8d1950;
+}
+
+.youtube-video:hover {
+    transform: scale(1.1);
+    z-index: 888;
+}
+
+.youtube-video img {
+    object-fit: cover;
+    object-position: center;
+    filter: opacity(50%);
+    transition: transform .5s;
+}
+
+
+.youtube-video img:hover {
+    filter: opacity(100%);
+}
+
+.youtube-video .play-button-container {
+    width: 50px;
+    height: 50px;
+    background-color: #8d1950;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.youtube-video .play-button-container .play-button {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid #ffffff;
+    text-align: center;
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

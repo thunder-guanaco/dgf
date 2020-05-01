@@ -78,18 +78,6 @@ VideoFormset = inlineformset_factory(
 )
 
 
-class FeedbackCreate(CreateView):
-    model = Feedback
-    fields = ['title', 'feedback']
-
-    def form_valid(self, form):
-        form.instance.friend = self.request.user.friend
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
-
-
 class UpdateView(generic.edit.UpdateView):
     model = Friend
     fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
@@ -128,3 +116,23 @@ class UpdateView(generic.edit.UpdateView):
 
     def get_success_url(self):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+
+
+class FeedbackCreate(CreateView):
+    model = Feedback
+    fields = ['title', 'feedback']
+
+    def form_valid(self, form):
+        form.instance.friend = self.request.user.friend
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+
+
+class MediaIndex(generic.ListView):
+    template_name = 'dgf/media_list.html'
+    context_object_name = 'videos'
+
+    def get_queryset(self):
+        return Video.objects.all().order_by('?')
