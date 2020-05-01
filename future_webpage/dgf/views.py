@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic import CreateView
 from partial_date import PartialDate
 
-from .models import Friend, Highlight, DiscInBag, Ace, Feedback
+from .models import Friend, Highlight, DiscInBag, Ace, Feedback, Video
 
 
 class IndexView(generic.ListView):
@@ -72,6 +72,11 @@ AceFormset = inlineformset_factory(
     extra=0, widgets={'date': PartialDateWidget(years=range(current_year, current_year - 20, -1))}
 )
 
+VideoFormset = inlineformset_factory(
+    Friend, Video, fields=('url', 'type'),
+    extra=0
+)
+
 
 class FeedbackCreate(CreateView):
     model = Feedback
@@ -92,7 +97,8 @@ class UpdateView(generic.edit.UpdateView):
     template_name_suffix = '_profile'
     formsets = [('highlights', HighlightFormset),
                 ('discs', DiscFormset),
-                ('aces', AceFormset)]
+                ('aces', AceFormset),
+                ('videos', VideoFormset)]
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)

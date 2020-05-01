@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block js %}
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/profile" %}
     <script type="text/javascript" src="{% static 'chosen.jquery-1.8.7.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'friend_profile.js' %}"></script>
-    {% include "dgf/includes/select_in_menu.html" with path="/friends/profile" %}
 {% endblock %}
 
 {% block content %}
@@ -112,6 +112,28 @@
                 </div>
             </div>
             <input id="add-ace" type="button" value="{% trans 'Add ace' %}">
+
+            {{ videos.management_form }}
+            <div class="field">
+                <div>{% trans "Videos" %}</div>
+            </div>
+            <div id="videos">
+                <span class="header">
+                    <p>{% trans "Title" %}</p>
+                    <p>{% trans "URL" %}</p>
+                </span>
+                {% for field in videos %}
+                    <div class="field">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="empty-video-form" class="hidden">
+                <div class="field">
+                    {{ videos.empty_form }}
+                </div>
+            </div>
+            <input id="add-video" type="button" value="{% trans 'Add video' %}">
 
         </div>
         <input id="submit" type="submit" value="{% trans 'Update' %}">

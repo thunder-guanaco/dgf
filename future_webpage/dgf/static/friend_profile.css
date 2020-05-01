@@ -30,8 +30,9 @@ form .highlight {
 }
 
 .hidden,
-.highlight label,
-#bag label{
+#highlights label,
+#bag label,
+#videos label {
     display: none !important;
 }
 
@@ -117,4 +118,28 @@ input[name$="DELETE"]:before {
 
 .ace {
     margin-bottom: 1em;
+}
+
+#videos .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#videos .header p {
+    text-align: center;
+}
+
+#videos .header p:first-child,
+#videos input[name$="title"] {
+    width: 25%
+}
+
+#videos .header p:last-child,
+#videos input[name$="url"] {
+    width: 65%
+}
+
+#videos div.field {
+    margin: 0 0 1em 0 !important;
 }

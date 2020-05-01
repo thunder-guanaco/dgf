@@ -53,10 +53,14 @@
     flex-wrap: nowrap;
 }
 
-#scrollable-header .friend-ball:first-child,
-#scrollable-header .friend-ball:last-child {
-    margin: 0 !important;
+#scrollable-header .friend-ball:first-child {
+    margin: 0 1em 0 0 !important;
 }
+
+#scrollable-header .friend-ball:last-child {
+    margin: 0 0 0 1em !important;
+}
+
 
 #friends-header .arrow-left {
     align-self: flex-start;
