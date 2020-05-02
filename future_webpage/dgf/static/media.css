@@ -1,6 +1,21 @@
+/* mobile */
+@media only screen and (max-width: 600px) {
+
+    #media .videos {
+        flex-direction: column;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 600px) {
+
+    #media .videos {
+        flex-direction: row;
+    }
+}
+
 #media .videos {
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;

@@ -1,6 +1,6 @@
 <a class="friend-ball" href="{% url 'dgf:friend_detail' friend.slug %}">
     {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
     <div class="friend-name">
-        {{friend.short_name}}
+        {{friend.short_name}}{% if show_rating and friend.rating %} ({{friend.rating}}){% endif %}
     </div>
 </a>

@@ -17,6 +17,6 @@
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
         {% trans "Thank you for the feedback" as thank_you %}
-        <input id="feedback_submit" type="submit" value="{% trans 'Save' %}" onclick="return alert('{{thank_you}}') == undefined;">
+        <input id="feedback_submit" type="submit" value="{% trans 'Send' %}" onclick="return alert('{{thank_you}}') == undefined;">
     </form>
 {% endblock %}
