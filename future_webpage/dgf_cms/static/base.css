@@ -94,7 +94,7 @@
 html {
     background-color: #ffffff;
     color: #1b2633;
-    font-family: Gnuolane;
+    font-family: Gnuolane !important;
     font-size: 1.25em;
     font-weight: lighter;
     overflow-x: hidden;
@@ -103,6 +103,7 @@ html {
 
 a:link, a:hover, a:active, a:visited {
     color: #8d1950;
+    text-decoration: none !important;
 }
 
 body {
@@ -145,7 +146,6 @@ body {
 #navigation-bar a:hover,
 #navigation-bar a:active,
 #navigation-bar a:visited {
-    text-decoration: none;
     color: #ffffff;
     font-weight: bold;
 }

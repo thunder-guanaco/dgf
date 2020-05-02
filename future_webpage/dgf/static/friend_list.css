@@ -50,13 +50,6 @@
     align-items: flex-start;
 }
 
-#statistics a:link,
-#statistics a:hover,
-#statistics a:active,
-#statistics a:visited {
-    text-decoration: none;
-}
-
 #friends .ball-container {
     line-height: 3em;
     width: 3em;

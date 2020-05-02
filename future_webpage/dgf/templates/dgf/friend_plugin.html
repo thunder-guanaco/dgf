@@ -1,20 +1,9 @@
-{% load i18n sekizai_tags static %}
+{% load sekizai_tags static %}
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'friend_plugin.css' %}">
 {% endaddtoblock "css" %}
 
-<div class="friend-plugin">
-    <div class="picture">
-        {% include "dgf/includes/friend_picture.html" with img_size="200px" font_size="56px" %}
-    </div>
-    <div class="content">
-        <h1>
-            {{friend.short_name}}
-        </h1>
-        {% if friend.pdga_number %}
-            <h2><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></h2>
-        {% endif %}
-        <p><b>{% trans "City" %}: </b>{{friend.city | default:'-'}}</p>
-    </div>
+<div style="zoom: {{zoom}};">
+    {% include "dgf/includes/friend_ball.html" with friend=friend %}
 </div>

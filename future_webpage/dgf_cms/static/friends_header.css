@@ -82,8 +82,10 @@
     border-left: 1em solid #1b2633;
 }
 
-#friends-header a:link, #friends-header a:hover, #friends-header a:active, #friends-header a:visited {
-    text-decoration: none;
+#friends-header a:link,
+#friends-header a:hover,
+#friends-header a:active,
+#friends-header a:visited {
     color: #ffffff;
     font-weight: bold;
 }
