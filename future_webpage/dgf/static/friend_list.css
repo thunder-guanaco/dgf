@@ -56,6 +56,15 @@
     }
 }
 
+#friend-list-header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+#friend-list-header-text > img {
+    align-self: center;
+}
+
 #statistics li {
     list-style-type: none;
 }
