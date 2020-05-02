@@ -1,3 +1,16 @@
+/* mobile */
+@media only screen and (max-width: 600px) {
+
+    .youtube-video {
+        align-self: center;
+    }
+
+    .youtube-video img {
+        height: -webkit-fill-available !important;
+    }
+
+}
+
 .contains-pdga-attribution {
     position: relative;
     min-height: inherit;
