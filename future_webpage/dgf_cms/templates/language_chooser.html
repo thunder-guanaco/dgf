@@ -1,0 +1,12 @@
+{% load i18n menu_tags %}
+
+<div class="language-chooser">
+    {% for language in languages %}
+        <span class="cms-language">
+            <a href="{% page_language_url language.0 %}"
+               class="lang {% if current_language == language.0 %}active{% endif %}"
+               title="{% trans 'Change to language' %}: {{ language.1 }}">{{ language.1 }}</a>
+            <span>｜</span>
+        </span>
+    {% endfor %}
+</div>
