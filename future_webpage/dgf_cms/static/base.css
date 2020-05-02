@@ -200,6 +200,10 @@ body {
     height: auto;
 }
 
+.container > img {
+    align-self: center;
+}
+
 .content {
     float: left;
     width: 100%;
@@ -239,4 +243,16 @@ footer table {
 footer p, footer td {
     padding: 0;
     margin: 0.25em 0.5em;
+}
+
+.align-left {
+    align-self: flex-start !important;
+}
+
+.align-center {
+    align-self: center !important;
+}
+
+.align-right {
+    align-self: flex-end !important;
 }
