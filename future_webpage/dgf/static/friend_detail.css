@@ -152,13 +152,6 @@
     padding: 0.25em 0;
 }
 
-#friend a:link,
-#friend a:hover,
-#friend a:active,
-#friend a:visited {
-    text-decoration: none;
-}
-
 #friend-info p {
     margin: 0;
 }

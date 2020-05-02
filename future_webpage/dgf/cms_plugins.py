@@ -11,10 +11,26 @@ class FriendPluginPublisher(CMSPluginBase):
     module = _('Disc Golf Friends')
     name = _('Friend')
     render_template = 'dgf/friend_plugin.html'
+    zoom = '1'
 
     def render(self, context, instance, placeholder):
-        context.update({'friend': instance.friend})
+        context.update({
+            'friend': instance.friend,
+            'zoom': self.zoom,
+        })
         return context
+
+
+@plugin_pool.register_plugin
+class SmallerFriendPluginPublisher(FriendPluginPublisher):
+    name = _('Friend (small)')
+    zoom = '0.5'
+
+
+@plugin_pool.register_plugin
+class BiggerFriendPluginPublisher(FriendPluginPublisher):
+    name = _('Friend (big)')
+    zoom = '2'
 
 
 @plugin_pool.register_plugin
