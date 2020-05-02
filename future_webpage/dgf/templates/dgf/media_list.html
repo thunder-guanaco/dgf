@@ -8,6 +8,20 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'media.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'grt-youtube-popup.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'grt-youtube-popup.js' %}"></script>
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/media" %}
+    <script type="text/javascript">
+        $(window).on("load", function() {
+            $(".youtube-video").grtyoutube({
+                autoPlay:true,
+                theme: "dark"
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
