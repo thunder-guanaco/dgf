@@ -1,6 +1,6 @@
 {% load i18n dgf %}
 <li id="best-friends">
-    <h2>{% trans "Best Friends" %}</h2>
+    <h2>{% trans "Best players" %}</h2>
     <div class="inner-content string-list">
         {% for friend in friends|order_by_rating %}
             <a class="item" href="{% url 'dgf:friend_detail' friend.slug %}">

@@ -118,6 +118,37 @@ body {
     text-align: center;
     background-color: #1b2633;
     color: #ffffff;
+    position: relative;
+}
+
+.language-chooser {
+    position: absolute;
+    top: 0;
+    right: 0
+}
+
+.language-chooser {
+    padding: 1em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.language-chooser .cms-language a {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.language-chooser .cms-language .active {
+    color: #8d1950 !important;
+}
+
+.language-chooser .cms-language span {
+    color: gray;
+    font-weight: bold;
+}
+
+.language-chooser .cms-language:last-child span {
+    display: none;
 }
 
 #navigation-bar {

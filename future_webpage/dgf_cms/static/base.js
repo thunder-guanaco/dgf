@@ -1,6 +1,5 @@
 $(window).on("load", function() {
     stickyOffset = $('#navigation-bar').offset().top;
-    console.log($('#navigation-bar').offset().top);
 
     var sticky = false;
     $(window).scroll(function(){
@@ -19,6 +18,7 @@ $(window).on("load", function() {
             $("#navigation-bar").removeClass("sticky");
             if (sticky) {
                 $("#navigation-bar ul").first().children().first().remove();
+                $("#navigation-bar ul .language-chooser").remove();
                 sticky = false;
             }
         }

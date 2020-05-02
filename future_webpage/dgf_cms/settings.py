@@ -258,7 +258,7 @@ CMS_LANGUAGES = {
         },
     ],
     'default': {
-        'fallbacks': ['en', 'de'],
+        'fallbacks': ['de'],
         'redirect_on_fallback': True,
         'public': True,
         'hide_untranslated': False,
