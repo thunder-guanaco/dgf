@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Friend, Highlight, DiscInBag, Course, Ace
+from .models import Friend, Highlight, DiscInBag, Course, Ace, Feedback
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -15,7 +15,6 @@ class CourseAdmin(admin.ModelAdmin):
     ]
 
     list_display = ('name', 'postal_code', 'city', 'country')
-
     search_fields = list_display
 
 
@@ -63,9 +62,24 @@ class FriendAdmin(admin.ModelAdmin):
     ]
 
     list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')
-
     search_fields = ('username', 'first_name', 'last_name', 'pdga_number', 'nickname', 'slug')
+
+
+class FeedbackAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('', {
+            'fields': [
+                'title',
+                'feedback',
+                'friend'
+            ]}
+         )
+    ]
+
+    list_display = ('title', 'feedback', 'friend')
+    search_fields = ('title', 'feedback')
 
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Friend, FriendAdmin)
+admin.site.register(Feedback, FeedbackAdmin)
