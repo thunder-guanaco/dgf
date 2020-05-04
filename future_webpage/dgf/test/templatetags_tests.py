@@ -3,7 +3,7 @@ from datetime import datetime
 from django.test import TestCase
 from partial_date import PartialDate
 
-from ..models import Course, Friend, Disc, DiscInBag, Ace
+from ..models import Course, Friend, Disc, DiscInBag, Ace, FavoriteCourse
 from ..templatetags import dgf
 
 
@@ -12,8 +12,25 @@ class TemplatetagsTest(TestCase):
     def setUp(self):
         Course.objects.all().delete()
         Friend.objects.all().delete()
+        FavoriteCourse.objects.all().delete()
         Disc.objects.all().delete()
         DiscInBag.objects.all().delete()
+
+    def test_more_than_one_favorite_course(self):
+        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
+                                                                         'Seepark Lünen',
+                                                                         'Revierpark Wischlingen',
+                                                                         'Söhnstetten'])
+
+        self.create_friends(['user_{}'.format(i) for i in range(6)],
+                            favorite_courses=[(),
+                                              (mijas,),
+                                              (seepark,),
+                                              (mijas, wischlingen),
+                                              (mijas, wischlingen, seepark),
+                                              (mijas, wischlingen, soehnstetten)])
+
+        self.assertListEqual(list(dgf.favorite_courses()), [mijas.name, wischlingen.name, seepark.name])
 
     def test_favorite_course(self):
         mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
@@ -21,11 +38,13 @@ class TemplatetagsTest(TestCase):
                                                                          'Revierpark Wischlingen',
                                                                          'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(15)], favorite_courses=[None, None, None, None, None,
-                                                                                        mijas, mijas, mijas, mijas,
-                                                                                        seepark, seepark, seepark,
-                                                                                        wischlingen, wischlingen,
-                                                                                        soehnstetten])
+        self.create_friends(['user_{}'.format(i) for i in range(15)],
+                            favorite_courses=[(), (), (), (), (),
+                                              (mijas,), (mijas,), (mijas,), (mijas,),
+                                              (seepark,), (seepark,), (seepark,),
+                                              (wischlingen,), (wischlingen,),
+                                              (soehnstetten,)])
+
         self.assertListEqual(list(dgf.favorite_courses()), [mijas.name, seepark.name, wischlingen.name])
 
     def test_favorite_course_without_favorites(self):
@@ -214,7 +233,7 @@ class TemplatetagsTest(TestCase):
 
         return new_courses
 
-    def create_friends(self, usernames, favorite_courses=None, ratings=None):
+    def create_friends(self, usernames, favorite_courses=(), ratings=None):
 
         new_friends = []
 
@@ -225,9 +244,14 @@ class TemplatetagsTest(TestCase):
             ratings = [ratings for _ in range(len(usernames))]
 
         for i, username in enumerate(usernames):
-            new_friend = Friend.objects.create(username=username,
-                                               favorite_course=favorite_courses[i],
-                                               rating=ratings[i])
+
+            new_friend = Friend.objects.create(username=username, rating=ratings[i])
+
+            for course in favorite_courses[i]:
+                if isinstance(course, Course):
+                    favorite = FavoriteCourse.objects.create(course=course, friend=new_friend)
+                    new_friend.favorite_courses.add(favorite)
+
             new_friends.append(new_friend)
 
         return new_friends

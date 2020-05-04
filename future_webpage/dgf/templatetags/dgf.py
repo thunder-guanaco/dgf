@@ -3,7 +3,7 @@ from datetime import datetime
 from django import template
 from django.db.models import Count
 
-from ..models import Ace, Friend, DiscInBag
+from ..models import Ace, DiscInBag, FavoriteCourse
 
 register = template.Library()
 
@@ -14,11 +14,11 @@ AMOUNT_OF_BEST_FRIENDS = 3
 
 @register.simple_tag
 def favorite_courses():
-    return Friend.objects.filter(favorite_course__isnull=False) \
-               .values('favorite_course__name') \
-               .annotate(count=Count('favorite_course__name')) \
+    return FavoriteCourse.objects.all() \
+               .values('course__name') \
+               .annotate(count=Count('course__name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_COURSES] \
-               .values_list('favorite_course__name', flat=True)
+               .values_list('course__name', flat=True)
 
 
 @register.simple_tag
