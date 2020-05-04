@@ -49,7 +49,7 @@ class Course(Model):
     country = CountryField(_('Country'))
 
     def __str__(self):
-        if self.city in self.name:
+        if self._contain_each_other(self.name, self.city):
             if self.country == 'DE':
                 place = ''
             else:
@@ -61,6 +61,15 @@ class Course(Model):
                 place = ' ({}, {})'.format(self.city, self.country)
 
         return '{}{}'.format(self.name, place)
+
+    def _contain_each_other(self, a, b):
+        words_a = self._words_of(a)
+        words_b = self._words_of(b)
+        return len(words_a.intersection(words_b)) > 0
+
+    @staticmethod
+    def _words_of(string):
+        return set(re.findall('\w+', string))
 
 
 class Friend(User):
@@ -255,7 +264,6 @@ class Ace(models.Model):
 
 
 class Video(Model):
-
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['url', 'friend'], name='unique_video_for_friend'),
