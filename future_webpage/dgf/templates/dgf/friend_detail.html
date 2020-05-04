@@ -100,7 +100,7 @@
                         <p class="value">{{friend.free_text}}</p>
                     </div>
                 {% endif %}
-                {% if friend.favorite_courses %}
+                {% if friend.favorite_courses.count %}
                     <div class="favorite-courses">
                         <p class="label">{% trans "Favorite courses" %}</p>
                         <ul class="value">

@@ -15,10 +15,8 @@ AMOUNT_OF_BEST_FRIENDS = 3
 @register.simple_tag
 def favorite_courses():
     return FavoriteCourse.objects.all() \
-               .values('course__name') \
-               .annotate(count=Count('course__name')) \
-               .order_by('-count')[:AMOUNT_OF_FAVORITE_COURSES] \
-               .values_list('course__name', flat=True)
+               .annotate(count=Count('course')) \
+               .order_by('-count')[:AMOUNT_OF_FAVORITE_COURSES]
 
 
 @register.simple_tag
