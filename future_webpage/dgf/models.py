@@ -25,8 +25,8 @@ class Division(Model):
     https://www.pdga.com/pdga-documents/tour-documents/divisions-ratings-and-points-factors
     """
 
-    id = models.CharField(max_length=10, primary_key=True)
-    text = models.CharField(max_length=100)
+    id = models.CharField(_('ID'), max_length=10, primary_key=True)
+    text = models.CharField(_('Text'), max_length=100)
 
     def __str__(self):
         return self.text
@@ -43,10 +43,10 @@ class Course(Model):
             models.UniqueConstraint(fields=['name', 'postal_code', 'country'], name='unique_course'),
         ]
 
-    name = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=10)
-    city = models.CharField(max_length=50)
-    country = CountryField()
+    name = models.CharField(_('Name'), max_length=100)
+    postal_code = models.CharField(_('Postal code'), max_length=10)
+    city = models.CharField(_('City'), max_length=50)
+    country = CountryField(_('Country'))
 
     def __str__(self):
         if self.city in self.name:
@@ -69,28 +69,29 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
         ]
 
-    nickname = models.CharField(max_length=30, null=True, blank=True)
-    club_role = models.CharField(max_length=200, null=True, blank=True)
+    nickname = models.CharField(_('Nickname'), max_length=30, null=True, blank=True)
+    club_role = models.CharField(_('Club role'), max_length=200, null=True, blank=True)
 
-    sponsor = models.CharField(max_length=200, null=True, blank=True)
-    sponsor_logo = models.ImageField(null=True, blank=True)
-    sponsor_link = models.URLField(null=True, blank=True)
+    sponsor = models.CharField(_('Sponsor'), max_length=200, null=True, blank=True)
+    sponsor_logo = models.ImageField(_('Sponsor logo'), null=True, blank=True)
+    sponsor_link = models.URLField(_('Sponsor link'), null=True, blank=True)
 
-    pdga_number = models.PositiveIntegerField(null=True, blank=True)
-    division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL)
-    city = models.CharField(max_length=100, null=True, blank=True)
-    main_photo = models.ImageField(null=True, blank=True)
-    plays_since = models.PositiveIntegerField(null=True, blank=True,
+    pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=True)
+    division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
+    city = models.CharField(_('City'), max_length=100, null=True, blank=True)
+    main_photo = models.ImageField(_('Main photo'), null=True, blank=True)
+    plays_since = models.PositiveIntegerField(_('Plays since'), null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
-    free_text = models.TextField(null=True, blank=True)
-    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=SET_NULL)
+    free_text = models.TextField(_('Started playing'), null=True, blank=True)
+    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=SET_NULL,
+                                        verbose_name=_('Favorite course'))
 
-    slug = models.SlugField(max_length=30, null=True, blank=True)
-    rating = models.PositiveIntegerField(null=True, blank=True, validators=[
+    slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
+    rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[
         MaxValueValidator(2000)
     ])
-    total_tournaments = models.PositiveIntegerField(null=True, blank=True, default=0)
-    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.00))
+    total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
+    total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
     def full_name(self):
@@ -145,9 +146,9 @@ class Friend(User):
 
 
 class Feedback(Model):
-    title = models.CharField(max_length=200)
-    feedback = models.TextField()
-    friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE)
+    title = models.CharField(_('Title'), max_length=200)
+    feedback = models.TextField(_('Feedback'), )
+    friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
 
     def __str__(self):
         return '{} - {}'.format(self.friend.short_name if self.friend else None, self.title)
@@ -161,7 +162,7 @@ class Feedback(Model):
 
 
 class Highlight(Model):
-    content = models.CharField(max_length=100)
+    content = models.CharField(_('Content'), max_length=100)
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='highlights')
 
 
@@ -173,9 +174,9 @@ class FriendPluginModel(CMSPlugin):
 
 
 class Disc(models.Model):
-    manufacturer = models.CharField(max_length=200, null=True, blank=True)
-    mold = models.CharField(max_length=200, unique=True)
-    display_name = models.CharField(max_length=200)
+    manufacturer = models.CharField(_('Manufacturer'), max_length=200, null=True, blank=True)
+    mold = models.CharField(_('Mold'), max_length=200, unique=True)
+    display_name = models.CharField(_('Display name'), max_length=200)
 
     def __str__(self):
         return '{} [{}]'.format(self.mold, self.manufacturer)
@@ -201,9 +202,9 @@ class DiscInBag(models.Model):
         (FAIRWAY_DRIVER, _('Fairway driver')),
         (DISTANCE_DRIVER, _('Distance driver')),
     )
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    amount = models.PositiveIntegerField(default=1)
-    disc = models.ForeignKey(Disc, on_delete=CASCADE)
+    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
+    amount = models.PositiveIntegerField(_('Amount'), default=1)
+    disc = models.ForeignKey(Disc, on_delete=CASCADE, verbose_name=_('Scheibe'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs')
 
     @property
@@ -225,11 +226,11 @@ class Ace(models.Model):
         (TOURNAMENT, _('Tournament')),
     )
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='aces')
-    disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL)
-    course = models.ForeignKey(Course, null=True, on_delete=SET_NULL)
-    hole = models.CharField(max_length=20)
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    date = PartialDateField(null=True, blank=True)
+    disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL, verbose_name=_('Disc'))
+    course = models.ForeignKey(Course, null=True, on_delete=SET_NULL, verbose_name=_('Course'))
+    hole = models.CharField(_('Hole'), max_length=20)
+    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
+    date = PartialDateField(_('Date'), null=True, blank=True)
 
     def __str__(self):
         return '{} - {} {} {} {} [{}]'.format(self.course,
@@ -254,8 +255,8 @@ class Video(Model):
         (ACE, _('Ace')),
         (OTHER, _('Other')),
     )
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=OTHER)
-    url = models.URLField()
+    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES, default=OTHER)
+    url = models.URLField(_('URL'), )
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='videos')
 
     @property
