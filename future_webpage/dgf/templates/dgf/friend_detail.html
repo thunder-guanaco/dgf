@@ -100,10 +100,14 @@
                         <p class="value">{{friend.free_text}}</p>
                     </div>
                 {% endif %}
-                {% if friend.favorite_course %}
-                    <div>
-                        <p class="label">{% trans "Favorite course" %}</p>
-                        <p class="value">{{friend.favorite_course}}</p>
+                {% if friend.favorite_courses %}
+                    <div class="favorite-courses">
+                        <p class="label">{% trans "Favorite courses" %}</p>
+                        <ul class="value">
+                            {% for favorite in friend.favorite_courses.all %}
+                                <li style="margin-left: 2em;">{{favorite.course}}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 {% endif %}
                 {% if friend.highlights.count %}

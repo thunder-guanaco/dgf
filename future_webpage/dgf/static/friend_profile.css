@@ -25,11 +25,13 @@ form textarea {
     width: -webkit-fill-available;
 }
 
+form .favorite-course,
 form .highlight {
     margin-left: 2em;
 }
 
 .hidden,
+#favorite-courses label,
 #highlights label,
 #bag label,
 #videos label {
@@ -64,6 +66,7 @@ select {
     display: none;
 }
 
+form .favorite-course select,
 form .highlight input[type=text] {
     width: 90%;
 }
