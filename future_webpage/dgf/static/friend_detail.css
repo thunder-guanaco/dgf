@@ -195,6 +195,10 @@
     margin: 0 !important;
 }
 
+#friend-body .favorite-courses li:before {
+    content: '>\00a0\00a0\00a0';
+}
+
 #friend-body .highlights li:before {
     content: '★\00a0\00a0\00a0';
 }

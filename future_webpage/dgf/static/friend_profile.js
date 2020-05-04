@@ -3,6 +3,7 @@ ALL_DISC_TYPES = ["P", "M", "F", "D"];
 $(window).on("load", function() {
     scrollToErrors();
     loadInTheBag();
+    loadFavoriteCourses();
     loadHighlights();
     loadAces();
     loadVideos();
@@ -57,6 +58,14 @@ function activateDiscChosen(selector) {
             activateDiscChosen("select[name='discs-" + new_index + "-disc']");
         }
     });
+}
+
+function loadFavoriteCourses(){
+    $("#favorite-courses select").chosen({
+        disable_search_threshold: 10,
+        width: "90%"
+    });
+    hideParentElementsOnClick("#favorite-courses");
 }
 
 function loadHighlights(){
@@ -119,11 +128,6 @@ function loadOther() {
     $("#id_division").chosen({
         disable_search_threshold: 10,
         width: "80%"
-    });
-
-    $("#id_favorite_course").chosen({
-        disable_search_threshold: 10,
-        width: "70%"
     });
 }
 
