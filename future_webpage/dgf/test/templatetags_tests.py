@@ -30,7 +30,7 @@ class TemplatetagsTest(TestCase):
                                               (mijas, wischlingen, seepark),
                                               (mijas, wischlingen, soehnstetten)])
 
-        self.assertListEqual(list(dgf.favorite_courses()), [mijas.name, wischlingen.name, seepark.name])
+        self.assertListEqual(list(dgf.favorite_courses()), [mijas, wischlingen, seepark])
 
     def test_favorite_course(self):
         mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
@@ -45,7 +45,18 @@ class TemplatetagsTest(TestCase):
                                               (wischlingen,), (wischlingen,),
                                               (soehnstetten,)])
 
-        self.assertListEqual(list(dgf.favorite_courses()), [mijas.name, seepark.name, wischlingen.name])
+        self.assertListEqual(list(dgf.favorite_courses()), [mijas, seepark, wischlingen])
+
+    def test_favorite_courses_not_being_favorite(self):
+        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
+                                                                         'Seepark Lünen',
+                                                                         'Revierpark Wischlingen',
+                                                                         'Söhnstetten'])
+
+        self.create_friends(['user_{}'.format(i) for i in range(2)],
+                            favorite_courses=[(mijas,), (mijas,)])
+
+        self.assertListEqual(list(dgf.favorite_courses()), [mijas])
 
     def test_favorite_course_without_favorites(self):
         self.create_courses(['DiscGolfPark Mijas',
