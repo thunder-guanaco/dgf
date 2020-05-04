@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic import CreateView
 from partial_date import PartialDate
 
-from .models import Friend, Highlight, DiscInBag, Ace, Feedback, Video
+from .models import Friend, Highlight, DiscInBag, Ace, Feedback, Video, FavoriteCourse
 
 
 class IndexView(generic.ListView):
@@ -25,6 +25,11 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         return Friend.objects.all()
 
+
+FavoriteCourseFormset = inlineformset_factory(
+    Friend, FavoriteCourse, fields=('course',),
+    max_num=5, extra=5, validate_max=True
+)
 
 HighlightFormset = inlineformset_factory(
     Friend, Highlight, fields=('content',),
@@ -81,9 +86,10 @@ VideoFormset = inlineformset_factory(
 class UpdateView(generic.edit.UpdateView):
     model = Friend
     fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
-              'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'free_text', 'favorite_course']
+              'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'free_text']
     template_name_suffix = '_profile'
-    formsets = [('highlights', HighlightFormset),
+    formsets = [('favorite_courses', FavoriteCourseFormset),
+                ('highlights', HighlightFormset),
                 ('discs', DiscFormset),
                 ('aces', AceFormset),
                 ('videos', VideoFormset)]

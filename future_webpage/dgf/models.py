@@ -83,8 +83,6 @@ class Friend(User):
     plays_since = models.PositiveIntegerField(_('Plays since'), null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
     free_text = models.TextField(_('Started playing'), null=True, blank=True)
-    favorite_course = models.ForeignKey(Course, null=True, blank=True, on_delete=SET_NULL,
-                                        verbose_name=_('Favorite course'))
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[
@@ -145,6 +143,19 @@ class Friend(User):
         super(Friend, self).save(*args, **kwargs)
 
 
+class FavoriteCourse(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['course', 'friend'], name='the same course can not be favorite twice'),
+        ]
+
+    course = models.ForeignKey(Course, on_delete=CASCADE, related_name='favorites', verbose_name=_('Course'))
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='favorite_courses', verbose_name=_('Friend'))
+
+    def __str__(self):
+        return str(self.course)
+
+
 class Feedback(Model):
     title = models.CharField(_('Title'), max_length=200)
     feedback = models.TextField(_('Feedback'), )
@@ -164,6 +175,9 @@ class Feedback(Model):
 class Highlight(Model):
     content = models.CharField(_('Content'), max_length=100)
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='highlights')
+
+    def __str__(self):
+        return str(self.content)
 
 
 class FriendPluginModel(CMSPlugin):

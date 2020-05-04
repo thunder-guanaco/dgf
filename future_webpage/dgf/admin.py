@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Friend, Highlight, DiscInBag, Course, Ace, Feedback
+from .models import Friend, Highlight, DiscInBag, Course, Ace, Feedback FavoriteCourse, Video
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -18,6 +18,10 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
+class FavoriteCourseInline(admin.TabularInline):
+    model = FavoriteCourse
+
+
 class HighlightInline(admin.TabularInline):
     model = Highlight
 
@@ -31,6 +35,10 @@ class InTheBagInline(admin.TabularInline):
 
 class AceInline(admin.TabularInline):
     model = Ace
+
+
+class VideoInline(admin.TabularInline):
+    model = Video
 
 
 class FriendAdmin(admin.ModelAdmin):
@@ -48,7 +56,6 @@ class FriendAdmin(admin.ModelAdmin):
                 'city',
                 'main_photo',
                 ('plays_since', 'free_text'),
-                'favorite_course'
             ]}
          ),
         ('DANGER ZONE!', {
@@ -58,7 +65,7 @@ class FriendAdmin(admin.ModelAdmin):
     ]
 
     inlines = [
-        HighlightInline, InTheBagInline, AceInline
+        FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
     list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')

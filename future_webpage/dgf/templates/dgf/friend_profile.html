@@ -54,14 +54,26 @@
                 {% endif %}
             {% endfor %}
 
+            {{ favorite_courses.management_form }}
+            <div class="field">
+                <div>{% trans "Favorite courses" %}</div>
+            </div>
+            <div id="favorite-courses">
+                {% for form in favorite_courses %}
+                    <div class="favorite-course field">
+                        {{ form }}
+                    </div>
+                {% endfor %}
+            </div>
+
             {{ highlights.management_form }}
             <div class="field">
                 <div>{% trans "Highlights" %}</div>
             </div>
             <div id="highlights">
-                {% for field in highlights %}
+                {% for form in highlights %}
                     <div class="highlight field">
-                        {{ field }}
+                        {{ form }}
                     </div>
                 {% endfor %}
             </div>
@@ -83,9 +95,9 @@
                 </div>
             </div>
             <div id="all-discs">
-                {% for field in discs %}
+                {% for form in discs %}
                     <div class="disc">
-                        {{ field }}
+                        {{ form }}
                     </div>
                 {% endfor %}
             </div>
@@ -100,9 +112,9 @@
                 <div>{% trans "Aces" %}</div>
             </div>
             <div id="aces">
-                {% for field in aces %}
+                {% for form in aces %}
                     <div class="ace">
-                        {{ field.as_ul }}
+                        {{ form.as_ul }}
                     </div>
                 {% endfor %}
             </div>
@@ -118,9 +130,9 @@
                 <div>{% trans "Videos" %}</div>
             </div>
             <div id="videos">
-                {% for field in videos %}
+                {% for form in videos %}
                     <div class="field">
-                        {{ field }}
+                        {{ form }}
                     </div>
                 {% endfor %}
             </div>
