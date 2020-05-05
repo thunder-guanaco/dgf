@@ -3,7 +3,7 @@
 }
 
 form {
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -12,6 +12,7 @@ form {
 form .field {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 1em 0;
@@ -21,8 +22,47 @@ form label {
     margin-right: 1em;
 }
 
+form input[type=text],
+form input[type=url],
+form input[type=number] {
+    width: 70%;
+    padding: 0.25em;
+    border-radius: 5px;
+}
+
+form .field-image input[type=checkbox] {
+    margin: 0 0.25em 0 1em;
+}
+
+form .field-image .row label {
+    margin-bottom: 0em;
+}
+
 form textarea {
     width: -webkit-fill-available;
+    border-radius: 5px;
+}
+
+form .chosen-container-single .chosen-single {
+    height: 2.5em;
+    font-size: 1.5em;
+    padding: 0.5em;
+}
+
+form .chosen-container .chosen-results li,
+form .chosen-container-single .chosen-search input[type=text],
+form .chosen-container-single .chosen-single div b {
+    zoom: 1.5;
+}
+
+form .chosen-container-single .chosen-single div {
+    right: 0.5em;
+    top: 0.25em;
+}
+
+form .field input[name=plays_since] {
+    width: fit-content;
+    text-align: center;
 }
 
 form .favorite-course,
@@ -44,10 +84,19 @@ select {
 
 .disc {
     margin-left: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.disc > * {
+    margin: 1em;
 }
 
 .disc input[type=number] {
     width: 2.5em;
+    text-align: center;
 }
 
 #bag {
@@ -120,7 +169,7 @@ input[name$="DELETE"]:before {
 }
 
 .ace {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 #videos input[name$="title"] {

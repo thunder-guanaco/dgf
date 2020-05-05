@@ -56,7 +56,7 @@
 
             {{ favorite_courses.management_form }}
             <div class="field">
-                <div>{% trans "Favorite courses" %}</div>
+                <h2>{% trans "Favorite courses" %}</h2>
             </div>
             <div id="favorite-courses">
                 {% for form in favorite_courses %}
@@ -68,7 +68,7 @@
 
             {{ highlights.management_form }}
             <div class="field">
-                <div>{% trans "Highlights" %}</div>
+                <h2>{% trans "Highlights" %}</h2>
             </div>
             <div id="highlights">
                 {% for form in highlights %}
@@ -79,19 +79,21 @@
             </div>
 
             {{ discs.management_form }}
+            <div class="field">
+                <h2>{% trans "In the bag" %}</h2>
+            </div>
             <div id="bag" class="field">
-                <p>{% trans "In the bag" %}</p>
                 <div data-type="P" class="bag-part">
-                    <p>{% trans "Putters" %}</p>
+                    <h3>{% trans "Putters" %}</h3>
                 </div>
                 <div data-type="M" class="bag-part">
-                    <p>{% trans "Mid-ranges" %}</p>
+                    <h3>{% trans "Mid-ranges" %}</h3>
                 </div>
                 <div data-type="F" class="bag-part">
-                    <p>{% trans "Fairway drivers" %}</p>
+                    <h3>{% trans "Fairway drivers" %}</h3>
                 </div>
                 <div data-type="D" class="bag-part">
-                    <p>{% trans "Distance drivers" %}</p>
+                    <h3>{% trans "Distance drivers" %}</h3>
                 </div>
             </div>
             <div id="all-discs">
@@ -109,7 +111,7 @@
 
             {{ aces.management_form }}
             <div class="field">
-                <div>{% trans "Aces" %}</div>
+                <h2>{% trans "Aces" %}</h2>
             </div>
             <div id="aces">
                 {% for form in aces %}
@@ -127,7 +129,7 @@
 
             {{ videos.management_form }}
             <div class="field">
-                <div>{% trans "Videos" %}</div>
+                <h2>{% trans "Videos" %}</h2>
             </div>
             <div id="videos">
                 {% for form in videos %}
