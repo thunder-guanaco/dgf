@@ -89,6 +89,9 @@
 .sticky img {
     height: 3em;
     width: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 html {
