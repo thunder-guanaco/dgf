@@ -227,8 +227,8 @@ class DiscInBag(models.Model):
     )
     type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
     amount = models.PositiveIntegerField(_('Amount'), default=1)
-    disc = models.ForeignKey(Disc, on_delete=CASCADE, verbose_name=_('Scheibe'))
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs')
+    disc = models.ForeignKey(Disc, on_delete=CASCADE, related_name='bags', verbose_name=_('Disc'))
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs', verbose_name=_('Player'))
 
     @property
     def in_the_bag(self):
@@ -249,8 +249,8 @@ class Ace(models.Model):
         (TOURNAMENT, _('Tournament')),
     )
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='aces')
-    disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL, verbose_name=_('Disc'))
-    course = models.ForeignKey(Course, null=True, on_delete=SET_NULL, verbose_name=_('Course'))
+    disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL, related_name='aces', verbose_name=_('Disc'))
+    course = models.ForeignKey(Course, null=True, on_delete=SET_NULL, related_name='aces', verbose_name=_('Course'))
     hole = models.CharField(_('Hole'), max_length=20)
     type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
     date = PartialDateField(_('Date'), null=True, blank=True)
