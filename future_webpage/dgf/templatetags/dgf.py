@@ -1,3 +1,5 @@
+import logging
+import re
 from datetime import datetime
 
 from django import template
@@ -10,6 +12,8 @@ register = template.Library()
 AMOUNT_OF_FAVORITE_DISCS = 3
 AMOUNT_OF_FAVORITE_COURSES = 3
 AMOUNT_OF_BEST_FRIENDS = 3
+
+logger = logging.getLogger(__name__)
 
 
 @register.simple_tag
@@ -61,3 +65,19 @@ def _current_year_as_str():
 @register.filter
 def order_by_rating(friends):
     return friends.order_by('-rating')[:AMOUNT_OF_BEST_FRIENDS]
+
+
+@register.filter
+def youtube_id(url):
+    # full Youtube URL
+    matches = re.findall('v=[a-zA-Z0-9_-]+', url)
+    if matches:
+        return matches[0].split('=')[1]
+
+    # short Youtube URL
+    matches = re.findall('youtu.be/[a-zA-Z0-9_-]+', url)
+    if matches:
+        return matches[0].split('/')[1]
+
+    logger.warning('{} is not a valid Youtube URL'.format(url))
+    return None

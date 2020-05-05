@@ -281,21 +281,5 @@ class Video(Model):
     url = models.URLField(_('URL'), )
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='videos')
 
-    @property
-    def youtube_id(self):
-
-        # full Youtube URL
-        matches = re.findall('v=[a-zA-Z0-9_-]+', str(self.url))
-        if matches:
-            return matches[0].split('=')[1]
-
-        # short Youtube URL
-        matches = re.findall('youtu.be/[a-zA-Z0-9_-]+', str(self.url))
-        if matches:
-            return matches[0].split('/')[1]
-
-        logger.warning('{} is not a valid Youtube URL'.format(self.url))
-        return None
-
     def __str__(self):
         return str(self.url)
