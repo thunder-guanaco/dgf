@@ -11,7 +11,7 @@ $(window).on("load", function() {
             // a default thumbnail of 120 width is returned.
             if (this.width === 120) {
                 console.log("Youtube ID " + youtube_id + " is not valid!");
-                video.hide();
+                video.remove();
             }
             else {
                 this.width = 192;
@@ -21,8 +21,12 @@ $(window).on("load", function() {
                     autoPlay:true,
                     theme: "dark"
                 });
-                video.show("slow");
             }
         };
+    });
+    var count = 0;
+    $(".youtube-video").each(function(index) {
+        $(this).delay(count*50).show("slow");
+        count = count + 1;
     });
 });

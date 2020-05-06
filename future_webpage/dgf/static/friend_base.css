@@ -145,8 +145,6 @@ hr {
 }
 
 .youtube-video {
-    width: 192px;
-    height: 108px;
     cursor: pointer;
     transition: transform .2s;
     position: relative;
@@ -202,8 +200,4 @@ hr {
     left: 55%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.hidden {
-    display: none;
 }

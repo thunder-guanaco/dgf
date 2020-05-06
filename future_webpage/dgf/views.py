@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 
 from django.forms import inlineformset_factory, Select, SelectDateWidget
@@ -144,4 +145,6 @@ class MediaIndex(generic.ListView):
     context_object_name = 'video_urls'
 
     def get_queryset(self):
-        return set(Video.objects.all().order_by('?').values_list('url', flat=True))
+        all_videos = list(set(Video.objects.all().order_by('?').values_list('url', flat=True)))
+        random.shuffle(all_videos)
+        return all_videos

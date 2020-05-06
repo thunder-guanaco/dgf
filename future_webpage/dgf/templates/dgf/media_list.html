@@ -25,7 +25,7 @@
 
             <h1>{% trans "Our Videos" %}</h1>
 
-            <div class="videos">
+            <div class="videos" style="min-height: 444px">
                 {% for video_url in video_urls %}
                     {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id %}
                 {% endfor %}
