@@ -158,13 +158,13 @@ hr {
 
 .youtube-video:hover {
     transform: scale(1.1);
-    z-index: 888;
+    z-index: 2;
 }
 
 .youtube-video img {
     object-fit: cover;
     object-position: center;
-    filter: opacity(50%);
+    filter: opacity(60%);
     transition: transform .5s;
 }
 
@@ -181,7 +181,14 @@ hr {
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 3;
     transform: translate(-50%, -50%);
+    filter: opacity(75%);
+}
+
+
+.youtube-video .play-button-container:hover {
+    filter: opacity(100%);
 }
 
 .youtube-video .play-button-container .play-button {
@@ -195,4 +202,8 @@ hr {
     left: 55%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.hidden {
+    display: none;
 }

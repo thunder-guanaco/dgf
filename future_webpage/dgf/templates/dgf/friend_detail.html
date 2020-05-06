@@ -13,13 +13,10 @@
 
 {% block js %}
     <script type="text/javascript" src="{% static 'grt-youtube-popup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'friend_base.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/']").parent().addClass("ancestor");
-            $(".youtube-video").grtyoutube({
-                autoPlay:true,
-                theme: "dark"
-            });
         });
     </script>
 {% endblock %}
@@ -127,7 +124,7 @@
                             {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
                         </div>
                         {% if friend.ace_video %}
-                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.ace_video.url|youtube_id width="192" height="108"%}
+                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.ace_video.url|youtube_id %}
                         {% endif %}
                     </div>
                 {% endif %}
@@ -166,7 +163,7 @@
                             </div>
                         </div>
                         {% if friend.in_the_bag_video %}
-                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.in_the_bag_video.url|youtube_id width="192" height="108"%}
+                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.in_the_bag_video.url|youtube_id %}
                         {% endif %}
                     </div>
                 {% endif %}
@@ -175,7 +172,7 @@
                         <p class="label">{% trans "Videos" %}</p>
                         <div class="value">
                             {% for video in friend.other_videos.all %}
-                                {% include "dgf/includes/youtube_video.html" with youtube_id=video.url|youtube_id width="192" height="108"%}
+                                {% include "dgf/includes/youtube_video.html" with youtube_id=video.url|youtube_id %}
                             {% endfor %}
                         </div>
                     </div>
