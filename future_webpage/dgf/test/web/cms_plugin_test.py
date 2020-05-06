@@ -3,8 +3,8 @@ from cms.models import Placeholder
 from django.test import TestCase
 from parameterized import parameterized
 
-from ..cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher
-from ..models import Friend
+from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher
+from ...models import Friend
 
 
 class DgfPluginsTests(TestCase):

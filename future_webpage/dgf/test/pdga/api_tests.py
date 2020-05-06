@@ -4,8 +4,8 @@ import responses
 from django.conf import settings
 from django.test import TestCase
 
-from ..cronjobs import fetch_pdga_data
-from ..models import Friend
+from ...cronjobs import fetch_pdga_data
+from ...models import Friend
 
 
 class PdgaApiTest(TestCase):

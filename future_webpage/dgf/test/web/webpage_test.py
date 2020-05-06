@@ -4,7 +4,7 @@ from django.test import Client, override_settings
 from django.urls import reverse
 from parameterized import parameterized
 
-from ..models import Friend
+from ...models import Friend
 
 
 class AddTestCase(TestCase):
@@ -13,6 +13,8 @@ class AddTestCase(TestCase):
         ('dgf:friend_index', []),
         ('dgf:friend_detail', ['test']),
         ('dgf:friend_update', []),
+        ('dgf:feedback', []),
+        ('dgf:media', []),
     ])
     @override_settings(ROOT_URLCONF='dgf.test.urls')
     def test_dgf_pages(self, url_name, args):
