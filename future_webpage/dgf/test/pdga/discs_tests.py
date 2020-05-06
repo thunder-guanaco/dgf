@@ -2,8 +2,8 @@ import responses
 from django.conf import settings
 from django.test import TestCase
 
-from ..cronjobs import update_approved_discs_cron
-from ..models import Disc
+from ...cronjobs import update_approved_discs_cron
+from ...models import Disc
 
 
 def configure_response(opened_file):
