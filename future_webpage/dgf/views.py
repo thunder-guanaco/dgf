@@ -145,6 +145,6 @@ class MediaIndex(generic.ListView):
     context_object_name = 'video_urls'
 
     def get_queryset(self):
-        all_videos = list(set(Video.objects.all().order_by('?').values_list('url', flat=True)))
+        all_videos = list(set(Video.objects.all().values_list('url', flat=True)))
         random.shuffle(all_videos)
         return all_videos
