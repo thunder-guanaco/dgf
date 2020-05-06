@@ -106,15 +106,18 @@ class UpdateView(generic.edit.UpdateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        self.object = form.save()
 
+        # if any formset is not valid: don't save them
         for formset in self.formsets:
-            if context[formset[0]].is_valid():
-                context[formset[0]].instance = self.object
-                context[formset[0]].save()
-            else:
+            if not context[formset[0]].is_valid():
                 return super().form_invalid(form)
 
+        # save all formsets
+        for formset in self.formsets:
+            context[formset[0]].instance = self.object
+            context[formset[0]].save()
+
+        # save the parent form
         return super().form_valid(form)
 
     def get_object(self, queryset=None):
