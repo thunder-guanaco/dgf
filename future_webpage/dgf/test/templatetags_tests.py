@@ -7,77 +7,117 @@ from ..models import Course, Friend, Disc, DiscInBag, Ace, FavoriteCourse
 from ..templatetags import dgf
 
 
-class TemplatetagsTest(TestCase):
+def create_courses(course_names):
+    new_courses = []
+
+    for name in course_names:
+        new_course = Course.objects.create(name=name)
+        new_courses.append(new_course)
+
+    return new_courses
+
+
+def create_friends(usernames, favorite_courses=(), ratings=None):
+    new_friends = []
+
+    if type(favorite_courses) != list:
+        favorite_courses = [favorite_courses for _ in range(len(usernames))]
+
+    if type(ratings) != list:
+        ratings = [ratings for _ in range(len(usernames))]
+
+    for i, username in enumerate(usernames):
+
+        new_friend = Friend.objects.create(username=username, rating=ratings[i])
+
+        for course in favorite_courses[i]:
+            if isinstance(course, Course):
+                favorite = FavoriteCourse.objects.create(course=course, friend=new_friend)
+                new_friend.favorite_courses.add(favorite)
+
+        new_friends.append(new_friend)
+
+    return new_friends
+
+
+class TemplatetagsFavoriteCoursesTest(TestCase):
 
     def setUp(self):
         Course.objects.all().delete()
         Friend.objects.all().delete()
         FavoriteCourse.objects.all().delete()
-        Disc.objects.all().delete()
-        DiscInBag.objects.all().delete()
 
     def test_more_than_one_favorite_course(self):
-        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
-                                                                         'Seepark Lünen',
-                                                                         'Revierpark Wischlingen',
-                                                                         'Söhnstetten'])
+        mijas, seepark, wischlingen, soehnstetten = create_courses(['DiscGolfPark Mijas',
+                                                                    'Seepark Lünen',
+                                                                    'Revierpark Wischlingen',
+                                                                    'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(6)],
-                            favorite_courses=[(),
-                                              (mijas,),
-                                              (seepark,),
-                                              (mijas, wischlingen),
-                                              (mijas, wischlingen, seepark),
-                                              (mijas, wischlingen, soehnstetten)])
+        create_friends(['user_{}'.format(i) for i in range(6)],
+                       favorite_courses=[(),
+                                         (mijas,),
+                                         (seepark,),
+                                         (mijas, wischlingen),
+                                         (mijas, wischlingen, seepark),
+                                         (mijas, wischlingen, soehnstetten)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [mijas, wischlingen, seepark])
 
     def test_favorite_course(self):
-        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
-                                                                         'Seepark Lünen',
-                                                                         'Revierpark Wischlingen',
-                                                                         'Söhnstetten'])
+        mijas, seepark, wischlingen, soehnstetten = create_courses(['DiscGolfPark Mijas',
+                                                                    'Seepark Lünen',
+                                                                    'Revierpark Wischlingen',
+                                                                    'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(15)],
-                            favorite_courses=[(), (), (), (), (),
-                                              (mijas,), (mijas,), (mijas,), (mijas,),
-                                              (seepark,), (seepark,), (seepark,),
-                                              (wischlingen,), (wischlingen,),
-                                              (soehnstetten,)])
+        create_friends(['user_{}'.format(i) for i in range(15)],
+                       favorite_courses=[(), (), (), (), (),
+                                         (mijas,), (mijas,), (mijas,), (mijas,),
+                                         (seepark,), (seepark,), (seepark,),
+                                         (wischlingen,), (wischlingen,),
+                                         (soehnstetten,)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [mijas, seepark, wischlingen])
 
     def test_favorite_courses_not_being_favorite(self):
-        mijas, seepark, wischlingen, soehnstetten = self.create_courses(['DiscGolfPark Mijas',
-                                                                         'Seepark Lünen',
-                                                                         'Revierpark Wischlingen',
-                                                                         'Söhnstetten'])
+        mijas, seepark, wischlingen, soehnstetten = create_courses(['DiscGolfPark Mijas',
+                                                                    'Seepark Lünen',
+                                                                    'Revierpark Wischlingen',
+                                                                    'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(2)],
-                            favorite_courses=[(mijas,), (mijas,)])
+        create_friends(['user_{}'.format(i) for i in range(2)],
+                       favorite_courses=[(mijas,), (mijas,)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [mijas])
 
     def test_favorite_course_without_favorites(self):
-        self.create_courses(['DiscGolfPark Mijas',
-                             'Revierpark Wischlingen',
-                             'Söhnstetten'])
+        create_courses(['DiscGolfPark Mijas',
+                        'Revierpark Wischlingen',
+                        'Söhnstetten'])
 
-        self.create_friends(['user_{}'.format(i) for i in range(10)])
+        create_friends(['user_{}'.format(i) for i in range(10)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_favorite_course_without_friends(self):
-        self.create_courses(['DiscGolfPark Mijas',
-                             'Revierpark Wischlingen',
-                             'Söhnstetten'])
+        create_courses(['DiscGolfPark Mijas',
+                        'Revierpark Wischlingen',
+                        'Söhnstetten'])
 
         self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_favorite_course_without_courses(self):
-        self.create_friends(['user_{}'.format(i) for i in range(10)])
+        create_friends(['user_{}'.format(i) for i in range(10)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [])
+
+
+class TemplatetagsAcesTest(TestCase):
+
+    def setUp(self):
+        Friend.objects.all().delete()
+        Disc.objects.all().delete()
+        Course.objects.all().delete()
+        Ace.objects.all().delete()
 
     def test_all_aces(self):
         manolo = Friend.objects.create(username='manolo')
@@ -90,7 +130,6 @@ class TemplatetagsTest(TestCase):
         self.assertEquals(dgf.all_aces().count(), 0)
 
     def test_aces_for_user(self):
-
         manolo = Friend.objects.create(username='manolo')
         fd = Disc.objects.create(mold='FD')
         wischlingen = Course.objects.create(name='Wischlingen')
@@ -163,6 +202,14 @@ class TemplatetagsTest(TestCase):
         self.assertEquals(dgf.current_year(all_aces), 0)
         self.assertEquals(dgf.current_year_tournaments(all_aces), 0)
 
+
+class TemplatetagsFavoriteDiscsTest(TestCase):
+
+    def setUp(self):
+        Friend.objects.all().delete()
+        Disc.objects.all().delete()
+        DiscInBag.objects.all().delete()
+
     def test_favorite_discs(self):
         manolo = Friend.objects.create(username='manolo')
         fede = Friend.objects.create(username='fede')
@@ -198,71 +245,90 @@ class TemplatetagsTest(TestCase):
         DiscInBag.objects.create(friend=manolo, disc=destroyer, amount=3, type=DiscInBag.DISTANCE_DRIVER)
         DiscInBag.objects.create(friend=fede, disc=destroyer, amount=2, type=DiscInBag.DISTANCE_DRIVER)
 
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.PUTTER)), self.display_names(aviar, deputy))
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), self.display_names(compass, buzz))
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), self.display_names(fd))
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.DISTANCE_DRIVER)), self.display_names(destroyer))
+        self.assert_favorite_discs(DiscInBag.PUTTER, expect=[aviar, deputy])
+        self.assert_favorite_discs(DiscInBag.MID_RANGE, expect=[compass, buzz])
+        self.assert_favorite_discs(DiscInBag.FAIRWAY_DRIVER, expect=[fd])
+        self.assert_favorite_discs(DiscInBag.DISTANCE_DRIVER, expect=[destroyer])
 
     def test_favorite_discs_without_bags(self):
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.PUTTER)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.MID_RANGE)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.FAIRWAY_DRIVER)), [])
-        self.assertListEqual(list(dgf.favorite_discs(DiscInBag.DISTANCE_DRIVER)), [])
+        self.assert_favorite_discs(DiscInBag.PUTTER, expect=[])
+        self.assert_favorite_discs(DiscInBag.MID_RANGE, expect=[])
+        self.assert_favorite_discs(DiscInBag.FAIRWAY_DRIVER, expect=[])
+        self.assert_favorite_discs(DiscInBag.DISTANCE_DRIVER, expect=[])
 
-    def test_best_friends(self):
-        manolo, kevin, fede, mario = self.create_friends(['manolo', 'kevin', 'fede', 'mario'],
-                                                         ratings=[883, 1007, 903, 881])
+    def assert_favorite_discs(self, type, expect):
+        display_names = [disc.display_name for disc in expect]
+        self.assertListEqual(list(dgf.favorite_discs(type)), display_names)
+
+
+class TemplatetagsBestPlayersTest(TestCase):
+
+    def setUp(self):
+        Friend.objects.all().delete()
+
+    def test_best_players(self):
+        manolo, kevin, fede, mario = create_friends(['manolo', 'kevin', 'fede', 'mario'],
+                                                    ratings=[883, 1007, 903, 881])
         all_friends = Friend.objects.all()
         self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, fede, manolo])
 
-    def test_best_friends_someone_without_rating(self):
-        manolo, kevin, wolfgang = self.create_friends(['manolo', 'kevin', 'wolfgang'],
-                                                      ratings=[883, 1007, None])
+    def test_best_players_someone_without_rating(self):
+        manolo, kevin, wolfgang = create_friends(['manolo', 'kevin', 'wolfgang'],
+                                                 ratings=[883, 1007, None])
         all_friends = Friend.objects.all()
         self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo, wolfgang])
 
-    def test_best_friends_only_not_enough(self):
-        manolo, kevin = self.create_friends(['manolo', 'kevin'],
-                                            ratings=[883, 1007])
+    def test_best_players_only_not_enough(self):
+        manolo, kevin = create_friends(['manolo', 'kevin'],
+                                       ratings=[883, 1007])
         all_friends = Friend.objects.all()
         self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo])
 
-    def test_best_friends_without_friends(self):
+    def test_best_players_without_friends(self):
         all_friends = Friend.objects.all()
         self.assertListEqual(list(dgf.order_by_rating(all_friends)), [])
 
-    def display_names(self, *args):
-        return [disc.display_name for disc in args]
 
-    def create_courses(self, course_names):
+class TemplatetagsYoutubeVideoTest(TestCase):
 
-        new_courses = []
+    def test_youtube_id(self):
 
-        for name in course_names:
-            new_course = Course.objects.create(name=name)
-            new_courses.append(new_course)
+        # regular video URL (full URL)
+        self.expect_youtube_id(url='https://www.youtube.com/watch?v=3CClOsC26Lw',
+                               expected_youtube_id='3CClOsC26Lw')
 
-        return new_courses
+        # video in playlist
+        self.expect_youtube_id(url='https://www.youtube.com/watch?v=ttKn1eGKTew'
+                                   '&list=PL_806ww4sa44mmbLuCGXcin35Dv8Yz5ar&index=4',
+                               expected_youtube_id='ttKn1eGKTew')
 
-    def create_friends(self, usernames, favorite_courses=(), ratings=None):
+        # shorter share URL
+        self.expect_youtube_id(url='https://youtu.be/UhRXn2NRiWI',
+                               expected_youtube_id='UhRXn2NRiWI')
 
-        new_friends = []
+        # shorter share URL with timestamp
+        self.expect_youtube_id(url='https://youtu.be/FCSBoOcGFFE?t=19',
+                               expected_youtube_id='FCSBoOcGFFE')
 
-        if type(favorite_courses) != list:
-            favorite_courses = [favorite_courses for _ in range(len(usernames))]
+        # share URL after redirect
+        self.expect_youtube_id(url='https://www.youtube.com/watch?v=-pr-xzajQo0&feature=youtu.be',
+                               expected_youtube_id='-pr-xzajQo0')
 
-        if type(ratings) != list:
-            ratings = [ratings for _ in range(len(usernames))]
+        # broken URL
+        self.expect_youtube_id(url='https://www.youtube.comajQo0&feature=youtu.be',
+                               expected_youtube_id=None)
 
-        for i, username in enumerate(usernames):
+        # empty URL
+        self.expect_youtube_id(url='',
+                               expected_youtube_id=None)
 
-            new_friend = Friend.objects.create(username=username, rating=ratings[i])
+        # no URL
+        try:
+            self.expect_youtube_id(url=None,
+                                   expected_youtube_id=None)
+            self.fail('It should not be possible to create a video without URL')
+        except:
+            pass
 
-            for course in favorite_courses[i]:
-                if isinstance(course, Course):
-                    favorite = FavoriteCourse.objects.create(course=course, friend=new_friend)
-                    new_friend.favorite_courses.add(favorite)
-
-            new_friends.append(new_friend)
-
-        return new_friends
+    def expect_youtube_id(self, url, expected_youtube_id):
+        self.assertEquals(dgf.youtube_id(url), expected_youtube_id)

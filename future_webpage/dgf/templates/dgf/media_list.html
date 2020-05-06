@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n %}
+{% load static cms_tags i18n dgf %}
 
 {% block title %}
     {% trans "Media" %}
@@ -28,13 +28,13 @@
 
     <div id="media">
 
-        {% if videos %}
+        {% if video_urls %}
 
             <h1>{% trans "Our Videos" %}</h1>
 
             <div class="videos">
-                {% for video in videos %}
-                    {% include "dgf/includes/youtube_video.html" with youtube_id=video.youtube_id width="192" height="108" %}
+                {% for video_url in video_urls %}
+                    {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id width="192" height="108" %}
                 {% endfor %}
             </div>
 
