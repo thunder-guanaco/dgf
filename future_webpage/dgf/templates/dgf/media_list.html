@@ -14,14 +14,7 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'grt-youtube-popup.js' %}"></script>
     {% include "dgf/includes/select_in_menu.html" with path="/friends/media" %}
-    <script type="text/javascript">
-        $(window).on("load", function() {
-            $(".youtube-video").grtyoutube({
-                autoPlay:true,
-                theme: "dark"
-            });
-        });
-    </script>
+    <script type="text/javascript" src="{% static 'friend_base.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -34,7 +27,7 @@
 
             <div class="videos">
                 {% for video_url in video_urls %}
-                    {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id width="192" height="108" %}
+                    {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id %}
                 {% endfor %}
             </div>
 
