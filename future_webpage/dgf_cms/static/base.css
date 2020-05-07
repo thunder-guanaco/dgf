@@ -112,6 +112,10 @@
         color: #8d1950 !important;
     }
 
+    .language-chooser .cms-language .full {
+        display: none;
+    }
+
     .container img {
         width: 100%;
         height: auto;
@@ -208,6 +212,10 @@
         color: #888888;
     }
 
+    .language-chooser .cms-language .short {
+        display: none;
+    }
+
     .container {
         width: 60%;
         margin: 1em auto;
@@ -279,12 +287,12 @@ body {
     color: #8d1950 !important;
 }
 
-.language-chooser .cms-language span {
+.language-chooser .cms-language .vertical-bar {
     color: gray;
     font-weight: bold;
 }
 
-.language-chooser .cms-language:last-child span {
+.language-chooser .cms-language:last-child .vertical-bar {
     display: none;
 }
 

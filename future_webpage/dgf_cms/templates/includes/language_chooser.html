@@ -5,8 +5,11 @@
         <span class="cms-language">
             <a href="{% page_language_url language.0 %}"
                class="lang {% if current_language == language.0 %}active{% endif %}"
-               title="{% trans 'Change to language' %}: {{ language.1 }}">{{ language.1 }}</a>
-            <span>｜</span>
+               title="{% trans 'Change to language' %}: {{ language.1 }}">
+                <span class="full">{{ language.1 }}</span>
+                <span class="short">{{ language.0 }}</span>
+            </a>
+            <span class="vertical-bar">｜</span>
         </span>
     {% endfor %}
 </div>
