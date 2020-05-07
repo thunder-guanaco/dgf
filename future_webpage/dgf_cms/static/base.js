@@ -30,17 +30,22 @@ $(window).on("load", function() {
     });
 
     $(document).click(function(e) {
-        if ($.contains($("#mobile-navigation-bar-header")[0], e.target)) {
+        target=e.target;
+        if ($.contains($("#mobile-navigation-bar-header")[0], e.target)
+            || $.contains($(".bar-container")[0], e.target)) {
             console.log('toggle');
+            $(".bar-container").toggleClass("change");
             $(".navbar-collapse").toggle();
         }
-        else {
+        else if (!$.contains($("#navbarResponsive")[0], e.target)) {
             console.log('hide');
             $(".navbar-collapse").hide();
+            $(".bar-container").removeClass("change");
         }
     });
 
     $(".dropdown-toggle").click(function(){
+        $(this).toggleClass("open");
         $(this).siblings().toggle();
     });
 
