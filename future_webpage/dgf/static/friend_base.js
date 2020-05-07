@@ -26,7 +26,7 @@ $(window).on("load", function() {
     });
     var count = 0;
     $(".youtube-video").each(function(index) {
-        $(this).delay(count*50).show("slow");
+        $(this).delay(count*250).show("slow");
         count = count + 1;
     });
 });

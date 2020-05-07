@@ -42,7 +42,7 @@ if ENV in ['dev', 'test']:
 else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = os.getenv('DJANGO_DEBUG')
-    ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS')]
+    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
     DATA_DIR = ROOT_INSTALLATION_PATH
 
 if ENV == 'dev':
