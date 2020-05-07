@@ -30,10 +30,43 @@
 
     #mobile-navigation-bar {
         display: flex;
+        flex-direction: row;
+        align-items: center;
         height: 3em;
         width: 100%;
         background-color: #1b2633;
         text-transform: uppercase;
+    }
+
+    #mobile-navigation-bar .bar-container {
+      display: inline-block;
+      cursor: pointer;
+      margin: 0.5em;
+    }
+
+    #mobile-navigation-bar .bar-1,
+    #mobile-navigation-bar .bar-2,
+    #mobile-navigation-bar .bar-3 {
+      width: 35px;
+      height: 5px;
+      background-color: #ffffff;
+      margin: 6px 0;
+      transition: 0.4s;
+      border-radius: 1em;
+    }
+
+    #mobile-navigation-bar .change .bar-1 {
+      -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+      transform: rotate(-45deg) translate(-9px, 6px);
+    }
+
+    #mobile-navigation-bar .change .bar-2 {
+        opacity: 0;
+    }
+
+    #mobile-navigation-bar .change .bar-3 {
+      -webkit-transform: rotate(45deg) translate(-8px, -8px);
+      transform: rotate(45deg) translate(-8px, -8px);
     }
 
     #mobile-navigation-bar img {
@@ -44,6 +77,8 @@
     #mobile-navigation-bar .navbar-nav,
     #mobile-navigation-bar .dropdown-menu {
         background-color: #1b2633;
+        padding: 0;
+        border: 0;
     }
 
     #mobile-navigation-bar .navbar-collapse {
@@ -54,16 +89,27 @@
         z-index: 998;
     }
 
-    #mobile-navigation-bar .nav-item {
-        padding: 0.25em 1em;
+    #mobile-navigation-bar .nav-item a {
+        padding: 0.5em 0.75em;
+    }
+
+    #mobile-navigation-bar .nav-item .dropdown-menu {
+        margin-left: 1em;
     }
 
     #mobile-navigation-bar a:link,
     #mobile-navigation-bar a:hover,
+    #mobile-navigation-bar a:visited,
     #mobile-navigation-bar a:active,
-    #mobile-navigation-bar a:visited {
+    #mobile-navigation-bar a:focus {
         color: #ffffff;
+        background-color: #1b2633;
         font-weight: bold;
+    }
+
+    #mobile-navigation-bar a.open,
+    #mobile-navigation-bar a:focus {
+        color: #8d1950 !important;
     }
 
     .container img {
