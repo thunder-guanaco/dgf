@@ -1,0 +1,12 @@
+{% load cms_tags i18n menu_tags %}
+
+<div id="mobile-navigation-bar-header">
+  {% static_placeholder 'header' %}
+</div>
+<div class="collapse navbar-collapse" id="navbarResponsive">
+  <ul class="navbar-nav ml-auto">
+    {% with dropdown=True %}
+      {% show_menu 0 100 100 100 "mobile/menu.html" %}
+    {% endwith %}
+  </ul>
+</div>

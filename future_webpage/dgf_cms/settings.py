@@ -37,7 +37,7 @@ GITHUB_TOKEN = os.getenv('DJANGO_GITHUB_TOKEN')
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.43.82']
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')

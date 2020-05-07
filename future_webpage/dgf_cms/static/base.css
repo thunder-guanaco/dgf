@@ -23,20 +23,47 @@
         flex-direction: column;
     }
 
-    #header {
+    #header,
+    #navigation-bar{
+        display: none !important;
+    }
+
+    #mobile-navigation-bar {
         display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    #header img {
+        height: 3em;
         width: 100%;
-        height: auto;
+        background-color: #1b2633;
+        text-transform: uppercase;
     }
 
-    #navigation-bar ul {
-        overflow-x: scroll;
-        justify-content: left !important;
+    #mobile-navigation-bar img {
+        height: 3em;
+        width: auto;
+    }
+
+    #mobile-navigation-bar .navbar-nav,
+    #mobile-navigation-bar .dropdown-menu {
+        background-color: #1b2633;
+    }
+
+    #mobile-navigation-bar .navbar-collapse {
+        position: absolute;
+        top: 3em;
+        left: 0;
+        width: 100%;
+        z-index: 998;
+    }
+
+    #mobile-navigation-bar .nav-item {
+        padding: 0.25em 1em;
+    }
+
+    #mobile-navigation-bar a:link,
+    #mobile-navigation-bar a:hover,
+    #mobile-navigation-bar a:active,
+    #mobile-navigation-bar a:visited {
+        color: #ffffff;
+        font-weight: bold;
     }
 
     .container img {
@@ -67,6 +94,74 @@
 
 /* desktop */
 @media only screen and (min-width: 600px) {
+
+    #mobile-navigation-bar {
+        display: none;
+    }
+
+    #navigation-bar ul {
+        width: 100%;
+        background-color: #1b2633;
+    }
+
+    #navigation-bar ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding-inline-start: 0;
+        text-transform: uppercase;
+    }
+
+    #navigation-bar ul li {
+        padding: 1em;
+        list-style-type: none;
+        white-space: nowrap;
+    }
+
+    #navigation-bar-header {
+        padding: 0 !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    #navigation-bar-header img {
+        height: 3.3em;
+        width: auto;
+    }
+
+    #navigation-bar-language-chooser {
+        padding: 0 !important;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    #navigation-bar a:link,
+    #navigation-bar a:hover,
+    #navigation-bar a:active,
+    #navigation-bar a:visited {
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    #navigation-bar .selected a:link,
+    #navigation-bar .selected a:hover,
+    #navigation-bar .selected a:active,
+    #navigation-bar .selected a:visited {
+        color: #8d1950;
+    }
+
+    #navigation-bar .ancestor a:link,
+    #navigation-bar .ancestor a:hover,
+    #navigation-bar .ancestor a:active,
+    #navigation-bar .ancestor a:visited {
+        color: #888888;
+    }
+
     .container {
         width: 60%;
         margin: 1em auto;
@@ -84,14 +179,6 @@
     top: 0;
     width: 100%;
     z-index: 999;
-}
-
-.sticky img {
-    height: 3em;
-    width: auto;
-    position: absolute;
-    left: 0;
-    top: 0;
 }
 
 html {
@@ -127,7 +214,8 @@ body {
 .language-chooser {
     position: absolute;
     top: 0;
-    right: 0
+    right: 0;
+    z-index: 990;
 }
 
 .language-chooser {
@@ -152,50 +240,6 @@ body {
 
 .language-chooser .cms-language:last-child span {
     display: none;
-}
-
-#navigation-bar {
-    width: 100%;
-    background-color: #1b2633;
-}
-
-#navigation-bar ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding-inline-start: 0;
-    text-transform: uppercase;
-}
-
-#navigation-bar ul li {
-    padding: 1em;
-    list-style-type: none;
-    white-space: nowrap;
-}
-
-#navigation-bar a:link,
-#navigation-bar a:hover,
-#navigation-bar a:active,
-#navigation-bar a:visited {
-    color: #ffffff;
-    font-weight: bold;
-}
-
-#navigation-bar .selected a:link,
-#navigation-bar .selected a:hover,
-#navigation-bar .selected a:active,
-#navigation-bar .selected a:visited {
-    color: #8d1950;
-}
-
-#navigation-bar .ancestor a:link,
-#navigation-bar .ancestor a:hover,
-#navigation-bar .ancestor a:active,
-#navigation-bar .ancestor a:visited {
-    color: #888888;
 }
 
 #headline img {
