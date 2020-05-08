@@ -41,7 +41,7 @@ if ENV in ['dev', 'test']:
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-    DEBUG = os.getenv('DJANGO_DEBUG')
+    DEBUG = False
     ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
     DATA_DIR = ROOT_INSTALLATION_PATH
 
