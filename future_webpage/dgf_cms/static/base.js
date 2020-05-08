@@ -33,12 +33,10 @@ $(window).on("load", function() {
         target=e.target;
         if ($.contains($("#mobile-navigation-bar-header")[0], e.target)
             || $.contains($(".bar-container")[0], e.target)) {
-            console.log('toggle');
             $(".bar-container").toggleClass("change");
             $(".navbar-collapse").toggle();
         }
         else if (!$.contains($("#navbarResponsive")[0], e.target)) {
-            console.log('hide');
             $(".navbar-collapse").hide();
             $(".bar-container").removeClass("change");
         }

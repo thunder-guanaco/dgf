@@ -1,33 +1,139 @@
+/* mobile */
+@media only screen and (max-width: 600px) {
+
+    .container {
+        width: 90% !important;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    form img {
+        width: 50% !important;
+    }
+
+    form .field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 1em 0;
+    }
+
+    form label {
+        font-weight: bold;
+    }
+
+    form .field-image label {
+        font-weight: normal;
+    }
+
+    form input[type=text],
+    form input[type=url],
+    form input[type=number] {
+        width: 100%;
+        padding: 0.25em;
+        border-radius: 5px;
+    }
+
+    form #favorite-courses .field,
+    form #highlights .field,
+    form #bag .disc {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #videos .field {
+        position: relative;
+    }
+
+    #videos select[name$="type"] {
+        margin: 0.5em 0;
+    }
+
+    #videos input[name$="url"] {
+        width: 90%
+    }
+
+    #videos input[name$=DELETE] {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .disc {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .disc > * {
+        margin: 0.25em;
+    }
+
+}
+
+
+/* desktop */
+@media only screen and (min-width: 600px) {
+    form {
+        width: 70%;
+    }
+
+    form .field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 1em 0;
+    }
+
+    form label {
+        margin-right: 1em;
+    }
+
+    form input[type=text],
+    form input[type=url],
+    form input[type=number] {
+        width: 70%;
+        padding: 0.25em;
+        border-radius: 5px;
+    }
+
+    form .favorite-course,
+    form .highlight {
+        margin-left: 2em;
+    }
+
+    #videos input[name$="url"] {
+        width: 65%
+    }
+
+    .disc {
+        margin-left: 1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .disc > * {
+        margin: 1em;
+    }
+}
+
 .container {
     align-items: center;
 }
 
 form {
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-}
-
-form .field {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 1em 0;
-}
-
-form label {
-    margin-right: 1em;
-}
-
-form input[type=text],
-form input[type=url],
-form input[type=number] {
-    width: 70%;
-    padding: 0.25em;
-    border-radius: 5px;
 }
 
 form .field-image input[type=checkbox] {
@@ -65,11 +171,6 @@ form .field input[name=plays_since] {
     text-align: center;
 }
 
-form .favorite-course,
-form .highlight {
-    margin-left: 2em;
-}
-
 .hidden,
 #favorite-courses label,
 #highlights label,
@@ -80,18 +181,6 @@ form .highlight {
 
 select {
     font-family: Gnuolane !important;
-}
-
-.disc {
-    margin-left: 1em;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.disc > * {
-    margin: 1em;
 }
 
 .disc input[type=number] {
@@ -172,12 +261,13 @@ input[name$="DELETE"]:before {
     margin-bottom: 2em;
 }
 
-#videos input[name$="title"] {
-    width: 25%
+.ace input[name$=hole] {
+    width: 3em;
+    text-align: center;
 }
 
-#videos input[name$="url"] {
-    width: 65%
+.ace li label {
+    margin-right: 1em;
 }
 
 #videos div.field {

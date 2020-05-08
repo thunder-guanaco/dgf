@@ -39,25 +39,34 @@
     }
 
     #mobile-navigation-bar .bar-container {
-      display: inline-block;
-      cursor: pointer;
-      margin: 0.5em;
+        display: inline-block;
+        cursor: pointer;
+        margin: 0.5em;
+        position: relative;
     }
 
     #mobile-navigation-bar .bar-1,
     #mobile-navigation-bar .bar-2,
     #mobile-navigation-bar .bar-3 {
       width: 35px;
-      height: 5px;
+      height: 2px;
       background-color: #ffffff;
       margin: 6px 0;
       transition: 0.4s;
       border-radius: 1em;
     }
 
+
+    #mobile-navigation-bar .change .bar-1,
+    #mobile-navigation-bar .change .bar-3 {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
     #mobile-navigation-bar .change .bar-1 {
-      -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-      transform: rotate(-45deg) translate(-9px, 6px);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
     }
 
     #mobile-navigation-bar .change .bar-2 {
@@ -65,8 +74,8 @@
     }
 
     #mobile-navigation-bar .change .bar-3 {
-      -webkit-transform: rotate(45deg) translate(-8px, -8px);
-      transform: rotate(45deg) translate(-8px, -8px);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
     }
 
     #mobile-navigation-bar img {

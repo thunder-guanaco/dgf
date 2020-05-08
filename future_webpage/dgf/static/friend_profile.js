@@ -113,7 +113,7 @@ function loadVideos() {
 function activateVideoChosen(selector){
     $(selector).chosen({
         disable_search_threshold: 10,
-        width: "20%"
+        width: "25%"
     });
 }
 
