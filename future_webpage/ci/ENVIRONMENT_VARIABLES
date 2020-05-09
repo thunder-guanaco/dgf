@@ -4,6 +4,5 @@
 ROOT_INSTALLATION_PATH=/home/ubuntu
 
 export DJANGO_ENV="prod"
-export DJANGO_DEBUG="False"
 export DJANGO_ALLOWED_HOSTS="vps793990.ovh.net,discgolffriends.de,disc-golf-friends.de,www.discgolffriends.de,www.disc-golf-friends.de"
 source ${ROOT_INSTALLATION_PATH}/secrets
