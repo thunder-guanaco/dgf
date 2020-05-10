@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-{% load cms_tags %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block title %}
-    {% trans "WTF Richard?!" %}
+    {% trans "500 - WTF Richard!?" %}
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'error.css' %}">
 {% endblock %}
 
 {% block content %}
-	<h1>{% trans "WTF Richard?!" %}</h1>
-	<p>{% trans "It seems that we have a problem. Please let us work on that." %}</p>
+	<img src="{% static '500.jpg' %}"></img>
+	<div class="text">
+		<h1 class="title">{% trans "500 - WTF Richard!?" %}</h1>
+		<h2>{% trans "It seems that we have a problem. Please let us work on that." %}</h2>
+
+	</div>
 {% endblock content %}
