@@ -37,17 +37,7 @@ def update_tournaments(pdga_service):
 
 def update_ratings(pdga_service):
     for friend in Friend.objects.all():
-        if friend.pdga_number:
-            pdga_friend_response = pdga_service.query_player(pdga_number=friend.pdga_number)
-            rating = pdga_friend_response['players'][0]['rating']
-            if rating:
-                friend.rating = int(rating)
-                friend.save()
-                logger.info('{} has now rating: {}'.format(friend.username, friend.rating))
-            else:
-                logger.info(
-                    '{} had no rating in the PDGA yet, possible reasons: membership outdated or new member'.format(
-                        friend.username))
+        pdga_service.update_friend_rating(friend)
 
 
 def fetch_pdga_data():
