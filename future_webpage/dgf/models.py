@@ -12,8 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
-from .cronjobs import update_ratings
-from .pdga import PdgaApi
+from .cronjobs import fetch_pdga_data
 from .post_actions import feedback_post_save
 
 logger = logging.getLogger(__name__)
@@ -154,7 +153,7 @@ class Friend(User):
         super(Friend, self).save(*args, **kwargs)
         try:
             if self.pdga_number:
-                update_ratings(PdgaApi())
+                fetch_pdga_data()
         except:
             logger.warning('I could update !')
 
