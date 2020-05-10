@@ -12,6 +12,8 @@ from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
+from .cronjobs import update_ratings
+from .pdga import PdgaApi
 from .post_actions import feedback_post_save
 
 logger = logging.getLogger(__name__)
@@ -150,6 +152,11 @@ class Friend(User):
         self.slug = slugify(new_slug).lower()
         logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         super(Friend, self).save(*args, **kwargs)
+        try:
+            if self.pdga_number:
+                update_ratings(PdgaApi())
+        except:
+            logger.warning('I could update !')
 
 
 class FavoriteCourse(Model):
