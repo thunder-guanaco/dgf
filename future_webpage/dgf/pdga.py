@@ -123,9 +123,7 @@ class PdgaApi:
             pdga_friend_response = self.query_player(pdga_number=friend.pdga_number)
             rating = pdga_friend_response['players'][0]['rating']
             if rating:
-
                 friend.rating = int(rating)
-                friend.save()
                 logger.info('{} has now rating: {}'.format(friend.username, friend.rating))
             else:
                 logger.info(
@@ -152,7 +150,6 @@ class PdgaApi:
 
             friend.total_earnings = money_earned
             friend.total_tournaments = tournaments
-            friend.save()
 
     def _query_pdga(self, url, query_parameters):
         query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))

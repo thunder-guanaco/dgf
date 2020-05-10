@@ -147,10 +147,6 @@ class Friend(User):
         return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
 
     def save(self, *args, **kwargs):
-        new_slug = self.slug or self.nickname or self.first_name or self.username
-        self.slug = slugify(new_slug).lower()
-        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
-        super(Friend, self).save(*args, **kwargs)
         try:
             if self.pdga_number:
                 pdga = PdgaApi()
@@ -158,6 +154,11 @@ class Friend(User):
                 pdga.update_friend_tournament(self)
         except:
             logger.warning('I could not update the PDGA data for the friend: {}!'.format(self.username))
+
+        new_slug = self.slug or self.nickname or self.first_name or self.username
+        self.slug = slugify(new_slug).lower()
+        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
+        super(Friend, self).save(*args, **kwargs)
 
 
 class FavoriteCourse(Model):
