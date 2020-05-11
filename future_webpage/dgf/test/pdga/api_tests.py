@@ -22,6 +22,16 @@ class PdgaApiTest(TestCase):
         self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
 
     @responses.activate
+    def test_rating_is_stored_in_friend_when_saved(self):
+        self.configure_responses()
+
+        friend = Friend()
+        friend.pdga_number = 109371
+        friend.username = 'fede'
+        friend.save()
+        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
+
+    @responses.activate
     def test_prices_and_tournaments_stored(self):
         self.configure_responses()
 
