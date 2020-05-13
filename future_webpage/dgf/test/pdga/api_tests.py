@@ -22,6 +22,28 @@ class PdgaApiTest(TestCase):
         self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
 
     @responses.activate
+    def test_rating_is_stored_in_friend_when_saved(self):
+        self.configure_responses()
+
+        friend = Friend()
+        friend.pdga_number = 109371
+        friend.username = 'fede'
+        friend.save()
+        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
+
+    @responses.activate
+    def test_rating_is_updated_in_friend(self):
+        self.configure_responses()
+
+        friend = Friend()
+        friend.pdga_number = 109371
+        friend.username = 'fede'
+        friend.save()
+        self.configure_responses(rating=950)
+        fetch_pdga_data()
+        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 950)
+
+    @responses.activate
     def test_prices_and_tournaments_stored(self):
         self.configure_responses()
 
@@ -34,14 +56,14 @@ class PdgaApiTest(TestCase):
         self.assertEqual(kevin.total_tournaments, 97)
         self.assertEqual(kevin.total_earnings, Decimal('3981.05'))
 
-    def configure_responses(self):
+    def configure_responses(self, rating=903):
         self.add_login()
         self.add_friend_data('47163')
-        self.add_friend_data('109371')
+        self.add_friend_data('109371', rating)
         self.add_friend_statistics('47163')
         self.add_friend_statistics('109371')
 
-    def add_friend_data(self, pdga_number):
+    def add_friend_data(self, pdga_number, rating=903):
         responses.add(responses.GET,
                       '{}/players?pdga_number={}&offset=0&limit=10'.format(settings.PDGA_BASE_URL, pdga_number),
                       json={'sessid': 'pR2J-dQygl7B8fufkt4YPu-E-KOTeNJsvYyKFLaXXi8',
@@ -57,7 +79,7 @@ class PdgaApiTest(TestCase):
                                   'classification': 'A', 'city': 'M\u00e1laga',
                                   'state_prov': 'MA',
                                   'country': 'ES',
-                                  'rating': '903',
+                                  'rating': '{}'.format(rating),
                                   'rating_effective_date': '2020-03-10',
                                   'official_status': 'yes',
                                   'official_expiration_date': '2021-11-28',
