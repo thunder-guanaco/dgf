@@ -123,9 +123,11 @@
                         <div class="value">
                             {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
                         </div>
-                        {% if friend.ace_video %}
-                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.ace_video.url|youtube_id %}
-                        {% endif %}
+                        {% with friend.videos.all|first_by_type:"A" as ace_video %}
+                            {% if ace_video %}
+                                {% include "dgf/includes/youtube_video.html" with youtube_id=ace_video.url|youtube_id %}
+                            {% endif %}
+                        {% endwith %}
                     </div>
                 {% endif %}
                 {% if friend.discs.count %}
@@ -141,42 +143,46 @@
                             <hr>
                             <div class="table-line">
                                 <div>
-                                    {% for disc in friend.putters %}
+                                    {% for disc in friend|filter_discs:"P" %}
                                         <p>{{disc.in_the_bag}}</p>
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    {% for disc in friend.mid_ranges %}
+                                    {% for disc in friend|filter_discs:"M" %}
                                         <p>{{disc.in_the_bag}}</p>
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    {% for disc in friend.fairway_drivers %}
+                                    {% for disc in friend|filter_discs:"F" %}
                                         <p>{{disc.in_the_bag}}</p>
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    {% for disc in friend.distance_drivers %}
+                                    {% for disc in friend|filter_discs:"D" %}
                                         <p>{{disc.in_the_bag}}</p>
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
-                        {% if friend.in_the_bag_video %}
-                            {% include "dgf/includes/youtube_video.html" with youtube_id=friend.in_the_bag_video.url|youtube_id %}
-                        {% endif %}
+                        {% with friend.videos.all|first_by_type:"B" as bag_video %}
+                            {% if bag_video %}
+                                {% include "dgf/includes/youtube_video.html" with youtube_id=bag_video.url|youtube_id %}
+                            {% endif %}
+                        {% endwith %}
                     </div>
                 {% endif %}
-                {% if friend.other_videos.count %}
-                    <div id="videos" class="big-field">
-                        <p class="label">{% trans "Videos" %}</p>
-                        <div class="value">
-                            {% for video in friend.other_videos.all %}
-                                {% include "dgf/includes/youtube_video.html" with youtube_id=video.url|youtube_id %}
-                            {% endfor %}
+                {% with friend.videos.all|filter_by_type:"O" as other_videos %}
+                    {% if other_videos %}
+                        <div id="videos" class="big-field">
+                            <p class="label">{% trans "Videos" %}</p>
+                            <div class="value">
+                                {% for video in other_videos %}
+                                    {% include "dgf/includes/youtube_video.html" with youtube_id=video.url|youtube_id %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                {% endwith %}
             </div>
         </div>
         {% include "dgf/includes/pdga_attribution.html" %}

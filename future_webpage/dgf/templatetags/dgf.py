@@ -5,7 +5,7 @@ from datetime import datetime
 from django import template
 from django.db.models import Count
 
-from ..models import Ace, DiscInBag, Course
+from ..models import Ace, DiscInBag, Course, Video
 
 register = template.Library()
 
@@ -81,3 +81,21 @@ def youtube_id(url):
 
     logger.warning('{} is not a valid Youtube URL'.format(url))
     return None
+
+
+@register.filter
+def filter_discs(friend, type):
+    return filter(lambda disc: disc.type == type, friend.discs.all())
+
+
+@register.filter
+def filter_by_type(queryset, type):
+    return filter(lambda x: x.type == type, queryset)
+
+
+@register.filter
+def first_by_type(queryset, type):
+    try:
+        return list(filter_by_type(queryset, type))[0]
+    except IndexError:
+        return None

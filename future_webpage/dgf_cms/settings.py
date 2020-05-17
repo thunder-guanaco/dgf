@@ -171,7 +171,6 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = [
-    'silk.middleware.SilkyMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -190,7 +189,6 @@ INSTALLED_APPS = [
     'dgf',
     'django_crontab',
     'django_countries',
-    'silk',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -267,8 +265,6 @@ CMS_LANGUAGES = {
     },
 }
 
-SILKY_PYTHON_PROFILER = True
-SILKY_PYTHON_PROFILER_BINARY = True
 CONN_MAX_AGE = 60
 
 LOCALE_PATHS = [
