@@ -5,7 +5,7 @@ from datetime import datetime
 from django import template
 from django.db.models import Count
 
-from ..models import Ace, DiscInBag, Course, Video
+from ..models import Ace, DiscInBag, Course
 
 register = template.Library()
 

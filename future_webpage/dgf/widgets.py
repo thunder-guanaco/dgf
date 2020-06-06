@@ -3,8 +3,11 @@ from partial_date import PartialDate
 
 from .models import Disc, Course
 
-all_objects = lambda object_type: [('', '---')] + [(x.id, str(x)) for x in
-                                                   object_type.objects.all().order_by('id')]
+
+def all_objects(object_type):
+    return [('', '---')] + [(x.id, str(x)) for x in
+                            object_type.objects.all().order_by('id')]
+
 
 ALL_COURSES = all_objects(Course)
 ALL_DISCS = all_objects(Disc)
