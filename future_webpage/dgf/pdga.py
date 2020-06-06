@@ -1,10 +1,14 @@
 # coding=utf-8
 import json
+import logging
+from decimal import Decimal
 from urllib.parse import urlencode
 
 import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+
+logger = logging.getLogger(__name__)
 
 
 class PdgaApi:
@@ -113,6 +117,39 @@ class PdgaApi:
         }
 
         return self._query_pdga('event', query_parameters)
+
+    def update_friend_rating(self, friend):
+        if friend.pdga_number:
+            pdga_friend_response = self.query_player(pdga_number=friend.pdga_number)
+            rating = pdga_friend_response['players'][0]['rating']
+            if rating:
+                friend.rating = int(rating)
+                logger.info('{} has now rating: {}'.format(friend.username, friend.rating))
+            else:
+                logger.info(
+                    '{} had no rating in the PDGA yet, possible reasons: membership outdated or new member'.format(
+                        friend.username))
+
+    def update_friend_tournament(self, friend):
+        if friend.pdga_number:
+            statistics = self.query_player_statistics(pdga_number=friend.pdga_number)
+
+            money_earned = 0
+            tournaments = 0
+            for yearly_stats in statistics['players']:
+                try:
+                    money_earned += Decimal(yearly_stats['prize'])
+                except KeyError:
+                    # not all years have to have prizes
+                    pass
+                try:
+                    tournaments += int(yearly_stats['tournaments'])
+                except KeyError:
+                    # maybe not all years have to have tournaments
+                    pass
+
+            friend.total_earnings = money_earned
+            friend.total_tournaments = tournaments
 
     def _query_pdga(self, url, query_parameters):
         query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
