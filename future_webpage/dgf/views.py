@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.forms import inlineformset_factory, Select, SelectDateWidget
 from django.urls import reverse
-from django.views import generic
+from django.views import generic, defaults
 from django.views.generic import CreateView
 from partial_date import PartialDate
 
@@ -148,3 +148,18 @@ class MediaIndex(generic.ListView):
         all_videos = list(set(Video.objects.all().values_list('url', flat=True)))
         random.shuffle(all_videos)
         return all_videos
+
+
+def nice_format(dictionary):
+    return '\n'.join(['* **{}**: {}'.format(key, value) for key, value in dictionary.items()])
+
+
+def server_error(request):
+    headers = nice_format(request.headers)
+    body = nice_format(request.POST) if request.method == 'POST' else ' -- '
+    Feedback.objects.create(title='Server error on {} {}'.format(request.method, request.get_full_path()),
+                            feedback='# Headers\n{}\n'
+                                     '# Body\n{}'.format(headers, body),
+                            friend=request.user.friend if not request.user.is_anonymous else None)
+
+    return defaults.server_error(request)
