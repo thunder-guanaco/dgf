@@ -194,6 +194,7 @@ select {
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 1em;
+    width: 80%;
 }
 
 .disc:last-child input[name$=DELETE] {

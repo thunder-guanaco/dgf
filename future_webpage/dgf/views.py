@@ -1,87 +1,29 @@
 import random
-from datetime import datetime
 
-from django.forms import inlineformset_factory, Select, SelectDateWidget
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import CreateView
-from partial_date import PartialDate
 
-from .models import Friend, Highlight, DiscInBag, Ace, Feedback, Video, FavoriteCourse
+from .formsets import FavoriteCourseFormset, HighlightFormset, DiscFormset, AceFormset, VideoFormset
+from .models import Friend, Feedback, Video
 
 
 class IndexView(generic.ListView):
     template_name = 'dgf/friend_list.html'
     context_object_name = 'friends'
-
-    def get_queryset(self):
-        return Friend.objects.all().order_by('?')
+    queryset = Friend.objects.all().order_by('?')
 
 
 class DetailView(generic.DetailView):
     model = Friend
     slug_field = 'slug'
     template_name = 'dgf/friend_detail.html'
-
-    def get_queryset(self):
-        return Friend.objects.all()
-
-
-FavoriteCourseFormset = inlineformset_factory(
-    Friend, FavoriteCourse, fields=('course',),
-    max_num=5, extra=5, validate_max=True
-)
-
-HighlightFormset = inlineformset_factory(
-    Friend, Highlight, fields=('content',),
-    max_num=5, extra=5, validate_max=True
-)
-
-DiscFormset = inlineformset_factory(
-    Friend, DiscInBag, fields=('type', 'amount', 'disc'), extra=1,
-    widgets={'disc': Select(attrs={'class': 'chosen-select'})}
-)
-
-
-class PartialDateWidget(SelectDateWidget):
-    is_localized = False
-
-    def format_value(self, value):
-        if isinstance(value, PartialDate):
-            date = value.date
-            return {
-                'year': date.year if value.precision >= PartialDate.YEAR else '',
-                'month': date.month if value.precision >= PartialDate.MONTH else '',
-                'day': date.day if value.precision >= PartialDate.DAY else '',
-            }
-        else:
-            return super().format_value(value)
-
-    def value_from_datadict(self, data, files, name):
-        y = data.get(self.year_field % name)
-        m = data.get(self.month_field % name)
-        d = data.get(self.day_field % name)
-        if not y:
-            return None
-        date_string = str(y)
-        if m:
-            date_string += '-{}'.format(m)
-        if d:
-            date_string += '-{}'.format(d)
-        return date_string
-
-
-current_year = datetime.now().year
-
-AceFormset = inlineformset_factory(
-    Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
-    extra=0, widgets={'date': PartialDateWidget(years=range(current_year, current_year - 20, -1))}
-)
-
-VideoFormset = inlineformset_factory(
-    Friend, Video, fields=('url', 'type'),
-    extra=0
-)
+    queryset = (Friend.objects.all().prefetch_related('favorite_courses__course',
+                                                      'highlights',
+                                                      'discs__disc',
+                                                      'aces',
+                                                      'videos')
+                )
 
 
 class UpdateView(generic.edit.UpdateView):
