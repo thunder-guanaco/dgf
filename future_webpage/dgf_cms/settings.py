@@ -265,6 +265,8 @@ CMS_LANGUAGES = {
     },
 }
 
+CONN_MAX_AGE = 60
+
 LOCALE_PATHS = [
     '{}/locale'.format(BASE_DIR),
 ]
