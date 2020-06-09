@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n %}
+{% load static cms_tags i18n dgf %}
 
 {% block title %}
     {% trans "Friends" %}
@@ -39,6 +39,7 @@
         {% endif %}
 
         {% include "dgf/includes/pdga_attribution.html" %}
+        {% include "dgf/includes/dgf_version.html" %}
 
     </div>
 

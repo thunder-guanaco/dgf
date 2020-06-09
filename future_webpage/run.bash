@@ -49,6 +49,7 @@ case "$1" in
     python manage.py runcrons
     ;;
   runserver)
+    export DJANGO_DGF_VERSION="$(git rev-parse HEAD)"
     python manage.py runserver 0.0.0.0:8000
     ;;
   shell)

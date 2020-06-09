@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 
 from django import template
+from django.conf import settings
 from django.db.models import Count
 
 from ..models import Ace, DiscInBag, Course
@@ -99,3 +100,8 @@ def first_by_type(queryset, type):
         return list(filter_by_type(queryset, type))[0]
     except IndexError:
         return None
+
+
+@register.simple_tag
+def dgf_version():
+    return settings.DGF_VERSION
