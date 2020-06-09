@@ -2,7 +2,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 from cms.sitemaps import CMSSitemap
-from dgf.views import server_error
+from dgf.handlers import server_error
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls import url
