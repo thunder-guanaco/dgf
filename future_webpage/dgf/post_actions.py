@@ -6,10 +6,11 @@ from django.conf import settings
 
 def feedback_post_save(instance):
     url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'
+    friend_name = instance.friend.short_name if instance.friend else 'Anonymous user'
 
     # Create our issue
     issue = {
-        'title': '{}: {}'.format(instance.friend.short_name, instance.title),
+        'title': '{}: {}'.format(friend_name, instance.title),
         'body': instance.feedback,
         'labels': ['Feedback']
     }
