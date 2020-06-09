@@ -2,6 +2,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 from cms.sitemaps import CMSSitemap
+from dgf.handlers import server_error
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls import url
@@ -36,3 +37,5 @@ if settings.DEBUG:
         url(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
         ] + staticfiles_urlpatterns() + urlpatterns
+
+handler500 = server_error
