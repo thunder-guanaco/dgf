@@ -14,6 +14,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+DGF_VERSION = os.getenv('DJANGO_DGF_VERSION')
+
 ROOT_INSTALLATION_PATH = '/home/ubuntu'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

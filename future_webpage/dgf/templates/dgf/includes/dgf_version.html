@@ -1,0 +1,7 @@
+{% load dgf %}
+
+{% if request.user.is_superuser %}
+    <div id="dgf-version">
+        rev {% dgf_version %}
+    </div>
+{% endif %}

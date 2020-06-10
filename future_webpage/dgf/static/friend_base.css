@@ -23,6 +23,11 @@
     right: 0;
 }
 
+#dgf-version {
+    position: absolute;
+    right: 0;
+}
+
 .ball-container {
     border-radius: 50%;
     line-height: 2.5em;

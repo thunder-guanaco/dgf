@@ -32,7 +32,10 @@ jobs:
 
       - name: "Checkout files"
         uses: actions/checkout@master
-
+      - name: "Set version"
+        run: |
+            cd future_webpage/ci
+            echo "${GITHUB_SHA}" > version
       - name: "Copy project files via scp"
         uses: appleboy/scp-action@master
         with:
