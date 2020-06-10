@@ -9,7 +9,7 @@ This is a Django CMS project.
 
 ## HOWTOs
 
-### Set up server
+### Set up production server
 
 See `server_setup.bash`
 
@@ -47,7 +47,7 @@ sudo mysql -e "GRANT ALL PRIVILEGES ON dgf_cms.* TO 'dgf'@'localhost' WITH GRANT
 1. Run the server
 `python manage.py runserver 0.0.0.0:8000`
 
-All of this can be done at once by running the script [run_locally.bash]
+All of this can be done at once by running the script [run.bash]
 
 
 ## PDGA support:
