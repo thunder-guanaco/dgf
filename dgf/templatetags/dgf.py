@@ -86,18 +86,18 @@ def youtube_id(url):
 
 @register.filter
 def filter_discs(friend, type):
-    return filter(lambda disc: disc.type == type, friend.discs.all())
+    return list(filter(lambda disc: disc.type == type, friend.discs.all()))
 
 
 @register.filter
 def filter_by_type(queryset, type):
-    return filter(lambda x: x.type == type, queryset)
+    return list(filter(lambda x: x.type == type, queryset))
 
 
 @register.filter
 def first_by_type(queryset, type):
     try:
-        return list(filter_by_type(queryset, type))[0]
+        return filter_by_type(queryset, type)[0]
     except IndexError:
         return None
 
