@@ -100,13 +100,11 @@ sudo apt-get install nginx
 sudo service nginx start
 
 # configuration
-echo "create the 2 files containing the certificate and private key in /etc/nginx/ssl:"
-echo " * ssl/www.disc-golf-friends.de.crt"
-echo " * ssl/www.disc-golf-friends.de.key"
+echo "Use Certbot to create certificates"
 echo
 read
 chmod 400  /etc/nginx/ssl/*
-cat << EOF > /etc/nginx/sites-available/dgf_cms
+cat << EOF > /etc/nginx/conf.d/disc-golf-friends.de.conf
 upstream dgf_cms_app_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
@@ -116,21 +114,14 @@ upstream dgf_cms_app_server {
 }
 
 server {
-    listen 80 default_server;
-    server_name vps793990.ovh.net;
-    return 301 https://$host$request_uri;
-}
+    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de vps793990.ovh.net www.vps793990.ovh.net;
 
-server {
-
-    listen              443 ssl;
-    server_name         vps793990.ovh.net;
-    ssl_certificate     ssl/www.disc-golf-friends.de.crt;
-    ssl_certificate_key ssl/www.disc-golf-friends.de.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
-
-    client_max_body_size 4G;
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/disc-golf-friends.de/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/disc-golf-friends.de/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
     access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
     error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
@@ -180,7 +171,25 @@ server {
     location = /500.html {
         root ${ROOT_INSTALLATION_PATH}/static/;
     }
+    client_max_body_size 100M;
 }
+
+server {
+    if (\$host = disc-golf-friends.de) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
+
+
+    if (\$host = discgolffriends.de) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de;
+    return 301 https://\$host\$request_uri;
+}
+
 EOF
 
 # set dgf_cms to be the main application in nginx
