@@ -100,53 +100,44 @@ sudo apt-get install nginx
 sudo service nginx start
 
 # configuration
-echo "create the 2 files containing the certificate and private key in /etc/nginx/ssl:"
-echo " * ssl/www.disc-golf-friends.de.crt"
-echo " * ssl/www.disc-golf-friends.de.key"
+echo "Use Certbot to create certificates"
 echo
 read
 chmod 400  /etc/nginx/ssl/*
-cat << EOF > /etc/nginx/sites-available/dgf_cms
+cat << EOF > /etc/nginx/conf.d/disc-golf-friends.de.conf
 upstream dgf_cms_app_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
 
-  server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
+  server unix:/home/ubuntu/gunicorn.sock fail_timeout=0;
 }
 
 server {
-    listen 80 default_server;
-    server_name vps793990.ovh.net;
-    return 301 https://$host$request_uri;
-}
+    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de vps793990.ovh.net www.vps793990.ovh.net;
 
-server {
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/disc-golf-friends.de/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/disc-golf-friends.de/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-    listen              443 ssl;
-    server_name         vps793990.ovh.net;
-    ssl_certificate     ssl/www.disc-golf-friends.de.crt;
-    ssl_certificate_key ssl/www.disc-golf-friends.de.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
-
-    client_max_body_size 4G;
-
-    access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
-    error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
+    access_log /home/ubuntu/logs/nginx-access.log;
+    error_log /home/ubuntu/logs/nginx-error.log;
 
     location /static/ {
-        alias   ${ROOT_INSTALLATION_PATH}/static/;
+        alias   /home/ubuntu/static/;
     }
 
     location /media/ {
-        alias   ${ROOT_INSTALLATION_PATH}/media/;
+        alias   /home/ubuntu/media/;
     }
 
     location / {
         # an HTTP header important enough to have its own Wikipedia entry:
         #   http://en.wikipedia.org/wiki/X-Forwarded-For
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
         # enable this if and only if you use HTTPS, this helps Rack
         # set the proper protocol for doing redirects:
@@ -154,7 +145,7 @@ server {
 
         # pass the Host: header from the client right along so redirects
         # can be set properly within the Rack application
-        proxy_set_header Host \$http_host;
+        proxy_set_header Host $http_host;
 
         # we don't want nginx trying to do something clever with
         # redirects, we set the Host: header above already.
@@ -169,7 +160,7 @@ server {
 
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
-        if (!-f \$request_filename) {
+        if (!-f $request_filename) {
             proxy_pass http://dgf_cms_app_server;
             break;
         }
@@ -178,9 +169,27 @@ server {
     # Error pages
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root ${ROOT_INSTALLATION_PATH}/static/;
+        root /home/ubuntu/static/;
     }
+    client_max_body_size 100M;
 }
+
+server {
+    if ($host = disc-golf-friends.de) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = discgolffriends.de) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de;
+    return 301 https://$host$request_uri;
+}
+
 EOF
 
 # set dgf_cms to be the main application in nginx
