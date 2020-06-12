@@ -1,4 +1,4 @@
-name: Future Webpage - Deploy
+name: Deploy
 
 on:
   push:
@@ -6,25 +6,6 @@ on:
     - master
 
 jobs:
-  release:
-    name: "Release to GitHub"
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: "Checkout files"
-        uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-
-      - name: "Release to GitHub"
-        uses: opspresso/action-release@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: "release-${{ github.run_number }}"
-          NAME:  "release - ${{ github.run_number }}"
-          BODY: "Generated after a ${{ github.event_name }} by ${{ github.actor }}"
-          ASSET_PATH: future_webpage
-
   deploy:
     name: "Deploy to production"
     runs-on: ubuntu-latest
@@ -34,17 +15,15 @@ jobs:
         uses: actions/checkout@master
       - name: "Set version"
         run: |
-            cd future_webpage/ci
-            echo "${GITHUB_SHA}" > version
+            echo "${GITHUB_SHA}" > ci/version
       - name: "Copy project files via scp"
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DJANGO_DEPLOY_HOST }}
           username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
           key: ${{ secrets.DJANGO_DEPLOY_KEY }}
-          source: "future_webpage"
+          source: "."
           target: "django_project"
-          strip_components: 1
           rm: true
 
       - name: "Restart the server"
