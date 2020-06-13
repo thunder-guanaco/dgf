@@ -1,8 +1,8 @@
 {% load i18n dgf %}
-<li id="best-friends">
+<li class="friends-ranking">
     <h2>{% trans "Best players" %}</h2>
     <div class="inner-content list">
-        {% for friend in friends|order_by_rating %}
+        {% for friend in friends|order_by:"-rating" %}
             <div class="item">
                 {% include "dgf/includes/friend_ball.html" with friend=friend show_rating=True %}
             </div>

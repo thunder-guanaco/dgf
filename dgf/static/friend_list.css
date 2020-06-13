@@ -19,7 +19,7 @@
         align-items: center;
     }
 
-    #statistics #best-friends .list {
+    #statistics .friends-ranking .list {
         align-items: flex-start;
     }
 
@@ -28,12 +28,12 @@
         margin: 0.5em 0 !important;
     }
 
-    #best-friends .friend-ball {
+    .friends-ranking .friend-ball {
         flex-direction: row !important;
         margin-left: 60%;
     }
 
-    #best-friends .friend-ball .friend-name {
+    .friends-ranking .friend-ball .friend-name {
         margin: 0 0 0 0.5em !important;
     }
 
@@ -67,6 +67,11 @@
 
 #statistics li {
     list-style-type: none;
+    margin-top: 3em;
+}
+
+#statistics li h2 {
+    margin-bottom: 0.5em;
 }
 
 #statistics .line {
@@ -107,7 +112,7 @@
     margin-left: 20%;
 }
 
-#best-friends .list .item {
+.friends-ranking .list .item {
     display: flex;
     flex-direction: row;
     justify-content: center;

@@ -12,7 +12,7 @@ register = template.Library()
 
 AMOUNT_OF_FAVORITE_DISCS = 3
 AMOUNT_OF_FAVORITE_COURSES = 3
-AMOUNT_OF_BEST_FRIENDS = 3
+AMOUNT_OF_TOP_FRIENDS = 3
 
 logger = logging.getLogger(__name__)
 
@@ -64,8 +64,8 @@ def _current_year_as_str():
 
 
 @register.filter
-def order_by_rating(friends):
-    return friends.order_by('-rating')[:AMOUNT_OF_BEST_FRIENDS]
+def order_by(friends, ordering):
+    return friends.order_by(ordering)[:AMOUNT_OF_TOP_FRIENDS]
 
 
 @register.filter

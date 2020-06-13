@@ -29,7 +29,7 @@ class DetailView(generic.DetailView):
 class UpdateView(generic.edit.UpdateView):
     model = Friend
     fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
-              'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'free_text']
+              'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'best_score_in_wischlingen', 'free_text']
     template_name_suffix = '_profile'
     formsets = [('favorite_courses', FavoriteCourseFormset),
                 ('highlights', HighlightFormset),

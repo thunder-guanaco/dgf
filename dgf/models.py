@@ -92,6 +92,8 @@ class Friend(User):
     main_photo = models.ImageField(_('Main photo'), null=True, blank=True)
     plays_since = models.PositiveIntegerField(_('Plays since'), null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
+    best_score_in_wischlingen = models.IntegerField(_('Best score in Wischlingen (relative to par)'), null=True,
+                                                    blank=True)
     free_text = models.TextField(_('Started playing'), null=True, blank=True)
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
@@ -243,15 +245,6 @@ class Ace(models.Model):
                                               _('with a'), self.disc.display_name,
                                               self.get_type_display(),
                                               " - {}".format(self.date) if self.date else "")
-
-
-class BestRound(models.Model):
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='best_rounds')
-    course = models.ForeignKey(Course, on_delete=CASCADE, related_name='best_rounds', verbose_name=_('Course'))
-    score = models.IntegerField(_('Score'))
-
-    def __str__(self):
-        return '{} - {} ({})'.format(self.friend, self.course, self.score)
 
 
 class Video(Model):
