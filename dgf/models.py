@@ -245,6 +245,15 @@ class Ace(models.Model):
                                               " - {}".format(self.date) if self.date else "")
 
 
+class BestRound(models.Model):
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='best_rounds')
+    course = models.ForeignKey(Course, on_delete=CASCADE, related_name='best_rounds', verbose_name=_('Course'))
+    score = models.IntegerField(_('Score'))
+
+    def __str__(self):
+        return '{} - {} ({})'.format(self.friend, self.course, self.score)
+
+
 class Video(Model):
     class Meta:
         constraints = [
