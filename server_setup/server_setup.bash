@@ -100,7 +100,7 @@ sudo apt-get install nginx
 sudo service nginx start
 
 # configuration
-echo "Use Certbot to create certificates"
+echo "Use Let's Encrypt to create certificates: https://letsencrypt.org/"
 echo
 read
 chmod 400  /etc/nginx/ssl/*
@@ -110,7 +110,7 @@ upstream dgf_cms_app_server {
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
 
-  server unix:/home/ubuntu/gunicorn.sock fail_timeout=0;
+  server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
 }
 
 server {
@@ -123,21 +123,21 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-    access_log /home/ubuntu/logs/nginx-access.log;
-    error_log /home/ubuntu/logs/nginx-error.log;
+    access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
+    error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
 
     location /static/ {
-        alias   /home/ubuntu/static/;
+        alias   ${ROOT_INSTALLATION_PATH}/static/;
     }
 
     location /media/ {
-        alias   /home/ubuntu/media/;
+        alias   ${ROOT_INSTALLATION_PATH}/media/;
     }
 
     location / {
         # an HTTP header important enough to have its own Wikipedia entry:
         #   http://en.wikipedia.org/wiki/X-Forwarded-For
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
 
         # enable this if and only if you use HTTPS, this helps Rack
         # set the proper protocol for doing redirects:
@@ -145,7 +145,7 @@ server {
 
         # pass the Host: header from the client right along so redirects
         # can be set properly within the Rack application
-        proxy_set_header Host $http_host;
+        proxy_set_header Host \$http_host;
 
         # we don't want nginx trying to do something clever with
         # redirects, we set the Host: header above already.
@@ -160,7 +160,7 @@ server {
 
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
-        if (!-f $request_filename) {
+        if (!-f \$request_filename) {
             proxy_pass http://dgf_cms_app_server;
             break;
         }
@@ -169,25 +169,25 @@ server {
     # Error pages
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root /home/ubuntu/static/;
+        root ${ROOT_INSTALLATION_PATH}/static/;
     }
     client_max_body_size 100M;
 }
 
 server {
-    if ($host = disc-golf-friends.de) {
-        return 301 https://$host$request_uri;
+    if (\$host = disc-golf-friends.de) {
+        return 301 https://\$host\$request_uri;
     } # managed by Certbot
 
 
-    if ($host = discgolffriends.de) {
-        return 301 https://$host$request_uri;
+    if (\$host = discgolffriends.de) {
+        return 301 https://\$host\$request_uri;
     } # managed by Certbot
 
     listen 80 default_server;
     listen [::]:80 default_server;
     server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de;
-    return 301 https://$host$request_uri;
+    return 301 https://\$host\$request_uri;
 }
 
 EOF
