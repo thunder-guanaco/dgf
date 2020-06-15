@@ -2,7 +2,7 @@
 {% load static i18n %}
 
 {% block title %}
-    {% trans "500 - WTF Richard!?" %}
+    {% trans "403 - Foot fault!" %}
 {% endblock %}
 
 {% block css %}
@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block content %}
-	<img src="{% static '500.jpg' %}"/>
+	<img src="{% static '4xx.jpg' %}"/>
 	<div class="text">
-		<h1 class="title">{% trans "500 - WTF Richard!?" %}</h1>
-		<h2>{% trans "It seems that we have a problem. Please let us work on that." %}</h2>
+		<h1 class="title">{% trans "403 - Foot fault!" %}</h1>
+		<h2>{% trans "You are not allowed to see this. You received a penalty stroke." %}</h2>
 
 	</div>
 {% endblock content %}
