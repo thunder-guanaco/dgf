@@ -171,14 +171,22 @@ server {
     location = /500.html {
         root ${ROOT_INSTALLATION_PATH}/static/;
     }
+
     client_max_body_size 100M;
 }
 
 server {
-    if (\$host = disc-golf-friends.de) {
+    if (\$host = www.disc-golf-friends.de) {
         return 301 https://\$host\$request_uri;
     } # managed by Certbot
 
+    if (\$host = www.discgolffriends.de) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
+
+    if (\$host = disc-golf-friends.de) {
+        return 301 https://\$host\$request_uri;
+    } # managed by Certbot
 
     if (\$host = discgolffriends.de) {
         return 301 https://\$host\$request_uri;
