@@ -21,9 +21,6 @@ class FriendsToolbar(CMSToolbar):
         )
 
 
-toolbar_pool.register(FriendsToolbar)
-
-
 class CourseToolbar(CMSToolbar):
 
     def populate(self):
@@ -41,4 +38,23 @@ class CourseToolbar(CMSToolbar):
         )
 
 
+class TournamentToolbar(CMSToolbar):
+
+    def populate(self):
+        menu = self.toolbar.get_or_create_menu(
+            'dgf-tournament',
+            _('Tournaments'),
+        )
+        menu.add_sideframe_item(
+            name=_('All tournaments'),
+            url=admin_reverse('dgf_tournament_changelist'),
+        )
+        menu.add_modal_item(
+            name=_('New tournament'),
+            url=admin_reverse('dgf_tournament_add'),
+        )
+
+
+toolbar_pool.register(FriendsToolbar)
 toolbar_pool.register(CourseToolbar)
+toolbar_pool.register(TournamentToolbar)
