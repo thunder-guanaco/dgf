@@ -267,3 +267,9 @@ class Video(Model):
 
     def __str__(self):
         return str(self.url)
+
+
+class Tournament(models.Model):
+    begin = models.DateField(auto_now=False, auto_now_add=False)
+    end = models.DateField(auto_now=False, auto_now_add=False)
+    name = models.CharField(_('Name'), max_length=300)

@@ -1,0 +1,418 @@
+[
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Hessenspieltage #5: Verdammt, der Typ hat meine Tasche!!, Darmstadt, Lichtwiese",
+      "begin": "2020-3-15",
+      "end": "2020-3-15"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Putt & Approach, S\u00f6hnstetten",
+      "begin": "2020-3-22",
+      "end": "2020-3-22"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Bremen Series Special @ Werdersee SA: DDC, Trickshot, Beach Ultimate SO: Disc Golf & Trickshot, Bremen, Naherhohlungsgebiet Werdersee",
+      "begin": "2020-4-4",
+      "end": "2020-4-5"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "SST N\u00fcrnberg - 1. Luitpoldhain Open, N\u00fcrnberg",
+      "begin": "2020-4-4",
+      "end": "2020-4-4"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "WT#04 Minden, Minden",
+      "begin": "2020-4-11",
+      "end": "2020-4-11"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "NRW-Mannschaftspokal, L\u00fcnen",
+      "begin": "2020-4-18",
+      "end": "2020-4-19"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Hessenspieltage #6: Abschlusspieltag, R\u00fcsselsheim, Waldschwimmbad",
+      "begin": "2020-4-25",
+      "end": "2020-4-25"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Women's Global Event German Edition + WGE, R\u00fcsselsheim Ostpark",
+      "begin": "2020-5-9",
+      "end": "2020-5-9"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "WT#05 Kallenhardt, Kallenhardt",
+      "begin": "2020-5-9",
+      "end": "2020-5-9"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Beginners Cup, S\u00f6hnstetten",
+      "begin": "2020-5-10",
+      "end": "2020-5-10"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "WT#06 Altastenberg, Altastenberg",
+      "begin": "2020-6-13",
+      "end": "2020-6-13"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "5. Ruhrpott Putters Trilogy Challenge, TBA - Dortmund und Umgebung",
+      "begin": "2020-6-20",
+      "end": "2020-6-20"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Nagelfluh-Cup, Gunzesried",
+      "begin": "2020-6-27",
+      "end": "2020-6-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Collector Marathon VII, Braunschweig und Umgebung",
+      "begin": "2020-6-27",
+      "end": "2020-6-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "7th Collector Marathon 2020, Braunschweiger Land",
+      "begin": "2020-6-27",
+      "end": "2020-6-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "SST Open Gunzesried, Gunzesried",
+      "begin": "2020-6-28",
+      "end": "2020-6-28"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Big Hill King PDGA-XB, Ofterschwang",
+      "begin": "2020-7-3",
+      "end": "2020-7-5"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "7.Eagles Trilogy Challenge, Helmstedt",
+      "begin": "2020-7-4",
+      "end": "2020-7-4"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "1. Leinen Los Open (non-GT, non-PDGA), G\u00f6\u00dfweinstein",
+      "begin": "2020-7-12",
+      "end": "2020-7-12"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "8. Expo Open, Hannover",
+      "begin": "2020-7-18",
+      "end": "2020-7-19"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "8. DGCA Weiden Open, Eningen unter Achalm",
+      "begin": "2020-7-19",
+      "end": "2020-7-19"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Luitpoldpark Open Vol. 4, Schwabm\u00fcnchen",
+      "begin": "2020-8-1",
+      "end": "2020-8-2"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "WUP Challenge, Weserufer Discgolfpark",
+      "begin": "2020-8-15",
+      "end": "2020-8-15"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "GENEHMIGUNG AUSSTEHEND/TO BE CONFIRMED: Summer Slam Vol.VII, Helmstedt",
+      "begin": "2020-8-22",
+      "end": "2020-8-23"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "2. Neu-Ulmer Open 2020, Neu-Ulm",
+      "begin": "2020-8-29",
+      "end": "2020-8-30"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "12. Wolfenb\u00fcttel Open, Wolfenb\u00fcttel",
+      "begin": "2020-8-29",
+      "end": "2020-8-29"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "6. Westdeutsche Meisterschaft, tba",
+      "begin": "2020-9-5",
+      "end": "2020-9-5"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "10. Heuweilermer Dorf Challenge, Heuweiler",
+      "begin": "2020-9-5",
+      "end": "2020-9-6"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "1. Westdeutsche Meisterschaft im Doubles, tba",
+      "begin": "2020-9-6",
+      "end": "2020-9-6"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "SST Summer Skim, Ofterschwang",
+      "begin": "2020-9-6",
+      "end": "2020-9-6"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "35. Deutsche Disc Golf Meisterschaft, Salzgitter",
+      "begin": "2020-9-10",
+      "end": "2020-9-13"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "6.Eagles Nightglow, Helmstedt",
+      "begin": "2020-9-18",
+      "end": "2020-9-18"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "SST Bad W\u00f6rishofen / 4. TSV BW Open, Bad W\u00f6rishofen",
+      "begin": "2020-9-19",
+      "end": "2020-9-19"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "1. Monte Ferrum, Kirchheim Feriendorf Eisenberg",
+      "begin": "2020-9-19",
+      "end": "2020-9-20"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "4. DGCA Wanderheim Open - Extended Version presented by ElringKlinger, Eningen unter Achalm",
+      "begin": "2020-9-25",
+      "end": "2020-9-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "6.Nieders\u00e4chsische Landesmeisterschaft, Helmstedt",
+      "begin": "2020-9-26",
+      "end": "2020-9-26"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Wei\u00dfwurstdoubles 2020, S\u00f6hnstetten",
+      "begin": "2020-9-27",
+      "end": "2020-9-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "2. Harz Open, Altenau",
+      "begin": "2020-9-27",
+      "end": "2020-9-27"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "9.Sch\u00f6ningen Open, Sch\u00f6ningen",
+      "begin": "2020-10-3",
+      "end": "2020-10-3"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "3. Ilsede Originals 2.0, Ilsede, H\u00fcttengel\u00e4nde",
+      "begin": "2020-10-4",
+      "end": "2020-10-4"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "GENEHMIGUNG AUSSTEHEND/TO BE CONFIRMED: Tankumsee Open 2020, Tankumsee Isenb\u00fcttel",
+      "begin": "2020-10-10",
+      "end": "2020-10-10"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "1. DGCA Cup, Eningen unter Achalm",
+      "begin": "2020-10-10",
+      "end": "2020-10-10"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "6. Wesel Open, Wesel, Auesee",
+      "begin": "2020-10-10",
+      "end": "2020-10-10"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Reken Open, Reken",
+      "begin": "2020-10-11",
+      "end": "2020-10-11"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "GENEHMIGUNG AUSSTEHEND/TO BE CONFIRMED: 13. Kellenhusen Discgolf Open, Kellenhusen",
+      "begin": "2020-10-17",
+      "end": "2020-10-18"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "7. Kellenhusen-Hubertus Open, Kellenhusen",
+      "begin": "2020-10-17",
+      "end": "2020-10-17"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Vereinsmeisterschaft der Scheibensucher R\u00fcsselsheim, R\u00fcsselsheim, Ostpark + Waldschwimmbad",
+      "begin": "2020-10-18",
+      "end": "2020-10-18"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "TREMONIA OPEN, Dortmund",
+      "begin": "2020-10-24",
+      "end": "2020-10-25"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Albuch Reloaded, S\u00f6hnstetten",
+      "begin": "2020-10-25",
+      "end": "2020-10-25"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "3. Roderbruch Open, Hannover",
+      "begin": "2020-10-31",
+      "end": "2020-10-31"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "Kettar\u00fcttler Gl\u00fchwein Doubles, Bad W\u00f6rishofen",
+      "begin": "2020-11-21",
+      "end": "2020-11-21"
+    }
+  },
+  {
+    "model": "dgf.tournament",
+    "fields": {
+      "name": "** Save-the-Date: Nikolausturnier ***, R\u00fcsselsheim, Ostpark",
+      "begin": "2020-12-5",
+      "end": "2020-12-5"
+    }
+  }
+]
