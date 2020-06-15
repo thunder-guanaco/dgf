@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('dgf', '0023_friend_best_score_in_wischlingen'),
     ]
@@ -22,6 +21,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='friend',
             name='best_score_in_wischlingen',
-            field=models.IntegerField(blank=True, null=True, verbose_name='Best score in Wischlingen (relative to par)'),
+            field=models.IntegerField(blank=True, null=True,
+                                      verbose_name='Best score in Wischlingen (relative to par)'),
         ),
     ]
