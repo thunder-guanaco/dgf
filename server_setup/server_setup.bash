@@ -100,7 +100,7 @@ sudo apt-get install nginx
 sudo service nginx start
 
 # configuration
-echo "Use Certbot to create certificates"
+echo "Use Let's Encrypt to create certificates: https://letsencrypt.org/"
 echo
 read
 chmod 400  /etc/nginx/ssl/*

@@ -91,6 +91,14 @@
                         <p class="value">{{friend.plays_since}}</p>
                     </div>
                 {% endif %}
+                {% with friend.best_score_in_wischlingen as score %}
+                    {% if score %}
+                        <div>
+                            <p class="label">{% trans "Best score in Wischlingen" %}</p>
+                            <p class="value">{{ score|add:"55" }} ({{score}})</p>
+                        </div>
+                    {% endif %}
+                {% endwith %}
                 {% if friend.free_text %}
                     <div>
                         <p class="label">{% trans "Discovered disc golf..." %}</p>

@@ -14,20 +14,20 @@ class TemplatetagsBestPlayersTest(TestCase):
         manolo, kevin, fede, mario = create_friends(['manolo', 'kevin', 'fede', 'mario'],
                                                     ratings=[883, 1007, 903, 881])
         all_friends = Friend.objects.all()
-        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, fede, manolo])
+        self.assertListEqual(list(dgf.order_by(all_friends, '-rating')), [kevin, fede, manolo])
 
     def test_best_players_someone_without_rating(self):
         manolo, kevin, wolfgang = create_friends(['manolo', 'kevin', 'wolfgang'],
                                                  ratings=[883, 1007, None])
         all_friends = Friend.objects.all()
-        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo, wolfgang])
+        self.assertListEqual(list(dgf.order_by(all_friends, '-rating')), [kevin, manolo, wolfgang])
 
     def test_best_players_only_not_enough(self):
         manolo, kevin = create_friends(['manolo', 'kevin'],
                                        ratings=[883, 1007])
         all_friends = Friend.objects.all()
-        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [kevin, manolo])
+        self.assertListEqual(list(dgf.order_by(all_friends, '-rating')), [kevin, manolo])
 
     def test_best_players_without_friends(self):
         all_friends = Friend.objects.all()
-        self.assertListEqual(list(dgf.order_by_rating(all_friends)), [])
+        self.assertListEqual(list(dgf.order_by(all_friends, '-rating')), [])

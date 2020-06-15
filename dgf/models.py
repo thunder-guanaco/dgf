@@ -92,6 +92,8 @@ class Friend(User):
     main_photo = models.ImageField(_('Main photo'), null=True, blank=True)
     plays_since = models.PositiveIntegerField(_('Plays since'), null=True, blank=True,
                                               validators=[MinValueValidator(1926)])
+    best_score_in_wischlingen = models.IntegerField(_('Best score in Wischlingen (relative to par)'), null=True,
+                                                    blank=True)
     free_text = models.TextField(_('Started playing'), null=True, blank=True)
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
