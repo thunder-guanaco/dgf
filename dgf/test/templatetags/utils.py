@@ -22,7 +22,7 @@ def create_friends(usernames, favorite_courses=(), ratings=None):
 
     for i, username in enumerate(usernames):
 
-        new_friend = Friend.objects.create(username=username, rating=ratings[i])
+        new_friend = Friend.objects.create(username=username, first_name=username, rating=ratings[i])
 
         for course in favorite_courses[i]:
             if isinstance(course, Course):

@@ -366,3 +366,7 @@ footer p, footer td {
 .align-right {
     align-self: flex-end !important;
 }
+
+.hidden {
+    display: none !important;
+}

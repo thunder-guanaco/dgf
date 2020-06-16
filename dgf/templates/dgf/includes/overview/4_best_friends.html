@@ -1,11 +1,7 @@
 {% load i18n dgf %}
-<li class="friends-ranking">
-    <h2>{% trans "Best players" %}</h2>
-    <div class="inner-content list">
-        {% for friend in friends|order_by:"-rating" %}
-            <div class="item">
-                {% include "dgf/includes/friend_ball.html" with friend=friend show_rating=True %}
-            </div>
-        {% endfor %}
+<li id="best-friends" class="friends-ranking">
+    <h2>{% trans "Best players" %} <span class="show-all">{% trans "(show all)" %}</span><span class="show-less hidden">{% trans "(show less)" %}</span></h2>
+    <div class="inner-content">
+        {% include "dgf/includes/friend_balls.html" with friends=friends|order_by:"-rating" show_rating=True %}
     </div>
 </li>

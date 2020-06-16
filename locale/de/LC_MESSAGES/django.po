@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 16:30+0200\n"
+"POT-Creation-Date: 2020-06-16 23:45+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,7 +324,7 @@ msgstr "Distance Drivers"
 msgid "Videos"
 msgstr "Videos"
 
-#: dgf/templates/dgf/friend_list.html:26
+#: dgf/templates/dgf/friend_list.html:30
 msgid "Stats"
 msgstr "Erfolge/Statistiken der Disc Golf Friends"
 
@@ -380,7 +380,17 @@ msgstr "Lieblingsscheiben"
 
 #: dgf/templates/dgf/includes/overview/4_best_friends.html:3
 msgid "Best players"
-msgstr "Beste Spieler (PDGA-Rating)"
+msgstr "Beste Spieler (nach PDGA-Rating)"
+
+#: dgf/templates/dgf/includes/overview/4_best_friends.html:3
+#: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
+msgid "(show all)"
+msgstr "(zeige Alle)"
+
+#: dgf/templates/dgf/includes/overview/4_best_friends.html:3
+#: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
+msgid "(show less)"
+msgstr "(zeige weniger)"
 
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
 msgid "Best scores in our home course (Standard 18 in Wischlingen - par 55)"
