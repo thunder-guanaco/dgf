@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django import template
 from django.conf import settings
-from django.db.models import Count, F
+from django.db.models import Count, Q
 
 from ..models import Ace, DiscInBag, Course
 
@@ -12,7 +12,6 @@ register = template.Library()
 
 AMOUNT_OF_FAVORITE_DISCS = 3
 AMOUNT_OF_FAVORITE_COURSES = 3
-AMOUNT_OF_TOP_FRIENDS = 3
 
 logger = logging.getLogger(__name__)
 
@@ -65,13 +64,9 @@ def _current_year_as_str():
 
 @register.filter
 def order_by(friends, ordering):
-
-    if ordering[0] == '-':
-        ordering_clause = F(ordering[1:]).desc(nulls_last=True)
-    else:
-        ordering_clause = F(ordering).asc(nulls_last=True)
-
-    return friends.order_by(ordering_clause)[: AMOUNT_OF_TOP_FRIENDS]
+    attribute = ordering[1:] if ordering[0] == '-' else ordering
+    query = Q(** {'%s__isnull' % attribute: False})
+    return friends.filter(query).order_by(ordering)
 
 
 @register.filter
