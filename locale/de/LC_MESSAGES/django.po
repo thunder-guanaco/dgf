@@ -385,12 +385,12 @@ msgstr "Beste Spieler (nach PDGA-Rating)"
 #: dgf/templates/dgf/includes/overview/4_best_friends.html:3
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
 msgid "(show all)"
-msgstr "(zeige Alle)"
+msgstr "(alle anzeigen)"
 
 #: dgf/templates/dgf/includes/overview/4_best_friends.html:3
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
 msgid "(show less)"
-msgstr "(zeige weniger)"
+msgstr "(weniger anzeigen)"
 
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
 msgid "Best scores in our home course (Standard 18 in Wischlingen - par 55)"
