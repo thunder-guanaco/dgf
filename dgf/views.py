@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import CreateView
@@ -26,7 +27,7 @@ class DetailView(generic.DetailView):
                 )
 
 
-class UpdateView(generic.edit.UpdateView):
+class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Friend
     fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
               'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'best_score_in_wischlingen', 'free_text']
@@ -70,7 +71,7 @@ class UpdateView(generic.edit.UpdateView):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
 
 
-class FeedbackCreate(CreateView):
+class FeedbackCreate(LoginRequiredMixin, CreateView):
     model = Feedback
     fields = ['title', 'feedback']
 

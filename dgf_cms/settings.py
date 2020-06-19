@@ -95,7 +95,7 @@ else:
     PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
 
 ROOT_URLCONF = 'dgf_cms.urls'
-
+LOGIN_URL = 'login'
 WSGI_APPLICATION = 'dgf_cms.wsgi.application'
 
 # Database
