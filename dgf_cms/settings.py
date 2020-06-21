@@ -41,11 +41,15 @@ if ENV in ['dev', 'test']:
     DEBUG = True
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+    LOG_DIR = DATA_DIR
+    LOG_LEVEL = 'DEBUG'
 else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = False
     ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
     DATA_DIR = ROOT_INSTALLATION_PATH
+    LOG_DIR = os.path.join(DATA_DIR, 'logs')
+    LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
 
 if ENV == 'dev':
     DATABASES = {
@@ -303,12 +307,17 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
+        'file': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'django.log'),
+            'when': 'midnight',
+        },
     },
 
     'loggers': {
         'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'handlers': ['console', 'file'],
+            'level': LOG_LEVEL,
         },
         'dgf': {
             'handlers': ['console'],
