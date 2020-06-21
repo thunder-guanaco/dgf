@@ -1,17 +1,12 @@
 {% load i18n dgf %}
 <div class="table-line">
-    <p>{% trans "until " %}{% now "Y" %}</p>
+    <p>{% trans "TOTAL" %}</p>
     <p>{% trans "in a tournament" %}</p>
     <p>{% now 'Y" %}</p>
     <p>{% trans "in a tournament" %}</p>
-    <p>{% trans "TOTAL" %}</p>
 </div>
 <hr>
 <div class="table-line">
-    <p>{{ aces|before_current_year }}</p>
-    <p>{{ aces|before_current_year_tournaments }}</p>
-    <p>{{ aces|current_year }}</p>
-    <p>{{ aces|current_year_tournaments }}</p>
     <div>
         <div class="ball-container">
             <div class="ball">
@@ -19,4 +14,17 @@
             </div>
         </div>
     </div>
+
+    {% with aces|in_tournaments as aces_in_tournaments %}
+        <p>{{ aces_in_tournaments.count }}</p>
+    {% endwith %}
+
+    {% with aces|current_year as aces_current_year %}
+        <p>{{ aces_current_year.count }}</p>
+
+        {% with aces_current_year|in_tournaments as aces_current_year_in_tournaments %}
+            <p>{{ aces_current_year_in_tournaments.count }}</p>
+        {% endwith %}
+    {% endwith %}
+
 </div>
