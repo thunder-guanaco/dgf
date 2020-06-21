@@ -63,7 +63,9 @@
 }
 
 
-.container .text * {
+.container .text h1,
+.container .text h2,
+.container .text h3 {
     background-color: rgba(205, 205, 205, 0.5);
     width: fit-content;
 }
@@ -74,6 +76,11 @@
 }
 
 .container .text h2 {
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+}
+
+.container .text h3 {
     -ms-transform: skewX(-10deg);
     transform: skewX(-10deg);
 }

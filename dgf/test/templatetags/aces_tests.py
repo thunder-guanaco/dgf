@@ -46,7 +46,7 @@ class TemplatetagsAcesTest(TestCase):
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
                            date=PartialDate('{}'.format(datetime.now().year)))
 
-        self.assert_aces(manolo.aces, 4, 3, 2, 1)
+        self.assert_aces(manolo.aces, 4, 2, 1)
 
     def test_aces_for_all_users(self):
         manolo = Friend.objects.create(username='manolo')
@@ -70,7 +70,7 @@ class TemplatetagsAcesTest(TestCase):
         Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
                            date=PartialDate('{}'.format(datetime.now().year)))
 
-        self.assert_aces(Ace.objects.all(), 4, 3, 2, 1)
+        self.assert_aces(dgf.all_aces(), 4, 2, 1)
 
     def test_aces_no_aces(self):
         Friend.objects.create(username='manolo')
@@ -78,14 +78,14 @@ class TemplatetagsAcesTest(TestCase):
         Disc.objects.create(mold='FD')
         Course.objects.create(name='Wischlingen')
 
-        self.assert_aces(Ace.objects.all(), 0, 0, 0, 0)
+        self.assert_aces(Ace.objects.all(), 0, 0, 0)
 
     def test_aces_no_users(self):
-        self.assert_aces(Ace.objects.all(), 0, 0, 0, 0)
+        self.assert_aces(Ace.objects.all(), 0, 0, 0)
 
-    def assert_aces(self, aces, expected_before_current_year, expected_before_current_year_tournaments,
-                    expected_current_year, expected_current_year_tournaments):
-        self.assertEqual(dgf.before_current_year(aces), expected_before_current_year)
-        self.assertEqual(dgf.before_current_year_tournaments(aces), expected_before_current_year_tournaments)
-        self.assertEqual(dgf.current_year(aces), expected_current_year)
-        self.assertEqual(dgf.current_year_tournaments(aces), expected_current_year_tournaments)
+    def assert_aces(self, aces, expected_total_in_tournaments, expected_current_year,
+                    expected_current_year_in_tournaments):
+        self.assertEqual(dgf.in_tournaments(aces).count(), expected_total_in_tournaments)
+        self.assertEqual(dgf.current_year(aces).count(), expected_current_year)
+        self.assertEqual(dgf.in_tournaments(dgf.current_year(aces)).count(), expected_current_year_in_tournaments)
+        self.assertEqual(dgf.current_year(dgf.in_tournaments(aces)).count(), expected_current_year_in_tournaments)

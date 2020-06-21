@@ -370,3 +370,11 @@ footer p, footer td {
 .hidden {
     display: none !important;
 }
+
+form input[type=text],
+form input[type=password],
+form input[type=url],
+form input[type=number] {
+    padding: 0.25em;
+    border-radius: 5px;
+}
