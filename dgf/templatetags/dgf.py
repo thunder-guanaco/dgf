@@ -30,23 +30,13 @@ def all_aces():
 
 
 @register.filter
-def before_current_year(aces):
-    return aces.filter(date__lt=_current_year_as_str()).count()
-
-
-@register.filter
-def before_current_year_tournaments(aces):
-    return aces.filter(date__lt=_current_year_as_str(), type=Ace.TOURNAMENT).count()
+def in_tournaments(aces):
+    return aces.filter(type=Ace.TOURNAMENT)
 
 
 @register.filter
 def current_year(aces):
-    return aces.filter(date__gte=_current_year_as_str()).count()
-
-
-@register.filter
-def current_year_tournaments(aces):
-    return aces.filter(date__gte=_current_year_as_str(), type=Ace.TOURNAMENT).count()
+    return aces.filter(date__gte=_current_year_as_str())
 
 
 @register.simple_tag
