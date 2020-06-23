@@ -1,12 +1,13 @@
 {% load thumbnail %}
 {% with clickable|default:False as clickable %}
+{% with img_size|add:img_size|stringformat:'s' as double_img_size %}
 
     {% if clickable %}
         <a href="/media/{{friend.main_photo}}" target="_blank">
     {% endif %}
 
     {% if friend.main_photo %}
-        <img src="{% thumbnail friend.main_photo img_size|add:'x'|add:img_size crop %}" class="avatar-img" width="{{img_size}}px" height="{{img_size}}px"/>
+        <img src="{% thumbnail friend.main_photo double_img_size|add:'x'|add:double_img_size crop %}" class="avatar-img" width="{{img_size}}px" height="{{img_size}}px"/>
     {% else %}
         <div class="avatar-container" style="width: {{img_size}}px; height: {{img_size}}px">
             <div class="avatar-initials" style="font-size: {{font_size}}px; line-height: {{img_size}}px;">
@@ -19,4 +20,5 @@
         </a>
     {% endif %}
 
+{% endwith %}
 {% endwith %}
