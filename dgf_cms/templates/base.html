@@ -43,6 +43,9 @@
         </div>
         <div id="mobile-navigation-bar">
             {% show_menu 0 100 100 100 "mobile/navigation-bar.html" %}
+            <div id="mobile-navigation-bar-language-chooser" style="display: none">
+                {% language_chooser "includes/language_chooser.html" %}
+            </div>
         </div>
         <div id="friends-header" class="slide-right">
             {% static_placeholder 'friends-header' %}

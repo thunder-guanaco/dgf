@@ -1,26 +1,52 @@
 $(window).on("load", function() {
-    stickyOffset = $('#navigation-bar').offset().top;
+    desktopStickyOffset = $('#navigation-bar').offset().top;
+    mobileStickyOffset = $('#mobile-navigation-bar').offset().top;
 
     var sticky = false;
     $(window).scroll(function(){
 
         var scroll = $(window).scrollTop();
 
-        if (scroll >= stickyOffset) {
-            $("#navigation-bar").addClass("sticky");
-            if (!sticky) {
-                $("#navigation-bar-header").show("slow");
-                $("#navigation-bar-language-chooser").slideDown("slow");
-                $("#navigation-bar").slideDown("slow");
-                sticky = true;
+        if (mobileNavigationBarIsVisible()) {
+
+            // MOBILE
+            console.log("scroll: " + scroll);
+            console.log("mobileStickyOffset: " + mobileStickyOffset);
+            if (scroll > mobileStickyOffset) {
+                $("#mobile-navigation-bar").addClass("sticky");
+                if (!sticky) {
+                    $("#mobile-navigation-bar-language-chooser").slideDown("slow");
+                    sticky = true;
+                }
+            }
+            else {
+                $("#mobile-navigation-bar").removeClass("sticky");
+                if (sticky) {
+                    $("#mobile-navigation-bar-language-chooser").hide("slow");
+                    sticky = false;
+                }
             }
         }
         else {
-            $("#navigation-bar").removeClass("sticky");
-            if (sticky) {
-                $("#navigation-bar-header").hide("slow");
-                $("#navigation-bar-language-chooser").hide("slow");
-                sticky = false;
+
+            // DESKTOP
+
+            if (scroll > desktopStickyOffset) {
+                $("#navigation-bar").addClass("sticky");
+                if (!sticky) {
+                    $("#navigation-bar-header").show("slow");
+                    $("#navigation-bar-language-chooser").slideDown("slow");
+                    $("#navigation-bar").slideDown("slow");
+                    sticky = true;
+                }
+            }
+            else {
+                $("#navigation-bar").removeClass("sticky");
+                if (sticky) {
+                    $("#navigation-bar-header").hide("slow");
+                    $("#navigation-bar-language-chooser").hide("slow");
+                    sticky = false;
+                }
             }
         }
     });
@@ -48,3 +74,7 @@ $(window).on("load", function() {
     });
 
 });
+
+function mobileNavigationBarIsVisible() {
+    return $('#mobile-navigation-bar').is(":visible");
+}
