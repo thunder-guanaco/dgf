@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% with clickable|default:False as clickable %}
 
     {% if clickable %}
@@ -5,10 +6,10 @@
     {% endif %}
 
     {% if friend.main_photo %}
-        <img src="/media/{{friend.main_photo}}" class="avatar-img" width="{{img_size}}" height="{{img_size}}"/>
+        <img src="{% thumbnail friend.main_photo img_size|add:'x'|add:img_size crop %}" class="avatar-img" width="{{img_size}}px" height="{{img_size}}px"/>
     {% else %}
-        <div class="avatar-container" style="width: {{img_size}}; height: {{img_size}}">
-            <div class="avatar-initials" style="font-size: {{font_size}}; line-height: {{img_size}};">
+        <div class="avatar-container" style="width: {{img_size}}px; height: {{img_size}}px">
+            <div class="avatar-initials" style="font-size: {{font_size}}px; line-height: {{img_size}}px;">
                 {{friend.initials}}
             </div>
         </div>
