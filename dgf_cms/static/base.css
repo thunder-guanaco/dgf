@@ -7,6 +7,10 @@
 /* mobile */
 @media only screen and (max-width: 600px) {
 
+    .desktop {
+        display: none;
+    }
+
     html {
         overflow-x: hidden;
     }
@@ -153,6 +157,10 @@
 
 /* desktop */
 @media only screen and (min-width: 600px) {
+
+    .mobile {
+        display: none;
+    }
 
     #mobile-navigation-bar {
         display: none;
