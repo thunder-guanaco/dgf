@@ -42,7 +42,7 @@ if ENV in ['dev', 'test']:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
     LOG_DIR = DATA_DIR
-    LOG_LEVEL = 'DEBUG'
+    LOG_LEVEL = 'INFO'
 else:
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     DEBUG = False
