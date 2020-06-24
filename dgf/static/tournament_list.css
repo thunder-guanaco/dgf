@@ -1,34 +1,34 @@
 #tournaments {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #tournaments #tournament-header {
-  font-weight: bold;
-  font-size: 1.5em;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 #tournaments .line {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 0.25em 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.25em 0;
 }
 
 #tournaments .name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60%;
 }
 
 #tournaments .date {
-  width: 20%;
-  display: flex;
-  justify-content: center;
+    width: 20%;
+    display: flex;
+    justify-content: center;
 }
 
 #tournaments .cell {
-  padding: 0 0.25em;
+    padding: 0 0.25em;
 }
