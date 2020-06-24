@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="all-tournaments">
+    <div class="table-line">
+        <p>{% trans "Tournament name" %}</p>
+        <p>{% trans "begins" %}</p>
+        <p>{% trans "ends" %}</p>
+    </div>
+    <hr>
+    {% for tournament in tournaments %}
+        {% include "dgf/includes/tournament_table.html" with tournament=tournament %}
+    {% endfor %}
+</div>

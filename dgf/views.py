@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic import CreateView
 
 from .formsets import FavoriteCourseFormset, HighlightFormset, DiscFormset, AceFormset, VideoFormset
-from .models import Friend, Feedback, Video
+from .models import Friend, Feedback, Video, Tournament
 
 
 class IndexView(generic.ListView):
@@ -91,3 +91,9 @@ class MediaIndex(generic.ListView):
         all_videos = list(set(Video.objects.all().values_list('url', flat=True)))
         random.shuffle(all_videos)
         return all_videos
+
+
+class TournamentsView(generic.ListView):
+    context_object_name = 'tournaments'
+    template_name = 'dgf/tournament_list.html'
+    queryset = Tournament.objects.all().order_by('begin')

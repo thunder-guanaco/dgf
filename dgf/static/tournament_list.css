@@ -1,0 +1,11 @@
+.table-line {
+    max-width: 14em;
+}
+
+th, td {
+    text-align: middle
+}
+
+ul {
+  list-style-type: none;
+}

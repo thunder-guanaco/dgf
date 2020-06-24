@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static cms_tags i18n dgf %}
+
+{% block title %}
+    {% trans "Tournaments" %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tournament_list.css' %}">
+{% endblock %}
+
+{% block headline %}
+    {% static_placeholder 'headline' %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="tournament-list-header-text">
+        {% static_placeholder 'content' %}
+    </div>
+
+    <div id="tournament">
+
+        {% if tournaments %}
+
+            <h1>{% trans "Tournaments" %}</h1>
+
+            <ul id="tournaments">
+                {% include "dgf/includes/overview/7_all_tournaments.html" with tournaments=tournaments %}
+            </ul>
+
+        {% else %}
+            <p>There are no tournaments.</p>
+        {% endif %}
+
+        {% include "dgf/includes/dgf_version.html" %}
+
+    </div>
+
+{% endblock %}
