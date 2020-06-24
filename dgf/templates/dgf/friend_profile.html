@@ -27,7 +27,7 @@
                 {% if field.html_name == "main_photo" %}
                     {{ field.label_tag }}
                     <div class="field field-image">
-                        {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70px" font_size="30px" %}
+                        {% include "dgf/includes/friend_picture.html" with friend=friend img_size="70" font_size="30" %}
                         <div class="row">
                             <input type="checkbox" name="main_photo-clear" id="main_photo-clear_id">
                             <label for="main_photo-clear_id">{% trans "Clear" %}</label>
