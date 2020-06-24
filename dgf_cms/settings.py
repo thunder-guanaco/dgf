@@ -148,6 +148,20 @@ STATIC_ROOT = os.path.join(DATA_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'dgf_cms', 'static'),
 )
+
+# See: https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED
+COMPRESS_ENABLED = True
+COMPRESS_FILTERS = {
+    'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
+    'js': ['compressor.filters.jsmin.JSMinFilter']
+}
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
 SITE_ID = 1
 
 TEMPLATES = [
@@ -195,6 +209,7 @@ INSTALLED_APPS = [
     'dgf',
     'django_crontab',
     'django_countries',
+    'compressor',
 
     'djangocms_admin_style',
     'django.contrib.auth',

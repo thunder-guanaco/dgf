@@ -6,14 +6,13 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'friend_detail.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'grt-youtube-popup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/grt-youtube-popup.css' %}">
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'grt-youtube-popup.js' %}"></script>
-    <script type="text/javascript" src="{% static 'friend_base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/grt-youtube-popup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/friend_video.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/']").parent().addClass("ancestor");

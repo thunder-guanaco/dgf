@@ -1,9 +1,5 @@
 {% load sekizai_tags static %}
 
-{% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friends_header.css' %}">
-{% endaddtoblock "css" %}
-
 {% if friends %}
     <div class="arrow-left" onclick="scrollBack()"></div>
     <div id="scrollable-header">
