@@ -14,27 +14,27 @@
 {% endblock %}
 
 {% block content %}
+    {% if tournaments %}
 
-    <div id="tournament-list-header-text">
-        {% static_placeholder 'content' %}
-    </div>
+      <h1>{% trans "Tournaments" %}</h1>
 
-    <div id="tournament">
+      <ul id="tournaments">
+          <li id="tournament-header" class="line">
+            <div class="cell name">{% trans "Tournament name" %}</div>
+            <div class="cell date">{% trans "Begins" %}</div>
+            <div class="cell date">{% trans "Ends" %}</div>
+          </li>
+          <hr>
+          {% for tournament in tournaments %}
+            <li class="line">
+              <div class="cell name">{{ tournament.name }}</div>
+              <div class="cell date">{{ tournament.begin }}</div>
+              <div class="cell date">{{ tournament.end }}</div>
+            </li>
+          {% endfor %}
+      </ul>
 
-        {% if tournaments %}
-
-            <h1>{% trans "Tournaments" %}</h1>
-
-            <ul id="tournaments">
-                {% include "dgf/includes/overview/7_all_tournaments.html" with tournaments=tournaments %}
-            </ul>
-
-        {% else %}
-            <p>There are no tournaments.</p>
-        {% endif %}
-
-        {% include "dgf/includes/dgf_version.html" %}
-
-    </div>
-
+    {% else %}
+        <p>There are no tournaments.</p>
+    {% endif %}
 {% endblock %}
