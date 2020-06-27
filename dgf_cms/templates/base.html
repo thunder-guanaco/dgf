@@ -24,26 +24,6 @@
 
         {% endcompress %}
 
-        <!-- JS -->
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
-
-        {% compress js file base_js %}
-
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-169368121-1');
-            </script>
-            <script type="text/javascript" src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
-
-            {% block js %}
-            {% endblock js %}
-
-        {% endcompress %}
-
     </head>
     <body>
         {% cms_toolbar %}
@@ -93,5 +73,26 @@
             </div>
           {% static_placeholder 'footer' %}
         </footer>
+
+        <!-- JS -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
+
+        {% compress js file base_js %}
+
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-169368121-1');
+            </script>
+            <script type="text/javascript" src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+
+            {% block js %}
+            {% endblock js %}
+
+        {% endcompress %}
+
     </body>
 </html>
