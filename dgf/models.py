@@ -210,7 +210,7 @@ class DiscInBag(models.Model):
         (DISTANCE_DRIVER, _('Distance driver')),
     )
     type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
-    amount = models.PositiveIntegerField(_('Amount'), default=1)
+    amount = models.PositiveIntegerField(_('Amount'), default=1, validators=[MinValueValidator(1)])
     disc = models.ForeignKey(Disc, on_delete=CASCADE, related_name='bags', verbose_name=_('Disc'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs', verbose_name=_('Player'))
 
