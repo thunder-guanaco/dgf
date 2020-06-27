@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'error.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
 {% endblock %}
 
 {% block content %}
-	<img src="{% static '4xx.jpg' %}"/>
+	<img src="{% static 'img/4xx.jpg' %}"/>
 	<div class="text">
 		<h1 class="title">{% trans "403 - Foot fault!" %}</h1>
 		<h2>{% trans "You are not allowed to see this. You received a penalty stroke." %}</h2>

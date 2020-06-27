@@ -1,38 +1,48 @@
-{% load static cms_tags menu_tags sekizai_tags %}
+{% load static cms_tags menu_tags sekizai_tags compress %}
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-169368121-1');
-        </script>
 
         <title>DGF - {% block title %}{% page_attribute "page_title" %}{% endblock title %}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="icon" href="{% static 'dgf-favicon.png' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'friend_base.css' %}">
+        <link rel="icon" href="{% static 'img/favicon.png' %}">
+
+        <!-- CSS -->
 
         {% render_block "css" %}
 
-        {% comment %}
-            The block above is for the DjangoCMS CSS file(s)
-            The block below is for every other CSS or JS we want to load
-        {% endcomment %}
+        {% compress css file base_css %}
 
-        {% block css %}
-        {% endblock css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/friend_base.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/friends_header.css' %}">
 
-        <script type="text/javascript" src="{% static 'jquery-3.5.0.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'base.js' %}"></script>
-        {% block js %}
-        {% endblock js %}
+            {% block css %}
+            {% endblock css %}
+
+        {% endcompress %}
+
+        <!-- JS -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
+
+        {% compress js file base_js %}
+
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-169368121-1');
+            </script>
+            <script type="text/javascript" src="{% static 'js/jquery-3.5.0.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+
+            {% block js %}
+            {% endblock js %}
+
+        {% endcompress %}
 
     </head>
     <body>

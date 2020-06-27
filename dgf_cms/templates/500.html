@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'error.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
 {% endblock %}
 
 {% block content %}
-	<img src="{% static '500.jpg' %}"/>
+	<img src="{% static 'img/500.jpg' %}"/>
 	<div class="text">
 		<h1 class="title">{% trans "500 - WTF Richard!?" %}</h1>
 		<h2>{% trans "It seems that we have a problem. Please let us work on that." %}</h2>

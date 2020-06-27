@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Gnuolane';
-  src: url('gnuolane-rg.ttf'); /* IE9 Compat Modes */
-  src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
+  src: url('../font/gnuolane-rg.ttf'); /* IE9 Compat Modes */
+  src: url('../font/gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
 /* mobile */
