@@ -63,7 +63,7 @@ if ENV == 'dev':
             'ENGINE': 'django.db.backends.mysql',
             'HOST': 'localhost',
             'PORT': '3306',
-            'NAME': 'dgf_cms5',
+            'NAME': 'dgf_cms',
             'USER': 'dgf',
             'PASSWORD': 'dgf',
         }
@@ -79,6 +79,10 @@ elif ENV == 'prod':
             'PASSWORD': get_env_or_die('DJANGO_DB_PASSWORD'),
         }
     }
+    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
+    DBBACKUP_STORAGE_OPTIONS = {
+        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
+    }
 elif ENV == 'test':
     DATABASES = {
         'default': {
@@ -90,10 +94,6 @@ elif ENV == 'test':
             'PORT': '',
             'USER': ''
         }
-    }
-    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
-    DBBACKUP_STORAGE_OPTIONS = {
-        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
     }
 
 # PDGA
