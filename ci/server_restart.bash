@@ -15,10 +15,10 @@ function exit_if_error() {
   return_code=$2
   if [[ "${return_code}" -ne "0" ]]
   then
-    echo -e "${command}${RED}[ERROR]${RESET}"
+    echo -e "${RED}[ERROR]${RESET} ${command}"
     exit 1
   else
-    echo -e "${command}${GREEN}[OK]${RESET}"
+    echo -e "${GREEN}[OK]${RESET} ${command}"
   fi
 }
 
@@ -37,7 +37,7 @@ exit_if_error "Apply migrations" $?
 python manage.py crontab add
 exit_if_error "Add cronjobs" $?
 
-for i in start_gunicorn.bash start_shell.bash
+for i in start_gunicorn.bash dgf.bash
 do
   mv ci/$i ${ROOT_INSTALLATION_PATH}
   exit_if_error "Copy script: ci/${i}" $?
