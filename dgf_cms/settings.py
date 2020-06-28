@@ -14,9 +14,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-DGF_VERSION = os.getenv('DJANGO_DGF_VERSION')
 
-ROOT_INSTALLATION_PATH = '/home/ubuntu'
+def get_env_or_die(env_var):
+    value = os.getenv(env_var)
+    if not value:
+        raise ImproperlyConfigured('Missing environment variable \'{}\''.format(env_var))
+    return value
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,11 +34,9 @@ Rule of thumb:
  * dev or test: dummy configuration
 
 """
-ENV = os.getenv('DJANGO_ENV')
+ENV = get_env_or_die('DJANGO_ENV')
 if ENV not in ['dev', 'test', 'prod']:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
-
-GITHUB_TOKEN = os.getenv('DJANGO_GITHUB_TOKEN')
 
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
@@ -43,13 +45,17 @@ if ENV in ['dev', 'test']:
     DATA_DIR = os.path.dirname(os.path.dirname(__file__))
     LOG_DIR = DATA_DIR
     LOG_LEVEL = 'INFO'
+    DGF_VERSION = 'dev'
+    GITHUB_TOKEN = 'nothing'
 else:
-    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+    SECRET_KEY = get_env_or_die('DJANGO_SECRET_KEY')
     DEBUG = False
-    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS').split(',')
-    DATA_DIR = ROOT_INSTALLATION_PATH
+    ALLOWED_HOSTS = get_env_or_die('DJANGO_ALLOWED_HOSTS').split(',')
+    DATA_DIR = '/home/ubuntu'
     LOG_DIR = os.path.join(DATA_DIR, 'logs')
-    LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+    LOG_LEVEL = get_env_or_die('DJANGO_LOG_LEVEL')
+    DGF_VERSION = get_env_or_die('DJANGO_DGF_VERSION')
+    GITHUB_TOKEN = get_env_or_die('DJANGO_GITHUB_TOKEN')
 
 if ENV == 'dev':
     DATABASES = {
@@ -68,10 +74,14 @@ elif ENV == 'prod':
             'ENGINE': 'django.db.backends.mysql',
             'HOST': 'localhost',
             'PORT': '3306',
-            'NAME': os.getenv('DJANGO_DB_DATABASE'),
-            'USER': os.getenv('DJANGO_DB_USER'),
-            'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+            'NAME': get_env_or_die('DJANGO_DB_DATABASE'),
+            'USER': get_env_or_die('DJANGO_DB_USER'),
+            'PASSWORD': get_env_or_die('DJANGO_DB_PASSWORD'),
         }
+    }
+    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
+    DBBACKUP_STORAGE_OPTIONS = {
+        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
     }
 elif ENV == 'test':
     DATABASES = {
@@ -95,8 +105,8 @@ if ENV == 'test':
     PDGA_PASSWORD = 'nothing'
 else:
     PDGA_BASE_URL = 'https://api.pdga.com/services/json'
-    PDGA_USERNAME = os.getenv('DJANGO_PDGA_USERNAME')
-    PDGA_PASSWORD = os.getenv('DJANGO_PDGA_PASSWORD')
+    PDGA_USERNAME = get_env_or_die('DJANGO_PDGA_USERNAME')
+    PDGA_PASSWORD = get_env_or_die('DJANGO_PDGA_PASSWORD')
 
 ROOT_URLCONF = 'dgf_cms.urls'
 LOGIN_URL = 'login'
@@ -104,7 +114,6 @@ WSGI_APPLICATION = 'dgf_cms.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -211,6 +220,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'django_countries',
     'compressor',
+    'dbbackup',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -342,8 +352,17 @@ LOGGING = {
     },
 }
 
+EXPORT_ENV = 'export DJANGO_ENV=prod; source ~/secrets;'
+CRONJOBS_LOGFILE = '>> ~/logs/cronjobs'
 CRONJOBS = [
-    ('* */6 * * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.fetch_rating', '>> ~/logs/cronjobs'),
-    ('* * */7 * * export DJANGO_ENV=prod; source ~/secrets;', 'dgf.cronjobs.update_approved_discs_cron',
-     '>> ~/logs/cronjobs')
+    # ┌───────────── minute (0 - 59)
+    # │    ┌───────────── hour (0 - 23)
+    # │    │    ┌───────────── day of the month (1 - 31)
+    # │    │    │    ┌───────────── month (1 - 12)
+    # │    │    │    │    ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
+    # │    │    │    │    │
+    # *    *    *    *    * <command to execute>
+    ('*    */6  *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.fetch_rating', CRONJOBS_LOGFILE),
+    ('*    *    */7  *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.update_approved_discs_cron', CRONJOBS_LOGFILE),
+    ('0    2    *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.backup', CRONJOBS_LOGFILE)
 ]

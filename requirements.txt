@@ -3,6 +3,8 @@ Django<2.3
 django-classy-tags>=0.9
 django-cms==3.7.0
 django-countries==6.1.2
+django-dbbackup==3.3.0
+django-storages==1.9.1
 djangocms-admin-style>=1.4,<1.5
 djangocms-bootstrap4>=1.5,<1.6
 django-compression-middleware==0.4.1
