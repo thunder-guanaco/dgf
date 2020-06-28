@@ -79,7 +79,14 @@ elif ENV == 'prod':
             'PASSWORD': get_env_or_die('DJANGO_DB_PASSWORD'),
         }
     }
+    # Django DB Backups
+    # https://django-dbbackup.readthedocs.io/en/stable/configuration.html
     DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
+    DBBACKUP_CLEANUP_KEEP = 10
+    DBBACKUP_CLEANUP_KEEP_MEDIA = 5
+    DBBACKUP_DATE_FORMAT = '%Y-%m-%d_%H-%M-%S'
+    DBBACKUP_FILENAME_TEMPLATE = 'dgf_db_{datetime}.{extension}'
+    DBBACKUP_MEDIA_FILENAME_TEMPLATE = 'dgf_media_{datetime}.{extension}'
     DBBACKUP_STORAGE_OPTIONS = {
         'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
     }
