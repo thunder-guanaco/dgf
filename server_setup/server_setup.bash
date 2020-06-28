@@ -127,11 +127,17 @@ server {
     error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
 
     location /static/ {
-        alias   ${ROOT_INSTALLATION_PATH}/static/;
+        alias       /home/ubuntu/static/;
+        expires     1y;
+        add_header  Pragma public;
+        add_header  Cache-Control "public";
     }
 
     location /media/ {
-        alias   ${ROOT_INSTALLATION_PATH}/media/;
+        alias       /home/ubuntu/media/;
+        expires     1y;
+        add_header  Pragma public;
+        add_header  Cache-Control "public";
     }
 
     location / {
