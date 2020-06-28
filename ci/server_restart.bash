@@ -37,7 +37,7 @@ exit_if_error "Apply migrations" $?
 python manage.py crontab add
 exit_if_error "Add cronjobs" $?
 
-for i in start_gunicorn.bash start_shell.bash
+for i in start_gunicorn.bash dgf.bash
 do
   mv ci/$i ${ROOT_INSTALLATION_PATH}
   exit_if_error "Copy script: ci/${i}" $?
