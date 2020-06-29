@@ -2,38 +2,79 @@
 {% load static cms_tags i18n dgf %}
 
 {% block title %}
-        {% trans "Tournaments" %}
+    {% trans "Tournaments" %}
 {% endblock %}
 
 {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'tournament_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tournament_list.css' %}">
+{% endblock %}
+
+{% block js %}
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/tournaments" %}
 {% endblock %}
 
 {% block headline %}
-        {% static_placeholder 'headline' %}
+    {% static_placeholder 'headline' %}
 {% endblock %}
 
 {% block content %}
-        {% if tournaments %}
+{% with request.user.friend as friend %}
+    {% if tournaments %}
 
-                <h1>{% trans "Tournaments" %}</h1>
+        <h1>{% trans "Tournaments" %}</h1>
 
-                        <ul id="tournaments">
-                                <li id="tournament-header" class="line">
-                                        <div class="cell name">{% trans "Tournament name" %}</div>
-                                        <div class="cell date">{% trans "Begins" %}</div>
-                                        <div class="cell date">{% trans "Ends" %}</div>
-                                </li>
-                                <hr>
-                                {% for tournament in tournaments %}
-                                        <li class="line">
-                                                <div class="cell name">{{ tournament.name }}</div>
-                                                <div class="cell date">{{ tournament.begin }}</div>
-                                                <div class="cell date">{{ tournament.end }}</div>
-                                        </li>
-                                {% endfor %}
-                        </ul>
-        {% else %}
-                <p>There are no tournaments.</p>
-        {% endif %}
+            <ul id="tournaments">
+                <li id="tournament-header" class="line">
+                    <div class="cell name">{% trans "Tournament name" %}</div>
+                    <div class="cell date">{% trans "Date" %}</div>
+                </li>
+                <hr>
+                {% for tournament in tournaments %}
+                    <li class="line">
+                        <div class="cell name">{{ tournament.name }}</div>
+                        <div class="cell date">{{ tournament.date }}</div>
+                        {% with friend|attendance:tournament as attendance %}
+                            <input class="attend {% if not attendance %} hidden {% endif %}" type="submit" value="{% trans 'Attend' %}"
+                                   onclick="attend({{tournament.id}}, {{friend.id}})">
+                            <input class="withdraw {% if attendance %} hidden {% endif %}" type="submit" value="{% trans 'Withdraw' %}"
+                                   onclick="withdraw('{% url 'dgf:tournament_withdraw' attendance.id %}')">
+                        {% endwith %}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% else %}
+        <p>There are no tournaments.</p>
+    {% endif %}
+
+    <script>
+        function tournamentAttendance(data, method, url) {
+            $.ajax({
+                type: method,
+                url: url,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                data: data,
+                dataType: "json",
+                success: function(response) {
+                    console.log(response.message); //TODO: add bola friend
+                },
+                error: function(rs, e) {
+                    console.log(rs.responseText);
+                }
+          });
+        }
+        function withdraw(url) {
+            data = {};
+            tournamentAttendance(data, "DELETE", url);
+        }
+        function attend(tournamentId, friendId) {
+            data = {
+                    "tournament": tournamentId,
+                    "friend": friendId
+                };
+            tournamentAttendance(data, "POST", "{% url 'dgf:tournament_attend' %}");
+        }
+    </script>
+{% endwith %}
 {% endblock %}

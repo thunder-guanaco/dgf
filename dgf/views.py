@@ -1,12 +1,13 @@
 import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
+from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 
 from .formsets import FavoriteCourseFormset, HighlightFormset, DiscFormset, AceFormset, VideoFormset
-from .models import Friend, Feedback, Video, Tournament
+from .models import Friend, Feedback, Video, Tournament, Attendance
 
 
 class IndexView(generic.ListView):
@@ -97,3 +98,18 @@ class TournamentsView(generic.ListView):
     context_object_name = 'tournaments'
     template_name = 'dgf/tournament_list.html'
     queryset = Tournament.objects.all().order_by('begin')
+
+
+class AttendanceCreate(CreateView):
+    model = Attendance
+    fields = ['tournament', 'friend']
+    success_url = reverse_lazy('dgf:success')
+
+
+class AttendanceDelete(DeleteView):
+    model = Attendance
+    success_url = reverse_lazy('dgf:success')
+
+
+def success(request):
+    return HttpResponse('')
