@@ -370,6 +370,6 @@ CRONJOBS = [
     # │    │    │    │    │
     # *    *    *    *    * <command to execute>
     ('*    */6  *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.fetch_rating', CRONJOBS_LOGFILE),
-    ('*    *    */7  *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.update_approved_discs_cron', CRONJOBS_LOGFILE),
-    ('0    2    *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.backup', CRONJOBS_LOGFILE)
+    ('*    2    */7  *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.update_approved_discs_cron', CRONJOBS_LOGFILE),
+    ('0    4    *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.backup', CRONJOBS_LOGFILE)
 ]
