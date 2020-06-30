@@ -2,6 +2,7 @@ $(window).on("load", function() {
     desktopStickyOffset = $('#navigation-bar').offset().top;
     mobileStickyOffset = $('#mobile-navigation-bar').offset().top;
 
+    // Sticky header
     var sticky = false;
     $(window).scroll(function(){
 
@@ -9,7 +10,7 @@ $(window).on("load", function() {
 
         if (mobileNavigationBarIsVisible()) {
 
-            // MOBILE
+            // mobile
             console.log("scroll: " + scroll);
             console.log("mobileStickyOffset: " + mobileStickyOffset);
             if (scroll > mobileStickyOffset) {
@@ -29,8 +30,7 @@ $(window).on("load", function() {
         }
         else {
 
-            // DESKTOP
-
+            // desktop
             if (scroll > desktopStickyOffset) {
                 $("#navigation-bar").addClass("sticky");
                 if (!sticky) {
@@ -51,12 +51,17 @@ $(window).on("load", function() {
         }
     });
 
+    loadMobileNavigationBarBehaviour();
+    loadLoginNextPageBehaviour();
+});
+
+function loadMobileNavigationBarBehaviour() {
+
     $("#mobile-navigation-bar-header a").click(function(e){
         e.preventDefault();
     });
 
     $(document).click(function(e) {
-        target=e.target;
         if ($.contains($("#mobile-navigation-bar-header")[0], e.target)
             || $.contains($(".bar-container")[0], e.target)) {
             $(".bar-container").toggleClass("change");
@@ -72,8 +77,13 @@ $(window).on("load", function() {
         $(this).toggleClass("open");
         $(this).siblings().toggle();
     });
+}
 
-});
+function loadLoginNextPageBehaviour() {
+    $("#navigation-bar a[href='/login/']").click(function(e){
+        e.target.href = e.target.href + "?next=" + window.location.pathname;
+    });
+}
 
 function mobileNavigationBarIsVisible() {
     return $('#mobile-navigation-bar').is(":visible");
