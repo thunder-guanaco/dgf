@@ -9,8 +9,7 @@ urlpatterns = [
     path('feedback/', views.FeedbackCreate.as_view(), name='feedback'),
     path('media/', views.MediaIndex.as_view(), name='media'),
     path('tournaments/', views.TournamentsView.as_view(), name='tournaments_index'),
-    path('tournaments/attend/', views.AttendanceCreate.as_view(), name='tournament_attend'),
-    path('tournaments/withdraw/<int:pk>', views.AttendanceDelete.as_view(), name='tournament_withdraw'),
+    path('tournaments/<int:tournament_id>/attendance', views.attendance, name='tournament_attendance'),
     path('success/', views.success, name='success'),
     path('<str:slug>/', views.DetailView.as_view(), name='friend_detail'),
 ]

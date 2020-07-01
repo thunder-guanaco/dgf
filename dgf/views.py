@@ -1,10 +1,11 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views import generic
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView
 
 from .formsets import FavoriteCourseFormset, HighlightFormset, DiscFormset, AceFormset, VideoFormset
 from .models import Friend, Feedback, Video, Tournament, Attendance
@@ -100,16 +101,21 @@ class TournamentsView(generic.ListView):
     queryset = Tournament.objects.all().order_by('begin')
 
 
-class AttendanceCreate(CreateView):
-    model = Attendance
-    fields = ['tournament', 'friend']
-    success_url = reverse_lazy('dgf:success')
-
-
-class AttendanceDelete(DeleteView):
-    model = Attendance
-    success_url = reverse_lazy('dgf:success')
-
-
 def success(request):
     return HttpResponse('')
+
+
+@login_required
+def attendance(request, tournament_id):
+    friend = request.user.friend
+
+    if request.method == 'POST':
+        attendance, created = Attendance.objects.get_or_create(friend=friend, tournament_id=tournament_id)
+        return HttpResponse(status=201 if created else 204)
+
+    if request.method == 'DELETE':
+        attendance = Attendance.objects.get(friend=friend, tournament_id=tournament_id)
+        attendance.delete()
+        return HttpResponse(status=204)
+
+    return HttpResponse(status=405, reason='Only POST method is allowed here.')

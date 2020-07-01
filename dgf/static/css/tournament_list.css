@@ -20,11 +20,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 60%;
+    width: 70%;
 }
 
 #tournaments .date {
     width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+#tournaments input {
+    width: 10%;
     display: flex;
     justify-content: center;
 }
@@ -35,4 +41,8 @@
 
 input[type=submit].withdraw {
     background-color: #8d1950 !important;
+}
+
+input[type=submit].withdraw:hover {
+    background:linear-gradient(to top, #c04c83 5%, #8d1950 100%) !important;
 }

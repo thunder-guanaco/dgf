@@ -30,14 +30,16 @@
                 </li>
                 <hr>
                 {% for tournament in tournaments %}
-                    <li class="line">
+                    <li id="tournament-{{ tournament.id }}" class="line">
                         <div class="cell name">{{ tournament.name }}</div>
                         <div class="cell date">{{ tournament.date }}</div>
                         {% with friend|attendance:tournament as attendance %}
-                            <input class="attend {% if not attendance %} hidden {% endif %}" type="submit" value="{% trans 'Attend' %}"
-                                   onclick="attend({{tournament.id}}, {{friend.id}})">
-                            <input class="withdraw {% if attendance %} hidden {% endif %}" type="submit" value="{% trans 'Withdraw' %}"
-                                   onclick="withdraw('{% url 'dgf:tournament_withdraw' attendance.id %}')">
+                            <input class="attend {% if attendance %} hidden {% endif %}"
+                                   type="submit" value="{% trans 'Attend' %}"
+                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
+                            <input class="withdraw {% if not attendance %}  hidden {% endif %}"
+                                   type="submit" value="{% trans 'Withdraw' %}"
+                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
                         {% endwith %}
                     </li>
                 {% endfor %}
@@ -47,33 +49,28 @@
     {% endif %}
 
     <script>
-        function tournamentAttendance(data, method, url) {
+        function attendance(url, method, tournamentId) {
             $.ajax({
                 type: method,
                 url: url,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
-                data: data,
-                dataType: "json",
                 success: function(response) {
-                    console.log(response.message); //TODO: add bola friend
+                    if(method === "POST") {
+                        $("#tournament-" + tournamentId + " .attend").addClass('hidden');
+                        $("#tournament-" + tournamentId + " .withdraw").removeClass('hidden');
+                    }
+                    if(method === "DELETE") {
+                        $("#tournament-" + tournamentId + " .attend").removeClass('hidden');
+                        $("#tournament-" + tournamentId + " .withdraw").addClass('hidden');
+                    }
                 },
                 error: function(rs, e) {
                     console.log(rs.responseText);
+                    console.log(e);
                 }
-          });
-        }
-        function withdraw(url) {
-            data = {};
-            tournamentAttendance(data, "DELETE", url);
-        }
-        function attend(tournamentId, friendId) {
-            data = {
-                    "tournament": tournamentId,
-                    "friend": friendId
-                };
-            tournamentAttendance(data, "POST", "{% url 'dgf:tournament_attend' %}");
+            });
         }
     </script>
 {% endwith %}
