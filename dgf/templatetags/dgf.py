@@ -55,7 +55,7 @@ def _current_year_as_str():
 @register.filter
 def order_by(friends, ordering):
     attribute = ordering[1:] if ordering[0] == '-' else ordering
-    query = Q(** {'%s__isnull' % attribute: False})
+    query = Q(**{'%s__isnull' % attribute: False})
     return friends.filter(query).order_by(ordering)
 
 
@@ -96,3 +96,11 @@ def first_by_type(queryset, type):
 @register.simple_tag
 def dgf_version():
     return settings.DGF_VERSION
+
+
+@register.filter
+def attendance(friend, tournament):
+    try:
+        return tournament.attendance.get(friend=friend)
+    except:
+        return None

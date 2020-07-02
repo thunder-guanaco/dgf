@@ -2,38 +2,76 @@
 {% load static cms_tags i18n dgf %}
 
 {% block title %}
-        {% trans "Tournaments" %}
+    {% trans "Tournaments" %}
 {% endblock %}
 
 {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'tournament_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tournament_list.css' %}">
+{% endblock %}
+
+{% block js %}
+    {% include "dgf/includes/select_in_menu.html" with path="/friends/tournaments" %}
 {% endblock %}
 
 {% block headline %}
-        {% static_placeholder 'headline' %}
+    {% static_placeholder 'headline' %}
 {% endblock %}
 
 {% block content %}
-        {% if tournaments %}
+{% with request.user.friend as friend %}
+    {% if tournaments %}
 
-                <h1>{% trans "Tournaments" %}</h1>
+        <h1>{% trans "Tournaments" %}</h1>
 
-                        <ul id="tournaments">
-                                <li id="tournament-header" class="line">
-                                        <div class="cell name">{% trans "Tournament name" %}</div>
-                                        <div class="cell date">{% trans "Begins" %}</div>
-                                        <div class="cell date">{% trans "Ends" %}</div>
-                                </li>
-                                <hr>
-                                {% for tournament in tournaments %}
-                                        <li class="line">
-                                                <div class="cell name">{{ tournament.name }}</div>
-                                                <div class="cell date">{{ tournament.begin }}</div>
-                                                <div class="cell date">{{ tournament.end }}</div>
-                                        </li>
-                                {% endfor %}
-                        </ul>
-        {% else %}
-                <p>There are no tournaments.</p>
-        {% endif %}
+            <ul id="tournaments">
+                <li id="tournament-header" class="line">
+                    <div class="cell name">{% trans "Tournament name" %}</div>
+                    <div class="cell date">{% trans "Date" %}</div>
+                </li>
+                <hr>
+                {% for tournament in tournaments %}
+                    <li id="tournament-{{ tournament.id }}" class="line">
+                        <div class="cell name">{{ tournament.name }}</div>
+                        <div class="cell date">{{ tournament.date }}</div>
+                        {% with friend|attendance:tournament as attendance %}
+                            <input class="attend {% if attendance %} hidden {% endif %}"
+                                   type="submit" value="{% trans 'Attend' %}"
+                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
+                            <input class="withdraw {% if not attendance %}  hidden {% endif %}"
+                                   type="submit" value="{% trans 'Withdraw' %}"
+                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
+                        {% endwith %}
+                    </li>
+                {% endfor %}
+            </ul>
+    {% else %}
+        <p>There are no tournaments.</p>
+    {% endif %}
+
+    <script>
+        function attendance(url, method, tournamentId) {
+            $.ajax({
+                type: method,
+                url: url,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(response) {
+                    if(method === "POST") {
+                        $("#tournament-" + tournamentId + " .attend").addClass('hidden');
+                        $("#tournament-" + tournamentId + " .withdraw").removeClass('hidden');
+                    }
+                    if(method === "DELETE") {
+                        $("#tournament-" + tournamentId + " .attend").removeClass('hidden');
+                        $("#tournament-" + tournamentId + " .withdraw").addClass('hidden');
+                    }
+                },
+                error: function(rs, e) {
+                    console.log(rs.responseText);
+                    console.log(e);
+                }
+            });
+        }
+    </script>
+{% endwith %}
 {% endblock %}

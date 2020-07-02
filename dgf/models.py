@@ -273,3 +273,29 @@ class Tournament(models.Model):
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
+
+    @property
+    def date(self):
+        if self.begin == self.end:
+            return self.begin.strftime('%d. %b %Y')
+        if self.begin.month != self.end.month:
+            return '{} - {}'.format(self.begin.strftime('%d. %b'), self.end.strftime('%d. %b %Y'))
+        return '{} - {}'.format(self.begin.strftime('%d.'), self.end.strftime('%d. %b %Y'))
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.date)
+
+
+class Attendance(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['tournament', 'friend'],
+                                    name='the same tournament can not be attended twice'),
+        ]
+
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='attendance',
+                                   verbose_name=_('Tournament'))
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
+
+    def __str__(self):
+        return '{} - {}'.format(str(self.tournament), str(self.friend))
