@@ -411,11 +411,11 @@ msgstr "Turnier"
 
 #: dgf/templates/dgf/tournament_list.html:38
 msgid "Attend"
-msgstr "Teilnehmen"
+msgstr "Bin dabei"
 
 #: dgf/templates/dgf/tournament_list.html:41
 msgid "Withdraw"
-msgstr "Zurückziehen"
+msgstr "Bin nicht dabei"
 
 #: dgf/templates/registration/login.html:20
 msgid "Login"
