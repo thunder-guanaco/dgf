@@ -30,18 +30,29 @@
                 </li>
                 <hr>
                 {% for tournament in tournaments %}
+                {% with friend|attendance:tournament as attends %}
                     <li id="tournament-{{ tournament.id }}" class="line">
                         <div class="cell name">{{ tournament.name }}</div>
                         <div class="cell date">{{ tournament.date }}</div>
-                        {% with friend|attendance:tournament as attendance %}
-                            <input class="attend {% if attendance %} hidden {% endif %}"
+                            <input class="attend {% if attends %} hidden {% endif %}"
                                    type="submit" value="{% trans 'Attend' %}"
                                    onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
-                            <input class="withdraw {% if not attendance %}  hidden {% endif %}"
+                            <input class="withdraw {% if not attends %}  hidden {% endif %}"
                                    type="submit" value="{% trans 'Withdraw' %}"
                                    onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
-                        {% endwith %}
                     </li>
+                    <li id="tournament-{{ tournament.id }}-players" class="line">
+                        {% for attendance in tournament.attendance.all %}
+                            {% if attendance.friend.id is not friend.id %}
+                                {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=False%}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="own-ball {% if not attends %} hidden {% endif %}">
+                            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
+                        </div>
+                    </li>
+                    <hr>
+                {% endwith %}
                 {% endfor %}
             </ul>
     {% else %}
@@ -60,10 +71,12 @@
                     if(method === "POST") {
                         $("#tournament-" + tournamentId + " .attend").addClass('hidden');
                         $("#tournament-" + tournamentId + " .withdraw").removeClass('hidden');
+                        $("#tournament-" + tournamentId + "-players .own-ball").removeClass('hidden');
                     }
                     if(method === "DELETE") {
                         $("#tournament-" + tournamentId + " .attend").removeClass('hidden');
                         $("#tournament-" + tournamentId + " .withdraw").addClass('hidden');
+                        $("#tournament-" + tournamentId + "-players .own-ball").addClass('hidden');
                     }
                 },
                 error: function(rs, e) {

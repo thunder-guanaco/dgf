@@ -1,5 +1,5 @@
 {% load thumbnail %}
-{% with clickable|default:False as clickable %}
+{% with clickable|default_if_none:False as clickable %}
 {% with img_size|add:img_size|stringformat:'s' as double_img_size %}
 
     {% if clickable %}
