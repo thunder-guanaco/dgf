@@ -101,10 +101,6 @@ class TournamentsView(generic.ListView):
     queryset = Tournament.objects.all().order_by('begin')
 
 
-def success(request):
-    return HttpResponse('')
-
-
 @login_required
 def attendance(request, tournament_id):
     friend = request.user.friend
@@ -118,4 +114,4 @@ def attendance(request, tournament_id):
         attendance.delete()
         return HttpResponse(status=204)
 
-    return HttpResponse(status=405, reason='Only POST method is allowed here.')
+    return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')

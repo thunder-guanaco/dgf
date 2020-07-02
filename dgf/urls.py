@@ -10,6 +10,5 @@ urlpatterns = [
     path('media/', views.MediaIndex.as_view(), name='media'),
     path('tournaments/', views.TournamentsView.as_view(), name='tournaments_index'),
     path('tournaments/<int:tournament_id>/attendance', views.attendance, name='tournament_attendance'),
-    path('success/', views.success, name='success'),
     path('<str:slug>/', views.DetailView.as_view(), name='friend_detail'),
 ]
