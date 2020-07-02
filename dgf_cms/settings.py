@@ -271,7 +271,6 @@ INSTALLED_APPS = [
     'dgf_cms'
 ]
 
-LOGIN_REDIRECT_URL = '/friends/profile'
 LOGOUT_REDIRECT_URL = '/'
 
 LANGUAGES = (
