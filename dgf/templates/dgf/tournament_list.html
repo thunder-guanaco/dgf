@@ -30,16 +30,19 @@
                 </li>
                 <hr>
                 {% for tournament in tournaments %}
-                {% with friend|attendance:tournament as attends %}
+                {% with friend|attends:tournament as attends %}
                     <li id="tournament-{{ tournament.id }}" class="line">
                         <div class="cell name">{{ tournament.name }}</div>
                         <div class="cell date">{{ tournament.date }}</div>
-                            <input class="attend {% if attends %} hidden {% endif %}"
-                                   type="submit" value="{% trans 'Attend' %}"
-                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
-                            <input class="withdraw {% if not attends %}  hidden {% endif %}"
-                                   type="submit" value="{% trans 'Withdraw' %}"
-                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
+                            {% if request.user.is_authenticated %}
+                                <input class="attend {% if attends %} hidden {% endif %}"
+                                       type="submit" value="{% trans 'Attend' %}"
+                                       onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
+                                <input class="withdraw {% if not attends %}  hidden {% endif %}"
+                                       type="submit" value="{% trans 'Withdraw' %}"
+                                       onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
+
+                            {% endif %}
                     </li>
                     <li id="tournament-{{ tournament.id }}-players" class="line">
                         {% for attendance in tournament.attendance.all %}
@@ -47,9 +50,11 @@
                                 {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=False%}
                             {% endif %}
                         {% endfor %}
-                        <div class="own-ball {% if not attends %} hidden {% endif %}">
-                            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
-                        </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="own-ball {% if not attends %} hidden {% endif %}">
+                                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
+                            </div>
+                        {% endif %}
                     </li>
                     <hr>
                 {% endwith %}

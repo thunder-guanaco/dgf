@@ -33,9 +33,8 @@ msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
 #: dgf/cms_plugins.py:53
-#| msgid "Disc Golf Friends"
 msgid "Disc Golf Friends Calendar"
-msgstr "Disc Golf Friends"
+msgstr "Disc Golf Friends Kalendar"
 
 #: dgf/cms_toolbars.py:12 dgf/templates/dgf/friend_list.html:5
 msgid "Friends"
@@ -65,7 +64,7 @@ msgstr "Neuer Parcours"
 #: dgf/cms_toolbars.py:46 dgf/templates/dgf/tournament_list.html:5
 #: dgf/templates/dgf/tournament_list.html:24
 msgid "Tournaments"
-msgstr "Turnier"
+msgstr "Turniere"
 
 #: dgf/cms_toolbars.py:49
 msgid "All tournaments"
@@ -407,17 +406,16 @@ msgid "Our Videos"
 msgstr "Videos der Friends"
 
 #: dgf/templates/dgf/tournament_list.html:28
-#| msgid "Tournament"
-msgid "Tournament name"
-msgstr "Turnier name"
+msgid "Tournament"
+msgstr "Turnier"
 
 #: dgf/templates/dgf/tournament_list.html:38
 msgid "Attend"
-msgstr "Anmelden"
+msgstr "Teilnehmen"
 
 #: dgf/templates/dgf/tournament_list.html:41
 msgid "Withdraw"
-msgstr "Abmelden"
+msgstr "Zurückziehen"
 
 #: dgf/templates/registration/login.html:20
 msgid "Login"
