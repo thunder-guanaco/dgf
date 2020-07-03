@@ -99,8 +99,5 @@ def dgf_version():
 
 
 @register.filter
-def attendance(friend, tournament):
-    try:
-        return tournament.attendance.get(friend=friend)
-    except:
-        return None
+def attends(tournament, friend):
+    return tournament.attendance.filter(friend=friend).exists()

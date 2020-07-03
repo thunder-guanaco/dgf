@@ -110,8 +110,7 @@ def attendance(request, tournament_id):
         return HttpResponse(status=201 if created else 204)
 
     if request.method == 'DELETE':
-        attendance = Attendance.objects.get(friend=friend, tournament_id=tournament_id)
-        attendance.delete()
+        Attendance.objects.filter(friend=friend, tournament_id=tournament_id).delete()
         return HttpResponse(status=204)
 
     return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')

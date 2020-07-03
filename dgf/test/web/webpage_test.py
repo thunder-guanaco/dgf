@@ -15,6 +15,7 @@ class AddTestCase(TestCase):
         ('dgf:friend_update', []),
         ('dgf:feedback', []),
         ('dgf:media', []),
+        ('dgf:tournament_index', []),
     ])
     @override_settings(ROOT_URLCONF='dgf.test.urls')
     def test_dgf_pages(self, url_name, args):

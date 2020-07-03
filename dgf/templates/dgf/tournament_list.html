@@ -19,29 +19,44 @@
 
 {% block content %}
 {% with request.user.friend as friend %}
+{% with request.user.is_authenticated as authenticated %}
     {% if tournaments %}
-
         <h1>{% trans "Tournaments" %}</h1>
-
             <ul id="tournaments">
                 <li id="tournament-header" class="line">
-                    <div class="cell name">{% trans "Tournament name" %}</div>
+                    <div class="cell name">{% trans "Tournament" %}</div>
                     <div class="cell date">{% trans "Date" %}</div>
                 </li>
                 <hr>
                 {% for tournament in tournaments %}
+                {% with tournament|attends:friend as attends %}
                     <li id="tournament-{{ tournament.id }}" class="line">
                         <div class="cell name">{{ tournament.name }}</div>
                         <div class="cell date">{{ tournament.date }}</div>
-                        {% with friend|attendance:tournament as attendance %}
-                            <input class="attend {% if attendance %} hidden {% endif %}"
-                                   type="submit" value="{% trans 'Attend' %}"
-                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
-                            <input class="withdraw {% if not attendance %}  hidden {% endif %}"
-                                   type="submit" value="{% trans 'Withdraw' %}"
-                                   onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
-                        {% endwith %}
+                            {% if authenticated %}
+                                <input class="attend {% if attends %} hidden {% endif %}"
+                                       type="submit" value="{% trans 'Attend' %}"
+                                       onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
+                                <input class="withdraw {% if not attends %}  hidden {% endif %}"
+                                       type="submit" value="{% trans 'Withdraw' %}"
+                                       onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
+
+                            {% endif %}
                     </li>
+                    <li id="tournament-{{ tournament.id }}-players" class="line">
+                        {% for attendance in tournament.attendance.all %}
+                            {% if not authenticated or attendance.friend.id is not friend.id %}
+                                {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=False%}
+                            {% endif %}
+                        {% endfor %}
+                        {% if authenticated %}
+                            <div class="own-ball {% if not attends %} hidden {% endif %}">
+                                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
+                            </div>
+                        {% endif %}
+                    </li>
+                    <hr>
+                {% endwith %}
                 {% endfor %}
             </ul>
     {% else %}
@@ -60,10 +75,12 @@
                     if(method === "POST") {
                         $("#tournament-" + tournamentId + " .attend").addClass('hidden');
                         $("#tournament-" + tournamentId + " .withdraw").removeClass('hidden');
+                        $("#tournament-" + tournamentId + "-players .own-ball").removeClass('hidden');
                     }
                     if(method === "DELETE") {
                         $("#tournament-" + tournamentId + " .attend").removeClass('hidden');
                         $("#tournament-" + tournamentId + " .withdraw").addClass('hidden');
+                        $("#tournament-" + tournamentId + "-players .own-ball").addClass('hidden');
                     }
                 },
                 error: function(rs, e) {
@@ -73,5 +90,6 @@
             });
         }
     </script>
+{% endwith %}
 {% endwith %}
 {% endblock %}
