@@ -19,10 +19,9 @@
 
 {% block content %}
 {% with request.user.friend as friend %}
+{% with request.user.is_authenticated as authenticated %}
     {% if tournaments %}
-
         <h1>{% trans "Tournaments" %}</h1>
-
             <ul id="tournaments">
                 <li id="tournament-header" class="line">
                     <div class="cell name">{% trans "Tournament" %}</div>
@@ -30,11 +29,11 @@
                 </li>
                 <hr>
                 {% for tournament in tournaments %}
-                {% with friend|attends:tournament as attends %}
+                {% with tournament|attends:friend as attends %}
                     <li id="tournament-{{ tournament.id }}" class="line">
                         <div class="cell name">{{ tournament.name }}</div>
                         <div class="cell date">{{ tournament.date }}</div>
-                            {% if request.user.is_authenticated %}
+                            {% if authenticated %}
                                 <input class="attend {% if attends %} hidden {% endif %}"
                                        type="submit" value="{% trans 'Attend' %}"
                                        onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
@@ -46,11 +45,11 @@
                     </li>
                     <li id="tournament-{{ tournament.id }}-players" class="line">
                         {% for attendance in tournament.attendance.all %}
-                            {% if attendance.friend.id is not friend.id %}
+                            {% if not authenticated or attendance.friend.id is not friend.id %}
                                 {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=False%}
                             {% endif %}
                         {% endfor %}
-                        {% if request.user.is_authenticated %}
+                        {% if authenticated %}
                             <div class="own-ball {% if not attends %} hidden {% endif %}">
                                 {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
                             </div>
@@ -91,5 +90,6 @@
             });
         }
     </script>
+{% endwith %}
 {% endwith %}
 {% endblock %}
