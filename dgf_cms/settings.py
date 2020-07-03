@@ -42,8 +42,8 @@ if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
-    DATA_DIR = os.path.dirname(os.path.dirname(__file__))
-    LOG_DIR = DATA_DIR
+    DATA_DIR = BASE_DIR
+    LOG_DIR = BASE_DIR
     LOG_LEVEL = 'INFO'
     DGF_VERSION = 'dev'
     GITHUB_TOKEN = 'nothing'
@@ -352,14 +352,18 @@ LOGGING = {
             'level': LOG_LEVEL,
         },
         'dgf': {
-            'handlers': ['console'],
-            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'level': LOG_LEVEL,
         }
     },
 }
 
-EXPORT_ENV = 'export DJANGO_ENV=prod; source ~/secrets;'
-CRONJOBS_LOGFILE = '>> ~/logs/cronjobs'
+if ENV == 'prod':
+    CRONTAB_COMMAND_PREFIX = 'source {};'.format(os.path.join(BASE_DIR, 'ci/ENVIRONMENT_VARIABLES'))
+else:
+    CRONTAB_COMMAND_PREFIX = 'export DJANGO_ENV="{}"; source {}; '.format(ENV, os.path.join(BASE_DIR, 'secrets'))
+
+CRONTAB_COMMAND_SUFFIX = '>> {} 2>&1'.format(os.path.join(LOG_DIR, 'cronjobs.log'))
 CRONJOBS = [
     # ┌───────────── minute (0 - 59)
     # │    ┌───────────── hour (0 - 23)
@@ -368,7 +372,7 @@ CRONJOBS = [
     # │    │    │    │    ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
     # │    │    │    │    │
     # *    *    *    *    * <command to execute>
-    ('*    */6  *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.fetch_rating', CRONJOBS_LOGFILE),
-    ('*    2    */7  *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.update_approved_discs_cron', CRONJOBS_LOGFILE),
-    ('0    4    *    *    * {}'.format(EXPORT_ENV), 'dgf.cronjobs.backup', CRONJOBS_LOGFILE)
+    ('0    */6  *    *    * ', 'dgf.cronjobs.fetch_pdga_data'),
+    ('0    2    */7  *    * ', 'dgf.cronjobs.update_approved_discs'),
+    ('0    4    *    *    * ', 'dgf.cronjobs.backup'),
 ]

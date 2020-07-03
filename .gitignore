@@ -9,6 +9,7 @@ media/
 static/CACHE
 *.mo
 django.log*
+cronjobs.log
 
 # sqlite
 *.db

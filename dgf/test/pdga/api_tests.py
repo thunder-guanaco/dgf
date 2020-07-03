@@ -19,7 +19,7 @@ class PdgaApiTest(TestCase):
         friend.username = 'fede'
         friend.save()
         fetch_pdga_data()
-        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
+        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 903)
 
     @responses.activate
     def test_rating_is_stored_in_friend_when_saved(self):
@@ -29,7 +29,7 @@ class PdgaApiTest(TestCase):
         friend.pdga_number = 109371
         friend.username = 'fede'
         friend.save()
-        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 903)
+        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 903)
 
     @responses.activate
     def test_rating_is_updated_in_friend(self):
@@ -41,7 +41,7 @@ class PdgaApiTest(TestCase):
         friend.save()
         self.configure_responses(rating=950)
         fetch_pdga_data()
-        self.assertEqual(Friend.objects.get(pdga_number='109371').rating, 950)
+        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 950)
 
     @responses.activate
     def test_prices_and_tournaments_stored(self):
@@ -52,7 +52,7 @@ class PdgaApiTest(TestCase):
         friend.username = 'kevin'
         friend.save()
         fetch_pdga_data()
-        kevin = Friend.objects.get(pdga_number='47163')
+        kevin = Friend.objects.get(pdga_number=47163)
         self.assertEqual(kevin.total_tournaments, 97)
         self.assertEqual(kevin.total_earnings, Decimal('3981.05'))
 
