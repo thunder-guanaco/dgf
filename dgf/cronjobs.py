@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core import management
 
 from .models import Friend, Disc
+from .pdga import PdgaApi
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,10 @@ logger = logging.getLogger(__name__)
 def fetch_pdga_data():
     logger.info('Fetching PDGA data...')
 
+    pdga_api = PdgaApi()
     for friend in Friend.objects.all():
+        pdga_api.update_friend_rating(friend)
+        pdga_api.update_friend_tournament(friend)
         friend.save()
 
     logger.info('PDGA data has been updated')
