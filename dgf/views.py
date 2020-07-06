@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.contrib.auth.decorators import login_required
@@ -98,7 +99,7 @@ class MediaIndex(generic.ListView):
 class TournamentsView(generic.ListView):
     context_object_name = 'tournaments'
     template_name = 'dgf/tournament_list.html'
-    queryset = Tournament.objects.all().order_by('begin')
+    queryset = Tournament.objects.filter(begin__gte=datetime.datetime.now()).order_by('begin')
 
 
 @login_required
