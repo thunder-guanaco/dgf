@@ -3,7 +3,7 @@
     <h2>{% trans "All friends" %}</h2>
     <div class="all-friends">
         {% for friend in friends %}
-            {% include "dgf/includes/friend_ball.html" with friend=friend %}
+            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
         {% endfor %}
     </div>
 </li>
