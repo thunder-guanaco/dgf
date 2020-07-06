@@ -1,5 +1,5 @@
 {% with show_rating|default_if_none:False as show_rating %}
-{% with show_name|default_if_none:True as show_name %}
+{% with show_name|default_if_none:False as show_name %}
 {% with show_best_score_in_wischlingen|default_if_none:False as show_best_score_in_wischlingen %}
 
     <a class="friend-ball" href="{% url 'dgf:friend_detail' friend.slug %}">

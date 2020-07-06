@@ -1,7 +1,7 @@
 <div class="top list">
     {% for friend in friends|slice:":3" %}
         <div class="item">
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_rating=show_rating show_best_score_in_wischlingen=show_best_score_in_wischlingen %}
+            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=show_name show_rating=show_rating show_best_score_in_wischlingen=show_best_score_in_wischlingen %}
         </div>
     {% endfor %}
 </div>
@@ -9,7 +9,7 @@
 <div class="all list hidden">
     {% for friend in friends %}
         <div class="item">
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_rating=show_rating show_best_score_in_wischlingen=show_best_score_in_wischlingen %}
+            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=show_name show_rating=show_rating show_best_score_in_wischlingen=show_best_score_in_wischlingen %}
         </div>
     {% endfor %}
 </div>

@@ -46,12 +46,12 @@
                     <li id="tournament-{{ tournament.id }}-players" class="line">
                         {% for attendance in tournament.attendance.all %}
                             {% if not authenticated or attendance.friend.id is not friend.id %}
-                                {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=False%}
+                                {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
                             {% endif %}
                         {% endfor %}
                         {% if authenticated %}
                             <div class="own-ball {% if not attends %} hidden {% endif %}">
-                                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=False%}
+                                {% include "dgf/includes/friend_ball.html" with friend=friend %}
                             </div>
                         {% endif %}
                     </li>
