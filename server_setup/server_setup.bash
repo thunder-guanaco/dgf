@@ -114,7 +114,16 @@ upstream dgf_cms_app_server {
 }
 
 server {
-    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de vps793990.ovh.net www.vps793990.ovh.net;
+
+    if (\$host = www.tremonia-open.de) {
+        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+    } 
+
+    if (\$host = tremonia-open.de) {
+        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+    } 
+
+    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
 
     listen [::]:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
@@ -127,14 +136,14 @@ server {
     error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
 
     location /static/ {
-        alias       /home/ubuntu/static/;
+        alias       ${ROOT_INSTALLATION_PATH}/static/;
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
     }
 
     location /media/ {
-        alias       /home/ubuntu/media/;
+        alias       ${ROOT_INSTALLATION_PATH}/media/;
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
@@ -182,25 +191,18 @@ server {
 }
 
 server {
-    if (\$host = www.disc-golf-friends.de) {
-        return 301 https://\$host\$request_uri;
-    } # managed by Certbot
 
-    if (\$host = www.discgolffriends.de) {
-        return 301 https://\$host\$request_uri;
-    } # managed by Certbot
+    if (\$host = www.tremonia-open.de) {
+        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+    }
 
-    if (\$host = disc-golf-friends.de) {
-        return 301 https://\$host\$request_uri;
-    } # managed by Certbot
-
-    if (\$host = discgolffriends.de) {
-        return 301 https://\$host\$request_uri;
-    } # managed by Certbot
+    if (\$host = tremonia-open.de) {
+        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+    }
 
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name disc-golf-friends.de discgolffriends.de www.disc-golf-friends.de www.discgolffriends.de;
+    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
     return 301 https://\$host\$request_uri;
 }
 
