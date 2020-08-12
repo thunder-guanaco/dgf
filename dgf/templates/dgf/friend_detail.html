@@ -94,7 +94,7 @@
                     {% if score %}
                         <div>
                             <p class="label">{% trans "Best score in Wischlingen (standard 18 - par 55)" %}</p>
-                            <p class="value">{{ score|add:"55" }} ({{score}})</p>
+                            <p class="value">{{ score|add:"55" }} ({{score|stringformat:"+i"}})</p>
                         </div>
                     {% endif %}
                 {% endwith %}
