@@ -165,6 +165,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'dgf_cms', 'static'),
 )
 
+FILE_UPLOAD_PERMISSIONS = 0o644
+
 # See: https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED
 COMPRESS_ENABLED = True
 COMPRESS_FILTERS = {
