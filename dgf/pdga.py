@@ -136,17 +136,16 @@ class PdgaApi:
 
             money_earned = 0
             tournaments = 0
-            for yearly_stats in statistics['players']:
-                try:
+            try:
+                for yearly_stats in statistics['players']:
                     money_earned += Decimal(yearly_stats['prize'])
-                except KeyError:
-                    # not all years have to have prizes
-                    pass
-                try:
                     tournaments += int(yearly_stats['tournaments'])
-                except KeyError:
-                    # maybe not all years have to have tournaments
-                    pass
+            except KeyError:
+                # known "errors":
+                # - if the players hasn't played anything in the current year => there are no statistics
+                # - not all years have to have prizes
+                # - maybe not all years have to have tournaments
+                pass
 
             friend.total_earnings = money_earned
             friend.total_tournaments = tournaments

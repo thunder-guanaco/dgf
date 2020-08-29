@@ -1,0 +1,8 @@
+{% load i18n dgf %}
+<li id="next-tournaments" class="friends-ranking">
+    <h2>{% trans "Next tournaments" %} <span class="show-all">{% trans "(show all)" %}</span><span class="show-less hidden">{% trans "(show less)" %}</span></h2>
+    <div class="inner-content">
+        PONER AQUÍ EL TEMA DE LOS TORNEOS
+        {% include "dgf/includes/friend_balls.html" with friends=friends|order_by:"best_score_in_wischlingen" show_name=True show_best_score_in_wischlingen=True %}
+    </div>
+</li>

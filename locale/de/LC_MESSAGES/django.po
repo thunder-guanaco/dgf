@@ -41,7 +41,7 @@ msgid "Friends"
 msgstr "Friends"
 
 #: dgf/cms_toolbars.py:15
-#: dgf/templates/dgf/includes/overview/6_all_friends.html:3
+#: dgf/templates/dgf/includes/overview/7_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
