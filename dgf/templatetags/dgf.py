@@ -6,7 +6,7 @@ from django import template
 from django.conf import settings
 from django.db.models import Count, Q
 
-from ..models import Ace, DiscInBag, Course
+from ..models import Ace, DiscInBag, Course, Tournament
 
 register = template.Library()
 
@@ -45,7 +45,7 @@ def favorite_discs(disc_type):
                .values('disc__display_name') \
                .annotate(count=Count('disc__display_name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
-               .values_list('disc__display_name', flat=True)
+        .values_list('disc__display_name', flat=True)
 
 
 def _current_year_as_str():
@@ -96,6 +96,11 @@ def first_by_type(queryset, type):
 @register.simple_tag
 def dgf_version():
     return settings.DGF_VERSION
+
+
+@register.simple_tag
+def all_tournaments():
+    return Tournament.objects.filter(begin__gte=datetime.now()).order_by('begin')
 
 
 @register.filter
