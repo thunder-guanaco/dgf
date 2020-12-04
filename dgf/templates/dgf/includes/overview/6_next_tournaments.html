@@ -1,0 +1,23 @@
+{% load i18n dgf %}
+{% if request.user.is_superuser %}
+    <li id="tournaments">
+        <h2>{% trans "Next tournaments" %}</h2>
+        {% all_tournaments as tournaments %}
+        <div class="inner-content">
+            <ul>
+                {% for tournament in tournaments %}
+                <li class="tournament">
+                    <div class="name">
+                        {{ tournament.name }} <span class="date">({{ tournament.date }})</span>
+                    </div>
+                    <div class="players">
+                        {% for attendance in tournament.attendance.all|slice:":5" %}
+                            {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
+                        {% endfor %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+{% endif %}

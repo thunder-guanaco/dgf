@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-03 13:35+0200\n"
+"POT-Creation-Date: 2020-12-04 13:52+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgid "Friends"
 msgstr "Friends"
 
 #: dgf/cms_toolbars.py:15
-#: dgf/templates/dgf/includes/overview/6_all_friends.html:3
+#: dgf/templates/dgf/includes/overview/7_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
@@ -397,6 +397,10 @@ msgstr "(weniger anzeigen)"
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:3
 msgid "Best scores in Wischlingen (standard 18 - par 55)"
 msgstr "Beste Runde in Wischlingen (Standard 18 - par 55)"
+
+#: dgf/templates/dgf/includes/overview/6_next_tournaments.html:4
+msgid "Next tournaments"
+msgstr "Nächste Turniere"
 
 #: dgf/templates/dgf/media_list.html:5
 msgid "Media"

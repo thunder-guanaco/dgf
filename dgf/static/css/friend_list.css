@@ -146,3 +146,36 @@
 #statistics .friends-ranking .inner-content .item {
     width: auto;
 }
+
+#tournaments .tournament {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#tournaments .tournament .name {
+    width: 65%;
+    font-weight: bold;
+}
+
+#tournaments .tournament .date {
+    font-weight: normal;
+    font-style: italic;
+}
+
+#tournaments .tournament .players {
+    width: 35%;
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: hidden;
+}
+
+#tournaments .tournament .players .friend-ball {
+    margin: 1em 1em 1em -2em!important;
+}
+
+#tournaments .inner-content .tournament {
+    margin: 1em 0em !important;
+    min-height: 5em !important;
+}
