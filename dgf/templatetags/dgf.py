@@ -100,7 +100,9 @@ def dgf_version():
 
 @register.simple_tag
 def all_tournaments():
-    return Tournament.objects.filter(begin__gte=datetime.now()).order_by('begin')
+    return Tournament.objects.annotate(players_count=Count('attendance')) \
+                             .filter(begin__gte=datetime.now(), players_count__gt=0) \
+                             .order_by('begin')
 
 
 @register.filter

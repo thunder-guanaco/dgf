@@ -87,12 +87,21 @@
 
 #statistics .list {
     display: flex;
+    justify-content: center;
 }
 
 #statistics .list .item {
     width: 33.33%;
     text-align: center;
     margin: 0;
+}
+
+#statistics .show-all,
+#statistics .show-less {
+    cursor: pointer;
+    color: #8d1950;
+    font-weight: normal;
+    font-size: 0.75em;
 }
 
 .all-friends {
@@ -123,14 +132,6 @@
     min-height: 8em;
 }
 
-.friends-ranking .show-all,
-.friends-ranking .show-less {
-    cursor: pointer;
-    color: #8d1950;
-    font-weight: normal;
-    font-size: 0.75em;
-}
-
 .friends-ranking .all {
     display: flex;
     flex-direction: row;
@@ -147,11 +148,12 @@
     width: auto;
 }
 
-#tournaments .tournament {
+#tournaments .tournament .top-info {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 #tournaments .tournament .name {
@@ -178,4 +180,9 @@
 #tournaments .inner-content .tournament {
     margin: 1em 0em !important;
     min-height: 5em !important;
+}
+
+#tournaments .show-all,
+#tournaments .show-less {
+    font-size: 1em !important;
 }

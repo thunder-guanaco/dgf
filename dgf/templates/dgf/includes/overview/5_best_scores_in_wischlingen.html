@@ -1,5 +1,5 @@
 {% load i18n dgf %}
-<li id="best-scores" class="friends-ranking">
+<li id="best-scores" class="friends-ranking show-all-less">
     <h2>{% trans "Best scores in Wischlingen (standard 18 - par 55)" %} <span class="show-all">{% trans "(show all)" %}</span><span class="show-less hidden">{% trans "(show less)" %}</span></h2>
     <div class="inner-content">
         {% include "dgf/includes/friend_balls.html" with friends=friends|order_by:"best_score_in_wischlingen" show_name=True show_best_score_in_wischlingen=True %}
