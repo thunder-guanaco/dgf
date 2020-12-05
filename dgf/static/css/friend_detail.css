@@ -130,7 +130,14 @@
     display: flex;
     flex-flow: row;
     align-items: center;
+    justify-content: space-between;
     margin: 0;
+}
+
+#friend-info h1 div {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
 }
 
 #friend-info h1 img {
