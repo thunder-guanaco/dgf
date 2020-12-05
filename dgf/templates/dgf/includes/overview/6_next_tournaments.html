@@ -1,7 +1,7 @@
 {% load i18n dgf %}
 {% if request.user.is_superuser %}
     <li id="tournaments">
-        <h2>{% trans "Next tournaments" %}</h2>
+        <h2>{% trans "Next tournaments" %} <a href="{% url 'dgf:tournament_index' %}">{% trans '(show all tournaments)' %}</a></h2>
         {% all_tournaments as tournaments %}
         <div class="inner-content">
             <ul>
