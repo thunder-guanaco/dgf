@@ -43,6 +43,7 @@
 
     #tournaments .tournament .top-info {
         flex-direction: column !important;
+        align-items: flex-start !important;
     }
 
     #tournaments .tournament .players {
