@@ -68,13 +68,18 @@
         margin: 1em 2em !important;
     }
 
+    #statistics .list {
+        flex-direction: row;
+    }
+
+    #statistics .show-all-less .inner-content .item {
+        width: auto;
+    }
+
     #tournaments .tournament .players .friend-ball {
         margin: 1em 1em 1em -2em !important;
     }
 
-    #statistics .list {
-        flex-direction: row;
-    }
 }
 
 #friend-list-header-text {
@@ -160,10 +165,6 @@
 
 #statistics li.show-all-less .inner-content > div {
     justify-content: center;
-}
-
-#statistics .show-all-less .inner-content .item {
-    width: auto;
 }
 
 #tournaments .tournament .top-info {
