@@ -41,6 +41,18 @@
         width: 70px !important;
     }
 
+    #tournaments .tournament .top-info {
+        flex-direction: column !important;
+    }
+
+    #tournaments .tournament .players {
+        width: 100% !important;
+    }
+
+    #tournaments .tournament .players .friend-ball {
+        margin: 1em 0em 1em -2em !important;
+    }
+
 }
 
 
@@ -53,6 +65,10 @@
 
     .show-all-less .friend-ball {
         margin: 1em 2em !important;
+    }
+
+    #tournaments .tournament .players .friend-ball {
+        margin: 1em 1em 1em -2em !important;
     }
 
     #statistics .list {
@@ -172,10 +188,6 @@
     display: flex;
     flex-direction: row-reverse;
     overflow: hidden;
-}
-
-#tournaments .tournament .players .friend-ball {
-    margin: 1em 1em 1em -2em!important;
 }
 
 #tournaments .inner-content .tournament {

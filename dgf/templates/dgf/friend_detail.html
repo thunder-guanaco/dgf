@@ -45,13 +45,20 @@
                     </div>
 
                     {% if friend.id == request.user.friend.id %}
-                        <a href="{% url 'dgf:friend_update' %}">
+                        <a class="desktop" href="{% url 'dgf:friend_update' %}">
                             <button>
                                 {% trans 'Update profile' %}
                             </button>
                         </a>
                     {% endif %}
                 </h1>
+                {% if friend.id == request.user.friend.id %}
+                    <a class="mobile" href="{% url 'dgf:friend_update' %}">
+                        <button>
+                            {% trans 'Update profile' %}
+                        </button>
+                    </a>
+                {% endif %}
                 {% if friend.sponsor %}
                     <div class="larger">
                         {% if friend.sponsor_link %}
