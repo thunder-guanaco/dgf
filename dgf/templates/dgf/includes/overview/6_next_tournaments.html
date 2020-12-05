@@ -7,26 +7,27 @@
             <ul>
                 {% for tournament in tournaments %}
                     <li id="tournament-{{ tournament.id }}" class="tournament show-all-less">
-                        <div class="top-info">
-                            <div>
-                                <span class="name">{{ tournament.name }} </span>
-                                <span class="date">({{ tournament.date }})</span>
-                                <span class="show-less hidden">{% trans "(show less)" %}</span>
-                                <div class="show-all">{% trans "(show all players)" %}</div>
+                        {% with tournament.attendance.all as tournament_players %}
+                            <div class="top-info">
+                                <div>
+                                    <span class="name">{{ tournament.name }} </span>
+                                    <span class="date">({{ tournament.date }})</span>
+                                    {% include "dgf/includes/show-all-less.html" with minimum=5 friends=tournament_players %}
+                                </div>
+                                <div class="players top">
+                                    {% for attendance in tournament_players|slice:":5" %}
+                                        {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="players top">
-                                {% for attendance in tournament.attendance.all|slice:":5" %}
-                                    {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
+                            <div class="all hidden list">
+                                {% for attendance in tournament_players %}
+                                    <div class="item">
+                                        {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=True %}
+                                    </div>
                                 {% endfor %}
                             </div>
-                        </div>
-                        <div class="all hidden list">
-                            {% for attendance in tournament.attendance.all %}
-                                <div class="item">
-                                    {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
-                                </div>
-                            {% endfor %}
-                        </div>
+                        {% endwith %}
                     </li>
                 {% endfor %}
             </ul>
