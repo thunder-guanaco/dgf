@@ -86,5 +86,5 @@ function loadLoginNextPageBehaviour() {
 }
 
 function mobileNavigationBarIsVisible() {
-    return $('#mobile-navigation-bar').is(":visible");
+    return $("#mobile-navigation-bar").is(":visible") && $("#navbarResponsive").is(":visible");
 }
