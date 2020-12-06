@@ -398,7 +398,7 @@ msgstr "Nächste Turniere"
 
 #: dgf/templates/dgf/includes/overview/6_next_tournaments.html:4
 msgid "(show all tournaments)"
-msgstr "(zeige alle Turniere)"
+msgstr "(alle Turniere anzeigen)"
 
 #: dgf/templates/dgf/includes/show-all-less.html:6
 msgid "(show all)"
