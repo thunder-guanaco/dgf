@@ -125,6 +125,16 @@
         color: #8d1950 !important;
     }
 
+    #mobile-mini-headline {
+        position: absolute;
+        top: 3em;
+    }
+
+    #mobile-mini-headline img {
+        width: 100%;
+        height: auto;
+    }
+
     .language-chooser .cms-language .full {
         display: none;
     }
