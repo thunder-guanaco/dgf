@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-05 20:25+0100\n"
+"POT-Creation-Date: 2020-12-06 15:27+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +16,7 @@ msgstr ""
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:13 dgf/models.py:146 dgf/models.py:155
+#: dgf/cms_plugins.py:13 dgf/models.py:148 dgf/models.py:157
 msgid "Friend"
 msgstr "Friend"
 
@@ -82,7 +82,7 @@ msgstr "ID"
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:47 dgf/models.py:275
+#: dgf/models.py:47 dgf/models.py:277
 msgid "Name"
 msgstr "Name"
 
@@ -90,7 +90,7 @@ msgstr "Name"
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: dgf/models.py:49 dgf/models.py:91 dgf/templates/dgf/friend_detail.html:71
+#: dgf/models.py:49 dgf/models.py:91 dgf/templates/dgf/friend_detail.html:78
 msgid "City"
 msgstr "Stadt"
 
@@ -122,7 +122,7 @@ msgstr "Sponsors URL"
 msgid "PDGA Number"
 msgstr "PDGA Nummer"
 
-#: dgf/models.py:90 dgf/templates/dgf/friend_detail.html:81
+#: dgf/models.py:90 dgf/templates/dgf/friend_detail.html:88
 msgid "Division"
 msgstr "Division"
 
@@ -142,121 +142,129 @@ msgstr "Beste Runde in Wischlingen (relativ zu par 55)"
 msgid "Started playing"
 msgstr "Ich bin zum Sport gekommen..."
 
-#: dgf/models.py:99
+#: dgf/models.py:98
+msgid "Job"
+msgstr "Das mache ich beruflich"
+
+#: dgf/models.py:99 dgf/templates/dgf/friend_detail.html:133
+msgid "Other hobbies"
+msgstr "Andere Hobbies"
+
+#: dgf/models.py:101
 msgid "Slug"
 msgstr "Slug"
 
-#: dgf/models.py:100 dgf/templates/dgf/friend_detail.html:87
+#: dgf/models.py:102 dgf/templates/dgf/friend_detail.html:94
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/models.py:103
+#: dgf/models.py:105
 msgid "Total tournaments"
 msgstr "Gespielte Turniere"
 
-#: dgf/models.py:104
+#: dgf/models.py:106
 msgid "Total earnings"
 msgstr "Gesamtgewinn im Turniere"
 
-#: dgf/models.py:145 dgf/models.py:237
+#: dgf/models.py:147 dgf/models.py:239
 msgid "Course"
 msgstr "Parcours"
 
-#: dgf/models.py:153
+#: dgf/models.py:155
 msgid "Title"
 msgstr "Titel"
 
-#: dgf/models.py:154 dgf/templates/dgf/feedback_form.html:5
+#: dgf/models.py:156 dgf/templates/dgf/feedback_form.html:5
 msgid "Feedback"
 msgstr "Feedback"
 
-#: dgf/models.py:169
+#: dgf/models.py:171
 msgid "Content"
 msgstr "Inhalt"
 
-#: dgf/models.py:184
+#: dgf/models.py:186
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: dgf/models.py:185
+#: dgf/models.py:187
 msgid "Mold"
 msgstr "Scheibenmodell"
 
-#: dgf/models.py:186
+#: dgf/models.py:188
 msgid "Display name"
 msgstr "Scheibenname"
 
-#: dgf/models.py:207
+#: dgf/models.py:209
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:208
+#: dgf/models.py:210
 msgid "Mid-range"
 msgstr "Midrange"
 
-#: dgf/models.py:209
+#: dgf/models.py:211
 msgid "Fairway driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:210
+#: dgf/models.py:212
 msgid "Distance driver"
 msgstr "Distance Driver"
 
-#: dgf/models.py:212 dgf/models.py:239 dgf/models.py:264
+#: dgf/models.py:214 dgf/models.py:241 dgf/models.py:266
 msgid "Type"
 msgstr "Art"
 
-#: dgf/models.py:213
+#: dgf/models.py:215
 msgid "Amount"
 msgstr "Menge"
 
-#: dgf/models.py:214 dgf/models.py:236
+#: dgf/models.py:216 dgf/models.py:238
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:215 dgf/models.py:298
+#: dgf/models.py:217 dgf/models.py:300
 msgid "Player"
 msgstr "Spieler"
 
-#: dgf/models.py:231
+#: dgf/models.py:233
 msgid "Practice"
 msgstr "Übung"
 
-#: dgf/models.py:232
+#: dgf/models.py:234
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:233 dgf/models.py:297
+#: dgf/models.py:235 dgf/models.py:299
 #: dgf/templates/dgf/tournament_list.html:27
 msgid "Tournament"
 msgstr "Turnier"
 
-#: dgf/models.py:238 dgf/models.py:244
+#: dgf/models.py:240 dgf/models.py:246
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:240 dgf/templates/dgf/tournament_list.html:28
+#: dgf/models.py:242 dgf/templates/dgf/tournament_list.html:28
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:245
+#: dgf/models.py:247
 msgid "with a"
 msgstr "mit einer"
 
-#: dgf/models.py:260 dgf/templates/dgf/friend_detail.html:153
+#: dgf/models.py:262 dgf/templates/dgf/friend_detail.html:172
 #: dgf/templates/dgf/friend_profile.html:83
 msgid "In the bag"
 msgstr "In the Bag"
 
-#: dgf/models.py:261
+#: dgf/models.py:263
 msgid "Ace"
 msgstr "Ass"
 
-#: dgf/models.py:262
+#: dgf/models.py:264
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:265
+#: dgf/models.py:267
 msgid "URL"
 msgstr "URL Addresse"
 
@@ -269,67 +277,72 @@ msgid "Send"
 msgstr "Senden"
 
 #: dgf/templates/dgf/friend_detail.html:50
+#: dgf/templates/dgf/friend_detail.html:58
 msgid "Update profile"
 msgstr "Profil aktualisieren"
 
-#: dgf/templates/dgf/friend_detail.html:58
-#: dgf/templates/dgf/friend_detail.html:60
+#: dgf/templates/dgf/friend_detail.html:65
+#: dgf/templates/dgf/friend_detail.html:67
 msgid "Sponsored by"
 msgstr "Gesponsert von"
 
-#: dgf/templates/dgf/friend_detail.html:100
+#: dgf/templates/dgf/friend_detail.html:107
 msgid "plays since"
 msgstr "spielt Disc Golf seit"
 
-#: dgf/templates/dgf/friend_detail.html:107
+#: dgf/templates/dgf/friend_detail.html:114
 msgid "Best score in Wischlingen (standard 18 - par 55)"
 msgstr "Beste Runde in Wischlingen (Standard 18 - par 55)"
 
-#: dgf/templates/dgf/friend_detail.html:114
+#: dgf/templates/dgf/friend_detail.html:121
 msgid "Discovered disc golf..."
 msgstr "... und ist so zum Sport gekommen"
 
-#: dgf/templates/dgf/friend_detail.html:120
+#: dgf/templates/dgf/friend_detail.html:127
+msgid "That's what I do when I'm not on the disc golf course"
+msgstr "Das mache ich, wenn ich nicht Disc Golf spiele"
+
+#: dgf/templates/dgf/friend_detail.html:139
 #: dgf/templates/dgf/friend_profile.html:59
 #: dgf/templates/dgf/includes/overview/3_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_detail.html:130
+#: dgf/templates/dgf/friend_detail.html:149
 #: dgf/templates/dgf/friend_profile.html:71
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_detail.html:140
+#: dgf/templates/dgf/friend_detail.html:159
 #: dgf/templates/dgf/friend_profile.html:114
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_detail.html:156
+#: dgf/templates/dgf/friend_detail.html:175
 #: dgf/templates/dgf/friend_profile.html:87
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_detail.html:157
+#: dgf/templates/dgf/friend_detail.html:176
 #: dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_detail.html:158
+#: dgf/templates/dgf/friend_detail.html:177
 #: dgf/templates/dgf/friend_profile.html:93
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:159
+#: dgf/templates/dgf/friend_detail.html:178
 #: dgf/templates/dgf/friend_profile.html:96
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:195
+#: dgf/templates/dgf/friend_detail.html:214
 #: dgf/templates/dgf/friend_profile.html:132
 msgid "Videos"
 msgstr "Videos"

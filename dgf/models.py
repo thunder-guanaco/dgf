@@ -95,6 +95,8 @@ class Friend(User):
     best_score_in_wischlingen = models.IntegerField(_('Best score in Wischlingen (relative to par)'), null=True,
                                                     blank=True)
     free_text = models.TextField(_('Started playing'), null=True, blank=True)
+    job = models.CharField(_('Job'), max_length=200, null=True, blank=True)
+    hobbies = models.CharField(_('Other hobbies'), max_length=200, null=True, blank=True)
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[

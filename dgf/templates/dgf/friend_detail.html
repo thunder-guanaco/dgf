@@ -122,6 +122,18 @@
                         <p class="value">{{friend.free_text}}</p>
                     </div>
                 {% endif %}
+                {% if friend.job %}
+                    <div>
+                        <p class="label">{% trans "That's what I do when I'm not on the disc golf course" %}</p>
+                        <p class="value">{{friend.job}}</p>
+                    </div>
+                {% endif %}
+                {% if friend.hobbies %}
+                    <div>
+                        <p class="label">{% trans "Other hobbies" %}</p>
+                        <p class="value">{{friend.hobbies}}</p>
+                    </div>
+                {% endif %}
                 {% if friend.favorite_courses.count %}
                     <div class="favorite-courses">
                         <p class="label">{% trans "Favorite courses" %}</p>
