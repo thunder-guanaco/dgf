@@ -42,7 +42,7 @@
         </div>
         <div id="navigation-bar">
             {% comment %}
-            Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
+                Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
             {% endcomment %}
             <ul>
                 <li id="navigation-bar-header" style="display: none">
@@ -59,6 +59,11 @@
             <ul>
                 {% show_sub_menu 1 2 0 %}
             </ul>
+            <div id="mini-headline">
+                {% comment %}
+                    Placeholder for later showing the mini headline when scrolling
+                {% endcomment %}
+            </div>
         </div>
         <div id="headline">
             {% block headline %}{% endblock headline %}

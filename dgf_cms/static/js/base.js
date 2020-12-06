@@ -37,6 +37,10 @@ $(window).on("load", function() {
                     $("#navigation-bar-header").show("slow");
                     $("#navigation-bar-language-chooser").slideDown("slow");
                     $("#navigation-bar").slideDown("slow");
+
+                    $("#headline img").clone().appendTo("#mini-headline");
+                    $("#headline img").slideUp("slow");
+
                     sticky = true;
                 }
             }
@@ -45,6 +49,11 @@ $(window).on("load", function() {
                 if (sticky) {
                     $("#navigation-bar-header").hide("slow");
                     $("#navigation-bar-language-chooser").hide("slow");
+
+                    $("#mini-headline img").hide("slow");
+                    $("#headline img").slideDown("fast");
+                    $("#mini-headline img").remove();
+
                     sticky = false;
                 }
             }
