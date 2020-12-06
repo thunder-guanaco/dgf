@@ -36,13 +36,18 @@
             <div id="mobile-navigation-bar-language-chooser" style="display: none">
                 {% language_chooser "includes/language_chooser.html" %}
             </div>
+            <div id="mobile-mini-headline">
+                {% comment %}
+                    Placeholder for later showing the mobile mini headline when scrolling
+                {% endcomment %}
+            </div>
         </div>
         <div id="friends-header" class="slide-right">
             {% static_placeholder 'friends-header' %}
         </div>
         <div id="navigation-bar">
             {% comment %}
-            Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
+                Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
             {% endcomment %}
             <ul>
                 <li id="navigation-bar-header" style="display: none">
@@ -59,6 +64,11 @@
             <ul>
                 {% show_sub_menu 1 2 0 %}
             </ul>
+            <div id="mini-headline">
+                {% comment %}
+                    Placeholder for later showing the desktop mini headline when scrolling
+                {% endcomment %}
+            </div>
         </div>
         <div id="headline">
             {% block headline %}{% endblock headline %}
