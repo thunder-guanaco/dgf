@@ -151,6 +151,10 @@
     align-items: center;
 }
 
+#friend .friend-header-line label {
+    margin: 0;
+}
+
 #friend .pdga {
     font-size: 1.5em;
 }
