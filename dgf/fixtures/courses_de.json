@@ -173,7 +173,7 @@
   {
     "model": "dgf.course",
     "fields": {
-      "name": "Waldschwimmbad",
+      "name": "Lime Place - Waldschwimmbad",
       "postal_code": "34379",
       "city": "Calden",
       "country": "DE"
@@ -273,6 +273,15 @@
     "model": "dgf.course",
     "fields": {
       "name": "Ostpark",
+      "postal_code": "65428",
+      "city": "R\u00fcsselsheim",
+      "country": "DE"
+    }
+  },
+  {
+    "model": "dgf.course",
+    "fields": {
+      "name": "Waldschwimmbad",
       "postal_code": "65428",
       "city": "R\u00fcsselsheim",
       "country": "DE"
