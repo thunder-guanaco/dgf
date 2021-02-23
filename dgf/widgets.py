@@ -9,8 +9,8 @@ def all_objects(object_type):
                             object_type.objects.all().order_by('id')]
 
 
-ALL_COURSES = all_objects(Course)
-ALL_DISCS = all_objects(Disc)
+ALL_COURSES = all_objects(Course)  # fix me! #538
+ALL_DISCS = all_objects(Disc)  # fix me! #538
 
 
 class AlreadyFetchedObjectsSelect(Select):
