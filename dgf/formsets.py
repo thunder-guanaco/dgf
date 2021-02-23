@@ -25,7 +25,7 @@ DiscFormset = inlineformset_factory(
     }
 )
 
-current_year = datetime.now().year
+current_year = datetime.now().year  #fix me! 
 
 AceFormset = inlineformset_factory(
     Friend, Ace, fields=('friend', 'disc', 'course', 'hole', 'type', 'date'),
