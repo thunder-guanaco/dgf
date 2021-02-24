@@ -273,6 +273,7 @@ INSTALLED_APPS = [
     'dgf_cms'
 ]
 
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 LANGUAGES = (
