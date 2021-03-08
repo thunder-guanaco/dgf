@@ -1,8 +1,8 @@
 /* mobile */
 @media only screen and (max-width: 600px) {
 
-    .smaller-on-mobile .friend-ball {
-        zoom: 6;
+    .smaller-on-mobile .friend-ball > img {
+        width: 33% !important;
     }
 
     .youtube-video {
