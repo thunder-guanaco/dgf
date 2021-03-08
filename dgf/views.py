@@ -1,6 +1,5 @@
 import datetime
 import random
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
@@ -8,8 +7,9 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic import CreateView
 
-from .formsets import FavoriteCourseFormset, HighlightFormset, DiscFormset, AceFormset, VideoFormset
-from .models import Friend, Feedback, Video, Tournament, Attendance
+from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
+    highlight_formset_factory, video_formset_factory
+from dgf.models import Friend, Feedback, Video, Tournament, Attendance
 
 
 class IndexView(generic.ListView):
@@ -36,19 +36,19 @@ class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
               'pdga_number', 'division', 'city', 'main_photo', 'plays_since', 'best_score_in_wischlingen', 'free_text',
               'job', 'hobbies']
     template_name_suffix = '_profile'
-    formsets = [('favorite_courses', FavoriteCourseFormset),
-                ('highlights', HighlightFormset),
-                ('discs', DiscFormset),
-                ('aces', AceFormset),
-                ('videos', VideoFormset)]
+    formsets = [('favorite_courses', favorite_course_formset_factory),
+                ('highlights', highlight_formset_factory),
+                ('discs', disc_formset_factory),
+                ('aces', ace_formset_factory),
+                ('videos', video_formset_factory)]
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        for formset in self.formsets:
+        for formset_name, formset_factory in self.formsets:
             if self.request.POST:
-                data[formset[0]] = formset[1](self.request.POST, instance=self.object)
+                data[formset_name] = formset_factory()(self.request.POST, instance=self.object)
             else:
-                data[formset[0]] = formset[1](instance=self.object)
+                data[formset_name] = formset_factory()(instance=self.object)
 
         return data
 
