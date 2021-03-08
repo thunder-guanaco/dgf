@@ -84,6 +84,11 @@
         width: 80%;
     }
 
+    #friend .desktop button {
+        margin: 0 0.25em;
+        font-size: smaller;
+    }
+
     #friend-body > div {
         display: flex;
         flex-direction: row;
