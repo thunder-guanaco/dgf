@@ -15,7 +15,7 @@ def get_course_url(course):
 
 
 def scroll_down(body, times=3):
-    for _ in range(times):
+    for x in range(times):
         body.send_keys(Keys.END)
         time.sleep(5)
 

@@ -372,7 +372,7 @@ else:
 
 CRONTAB_COMMAND_SUFFIX = '>> {} 2>&1'.format(os.path.join(LOG_DIR, 'cronjobs.log'))
 CRONJOBS = [
-    # ┌────────────browser = webdriver.Firefox()─ minute (0 - 59)
+    # ┌───────────── minute (0 - 59)
     # │    ┌───────────── hour (0 - 23)
     # │    │    ┌───────────── day of the month (1 - 31)
     # │    │    │    ┌───────────── month (1 - 12)

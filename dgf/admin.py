@@ -72,7 +72,7 @@ class FriendAdmin(admin.ModelAdmin):
     ]
 
     list_display = ('username', 'first_name', 'last_name', 'nickname', 'pdga_number', 'division')
-    search_fields = ('username', 'first_name', 'last_name', 'udisc_username', 'pdga_number', 'nickname', 'slug')
+    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
 
 
 class FeedbackAdmin(admin.ModelAdmin):
