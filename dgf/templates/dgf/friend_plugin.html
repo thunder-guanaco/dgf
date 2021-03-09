@@ -1,9 +1,3 @@
-{% load sekizai_tags static %}
-
-{% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friend_plugin.css' %}">
-{% endaddtoblock "css" %}
-
 <div style="zoom: {{zoom}};">
     {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
 </div>

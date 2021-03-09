@@ -15,6 +15,12 @@
 
 }
 
+.udisc .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .contains-pdga-attribution {
     position: relative;
     min-height: inherit;

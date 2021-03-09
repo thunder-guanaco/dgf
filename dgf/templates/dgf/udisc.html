@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div class="udisc">
+    <h2>{% trans "Best scores in " %}{{course.name}}{% trans " last week" %} <a href="{{course_url}}" target="_blank">
+        {% trans "(see course on UDisc)" %}</a>
+    </h2>
+    {% if rounds %}
+        <div class="friends">
+            {% for round in rounds %}
+                {% include "dgf/includes/friend_ball.html" with friend=round.friend show_name=True udisc_score=round.score %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>{% trans "No rounds available in UDisc" %}</p>
+    {% endif %}
+</div>

@@ -3,7 +3,8 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import ugettext as _
 
-from .models import FriendPluginModel, Friend
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound
+from .udisc import get_course_url
 
 
 @plugin_pool.register_plugin
@@ -43,6 +44,24 @@ class FriendsHeaderPluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({'friends': Friend.objects.all().order_by('?')})
+        return context
+
+
+@plugin_pool.register_plugin
+class UdiscsPluginPublisher(CMSPluginBase):
+    model = CoursePluginModel
+    module = _('Disc Golf Friends')
+    name = _('UDisc Best Scores')
+    render_template = 'dgf/udisc.html'
+
+    def render(self, context, instance, placeholder):
+        course = instance.course
+
+        context.update({
+            'course_url': get_course_url(course),
+            'rounds': UdiscRound.objects.filter(course=course).order_by('score'),
+            'course': course,
+        })
         return context
 
 

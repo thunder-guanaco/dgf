@@ -103,6 +103,10 @@ elif ENV == 'test':
         }
     }
 
+# UDisc
+UDISC_COURSE_BASE_URL = 'https://udisc.com/courses/{}'
+SELENIUM_DRIVER_EXECUTABLE_PATH = os.path.join(BASE_DIR, 'geckodriver')
+
 # PDGA
 APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
 
@@ -368,7 +372,7 @@ else:
 
 CRONTAB_COMMAND_SUFFIX = '>> {} 2>&1'.format(os.path.join(LOG_DIR, 'cronjobs.log'))
 CRONJOBS = [
-    # ┌───────────── minute (0 - 59)
+    # ┌────────────browser = webdriver.Firefox()─ minute (0 - 59)
     # │    ┌───────────── hour (0 - 23)
     # │    │    ┌───────────── day of the month (1 - 31)
     # │    │    │    ┌───────────── month (1 - 12)
