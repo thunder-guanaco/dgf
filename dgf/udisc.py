@@ -2,6 +2,7 @@ import time
 
 from bs4 import BeautifulSoup
 from django.conf import settings
+from django.db import IntegrityError
 from django.utils.translation import ugettext as _
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -27,7 +28,6 @@ def click_show_more_button(driver):
 
 def get_full_page(course):
     options = Options()
-
     options.headless = True
 
     driver = webdriver.Firefox(executable_path=settings.SELENIUM_DRIVER_EXECUTABLE_PATH, options=options)
@@ -68,19 +68,18 @@ def update_udisc_rounds(course):
     """
 
     if not course.udisc_id:
-        raise UserWarning(_('Course "{}" has no UDisc ID.').format(course.name))
+        raise UserWarning('{} {} {}'.format(_('Course'), course.name, _('has no UDisc ID.')))
 
     rounds = get_best_rounds(course)
 
     # delete all rounds, we are loading new ones
     UdiscRound.objects.filter(course=course).delete()
 
-    already_added = set()
     for username, score in rounds:
         try:
-            if username not in already_added:
-                friend = Friend.objects.get(udisc_username=username)
-                UdiscRound.objects.create(course=course, friend=friend, score=score)
-                already_added.add(username)
+            friend = Friend.objects.get(udisc_username=username)
+            UdiscRound.objects.create(course=course, friend=friend, score=score)
         except Friend.DoesNotExist:
             pass  # It's ok. This is just not one of the Friends
+        except IntegrityError:
+            pass  # It's ok. We only want the first round (the best one)

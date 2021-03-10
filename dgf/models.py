@@ -148,6 +148,12 @@ class Friend(User):
 
 
 class UdiscRound(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['course', 'friend'],
+                                    name='Only one score per course and friend allowed. The best one'),
+        ]
+
     course = models.ForeignKey(Course, on_delete=CASCADE)
     friend = models.ForeignKey(Friend, on_delete=CASCADE)
     score = models.IntegerField(_('Last score from UDisc'))
