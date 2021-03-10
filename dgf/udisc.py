@@ -38,7 +38,10 @@ def get_full_page(course):
     scroll_down(body, times=3)
     click_show_more_button(driver)
 
-    return body
+    soup = BeautifulSoup(body.get_attribute('innerHTML'), 'html.parser')
+    driver.quit()
+
+    return soup
 
 
 def get_standard_layout_par(soup):
@@ -47,9 +50,7 @@ def get_standard_layout_par(soup):
 
 
 def get_best_rounds(course):
-    page_body = get_full_page(course)
-    soup = BeautifulSoup(page_body.get_attribute('innerHTML'), 'html.parser')
-
+    soup = get_full_page(course)
     par = get_standard_layout_par(soup)
 
     players_list = []
