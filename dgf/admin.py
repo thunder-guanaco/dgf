@@ -58,6 +58,7 @@ class FriendAdmin(admin.ModelAdmin):
                 'city',
                 'main_photo',
                 ('plays_since', 'best_score_in_wischlingen', 'free_text'),
+                ('job', 'hobbies'),
             ]}
          ),
         ('DANGER ZONE!', {
