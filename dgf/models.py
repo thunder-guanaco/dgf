@@ -48,6 +48,7 @@ class Course(Model):
     postal_code = models.CharField(_('Postal code'), max_length=10)
     city = models.CharField(_('City'), max_length=50)
     country = CountryField(_('Country'))
+    udisc_id = models.CharField(_('UDisc ID'), max_length=100, null=True, blank=True)
 
     def __str__(self):
         if self._contain_each_other(self.name, self.city):
@@ -73,6 +74,13 @@ class Course(Model):
         return set(re.findall('\w+', string))
 
 
+class CoursePluginModel(CMSPlugin):
+    course = models.ForeignKey(Course, on_delete=CASCADE)
+
+    def __str__(self):
+        return str(self.course)
+
+
 class Friend(User):
     class Meta:
         constraints = [
@@ -86,6 +94,7 @@ class Friend(User):
     sponsor_logo = models.ImageField(_('Sponsor logo'), null=True, blank=True)
     sponsor_link = models.URLField(_('Sponsor link'), null=True, blank=True)
 
+    udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
     pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     city = models.CharField(_('City'), max_length=100, null=True, blank=True)
@@ -136,6 +145,21 @@ class Friend(User):
         self.slug = slugify(new_slug).lower()
         logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
         super(Friend, self).save(*args, **kwargs)
+
+
+class UdiscRound(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['course', 'friend'],
+                                    name='Only one score per course and friend allowed. The best one'),
+        ]
+
+    course = models.ForeignKey(Course, on_delete=CASCADE)
+    friend = models.ForeignKey(Friend, on_delete=CASCADE)
+    score = models.IntegerField(_('Last score from UDisc'))
+
+    def __str__(self):
+        return '{} scored {} in {}'.format(self.friend, self.score, self.course)
 
 
 class FavoriteCourse(Model):

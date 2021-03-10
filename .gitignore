@@ -26,3 +26,7 @@ cronjobs.log
 
 # secrets from this project. NEVER PUSH THIS!!!
 secrets
+
+#selenium
+geckodriver.log
+

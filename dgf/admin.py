@@ -9,12 +9,13 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': [
                 'name',
                 ('postal_code', 'city'),
-                'country'
+                'country',
+                'udisc_id'
             ]}
          )
     ]
 
-    list_display = ('name', 'postal_code', 'city', 'country')
+    list_display = ('name', 'postal_code', 'city', 'country', 'udisc_id')
     search_fields = list_display
 
 
@@ -51,6 +52,7 @@ class FriendAdmin(admin.ModelAdmin):
                 'sponsor',
                 'sponsor_logo',
                 'sponsor_link',
+                'udisc_username',
                 'pdga_number',
                 'division',
                 'city',
@@ -61,15 +63,16 @@ class FriendAdmin(admin.ModelAdmin):
         ('DANGER ZONE!', {
             'fields': [
                 'slug'
-            ]})
+            ]}
+         )
     ]
 
     inlines = [
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'pdga_number', 'division')
-    search_fields = ('username', 'first_name', 'last_name', 'pdga_number', 'nickname', 'slug')
+    list_display = ('username', 'first_name', 'last_name', 'nickname', 'pdga_number', 'division')
+    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
 
 
 class FeedbackAdmin(admin.ModelAdmin):
@@ -84,7 +87,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     ]
 
     list_display = ('title', 'feedback', 'friend')
-    search_fields = ('title', 'feedback')
+    search_fields = list_display
 
 
 class TournamentAdmin(admin.ModelAdmin):
