@@ -474,10 +474,6 @@ msgstr "Keine Daten von UDisc vorhanden"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf/udisc.py:71
-msgid "has no UDisc ID."
-msgstr "hat keine UDisc ID."
-
 #: dgf_cms/templates/403.html:5 dgf_cms/templates/403.html:15
 msgid "403 - Foot fault!"
 msgstr "403 - Foot fault!"

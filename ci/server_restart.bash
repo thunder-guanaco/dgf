@@ -34,8 +34,11 @@ exit_if_error "Compile messages for translations" $?
 python manage.py migrate
 exit_if_error "Apply migrations" $?
 
-python manage.py crontab add
-exit_if_error "Add cronjobs" $?
+crontab -r
+exit_if_error "Delete existing cronjobs" $?
+
+crontab ci/crontab
+exit_if_error "Add new cronjobs" $?
 
 for i in start_gunicorn.bash dgf.bash
 do
