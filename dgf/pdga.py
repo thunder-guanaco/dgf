@@ -43,9 +43,8 @@ class PdgaApi:
 
     def logout(self):
         requests.post(f'{settings.PDGA_BASE_URL}/user/logout', headers={'Content-type': 'application/json',
-                                                                        'Cookie': '{}={}'.format(
-                                                                            self.credentials['session_name'],
-                                                                            self.credentials['sessid']),
+                                                                        'Cookie': f'{self.credentials["session_name"]}='
+                                                                                  f'{self.credentials["sessid"]}',
                                                                         'X-CSRF-Token: ': self.credentials['token']})
 
     def query_player(self, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
@@ -150,7 +149,10 @@ class PdgaApi:
             friend.total_tournaments = tournaments
 
     def _query_pdga(self, url, query_parameters):
-        query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
-        return json.loads(requests.get(f'{settings.PDGA_BASE_URL}/{url}{query}',
-                                       headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
-                                                                         self.credentials['sessid'])}).content)
+        query = urlencode({x: y for x, y in query_parameters.items() if y is not None})
+        return json.loads(requests.get(f'{settings.PDGA_BASE_URL}/{url}?{query}',
+                                       headers={
+                                           'Cookie': f'{self.credentials["session_name"]}='
+                                                     f'{self.credentials["sessid"]}'
+                                       })
+                          .content)

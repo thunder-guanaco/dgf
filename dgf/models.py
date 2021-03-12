@@ -267,11 +267,11 @@ class Ace(models.Model):
     date = PartialDateField(_('Date'), null=True, blank=True)
 
     def __str__(self):
-        return '{} - {} {} {} {} [{}]'.format(self.course,
-                                              _('Hole'), self.hole,
-                                              _('with a'), self.disc.display_name,
-                                              self.get_type_display(),
-                                              " - {}".format(self.date) if self.date else "")
+        date = f' - {self.date}' if self.date else ''
+        return f'{self.course} - ' \
+               f'{_("Hole")} {self.hole} ' \
+               f'{_("with a")} {self.disc.display_name} ' \
+               f'[{self.get_type_display()}]{date}'
 
 
 class Video(Model):
