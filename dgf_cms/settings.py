@@ -14,6 +14,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+# See: https://stackoverflow.com/questions/54712982/django-2-0-upgrade-false-positives-on-urls-w001-warning
+SILENCED_SYSTEM_CHECKS = ['urls.W001']
+
 
 def get_env_or_die(env_var):
     value = os.getenv(env_var)
