@@ -48,15 +48,15 @@ def get_full_page(course):
     return soup
 
 
-def get_standard_layout_par(soup):
-    logger.info(f'Fetching par for the standard layout')
-    par_p = soup.find('p', text='Standard Layout').parent.parent.find_all('p')[2]
+def get_main_layout_par(soup, layout_name):
+    logger.info(f'Fetching par for the main layout: {layout_name}')
+    par_p = soup.find('p', text=layout_name).parent.parent.find_all('p')[2]
     return int(par_p.text.split(' ')[1])
 
 
 def get_best_scores(course):
     soup = get_full_page(course)
-    par = get_standard_layout_par(soup)
+    par = get_main_layout_par(soup, course.udisc_main_layout)
 
     players_list = []
     for item in soup.find('h3', text='Leaderboards').parent.find('ol').children:
@@ -75,6 +75,9 @@ def update_udisc_scores(course):
 
     if not course.udisc_id:
         raise UserWarning(f'Course "{course.name}" has no UDisc ID')
+
+    if not course.udisc_main_layout:
+        raise UserWarning(f'Course "{course.name}" has main layout defined for UDisc ID')
 
     scores = get_best_scores(course)
 
