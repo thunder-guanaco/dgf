@@ -49,6 +49,7 @@ class Course(Model):
     city = models.CharField(_('City'), max_length=50)
     country = CountryField(_('Country'))
     udisc_id = models.CharField(_('UDisc ID'), max_length=100, null=True, blank=True)
+    udisc_main_layout = models.CharField(_('Main Layout'), max_length=100, null=True, blank=True)
 
     def __str__(self):
         if self._contain_each_other(self.name, self.city):

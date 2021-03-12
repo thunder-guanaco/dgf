@@ -9,8 +9,13 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': [
                 'name',
                 ('postal_code', 'city'),
-                'country',
-                'udisc_id'
+                'country'
+            ]}
+         ),
+        ('UDisc', {
+            'fields': [
+                'udisc_id',
+                'udisc_main_layout'
             ]}
          )
     ]
