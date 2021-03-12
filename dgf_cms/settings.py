@@ -233,7 +233,6 @@ MIDDLEWARE = [
 
 INSTALLED_APPS = [
     'dgf',
-    'django_crontab',
     'django_countries',
     'compressor',
     'dbbackup',
@@ -367,22 +366,3 @@ LOGGING = {
         }
     },
 }
-
-if ENV == 'prod':
-    CRONTAB_COMMAND_PREFIX = 'source {};'.format(os.path.join(BASE_DIR, 'ci/ENVIRONMENT_VARIABLES'))
-else:
-    CRONTAB_COMMAND_PREFIX = 'export DJANGO_ENV="{}"; source {}; '.format(ENV, os.path.join(BASE_DIR, 'secrets'))
-
-CRONTAB_COMMAND_SUFFIX = '>> {} 2>&1'.format(os.path.join(LOG_DIR, 'cronjobs.log'))
-CRONJOBS = [
-    # ┌───────────── minute (0 - 59)
-    # │    ┌───────────── hour (0 - 23)
-    # │    │    ┌───────────── day of the month (1 - 31)
-    # │    │    │    ┌───────────── month (1 - 12)
-    # │    │    │    │    ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
-    # │    │    │    │    │
-    # *    *    *    *    * <command to execute>
-    ('0    */6  *    *    * ', 'dgf.cronjobs.fetch_pdga_data'),
-    ('0    2    */7  *    * ', 'dgf.cronjobs.update_approved_discs'),
-    ('0    4    *    *    * ', 'dgf.cronjobs.backup'),
-]

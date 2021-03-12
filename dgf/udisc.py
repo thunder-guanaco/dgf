@@ -1,14 +1,16 @@
+import logging
 import time
 
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.db import IntegrityError
-from django.utils.translation import ugettext as _
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 
 from dgf.models import Friend, UdiscRound
+
+logger = logging.getLogger(__name__)
 
 
 def get_course_url(course):
@@ -27,14 +29,16 @@ def click_show_more_button(driver):
 
 
 def get_full_page(course):
+    udisc_url = get_course_url(course)
+    logger.info(f'Crawling {udisc_url}... (this might take a while)')
+
     options = Options()
     options.headless = True
 
     driver = webdriver.Firefox(executable_path=settings.SELENIUM_DRIVER_EXECUTABLE_PATH, options=options)
-    driver.get(get_course_url(course))
+    driver.get(udisc_url)
 
     body = driver.find_element_by_tag_name('body')
-
     scroll_down(body, times=3)
     click_show_more_button(driver)
 
@@ -45,11 +49,12 @@ def get_full_page(course):
 
 
 def get_standard_layout_par(soup):
+    logger.info(f'Fetching par for the standard layout')
     par_p = soup.find('p', text='Standard Layout').parent.parent.find_all('p')[2]
     return int(par_p.text.split(' ')[1])
 
 
-def get_best_rounds(course):
+def get_best_scores(course):
     soup = get_full_page(course)
     par = get_standard_layout_par(soup)
 
@@ -62,21 +67,23 @@ def get_best_rounds(course):
     return players_list
 
 
-def update_udisc_rounds(course):
+def update_udisc_scores(course):
     """
     :param course: to get information from
     :return: full URL of the course in UDisc and the best 3 friends
     """
 
     if not course.udisc_id:
-        raise UserWarning('{} {} {}'.format(_('Course'), course.name, _('has no UDisc ID.')))
+        raise UserWarning(f'Course "{course.name}" has no UDisc ID')
 
-    rounds = get_best_rounds(course)
+    scores = get_best_scores(course)
 
     # delete all rounds, we are loading new ones
+    logger.info(f'Deleting all existing rounds...')
     UdiscRound.objects.filter(course=course).delete()
 
-    for username, score in rounds:
+    logger.info(f'Adding new rounds from UDisc...')
+    for username, score in scores:
         try:
             friend = Friend.objects.get(udisc_username=username)
             UdiscRound.objects.create(course=course, friend=friend, score=score)

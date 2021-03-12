@@ -1,0 +1,11 @@
+# ┌───────────── minute (0 - 59)
+# │    ┌───────────── hour (0 - 23)
+# │    │    ┌───────────── day of the month (1 - 31)
+# │    │    │    ┌───────────── month (1 - 12)
+# │    │    │    │    ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
+# │    │    │    │    │
+# *    *    *    *    * <command to execute> # comment
+  0    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_pdga_data         >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0    2    */7  *    *  bash /home/ubuntu/dgf.bash update_approved_discs   >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0    4    *    *    *  bash /home/ubuntu/dgf.bash backup                  >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0    3    *    *    *  bash /home/ubuntu/dgf.bash update_udisc_scores     >> /home/ubuntu/logs/cronjobs.log 2>&1

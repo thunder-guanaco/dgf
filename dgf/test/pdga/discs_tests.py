@@ -1,9 +1,9 @@
 import responses
 from django.conf import settings
+from django.core.management import call_command
 from django.test import TestCase
 
-from ...cronjobs import update_approved_discs
-from ...models import Disc
+from dgf.models import Disc
 
 
 def configure_response(opened_file):
@@ -18,7 +18,7 @@ class DiscModelsTest(TestCase):
     def test_three_discs_are_loaded(self):
         configure_response(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
         Disc.objects.all().delete()
-        update_approved_discs()
+        call_command('update_approved_discs')
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
         self.assertNotEqual(Disc.objects.get(
@@ -33,7 +33,7 @@ class DiscModelsTest(TestCase):
             open('{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
 
         Disc.objects.all().delete()
-        update_approved_discs()
+        call_command('update_approved_discs')
 
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
 
