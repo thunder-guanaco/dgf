@@ -42,7 +42,7 @@ class TemplatetagsAcesTest(TestCase):
 
         # current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate(f'{datetime.now().year, 1}-{12}'))
+                           date=PartialDate(f'{datetime.now().year}-1-12'))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
                            date=PartialDate(f'{datetime.now().year}'))
 
