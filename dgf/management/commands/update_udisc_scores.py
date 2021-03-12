@@ -19,7 +19,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        for plugin in CoursePluginModel.objects.all():
+        all_plugins = CoursePluginModel.objects.all()
+        count = all_plugins.count()
+        if count == 0:
+            logger.warning('No courses to update')
+            return
+
+        logger.info(f'Updating {count} courses')
+
+        for plugin in all_plugins:
 
             course = plugin.course
 
