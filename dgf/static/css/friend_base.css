@@ -2,7 +2,7 @@
 @media only screen and (max-width: 600px) {
 
     .smaller-on-mobile .friend-ball > img {
-        width: 33% !important;
+        width: 25% !important;
     }
 
     .youtube-video {
