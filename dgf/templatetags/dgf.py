@@ -71,7 +71,7 @@ def youtube_id(url):
     if matches:
         return matches[0].split('/')[1]
 
-    logger.warning('{} is not a valid Youtube URL'.format(url))
+    logger.warning(f'{url} is not a valid Youtube URL')
     return None
 
 

@@ -32,45 +32,46 @@ class TemplatetagsAcesTest(TestCase):
 
         # before current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 2, 1, 1)))
+                           date=PartialDate(f'{datetime.now().year - 2}-1-1'))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}'.format(datetime.now().year - 2, 2)))
+                           date=PartialDate(f'{datetime.now().year - 2}-2'))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.CASUAL_ROUND,
-                           date=PartialDate('{}'.format(datetime.now().year - 2)))
+                           date=PartialDate(f'{datetime.now().year - 2}'))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 1, 6, 7)))
+                           date=PartialDate(f'{datetime.now().year - 1}-6-7'))
 
         # current year
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}'.format(datetime.now().year, 1, 12)))
+                           date=PartialDate(f'{datetime.now().year, 1}-{12}'))
         Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
-                           date=PartialDate('{}'.format(datetime.now().year)))
+                           date=PartialDate(f'{datetime.now().year}'))
 
         self.assert_aces(manolo.aces, 4, 2, 1)
 
-    def test_aces_for_all_users(self):
-        manolo = Friend.objects.create(username='manolo')
-        fede = Friend.objects.create(username='fede')
-        fd = Disc.objects.create(mold='FD')
-        wischlingen = Course.objects.create(name='Wischlingen')
 
-        # before current year
-        Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 2, 1, 1)))
-        Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}'.format(datetime.now().year - 2, 2)))
-        Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.CASUAL_ROUND,
-                           date=PartialDate('{}'.format(datetime.now().year - 2)))
-        Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}-{}'.format(datetime.now().year - 1, 6, 7)))
+def test_aces_for_all_users(self):
+    manolo = Friend.objects.create(username='manolo')
+    fede = Friend.objects.create(username='fede')
+    fd = Disc.objects.create(mold='FD')
+    wischlingen = Course.objects.create(name='Wischlingen')
 
-        # current year
-        Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
-                           date=PartialDate('{}-{}'.format(datetime.now().year, 1, 12)))
-        Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
-                           date=PartialDate('{}'.format(datetime.now().year)))
+    # before current year
+    Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
+                       date=PartialDate(f'{datetime.now().year - 2}-1-1'))
+    Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
+                       date=PartialDate(f'{datetime.now().year - 2}-2'))
+    Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.CASUAL_ROUND,
+                       date=PartialDate(f'{datetime.now().year - 2}'))
+    Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
+                       date=PartialDate(f'{datetime.now().year - 1}-6-7'))
 
-        self.assert_aces(dgf.all_aces(), 4, 2, 1)
+    # current year
+    Ace.objects.create(friend=manolo, disc=fd, course=wischlingen, hole='5', type=Ace.TOURNAMENT,
+                       date=PartialDate(f'{datetime.now().year}-1-12'))
+    Ace.objects.create(friend=fede, disc=fd, course=wischlingen, hole='5', type=Ace.PRACTICE,
+                       date=PartialDate(f'{datetime.now().year}'))
+
+    self.assert_aces(dgf.all_aces(), 4, 2, 1)
 
     def test_aces_no_aces(self):
         Friend.objects.create(username='manolo')

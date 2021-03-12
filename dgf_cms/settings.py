@@ -18,7 +18,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 def get_env_or_die(env_var):
     value = os.getenv(env_var)
     if not value:
-        raise ImproperlyConfigured('Missing environment variable \'{}\''.format(env_var))
+        raise ImproperlyConfigured(f'Missing environment variable \'{env_var}\'')
     return value
 
 
@@ -312,7 +312,7 @@ CMS_LANGUAGES = {
 CONN_MAX_AGE = 60
 
 LOCALE_PATHS = [
-    '{}/locale'.format(BASE_DIR),
+    f'{BASE_DIR}/locale',
 ]
 
 CMS_TEMPLATES = (

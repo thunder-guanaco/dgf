@@ -36,4 +36,4 @@ class Command(BaseCommand):
         logger.info('Downloaded all approved discs from the PDGA')
 
         amount = self.update_discs(csv_list)
-        logger.info('{} discs have been updated'.format(amount))
+        logger.info(f'{amount} discs have been updated')

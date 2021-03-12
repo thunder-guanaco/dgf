@@ -16,7 +16,7 @@ class DiscModelsTest(TestCase):
 
     @responses.activate
     def test_three_discs_are_loaded(self):
-        configure_response(open('{}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
+        configure_response(open(f'{settings.BASE_DIR}/dgf/resources/test-pdga-approved-disc-golf-discs.csv'))
         Disc.objects.all().delete()
         call_command('update_approved_discs')
         self.assertNotEqual(Disc.objects.get(mold='PD3', manufacturer='Discmania'), None)
@@ -30,7 +30,7 @@ class DiscModelsTest(TestCase):
     @responses.activate
     def test_different_molds_are_loaded(self):
         configure_response(
-            open('{}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'.format(settings.BASE_DIR)))
+            open(f'{settings.BASE_DIR}/dgf/resources/test-more-molds-pdga-approved-disc-golf-discs.csv'))
 
         Disc.objects.all().delete()
         call_command('update_approved_discs')

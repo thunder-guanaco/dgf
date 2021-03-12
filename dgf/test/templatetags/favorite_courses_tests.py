@@ -18,7 +18,7 @@ class TemplatetagsFavoriteCoursesTest(TestCase):
                                                                     'Revierpark Wischlingen',
                                                                     'Söhnstetten'])
 
-        create_friends(['user_{}'.format(i) for i in range(6)],
+        create_friends([f'user_{i}' for i in range(6)],
                        favorite_courses=[(),
                                          (mijas,),
                                          (seepark,),
@@ -34,7 +34,7 @@ class TemplatetagsFavoriteCoursesTest(TestCase):
                                                                     'Revierpark Wischlingen',
                                                                     'Söhnstetten'])
 
-        create_friends(['user_{}'.format(i) for i in range(15)],
+        create_friends([f'user_{i}' for i in range(15)],
                        favorite_courses=[(), (), (), (), (),
                                          (mijas,), (mijas,), (mijas,), (mijas,),
                                          (seepark,), (seepark,), (seepark,),
@@ -49,7 +49,7 @@ class TemplatetagsFavoriteCoursesTest(TestCase):
                                                                     'Revierpark Wischlingen',
                                                                     'Söhnstetten'])
 
-        create_friends(['user_{}'.format(i) for i in range(2)],
+        create_friends([f'user_{i}' for i in range(2)],
                        favorite_courses=[(mijas,), (mijas,)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [mijas])
@@ -59,7 +59,7 @@ class TemplatetagsFavoriteCoursesTest(TestCase):
                         'Revierpark Wischlingen',
                         'Söhnstetten'])
 
-        create_friends(['user_{}'.format(i) for i in range(10)])
+        create_friends([f'user_{i}' for i in range(10)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [])
 
@@ -71,6 +71,6 @@ class TemplatetagsFavoriteCoursesTest(TestCase):
         self.assertListEqual(list(dgf.favorite_courses()), [])
 
     def test_favorite_course_without_courses(self):
-        create_friends(['user_{}'.format(i) for i in range(10)])
+        create_friends([f'user_{i}' for i in range(10)])
 
         self.assertListEqual(list(dgf.favorite_courses()), [])
