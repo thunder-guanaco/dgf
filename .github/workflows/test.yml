@@ -21,6 +21,6 @@ jobs:
       run: |
         python manage.py migrate
         export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
-        # pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
+        pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8
       env:
         DJANGO_ENV: test

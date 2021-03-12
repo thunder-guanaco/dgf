@@ -22,8 +22,6 @@ function exit_if_error() {
   fi
 }
 
-echo "executing '$0' as '$(whoami)'"
-
 pip install -r requirements.txt
 exit_if_error "Install dependencies" $?
 
@@ -37,7 +35,7 @@ python manage.py migrate
 exit_if_error "Apply migrations" $?
 
 crontab -r
-exit_if_error "Delete existing cronjobs" $?
+exit_if_error "Delete existing cronjobs" 0
 
 crontab ci/crontab
 exit_if_error "Add new cronjobs" $?
