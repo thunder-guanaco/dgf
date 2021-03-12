@@ -22,6 +22,8 @@ function exit_if_error() {
   fi
 }
 
+echo "executing '$0' as '$(whoami)'"
+
 pip install -r requirements.txt
 exit_if_error "Install dependencies" $?
 
