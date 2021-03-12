@@ -2,10 +2,10 @@ from decimal import Decimal
 
 import responses
 from django.conf import settings
+from django.core.management import call_command
 from django.test import TestCase
 
-from ...cronjobs import fetch_pdga_data
-from ...models import Friend
+from dgf.models import Friend
 
 
 class PdgaApiTest(TestCase):
@@ -18,7 +18,7 @@ class PdgaApiTest(TestCase):
         friend.pdga_number = 109371
         friend.username = 'fede'
         friend.save()
-        fetch_pdga_data()
+        call_command('fetch_pdga_data')
         self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 903)
 
     @responses.activate
@@ -40,7 +40,7 @@ class PdgaApiTest(TestCase):
         friend.username = 'fede'
         friend.save()
         self.configure_responses(rating=950)
-        fetch_pdga_data()
+        call_command('fetch_pdga_data')
         self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 950)
 
     @responses.activate
@@ -51,7 +51,7 @@ class PdgaApiTest(TestCase):
         friend.pdga_number = 47163
         friend.username = 'kevin'
         friend.save()
-        fetch_pdga_data()
+        call_command('fetch_pdga_data')
         kevin = Friend.objects.get(pdga_number=47163)
         self.assertEqual(kevin.total_tournaments, 97)
         self.assertEqual(kevin.total_earnings, Decimal('3981.05'))
