@@ -77,7 +77,7 @@ def update_udisc_scores(course):
         raise UserWarning(f'Course "{course.name}" has no UDisc ID')
 
     if not course.udisc_main_layout:
-        raise UserWarning(f'Course "{course.name}" has main layout defined for UDisc ID')
+        raise UserWarning(f'Course "{course.name}" has no main layout defined for UDisc ID')
 
     scores = get_best_scores(course)
 
