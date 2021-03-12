@@ -35,7 +35,7 @@ python manage.py migrate
 exit_if_error "Apply migrations" $?
 
 crontab -r
-exit_if_error "Delete existing cronjobs" $?
+exit_if_error "Delete existing cronjobs" 0
 
 crontab ci/crontab
 exit_if_error "Add new cronjobs" $?
