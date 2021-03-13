@@ -67,6 +67,14 @@ def get_best_scores(course):
     return players_list
 
 
+def update_score_if_wischlingen(course, friend, new_score):
+    if course.name == 'Revierpark Wischlingen' and (
+            not friend.best_score_in_wischlingen or new_score < friend.best_score_in_wischlingen):
+        friend.best_score_in_wischlingen = new_score
+        friend.save()
+        logger.info(f'Updated best score of {friend} in Wischlingen to {new_score}')
+
+
 def update_udisc_scores(course):
     """
     :param course: to get information from
@@ -90,6 +98,7 @@ def update_udisc_scores(course):
         try:
             friend = Friend.objects.get(udisc_username=username)
             UdiscRound.objects.create(course=course, friend=friend, score=score)
+            update_score_if_wischlingen(course, friend, score)
         except Friend.DoesNotExist:
             pass  # It's ok. This is just not one of the Friends
         except IntegrityError:
