@@ -65,7 +65,7 @@ class PdgaApiTest(TestCase):
 
     def add_friend_data(self, pdga_number, rating=903):
         responses.add(responses.GET,
-                      '{}/players?pdga_number={}&offset=0&limit=10'.format(settings.PDGA_BASE_URL, pdga_number),
+                      f'{settings.PDGA_BASE_URL}/players?pdga_number={pdga_number}&offset=0&limit=10',
                       json={'sessid': 'pR2J-dQygl7B8fufkt4YPu-E-KOTeNJsvYyKFLaXXi8',
                             'status': 0, 'players':
                                 [{'first_name': 'Federico Jose',
@@ -79,7 +79,7 @@ class PdgaApiTest(TestCase):
                                   'classification': 'A', 'city': 'M\u00e1laga',
                                   'state_prov': 'MA',
                                   'country': 'ES',
-                                  'rating': '{}'.format(rating),
+                                  'rating': f'{rating}',
                                   'rating_effective_date': '2020-03-10',
                                   'official_status': 'yes',
                                   'official_expiration_date': '2021-11-28',
@@ -87,7 +87,7 @@ class PdgaApiTest(TestCase):
                       status=200)
 
     def add_login(self):
-        responses.add(responses.POST, '{}/user/login'.format(settings.PDGA_BASE_URL),
+        responses.add(responses.POST, f'{settings.PDGA_BASE_URL}/user/login',
                       json={'session_name': 'SSESSf1f85588bb869a1781d21eec9fef1bff',
                             'sessid': 'pR2J-dQygl7B8fufkt4YPu-E-KOTeNJsvYyKFLaXXi8',
                             'token': 'uemWB6CbC0qwseuSJ7wogG65FsC7JNBsEXVOnR-xzQc'},
@@ -95,8 +95,7 @@ class PdgaApiTest(TestCase):
 
     def add_friend_statistics(self, pdga_number):
         responses.add(responses.GET,
-                      '{}/player-statistics?pdga_number={}&offset=0&limit=10'.format(settings.PDGA_BASE_URL,
-                                                                                     pdga_number),
+                      f'{settings.PDGA_BASE_URL}/player-statistics?pdga_number={pdga_number}&offset=0&limit=10',
                       json={'sessid': 'M5EGJLLqYVKIl1b5hczcWrEXfUPYtYWZEz5Fs6JU1oQ',
                             'status': 0,
                             'players': [{'first_name': 'Kevin',

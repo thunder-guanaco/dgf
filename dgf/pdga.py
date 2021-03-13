@@ -29,7 +29,7 @@ class PdgaApi:
         For making requests to the PDGA you need to build a cookie that is a combination
         of the session_name and the sessid.
         """
-        response = requests.post('{}/user/login'.format(settings.PDGA_BASE_URL),
+        response = requests.post(f'{settings.PDGA_BASE_URL}/user/login',
                                  json={
                                      'username': settings.PDGA_USERNAME,
                                      'password': settings.PDGA_PASSWORD
@@ -42,12 +42,10 @@ class PdgaApi:
         self.credentials = json.loads(response.content)
 
     def logout(self):
-        requests.post('{}/user/logout'.format(settings.PDGA_BASE_URL), headers={'Content-type': 'application/json',
-                                                                                'Cookie': '{}={}'.format(
-                                                                                    self.credentials['session_name'],
-                                                                                    self.credentials['sessid']),
-                                                                                'X-CSRF-Token: ': self.credentials[
-                                                                                    'token']})
+        requests.post(f'{settings.PDGA_BASE_URL}/user/logout', headers={'Content-type': 'application/json',
+                                                                        'Cookie': f'{self.credentials["session_name"]}='
+                                                                                  f'{self.credentials["sessid"]}',
+                                                                        'X-CSRF-Token: ': self.credentials['token']})
 
     def query_player(self, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
                      state_prov=None, country=None, last_modified=None, offset=0, limit=10):
@@ -124,11 +122,10 @@ class PdgaApi:
             rating = pdga_friend_response['players'][0]['rating']
             if rating:
                 friend.rating = int(rating)
-                logger.info('{} has now rating: {}'.format(friend.username, friend.rating))
+                logger.info(f'{friend.username} has now rating: {friend.rating}')
             else:
                 logger.info(
-                    '{} had no rating in the PDGA yet, possible reasons: membership outdated or new member'.format(
-                        friend.username))
+                    f'{friend.username} had no rating in the PDGA. Possible reasons: membership outdated or new member')
 
     def update_friend_tournament(self, friend):
         if friend.pdga_number:
@@ -152,7 +149,10 @@ class PdgaApi:
             friend.total_tournaments = tournaments
 
     def _query_pdga(self, url, query_parameters):
-        query = '?{}'.format(urlencode({x: y for x, y in query_parameters.items() if y is not None}))
-        return json.loads(requests.get('{}/{}{}'.format(settings.PDGA_BASE_URL, url, query),
-                                       headers={'Cookie': '{}={}'.format(self.credentials['session_name'],
-                                                                         self.credentials['sessid'])}).content)
+        query = urlencode({x: y for x, y in query_parameters.items() if y is not None})
+        return json.loads(requests.get(f'{settings.PDGA_BASE_URL}/{url}?{query}',
+                                       headers={
+                                           'Cookie': f'{self.credentials["session_name"]}='
+                                                     f'{self.credentials["sessid"]}'
+                                       })
+                          .content)

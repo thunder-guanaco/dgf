@@ -1,7 +1,6 @@
 import json
 
 import requests
-from django.conf import settings
 
 
 def feedback_post_save(instance):
@@ -10,17 +9,17 @@ def feedback_post_save(instance):
 
     # Create our issue
     issue = {
-        'title': '{}: {}'.format(friend_name, instance.title),
+        'title': f'{friend_name}: {instance.title}',
         'body': instance.feedback,
         'labels': ['Feedback']
     }
     headers = {
-        'Authorization': 'token {}'.format(settings.GITHUB_TOKEN)
+        f'Authorization': 'token {settings.GITHUB_TOKEN}'
     }
 
     # Add the issue to our repository
     response = requests.post(url, json.dumps(issue), headers=headers)
     if response.status_code == 201:
-        print('Successfully created Issue "{}"'.format(instance.title))
+        print(f'Successfully created Issue "{instance.title}"')
     else:
-        print('Could not create Issue "{}"'.format(instance.title))
+        print(f'Could not create Issue "{instance.title}"')

@@ -12,13 +12,12 @@ def getDate(date_string, index):
         german_date = splitted[index].strip().split('.')
         day = german_date[0]
         month = german_date[1]
-        return '20{}-{}-{}'.format(year, month, day)
     else:
         german_date = date_string.split('.')
         day = german_date[0]
         month = german_date[1]
         year = german_date[2]
-        return '20{}-{}-{}'.format(year, month, day)
+    return f'20{year}-{month}-{day}'
 
 
 with open('tournaments.csv', 'r') as csv_file:

@@ -56,14 +56,14 @@ class Course(Model):
             if self.country == 'DE':
                 place = ''
             else:
-                place = ' ({})'.format(self.country)
+                place = f' ({self.country})'
         else:
             if self.country == 'DE':
-                place = ' ({})'.format(self.city)
+                place = f' ({self.city})'
             else:
-                place = ' ({}, {})'.format(self.city, self.country)
+                place = f' ({self.city}, {self.country})'
 
-        return '{}{}'.format(self.name, place)
+        return f'{self.name}{place}'
 
     def _contain_each_other(self, a, b):
         words_a = self._words_of(a)
@@ -117,8 +117,8 @@ class Friend(User):
 
     @property
     def full_name(self):
-        nickname = ' ({})'.format(self.nickname) if self.nickname else ''
-        return '{} {}{}'.format(self.first_name, self.last_name, nickname)
+        nickname = f' ({self.nickname})' if self.nickname else ''
+        return f'{self.first_name} {self.last_name}{nickname}'
 
     @property
     def short_name(self):
@@ -126,12 +126,13 @@ class Friend(User):
 
     @property
     def initials(self):
-        return '{} {}'.format(self.first_name[0] if self.first_name else '',
-                              self.last_name[0] if self.last_name else '')
+        first = self.first_name[0] if self.first_name else ''
+        second = self.last_name[0] if self.last_name else ''
+        return f'{first} {second}'
 
     def __str__(self):
-        pdga_number = ' #{}'.format(self.pdga_number) if self.pdga_number else ''
-        return '{} {}{}'.format(self.first_name, self.last_name, pdga_number)
+        pdga_number = f' #{self.pdga_number}' if self.pdga_number else ''
+        return f'{self.first_name} {self.last_name}{pdga_number}'
 
     def save(self, *args, **kwargs):
         try:
@@ -140,11 +141,11 @@ class Friend(User):
                 pdga.update_friend_rating(self)
                 pdga.update_friend_tournament(self)
         except:
-            logger.warning('I could not update the PDGA data for the friend: {}!'.format(self.username))
+            logger.warning(f'I could not update the PDGA data for the friend: {self.username}!')
 
         new_slug = self.slug or self.nickname or self.first_name or self.username
         self.slug = slugify(new_slug).lower()
-        logger.info('Setting slug for {} to {}'.format(self.username, self.slug))
+        logger.info(f'Setting slug for {self.username} to {self.slug}')
         super(Friend, self).save(*args, **kwargs)
 
 
@@ -160,7 +161,7 @@ class UdiscRound(Model):
     score = models.IntegerField(_('Last score from UDisc'))
 
     def __str__(self):
-        return '{} scored {} in {}'.format(self.friend, self.score, self.course)
+        return f'{self.friend} scored {self.score} in {self.course}'
 
 
 class FavoriteCourse(Model):
@@ -182,7 +183,7 @@ class Feedback(Model):
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
 
     def __str__(self):
-        return '{} - {}'.format(self.friend.short_name if self.friend else None, self.title)
+        return f'{self.friend.short_name if self.friend else None} - {self.title}'
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
@@ -213,7 +214,7 @@ class Disc(models.Model):
     display_name = models.CharField(_('Display name'), max_length=200)
 
     def __str__(self):
-        return '{} [{}]'.format(self.mold, self.manufacturer)
+        return f'{self.mold} [{self.manufacturer}]'
 
     def save(self, *args, **kwargs):
         self.display_name = re.sub(' *\(.*\)', '', self.mold)
@@ -243,11 +244,11 @@ class DiscInBag(models.Model):
 
     @property
     def in_the_bag(self):
-        count = '' if self.amount == 1 else '{}x '.format(self.amount)
-        return '{}{}'.format(count, self.disc.display_name)
+        count = '' if self.amount == 1 else f'{self.amount}x '
+        return f'{count}{self.disc.display_name}'
 
     def __str__(self):
-        return '{}x {} ({})'.format(self.amount, self.disc.mold, self.get_type_display())
+        return f'{self.amount}x {self.disc.mold} ({self.get_type_display()})'
 
 
 class Ace(models.Model):
@@ -267,11 +268,11 @@ class Ace(models.Model):
     date = PartialDateField(_('Date'), null=True, blank=True)
 
     def __str__(self):
-        return '{} - {} {} {} {} [{}]'.format(self.course,
-                                              _('Hole'), self.hole,
-                                              _('with a'), self.disc.display_name,
-                                              self.get_type_display(),
-                                              " - {}".format(self.date) if self.date else "")
+        date = f' - {self.date}' if self.date else ''
+        return f'{self.course} - ' \
+               f'{_("Hole")} {self.hole} ' \
+               f'{_("with a")} {self.disc.display_name} ' \
+               f'[{self.get_type_display()}]{date}'
 
 
 class Video(Model):
@@ -305,12 +306,18 @@ class Tournament(models.Model):
     def date(self):
         if self.begin == self.end:
             return self.begin.strftime('%d. %b %Y')
+
         if self.begin.month != self.end.month:
-            return '{} - {}'.format(self.begin.strftime('%d. %b'), self.end.strftime('%d. %b %Y'))
-        return '{} - {}'.format(self.begin.strftime('%d.'), self.end.strftime('%d. %b %Y'))
+            begin = self.begin.strftime('%d. %b')
+            end = self.end.strftime('%d. %b %Y')
+        else:
+            begin = self.begin.strftime('%d.')
+            end = self.end.strftime('%d. %b %Y')
+
+        return f'{begin} - {end}'
 
     def __str__(self):
-        return '{} ({})'.format(self.name, self.date)
+        return f'{self.name} ({self.date})'
 
 
 class Attendance(Model):
@@ -325,4 +332,4 @@ class Attendance(Model):
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
 
     def __str__(self):
-        return '{} - {}'.format(str(self.tournament), str(self.friend))
+        return f'{self.tournament} - {self.friend}'

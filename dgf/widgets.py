@@ -46,7 +46,7 @@ class PartialDateWidget(SelectDateWidget):
             return None
         date_string = str(y)
         if m:
-            date_string += '-{}'.format(m)
+            date_string += f'-{m}'
         if d:
-            date_string += '-{}'.format(d)
+            date_string += f'-{d}'
         return date_string
