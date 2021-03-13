@@ -1,17 +1,6 @@
 from django.forms import SelectDateWidget, Select
 from partial_date import PartialDate
 
-from .models import Disc, Course
-
-
-def all_objects(object_type):
-    return [('', '---')] + [(x.id, str(x)) for x in
-                            object_type.objects.all().order_by('id')]
-
-
-ALL_COURSES = all_objects(Course)  # fix me! #538
-ALL_DISCS = all_objects(Disc)  # fix me! #538
-
 
 class AlreadyFetchedObjectsSelect(Select):
 
