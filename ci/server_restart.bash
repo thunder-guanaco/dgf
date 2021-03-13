@@ -1,26 +1,14 @@
 #!/bin/bash
 # This script will be executed every time a deployment is started
 
+working_dir=$(dirname $0)
+source ${working_dir}/util.bash
+
 ROOT_INSTALLATION_PATH=/home/ubuntu
 cd ${ROOT_INSTALLATION_PATH}/django_project
+
 source ci/ENVIRONMENT_VARIABLES
 . ../env/bin/activate
-
-RED="\e[31m"
-GREEN="\e[32m"
-RESET="\e[0m"
-
-function exit_if_error() {
-  command=$1
-  return_code=$2
-  if [[ "${return_code}" -ne "0" ]]
-  then
-    echo -e "${RED}[ERROR]${RESET} ${command}"
-    exit 1
-  else
-    echo -e "${GREEN}[OK]${RESET} ${command}"
-  fi
-}
 
 pip install -r requirements.txt
 exit_if_error "Install dependencies" $?
