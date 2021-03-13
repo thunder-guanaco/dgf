@@ -66,7 +66,7 @@ if ENV == 'dev':
             'ENGINE': 'django.db.backends.mysql',
             'HOST': 'localhost',
             'PORT': '3306',
-            'NAME': 'dgf_cms',
+            'NAME': 'dgf_cms_backup_21_03_13',
             'USER': 'dgf',
             'PASSWORD': 'dgf',
         }

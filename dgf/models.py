@@ -3,6 +3,7 @@ import re
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
+from django.core.cache import cache
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
@@ -73,6 +74,11 @@ class Course(Model):
     @staticmethod
     def _words_of(string):
         return set(re.findall('\w+', string))
+
+    def save(self, *args, **kwargs):
+        cache.set('ALL_COURSES', [('', '---')] + [(x.id, str(x)) for x in Course.objects.all().order_by('name')])
+        logger.info('Loaded all courses from DB into the cache')
+        super(Course, self).save(*args, **kwargs)
 
 
 class CoursePluginModel(CMSPlugin):

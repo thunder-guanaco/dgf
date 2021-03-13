@@ -3,6 +3,7 @@ import logging
 
 import requests
 from django.conf import settings
+from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
 from dgf.models import Disc
@@ -29,6 +30,13 @@ class Command(BaseCommand):
                 amount += 1
         return amount
 
+    def update_disc_cache(self):
+        # TODO!
+        # this does not work because it's another instance...
+        # we need to restart the server after this... (change the cronjob)
+        cache.set('ALL_DISCS', [('', '---')] + [(x.id, str(x)) for x in Disc.objects.all().order_by('mold')])
+        logger.info('Loaded all discs from DB into the cache')
+
     def handle(self, *args, **options):
         logger.info('Updating new PDGA approved discs...')
 
@@ -37,3 +45,5 @@ class Command(BaseCommand):
 
         amount = self.update_discs(csv_list)
         logger.info(f'{amount} discs have been updated')
+
+        self.update_disc_cache()
