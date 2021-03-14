@@ -10,12 +10,21 @@ jobs:
     name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
+      - name: "BD Backup"
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
+          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
+          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
+          script: bash /home/ubuntu/django_project/ci/backup.bash
 
       - name: "Checkout files"
         uses: actions/checkout@master
+
       - name: "Set version"
         run: |
             echo "${GITHUB_SHA}" > ci/version
+
       - name: "Copy project files via scp"
         uses: appleboy/scp-action@master
         with:
