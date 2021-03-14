@@ -1,15 +1,28 @@
 from datetime import datetime
+
 from django.forms import inlineformset_factory
 
-from .models import Highlight, FavoriteCourse, Friend, DiscInBag, Ace, Video
-from .widgets import AlreadyFetchedObjectsSelect, PartialDateWidget, ALL_DISCS, ALL_COURSES
+from dgf.models import Highlight, FavoriteCourse, Friend, DiscInBag, Ace, Video, Disc, Course
+from dgf.widgets import AlreadyFetchedObjectsSelect, PartialDateWidget
+
+
+def all_objects(object_type, order_by):
+    return [('', '---')] + [(x.id, str(x)) for x in
+                            object_type.objects.all().order_by(order_by)]
+
+
+def all_courses():
+    return all_objects(Course, 'name')
+
+
+ALL_DISCS = all_objects(Disc, 'mold')
 
 
 def favorite_course_formset_factory():
     return inlineformset_factory(
         Friend, FavoriteCourse, fields=('course',),
         max_num=5, extra=5, validate_max=True, widgets={
-            'course': AlreadyFetchedObjectsSelect(available_options=ALL_COURSES)
+            'course': AlreadyFetchedObjectsSelect(available_options=all_courses())
         }
     )
 
@@ -38,7 +51,7 @@ def ace_formset_factory():
         extra=0, widgets={
             'date': PartialDateWidget(years=range(current_year, current_year - 20, -1)),
             'disc': AlreadyFetchedObjectsSelect(available_options=ALL_DISCS),
-            'course': AlreadyFetchedObjectsSelect(available_options=ALL_COURSES)
+            'course': AlreadyFetchedObjectsSelect(available_options=all_courses())
         }
     )
 

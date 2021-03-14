@@ -231,6 +231,9 @@ MIDDLEWARE = [
     'compression_middleware.middleware.CompressionMiddleware',
 ]
 
+if ENV == 'dev':
+    MIDDLEWARE.append('silk.middleware.SilkyMiddleware')
+
 INSTALLED_APPS = [
     'dgf',
     'django_countries',
@@ -276,8 +279,11 @@ INSTALLED_APPS = [
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
-    'dgf_cms'
+    'dgf_cms',
 ]
+
+if ENV == 'dev':
+    INSTALLED_APPS.append('silk')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -365,4 +371,10 @@ LOGGING = {
             'level': LOG_LEVEL,
         }
     },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
 }
