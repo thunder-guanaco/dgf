@@ -10,13 +10,6 @@ jobs:
     name: "Deploy to production"
     runs-on: ubuntu-latest
     steps:
-      - name: "BD Backup"
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
-          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
-          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
-          script: bash /home/ubuntu/django_project/ci/backup.bash
 
       - name: "Checkout files"
         uses: actions/checkout@master
@@ -34,6 +27,14 @@ jobs:
           source: "."
           target: "django_project"
           rm: true
+
+      - name: "BD Backup"
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
+          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
+          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
+          script: bash /home/ubuntu/django_project/ci/backup.bash
 
       - name: "Restart the server"
         uses: appleboy/ssh-action@master
