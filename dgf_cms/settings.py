@@ -66,7 +66,7 @@ if ENV == 'dev':
             'ENGINE': 'django.db.backends.mysql',
             'HOST': 'localhost',
             'PORT': '3306',
-            'NAME': 'dgf_cms_backup_21_03_13',
+            'NAME': 'dgf_cms',
             'USER': 'dgf',
             'PASSWORD': 'dgf',
         }
@@ -231,6 +231,9 @@ MIDDLEWARE = [
     'compression_middleware.middleware.CompressionMiddleware',
 ]
 
+if ENV == 'dev':
+    MIDDLEWARE.append('silk.middleware.SilkyMiddleware')
+
 INSTALLED_APPS = [
     'dgf',
     'django_countries',
@@ -276,8 +279,11 @@ INSTALLED_APPS = [
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
-    'dgf_cms'
+    'dgf_cms',
 ]
+
+if ENV == 'dev':
+    INSTALLED_APPS.append('silk')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

@@ -35,6 +35,7 @@ urlpatterns += i18n_patterns(
 # This is only needed when using runserver.
 if settings.DEBUG:
     urlpatterns = [
+                      url(r'^silk/', include('silk.urls', namespace='silk')),
                       url(r'^403/$', TemplateView.as_view(template_name='403.html')),
                       url(r'^404/$', TemplateView.as_view(template_name='404.html')),
                       url(r'^500/$', TemplateView.as_view(template_name='500.html')),
