@@ -119,7 +119,9 @@
 }
 
 #statistics .show-all,
-#statistics .show-less {
+#statistics .show-less,
+#statistics .show-all-tournaments,
+#statistics .show-less-tournaments {
     cursor: pointer;
     color: #8d1950;
     font-weight: normal;
@@ -200,4 +202,8 @@
 #tournaments .show-all,
 #tournaments .show-less {
     font-size: 1em !important;
+}
+
+#tournaments .inner-content ul {
+    width: 100%;
 }

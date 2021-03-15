@@ -5,7 +5,7 @@
     <li id="best-friends" class="show-all-less">
         <h2>
             {% trans "Best players" %}
-            {% include "dgf/includes/show-all-less.html" with minimum=3 friends=friends_ordered_by_rating %}
+            {% include "dgf/includes/show-all-less.html" with minimum=3 amount=friends_ordered_by_rating.count %}
         </h2>
         <div class="inner-content">
             {% include "dgf/includes/friend_balls.html" with friends=friends_ordered_by_rating show_name=True show_rating=True %}

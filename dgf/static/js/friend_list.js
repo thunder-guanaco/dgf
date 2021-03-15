@@ -11,7 +11,6 @@ function hideAllExceptTop() {
 function loadFriendsRankings(){
     $("#statistics .show-all-less .show-all").each(function() {
         $(this).click(function(){
-        paco=$(this);
             $(this).parents(".show-all-less").find(".top").fadeOut();
             $(this).parents(".show-all-less").find(".all").delay(400).fadeIn();
             $(this).fadeOut();
@@ -25,6 +24,24 @@ function loadFriendsRankings(){
             $(this).parents(".show-all-less").find(".top").delay(400).fadeIn();
             $(this).fadeOut();
             $(this).parent().find(".show-all").delay(400).fadeIn();
+        });
+    });
+
+    $("#statistics .show-all-less-tournaments .show-all-tournaments").each(function() {
+        $(this).click(function(){
+            $(this).parents(".show-all-less-tournaments").find(".top-tournaments").fadeOut();
+            $(this).parents(".show-all-less-tournaments").find(".all-tournaments").delay(400).fadeIn();
+            $(this).fadeOut();
+            $(this).parent().find(".show-less-tournaments").delay(400).fadeIn();
+        });
+    });
+
+    $("#statistics .show-all-less-tournaments .show-less-tournaments").each(function() {
+        $(this).click(function(){
+            $(this).parents(".show-all-less-tournaments").find(".all-tournaments").fadeOut();
+            $(this).parents(".show-all-less-tournaments").find(".top-tournaments").delay(400).fadeIn();
+            $(this).fadeOut();
+            $(this).parent().find(".show-all-tournaments").delay(400).fadeIn();
         });
     });
 }
