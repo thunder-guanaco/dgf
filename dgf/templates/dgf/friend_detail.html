@@ -51,11 +51,25 @@
                             </button>
                         </a>
                     {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <a class="desktop" href="{% url 'dgf:tournament_index' %}">
+                            <button>
+                                {% trans 'Update tournaments' %}
+                            </button>
+                        </a>
+                    {% endif %}
                 </h1>
                 {% if friend.id == request.user.friend.id %}
                     <a class="mobile" href="{% url 'dgf:friend_update' %}">
                         <button>
                             {% trans 'Update profile' %}
+                        </button>
+                    </a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                    <a class="mobile" href="{% url 'dgf:tournament_index' %}">
+                        <button>
+                            {% trans 'Update tournaments' %}
                         </button>
                     </a>
                 {% endif %}
