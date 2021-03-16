@@ -2,62 +2,60 @@ from decimal import Decimal
 
 import responses
 from django.conf import settings
-from django.core.management import call_command
 from django.test import TestCase
 
 from dgf.models import Friend
+from dgf.pdga import PdgaApi
 
 
 class PdgaApiTest(TestCase):
 
     @responses.activate
-    def test_rating_is_stored_in_friend(self):
-        self.configure_responses()
-
-        friend = Friend()
-        friend.pdga_number = 109371
-        friend.username = 'fede'
-        friend.save()
-        call_command('fetch_pdga_data')
-        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 903)
+    def setUp(self):
+        self.add_login()
+        self.pdga_api = PdgaApi()
 
     @responses.activate
-    def test_rating_is_stored_in_friend_when_saved(self):
-        self.configure_responses()
+    def test_friend_has_no_pdga_number(self):
+        fede = Friend.objects.create(username='fede', pdga_number=None)
 
-        friend = Friend()
-        friend.pdga_number = 109371
-        friend.username = 'fede'
-        friend.save()
-        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 903)
+        self.pdga_api.update_friend_rating(fede)
+
+        fede = Friend.objects.get(username='fede')
+        self.assertIsNone(fede.rating)
+
+    @responses.activate
+    def test_rating_is_stored_in_friend(self):
+        self.configure_responses()
+        fede = Friend.objects.create(username='fede', pdga_number=109371)
+
+        self.pdga_api.update_friend_rating(fede)
+
+        fede = Friend.objects.get(username='fede')
+        self.assertEqual(fede.rating, 903)
 
     @responses.activate
     def test_rating_is_updated_in_friend(self):
-        self.configure_responses()
-
-        friend = Friend()
-        friend.pdga_number = 109371
-        friend.username = 'fede'
-        friend.save()
         self.configure_responses(rating=950)
-        call_command('fetch_pdga_data')
-        self.assertEqual(Friend.objects.get(pdga_number=109371).rating, 950)
+        fede = Friend.objects.create(username='fede', pdga_number=109371, rating=905)
+
+        self.pdga_api.update_friend_rating(fede)
+
+        fede = Friend.objects.get(username='fede')
+        self.assertEqual(fede.rating, 950)
 
     @responses.activate
     def test_prices_and_tournaments_stored(self):
         self.configure_responses()
+        kevin = Friend.objects.create(username='kevin', pdga_number=47163)
 
-        friend = Friend()
-        friend.pdga_number = 47163
-        friend.username = 'kevin'
-        friend.save()
-        call_command('fetch_pdga_data')
-        kevin = Friend.objects.get(pdga_number=47163)
+        self.pdga_api.update_friend_tournament_statistics(kevin)
+
+        kevin = Friend.objects.get(username='kevin')
         self.assertEqual(kevin.total_tournaments, 97)
         self.assertEqual(kevin.total_earnings, Decimal('3981.05'))
 
     def configure_responses(self, rating=903):
-        self.add_login()
         self.add_friend_data('47163')
         self.add_friend_data('109371', rating)
         self.add_friend_statistics('47163')

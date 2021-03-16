@@ -12,8 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
-from .pdga import PdgaApi
-from .post_actions import feedback_post_save
+from dgf.post_actions import feedback_post_save
 
 logger = logging.getLogger(__name__)
 
@@ -135,14 +134,6 @@ class Friend(User):
         return f'{self.first_name} {self.last_name}{pdga_number}'
 
     def save(self, *args, **kwargs):
-        try:
-            if self.pdga_number:
-                pdga = PdgaApi()
-                pdga.update_friend_rating(self)
-                pdga.update_friend_tournament(self)
-        except:
-            logger.warning(f'I could not update the PDGA data for the friend: {self.username}!')
-
         new_slug = self.slug or self.nickname or self.first_name or self.username
         self.slug = slugify(new_slug).lower()
         logger.info(f'Setting slug for {self.username} to {self.slug}')
