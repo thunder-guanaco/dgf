@@ -8,7 +8,7 @@ from django.test import TestCase
 from dgf.models import Friend, Attendance, Tournament
 from dgf.pdga import PDGA_DATE_FORMAT, PdgaCrawler
 
-TS3_DATE = date(year=2021, month=7, day=24)
+TS_DATE = date(year=2021, month=7, day=24)
 
 
 class PdgaCrawlerTest(TestCase):
@@ -21,7 +21,7 @@ class PdgaCrawlerTest(TestCase):
     def tearDown(self):
         self.pdga_crawler.quit()
 
-    def test_attendance_is_not_added_because_friend_has_no_pdga_number(self):
+    def test_no_pdga_number_no_attendance(self):
         manolo = Friend.objects.create(username='manolo')
 
         self.pdga_crawler.update_friend_tournaments(manolo)
@@ -29,7 +29,7 @@ class PdgaCrawlerTest(TestCase):
         attendance_list = list(Attendance.objects.filter(friend=manolo))
         self.assertListEqual(attendance_list, [])
 
-    def test_attendance_is_not_removed_because_friend_has_no_pdga_number(self):
+    def test_no_pdga_number_but_attendance(self):
         manolo = Friend.objects.create(username='manolo')
         tournament = Tournament.objects.create(name='test', begin=date.today(), end=date.today())
         existing_attendance = Attendance.objects.create(friend=manolo, tournament=tournament)
@@ -40,10 +40,10 @@ class PdgaCrawlerTest(TestCase):
         self.assertListEqual(attendance_list, [existing_attendance])
 
     @responses.activate
-    def test_without_upcoming_events(self):
+    def test_without_events_no_attendance(self):
         self.add_tournament_data('12345', 'Tremonia Series #3')
         self.add_tournament_data('67890', 'Tremonia Series #4')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_upocoming_events
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_events
 
         manolo = Friend.objects.create(username='manolo', pdga_number='111828')
 
@@ -53,60 +53,115 @@ class PdgaCrawlerTest(TestCase):
         self.assertListEqual(attendance_list, [])
 
     @responses.activate
-    def test_without_upcoming_events_does_not_remove_events(self):
+    def test_without_events_but_attendance(self):
         self.add_tournament_data('12345', 'Tremonia Series #3')
         self.add_tournament_data('67890', 'Tremonia Series #4')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_upocoming_events
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_events
 
         manolo = Friend.objects.create(username='manolo', pdga_number='111828')
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS3_DATE, end=TS3_DATE)
+        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS_DATE, end=TS_DATE)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
         self.pdga_crawler.update_friend_tournaments(manolo)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 1)
-        attendance = attendance_list[0]
-        self.assertEquals(attendance.tournament, ts3)
-        self.assertEquals(attendance.friend, manolo)
-
-    @responses.activate
-    def test_attendance_is_added(self):
-        self.add_tournament_data('12345', 'Tremonia Series #3')
-        self.add_tournament_data('67890', 'Tremonia Series #4')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page
-
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS3_DATE, end=TS3_DATE)
-
-        self.pdga_crawler.update_friend_tournaments(manolo)
-
-        attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
         self.assertEquals(attendance_ts3.tournament, ts3)
         self.assertEquals(attendance_ts3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.begin, TS3_DATE)
-        self.assertEquals(attendance_ts4.tournament.end, TS3_DATE)
-        self.assertEquals(attendance_ts4.friend, manolo)
-
     @responses.activate
-    def test_attendance_to_existing_tournament_already_exists(self):
+    def test_next_event_no_attendance_no_tournament(self):
         self.add_tournament_data('12345', 'Tremonia Series #3')
-        self.add_tournament_data('67890', 'Tremonia Series #4')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
 
         manolo = Friend.objects.create(username='manolo', pdga_number='111828')
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS3_DATE, end=TS3_DATE)
+
+        self.pdga_crawler.update_friend_tournaments(manolo)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEquals(len(attendance_list), 1)
+
+        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament.begin, TS_DATE)
+        self.assertEquals(attendance_ts3.tournament.end, TS_DATE)
+        self.assertEquals(attendance_ts3.friend, manolo)
+
+    @responses.activate
+    def test_next_event_no_attendance_existing_tournament(self):
+        self.add_tournament_data('12345', 'Tremonia Series #3')
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
+
+        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS_DATE, end=TS_DATE)
+
+        self.pdga_crawler.update_friend_tournaments(manolo)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEquals(len(attendance_list), 1)
+
+        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament, ts3)
+        self.assertEquals(attendance_ts3.friend, manolo)
+
+    @responses.activate
+    def test_next_event_existing_attendance_existing_tournament(self):
+        self.add_tournament_data('12345', 'Tremonia Series #3')
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
+
+        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS_DATE, end=TS_DATE)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
         self.pdga_crawler.update_friend_tournaments(manolo)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEquals(len(attendance_list), 1)
+
+        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament, ts3)
+        self.assertEquals(attendance_ts3.friend, manolo)
+
+    @responses.activate
+    def test_upcoming_events_no_attendance_no_tournaments(self):
+        self.add_tournament_data('12345', 'Tremonia Series #3')
+        self.add_tournament_data('67890', 'Tremonia Series #4')
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+
+        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+
+        self.pdga_crawler.update_friend_tournaments(manolo)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEquals(len(attendance_list), 2)
+
+        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament.begin, TS_DATE)
+        self.assertEquals(attendance_ts3.tournament.end, TS_DATE)
+        self.assertEquals(attendance_ts3.friend, manolo)
+
+        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
+        self.assertEquals(attendance_ts4.tournament.name, 'Tremonia Series #4')
+        self.assertEquals(attendance_ts4.tournament.begin, TS_DATE)
+        self.assertEquals(attendance_ts4.tournament.end, TS_DATE)
+        self.assertEquals(attendance_ts4.friend, manolo)
+
+    @responses.activate
+    def test_upcoming_events_no_attendance_existing_tournaments(self):
+        self.add_tournament_data('12345', 'Tremonia Series #3')
+        self.add_tournament_data('67890', 'Tremonia Series #4')
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+
+        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS_DATE, end=TS_DATE)
+        ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=TS_DATE, end=TS_DATE)
+
+        self.pdga_crawler.update_friend_tournaments(manolo)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
@@ -114,9 +169,32 @@ class PdgaCrawlerTest(TestCase):
         self.assertEquals(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.begin, TS3_DATE)
-        self.assertEquals(attendance_ts4.tournament.end, TS3_DATE)
+        self.assertEquals(attendance_ts4.tournament, ts4)
+        self.assertEquals(attendance_ts4.friend, manolo)
+
+    @responses.activate
+    def test_upcoming_events_existing_attendance_existing_tournaments(self):
+        self.add_tournament_data('12345', 'Tremonia Series #3')
+        self.add_tournament_data('67890', 'Tremonia Series #4')
+        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+
+        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=TS_DATE, end=TS_DATE)
+        ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=TS_DATE, end=TS_DATE)
+        Attendance.objects.create(friend=manolo, tournament=ts3)
+        Attendance.objects.create(friend=manolo, tournament=ts4)
+
+        self.pdga_crawler.update_friend_tournaments(manolo)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEquals(len(attendance_list), 2)
+
+        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        self.assertEquals(attendance_ts3.tournament, ts3)
+        self.assertEquals(attendance_ts3.friend, manolo)
+
+        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
+        self.assertEquals(attendance_ts4.tournament, ts4)
         self.assertEquals(attendance_ts4.friend, manolo)
 
     def add_tournament_data(self, tournament_id, tournament_name):
@@ -167,7 +245,7 @@ class PdgaCrawlerTest(TestCase):
                             'token': 'uemWB6CbC0qwseuSJ7wogG65FsC7JNBsEXVOnR-xzQc'},
                       status=200)
 
-    def get_fake_pdga_player_page_without_upocoming_events(self, pdga_number):
+    def get_fake_pdga_player_page_without_events(self, pdga_number):
         return BeautifulSoup('<div class="pane-content">'
                              '  <ul class="player-info info-list">'
                              '    <li class="location">'
@@ -199,7 +277,43 @@ class PdgaCrawlerTest(TestCase):
                              '</div>',
                              features='html5lib')
 
-    def get_fake_pdga_player_page(self, pdga_number):
+    def get_fake_pdga_player_page_with_next_event(self, pdga_number):
+        return BeautifulSoup('<div class="pane-content">'
+                             '  <ul class="player-info info-list">'
+                             '    <li class="location">'
+                             '      <strong>Location:</strong>'
+                             '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
+                             '    </li>'
+                             '    <li class="classification">'
+                             '      <strong>Classification: </strong>'
+                             '        Amateur'
+                             '    </li>'
+                             '    <li class="join-date">'
+                             '      <strong>Member Since:</strong>'
+                             '        2018'
+                             '      </li>'
+                             '    <li class="membership-status">'
+                             '      <strong>Membership Status: </strong>'
+                             '      <a href="/membership">Current</a>'
+                             '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
+                             '    </li>'
+                             '    <li class="current-rating">'
+                             '      <strong>Current Rating:</strong> 895'
+                             '      <small class="rating-date">(as of 11-Aug-2020)</small>'
+                             '    </li>'
+                             '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
+                             '      <strong>Career Events:</strong>'
+                             '      12'
+                             '    </li>'
+                             '    <li class="next-event">'
+                             '      <strong>Next Event:</strong>'
+                             '      <a href="/tour/event/12345">Tremonia Series #3</a>'
+                             '    </li>'
+                             '  </ul>'
+                             '</div>',
+                             features='html5lib')
+
+    def get_fake_pdga_player_page_with_upcoming_events(self, pdga_number):
         return BeautifulSoup('<div class="pane-content">'
                              '  <ul class="player-info info-list">'
                              '    <li class="location">'

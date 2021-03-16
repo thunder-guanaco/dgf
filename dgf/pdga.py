@@ -198,15 +198,22 @@ class PdgaCrawler:
 
         return soup
 
+    def extract_event_ids(self, events_li):
+        events = events_li.find_all('a')
+        return [event['href'].split('/')[-1] for event in events]
+
     def get_upcoming_event_ids(self, pdga_number):
         soup = self.get_player_page(pdga_number)
+
         upcoming_events = soup.find('li', {'class': 'upcoming-events'})
+        if upcoming_events:
+            return self.extract_event_ids(upcoming_events)
 
-        if not upcoming_events:
-            return []
+        next_event = soup.find('li', {'class': 'next-event'})
+        if next_event:
+            return self.extract_event_ids(next_event)
 
-        events = upcoming_events.find_all('a')
-        return [event['href'].split('/')[-1] for event in events]
+        return []
 
     def add_tournament(self, friend, pdga_tournament):
         tournament_name = pdga_tournament['tournament_name']
