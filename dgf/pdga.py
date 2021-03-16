@@ -53,7 +53,7 @@ class PdgaApi:
         requests.post(f'{settings.PDGA_BASE_URL}/user/logout', headers={'Content-type': 'application/json',
                                                                         'Cookie': f'{self.credentials["session_name"]}='
                                                                                   f'{self.credentials["sessid"]}',
-                                                                        'X-CSRF-Token: ': self.credentials['token']})
+                                                                        'X-CSRF-Token': self.credentials['token']})
 
     def query_player(self, first_name=None, last_name=None, pdga_number=None, player_class=None, city=None,
                      state_prov=None, country=None, last_modified=None, offset=0, limit=10):
