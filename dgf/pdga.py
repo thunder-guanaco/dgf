@@ -8,8 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 
 from dgf.models import Tournament, Attendance
 
@@ -174,63 +172,49 @@ class PdgaApi:
                           .content)
 
 
-class PdgaCrawler:
+def get_player_page(pdga_number):
+    player_url = f'https://www.pdga.com/player/{pdga_number}'
+    logger.info(f'Crawling {player_url}')
+    return BeautifulSoup(requests.get(player_url).content, features='html5lib')
 
-    def __init__(self):
-        options = Options()
-        options.headless = True
-        self.driver = webdriver.Firefox(executable_path=settings.SELENIUM_DRIVER_EXECUTABLE_PATH, options=options)
 
-        self.pdga_api = PdgaApi()
+def extract_event_ids(events_li):
+    events = events_li.find_all('a')
+    return [event['href'].split('/')[-1] for event in events]
 
-    def quit(self):
-        self.driver.quit()
 
-    def get_player_page(self, pdga_number):
-        player_url = f'https://www.pdga.com/player/{pdga_number}'
-        logger.info(f'Crawling {player_url}... (this might take a while)')
+def get_upcoming_event_ids(pdga_number):
+    soup = get_player_page(pdga_number)
 
-        self.driver.get(player_url)
+    upcoming_events = soup.find('li', {'class': 'upcoming-events'})
+    if upcoming_events:
+        return extract_event_ids(upcoming_events)
 
-        body = self.driver.find_element_by_tag_name('body')
-        soup = BeautifulSoup(body.get_attribute('innerHTML'), 'html.parser')
+    next_event = soup.find('li', {'class': 'next-event'})
+    if next_event:
+        return extract_event_ids(next_event)
 
-        return soup
+    return []
 
-    def extract_event_ids(self, events_li):
-        events = events_li.find_all('a')
-        return [event['href'].split('/')[-1] for event in events]
 
-    def get_upcoming_event_ids(self, pdga_number):
-        soup = self.get_player_page(pdga_number)
+def add_tournament(friend, pdga_tournament):
+    tournament_name = pdga_tournament['tournament_name']
 
-        upcoming_events = soup.find('li', {'class': 'upcoming-events'})
-        if upcoming_events:
-            return self.extract_event_ids(upcoming_events)
+    tournament, created = Tournament.objects.get_or_create(name=tournament_name, defaults={
+        'begin': datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT),
+        'end': datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)})
 
-        next_event = soup.find('li', {'class': 'next-event'})
-        if next_event:
-            return self.extract_event_ids(next_event)
+    if created:
+        logger.info(f'Created tournament {tournament}')
 
-        return []
+    _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
+    if created:
+        logger.info(f'Added attendance of {friend} to {tournament}')
 
-    def add_tournament(self, friend, pdga_tournament):
-        tournament_name = pdga_tournament['tournament_name']
 
-        tournament, created = Tournament.objects.get_or_create(name=tournament_name, defaults={
-            'begin': datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT),
-            'end': datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)})
-
-        if created:
-            logger.info(f'Created tournament {tournament}')
-
-        _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
-        if created:
-            logger.info(f'Added attendance of {friend} to {tournament}')
-
-    def update_friend_tournaments(self, friend):
-        if friend.pdga_number:
-            event_ids = self.get_upcoming_event_ids(friend.pdga_number)
-            for id in event_ids:
-                result = self.pdga_api.query_event(tournament_id=id)
-                self.add_tournament(friend, result['events'][0])
+def update_friend_tournaments(friend, pdga_api):
+    if friend.pdga_number:
+        event_ids = get_upcoming_event_ids(friend.pdga_number)
+        for id in event_ids:
+            result = pdga_api.query_event(tournament_id=id)
+            add_tournament(friend, result['events'][0])

@@ -1,12 +1,12 @@
 from datetime import date, timedelta
 
 import responses
-from bs4 import BeautifulSoup
 from django.conf import settings
 from django.test import TestCase
 
+from dgf import pdga
 from dgf.models import Friend, Attendance, Tournament
-from dgf.pdga import PDGA_DATE_FORMAT, PdgaCrawler
+from dgf.pdga import PDGA_DATE_FORMAT, PdgaApi
 
 JULY_24 = date(year=2021, month=7, day=24)
 JULY_25 = date(year=2021, month=7, day=25)
@@ -17,15 +17,12 @@ class PdgaCrawlerTest(TestCase):
     @responses.activate
     def setUp(self):
         self.add_login()
-        self.pdga_crawler = PdgaCrawler()
-
-    def tearDown(self):
-        self.pdga_crawler.quit()
+        self.pdga_api = PdgaApi()
 
     def test_no_pdga_number_no_attendance(self):
         manolo = Friend.objects.create(username='manolo')
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = list(Attendance.objects.filter(friend=manolo))
         self.assertListEqual(attendance_list, [])
@@ -35,31 +32,31 @@ class PdgaCrawlerTest(TestCase):
         tournament = Tournament.objects.create(name='test', begin=date.today(), end=date.today())
         existing_attendance = Attendance.objects.create(friend=manolo, tournament=tournament)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = list(Attendance.objects.filter(friend=manolo))
         self.assertListEqual(attendance_list, [existing_attendance])
 
     @responses.activate
     def test_without_events_no_attendance(self):
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_events
+        self.get_fake_pdga_player_page_without_events(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = list(Attendance.objects.filter(friend=manolo))
         self.assertListEqual(attendance_list, [])
 
     @responses.activate
     def test_without_events_but_attendance(self):
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_without_events
+        self.get_fake_pdga_player_page_without_events(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
         ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 1)
@@ -71,11 +68,11 @@ class PdgaCrawlerTest(TestCase):
     @responses.activate
     def test_next_event_no_attendance_no_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
+        self.get_fake_pdga_player_page_with_next_event(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 1)
@@ -89,12 +86,12 @@ class PdgaCrawlerTest(TestCase):
     @responses.activate
     def test_next_event_no_attendance_existing_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
+        self.get_fake_pdga_player_page_with_next_event(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
         ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 1)
@@ -106,13 +103,13 @@ class PdgaCrawlerTest(TestCase):
     @responses.activate
     def test_next_event_existing_attendance_existing_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_next_event
+        self.get_fake_pdga_player_page_with_next_event(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
         ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 1)
@@ -125,11 +122,11 @@ class PdgaCrawlerTest(TestCase):
     def test_upcoming_events_no_attendance_no_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+        self.get_fake_pdga_player_page_with_upcoming_events(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 2)
@@ -150,13 +147,13 @@ class PdgaCrawlerTest(TestCase):
     def test_upcoming_events_no_attendance_existing_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+        self.get_fake_pdga_player_page_with_upcoming_events(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
         ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 2)
@@ -173,15 +170,15 @@ class PdgaCrawlerTest(TestCase):
     def test_upcoming_events_existing_attendance_existing_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.pdga_crawler.get_player_page = self.get_fake_pdga_player_page_with_upcoming_events
+        self.get_fake_pdga_player_page_with_upcoming_events(111828)
 
-        manolo = Friend.objects.create(username='manolo', pdga_number='111828')
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
         ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
         Attendance.objects.create(friend=manolo, tournament=ts3)
         Attendance.objects.create(friend=manolo, tournament=ts4)
 
-        self.pdga_crawler.update_friend_tournaments(manolo)
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEquals(len(attendance_list), 2)
@@ -243,116 +240,116 @@ class PdgaCrawlerTest(TestCase):
                       status=200)
 
     def get_fake_pdga_player_page_without_events(self, pdga_number):
-        return BeautifulSoup('<div class="pane-content">'
-                             '  <ul class="player-info info-list">'
-                             '    <li class="location">'
-                             '      <strong>Location:</strong>'
-                             '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
-                             '    </li>'
-                             '    <li class="classification">'
-                             '      <strong>Classification: </strong>'
-                             '        Amateur'
-                             '    </li>'
-                             '    <li class="join-date">'
-                             '      <strong>Member Since:</strong>'
-                             '        2018'
-                             '      </li>'
-                             '    <li class="membership-status">'
-                             '      <strong>Membership Status: </strong>'
-                             '      <a href="/membership">Current</a>'
-                             '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
-                             '    </li>'
-                             '    <li class="current-rating">'
-                             '      <strong>Current Rating:</strong> 895'
-                             '      <small class="rating-date">(as of 11-Aug-2020)</small>'
-                             '    </li>'
-                             '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
-                             '      <strong>Career Events:</strong>'
-                             '      12'
-                             '    </li>'
-                             '  </ul>'
-                             '</div>',
-                             features='html5lib')
+        responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
+                      body='<div class="pane-content">'
+                           '  <ul class="player-info info-list">'
+                           '    <li class="location">'
+                           '      <strong>Location:</strong>'
+                           '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
+                           '    </li>'
+                           '    <li class="classification">'
+                           '      <strong>Classification: </strong>'
+                           '        Amateur'
+                           '    </li>'
+                           '    <li class="join-date">'
+                           '      <strong>Member Since:</strong>'
+                           '        2018'
+                           '      </li>'
+                           '    <li class="membership-status">'
+                           '      <strong>Membership Status: </strong>'
+                           '      <a href="/membership">Current</a>'
+                           '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
+                           '    </li>'
+                           '    <li class="current-rating">'
+                           '      <strong>Current Rating:</strong> 895'
+                           '      <small class="rating-date">(as of 11-Aug-2020)</small>'
+                           '    </li>'
+                           '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
+                           '      <strong>Career Events:</strong>'
+                           '      12'
+                           '    </li>'
+                           '  </ul>'
+                           '</div>')
 
     def get_fake_pdga_player_page_with_next_event(self, pdga_number):
-        return BeautifulSoup('<div class="pane-content">'
-                             '  <ul class="player-info info-list">'
-                             '    <li class="location">'
-                             '      <strong>Location:</strong>'
-                             '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
-                             '    </li>'
-                             '    <li class="classification">'
-                             '      <strong>Classification: </strong>'
-                             '        Amateur'
-                             '    </li>'
-                             '    <li class="join-date">'
-                             '      <strong>Member Since:</strong>'
-                             '        2018'
-                             '      </li>'
-                             '    <li class="membership-status">'
-                             '      <strong>Membership Status: </strong>'
-                             '      <a href="/membership">Current</a>'
-                             '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
-                             '    </li>'
-                             '    <li class="current-rating">'
-                             '      <strong>Current Rating:</strong> 895'
-                             '      <small class="rating-date">(as of 11-Aug-2020)</small>'
-                             '    </li>'
-                             '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
-                             '      <strong>Career Events:</strong>'
-                             '      12'
-                             '    </li>'
-                             '    <li class="next-event">'
-                             '      <strong>Next Event:</strong>'
-                             '      <a href="/tour/event/333">Tremonia Series #3</a>'
-                             '    </li>'
-                             '  </ul>'
-                             '</div>',
-                             features='html5lib')
+        responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
+                      body='<div class="pane-content">'
+                           '  <ul class="player-info info-list">'
+                           '    <li class="location">'
+                           '      <strong>Location:</strong>'
+                           '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
+                           '    </li>'
+                           '    <li class="classification">'
+                           '      <strong>Classification: </strong>'
+                           '        Amateur'
+                           '    </li>'
+                           '    <li class="join-date">'
+                           '      <strong>Member Since:</strong>'
+                           '        2018'
+                           '      </li>'
+                           '    <li class="membership-status">'
+                           '      <strong>Membership Status: </strong>'
+                           '      <a href="/membership">Current</a>'
+                           '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
+                           '    </li>'
+                           '    <li class="current-rating">'
+                           '      <strong>Current Rating:</strong> 895'
+                           '      <small class="rating-date">(as of 11-Aug-2020)</small>'
+                           '    </li>'
+                           '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
+                           '      <strong>Career Events:</strong>'
+                           '      12'
+                           '    </li>'
+                           '    <li class="next-event">'
+                           '      <strong>Next Event:</strong>'
+                           '      <a href="/tour/event/333">Tremonia Series #3</a>'
+                           '    </li>'
+                           '  </ul>'
+                           '</div>')
 
     def get_fake_pdga_player_page_with_upcoming_events(self, pdga_number):
-        return BeautifulSoup('<div class="pane-content">'
-                             '  <ul class="player-info info-list">'
-                             '    <li class="location">'
-                             '      <strong>Location:</strong>'
-                             '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
-                             '    </li>'
-                             '    <li class="classification">'
-                             '      <strong>Classification: </strong>'
-                             '        Amateur'
-                             '    </li>'
-                             '    <li class="join-date">'
-                             '      <strong>Member Since:</strong>'
-                             '        2018'
-                             '      </li>'
-                             '    <li class="membership-status">'
-                             '      <strong>Membership Status: </strong>'
-                             '      <a href="/membership">Current</a>'
-                             '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
-                             '    </li>'
-                             '    <li class="current-rating">'
-                             '      <strong>Current Rating:</strong> 895'
-                             '      <small class="rating-date">(as of 11-Aug-2020)</small>'
-                             '    </li>'
-                             '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
-                             '      <strong>Career Events:</strong>'
-                             '      12'
-                             '    </li>'
-                             '    <li class="upcoming-events">'
-                             '      <details open="">'
-                             '        <summary>'
-                             '          <strong>Upcoming Events</strong>'
-                             '        </summary>'
-                             '        <ul>'
-                             '          <li>'
-                             '              <a href="/tour/event/333">Tremonia Series #3</a>'
-                             '          </li>'
-                             '          <li>'
-                             '              <a href="/tour/event/444">Tremonia Series #4</a>'
-                             '          </li>'
-                             '        </ul>'
-                             '      </details>'
-                             '    </li>'
-                             '  </ul>'
-                             '</div>',
-                             features='html5lib')
+        responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
+                      body='<div class="pane-content">'
+                           '  <ul class="player-info info-list">'
+                           '    <li class="location">'
+                           '      <strong>Location:</strong>'
+                           '      <a href="/players?City=M%C3%A1laga&amp;Country=ES">Málaga, Málaga, Spain</a>'
+                           '    </li>'
+                           '    <li class="classification">'
+                           '      <strong>Classification: </strong>'
+                           '        Amateur'
+                           '    </li>'
+                           '    <li class="join-date">'
+                           '      <strong>Member Since:</strong>'
+                           '        2018'
+                           '      </li>'
+                           '    <li class="membership-status">'
+                           '      <strong>Membership Status: </strong>'
+                           '      <a href="/membership">Current</a>'
+                           '      <small class="membership-expiration-date">(until 31-Dec-2021)</small>'
+                           '    </li>'
+                           '    <li class="current-rating">'
+                           '      <strong>Current Rating:</strong> 895'
+                           '      <small class="rating-date">(as of 11-Aug-2020)</small>'
+                           '    </li>'
+                           '    <li class="career-events disclaimer" title="Singles-format tournaments played.">'
+                           '      <strong>Career Events:</strong>'
+                           '      12'
+                           '    </li>'
+                           '    <li class="upcoming-events">'
+                           '      <details open="">'
+                           '        <summary>'
+                           '          <strong>Upcoming Events</strong>'
+                           '        </summary>'
+                           '        <ul>'
+                           '          <li>'
+                           '              <a href="/tour/event/333">Tremonia Series #3</a>'
+                           '          </li>'
+                           '          <li>'
+                           '              <a href="/tour/event/444">Tremonia Series #4</a>'
+                           '          </li>'
+                           '        </ul>'
+                           '      </details>'
+                           '    </li>'
+                           '  </ul>'
+                           '</div>')
