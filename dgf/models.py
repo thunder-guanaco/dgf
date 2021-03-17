@@ -85,6 +85,8 @@ class Friend(User):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
+            models.UniqueConstraint(fields=['pdga_number'], name='unique_pdga_number'),
+            models.UniqueConstraint(fields=['gt_number'], name='unique_gt_number'),
         ]
 
     nickname = models.CharField(_('Nickname'), max_length=30, null=True, blank=True)
@@ -96,6 +98,7 @@ class Friend(User):
 
     udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
     pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=True)
+    gt_number = models.PositiveIntegerField(_('GT Number'), null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     city = models.CharField(_('City'), max_length=100, null=True, blank=True)
     main_photo = models.ImageField(_('Main photo'), null=True, blank=True)

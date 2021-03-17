@@ -1,4 +1,3 @@
-# coding=utf-8
 import json
 import logging
 from datetime import date, timedelta, datetime
@@ -218,16 +217,16 @@ class PdgaCrawler:
     def add_tournament(self, friend, pdga_tournament):
         tournament_name = pdga_tournament['tournament_name']
 
-        pdga_tournament, created = Tournament.objects.get_or_create(name=tournament_name, defaults={
+        tournament, created = Tournament.objects.get_or_create(name=tournament_name, defaults={
             'begin': datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT),
             'end': datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)})
 
         if created:
-            logger.info(f'Created tournament {pdga_tournament}')
+            logger.info(f'Created tournament {tournament}')
 
-        _, created = Attendance.objects.get_or_create(friend=friend, tournament=pdga_tournament)
+        _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
         if created:
-            logger.info(f'Added attendance of {friend} to {pdga_tournament}')
+            logger.info(f'Added attendance of {friend} to {tournament}')
 
     def update_friend_tournaments(self, friend):
         if friend.pdga_number:
