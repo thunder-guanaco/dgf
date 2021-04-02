@@ -37,12 +37,21 @@ def get_all_tournaments():
 
 
 def add_tournament(gt_tournament):
-    tournament, created = Tournament.objects.get_or_create(name=gt_tournament['name'], defaults={
-        'begin': datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT),
-        'end': datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)})
+    begin_date = datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT)
+    end_date = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)
+
+    tournament, created = Tournament.objects.get_or_create(name=gt_tournament['name'],
+                                                           defaults={
+                                                               'begin': begin_date,
+                                                               'end': end_date})
 
     if created:
         logger.info(f'Created tournament {tournament}')
+    else:
+        # Always update the date. With Corona you never know
+        tournament.begin = begin_date
+        tournament.end = end_date
+        tournament.save()
 
     return tournament
 
