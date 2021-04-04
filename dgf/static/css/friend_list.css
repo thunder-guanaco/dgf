@@ -191,7 +191,6 @@
     width: 35%;
     display: flex;
     flex-direction: row-reverse;
-    overflow: hidden;
 }
 
 #tournaments .inner-content .tournament {
