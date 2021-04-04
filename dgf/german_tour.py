@@ -26,14 +26,22 @@ def get_all_tournaments():
     tournaments = []
     for tournament_tr in tournaments_table.findChildren(recursive=False):
         tournament_tds = tournament_tr.findChildren(recursive=False)
+        badge = tournament_tds[0].find('h6')
         tournaments.append({
             'id': tournament_tds[0].find('a')['href'].split('=')[-1],
             'name': tournament_tds[0].find('a').text.strip(),
             'begin': tournament_tds[2].find('a').text.strip(),
             'end': tournament_tds[3].find('a').text.strip(),
+            'canceled': badge is not None and badge.text.strip() == 'ABGESAGT',
         })
 
     return tournaments
+
+
+def delete_tournament(gt_tournament):
+    tournament_name = gt_tournament['name']
+    Tournament.objects.filter(name=tournament_name).delete()
+    logger.info(f'Deleted tournament {tournament_name}')
 
 
 def add_tournament(gt_tournament):
@@ -81,6 +89,9 @@ def add_attendance(tournament, attendance_soup):
 def update_tournaments():
     gt_tournaments = get_all_tournaments()
     for gt_tournament in gt_tournaments:
-        tournament = add_tournament(gt_tournament)
-        attendance_soup = get(TOURNAMENT_ATTENDANCE_PAGE.format(gt_tournament['id']))
-        add_attendance(tournament, attendance_soup)
+        if gt_tournament['canceled']:
+            delete_tournament(gt_tournament)
+        else:
+            tournament = add_tournament(gt_tournament)
+            attendance_soup = get(TOURNAMENT_ATTENDANCE_PAGE.format(gt_tournament['id']))
+            add_attendance(tournament, attendance_soup)

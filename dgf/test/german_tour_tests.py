@@ -129,6 +129,60 @@ class GermanTourTest(TestCase):
         self.assertEquals(ts4.begin, JULY_24)
         self.assertEquals(ts4.end, JULY_25)
 
+    @responses.activate
+    def test_canceled_tournament_non_existing(self):
+        self.add_tournament_list_with_canceled_event()
+        self.add_tournament_with_empty_attendance_list(666)
+
+        german_tour.update_tournaments()
+
+        ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
+        self.assertEquals(ts5, [])
+
+        ts6 = Tournament.objects.get(name='Tremonia Series #6')
+        self.assertEquals(ts6.name, 'Tremonia Series #6')
+        self.assertEquals(ts6.begin, JULY_25)
+        self.assertEquals(ts6.end, JULY_25)
+
+    @responses.activate
+    def test_canceled_tournament_with_existing_tournament_without_attendance(self):
+        self.add_tournament_list_with_canceled_event()
+        self.add_tournament_with_empty_attendance_list(666)
+
+        Tournament.objects.create(name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(name='Tremonia Series #6', begin=JULY_25, end=JULY_25)
+
+        german_tour.update_tournaments()
+
+        ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
+        self.assertEquals(ts5, [])
+
+        ts6 = Tournament.objects.get(name='Tremonia Series #6')
+        self.assertEquals(ts6.name, 'Tremonia Series #6')
+        self.assertEquals(ts6.begin, JULY_25)
+        self.assertEquals(ts6.end, JULY_25)
+
+    @responses.activate
+    def test_canceled_tournament_with_existing_tournament_with_attendance(self):
+        self.add_tournament_list_with_canceled_event()
+        self.add_tournament_with_empty_attendance_list(666)
+
+        manolo = Friend.objects.create(username='manolo', gt_number=1922)
+        ts5 = Tournament.objects.create(name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
+        ts6 = Tournament.objects.create(name='Tremonia Series #6', begin=JULY_25, end=JULY_25)
+        Attendance.objects.create(friend=manolo, tournament=ts5)
+        Attendance.objects.create(friend=manolo, tournament=ts6)
+
+        german_tour.update_tournaments()
+
+        ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
+        self.assertEquals(ts5, [])
+
+        ts6 = Tournament.objects.get(name='Tremonia Series #6')
+        self.assertEquals(ts6.name, 'Tremonia Series #6')
+        self.assertEquals(ts6.begin, JULY_25)
+        self.assertEquals(ts6.end, JULY_25)
+
     def add_tournament_list(self):
         responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
                       body='<body>'
@@ -138,8 +192,7 @@ class GermanTourTest(TestCase):
                            '    <thead></thead>'
                            '    <tbody>'
                            '      <tr class="odd">'
-                           '        <td data-sort="Tremonia Series #3"'
-                           '            id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Tremonia Series #3" id="table_list_tournaments_0_0">'
                            '          <a class="text-muted font-italic"'
                            '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=333">'
                            '            Tremonia Series #3'
@@ -176,8 +229,7 @@ class GermanTourTest(TestCase):
                            '        </td>'
                            '      </tr>'
                            '      <tr class="even">'
-                           '        <td data-sort="Tremonia Series #4"'
-                           '            id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Tremonia Series #4" id="table_list_tournaments_0_0">'
                            '          <a class="text-muted font-italic"'
                            '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=444">'
                            '            Tremonia Series #4'
@@ -189,6 +241,103 @@ class GermanTourTest(TestCase):
                            '        <td data-sort="1614380400" id="table_list_tournaments_0_2" class="sorting_1">'
                            '          <a href="media/icals/1655.ics">'
                            '            24.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_3" class="sorting_2">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            25.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="0" id="table_list_tournaments_0_4">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td data-sort="1614407326" id="table_list_tournaments_0_5">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_6">'
+                           '          <span class="badge badge-secondary">'
+                           '            Einzelturnier'
+                           '          </span>'
+                           '        </td>'
+                           '        <td class="d-none d-sm-table-cell" id="table_list_tournaments_0_7">'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_8">'
+                           '          <!--  Not Logged in: nothing to show here -->'
+                           '        </td>'
+                           '      </tr>'
+                           '    </tbody>'
+                           '  </table>'
+                           '</body>',
+                      status=200)
+
+    def add_tournament_list_with_canceled_event(self):
+        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+                      body='<body>'
+                           '  <table class="table table-sm table-striped dataTable no-footer"'
+                           '         id="list_tournaments" role="grid"'
+                           '         aria-describedby="list_tournaments_info">'
+                           '    <thead></thead>'
+                           '    <tbody>'
+                           '      <tr class="odd">'
+                           '        <td data-sort="Tremonia Series #5" id="table_list_tournaments_0_0">'
+                           '          <h6 style="display:inline;">'
+                           '            <span class="badge badge-danger">'
+                           '              ABGESAGT'
+                           '            </span>'
+                           '          </h6>'
+                           '          <a class="text-muted font-italic"'
+                           '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=555">'
+                           '            Tremonia Series #5'
+                           '          </a>'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_1">'
+                           '          Dortmund'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_2" class="sorting_1">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            24.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_3" class="sorting_2">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            24.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="0" id="table_list_tournaments_0_4">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td data-sort="1614407326" id="table_list_tournaments_0_5">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_6">'
+                           '          <span class="badge badge-secondary">'
+                           '            Einzelturnier'
+                           '          </span>'
+                           '        </td>'
+                           '        <td class="d-none d-sm-table-cell" id="table_list_tournaments_0_7">'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_8">'
+                           '          <!--  Not Logged in: nothing to show here -->'
+                           '        </td>'
+                           '      </tr>'
+                           '      <tr class="even">'
+                           '        <td data-sort="Tremonia Series #6" id="table_list_tournaments_0_0">'
+                           '          <h6 style="display:inline;">'
+                           '            <span class="badge badge-warning">'
+                           '              Vorläufig'
+                           '            </span>'
+                           '          </h6>'
+                           '          <a class="text-muted font-italic"'
+                           '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=666">'
+                           '            Tremonia Series #6'
+                           '          </a>'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_1">'
+                           '          Dortmund'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_2" class="sorting_1">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            25.07.2021'
                            '          </a>'
                            '        </td>'
                            '        <td data-sort="1614380400" id="table_list_tournaments_0_3" class="sorting_2">'
