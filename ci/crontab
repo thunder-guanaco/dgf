@@ -5,9 +5,9 @@
 # │    │    │    │    ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │    │    │    │    │
 # *    *    *    *    * <command to execute> # comment
-  0    0/6  *    *    *  bash /home/ubuntu/dgf.bash fetch_pdga_data         >> /home/ubuntu/logs/cronjobs.log 2>&1
-  0    1/6  *    *    *  bash /home/ubuntu/dgf.bash fetch_gt_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
-  0    1    *    *    *  bash /home/ubuntu/dgf.bash backup                  >> /home/ubuntu/logs/cronjobs.log 2>&1
-  0    2    *    *    *  bash /home/ubuntu/dgf.bash update_udisc_scores     >> /home/ubuntu/logs/cronjobs.log 2>&1
-  0    3    *    *    *  bash /home/ubuntu/dgf.bash update_approved_discs   >> /home/ubuntu/logs/cronjobs.log 2>&1
-  0    4    *    *    *  sudo supervisorctl restart dgf_cms                 >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_pdga_data         >> /home/ubuntu/logs/cronjobs.log 2>&1
+ 30    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_gt_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     1   *    *    *  bash /home/ubuntu/dgf.bash backup                  >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     2   *    *    *  bash /home/ubuntu/dgf.bash update_udisc_scores     >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     3   *    *    *  bash /home/ubuntu/dgf.bash update_approved_discs   >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     4   *    *    *  sudo supervisorctl restart dgf_cms                 >> /home/ubuntu/logs/cronjobs.log 2>&1
