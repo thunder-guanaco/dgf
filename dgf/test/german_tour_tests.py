@@ -5,8 +5,9 @@ from django.test import TestCase
 
 from dgf import german_tour
 from dgf.german_tour import TOURNAMENT_LIST_PAGE, TOURNAMENT_ATTENDANCE_PAGE
-from dgf.models import Friend, Attendance, Tournament
+from dgf.models import Tournament, Friend, Attendance
 
+APRIL_2 = date(year=2021, month=4, day=2)
 JULY_24 = date(year=2021, month=7, day=24)
 JULY_25 = date(year=2021, month=7, day=25)
 
@@ -108,6 +109,25 @@ class GermanTourTest(TestCase):
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
         self.assertEquals(attendance_ts4.tournament, ts4)
         self.assertEquals(attendance_ts4.friend, manolo)
+
+    @responses.activate
+    def test_tournament_with_attendance_existing_tournament(self):
+        self.add_tournament_list()
+        self.add_tournament_attendance_list(333)
+        self.add_tournament_attendance_list(444)
+
+        Tournament.objects.create(name='Tremonia Series #3', begin=APRIL_2, end=APRIL_2)
+        Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_24)
+
+        german_tour.update_tournaments()
+
+        ts3 = Tournament.objects.get(name='Tremonia Series #3')
+        self.assertEquals(ts3.begin, JULY_24)
+        self.assertEquals(ts3.end, JULY_24)
+
+        ts4 = Tournament.objects.get(name='Tremonia Series #4')
+        self.assertEquals(ts4.begin, JULY_24)
+        self.assertEquals(ts4.end, JULY_25)
 
     def add_tournament_list(self):
         responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
