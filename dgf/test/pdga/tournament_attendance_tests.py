@@ -8,11 +8,12 @@ from dgf import pdga
 from dgf.models import Friend, Attendance, Tournament
 from dgf.pdga import PDGA_DATE_FORMAT, PdgaApi
 
+APRIL_2 = date(year=2021, month=4, day=2)
 JULY_24 = date(year=2021, month=7, day=24)
 JULY_25 = date(year=2021, month=7, day=25)
 
 
-class PdgaCrawlerTest(TestCase):
+class PdgaTournamentAttendanceTest(TestCase):
 
     @responses.activate
     def setUp(self):
@@ -184,12 +185,32 @@ class PdgaCrawlerTest(TestCase):
         self.assertEquals(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEquals(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
         self.assertEquals(attendance_ts4.tournament, ts4)
         self.assertEquals(attendance_ts4.friend, manolo)
+
+    @responses.activate
+    def test_upcoming_events_date_change(self):
+        self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
+        self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
+        self.get_fake_pdga_player_page_with_upcoming_events(111828)
+
+        manolo = Friend.objects.create(username='manolo', pdga_number=111828)
+        Tournament.objects.create(name='Tremonia Series #3', begin=APRIL_2, end=APRIL_2)
+        Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_24)
+
+        pdga.update_friend_tournaments(manolo, self.pdga_api)
+
+        ts3 = Tournament.objects.get(name='Tremonia Series #3')
+        self.assertEquals(ts3.begin, JULY_24)
+        self.assertEquals(ts3.end, JULY_24)
+
+        ts4 = Tournament.objects.get(name='Tremonia Series #4')
+        self.assertEquals(ts4.begin, JULY_24)
+        self.assertEquals(ts4.end, JULY_25)
 
     def add_tournament_data(self, tournament_id, tournament_name, start_date, end_date):
         search_start_date = date.today()

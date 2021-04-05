@@ -12,7 +12,7 @@ def configure_response(opened_file):
                   status=200)
 
 
-class DiscModelsTest(TestCase):
+class PdgaDiscsTest(TestCase):
 
     @responses.activate
     def test_three_discs_are_loaded(self):
