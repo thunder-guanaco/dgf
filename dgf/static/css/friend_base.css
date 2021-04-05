@@ -74,6 +74,46 @@
     text-transform: uppercase;
 }
 
+.friend-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.friend-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    line-height: normal;
+    background-color: #1b2633cc;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 105%;
+}
+
+.friend-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.friend-tooltip .tooltip-text .tooltip-smaller-text {
+    font-size: smaller;
+    font-weight: normal;
+}
+
+.friend-tooltip .tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 25%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #1b2633cc transparent transparent;
+}
+
 .friend-ball {
     margin: 0 1em;
     list-style-type: none;

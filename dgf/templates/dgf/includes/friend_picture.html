@@ -1,4 +1,4 @@
-{% load thumbnail %}
+{% load thumbnail i18n %}
 {% with clickable|default_if_none:False as clickable %}
 {% with img_size|add:img_size|stringformat:'s' as double_img_size %}
 
@@ -6,15 +6,43 @@
         <a href="/media/{{friend.main_photo}}" target="_blank">
     {% endif %}
 
-    {% if friend.main_photo %}
-        <img src="{% thumbnail friend.main_photo double_img_size|add:'x'|add:double_img_size crop %}" class="avatar-img" width="{{img_size}}px" height="{{img_size}}px"/>
-    {% else %}
-        <div class="avatar-container" style="width: {{img_size}}px; height: {{img_size}}px">
-            <div class="avatar-initials" style="font-size: {{font_size}}px; line-height: {{img_size}}px;">
-                {{friend.initials}}
+    <div class="friend-tooltip">
+        {% if friend.main_photo %}
+            <img src="{% thumbnail friend.main_photo double_img_size|add:'x'|add:double_img_size crop %}"
+                 class="avatar-img"
+                 width="{{img_size}}px"
+                 height="{{img_size}}px"/>
+        {% else %}
+            <div class="avatar-container" style="width: {{img_size}}px; height: {{img_size}}px">
+                <div class="avatar-initials" style="font-size: {{font_size}}px; line-height: {{img_size}}px;">
+                    {{friend.initials}}
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+        {% if not clickable %}
+            <span class="tooltip-text">
+                <span>{{friend.full_name}}</span>
+                {% if friend.club_role and friend.city %}
+                    <br>
+                    <span class="tooltip-smaller-text">{{friend.club_role}}</span>
+                    &nbsp;-&nbsp;
+                    <span class="tooltip-smaller-text">{{friend.city}}</span>
+                {% elif friend.club_role %}
+                    <br><span class="tooltip-smaller-text">{{friend.club_role}}</span>
+                {% elif friend.city %}
+                    <br><span class="tooltip-smaller-text">{{friend.city}}</span>
+                {% endif %}
+                {% if friend.pdga_number and friend.rating %}
+                    <br>
+                    <span class="tooltip-smaller-text">PDGA #{{friend.pdga_number}}</span>
+                    &nbsp;&nbsp;
+                    <span class="tooltip-smaller-text">{% trans "Rating" %}: {{friend.rating}}</span>
+                {% elif friend.pdga_number %}
+                    <br><span class="tooltip-smaller-text">PDGA #{{friend.pdga_number}}</span>
+                {% endif %}
+            </span>
+        {% endif %}
+    </div>
 
     {% if clickable %}
         </a>
