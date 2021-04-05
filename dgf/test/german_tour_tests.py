@@ -111,7 +111,7 @@ class GermanTourTest(TestCase):
         self.assertEquals(attendance_ts4.friend, manolo)
 
     @responses.activate
-    def test_tournament_with_attendance_existing_tournament(self):
+    def test_tournament_date_change(self):
         self.add_tournament_list()
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
