@@ -198,14 +198,21 @@ def get_upcoming_event_ids(pdga_number):
 
 
 def add_tournament(friend, pdga_tournament):
-    tournament_name = pdga_tournament['tournament_name']
+    begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
+    end_date = datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(name=tournament_name, defaults={
-        'begin': datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT),
-        'end': datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)})
-
+    tournament, created = Tournament.objects.get_or_create(name=pdga_tournament['tournament_name'],
+                                                           defaults={
+                                                               'begin': begin_date,
+                                                               'end': end_date
+                                                           })
     if created:
         logger.info(f'Created tournament {tournament}')
+    else:
+        # Always update the date. With Corona you never know
+        tournament.begin = begin_date
+        tournament.end = end_date
+        tournament.save()
 
     _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
     if created:

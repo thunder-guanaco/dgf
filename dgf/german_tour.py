@@ -51,8 +51,8 @@ def add_tournament(gt_tournament):
     tournament, created = Tournament.objects.get_or_create(name=gt_tournament['name'],
                                                            defaults={
                                                                'begin': begin_date,
-                                                               'end': end_date})
-
+                                                               'end': end_date
+                                                           })
     if created:
         logger.info(f'Created tournament {tournament}')
     else:
