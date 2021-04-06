@@ -4,9 +4,9 @@
   src: url('../font/gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 
-/* mobile on portrait */
-@media only screen and (max-width: 600px) {
-    .mobile-mini-headline {
+/* mobile on landscape */
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+    #mobile-mini-headline {
         display: none;
     }
 }
