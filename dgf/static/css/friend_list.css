@@ -1,5 +1,5 @@
 /* mobile */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1024px) {
 
     .all-friends .friend-ball img {
         width: 70px !important;
@@ -58,7 +58,7 @@
 
 
 /* desktop */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 1024px) {
 
     .all-friends .friend-ball {
         margin: 1em !important;

@@ -1,6 +1,10 @@
 import json
+import logging
 
 import requests
+from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 
 def feedback_post_save(instance):
@@ -14,12 +18,12 @@ def feedback_post_save(instance):
         'labels': ['Feedback']
     }
     headers = {
-        f'Authorization': 'token {settings.GITHUB_TOKEN}'
+        'Authorization': f'token {settings.GITHUB_TOKEN}'
     }
 
     # Add the issue to our repository
     response = requests.post(url, json.dumps(issue), headers=headers)
     if response.status_code == 201:
-        print(f'Successfully created Issue "{instance.title}"')
+        logger.info(f'Successfully created Issue "{instance.title}"')
     else:
-        print(f'Could not create Issue "{instance.title}"')
+        logger.warning(f'Could not create Issue "{instance.title}"')
