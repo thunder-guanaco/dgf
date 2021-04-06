@@ -51,7 +51,7 @@
                             </button>
                         </a>
                     {% endif %}
-                    {% if request.user.is_authenticated %}
+                    {% if friend.id == request.user.friend.id %}
                         <a class="desktop" href="{% url 'dgf:tournament_index' %}">
                             <button>
                                 {% trans 'Update tournaments' %}
@@ -66,7 +66,7 @@
                         </button>
                     </a>
                 {% endif %}
-                {% if request.user.is_authenticated %}
+                {% if friend.id == request.user.friend.id %}
                     <a class="mobile" href="{% url 'dgf:tournament_index' %}">
                         <button>
                             {% trans 'Update tournaments' %}
