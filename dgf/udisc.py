@@ -36,14 +36,21 @@ def get_full_page(course):
     options.headless = True
 
     driver = webdriver.Firefox(executable_path=settings.SELENIUM_DRIVER_EXECUTABLE_PATH, options=options)
-    driver.get(udisc_url)
 
-    body = driver.find_element_by_tag_name('body')
-    scroll_down(body, times=3)
-    click_show_more_button(driver)
+    try:
+        driver.get(udisc_url)
 
-    soup = BeautifulSoup(body.get_attribute('innerHTML'), 'html.parser')
-    driver.quit()
+        body = driver.find_element_by_tag_name('body')
+        scroll_down(body, times=3)
+        click_show_more_button(driver)
+
+        soup = BeautifulSoup(body.get_attribute('innerHTML'), 'html.parser')
+        driver.quit()
+
+    except Exception as e:
+        logger.error(f'Error while crawling udisc page: {e}')
+        driver.quit()
+        raise e
 
     return soup
 
