@@ -317,8 +317,8 @@ msgid "plays since"
 msgstr "spielt Disc Golf seit"
 
 #: dgf/templates/dgf/friend_detail.html:128
-msgid "Best score in Wischlingen (standard 18 - par 55)"
-msgstr "Beste Runde in Wischlingen (Standard 18 - par 55)"
+msgid "Best score in Wischlingen (standard 23 - par 71)"
+msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
 #: dgf/templates/dgf/friend_detail.html:135
 msgid "Discovered disc golf..."
@@ -428,8 +428,8 @@ msgid "Best players"
 msgstr "Beste Spieler (nach PDGA-Rating)"
 
 #: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:7
-msgid "Best scores in Wischlingen (standard 18 - par 55)"
-msgstr "Beste Runde in Wischlingen (Standard 18 - par 55)"
+msgid "Best scores in Wischlingen (standard 23 - par 71)"
+msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
 #: dgf/templates/dgf/includes/overview/6_next_tournaments.html:5
 msgid "Next tournaments"
