@@ -157,7 +157,7 @@ msgstr "Ich spiele Disc Golf seit"
 
 #: dgf/models.py:107
 msgid "Best score in Wischlingen (relative to par)"
-msgstr "Beste Runde in Wischlingen (relativ zu par 55)"
+msgstr "Beste Runde in Wischlingen (relativ zu par 71)"
 
 #: dgf/models.py:109
 msgid "Started playing"
