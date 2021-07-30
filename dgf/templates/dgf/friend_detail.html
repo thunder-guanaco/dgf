@@ -123,10 +123,16 @@
                     </div>
                 {% endif %}
                 {% with friend.best_score_in_wischlingen as score %}
-                    {% if score %}
+                    {% if score is not None %}
                         <div>
                             <p class="label">{% trans "Best score in Wischlingen (standard 23 - par 71)" %}</p>
-                            <p class="value">{{ score|add:"71" }} ({{score|stringformat:"+i"}})</p>
+                            <p class="value">{{ score|add:"71" }}
+                                {% if score != 0 %}
+                                    ({{score|stringformat:"+i"}})
+                                {% else %}
+                                    (E)
+                                {% endif %}
+                            </p>
                         </div>
                     {% endif %}
                 {% endwith %}
