@@ -5,11 +5,11 @@ venv
 .coverage
 
 # django
-media/
-static/CACHE
+/media/
 *.mo
 django.log*
 cronjobs.log
+/static/
 
 # sqlite
 *.db
