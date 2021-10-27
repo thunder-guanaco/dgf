@@ -117,6 +117,8 @@ class Friend(User):
     total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
+    tremonia_series_wins = models.PositiveIntegerField(_('Tremonia Series Wins'), null=False, blank=False, default=0)
+
     @property
     def full_name(self):
         nickname = f' ({self.nickname})' if self.nickname else ''
@@ -141,6 +143,13 @@ class Friend(User):
         self.slug = slugify(new_slug).lower()
         logger.info(f'Setting slug for {self.username} to {self.slug}')
         super(Friend, self).save(*args, **kwargs)
+
+
+class FriendPluginModel(CMSPlugin):
+    friend = models.ForeignKey(Friend, on_delete=CASCADE)
+
+    def __str__(self):
+        return str(self.friend)
 
 
 class UdiscRound(Model):
@@ -193,13 +202,6 @@ class Highlight(Model):
 
     def __str__(self):
         return str(self.content)
-
-
-class FriendPluginModel(CMSPlugin):
-    friend = models.ForeignKey(Friend, on_delete=CASCADE)
-
-    def __str__(self):
-        return str(self.friend)
 
 
 class Disc(models.Model):
