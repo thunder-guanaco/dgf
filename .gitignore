@@ -6,7 +6,7 @@ venv
 
 # django
 media/
-static/
+static/CACHE
 *.mo
 django.log*
 cronjobs.log

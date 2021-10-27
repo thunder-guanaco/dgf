@@ -66,10 +66,18 @@ class UdiscPluginPublisher(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+class GoogleCalendarPluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends')
+    name = _('Disc Golf Friends Calendar')
+    render_template = 'dgf/friends_calendar.html'
+
+
+@plugin_pool.register_plugin
 class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Disc Golf Friends')
-    name = _('Tremonia Series Hall Of Fame')
+    name = _('Tremonia Series - Hall Of Fame')
     render_template = 'dgf/plugins/tremonia_series_hall_of_fame.html'
 
     def render(self, context, instance, placeholder):
@@ -77,11 +85,3 @@ class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
             'friends': Friend.objects.all(),
         })
         return context
-
-
-@plugin_pool.register_plugin
-class GoogleCalendarPluginPublisher(CMSPluginBase):
-    model = CMSPlugin
-    module = _('Disc Golf Friends')
-    name = _('Disc Golf Friends Calendar')
-    render_template = 'dgf/friends_calendar.html'

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-04 22:27+0200\n"
+"POT-Creation-Date: 2021-10-27 22:01+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,11 +13,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: dgf/cms_plugins.py:13 dgf/cms_plugins.py:41 dgf/cms_plugins.py:53
-#: dgf/cms_plugins.py:71
+#: dgf/cms_plugins.py:71 dgf/cms_plugins.py:79
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:14 dgf/models.py:168 dgf/models.py:177
+#: dgf/cms_plugins.py:14 dgf/models.py:177 dgf/models.py:186
 msgid "Friend"
 msgstr "Friend"
 
@@ -40,6 +40,10 @@ msgstr "Beste Runden aus UDisc"
 #: dgf/cms_plugins.py:72
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
+
+#: dgf/cms_plugins.py:80 dgf/templates/dgf/tremonia_series_hall_of_fame.html:5
+msgid "Tremonia Series - Hall Of Fame"
+msgstr "Tremonia Series - Hall Of Fame"
 
 #: dgf/cms_toolbars.py:12 dgf/templates/dgf/friend_list.html:5
 msgid "Friends"
@@ -87,7 +91,7 @@ msgstr "ID"
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:46 dgf/models.py:297
+#: dgf/models.py:46 dgf/models.py:299
 msgid "Name"
 msgstr "Name"
 
@@ -167,7 +171,7 @@ msgstr "Ich bin zum Sport gekommen..."
 msgid "Job"
 msgstr "Das mache ich beruflich"
 
-#: dgf/models.py:111 dgf/templates/dgf/friend_detail.html:147
+#: dgf/models.py:111 dgf/templates/dgf/friend_detail.html:153
 msgid "Other hobbies"
 msgstr "Andere Hobbies"
 
@@ -176,6 +180,7 @@ msgid "Slug"
 msgstr "Slug"
 
 #: dgf/models.py:114 dgf/templates/dgf/friend_detail.html:108
+#: dgf/templates/dgf/includes/friend_picture.html:39
 msgid "Rating"
 msgstr "Rating"
 
@@ -187,105 +192,110 @@ msgstr "Gespielte Turniere"
 msgid "Total earnings"
 msgstr "Gesamtgewinn im Turniere"
 
-#: dgf/models.py:155
+#: dgf/models.py:120
+msgid "Tremonia Series Wins"
+msgstr "Tremonia Series Siege"
+
+#: dgf/models.py:164
 msgid "Last score from UDisc"
 msgstr "Letzte Runde aus UDisc"
 
-#: dgf/models.py:167 dgf/models.py:259
+#: dgf/models.py:176 dgf/models.py:261
 msgid "Course"
 msgstr "Parcours"
 
-#: dgf/models.py:175
+#: dgf/models.py:184
 msgid "Title"
 msgstr "Titel"
 
-#: dgf/models.py:176 dgf/templates/dgf/feedback_form.html:5
+#: dgf/models.py:185 dgf/templates/dgf/feedback_form.html:5
 msgid "Feedback"
 msgstr "Feedback"
 
-#: dgf/models.py:191
+#: dgf/models.py:200
 msgid "Content"
 msgstr "Inhalt"
 
-#: dgf/models.py:206
+#: dgf/models.py:208
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: dgf/models.py:207
+#: dgf/models.py:209
 msgid "Mold"
 msgstr "Scheibenmodell"
 
-#: dgf/models.py:208
+#: dgf/models.py:210
 msgid "Display name"
 msgstr "Scheibenname"
 
-#: dgf/models.py:229
+#: dgf/models.py:231
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:230
+#: dgf/models.py:232
 msgid "Mid-range"
 msgstr "Midrange"
 
-#: dgf/models.py:231
+#: dgf/models.py:233
 msgid "Fairway driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:232
+#: dgf/models.py:234
 msgid "Distance driver"
 msgstr "Distance Driver"
 
-#: dgf/models.py:234 dgf/models.py:261 dgf/models.py:286
+#: dgf/models.py:236 dgf/models.py:263 dgf/models.py:288
 msgid "Type"
 msgstr "Art"
 
-#: dgf/models.py:235
+#: dgf/models.py:237
 msgid "Amount"
 msgstr "Menge"
 
-#: dgf/models.py:236 dgf/models.py:258
+#: dgf/models.py:238 dgf/models.py:260
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:237 dgf/models.py:326
+#: dgf/models.py:239 dgf/models.py:328
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:26
 msgid "Player"
 msgstr "Spieler"
 
-#: dgf/models.py:253
+#: dgf/models.py:255
 msgid "Practice"
 msgstr "Übung"
 
-#: dgf/models.py:254
+#: dgf/models.py:256
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:255 dgf/models.py:325
+#: dgf/models.py:257 dgf/models.py:327
 #: dgf/templates/dgf/tournament_list.html:27
 msgid "Tournament"
 msgstr "Turnier"
 
-#: dgf/models.py:260
+#: dgf/models.py:262
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:262 dgf/templates/dgf/tournament_list.html:28
+#: dgf/models.py:264 dgf/templates/dgf/tournament_list.html:28
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:282 dgf/templates/dgf/friend_detail.html:186
+#: dgf/models.py:284 dgf/templates/dgf/friend_detail.html:192
 #: dgf/templates/dgf/friend_profile.html:83
 msgid "In the bag"
 msgstr "In the Bag"
 
-#: dgf/models.py:283
+#: dgf/models.py:285
 msgid "Ace"
 msgstr "Ass"
 
-#: dgf/models.py:284
+#: dgf/models.py:286
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:287
+#: dgf/models.py:289
 msgid "URL"
 msgstr "URL Addresse"
 
@@ -320,55 +330,55 @@ msgstr "spielt Disc Golf seit"
 msgid "Best score in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
-#: dgf/templates/dgf/friend_detail.html:135
+#: dgf/templates/dgf/friend_detail.html:141
 msgid "Discovered disc golf..."
 msgstr "... und ist so zum Sport gekommen"
 
-#: dgf/templates/dgf/friend_detail.html:141
+#: dgf/templates/dgf/friend_detail.html:147
 msgid "That's what I do when I'm not on the disc golf course"
 msgstr "Das mache ich, wenn ich nicht Disc Golf spiele"
 
-#: dgf/templates/dgf/friend_detail.html:153
+#: dgf/templates/dgf/friend_detail.html:159
 #: dgf/templates/dgf/friend_profile.html:59
 #: dgf/templates/dgf/includes/overview/3_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_detail.html:163
+#: dgf/templates/dgf/friend_detail.html:169
 #: dgf/templates/dgf/friend_profile.html:71
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_detail.html:173
+#: dgf/templates/dgf/friend_detail.html:179
 #: dgf/templates/dgf/friend_profile.html:114
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_detail.html:189
+#: dgf/templates/dgf/friend_detail.html:195
 #: dgf/templates/dgf/friend_profile.html:87
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_detail.html:190
+#: dgf/templates/dgf/friend_detail.html:196
 #: dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_detail.html:191
+#: dgf/templates/dgf/friend_detail.html:197
 #: dgf/templates/dgf/friend_profile.html:93
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:192
+#: dgf/templates/dgf/friend_detail.html:198
 #: dgf/templates/dgf/friend_profile.html:96
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:228
+#: dgf/templates/dgf/friend_detail.html:234
 #: dgf/templates/dgf/friend_profile.html:132
 msgid "Videos"
 msgstr "Videos"
@@ -411,6 +421,10 @@ msgstr "GESAMT"
 msgid "in a tournament"
 msgstr "davon im Turnier"
 
+#: dgf/templates/dgf/includes/friend_ball.html:14
+msgid "wins"
+msgstr "Siege"
+
 #: dgf/templates/dgf/includes/overview/0_number_of_club_members.html:3
 msgid "Number of club members"
 msgstr "Anzahl der Mitglieder"
@@ -437,6 +451,7 @@ msgstr "Nächste Turniere"
 
 #: dgf/templates/dgf/includes/overview/6_next_tournaments.html:8
 #: dgf/templates/dgf/includes/show-all-less.html:4
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:9
 msgid "(show all)"
 msgstr "(alle anzeigen)"
 
@@ -453,6 +468,11 @@ msgstr "Medien"
 msgid "Our Videos"
 msgstr "Videos der Friends"
 
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:20
+msgid "Hall Of Fame"
+msgstr "Hall Of Fame"
+
 #: dgf/templates/dgf/tournament_list.html:38
 msgid "Attend"
 msgstr "Bin dabei"
@@ -460,6 +480,14 @@ msgstr "Bin dabei"
 #: dgf/templates/dgf/tournament_list.html:41
 msgid "Withdraw"
 msgstr "Bin nicht dabei"
+
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:23
+msgid "All winners of the Tremonia Series"
+msgstr "Alle Gewinner der Tremonia Series"
+
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:27
+msgid "Wins"
+msgstr "Siege"
 
 #: dgf/templates/dgf/udisc.html:4
 msgid "Best scores in "

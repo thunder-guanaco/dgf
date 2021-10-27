@@ -2,14 +2,20 @@
 
 {% with friends|order_by:"-tremonia_series_wins" as friends_ordered_by_wins %}
 
-    <li id="hall-of-fame" class="show-all-less">
+    <div id="hall-of-fame">
         <h2>
             {% trans "Hall Of Fame" %}
-            {% include "dgf/includes/show-all-less.html" with minimum=5 amount=friends_ordered_by_wins.count %}
+            <a class="show-all" href="{% url 'dgf:tremonia_series_hall_of_fame' %}">
+                {% trans "(show all)" %}
+            </a>
         </h2>
-        <div class="inner-content">
-            {% include "dgf/includes/friend_balls.html" with friends=friends_ordered_by_wins show_name=True show_ts_wins=True %}
+        <div class="row justify-content-md-center">
+            {% for friend in friends_ordered_by_wins|slice:":3" %}
+                <div>
+                    {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_ts_wins=True %}
+                </div>
+            {% endfor %}
         </div>
-    </li>
+    </div>
 
 {% endwith %}
