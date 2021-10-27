@@ -5,8 +5,8 @@ venv
 .coverage
 
 # django
-media/
-static/CACHE
+/media/
+/static/
 *.mo
 django.log*
 cronjobs.log
