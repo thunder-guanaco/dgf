@@ -6,10 +6,10 @@ venv
 
 # django
 /media/
+/static/
 *.mo
 django.log*
 cronjobs.log
-/static/
 
 # sqlite
 *.db
