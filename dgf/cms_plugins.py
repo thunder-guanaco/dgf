@@ -37,7 +37,7 @@ class BiggerFriendPluginPublisher(FriendPluginPublisher):
 
 @plugin_pool.register_plugin
 class FriendsHeaderPluginPublisher(CMSPluginBase):
-    model = FriendPluginModel
+    model = CMSPlugin
     module = _('Disc Golf Friends')
     name = _('Friends Header')
     render_template = 'dgf/friends_header.html'
@@ -48,7 +48,7 @@ class FriendsHeaderPluginPublisher(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class UdiscsPluginPublisher(CMSPluginBase):
+class UdiscPluginPublisher(CMSPluginBase):
     model = CoursePluginModel
     module = _('Disc Golf Friends')
     name = _('UDisc Best Scores')
@@ -61,6 +61,20 @@ class UdiscsPluginPublisher(CMSPluginBase):
             'course_url': get_course_url(course),
             'rounds': UdiscRound.objects.filter(course=course).order_by('score'),
             'course': course,
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends')
+    name = _('Tremonia Series Hall Of Fame')
+    render_template = 'dgf/plugins/tremonia_series_hall_of_fame.html'
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'friends': Friend.objects.all(),
         })
         return context
 
