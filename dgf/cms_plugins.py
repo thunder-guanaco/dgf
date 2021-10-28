@@ -2,8 +2,9 @@ from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import ugettext as _
+from datetime import datetime
 
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament
 from .udisc import get_course_url
 
 
@@ -76,12 +77,27 @@ class GoogleCalendarPluginPublisher(CMSPluginBase):
 @plugin_pool.register_plugin
 class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
     model = CMSPlugin
-    module = _('Disc Golf Friends')
-    name = _('Tremonia Series - Hall Of Fame')
+    module = _('Tremonia Series')
+    name = _('Hall Of Fame')
     render_template = 'dgf/plugins/tremonia_series_hall_of_fame.html'
 
     def render(self, context, instance, placeholder):
         context.update({
             'friends': Friend.objects.all(),
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class TremoniaSeriesNextTournamentsPluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Tremonia Series')
+    name = _('Next Tournaments')
+    render_template = 'dgf/plugins/tremonia_series_next_tournaments.html'
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'tournaments': Tournament.objects.filter(name__startswith='Tremonia Series').filter(
+                begin__gte=datetime.now()).order_by('begin'),
         })
         return context
