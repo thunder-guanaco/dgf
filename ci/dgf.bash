@@ -15,5 +15,5 @@ else
     echo
     echo "You didn't type any command. See the list above"
     echo
-    return 1
+    exit 1
 fi

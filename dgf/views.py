@@ -1,5 +1,6 @@
 import datetime
 import random
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
@@ -116,3 +117,9 @@ def attendance(request, tournament_id):
         return HttpResponse(status=204)
 
     return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')
+
+
+class TremoniaSeriesHallOfFame(generic.ListView):
+    context_object_name = 'friends'
+    template_name = 'dgf/tremonia_series_hall_of_fame.html'
+    queryset = Friend.objects.filter(tremonia_series_wins__gt=0).order_by('-tremonia_series_wins')

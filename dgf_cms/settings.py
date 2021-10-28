@@ -174,12 +174,13 @@ STATICFILES_DIRS = (
 
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-# See: https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED
-COMPRESS_ENABLED = True
-COMPRESS_FILTERS = {
-    'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
-    'js': ['compressor.filters.jsmin.JSMinFilter']
-}
+if ENV == 'prod':
+    # See: https://django-compressor.readthedocs.io/en/stable/settings/#django.conf.settings.COMPRESS_ENABLED
+    COMPRESS_ENABLED = True
+    COMPRESS_FILTERS = {
+        'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
+        'js': ['compressor.filters.jsmin.JSMinFilter']
+    }
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
