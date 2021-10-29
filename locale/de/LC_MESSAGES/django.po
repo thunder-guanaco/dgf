@@ -5,45 +5,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-27 22:01+0200\n"
+"POT-Creation-Date: 2021-10-29 13:00+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dgf/cms_plugins.py:13 dgf/cms_plugins.py:41 dgf/cms_plugins.py:53
-#: dgf/cms_plugins.py:71 dgf/cms_plugins.py:79
+#: dgf/cms_plugins.py:14 dgf/cms_plugins.py:42 dgf/cms_plugins.py:54
+#: dgf/cms_plugins.py:72
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:14 dgf/models.py:177 dgf/models.py:186
+#: dgf/cms_plugins.py:15 dgf/models.py:177 dgf/models.py:186
 msgid "Friend"
 msgstr "Friend"
 
-#: dgf/cms_plugins.py:28
+#: dgf/cms_plugins.py:29
 msgid "Friend (small)"
 msgstr "Friends (klein)"
 
-#: dgf/cms_plugins.py:34
+#: dgf/cms_plugins.py:35
 msgid "Friend (big)"
 msgstr "Friend (groß)"
 
-#: dgf/cms_plugins.py:42
+#: dgf/cms_plugins.py:43
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
-#: dgf/cms_plugins.py:54
+#: dgf/cms_plugins.py:55
 msgid "UDisc Best Scores"
 msgstr "Beste Runden aus UDisc"
 
-#: dgf/cms_plugins.py:72
+#: dgf/cms_plugins.py:73
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:80 dgf/templates/dgf/tremonia_series_hall_of_fame.html:5
-msgid "Tremonia Series - Hall Of Fame"
-msgstr "Tremonia Series - Hall Of Fame"
+#: dgf/cms_plugins.py:80 dgf/cms_plugins.py:94
+msgid "Tremonia Series"
+msgstr "Tremonia Series"
+
+#: dgf/cms_plugins.py:81
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:19
+msgid "Hall Of Fame"
+msgstr "Hall Of Fame"
+
+#: dgf/cms_plugins.py:95
+msgid "Next Tournaments"
+msgstr "Nächste Turniere"
 
 #: dgf/cms_toolbars.py:12 dgf/templates/dgf/friend_list.html:5
 msgid "Friends"
@@ -71,7 +81,7 @@ msgid "New course"
 msgstr "Neuer Parcours"
 
 #: dgf/cms_toolbars.py:46 dgf/templates/dgf/tournament_list.html:5
-#: dgf/templates/dgf/tournament_list.html:24
+#: dgf/templates/dgf/tournament_list.html:23
 msgid "Tournaments"
 msgstr "Turniere"
 
@@ -256,8 +266,8 @@ msgstr "Menge"
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:239 dgf/models.py:328
-#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:26
+#: dgf/models.py:239 dgf/models.py:329
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:25
 msgid "Player"
 msgstr "Spieler"
 
@@ -269,8 +279,8 @@ msgstr "Übung"
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:257 dgf/models.py:327
-#: dgf/templates/dgf/tournament_list.html:27
+#: dgf/models.py:257 dgf/models.py:328
+#: dgf/templates/dgf/tournament_list.html:26
 msgid "Tournament"
 msgstr "Turnier"
 
@@ -278,7 +288,7 @@ msgstr "Turnier"
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:264 dgf/templates/dgf/tournament_list.html:28
+#: dgf/models.py:264 dgf/templates/dgf/tournament_list.html:27
 msgid "Date"
 msgstr "Datum"
 
@@ -295,7 +305,7 @@ msgstr "Ass"
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:289
+#: dgf/models.py:289 dgf/models.py:300
 msgid "URL"
 msgstr "URL Addresse"
 
@@ -468,24 +478,23 @@ msgstr "Medien"
 msgid "Our Videos"
 msgstr "Videos der Friends"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
-#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:20
-msgid "Hall Of Fame"
-msgstr "Hall Of Fame"
-
-#: dgf/templates/dgf/tournament_list.html:38
+#: dgf/templates/dgf/tournament_list.html:37
 msgid "Attend"
 msgstr "Bin dabei"
 
-#: dgf/templates/dgf/tournament_list.html:41
+#: dgf/templates/dgf/tournament_list.html:40
 msgid "Withdraw"
 msgstr "Bin nicht dabei"
 
-#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:23
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:5
+msgid "Tremonia Series - Hall Of Fame"
+msgstr "Tremonia Series - Hall Of Fame"
+
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:22
 msgid "All winners of the Tremonia Series"
 msgstr "Alle Gewinner der Tremonia Series"
 
-#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:27
+#: dgf/templates/dgf/tremonia_series_hall_of_fame.html:26
 msgid "Wins"
 msgstr "Siege"
 

@@ -297,6 +297,7 @@ class Tournament(models.Model):
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
+    url = models.URLField(_('URL'), null=True, blank=False)
 
     @property
     def date(self):
