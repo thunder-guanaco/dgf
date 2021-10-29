@@ -11,8 +11,12 @@ DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?cont
 TREMONIA_SERIES_ID = '715021'
 
 
+def build_url(id):
+    return DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
+
+
 def get_tournament(id):
-    url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
+    url = build_url(id)
     logger.info(f'GET {url}')
     return requests.get(url).json()['Competition']
 
@@ -27,7 +31,8 @@ def add_tournament(ts_tournament):
     tournament, created = Tournament.objects.get_or_create(name=extract_name(ts_tournament),
                                                            defaults={
                                                                'begin': date,
-                                                               'end': date
+                                                               'end': date,
+                                                               'url': build_url(ts_tournament['ID'])
                                                            })
     if created:
         logger.info(f'Created tournament {tournament}')
