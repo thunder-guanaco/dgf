@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# CHECK ARGUMENTS
-if [[ ! "$1" =~ (test|makemigrations|runcrons|runserver|shell|makemessages|compilemessages) ]]
-then
-  echo -e "\n  Usage: $0 <test, makemigrations, runcrons, runserver, shell, makemessages, compilemessages>\n"
-  exit 1
-fi
-
 # VIRTUALENV + DEPENDENCIES
 . env/bin/activate
 pip install -r requirements.txt
@@ -27,7 +20,7 @@ case "$1" in
   test)
     export DJANGO_ENV="test"
     ;;
-  makemigrations|runcrons|runserver|shell|makemessages|compilemessages)
+  *)
     export DJANGO_ENV="dev"
     ;;
 esac
@@ -42,17 +35,8 @@ case "$1" in
     export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
     pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8 -s
     ;;
-  makemigrations)
-    python manage.py makemigrations
-    ;;
-  runcrons)
-    python manage.py runcrons
-    ;;
   runserver)
     python manage.py runserver 0.0.0.0:8000
-    ;;
-  shell)
-    python manage.py shell
     ;;
   makemessages)
     python manage.py makemessages -l de -i env
@@ -60,4 +44,6 @@ case "$1" in
   compilemessages)
     python manage.py compilemessages -l de
     ;;
+  *)
+    python manage.py $1
 esac
