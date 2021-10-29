@@ -2,7 +2,7 @@
     {% for tournament in tournaments %}
         <li class="center">
             <strong>
-                <a href="https://discgolfmetrix.com/{{tournament.url}}" target="_blank">{{tournament.date}}</a>
+                <a href="{{tournament.url}}" target="_blank">{{tournament.date}}</a>
             </strong>
         </li>
     {% endfor %}
