@@ -9,7 +9,12 @@ logger = logging.getLogger(__name__)
 
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
 DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
-TREMONIA_SERIES_ID = '715021'
+TREMONIA_SERIES_ROOT_ID = '715021'
+DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
+
+
+def build_url(id):
+    return DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
 
 
 def get_tournament(id):
@@ -23,7 +28,7 @@ def extract_name(ts_tournament):
 
 
 def add_tournament(ts_tournament):
-    date = datetime.strptime(ts_tournament['Date'], '%Y-%m-%d')
+    date = datetime.strptime(ts_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
 
     tournament, created = Tournament.objects.get_or_create(name=extract_name(ts_tournament),
                                                            defaults={
@@ -42,7 +47,7 @@ def create_tournament(id):
 
 
 def update_tournaments():
-    tournament = get_tournament(TREMONIA_SERIES_ID)
+    tournament = get_tournament(TREMONIA_SERIES_ROOT_ID)
     for event in tournament['Events']:
         if not event['Name'].startswith('[DELETED]'):
             create_tournament(event['ID'])
