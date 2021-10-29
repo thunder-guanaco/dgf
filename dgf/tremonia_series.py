@@ -8,6 +8,7 @@ from dgf.models import Tournament
 logger = logging.getLogger(__name__)
 
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
+DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
 TREMONIA_SERIES_ROOT_ID = '715021'
 DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
 
@@ -17,7 +18,7 @@ def build_url(id):
 
 
 def get_tournament(id):
-    url = build_url(id)
+    url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
     logger.info(f'GET {url}')
     return requests.get(url).json()['Competition']
 
@@ -33,7 +34,8 @@ def add_tournament(ts_tournament):
                                                            defaults={
                                                                'begin': date,
                                                                'end': date,
-                                                               'url': build_url(ts_tournament['ID'])
+                                                               'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(
+                                                                   (ts_tournament['ID']))
                                                            })
     if created:
         logger.info(f'Created tournament {tournament}')

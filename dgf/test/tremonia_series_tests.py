@@ -6,7 +6,8 @@ from django.test import TestCase
 
 from dgf import tremonia_series
 from dgf.models import Tournament
-from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID
+from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID, \
+    DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 
 class TremoniaSeriesTest(TestCase):
@@ -88,4 +89,4 @@ class TremoniaSeriesTest(TestCase):
         tournament = tournaments.get(name__startswith=f'Tremonia Series #{id}')
         self.assertEquals(tournament.begin, date(year=1000 * id, month=1, day=1))
         self.assertEquals(tournament.end, date(year=1000 * id, month=1, day=1))
-        self.assertEquals(tournament.url, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id))
+        self.assertEquals(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id))
