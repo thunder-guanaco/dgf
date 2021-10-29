@@ -13,10 +13,6 @@ TREMONIA_SERIES_ROOT_ID = '715021'
 DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
 
 
-def build_url(id):
-    return DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
-
-
 def get_tournament(id):
     url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
     logger.info(f'GET {url}')
