@@ -33,7 +33,7 @@ case "$1" in
 
   test)
     export DJANGO_SETTINGS_MODULE="dgf_cms.settings"
-    pytest --cov=dgf --cov-config=.coveragerc --ignore=env  --flakes --pep8 -s
+    pytest --cov=dgf --cov-config=.coveragerc --cov-report term-missing --ignore=env  --flakes --pep8 -s
     ;;
   runserver)
     python manage.py runserver 0.0.0.0:8000
