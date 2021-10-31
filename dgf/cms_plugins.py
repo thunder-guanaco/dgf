@@ -1,8 +1,9 @@
+from datetime import datetime
+
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import ugettext as _
-from datetime import datetime
 
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament
 from .udisc import get_course_url
@@ -13,7 +14,7 @@ class FriendPluginPublisher(CMSPluginBase):
     model = FriendPluginModel
     module = _('Disc Golf Friends')
     name = _('Friend')
-    render_template = 'dgf/friend_plugin.html'
+    render_template = 'dgf/plugins/friend.html'
     zoom = '1'
 
     def render(self, context, instance, placeholder):
@@ -41,7 +42,7 @@ class FriendsHeaderPluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Disc Golf Friends')
     name = _('Friends Header')
-    render_template = 'dgf/friends_header.html'
+    render_template = 'dgf/plugins/friends_header.html'
 
     def render(self, context, instance, placeholder):
         context.update({'friends': Friend.objects.all().order_by('?')})
@@ -53,7 +54,7 @@ class UdiscPluginPublisher(CMSPluginBase):
     model = CoursePluginModel
     module = _('Disc Golf Friends')
     name = _('UDisc Best Scores')
-    render_template = 'dgf/udisc.html'
+    render_template = 'dgf/plugins/udisc.html'
 
     def render(self, context, instance, placeholder):
         course = instance.course
@@ -71,7 +72,7 @@ class GoogleCalendarPluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Disc Golf Friends')
     name = _('Disc Golf Friends Calendar')
-    render_template = 'dgf/friends_calendar.html'
+    render_template = 'dgf/plugins/calendar.html'
 
 
 @plugin_pool.register_plugin
@@ -83,7 +84,7 @@ class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({
-            'friends': Friend.objects.all(),
+            'friends': Friend.objects.all().order_by('-tremonia_series_wins'),
         })
         return context
 
