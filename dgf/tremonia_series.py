@@ -3,7 +3,7 @@ from datetime import datetime
 
 import requests
 
-from dgf.models import Tournament
+from dgf.models import Tournament, Result, Friend
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +22,30 @@ def get_tournament(id):
 def extract_name(ts_tournament):
     return ts_tournament['Name'].split(' &rarr; ')[1]
 
+
+def find_friend(ts_tournament):
+    try:
+        return Friend.objects.get(metrix_user_id=ts_tournament['UserID'])
+    except Friend.DoesNotExist:
+        try:
+            return Friend.objects.get(first_name__icontains=ts_tournament['Name'])
+        except Friend.DoesNotExist:
+            first_name, last_name = ts_tournament['Name'].split(' ')
+            # The Disc Golf Metrix user does not belong to the Disc Golf Friends.
+            # We do not want them to appear everywhere.
+            # Hence: active=False
+            Friend.objects.create(first_name=first_name,
+                                  last_name=last_name,
+                                  metrix_user_id=ts_tournament['UserID'],
+                                  is_active=False)
+
+    def add_results(tournament, ts_tournament):
+        import ipdb
+        ipdb.set_trace()
+        for ts_tournament in ts_tournament['TourResults']:
+            Result.objects.create(tournament=tournament,
+                                  friend=find_friend(ts_tournament),
+                                  position=ts_tournament['Place'])
 
 def add_tournament(ts_tournament):
     name = extract_name(ts_tournament)
@@ -43,11 +67,11 @@ def add_tournament(ts_tournament):
         tournament.end = date
         tournament.save()
 
+        add_results(tournament, ts_tournament)
 
 def create_tournament(id):
     tournament = get_tournament(id)
     add_tournament(tournament)
-
 
 def update_tournaments():
     tournament = get_tournament(TREMONIA_SERIES_ROOT_ID)
