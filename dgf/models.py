@@ -81,7 +81,21 @@ class CoursePluginModel(CMSPlugin):
         return str(self.course)
 
 
+class OnlyFriendsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+
+class NonFriendsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=False)
+
+
 class Friend(User):
+    objects = OnlyFriendsManager()
+    all_objects = models.Manager()
+    non_friends = NonFriendsManager()
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
@@ -351,27 +365,10 @@ class Result(Model):
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
     position = models.PositiveIntegerField(_('Position'), null=False, blank=False)
 
-    def ordinal(self, n):
-        return str(n) + {1: 'st', 2: 'nd', 3: 'rd'}.get(4 if 10 <= n % 100 < 20 else n % 10, "th")
+    @property
+    def ordinal_position(self):
+        return str(self.position) + {1: 'st', 2: 'nd', 3: 'rd'}.get(
+            4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
 
     def __str__(self):
-        return f'{self.friend} was {self.ordinal(self.position)} at {self.tournament}'
-
-
-class Result(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['tournament', 'friend', 'position'],
-                                    name='the same tournament can not be played twice'),
-        ]
-
-    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results',
-                                   verbose_name=_('Tournament'))
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
-    position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
-
-    def ordinal(self, n):
-        return str(n) + {1: 'st', 2: 'nd', 3: 'rd'}.get(4 if 10 <= n % 100 < 20 else n % 10, "th")
-
-    def __str__(self):
-        return f'{self.friend} was {self.ordinal(self.position)} at {self.tournament}'
+        return f'{self.friend} was {self.ordinal_position} at {self.tournament}'

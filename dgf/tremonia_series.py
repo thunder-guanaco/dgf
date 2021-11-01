@@ -2,8 +2,9 @@ import logging
 from datetime import datetime
 
 import requests
+from django.utils.text import slugify
 
-from dgf.models import Tournament, Result, Friend
+from dgf.models import Tournament, Result, Friend, Attendance
 
 logger = logging.getLogger(__name__)
 
@@ -23,29 +24,77 @@ def extract_name(ts_tournament):
     return ts_tournament['Name'].split(' &rarr; ')[1]
 
 
-def find_friend(ts_tournament):
-    try:
-        return Friend.objects.get(metrix_user_id=ts_tournament['UserID'])
-    except Friend.DoesNotExist:
-        try:
-            return Friend.objects.get(first_name__icontains=ts_tournament['Name'])
-        except Friend.DoesNotExist:
-            first_name, last_name = ts_tournament['Name'].split(' ')
-            # The Disc Golf Metrix user does not belong to the Disc Golf Friends.
-            # We do not want them to appear everywhere.
-            # Hence: active=False
-            Friend.objects.create(first_name=first_name,
-                                  last_name=last_name,
-                                  metrix_user_id=ts_tournament['UserID'],
-                                  is_active=False)
+def get_results(ts_tournament):
+    if 'TourResults' in ts_tournament:
+        return ts_tournament['TourResults']
+    else:
+        return ts_tournament['SubCompetitions'][0]['Results']
 
-    def add_results(tournament, ts_tournament):
-        import ipdb
-        ipdb.set_trace()
-        for ts_tournament in ts_tournament['TourResults']:
-            Result.objects.create(tournament=tournament,
-                                  friend=find_friend(ts_tournament),
-                                  position=ts_tournament['Place'])
+
+def find_friend_by_user_id(user_id):
+    if user_id is None:
+        return None
+    else:
+        try:
+            return Friend.objects.get(metrix_user_id=user_id)
+        except Friend.DoesNotExist:
+            return None
+
+
+def find_friend_by_name(name, user_id):
+    names = name.split(' ')
+    # The Disc Golf Metrix user does not belong to the Disc Golf Friends.
+    # We do not want them to appear everywhere.
+    # Hence: active=False
+    slugified_name = slugify(name)
+    friend, created = Friend.all_objects.get_or_create(username=slugified_name,
+                                                       defaults={
+                                                           'slug': slugified_name,
+                                                           'first_name': names[0],
+                                                           'last_name': ' '.join(names[1:]),
+                                                           'metrix_user_id': user_id,
+                                                           'is_active': False
+                                                       })
+    if created:
+        logger.info(f'Created friend {friend}')
+
+    return friend
+
+
+def find_friend(ts_result):
+    user_id = ts_result['UserID']
+    friend = find_friend_by_user_id(user_id)
+    if friend is None:
+        friend = find_friend_by_name(ts_result['Name'], ts_result['UserID'])
+    return friend
+
+
+def get_position(ts_result):
+    try:
+        return ts_result['Place']
+    except KeyError:
+        return ts_result['OrderNumber']
+
+
+def add_results(tournament, ts_tournament):
+    for ts_result in get_results(ts_tournament):
+        friend = find_friend(ts_result)
+        logger.info(f'Got friend: {friend}')
+        _, created = Result.objects.get_or_create(tournament=tournament,
+                                                  friend=friend,
+                                                  position=get_position(ts_result))
+        if created:
+            logger.info(f'Added attendance of {friend} to {tournament}')
+
+
+def add_attendance(tournament, ts_tournament):
+    for ts_result in get_results(ts_tournament):
+        friend = find_friend(ts_result)
+        logger.info(f'Got friend: {friend}')
+        _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
+        if created:
+            logger.info(f'Added attendance of {friend} to {tournament}')
+
 
 def add_tournament(ts_tournament):
     name = extract_name(ts_tournament)
@@ -58,6 +107,7 @@ def add_tournament(ts_tournament):
             'begin': date,
             'end': date,
         })
+
     if created:
         logger.info(f'Created tournament {tournament}')
     else:
@@ -67,11 +117,21 @@ def add_tournament(ts_tournament):
         tournament.end = date
         tournament.save()
 
+    return tournament
+
+
+def create_tournament(metrix_id):
+    ts_tournament = get_tournament(metrix_id)
+    tournament = add_tournament(ts_tournament)
+
+    if tournament.date >= datetime.today():
+        # tournament either not played yet or still in play
+        add_attendance(tournament, ts_tournament)
+
+    elif tournament.results.count() == 0:
+        # tournament already played but without results
         add_results(tournament, ts_tournament)
 
-def create_tournament(id):
-    tournament = get_tournament(id)
-    add_tournament(tournament)
 
 def update_tournaments():
     tournament = get_tournament(TREMONIA_SERIES_ROOT_ID)
