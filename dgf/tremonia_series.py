@@ -24,17 +24,24 @@ def extract_name(ts_tournament):
 
 
 def add_tournament(ts_tournament):
+    name = extract_name(ts_tournament)
     date = datetime.strptime(ts_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(name=extract_name(ts_tournament),
-                                                           defaults={
-                                                               'begin': date,
-                                                               'end': date,
-                                                               'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(
-                                                                   (ts_tournament['ID']))
-                                                           })
+    tournament, created = Tournament.objects.get_or_create(
+        url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(ts_tournament['ID']),
+        defaults={
+            'name': name,
+            'begin': date,
+            'end': date,
+        })
     if created:
         logger.info(f'Created tournament {tournament}')
+    else:
+        # Always update the name and the dates
+        tournament.name = name
+        tournament.begin = date
+        tournament.end = date
+        tournament.save()
 
 
 def create_tournament(id):

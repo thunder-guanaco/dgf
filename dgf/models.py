@@ -294,6 +294,11 @@ class Video(Model):
 
 
 class Tournament(models.Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['url'], name='unique_url_for_tournament'),
+        ]
+
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
