@@ -330,3 +330,22 @@ class Attendance(Model):
 
     def __str__(self):
         return f'{self.tournament} - {self.friend}'
+
+
+class Result(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['tournament', 'friend', 'position'],
+                                    name='the same tournament can not be played twice'),
+        ]
+
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results',
+                                   verbose_name=_('Tournament'))
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
+    position = models.PositiveIntegerField(_('Position'), null=False, blank=False)
+
+    def ordinal(self, n):
+        return str(n) + {1: 'st', 2: 'nd', 3: 'rd'}.get(4 if 10 <= n % 100 < 20 else n % 10, "th")
+
+    def __str__(self):
+        return f'{self.friend} was {self.ordinal(self.position)} at {self.tournament}'
