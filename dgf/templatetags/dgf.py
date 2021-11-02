@@ -101,10 +101,17 @@ def dgf_version():
 @register.simple_tag
 def all_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-                             .filter(begin__gte=datetime.now(), players_count__gt=0) \
-                             .order_by('begin')
+        .filter(begin__gte=datetime.now(),
+                attendance__friend__is_active=True,
+                players_count__gt=0) \
+        .order_by('begin')
 
 
 @register.filter
 def attends(tournament, friend):
     return tournament.attendance.filter(friend=friend).exists()
+
+
+@register.filter
+def active(attendance):
+    return attendance.filter(friend__is_active=True)
