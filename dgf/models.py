@@ -152,7 +152,8 @@ class Friend(User):
 
     def __str__(self):
         pdga_number = f' #{self.pdga_number}' if self.pdga_number else ''
-        return f'{self.first_name} {self.last_name}{pdga_number}'
+        show_if_inactive = ' (not DGF)' if not self.is_active else ''
+        return f'{self.first_name} {self.last_name}{pdga_number}{show_if_inactive}'
 
     def save(self, *args, **kwargs):
         new_slug = self.slug or self.nickname or self.first_name or self.username
