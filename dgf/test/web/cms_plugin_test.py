@@ -134,7 +134,7 @@ class DgfPluginsTests(TestCase):
             Tournament.objects.create(begin=future_day,
                                       end=future_day,
                                       name='Tremonia Open 3000',
-                                      url='http://example.com/to2000'),
+                                      url='http://example.com/to3000'),
 
             Tournament.objects.create(begin=future_day + timedelta(days=1),
                                       end=future_day + timedelta(days=1),
