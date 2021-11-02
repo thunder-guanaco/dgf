@@ -43,7 +43,7 @@ class TremoniaSeriesTest(TestCase):
         Friend.all_objects.all().delete()
         expected = Friend.objects.create(username='manuel-garcia-garcia')
 
-        friend = tremonia_series.find_friend(user_id='123', name='Manuel García García')
+        friend = tremonia_series.find_friend(user_id='123', name='Manuel, García García')
 
         self.assertEqual(friend.username, expected.username)
 
@@ -113,11 +113,28 @@ class TremoniaSeriesTest(TestCase):
         self.assertEqual(friend.metrix_user_id, '123')
         self.assertEqual(friend.is_active, False)
 
+    def test_find_non_existing_friend_with_similar_existing_friends_without_metrix_user_id(self):
+        Friend.all_objects.all().delete()
+        Friend.objects.create(username='manolo',
+                              slug='manolo',
+                              first_name='Manuel',
+                              last_name='García García')
+        Friend.objects.create(username='manolo2',
+                              slug='manol2',
+                              first_name='Manuel',
+                              last_name='García García')
+
+        friend = tremonia_series.find_friend(user_id=None, name='Manuel García García')
+
+        self.assertEqual(friend.username, 'manuel-garcia-garcia')
+        self.assertEqual(friend.slug, 'manuel-garcia-garcia')
+        self.assertEqual(friend.first_name, 'Manuel')
+        self.assertEqual(friend.last_name, 'García García')
+        self.assertEqual(friend.metrix_user_id, None)
+        self.assertEqual(friend.is_active, False)
+
     @responses.activate
     def test_tournaments(self):
-        Friend.objects.all().delete()
-        Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
-        Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         Tournament.objects.all().delete()
         self.add_three_tournaments()
 

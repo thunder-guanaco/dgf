@@ -364,7 +364,7 @@ class Result(Model):
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results',
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
-    position = models.PositiveIntegerField(_('Position'), null=False, blank=False)
+    position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
 
     @property
     def ordinal_position(self):
