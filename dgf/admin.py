@@ -49,16 +49,26 @@ class VideoInline(admin.TabularInline):
 
 class FriendAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('', {
+        ('Basic', {
             'fields': [
                 'username',
                 ('first_name', 'last_name', 'nickname'),
+            ]}
+         ),
+        ('External IDs', {
+            'fields': [
+                'pdga_number',
+                'gt_number',
+                'udisc_username',
+                'metrix_user_id',
+            ]}
+         ),
+        ('Rest', {
+            'fields': [
                 'club_role',
                 'sponsor',
                 'sponsor_logo',
                 'sponsor_link',
-                'udisc_username',
-                'pdga_number',
                 'division',
                 'city',
                 'main_photo',
