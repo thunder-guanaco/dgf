@@ -42,7 +42,7 @@
                             {% endif %}
                     </li>
                     <li id="tournament-{{ tournament.id }}-players" class="line">
-                        {% for attendance in tournament.attendance.all %}
+                        {% for attendance in tournament.attendance.all|active %}
                             {% if not authenticated or attendance.friend.id is not friend.id %}
                                 {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=True %}
                             {% endif %}

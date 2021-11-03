@@ -99,6 +99,6 @@ class TremoniaSeriesNextTournamentsPluginPublisher(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'tournaments': Tournament.objects.filter(name__startswith='Tremonia Series').filter(
-                begin__gte=datetime.now()).order_by('begin'),
+                begin__gte=datetime.today()).order_by('begin'),
         })
         return context
