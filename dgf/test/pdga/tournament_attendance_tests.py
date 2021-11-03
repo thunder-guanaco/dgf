@@ -60,11 +60,11 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 1)
+        self.assertEqual(len(attendance_list), 1)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_next_event_no_attendance_no_tournament(self):
@@ -76,13 +76,13 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 1)
+        self.assertEqual(len(attendance_list), 1)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.name, 'Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.begin, JULY_24)
-        self.assertEquals(attendance_ts3.tournament.end, JULY_24)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_ts3.tournament.end, JULY_24)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_next_event_no_attendance_existing_tournament(self):
@@ -95,11 +95,11 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 1)
+        self.assertEqual(len(attendance_list), 1)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_next_event_existing_attendance_existing_tournament(self):
@@ -113,11 +113,11 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 1)
+        self.assertEqual(len(attendance_list), 1)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_upcoming_events_no_attendance_no_tournaments(self):
@@ -130,19 +130,19 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.name, 'Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.begin, JULY_24)
-        self.assertEquals(attendance_ts3.tournament.end, JULY_24)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_ts3.tournament.end, JULY_24)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.begin, JULY_24)
-        self.assertEquals(attendance_ts4.tournament.end, JULY_25)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament.name, 'Tremonia Series #4')
+        self.assertEqual(attendance_ts4.tournament.begin, JULY_24)
+        self.assertEqual(attendance_ts4.tournament.end, JULY_25)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_upcoming_events_no_attendance_existing_tournaments(self):
@@ -157,15 +157,15 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament, ts4)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament, ts4)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_upcoming_events_existing_attendance_existing_tournaments(self):
@@ -182,15 +182,15 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
         self.assertEqual(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament, ts4)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament, ts4)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_upcoming_events_date_change(self):
@@ -205,12 +205,12 @@ class PdgaTournamentAttendanceTest(TestCase):
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         ts3 = Tournament.objects.get(name='Tremonia Series #3')
-        self.assertEquals(ts3.begin, JULY_24)
-        self.assertEquals(ts3.end, JULY_24)
+        self.assertEqual(ts3.begin, JULY_24)
+        self.assertEqual(ts3.end, JULY_24)
 
         ts4 = Tournament.objects.get(name='Tremonia Series #4')
-        self.assertEquals(ts4.begin, JULY_24)
-        self.assertEquals(ts4.end, JULY_25)
+        self.assertEqual(ts4.begin, JULY_24)
+        self.assertEqual(ts4.end, JULY_25)
 
     def add_tournament_data(self, tournament_id, tournament_name, start_date, end_date):
         search_start_date = date.today()
