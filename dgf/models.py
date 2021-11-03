@@ -3,6 +3,7 @@ import re
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
+from django.contrib.auth.models import UserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
@@ -81,19 +82,19 @@ class CoursePluginModel(CMSPlugin):
         return str(self.course)
 
 
-class OnlyFriendsManager(models.Manager):
+class OnlyFriendsManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
 
 
-class NonFriendsManager(models.Manager):
+class NonFriendsManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=False)
 
 
 class Friend(User):
     objects = OnlyFriendsManager()
-    all_objects = models.Manager()
+    all_objects = UserManager()
     non_friends = NonFriendsManager()
 
     class Meta:
