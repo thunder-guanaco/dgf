@@ -19,14 +19,21 @@ class AddTestCase(TestCase):
     ])
     @override_settings(ROOT_URLCONF='dgf.test.urls')
     def test_dgf_pages(self, url_name, args):
-        friend, created = Friend.objects.get_or_create(defaults={'username': 'test',
-                                                                 'slug': 'test'})
-        friend.set_password('12345')
-        friend.save()
+        self.create_test_friend()
 
         client = Client()
         client.login(username='test', password='12345')
         response = client.get(reverse(url_name, args=args))
+
+        self.assertEqual(response.status_code, 200)
+
+    @override_settings(ROOT_URLCONF='dgf.test.urls')
+    def test_update_profile(self):
+        self.create_test_friend()
+
+        client = Client()
+        client.login(username='test', password='12345')
+        response = client.post(reverse('dgf:friend_update'))
 
         self.assertEqual(response.status_code, 200)
 
@@ -42,3 +49,9 @@ class AddTestCase(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/')
+
+    def create_test_friend(self):
+        Friend.objects.all().delete()
+        friend = Friend.objects.create(username='test', slug='test')
+        friend.set_password('12345')
+        friend.save()
