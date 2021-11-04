@@ -7,8 +7,12 @@ from parameterized import parameterized
 
 from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher, SmallerFriendPluginPublisher, \
     BiggerFriendPluginPublisher, UdiscPluginPublisher, GoogleCalendarPluginPublisher, \
-    TremoniaSeriesHallOfFamePluginPublisher, TremoniaSeriesNextTournamentsPluginPublisher
-from ...models import Friend, Course, UdiscRound, Tournament
+    TremoniaSeriesNextTournamentsPluginPublisher, TremoniaSeriesHallOfFamePluginPublisher, \
+    TremoniaSeriesHallOfFamePagePluginPublisher
+from ...models import Friend, Course, UdiscRound, Tournament, Result
+
+PAST_DAY = date(year=2000, month=1, day=1)
+FUTURE_DAY = date(year=3000, month=1, day=1)
 
 
 class DgfPluginsTests(TestCase):
@@ -66,12 +70,32 @@ class DgfPluginsTests(TestCase):
     def test_google_calendar_plugin(self):
         self.render_plugin(GoogleCalendarPluginPublisher)
 
-    def test_tremonia_series_hall_of_fame_plugin(self):
-        self.create_3_friends(wins=[5, 1, 3])
+    @parameterized.expand([
+        (TremoniaSeriesHallOfFamePluginPublisher,),
+        (TremoniaSeriesHallOfFamePagePluginPublisher,),
+    ])
+    def test_tremonia_series_hall_of_fame_plugin(self, plugin_class):
+        friends = self.create_3_friends()
+        tournaments = self.create_tournaments()
+        Result.objects.all().delete()
 
-        context = self.render_plugin(TremoniaSeriesHallOfFamePluginPublisher)
+        Result.objects.create(friend=friends[0], tournament=tournaments[1], position=1)
+        Result.objects.create(friend=friends[0], tournament=tournaments[3], position=3)
+        Result.objects.create(friend=friends[0], tournament=tournaments[4], position=1)
 
-        self.assertEqual([friend.username for friend in context['friends']], ['test_0', 'test_2', 'test_1'])
+        Result.objects.create(friend=friends[1], tournament=tournaments[1], position=1)
+        Result.objects.create(friend=friends[1], tournament=tournaments[3], position=1)
+        Result.objects.create(friend=friends[1], tournament=tournaments[4], position=2)
+
+        Result.objects.create(friend=friends[2], tournament=tournaments[0], position=1)  # not TS
+        Result.objects.create(friend=friends[2], tournament=tournaments[1], position=3)
+        Result.objects.create(friend=friends[2], tournament=tournaments[2], position=1)  # not TS
+        Result.objects.create(friend=friends[2], tournament=tournaments[3], position=2)
+        Result.objects.create(friend=friends[2], tournament=tournaments[4], position=1)
+
+        context = self.render_plugin(plugin_class)
+
+        self.assertEqual([friend.username for friend in context['friends']], ['test_1', 'test_0', 'test_2'])
 
     def test_tremonia_series_next_tournaments_plugin(self):
         self.create_tournaments()
@@ -96,11 +120,10 @@ class DgfPluginsTests(TestCase):
         Friend.objects.all().delete()
         return Friend.objects.create(username=username, first_name=username)
 
-    def create_3_friends(self, wins=[0, 0, 0]):
+    def create_3_friends(self):
         Friend.objects.all().delete()
         return [Friend.objects.create(username=f'test_{i}',
-                                      first_name=f'test_{i}',
-                                      tremonia_series_wins=wins[i]) for i
+                                      first_name=f'test_{i}') for i
                 in range(3)]
 
     def create_1_course(self, name, udisc_id):
@@ -116,33 +139,30 @@ class DgfPluginsTests(TestCase):
                 for i, friend in enumerate(friends)]
 
     def create_tournaments(self):
-        past_day = date(year=2000, month=1, day=1)
-        future_day = date(year=3000, month=1, day=1)
-
         Tournament.objects.all().delete()
         return [
-            Tournament.objects.create(begin=past_day,
-                                      end=past_day,
+            Tournament.objects.create(begin=PAST_DAY,
+                                      end=PAST_DAY,
                                       name='Tremonia Open 2000',
                                       url='http://example.com/to2000'),
 
-            Tournament.objects.create(begin=past_day,
-                                      end=past_day,
+            Tournament.objects.create(begin=PAST_DAY,
+                                      end=PAST_DAY,
                                       name='Tremonia Series #1',
                                       url='http://example.com/ts1'),
 
-            Tournament.objects.create(begin=future_day,
-                                      end=future_day,
+            Tournament.objects.create(begin=FUTURE_DAY,
+                                      end=FUTURE_DAY,
                                       name='Tremonia Open 3000',
                                       url='http://example.com/to3000'),
 
-            Tournament.objects.create(begin=future_day + timedelta(days=1),
-                                      end=future_day + timedelta(days=1),
+            Tournament.objects.create(begin=FUTURE_DAY + timedelta(days=1),
+                                      end=FUTURE_DAY + timedelta(days=1),
                                       name='Tremonia Series #9999',
                                       url='http://example.com/ts9999'),
 
-            Tournament.objects.create(begin=future_day,
-                                      end=future_day,
+            Tournament.objects.create(begin=FUTURE_DAY,
+                                      end=FUTURE_DAY,
                                       name='Tremonia Series #8888',
                                       url='http://example.com/ts8888'),
         ]
