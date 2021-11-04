@@ -50,19 +50,19 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.name, 'Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament.begin, JULY_24)
-        self.assertEquals(attendance_ts3.tournament.end, JULY_24)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_ts3.tournament.end, JULY_24)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament.begin, JULY_24)
-        self.assertEquals(attendance_ts4.tournament.end, JULY_25)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament.name, 'Tremonia Series #4')
+        self.assertEqual(attendance_ts4.tournament.begin, JULY_24)
+        self.assertEqual(attendance_ts4.tournament.end, JULY_25)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_tournament_with_attendance_existing_tournaments(self):
@@ -76,15 +76,15 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament, ts4)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament, ts4)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_tournament_with_attendance_existing_attendance_existing_tournaments(self):
@@ -100,15 +100,15 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
-        self.assertEquals(len(attendance_list), 2)
+        self.assertEqual(len(attendance_list), 2)
 
         attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
-        self.assertEquals(attendance_ts3.tournament, ts3)
-        self.assertEquals(attendance_ts3.friend, manolo)
+        self.assertEqual(attendance_ts3.tournament, ts3)
+        self.assertEqual(attendance_ts3.friend, manolo)
 
         attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
-        self.assertEquals(attendance_ts4.tournament, ts4)
-        self.assertEquals(attendance_ts4.friend, manolo)
+        self.assertEqual(attendance_ts4.tournament, ts4)
+        self.assertEqual(attendance_ts4.friend, manolo)
 
     @responses.activate
     def test_tournament_date_change(self):
@@ -122,12 +122,12 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         ts3 = Tournament.objects.get(name='Tremonia Series #3')
-        self.assertEquals(ts3.begin, JULY_24)
-        self.assertEquals(ts3.end, JULY_24)
+        self.assertEqual(ts3.begin, JULY_24)
+        self.assertEqual(ts3.end, JULY_24)
 
         ts4 = Tournament.objects.get(name='Tremonia Series #4')
-        self.assertEquals(ts4.begin, JULY_24)
-        self.assertEquals(ts4.end, JULY_25)
+        self.assertEqual(ts4.begin, JULY_24)
+        self.assertEqual(ts4.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_non_existing(self):
@@ -137,12 +137,12 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
-        self.assertEquals(ts5, [])
+        self.assertEqual(ts5, [])
 
         ts6 = Tournament.objects.get(name='Tremonia Series #6')
-        self.assertEquals(ts6.name, 'Tremonia Series #6')
-        self.assertEquals(ts6.begin, JULY_25)
-        self.assertEquals(ts6.end, JULY_25)
+        self.assertEqual(ts6.name, 'Tremonia Series #6')
+        self.assertEqual(ts6.begin, JULY_25)
+        self.assertEqual(ts6.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_with_existing_tournament_without_attendance(self):
@@ -155,12 +155,12 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
-        self.assertEquals(ts5, [])
+        self.assertEqual(ts5, [])
 
         ts6 = Tournament.objects.get(name='Tremonia Series #6')
-        self.assertEquals(ts6.name, 'Tremonia Series #6')
-        self.assertEquals(ts6.begin, JULY_25)
-        self.assertEquals(ts6.end, JULY_25)
+        self.assertEqual(ts6.name, 'Tremonia Series #6')
+        self.assertEqual(ts6.begin, JULY_25)
+        self.assertEqual(ts6.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_with_existing_tournament_with_attendance(self):
@@ -176,12 +176,12 @@ class GermanTourTest(TestCase):
         german_tour.update_tournaments()
 
         ts5 = list(Tournament.objects.filter(name='Tremonia Series #5'))
-        self.assertEquals(ts5, [])
+        self.assertEqual(ts5, [])
 
         ts6 = Tournament.objects.get(name='Tremonia Series #6')
-        self.assertEquals(ts6.name, 'Tremonia Series #6')
-        self.assertEquals(ts6.begin, JULY_25)
-        self.assertEquals(ts6.end, JULY_25)
+        self.assertEqual(ts6.name, 'Tremonia Series #6')
+        self.assertEqual(ts6.begin, JULY_25)
+        self.assertEqual(ts6.end, JULY_25)
 
     def add_tournament_list(self):
         responses.add(responses.GET, TOURNAMENT_LIST_PAGE,

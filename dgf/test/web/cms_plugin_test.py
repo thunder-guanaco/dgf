@@ -58,10 +58,10 @@ class DgfPluginsTests(TestCase):
         plugin_instance = model_instance.get_plugin_class_instance()
         context = plugin_instance.render({}, model_instance, None)
 
-        self.assertEquals(context['course_url'], 'https://udisc.com/courses/1234')
-        self.assertEquals([(round.friend.username, round.score) for round in context['rounds']],
-                          [('test_1', 55), ('test_0', 60), ('test_2', 70)])
-        self.assertEquals(context['course'], course)
+        self.assertEqual(context['course_url'], 'https://udisc.com/courses/1234')
+        self.assertEqual([(round.friend.username, round.score) for round in context['rounds']],
+                         [('test_1', 55), ('test_0', 60), ('test_2', 70)])
+        self.assertEqual(context['course'], course)
 
     def test_google_calendar_plugin(self):
         self.render_plugin(GoogleCalendarPluginPublisher)
@@ -71,15 +71,15 @@ class DgfPluginsTests(TestCase):
 
         context = self.render_plugin(TremoniaSeriesHallOfFamePluginPublisher)
 
-        self.assertEquals([friend.username for friend in context['friends']], ['test_0', 'test_2', 'test_1'])
+        self.assertEqual([friend.username for friend in context['friends']], ['test_0', 'test_2', 'test_1'])
 
     def test_tremonia_series_next_tournaments_plugin(self):
         self.create_tournaments()
 
         context = self.render_plugin(TremoniaSeriesNextTournamentsPluginPublisher)
 
-        self.assertEquals([tournament.name for tournament in context['tournaments']],
-                          ['Tremonia Series #8888', 'Tremonia Series #9999'])
+        self.assertEqual([tournament.name for tournament in context['tournaments']],
+                         ['Tremonia Series #8888', 'Tremonia Series #9999'])
 
     def render_plugin(self, plugin_class):
         placeholder = Placeholder.objects.create(slot='test')

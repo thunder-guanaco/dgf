@@ -20,7 +20,7 @@ class TremoniaSeriesTest(TestCase):
         tremonia_series.update_tournaments()
 
         tournaments = Tournament.objects.filter(name__startswith='Tremonia Series')
-        self.assertEquals(tournaments.count(), 3)
+        self.assertEqual(tournaments.count(), 3)
         for id in [1, 2, 3]:
             self.assertTournament(tournaments, id)
 
