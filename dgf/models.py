@@ -134,8 +134,6 @@ class Friend(User):
     total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
-    tremonia_series_wins = models.PositiveIntegerField(_('Tremonia Series Wins'), null=False, blank=False, default=0)
-
     @property
     def full_name(self):
         nickname = f' ({self.nickname})' if self.nickname else ''
@@ -358,8 +356,8 @@ class Attendance(Model):
 class Result(Model):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['tournament', 'friend', 'position'],
-                                    name='the same tournament can not be played twice'),
+            models.UniqueConstraint(fields=['tournament', 'friend'],
+                                    name='the same tournament can not be played twice by the same friend'),
         ]
 
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results',

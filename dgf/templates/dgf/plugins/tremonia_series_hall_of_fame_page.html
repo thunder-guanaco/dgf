@@ -1,0 +1,42 @@
+{% load static i18n dgf %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tremonia_series_hall_of_fame.css' %}">
+{% endblock %}
+
+<div id="hall-of-fame">
+    <h2>
+        {% trans "Hall Of Fame" %}
+    </h2>
+    <h3>
+        {% trans "All winners of the Tremonia Series" %}
+    </h3>
+    <div class="header line">
+        <div class="player">{% trans "Player" %}</div>
+        <div class="wins">{% trans "Wins" %}</div>
+        <div class="wins">{% trans "Second places" %}</div>
+        <div class="wins">{% trans "Third places" %}</div>
+    </div>
+    <div class="content">
+        {% for friend in friends %}
+            <hr>
+            <div class="line">
+                <div class="player">
+                    {% include "dgf/includes/friend_ball.html" with friend=friend %}
+                    <div>
+                        {{friend.short_name}}
+                    </div>
+                </div>
+                <div class="wins">
+                    {{friend.ts_wins}}
+                </div>
+                <div class="wins">
+                    {{friend.ts_seconds}}
+                </div>
+                <div class="wins">
+                    {{friend.ts_thirds}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
