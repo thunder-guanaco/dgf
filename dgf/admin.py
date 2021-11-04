@@ -51,16 +51,14 @@ class FriendAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Basic', {
             'fields': [
-                'username',
+                ('username', 'slug'),
                 ('first_name', 'last_name', 'nickname'),
             ]}
          ),
         ('External IDs', {
             'fields': [
-                'pdga_number',
-                'gt_number',
-                'udisc_username',
-                'metrix_user_id',
+                ('pdga_number', 'gt_number'),
+                ('udisc_username', 'metrix_user_id'),
             ]}
          ),
         ('Rest', {
@@ -76,11 +74,6 @@ class FriendAdmin(admin.ModelAdmin):
                 ('job', 'hobbies'),
             ]}
          ),
-        ('DANGER ZONE!', {
-            'fields': [
-                'slug'
-            ]}
-         )
     ]
 
     inlines = [
