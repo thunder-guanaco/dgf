@@ -24,7 +24,7 @@
 }
 
 #hall-of-fame .player {
-    width: 70%;
+    width: 30%;
     font-weight: bold;
     display: flex;
     flex-direction: row;
