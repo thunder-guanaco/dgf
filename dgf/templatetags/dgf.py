@@ -3,7 +3,6 @@ import re
 from datetime import datetime
 
 from django import template
-from django.conf import settings
 from django.db.models import Count, Q
 
 from ..models import Ace, DiscInBag, Course, Tournament
