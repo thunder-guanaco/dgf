@@ -436,3 +436,20 @@ input[type=button]:active {
 	top:1px;
 }
 
+#admin-info {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    text-align: center;
+    background: #8d1950;
+    color: white !important;
+    padding: 0.25em;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#admin-info a{
+    color: white !important;
+}
