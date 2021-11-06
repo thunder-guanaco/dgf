@@ -94,11 +94,6 @@ def first_by_type(queryset, type):
 
 
 @register.simple_tag
-def dgf_version():
-    return settings.DGF_VERSION
-
-
-@register.simple_tag
 def all_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
         .filter(begin__gte=datetime.now(),
@@ -115,3 +110,8 @@ def attends(tournament, friend):
 @register.filter
 def active(attendance):
     return attendance.filter(friend__is_active=True)
+
+
+@register.simple_tag
+def problematic_tournaments():
+    return [tournament for tournament in Tournament.objects.all() if not tournament.first_positions_are_ok]

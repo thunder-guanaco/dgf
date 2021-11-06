@@ -357,9 +357,8 @@ class Tournament(models.Model):
                         .order_by('position')
                         .values_list('position', flat=True)) == [1, 2, 3]
 
-
-def __str__(self):
-    return f'{self.name} ({self.date})'
+    def __str__(self):
+        return f'{self.name} ({self.date})'
 
 
 class Attendance(Model):
