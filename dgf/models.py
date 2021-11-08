@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE, SET_NULL
+from django.utils.html import format_html
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
@@ -91,8 +92,9 @@ class NonFriendsManager(UserManager):
 
 
 class Friend(User):
-    objects = OnlyFriendsManager()
+    # This manager MUST be in the first position because Django uses the first one for the admin
     all_objects = UserManager()
+    objects = OnlyFriendsManager()
     non_friends = NonFriendsManager()
 
     class Meta:
@@ -325,8 +327,30 @@ class Tournament(Model):
 
         return f'{begin} - {end}'
 
-    def __str__(self):
-        return f'{self.name} ({self.date})'
+    def needs_check(self):
+        if self.first_positions_are_ok:
+            color = 'green'
+            label = _('OK')
+        else:
+            color = 'red'
+            label = _('please check')
+        return format_html(
+            '<span style="color: {};">{}</span>',
+            color, label,
+        )
+
+    @property
+    def first_positions_are_ok(self):
+        if self.results.all().count() == 0:
+            return True
+        else:
+            return list(self.results.filter(position__in=[1, 2, 3])
+                        .order_by('position')
+                        .values_list('position', flat=True)) == [1, 2, 3]
+
+
+def __str__(self):
+    return f'{self.name} ({self.date})'
 
 
 class Attendance(Model):

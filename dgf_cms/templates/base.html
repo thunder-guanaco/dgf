@@ -1,4 +1,4 @@
-{% load static cms_tags menu_tags sekizai_tags compress %}
+{% load static cms_tags menu_tags sekizai_tags compress dgf_cms %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,6 +27,7 @@
     </head>
     <body>
         {% cms_toolbar %}
+        {% include "includes/admin_info.html" %}
         {% language_chooser "includes/language_chooser.html" %}
         <div id="header">
             {% static_placeholder 'header' %}
@@ -70,6 +71,9 @@
         </div>
         <div class="container">
             {% block content %}{% endblock content %}
+            {% if request.user.is_superuser %}
+                <span>Version: {% dgf_version %}</span>
+            {% endif %}
         </div>
         {% render_block "js" %}
         <footer>

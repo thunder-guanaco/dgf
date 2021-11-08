@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Friend, Highlight, DiscInBag, Course, Ace, Feedback, FavoriteCourse, Video, Tournament
+from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course
 
 
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
@@ -47,6 +48,7 @@ class VideoInline(admin.TabularInline):
     model = Video
 
 
+@admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Basic', {
@@ -84,6 +86,7 @@ class FriendAdmin(admin.ModelAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
 
 
+@admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
@@ -99,21 +102,28 @@ class FeedbackAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
+class ResultInline(admin.TabularInline):
+    model = Result
+
+    def get_queryset(self, request):
+        return Result.objects.all().order_by('position')
+
+
+@admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
             'fields': [
                 'name',
-                ('begin', 'end')
+                ('begin', 'end'),
+                'url'
             ]}
          )
     ]
 
-    list_display = ('name', 'begin', 'end')
+    list_display = ('needs_check', 'name', 'begin', 'end')
     search_fields = ('name',)
 
-
-admin.site.register(Course, CourseAdmin)
-admin.site.register(Friend, FriendAdmin)
-admin.site.register(Feedback, FeedbackAdmin)
-admin.site.register(Tournament, TournamentAdmin)
+    inlines = [
+        ResultInline
+    ]

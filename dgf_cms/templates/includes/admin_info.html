@@ -1,0 +1,12 @@
+{% load dgf %}
+
+{% if request.user.is_superuser %}
+    {% problematic_tournaments as tournaments %}
+    <div id="admin-info">
+        {% for tournament in tournaments %}
+            <a href="{% url 'admin:dgf_tournament_change' tournament.id %}">
+                 ⚠ {{tournament.name}} ({{tournament.date}})
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
