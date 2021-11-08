@@ -6,11 +6,40 @@
         height: 70px !important;
     }
 
+    #hall-of-fame .header.line {
+        justify-content: flex-end;
+    }
+
+    #hall-of-fame .content .line {
+        justify-content: space-between;
+    }
+
+    #hall-of-fame .content .numbers .wins {
+        padding: 0 0.6em;
+    }
+
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
+    #hall-of-fame .line {
+        width: 100%;
+        justify-content: center;
+    }
 
+    #hall-of-fame .player {
+        width: 30%;
+    }
+
+    #hall-of-fame .numbers {
+        width: 60%;
+    }
+
+    #hall-of-fame .numbers .wins {
+        width: 33%;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 #hall-of-fame .content {
@@ -24,26 +53,25 @@
 }
 
 #hall-of-fame .player {
-    width: 30%;
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#hall-of-fame .wins {
-    width: 20%;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-}
-
 #hall-of-fame .line {
-    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    padding: 0.25em 0;
+}
+
+#hall-of-fame .line .numbers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 0.25em 0;
 }
