@@ -29,19 +29,23 @@
                 <hr>
                 {% for tournament in tournaments %}
                 {% with tournament|attends:friend as attends %}
-                    <li id="tournament-{{ tournament.id }}" class="line">
-                        <div class="cell name">{{ tournament.name }}</div>
-                        <div class="cell date">{{ tournament.date }}</div>
+                    <li id="tournament-{{tournament.id}}" class="line">
+                        {% if tournament.url %}
+                            <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}} </a>
+                        {% else %}
+                            <div class="cell name">{{tournament.name}}</div>
+                        {% endif %}
+                        <div class="cell date">{{tournament.date}}</div>
                             {% if authenticated %}
                                     <input class="attend {% if attends %} hidden {% endif %}"
                                            type="submit" value="{% trans 'Attend' %}"
-                                           onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{ tournament.id }})">
+                                           onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'POST', {{tournament.id}})">
                                     <input class="withdraw {% if not attends %}  hidden {% endif %}"
                                            type="submit" value="{% trans 'Withdraw' %}"
-                                           onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{ tournament.id }})">
+                                           onclick="attendance('{% url 'dgf:tournament_attendance' tournament.id %}', 'DELETE', {{tournament.id}})">
                             {% endif %}
                     </li>
-                    <li id="tournament-{{ tournament.id }}-players" class="line">
+                    <li id="tournament-{{tournament.id}}-players" class="line">
                         {% for attendance in tournament.attendance.all|active %}
                             {% if not authenticated or attendance.friend.id is not friend.id %}
                                 {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=True %}
@@ -67,7 +71,7 @@
                 type: method,
                 url: url,
                 beforeSend:function(xhr){
-                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    xhr.setRequestHeader("X-CSRFToken", "{{csrf_token}}");
                 },
                 success: function(response) {
                     if(method === "POST") {
