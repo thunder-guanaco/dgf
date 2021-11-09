@@ -373,8 +373,8 @@ msgid "Highlights"
 msgstr "Highlights"
 
 #: dgf/templates/dgf/friend_detail.html:180
-msgid "Tournament Results"
-msgstr "Turnierergebnisse"
+msgid "Tournament achievements"
+msgstr "Turniererfolge"
 
 #: dgf/templates/dgf/friend_detail.html:191
 #: dgf/templates/dgf/friend_profile.html:114
