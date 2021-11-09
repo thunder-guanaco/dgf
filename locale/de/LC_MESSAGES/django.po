@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-04 15:07+0100\n"
+"POT-Creation-Date: 2021-11-09 11:42+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:17 dgf/models.py:193 dgf/models.py:202
+#: dgf/cms_plugins.py:17 dgf/models.py:195 dgf/models.py:204
 msgid "Friend"
 msgstr "Friend"
 
@@ -95,223 +95,230 @@ msgstr "Alle Turniere"
 msgid "New tournament"
 msgstr "Neues Turnier"
 
-#: dgf/models.py:29
+#: dgf/models.py:30
 msgid "ID"
 msgstr "ID"
 
-#: dgf/models.py:30
+#: dgf/models.py:31
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:47 dgf/models.py:320
+#: dgf/models.py:48 dgf/models.py:322
 msgid "Name"
 msgstr "Name"
 
-#: dgf/models.py:48
+#: dgf/models.py:49
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: dgf/models.py:49 dgf/models.py:120 dgf/templates/dgf/friend_detail.html:92
+#: dgf/models.py:50 dgf/models.py:122 dgf/templates/dgf/friend_detail.html:92
 msgid "City"
 msgstr "Stadt"
 
-#: dgf/models.py:50
+#: dgf/models.py:51
 msgid "Country"
 msgstr "Land"
 
-#: dgf/models.py:51
+#: dgf/models.py:52
 msgid "UDisc ID"
 msgstr "UDisc ID"
 
-#: dgf/models.py:52
+#: dgf/models.py:53
 msgid "Main Layout"
 msgstr "Haupt-Layout"
 
-#: dgf/models.py:107
+#: dgf/models.py:109
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: dgf/models.py:108
+#: dgf/models.py:110
 msgid "Club role"
 msgstr "Vereinsrolle"
 
-#: dgf/models.py:110
+#: dgf/models.py:112
 msgid "Sponsor"
 msgstr "Sponsor"
 
-#: dgf/models.py:111
+#: dgf/models.py:113
 msgid "Sponsor logo"
 msgstr "Sponsors Logo"
 
-#: dgf/models.py:112
+#: dgf/models.py:114
 msgid "Sponsor link"
 msgstr "Sponsors URL"
 
-#: dgf/models.py:114
+#: dgf/models.py:116
 msgid "PDGA Number"
 msgstr "PDGA Nummer"
 
-#: dgf/models.py:115
+#: dgf/models.py:117
 msgid "GT Number"
 msgstr "GT Nummer"
 
-#: dgf/models.py:116
+#: dgf/models.py:118
 msgid "UDisc Username"
 msgstr "UDisc-Benutzername"
 
-#: dgf/models.py:117
+#: dgf/models.py:119
 msgid "Disc Golf Metrix User ID"
 msgstr "Disc Golf Metrix Benutzer ID"
 
-#: dgf/models.py:119 dgf/templates/dgf/friend_detail.html:102
+#: dgf/models.py:121 dgf/templates/dgf/friend_detail.html:102
 msgid "Division"
 msgstr "Division"
 
-#: dgf/models.py:121
+#: dgf/models.py:123
 msgid "Main photo"
 msgstr "Hauptbild"
 
-#: dgf/models.py:122
+#: dgf/models.py:124
 msgid "Plays since"
 msgstr "Ich spiele Disc Golf seit"
 
-#: dgf/models.py:124
+#: dgf/models.py:126
 msgid "Best score in Wischlingen (relative to par)"
 msgstr "Beste Runde in Wischlingen (relativ zu par 71)"
 
-#: dgf/models.py:126
+#: dgf/models.py:128
 msgid "Started playing"
 msgstr "Ich bin zum Sport gekommen..."
 
-#: dgf/models.py:127
+#: dgf/models.py:129
 msgid "Job"
 msgstr "Das mache ich beruflich"
 
-#: dgf/models.py:128 dgf/templates/dgf/friend_detail.html:153
+#: dgf/models.py:130 dgf/templates/dgf/friend_detail.html:153
 msgid "Other hobbies"
 msgstr "Andere Hobbies"
 
-#: dgf/models.py:130
+#: dgf/models.py:132
 msgid "Slug"
 msgstr "Slug"
 
-#: dgf/models.py:131 dgf/templates/dgf/friend_detail.html:108
+#: dgf/models.py:133 dgf/templates/dgf/friend_detail.html:108
 #: dgf/templates/dgf/includes/friend_picture.html:39
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/models.py:134
+#: dgf/models.py:136
 msgid "Total tournaments"
 msgstr "Gespielte Turniere"
 
-#: dgf/models.py:135
+#: dgf/models.py:137
 msgid "Total earnings"
 msgstr "Gesamtgewinn im Turniere"
 
-#: dgf/models.py:180
+#: dgf/models.py:182
 msgid "Last score from UDisc"
 msgstr "Letzte Runde aus UDisc"
 
-#: dgf/models.py:192 dgf/models.py:277
+#: dgf/models.py:194 dgf/models.py:279
 msgid "Course"
 msgstr "Parcours"
 
-#: dgf/models.py:200
+#: dgf/models.py:202
 msgid "Title"
 msgstr "Titel"
 
-#: dgf/models.py:201 dgf/templates/dgf/feedback_form.html:5
+#: dgf/models.py:203 dgf/templates/dgf/feedback_form.html:5
 msgid "Feedback"
 msgstr "Feedback"
 
-#: dgf/models.py:216
+#: dgf/models.py:218
 msgid "Content"
 msgstr "Inhalt"
 
-#: dgf/models.py:224
+#: dgf/models.py:226
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: dgf/models.py:225
+#: dgf/models.py:227
 msgid "Mold"
 msgstr "Scheibenmodell"
 
-#: dgf/models.py:226
+#: dgf/models.py:228
 msgid "Display name"
 msgstr "Scheibenname"
 
-#: dgf/models.py:247
+#: dgf/models.py:249
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:248
+#: dgf/models.py:250
 msgid "Mid-range"
 msgstr "Midrange"
 
-#: dgf/models.py:249
+#: dgf/models.py:251
 msgid "Fairway driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:250
+#: dgf/models.py:252
 msgid "Distance driver"
 msgstr "Distance Driver"
 
-#: dgf/models.py:252 dgf/models.py:279 dgf/models.py:304
+#: dgf/models.py:254 dgf/models.py:281 dgf/models.py:306
 msgid "Type"
 msgstr "Art"
 
-#: dgf/models.py:253
+#: dgf/models.py:255
 msgid "Amount"
 msgstr "Menge"
 
-#: dgf/models.py:254 dgf/models.py:276
+#: dgf/models.py:256 dgf/models.py:278
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:255 dgf/models.py:350 dgf/models.py:365
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:15
+#: dgf/models.py:257 dgf/models.py:374 dgf/models.py:389
 msgid "Player"
 msgstr "Spieler"
 
-#: dgf/models.py:271
+#: dgf/models.py:273
 msgid "Practice"
 msgstr "Übung"
 
-#: dgf/models.py:272
+#: dgf/models.py:274
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:273 dgf/models.py:349 dgf/models.py:364
+#: dgf/models.py:275 dgf/models.py:373 dgf/models.py:388
 #: dgf/templates/dgf/tournament_list.html:26
 msgid "Tournament"
 msgstr "Turnier"
 
-#: dgf/models.py:278
+#: dgf/models.py:280
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:280 dgf/templates/dgf/tournament_list.html:27
+#: dgf/models.py:282 dgf/templates/dgf/tournament_list.html:27
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:300 dgf/templates/dgf/friend_detail.html:192
+#: dgf/models.py:302 dgf/templates/dgf/friend_detail.html:204
 #: dgf/templates/dgf/friend_profile.html:83
 msgid "In the bag"
 msgstr "In the Bag"
 
-#: dgf/models.py:301
+#: dgf/models.py:303
 msgid "Ace"
 msgstr "Ass"
 
-#: dgf/models.py:302
+#: dgf/models.py:304
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:305 dgf/models.py:321
+#: dgf/models.py:307 dgf/models.py:323
 msgid "URL"
 msgstr "URL Addresse"
 
-#: dgf/models.py:366
+#: dgf/models.py:342
+msgid "OK"
+msgstr "OK"
+
+#: dgf/models.py:345
+msgid "please check"
+msgstr "bitte überprüfen"
+
+#: dgf/models.py:390
 msgid "Position"
 msgstr "Platz"
 
@@ -365,36 +372,40 @@ msgstr "Lieblingsparcours"
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_detail.html:179
+#: dgf/templates/dgf/friend_detail.html:180
+msgid "Tournament Results"
+msgstr "Turnierergebnisse"
+
+#: dgf/templates/dgf/friend_detail.html:191
 #: dgf/templates/dgf/friend_profile.html:114
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_detail.html:195
+#: dgf/templates/dgf/friend_detail.html:207
 #: dgf/templates/dgf/friend_profile.html:87
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_detail.html:196
+#: dgf/templates/dgf/friend_detail.html:208
 #: dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_detail.html:197
+#: dgf/templates/dgf/friend_detail.html:209
 #: dgf/templates/dgf/friend_profile.html:93
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:198
+#: dgf/templates/dgf/friend_detail.html:210
 #: dgf/templates/dgf/friend_profile.html:96
 #: dgf/templates/dgf/includes/overview/2_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_detail.html:234
+#: dgf/templates/dgf/friend_detail.html:246
 #: dgf/templates/dgf/friend_profile.html:132
 msgid "Videos"
 msgstr "Videos"
@@ -493,15 +504,15 @@ msgstr "Hall Of Fame"
 msgid "All winners of the Tremonia Series"
 msgstr "Alle Gewinner der Tremonia Series"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:16
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:24
 msgid "Wins"
 msgstr "Siege"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:17
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:25
 msgid "Second places"
 msgstr "Zweitplatzierungen"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:18
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:26
 msgid "Third places"
 msgstr "Drittplatzierungen"
 
