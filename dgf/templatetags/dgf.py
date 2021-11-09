@@ -5,7 +5,7 @@ from datetime import datetime
 from django import template
 from django.db.models import Count, Q
 
-from ..models import Ace, DiscInBag, Course, Tournament
+from ..models import Ace, DiscInBag, Course, Tournament, Result
 
 register = template.Library()
 
@@ -114,3 +114,8 @@ def active(attendance):
 @register.simple_tag
 def problematic_tournaments():
     return [tournament for tournament in Tournament.objects.all() if not tournament.first_positions_are_ok]
+
+
+@register.filter
+def podium_results(friend):
+    return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('tournament__begin')

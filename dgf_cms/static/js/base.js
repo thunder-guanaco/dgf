@@ -75,7 +75,7 @@ function loadMobileNavigationBarBehaviour() {
 
     $(document).click(function(e) {
         if ($.contains($("#mobile-navigation-bar-header")[0], e.target)
-            || $.contains($(".bar-container")[0], e.target)) {
+            || $.contains($("#mobile-navigation-opener")[0], e.target)) {
             $(".bar-container").toggleClass("change");
             $(".navbar-collapse").toggle();
         }

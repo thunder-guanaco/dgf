@@ -17,6 +17,11 @@
         height: 150px !important;
     }
 
+    #friend-header {
+        display: flex;
+        flex-direction: column;
+    }
+
     #friend-header h1 img {
         width: 50px !important;
         height: 50px !important;
@@ -28,6 +33,11 @@
 
     #friend-info {
         width: 100%;
+    }
+
+    #friend .edit-button {
+        align-self: center;
+        margin: 0.2em 0;
     }
 
     #friend-body > div {
@@ -82,11 +92,6 @@
 
     #friend-info {
         width: 80%;
-    }
-
-    #friend .desktop button {
-        margin: 0 0.25em;
-        font-size: smaller;
     }
 
     #friend-body > div {
@@ -158,6 +163,10 @@
 
 #friend .friend-header-line label {
     margin: 0;
+}
+
+#friend button {
+    font-size: smaller;
 }
 
 #friend .pdga {
