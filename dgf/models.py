@@ -240,9 +240,9 @@ class DiscInBag(Model):
     DISTANCE_DRIVER = 'D'
     TYPE_CHOICES = (
         (PUTTER, _('Putter')),
-        (MID_RANGE, _('Mid-range')),
-        (FAIRWAY_DRIVER, _('Fairway driver')),
-        (DISTANCE_DRIVER, _('Distance driver')),
+        (MID_RANGE, _('Mid-Range')),
+        (FAIRWAY_DRIVER, _('Fairway Driver')),
+        (DISTANCE_DRIVER, _('Distance Driver')),
     )
     type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
     amount = models.PositiveIntegerField(_('Amount'), default=1, validators=[MinValueValidator(1)])
