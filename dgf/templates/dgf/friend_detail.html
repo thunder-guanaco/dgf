@@ -45,14 +45,12 @@
                     </div>
 
                     {% if friend.id == request.user.friend.id %}
-                        <a class="desktop" href="{% url 'dgf:friend_update' %}">
+                        <a class="desktop edit-button" href="{% url 'dgf:friend_update' %}">
                             <button>
                                 {% trans 'Update profile' %}
                             </button>
                         </a>
-                    {% endif %}
-                    {% if friend.id == request.user.friend.id %}
-                        <a class="desktop" href="{% url 'dgf:tournament_index' %}">
+                        <a class="desktop edit-button" href="{% url 'dgf:tournament_index' %}">
                             <button>
                                 {% trans 'Update tournaments' %}
                             </button>
@@ -60,14 +58,12 @@
                     {% endif %}
                 </h1>
                 {% if friend.id == request.user.friend.id %}
-                    <a class="mobile" href="{% url 'dgf:friend_update' %}">
+                    <a class="mobile edit-button" href="{% url 'dgf:friend_update' %}">
                         <button>
                             {% trans 'Update profile' %}
                         </button>
                     </a>
-                {% endif %}
-                {% if friend.id == request.user.friend.id %}
-                    <a class="mobile" href="{% url 'dgf:tournament_index' %}">
+                    <a class="mobile edit-button" href="{% url 'dgf:tournament_index' %}">
                         <button>
                             {% trans 'Update tournaments' %}
                         </button>
