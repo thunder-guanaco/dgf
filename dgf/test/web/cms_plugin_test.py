@@ -5,17 +5,18 @@ from cms.models import Placeholder
 from django.test import TestCase
 from parameterized import parameterized
 
+from ..models.creator import create_friends, create_courses
 from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher, SmallerFriendPluginPublisher, \
     BiggerFriendPluginPublisher, UdiscPluginPublisher, GoogleCalendarPluginPublisher, \
     TremoniaSeriesNextTournamentsPluginPublisher, TremoniaSeriesHallOfFamePluginPublisher, \
     TremoniaSeriesHallOfFamePagePluginPublisher
-from ...models import Friend, Course, UdiscRound, Tournament, Result
+from ...models import UdiscRound, Tournament, Result
 
 PAST_DAY = date(year=2000, month=1, day=1)
 FUTURE_DAY = date(year=3000, month=1, day=1)
 
 
-class DgfPluginsTests(TestCase):
+class CmsPluginsTests(TestCase):
 
     @parameterized.expand([
         (FriendPluginPublisher,),
@@ -23,8 +24,7 @@ class DgfPluginsTests(TestCase):
         (BiggerFriendPluginPublisher,),
     ])
     def test_friend_plugin(self, plugin_class):
-        friend = self.create_1_user('test')
-
+        friend = create_friends(1)
         placeholder = Placeholder.objects.create(slot='test')
         model_instance = add_plugin(
             placeholder,
@@ -36,19 +36,19 @@ class DgfPluginsTests(TestCase):
         plugin_instance = model_instance.get_plugin_class_instance()
         context = plugin_instance.render({}, model_instance, None)
 
-        self.assertEqual(context['friend'].username, 'test')
+        self.assertEqual(context['friend'].username, 'friend_0')
 
     def test_friends_header_plugin(self):
-        self.create_3_friends()
+        create_friends(3)
 
         context = self.render_plugin(FriendsHeaderPluginPublisher)
 
         self.assertEqual({friend.username for friend in context['friends']},
-                         {'test_0', 'test_1', 'test_2'})
+                         {'friend_0', 'friend_1', 'friend_2'})
 
     def test_udisc_plugin(self):
-        friends = self.create_3_friends()
-        course = self.create_1_course('test', '1234')
+        friends = create_friends(3)
+        course = create_courses(1)
         self.create_3_rounds(course, friends, [60, 55, 70])
 
         placeholder = Placeholder.objects.create(slot='test')
@@ -62,9 +62,9 @@ class DgfPluginsTests(TestCase):
         plugin_instance = model_instance.get_plugin_class_instance()
         context = plugin_instance.render({}, model_instance, None)
 
-        self.assertEqual(context['course_url'], 'https://udisc.com/courses/1234')
+        self.assertEqual(context['course_url'], 'https://udisc.com/courses/0000')
         self.assertEqual([(round.friend.username, round.score) for round in context['rounds']],
-                         [('test_1', 55), ('test_0', 60), ('test_2', 70)])
+                         [('friend_1', 55), ('friend_0', 60), ('friend_2', 70)])
         self.assertEqual(context['course'], course)
 
     def test_google_calendar_plugin(self):
@@ -75,7 +75,7 @@ class DgfPluginsTests(TestCase):
         (TremoniaSeriesHallOfFamePagePluginPublisher,),
     ])
     def test_tremonia_series_hall_of_fame_plugin(self, plugin_class):
-        friends = self.create_3_friends()
+        friends = create_friends(3)
         tournaments = self.create_tournaments()
         Result.objects.all().delete()
 
@@ -95,7 +95,7 @@ class DgfPluginsTests(TestCase):
 
         context = self.render_plugin(plugin_class)
 
-        self.assertEqual([friend.username for friend in context['friends']], ['test_1', 'test_0', 'test_2'])
+        self.assertEqual([friend.username for friend in context['friends']], ['friend_1', 'friend_0', 'friend_2'])
 
     def test_tremonia_series_next_tournaments_plugin(self):
         self.create_tournaments()
@@ -115,21 +115,6 @@ class DgfPluginsTests(TestCase):
         )
         plugin_instance = model_instance.get_plugin_class_instance()
         return plugin_instance.render({}, model_instance, None)
-
-    def create_1_user(self, username):
-        Friend.objects.all().delete()
-        return Friend.objects.create(username=username, first_name=username)
-
-    def create_3_friends(self):
-        Friend.objects.all().delete()
-        return [Friend.objects.create(username=f'test_{i}',
-                                      first_name=f'test_{i}') for i
-                in range(3)]
-
-    def create_1_course(self, name, udisc_id):
-        Course.objects.all().delete()
-        return Course.objects.create(name=name,
-                                     udisc_id=udisc_id)
 
     def create_3_rounds(self, course, friends, scores):
         UdiscRound.objects.all().delete()
