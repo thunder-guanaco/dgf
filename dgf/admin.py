@@ -123,6 +123,7 @@ class TournamentAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
+                ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
                 'url'
             ]}

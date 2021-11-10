@@ -1,6 +1,6 @@
 {% load i18n dgf %}
 
-{% todays_tournaments as tournaments %}
+{% current_tournaments as tournaments %}
 {% if tournaments %}
     <li id="now-playing">
         <h2>
@@ -15,7 +15,7 @@
                                 <div>
                                     <span class="name">{{tournament.name}} </span>
                                     {% if tournament.metrix_id %}
-                                        <a href="{{tournament|metrix_url}}" target="_blank" class="name"> ({% trans "follow live" %})</a>
+                                        <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
                                     {% endif %}
                                     <div class="mobile">
                                         {% include "dgf/includes/show-all-less.html" with minimum=5 amount=tournament_players.count %}
