@@ -104,6 +104,9 @@ def update_tournaments():
     for gt_tournament in gt_tournaments:
         if gt_tournament['canceled']:
             delete_tournament(gt_tournament)
+        elif gt_tournament['name'].startswith('Tremonia Series #'):
+            logger.info(f'Ignoring tournament: {gt_tournament["name"]}. '
+                        f'Tremonia Series tournaments are handled separately')
         else:
             tournament = add_tournament(gt_tournament)
             attendance_soup = get(TOURNAMENT_ATTENDANCE_PAGE.format(gt_tournament['id']))

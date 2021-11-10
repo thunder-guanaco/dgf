@@ -31,8 +31,8 @@ class GermanTourTest(TestCase):
         self.add_tournament_list()
         self.add_tournament_with_empty_attendance_list(333)
         self.add_tournament_without_attendance_list(444)
-        Tournament.objects.create(gt_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
-        Tournament.objects.create(gt_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
+        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
         Friend.objects.create(username='manolo', gt_number=1922)
 
         german_tour.update_tournaments()
@@ -52,17 +52,17 @@ class GermanTourTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__gt_id=333)
-        self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
-        self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
-        self.assertEqual(attendance_ts3.tournament.end, JULY_24)
-        self.assertEqual(attendance_ts3.friend, manolo)
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__gt_id=444)
-        self.assertEqual(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEqual(attendance_ts4.tournament.begin, JULY_24)
-        self.assertEqual(attendance_ts4.tournament.end, JULY_25)
-        self.assertEqual(attendance_ts4.friend, manolo)
+        attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
+        self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
+        self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
     def test_tournament_with_attendance_no_tournaments_with_different_attendance_formats(self):
@@ -76,17 +76,17 @@ class GermanTourTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__gt_id=333)
-        self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
-        self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
-        self.assertEqual(attendance_ts3.tournament.end, JULY_24)
-        self.assertEqual(attendance_ts3.friend, manolo)
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__gt_id=444)
-        self.assertEqual(attendance_ts4.tournament.name, 'Tremonia Series #4')
-        self.assertEqual(attendance_ts4.tournament.begin, JULY_24)
-        self.assertEqual(attendance_ts4.tournament.end, JULY_25)
-        self.assertEqual(attendance_ts4.friend, manolo)
+        attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
+        self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
+        self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
     def test_tournament_with_attendance_existing_tournaments(self):
@@ -94,21 +94,21 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
-        ts3 = Tournament.objects.create(gt_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
-        ts4 = Tournament.objects.create(gt_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
+        tournament_3 = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        tournament_4 = Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
 
         german_tour.update_tournaments()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__gt_id=333)
-        self.assertEqual(attendance_ts3.tournament, ts3)
-        self.assertEqual(attendance_ts3.friend, manolo)
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament, tournament_3)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__gt_id=444)
-        self.assertEqual(attendance_ts4.tournament, ts4)
-        self.assertEqual(attendance_ts4.friend, manolo)
+        attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
+        self.assertEqual(attendance_tournament_4.tournament, tournament_4)
+        self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
     def test_tournament_with_attendance_existing_attendance_existing_tournaments(self):
@@ -116,23 +116,23 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
-        ts3 = Tournament.objects.create(gt_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
-        ts4 = Tournament.objects.create(gt_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
-        Attendance.objects.create(friend=manolo, tournament=ts3)
-        Attendance.objects.create(friend=manolo, tournament=ts4)
+        tournament_3 = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        tournament_4 = Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
+        Attendance.objects.create(friend=manolo, tournament=tournament_3)
+        Attendance.objects.create(friend=manolo, tournament=tournament_4)
 
         german_tour.update_tournaments()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__gt_id=333)
-        self.assertEqual(attendance_ts3.tournament, ts3)
-        self.assertEqual(attendance_ts3.friend, manolo)
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament, tournament_3)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__gt_id=444)
-        self.assertEqual(attendance_ts4.tournament, ts4)
-        self.assertEqual(attendance_ts4.friend, manolo)
+        attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
+        self.assertEqual(attendance_tournament_4.tournament, tournament_4)
+        self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
     def test_tournament_date_change(self):
@@ -140,18 +140,18 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
 
-        Tournament.objects.create(gt_id=333, name='Tremonia Series #3', begin=APRIL_2, end=APRIL_2)
-        Tournament.objects.create(gt_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=APRIL_2, end=APRIL_2)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_24)
 
         german_tour.update_tournaments()
 
-        ts3 = Tournament.objects.get(gt_id=333)
-        self.assertEqual(ts3.begin, JULY_24)
-        self.assertEqual(ts3.end, JULY_24)
+        tournament_3 = Tournament.objects.get(gt_id=333)
+        self.assertEqual(tournament_3.begin, JULY_24)
+        self.assertEqual(tournament_3.end, JULY_24)
 
-        ts4 = Tournament.objects.get(gt_id=444)
-        self.assertEqual(ts4.begin, JULY_24)
-        self.assertEqual(ts4.end, JULY_25)
+        tournament_4 = Tournament.objects.get(gt_id=444)
+        self.assertEqual(tournament_4.begin, JULY_24)
+        self.assertEqual(tournament_4.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_non_existing(self):
@@ -160,31 +160,31 @@ class GermanTourTest(TestCase):
 
         german_tour.update_tournaments()
 
-        ts5 = list(Tournament.objects.filter(gt_id=555))
-        self.assertEqual(ts5, [])
+        tournament_5 = list(Tournament.objects.filter(gt_id=555))
+        self.assertEqual(tournament_5, [])
 
-        ts6 = Tournament.objects.get(gt_id=666)
-        self.assertEqual(ts6.name, 'Tremonia Series #6')
-        self.assertEqual(ts6.begin, JULY_25)
-        self.assertEqual(ts6.end, JULY_25)
+        tournament_6 = Tournament.objects.get(gt_id=666)
+        self.assertEqual(tournament_6.name, 'Test Tournament #6')
+        self.assertEqual(tournament_6.begin, JULY_25)
+        self.assertEqual(tournament_6.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_with_existing_tournament_without_attendance(self):
         self.add_tournament_list_with_canceled_event()
         self.add_tournament_with_empty_attendance_list(666)
 
-        Tournament.objects.create(gt_id=555, name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
-        Tournament.objects.create(gt_id=666, name='Tremonia Series #6', begin=JULY_25, end=JULY_25)
+        Tournament.objects.create(gt_id=555, name='Test Tournament #5', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=666, name='Test Tournament #6', begin=JULY_25, end=JULY_25)
 
         german_tour.update_tournaments()
 
-        ts5 = list(Tournament.objects.filter(gt_id=555))
-        self.assertEqual(ts5, [])
+        tournament_5 = list(Tournament.objects.filter(gt_id=555))
+        self.assertEqual(tournament_5, [])
 
-        ts6 = Tournament.objects.get(gt_id=666)
-        self.assertEqual(ts6.name, 'Tremonia Series #6')
-        self.assertEqual(ts6.begin, JULY_25)
-        self.assertEqual(ts6.end, JULY_25)
+        tournament_6 = Tournament.objects.get(gt_id=666)
+        self.assertEqual(tournament_6.name, 'Test Tournament #6')
+        self.assertEqual(tournament_6.begin, JULY_25)
+        self.assertEqual(tournament_6.end, JULY_25)
 
     @responses.activate
     def test_canceled_tournament_with_existing_tournament_with_attendance(self):
@@ -192,20 +192,38 @@ class GermanTourTest(TestCase):
         self.add_tournament_with_empty_attendance_list(666)
 
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
-        ts5 = Tournament.objects.create(gt_id=555, name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
-        ts6 = Tournament.objects.create(gt_id=666, name='Tremonia Series #6', begin=JULY_25, end=JULY_25)
-        Attendance.objects.create(friend=manolo, tournament=ts5)
-        Attendance.objects.create(friend=manolo, tournament=ts6)
+        tournament_5 = Tournament.objects.create(gt_id=555, name='Test Tournament #5', begin=JULY_24, end=JULY_24)
+        tournament_6 = Tournament.objects.create(gt_id=666, name='Test Tournament #6', begin=JULY_25, end=JULY_25)
+        Attendance.objects.create(friend=manolo, tournament=tournament_5)
+        Attendance.objects.create(friend=manolo, tournament=tournament_6)
 
         german_tour.update_tournaments()
 
-        ts5 = list(Tournament.objects.filter(gt_id=555))
-        self.assertEqual(ts5, [])
+        tournament_5 = list(Tournament.objects.filter(gt_id=555))
+        self.assertEqual(tournament_5, [])
 
-        ts6 = Tournament.objects.get(gt_id=666)
-        self.assertEqual(ts6.name, 'Tremonia Series #6')
-        self.assertEqual(ts6.begin, JULY_25)
-        self.assertEqual(ts6.end, JULY_25)
+        tournament_6 = Tournament.objects.get(gt_id=666)
+        self.assertEqual(tournament_6.name, 'Test Tournament #6')
+        self.assertEqual(tournament_6.begin, JULY_25)
+        self.assertEqual(tournament_6.end, JULY_25)
+
+    @responses.activate
+    def test_tremonia_series_tournament(self):
+        self.add_tournament_list_with_tremonias_series_event()
+        self.add_tournament_with_empty_attendance_list(555)
+        self.add_tournament_with_empty_attendance_list(666)
+
+        Friend.objects.create(username='manolo', gt_number=1922)
+        Tournament.objects.create(metrix_id=5555, name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
+
+        german_tour.update_tournaments()
+
+        tournament_5 = Tournament.objects.get(name='Tremonia Series #5')  # there's just one
+        self.assertEqual(tournament_5.metrix_id, 5555)  # and it's not modified
+        self.assertEqual(tournament_5.gt_id, None)  # and it's not modified
+
+        tournament_6 = Tournament.objects.filter(name='Tremonia Series #6')
+        self.assertEqual(tournament_6.count(), 0)  # there's no new one
 
     def add_tournament_list(self):
         responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
@@ -216,10 +234,10 @@ class GermanTourTest(TestCase):
                            '    <thead></thead>'
                            '    <tbody>'
                            '      <tr class="odd">'
-                           '        <td data-sort="Tremonia Series #3" id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Test Tournament #3" id="table_list_tournaments_0_0">'
                            '          <a class="text-muted font-italic"'
                            '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=333">'
-                           '            Tremonia Series #3'
+                           '            Test Tournament #3'
                            '          </a>'
                            '        </td>'
                            '        <td id="table_list_tournaments_0_1">'
@@ -253,10 +271,10 @@ class GermanTourTest(TestCase):
                            '        </td>'
                            '      </tr>'
                            '      <tr class="even">'
-                           '        <td data-sort="Tremonia Series #4" id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Test Tournament #4" id="table_list_tournaments_0_0">'
                            '          <a class="text-muted font-italic"'
                            '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=444">'
-                           '            Tremonia Series #4'
+                           '            Test Tournament #4'
                            '          </a>'
                            '        </td>'
                            '        <td id="table_list_tournaments_0_1">'
@@ -303,10 +321,107 @@ class GermanTourTest(TestCase):
                            '    <thead></thead>'
                            '    <tbody>'
                            '      <tr class="odd">'
-                           '        <td data-sort="Tremonia Series #5" id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Test Tournament #5" id="table_list_tournaments_0_0">'
                            '          <h6 style="display:inline;">'
                            '            <span class="badge badge-danger">'
                            '              ABGESAGT'
+                           '            </span>'
+                           '          </h6>'
+                           '          <a class="text-muted font-italic"'
+                           '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=555">'
+                           '            Test Tournament #5'
+                           '          </a>'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_1">'
+                           '          Dortmund'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_2" class="sorting_1">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            24.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_3" class="sorting_2">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            24.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="0" id="table_list_tournaments_0_4">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td data-sort="1614407326" id="table_list_tournaments_0_5">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_6">'
+                           '          <span class="badge badge-secondary">'
+                           '            Einzelturnier'
+                           '          </span>'
+                           '        </td>'
+                           '        <td class="d-none d-sm-table-cell" id="table_list_tournaments_0_7">'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_8">'
+                           '          <!--  Not Logged in: nothing to show here -->'
+                           '        </td>'
+                           '      </tr>'
+                           '      <tr class="even">'
+                           '        <td data-sort="Test Tournament #6" id="table_list_tournaments_0_0">'
+                           '          <h6 style="display:inline;">'
+                           '            <span class="badge badge-warning">'
+                           '              Vorläufig'
+                           '            </span>'
+                           '          </h6>'
+                           '          <a class="text-muted font-italic"'
+                           '            href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view&amp;id=666">'
+                           '            Test Tournament #6'
+                           '          </a>'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_1">'
+                           '          Dortmund'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_2" class="sorting_1">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            25.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="1614380400" id="table_list_tournaments_0_3" class="sorting_2">'
+                           '          <a href="media/icals/1655.ics">'
+                           '            25.07.2021'
+                           '          </a>'
+                           '        </td>'
+                           '        <td data-sort="0" id="table_list_tournaments_0_4">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td data-sort="1614407326" id="table_list_tournaments_0_5">'
+                           '          17.03.2021 00:55'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_6">'
+                           '          <span class="badge badge-secondary">'
+                           '            Einzelturnier'
+                           '          </span>'
+                           '        </td>'
+                           '        <td class="d-none d-sm-table-cell" id="table_list_tournaments_0_7">'
+                           '        </td>'
+                           '        <td id="table_list_tournaments_0_8">'
+                           '          <!--  Not Logged in: nothing to show here -->'
+                           '        </td>'
+                           '      </tr>'
+                           '    </tbody>'
+                           '  </table>'
+                           '</body>',
+                      status=200)
+
+    def add_tournament_list_with_tremonias_series_event(self):
+        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+                      body='<body>'
+                           '  <table class="table table-sm table-striped dataTable no-footer"'
+                           '         id="list_tournaments" role="grid"'
+                           '         aria-describedby="list_tournaments_info">'
+                           '    <thead></thead>'
+                           '    <tbody>'
+                           '      <tr class="odd">'
+                           '        <td data-sort="Test Tournament #5" id="table_list_tournaments_0_0">'
+                           '          <h6 style="display:inline;">'
+                           '            <span class="badge badge-warning">'
+                           '              Vorläufig'
                            '            </span>'
                            '          </h6>'
                            '          <a class="text-muted font-italic"'
@@ -345,7 +460,7 @@ class GermanTourTest(TestCase):
                            '        </td>'
                            '      </tr>'
                            '      <tr class="even">'
-                           '        <td data-sort="Tremonia Series #6" id="table_list_tournaments_0_0">'
+                           '        <td data-sort="Test Tournament #6" id="table_list_tournaments_0_0">'
                            '          <h6 style="display:inline;">'
                            '            <span class="badge badge-warning">'
                            '              Vorläufig'
