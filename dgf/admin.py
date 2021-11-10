@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course
+from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
+    Attendance
 
 
 @admin.register(Course)
@@ -109,6 +110,13 @@ class ResultInline(admin.TabularInline):
         return Result.objects.all().order_by('position')
 
 
+class AttendanceInline(admin.TabularInline):
+    model = Attendance
+
+    def get_queryset(self, request):
+        return Attendance.objects.all().order_by('friend__first_name')
+
+
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -125,5 +133,5 @@ class TournamentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     inlines = [
-        ResultInline
+        ResultInline, AttendanceInline
     ]

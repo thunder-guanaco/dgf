@@ -1,6 +1,6 @@
 {% load i18n dgf %}
 <li id="tournaments" class="show-all-less-tournaments">
-    {% all_tournaments as tournaments %}
+    {% future_tournaments as tournaments %}
     <h2>
         {% trans "Next tournaments" %}
         {% with tournaments.count as amount %}
@@ -24,15 +24,25 @@
                                         <span class="name">{{tournament.name}}</span>
                                     {% endif %}
                                     <span class="date">({{tournament.date}})</span>
-                                    {% include "dgf/includes/show-all-less.html" with minimum=5 amount=tournament_players.count %}
+                                    <div class="mobile">
+                                        {% include "dgf/includes/show-all-less.html" with minimum=5 amount=tournament_players.count %}
+                                    </div>
+                                    <div class="desktop">
+                                        {% include "dgf/includes/show-all-less.html" with minimum=10 amount=tournament_players.count %}
+                                    </div>
                                 </div>
-                                <div class="players top">
+                                <div class="mobile players top">
                                     {% for attendance in tournament_players|slice:":5" %}
                                         {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
                                     {% endfor %}
                                 </div>
+                                <div class="desktop players top">
+                                    {% for attendance in tournament_players|slice:":10" %}
+                                        {% include "dgf/includes/friend_ball.html" with friend=attendance.friend %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="all hidden">
+                            <div class="all list hidden">
                                 {% for attendance in tournament_players %}
                                     <div class="item">
                                         {% include "dgf/includes/friend_ball.html" with friend=attendance.friend show_name=True %}
