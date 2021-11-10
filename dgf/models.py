@@ -111,10 +111,10 @@ class Friend(User):
     sponsor_logo = models.ImageField(_('Sponsor logo'), null=True, blank=True)
     sponsor_link = models.URLField(_('Sponsor link'), null=True, blank=True)
 
-    pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=False)
-    gt_number = models.PositiveIntegerField(_('GT Number'), null=True, blank=False)
-    udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=False)
-    metrix_user_id = models.CharField(_('Disc Golf Metrix User ID'), max_length=100, null=True, blank=False)
+    pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=True)
+    gt_number = models.PositiveIntegerField(_('GT Number'), null=True, blank=True)
+    udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
+    metrix_user_id = models.CharField(_('Disc Golf Metrix User ID'), max_length=100, null=True, blank=True)
 
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     city = models.CharField(_('City'), max_length=100, null=True, blank=True)
@@ -315,9 +315,9 @@ class Tournament(Model):
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=False)
-    pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=False)
-    gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=False)
-    metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=False)
+    pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
+    gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
+    metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
     @property
     def date(self):

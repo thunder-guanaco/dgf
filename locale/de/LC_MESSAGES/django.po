@@ -500,7 +500,7 @@ msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
 #: dgf/templates/dgf/includes/overview/6_now_playing.html:7
 msgid "We are now..."
-msgstr "Wir spielen wir gerade..."
+msgstr "Wo spielen wir gerade..."
 
 #: dgf/templates/dgf/includes/overview/7_next_tournaments.html:8
 #: dgf/templates/dgf/includes/show-all-less.html:4

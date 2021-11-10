@@ -94,12 +94,13 @@ def first_by_type(queryset, type):
 
 
 @register.simple_tag
-def todays_tournaments():
+def current_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(begin=datetime.today(),
+        .filter(begin__lte=datetime.today(),
+                end__gte=datetime.today(),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
-        .order_by('name')
+        .order_by('begin', 'end', 'name')
 
 
 @register.simple_tag
@@ -108,7 +109,7 @@ def future_tournaments():
         .filter(begin__gt=datetime.today(),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
-        .order_by('begin')
+        .order_by('begin', 'end', 'name')
 
 
 @register.filter
@@ -133,12 +134,15 @@ def podium_results(friend):
 
 @register.filter
 def now_playing(friend):
-    return Tournament.objects.filter(attendance__friend=friend, begin=datetime.today())
+    return Tournament.objects.filter(attendance__friend=friend,
+                                     begin__lte=datetime.today(),
+                                     end__gte=datetime.today())
 
 
 @register.filter
 def next_tournaments(friend):
-    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.today()).order_by('begin')
+    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.today())\
+        .order_by('begin', 'end', 'name')
 
 
 @register.filter

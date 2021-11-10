@@ -191,7 +191,7 @@
                                     <li>
                                         <span class="name">{{tournament.name}} </span>
                                         {% if tournament.metrix_id %}
-                                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> ({% trans "follow live" %})</a>
+                                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
                                         {% endif %}
                                     </li>
                                 {% endfor %}
