@@ -25,6 +25,7 @@
     body {
         overflow-x: hidden;
         position: relative;
+        background-image: url("/static/img/background-kevin-mobile.jpg");
     }
 
     .container {
@@ -179,6 +180,10 @@
         display: none !important;
     }
 
+    body {
+        background-image: url("/static/img/background-kevin-desktop.jpg");
+    }
+
     #mobile-navigation-bar {
         display: none;
     }
@@ -289,6 +294,11 @@ body {
     align-items: center;
     padding: 0;
     margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #efefef;
 }
 
 #header {
