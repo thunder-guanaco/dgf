@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-10 11:01+0100\n"
+"POT-Creation-Date: 2021-11-10 14:46+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +62,7 @@ msgid "Friends"
 msgstr "Friends"
 
 #: dgf/cms_toolbars.py:15
-#: dgf/templates/dgf/includes/overview/7_all_friends.html:3
+#: dgf/templates/dgf/includes/overview/8_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
@@ -393,11 +393,12 @@ msgid "Now playing"
 msgstr "Spielt gerade..."
 
 #: dgf/templates/dgf/friend_detail.html:194
+#: dgf/templates/dgf/includes/overview/6_now_playing.html:18
 msgid "follow live"
 msgstr "live folgen"
 
 #: dgf/templates/dgf/friend_detail.html:205
-#: dgf/templates/dgf/includes/overview/6_next_tournaments.html:5
+#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:5
 msgid "Next tournaments"
 msgstr "Nächste Turniere"
 
@@ -497,13 +498,17 @@ msgstr "Beste Spieler (nach PDGA-Rating)"
 msgid "Best scores in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
-#: dgf/templates/dgf/includes/overview/6_next_tournaments.html:8
+#: dgf/templates/dgf/includes/overview/6_now_playing.html:7
+msgid "We are now..."
+msgstr "Wir spielen wir gerade..."
+
+#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:8
 #: dgf/templates/dgf/includes/show-all-less.html:4
 #: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
 msgid "(show all)"
 msgstr "(alle anzeigen)"
 
-#: dgf/templates/dgf/includes/overview/6_next_tournaments.html:9
+#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:9
 #: dgf/templates/dgf/includes/show-all-less.html:5
 msgid "(show less)"
 msgstr "(weniger anzeigen)"
