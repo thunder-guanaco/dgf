@@ -220,10 +220,7 @@
     list-style-type: none;
 }
 
-#friend-body .favorite-courses li:before, .next-tournaments li:before {
+#friend-body .favorite-courses li:before,
+#friend-body .now-playing li:before {
     content: '>\00a0\00a0\00a0';
-}
-
-#friend-body .highlights li:before {
-    content: '★\00a0\00a0\00a0';
 }

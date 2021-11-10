@@ -165,7 +165,7 @@
                         <p class="label">{% trans "Highlights" %}</p>
                         <ul class="value">
                             {% for highlight in friend.highlights.all %}
-                                <li>{{highlight.content}}</li>
+                                <li>&#11088; {{highlight.content}}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -176,7 +176,24 @@
                             <p class="label">{% trans "Tournament achievements" %}</p>
                             <ul class="value">
                                 {% for result in podium_results %}
-                                    <li>&#12935{{result.position}};{{result.tournament.name}}</li>
+                                    <li>&#12935{{result.position}}; {{result.tournament.name}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                {% with friend|now_playing as tournaments %}
+                    {% if tournaments %}
+                        <div class="now-playing">
+                            <p class="label">{% trans "Now playing" %}</p>
+                            <ul class="value">
+                                {% for tournament in tournaments %}
+                                    <li>
+                                        <span class="name">{{tournament.name}} </span>
+                                        {% if tournament.metrix_id %}
+                                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> ({% trans "follow live" %})</a>
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -189,6 +206,7 @@
                             <ul class="value">
                                 {% for tournament in tournaments %}
                                     <li>
+                                        &#129359;
                                         {% if tournament.url %}
                                             <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}} </a>
                                         {% else %}
