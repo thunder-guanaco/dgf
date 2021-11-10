@@ -1,0 +1,23 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+    .friend-ball img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .friend-ball {
+        flex-direction: row !important;
+        margin: 0.5em;
+    }
+
+    .friend-ball .friend-name {
+        margin: 0 0 0 0.5em !important;
+    }
+
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
