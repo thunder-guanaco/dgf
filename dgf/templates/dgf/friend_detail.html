@@ -173,7 +173,7 @@
                 {% with friend|podium_results as podium_results %}
                     {% if podium_results %}
                         <div class="podiums">
-                            <p class="label">{% trans "Tournament Results" %}</p>
+                            <p class="label">{% trans "Tournament achievements" %}</p>
                             <ul class="value">
                                 {% for result in podium_results %}
                                     <li style="margin-left: 2em;">&#12935{{result.position}};{{result.tournament.name}}</li>
