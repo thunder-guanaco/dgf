@@ -2,7 +2,7 @@
 
 {% if request.user.is_superuser %}
     {% problematic_tournaments as tournaments %}
-    {% if problematic_tournaments %}
+    {% if tournaments|length %}
         <div id="admin-info">
             {% for tournament in tournaments %}
                 <a href="{% url 'admin:dgf_tournament_change' tournament.id %}">
