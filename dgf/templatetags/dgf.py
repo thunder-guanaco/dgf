@@ -6,6 +6,7 @@ from django import template
 from django.db.models import Count, Q
 
 from ..models import Ace, DiscInBag, Course, Tournament, Result
+from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 register = template.Library()
 
@@ -122,5 +123,15 @@ def podium_results(friend):
 
 
 @register.filter
+def now_playing(friend):
+    return Tournament.objects.filter(attendance__friend=friend, begin=datetime.today())
+
+
+@register.filter
 def next_tournaments(friend):
-    return Tournament.objects.filter(attendance__friend=friend, begin__gte=datetime.now()).order_by('begin')
+    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.now()).order_by('begin')
+
+
+@register.filter
+def metrix_url(tournament):
+    return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(tournament.metrix_id)
