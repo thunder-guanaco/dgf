@@ -26,7 +26,7 @@
 
     </head>
 
-    {% if request.user.is_superuser %}
+    {% if request.user.username == 'manolo' or request.user.username == 'mario' %}
         {% if request.user_agent.is_mobile %}
             <body style="background-image: url({% static 'img/background-kevin-mobile.jpg' %});
                      background-position: center;
