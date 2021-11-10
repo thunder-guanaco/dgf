@@ -119,3 +119,8 @@ def problematic_tournaments():
 @register.filter
 def podium_results(friend):
     return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('tournament__begin')
+
+
+@register.filter
+def next_tournaments(friend):
+    return Tournament.objects.filter(attendance__friend=friend, begin__gte=datetime.now()).order_by('begin')
