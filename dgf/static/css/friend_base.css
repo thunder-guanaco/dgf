@@ -15,6 +15,12 @@
 
 }
 
+h2 .show-all,
+h2 .show-less {
+    font-size: 0.75em;
+    font-weight: normal;
+}
+
 .udisc .friends {
     display: flex;
     flex-direction: row;

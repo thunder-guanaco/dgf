@@ -125,7 +125,6 @@
     cursor: pointer;
     color: #8d1950;
     font-weight: normal;
-    font-size: 0.75em;
 }
 
 .all-friends {
@@ -198,9 +197,10 @@
     min-height: 5em !important;
 }
 
-.show-all-less .show-all,
-.show-all-less .show-less {
-    font-size: 1em !important;
+h2 .show-all-tournaments,
+h2 .show-less-tournaments {
+    font-size: 0.75em;
+    font-weight: normal;
 }
 
 #now-playing .inner-content ul,
