@@ -18,8 +18,12 @@
                         {% with tournament.attendance.all|active as tournament_players %}
                             <div class="top-info">
                                 <div>
-                                    <span class="name">{{ tournament.name }} </span>
-                                    <span class="date">({{ tournament.date }})</span>
+                                    {% if tournament.url %}
+                                        <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}}</a>
+                                    {% else %}
+                                        <span class="name">{{tournament.name}}</span>
+                                    {% endif %}
+                                    <span class="date">({{tournament.date}})</span>
                                     {% include "dgf/includes/show-all-less.html" with minimum=5 amount=tournament_players.count %}
                                 </div>
                                 <div class="players top">
@@ -47,8 +51,12 @@
                         {% with tournament.attendance.all|active as tournament_players %}
                             <div class="top-info">
                                 <div>
-                                    <span class="name">{{ tournament.name }} </span>
-                                    <span class="date">({{ tournament.date }})</span>
+                                    {% if tournament.url %}
+                                        <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}} </a>
+                                    {% else %}
+                                        <span class="name">{{tournament.name}} </span>
+                                    {% endif %}
+                                    <span class="date">({{tournament.date}})</span>
                                     {% include "dgf/includes/show-all-less.html" with minimum=5 amount=tournament_players.count %}
                                 </div>
                                 <div class="players top">
