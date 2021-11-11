@@ -55,10 +55,6 @@
         width: 100%;
     }
 
-    #friend .pdga b:first-child {
-        display: none;
-    }
-
     #videos .value {
         display: flex;
         flex-direction: column;
@@ -170,7 +166,7 @@
     font-size: smaller;
 }
 
-#friend .pdga {
+#friend .external-ids {
     font-size: 1.5em;
 }
 
