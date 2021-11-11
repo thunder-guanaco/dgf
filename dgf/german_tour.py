@@ -9,6 +9,7 @@ from dgf.models import Tournament, Friend, Attendance
 logger = logging.getLogger(__name__)
 
 TOURNAMENT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
 TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
 
 GT_DATE_FORMAT = '%d.%m.%Y'
@@ -48,10 +49,12 @@ def add_tournament(gt_tournament):
     begin_date = datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT)
     end_date = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(name=gt_tournament['name'],
+    tournament, created = Tournament.objects.get_or_create(gt_id=gt_tournament['id'],
                                                            defaults={
+                                                               'name': gt_tournament['name'],
+                                                               'url': TOURNAMENT_PAGE.format(gt_tournament['id']),
                                                                'begin': begin_date,
-                                                               'end': end_date
+                                                               'end': end_date,
                                                            })
     if created:
         logger.info(f'Created tournament {tournament}')
@@ -64,22 +67,32 @@ def add_tournament(gt_tournament):
     return tournament
 
 
-def parse_gt_numbers(attendance_table):
+def find_gt_number_column(attendance_headers):
+    for i, th in enumerate(attendance_headers.find_all('th')):
+        if th.text == 'GT#':
+            logger.info(f'Found GT# header at position {i}')
+            return i
+
+
+def parse_gt_numbers(attendance_header, attendance_content):
     gt_numbers = []
-    for tr in attendance_table.find_all('tr'):
-        text = tr.find_all('td')[5].text
+    gt_number_i = find_gt_number_column(attendance_header)
+    for tr in attendance_content.find_all('tr'):
+        text = tr.find_all('td')[gt_number_i].text
         if text:
             gt_numbers.append(int(text))
     return gt_numbers
 
 
 def add_attendance(tournament, attendance_soup):
-    attendance_table = attendance_soup.find('table', id='starterlist').find('tbody')
-    if 'Keine Daten in der Tabelle vorhanden' in [td.text.strip() for td in attendance_table.find_all('td')]:
+    attendance_table = attendance_soup.find('table', id='starterlist')
+    table_header = attendance_table.find('thead')
+    table_content = attendance_table.find('tbody')
+    if 'Keine Daten in der Tabelle vorhanden' in [td.text.strip() for td in table_content.find_all('td')]:
         logger.info(f'No attendance list for tournament {tournament}')
         return
 
-    gt_numbers = parse_gt_numbers(attendance_table)
+    gt_numbers = parse_gt_numbers(table_header, table_content)
     for friend in Friend.objects.filter(gt_number__in=gt_numbers):
         _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
         if created:
@@ -91,6 +104,9 @@ def update_tournaments():
     for gt_tournament in gt_tournaments:
         if gt_tournament['canceled']:
             delete_tournament(gt_tournament)
+        elif gt_tournament['name'].startswith('Tremonia Series #'):
+            logger.info(f'Ignoring tournament: {gt_tournament["name"]}. '
+                        f'Tremonia Series tournaments are handled separately')
         else:
             tournament = add_tournament(gt_tournament)
             attendance_soup = get(TOURNAMENT_ATTENDANCE_PAGE.format(gt_tournament['id']))

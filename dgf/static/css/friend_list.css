@@ -41,16 +41,16 @@
         width: 70px !important;
     }
 
-    #tournaments .tournament .top-info {
+    .tournament .top-info {
         flex-direction: column !important;
         align-items: flex-start !important;
     }
 
-    #tournaments .tournament .players {
+    .tournament .players {
         width: 100% !important;
     }
 
-    #tournaments .tournament .players .friend-ball {
+    .tournament .players .friend-ball {
         margin: 1em 0em 1em -2em !important;
     }
 
@@ -76,7 +76,7 @@
         width: auto;
     }
 
-    #tournaments .tournament .players .friend-ball {
+    .tournament .players .friend-ball {
         margin: 1em 1em 1em -2em !important;
     }
 
@@ -125,7 +125,6 @@
     cursor: pointer;
     color: #8d1950;
     font-weight: normal;
-    font-size: 0.75em;
 }
 
 .all-friends {
@@ -169,7 +168,7 @@
     justify-content: center;
 }
 
-#tournaments .tournament .top-info {
+.tournament .top-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -177,32 +176,34 @@
     margin-bottom: 1em;
 }
 
-#tournaments .tournament .name {
+.tournament .name {
     width: 65%;
     font-weight: bold;
 }
 
-#tournaments .tournament .date {
+.tournament .date {
     font-weight: normal;
     font-style: italic;
 }
 
-#tournaments .tournament .players {
+.tournament .players {
     width: 35%;
     display: flex;
     flex-direction: row-reverse;
 }
 
-#tournaments .inner-content .tournament {
+.inner-content .tournament {
     margin: 1em 0em !important;
     min-height: 5em !important;
 }
 
-#tournaments .show-all,
-#tournaments .show-less {
-    font-size: 1em !important;
+h2 .show-all-tournaments,
+h2 .show-less-tournaments {
+    font-size: 0.75em;
+    font-weight: normal;
 }
 
+#now-playing .inner-content ul,
 #tournaments .inner-content ul {
     width: 100%;
 }

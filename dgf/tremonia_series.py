@@ -60,11 +60,13 @@ def add_results(tournament, ts_tournament):
 def add_tournament(ts_tournament):
     name = extract_name(ts_tournament)
     date = datetime.strptime(ts_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
+    id = ts_tournament['ID']
 
     tournament, created = Tournament.objects.get_or_create(
-        url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(ts_tournament['ID']),
+        metrix_id=id,
         defaults={
             'name': name,
+            'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
             'begin': date,
             'end': date,
         })

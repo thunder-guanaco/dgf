@@ -111,6 +111,7 @@
 
     #friend-body div .value {
         width: 60%;
+        margin-left: 2em;
     }
 
     #friend-body div#videos .value {
@@ -212,18 +213,14 @@
 }
 
 #friend-body ul {
-    margin: 0 !important;
+    margin: 0;
 }
 
-#friend-body li {
+#friend-body .value {
     list-style-type: none;
-    margin: 0 !important;
 }
 
-#friend-body .favorite-courses li:before {
+#friend-body .favorite-courses li:before,
+#friend-body .now-playing li:before {
     content: '>\00a0\00a0\00a0';
-}
-
-#friend-body .highlights li:before {
-    content: '★\00a0\00a0\00a0';
 }

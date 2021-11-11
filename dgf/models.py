@@ -53,13 +53,18 @@ class Course(Model):
     udisc_main_layout = models.CharField(_('Main Layout'), max_length=100, null=True, blank=True)
 
     def __str__(self):
-        if self._contain_each_other(self.name, self.city):
-            if self.country == 'DE':
+        if not self.city:
+            if not self.country or self.country == 'DE':
+                place = ''
+            else:
+                place = f' ({self.country})'
+        elif self._contain_each_other(self.name, self.city):
+            if not self.country or self.country == 'DE':
                 place = ''
             else:
                 place = f' ({self.country})'
         else:
-            if self.country == 'DE':
+            if not self.country or self.country == 'DE':
                 place = f' ({self.city})'
             else:
                 place = f' ({self.city}, {self.country})'
@@ -74,13 +79,6 @@ class Course(Model):
     @staticmethod
     def _words_of(string):
         return set(re.findall('\w+', string))
-
-
-class CoursePluginModel(CMSPlugin):
-    course = models.ForeignKey(Course, on_delete=CASCADE)
-
-    def __str__(self):
-        return str(self.course)
 
 
 class OnlyFriendsManager(UserManager):
@@ -148,26 +146,20 @@ class Friend(User):
     @property
     def initials(self):
         first = self.first_name[0] if self.first_name else ''
-        second = self.last_name[0] if self.last_name else ''
-        return f'{first} {second}'
+        second = f' {self.last_name[0]}' if self.last_name else ''
+        return f'{first}{second}'
 
     def __str__(self):
+        last_name = f' {self.last_name}' if self.last_name else ''
         pdga_number = f' #{self.pdga_number}' if self.pdga_number else ''
         show_if_inactive = ' (not DGF)' if not self.is_active else ''
-        return f'{self.first_name} {self.last_name}{pdga_number}{show_if_inactive}'
+        return f'{self.first_name}{last_name}{pdga_number}{show_if_inactive}'
 
     def save(self, *args, **kwargs):
         new_slug = self.slug or self.nickname or self.first_name or self.username
         self.slug = slugify(new_slug).lower()
         logger.info(f'Setting slug for {self.username} to {self.slug}')
         super(Friend, self).save(*args, **kwargs)
-
-
-class FriendPluginModel(CMSPlugin):
-    friend = models.ForeignKey(Friend, on_delete=CASCADE)
-
-    def __str__(self):
-        return str(self.friend)
 
 
 class UdiscRound(Model):
@@ -204,7 +196,8 @@ class Feedback(Model):
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
 
     def __str__(self):
-        return f'{self.friend.short_name if self.friend else None} - {self.title}'
+        friend = f'{self.friend.short_name} - ' if self.friend else ''
+        return f'{friend}{self.title}'
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
@@ -222,7 +215,7 @@ class Highlight(Model):
         return str(self.content)
 
 
-class Disc(models.Model):
+class Disc(Model):
     manufacturer = models.CharField(_('Manufacturer'), max_length=200, null=True, blank=True)
     mold = models.CharField(_('Mold'), max_length=200, unique=True)
     display_name = models.CharField(_('Display name'), max_length=200)
@@ -235,7 +228,7 @@ class Disc(models.Model):
         super(Disc, self).save(*args, **kwargs)
 
 
-class DiscInBag(models.Model):
+class DiscInBag(Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['disc', 'friend'], name='unique_disc_for_friend'),
@@ -247,9 +240,9 @@ class DiscInBag(models.Model):
     DISTANCE_DRIVER = 'D'
     TYPE_CHOICES = (
         (PUTTER, _('Putter')),
-        (MID_RANGE, _('Mid-range')),
-        (FAIRWAY_DRIVER, _('Fairway driver')),
-        (DISTANCE_DRIVER, _('Distance driver')),
+        (MID_RANGE, _('Mid-Range')),
+        (FAIRWAY_DRIVER, _('Fairway Driver')),
+        (DISTANCE_DRIVER, _('Distance Driver')),
     )
     type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
     amount = models.PositiveIntegerField(_('Amount'), default=1, validators=[MinValueValidator(1)])
@@ -262,10 +255,10 @@ class DiscInBag(models.Model):
         return f'{count}{self.disc.display_name}'
 
     def __str__(self):
-        return f'{self.amount}x {self.disc.mold} ({self.get_type_display()})'
+        return f'{self.in_the_bag} ({self.get_type_display()})'
 
 
-class Ace(models.Model):
+class Ace(Model):
     PRACTICE = 'P'
     CASUAL_ROUND = 'C'
     TOURNAMENT = 'T'
@@ -282,11 +275,9 @@ class Ace(models.Model):
     date = PartialDateField(_('Date'), null=True, blank=True)
 
     def __str__(self):
-        date = f' - {self.date}' if self.date else ''
-        return f'{self.course} - ' \
-               f'{_("Hole")} {self.hole} ' \
-               f'{_("with a")} {self.disc.display_name} ' \
-               f'[{self.get_type_display()}]{date}'
+        date = f' on {self.date}' if self.date else ''
+        return f'{self.friend} aced hole {self.hole} at {self.course}' \
+               f' with a {self.disc.display_name} ({self.get_type_display()}){date}'
 
 
 class Video(Model):
@@ -311,16 +302,22 @@ class Video(Model):
         return str(self.url)
 
 
-class Tournament(models.Model):
+class Tournament(Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['url'], name='unique_url_for_tournament'),
+            models.UniqueConstraint(fields=['pdga_id'], name='unique_pdga_id_for_tournament'),
+            models.UniqueConstraint(fields=['gt_id'], name='unique_gt_id_for_tournament'),
+            models.UniqueConstraint(fields=['metrix_id'], name='unique_metrix_id_for_tournament'),
         ]
 
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=False)
+    pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
+    gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
+    metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
     @property
     def date(self):
@@ -357,9 +354,8 @@ class Tournament(models.Model):
                         .order_by('position')
                         .values_list('position', flat=True)) == [1, 2, 3]
 
-
-def __str__(self):
-    return f'{self.name} ({self.date})'
+    def __str__(self):
+        return f'{self.name} ({self.date})'
 
 
 class Attendance(Model):
@@ -374,7 +370,7 @@ class Attendance(Model):
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
 
     def __str__(self):
-        return f'{self.tournament} - {self.friend}'
+        return f'{self.friend} will attend {self.tournament}'
 
 
 class Result(Model):
@@ -396,3 +392,17 @@ class Result(Model):
 
     def __str__(self):
         return f'{self.friend} was {self.ordinal_position} at {self.tournament}'
+
+
+class CoursePluginModel(CMSPlugin):
+    course = models.ForeignKey(Course, on_delete=CASCADE)
+
+    def __str__(self):
+        return f'Course plugin for {str(self.course)}'
+
+
+class FriendPluginModel(CMSPlugin):
+    friend = models.ForeignKey(Friend, on_delete=CASCADE)
+
+    def __str__(self):
+        return f'Friend plugin for {str(self.friend)}'

@@ -155,7 +155,7 @@
                         <p class="label">{% trans "Favorite courses" %}</p>
                         <ul class="value">
                             {% for favorite in friend.favorite_courses.all %}
-                                <li style="margin-left: 2em;">{{favorite.course}}</li>
+                                <li>{{favorite.course}}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -165,7 +165,7 @@
                         <p class="label">{% trans "Highlights" %}</p>
                         <ul class="value">
                             {% for highlight in friend.highlights.all %}
-                                <li style="margin-left: 2em;">{{highlight.content}}</li>
+                                <li>&#11088; {{highlight.content}}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -173,10 +173,47 @@
                 {% with friend|podium_results as podium_results %}
                     {% if podium_results %}
                         <div class="podiums">
-                            <p class="label">{% trans "Tournament Results" %}</p>
+                            <p class="label">{% trans "Tournament achievements" %}</p>
                             <ul class="value">
                                 {% for result in podium_results %}
-                                    <li style="margin-left: 2em;">&#12935{{result.position}};{{result.tournament.name}}</li>
+                                    <li>&#12935{{result.position}}; {{result.tournament.name}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                {% with friend|now_playing as tournaments %}
+                    {% if tournaments %}
+                        <div class="now-playing">
+                            <p class="label">{% trans "Now playing" %}</p>
+                            <ul class="value">
+                                {% for tournament in tournaments %}
+                                    <li>
+                                        <span class="name">{{tournament.name}} </span>
+                                        {% if tournament.metrix_id %}
+                                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                {% with friend|next_tournaments as tournaments %}
+                    {% if tournaments %}
+                        <div class="next-tournaments">
+                            <p class="label">{% trans "Next tournaments" %}</p>
+                            <ul class="value">
+                                {% for tournament in tournaments %}
+                                    <li>
+                                        &#129359;
+                                        {% if tournament.url %}
+                                            <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}} </a>
+                                        {% else %}
+                                            <span class="name">{{tournament.name}} </span>
+                                        {% endif %}
+                                        ({{tournament.date}})
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>

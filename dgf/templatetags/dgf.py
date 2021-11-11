@@ -6,6 +6,7 @@ from django import template
 from django.db.models import Count, Q
 
 from ..models import Ace, DiscInBag, Course, Tournament, Result
+from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 register = template.Library()
 
@@ -93,12 +94,22 @@ def first_by_type(queryset, type):
 
 
 @register.simple_tag
-def all_tournaments():
+def current_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(begin__gte=datetime.now(),
+        .filter(begin__lte=datetime.today(),
+                end__gte=datetime.today(),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
-        .order_by('begin')
+        .order_by('begin', 'end', 'name')
+
+
+@register.simple_tag
+def future_tournaments():
+    return Tournament.objects.annotate(players_count=Count('attendance')) \
+        .filter(begin__gt=datetime.today(),
+                attendance__friend__is_active=True,
+                players_count__gt=0) \
+        .order_by('begin', 'end', 'name')
 
 
 @register.filter
@@ -119,3 +130,21 @@ def problematic_tournaments():
 @register.filter
 def podium_results(friend):
     return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('tournament__begin')
+
+
+@register.filter
+def now_playing(friend):
+    return Tournament.objects.filter(attendance__friend=friend,
+                                     begin__lte=datetime.today(),
+                                     end__gte=datetime.today())
+
+
+@register.filter
+def next_tournaments(friend):
+    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.today())\
+        .order_by('begin', 'end', 'name')
+
+
+@register.filter
+def metrix_url(tournament):
+    return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(tournament.metrix_id)

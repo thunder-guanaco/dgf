@@ -1,6 +1,6 @@
-{% load i18n dgf %}
+{% load static i18n dgf %}
 
-<div id="hall-of-fame">
+<div id="hall-of-fame-plugin">
     <h2>
         {% trans "Hall Of Fame" %}
         <a class="show-all" href="./hall-of-fame">
@@ -9,9 +9,7 @@
     </h2>
     <div class="row justify-content-md-center">
         {% for friend in friends|slice:":3" %}
-            <div>
-                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_ts_wins=True %}
-            </div>
+            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_ts_wins=True %}
         {% endfor %}
     </div>
 </div>

@@ -25,7 +25,27 @@
         {% endcompress %}
 
     </head>
-    <body>
+
+    {% if request.user.username == 'manolo' or request.user.username == 'mario' %}
+        {% if request.user_agent.is_mobile %}
+            <body style="background-image: url({% static 'img/background-kevin-mobile.jpg' %});
+                     background-position: center;
+                     background-repeat: no-repeat;
+                     background-attachment: fixed;
+                     background-size: cover;
+                     background-color: #efefef;">
+        {% else %}
+            <body style="background-image: url({% static 'img/background-kevin-desktop.jpg' %});
+                     background-position: center;
+                     background-repeat: no-repeat;
+                     background-attachment: fixed;
+                     background-size: cover;
+                     background-color: #efefef;">
+        {% endif %}
+    {% else %}
+        <body>
+    {% endif %}
+
         {% cms_toolbar %}
         {% include "includes/admin_info.html" %}
         {% language_chooser "includes/language_chooser.html" %}

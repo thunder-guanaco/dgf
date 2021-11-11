@@ -13,6 +13,30 @@
         height: -webkit-fill-available !important;
     }
 
+    #hall-of-fame-plugin .friend-ball img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    #hall-of-fame-plugin .friend-ball {
+        flex-direction: row !important;
+        margin: 0.5em;
+    }
+
+    #hall-of-fame-plugin .friend-ball .friend-name {
+        margin: 0 0 0 0.5em !important;
+    }
+
+    #hall-of-fame-plugin .row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+h2 .show-all,
+h2 .show-less {
+    font-size: 0.75em;
+    font-weight: normal;
 }
 
 .udisc .friends {
