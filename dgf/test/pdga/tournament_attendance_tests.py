@@ -19,6 +19,9 @@ class PdgaTournamentAttendanceTest(TestCase):
     def setUp(self):
         self.add_login()
         self.pdga_api = PdgaApi()
+        Friend.objects.all().delete()
+        Tournament.objects.all().delete()
+        Attendance.objects.all().delete()
 
     def test_no_pdga_number_no_attendance(self):
         manolo = Friend.objects.create(username='manolo')
@@ -30,7 +33,7 @@ class PdgaTournamentAttendanceTest(TestCase):
 
     def test_no_pdga_number_but_attendance(self):
         manolo = Friend.objects.create(username='manolo')
-        tournament = Tournament.objects.create(name='test', begin=date.today(), end=date.today())
+        tournament = Tournament.objects.create(pdga_id=123, name='test', begin=date.today(), end=date.today())
         existing_attendance = Attendance.objects.create(friend=manolo, tournament=tournament)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
@@ -40,7 +43,7 @@ class PdgaTournamentAttendanceTest(TestCase):
 
     @responses.activate
     def test_without_events_no_attendance(self):
-        self.get_fake_pdga_player_page_without_events(111828)
+        self.fake_pdga_player_page_without_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
@@ -51,10 +54,10 @@ class PdgaTournamentAttendanceTest(TestCase):
 
     @responses.activate
     def test_without_events_but_attendance(self):
-        self.get_fake_pdga_player_page_without_events(111828)
+        self.fake_pdga_player_page_without_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
+        ts3 = Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
@@ -62,14 +65,14 @@ class PdgaTournamentAttendanceTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 1)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_next_event_no_attendance_no_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.get_fake_pdga_player_page_with_next_event(111828)
+        self.fake_pdga_player_page_with_next_event(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
@@ -78,8 +81,9 @@ class PdgaTournamentAttendanceTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 1)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEqual(attendance_ts3.tournament.url, 'https://www.pdga.com/tour/event/333')
         self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
         self.assertEqual(attendance_ts3.tournament.end, JULY_24)
         self.assertEqual(attendance_ts3.friend, manolo)
@@ -87,27 +91,27 @@ class PdgaTournamentAttendanceTest(TestCase):
     @responses.activate
     def test_next_event_no_attendance_existing_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.get_fake_pdga_player_page_with_next_event(111828)
+        self.fake_pdga_player_page_with_next_event(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
+        ts3 = Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 1)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEqual(attendance_ts3.friend, manolo)
 
     @responses.activate
     def test_next_event_existing_attendance_existing_tournament(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
-        self.get_fake_pdga_player_page_with_next_event(111828)
+        self.fake_pdga_player_page_with_next_event(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
+        ts3 = Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
         Attendance.objects.create(friend=manolo, tournament=ts3)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
@@ -115,7 +119,7 @@ class PdgaTournamentAttendanceTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 1)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEqual(attendance_ts3.friend, manolo)
 
@@ -123,7 +127,7 @@ class PdgaTournamentAttendanceTest(TestCase):
     def test_upcoming_events_no_attendance_no_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.get_fake_pdga_player_page_with_upcoming_events(111828)
+        self.fake_pdga_player_page_with_upcoming_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
 
@@ -132,14 +136,16 @@ class PdgaTournamentAttendanceTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament.name, 'Tremonia Series #3')
+        self.assertEqual(attendance_ts3.tournament.url, 'https://www.pdga.com/tour/event/333')
         self.assertEqual(attendance_ts3.tournament.begin, JULY_24)
         self.assertEqual(attendance_ts3.tournament.end, JULY_24)
         self.assertEqual(attendance_ts3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
+        attendance_ts4 = attendance_list.get(tournament__pdga_id=444)
         self.assertEqual(attendance_ts4.tournament.name, 'Tremonia Series #4')
+        self.assertEqual(attendance_ts4.tournament.url, 'https://www.pdga.com/tour/event/444')
         self.assertEqual(attendance_ts4.tournament.begin, JULY_24)
         self.assertEqual(attendance_ts4.tournament.end, JULY_25)
         self.assertEqual(attendance_ts4.friend, manolo)
@@ -148,22 +154,22 @@ class PdgaTournamentAttendanceTest(TestCase):
     def test_upcoming_events_no_attendance_existing_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.get_fake_pdga_player_page_with_upcoming_events(111828)
+        self.fake_pdga_player_page_with_upcoming_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
-        ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
+        ts3 = Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
+        ts4 = Tournament.objects.create(pdga_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEqual(attendance_ts3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
+        attendance_ts4 = attendance_list.get(tournament__pdga_id=444)
         self.assertEqual(attendance_ts4.tournament, ts4)
         self.assertEqual(attendance_ts4.friend, manolo)
 
@@ -171,11 +177,11 @@ class PdgaTournamentAttendanceTest(TestCase):
     def test_upcoming_events_existing_attendance_existing_tournaments(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.get_fake_pdga_player_page_with_upcoming_events(111828)
+        self.fake_pdga_player_page_with_upcoming_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        ts3 = Tournament.objects.create(name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
-        ts4 = Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
+        ts3 = Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=JULY_24, end=JULY_24)
+        ts4 = Tournament.objects.create(pdga_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_25)
         Attendance.objects.create(friend=manolo, tournament=ts3)
         Attendance.objects.create(friend=manolo, tournament=ts4)
 
@@ -184,11 +190,11 @@ class PdgaTournamentAttendanceTest(TestCase):
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
 
-        attendance_ts3 = attendance_list.get(tournament__name='Tremonia Series #3')
+        attendance_ts3 = attendance_list.get(tournament__pdga_id=333)
         self.assertEqual(attendance_ts3.tournament, ts3)
         self.assertEqual(attendance_ts3.friend, manolo)
 
-        attendance_ts4 = attendance_list.get(tournament__name='Tremonia Series #4')
+        attendance_ts4 = attendance_list.get(tournament__pdga_id=444)
         self.assertEqual(attendance_ts4.tournament, ts4)
         self.assertEqual(attendance_ts4.friend, manolo)
 
@@ -196,19 +202,19 @@ class PdgaTournamentAttendanceTest(TestCase):
     def test_upcoming_events_date_change(self):
         self.add_tournament_data('333', 'Tremonia Series #3', '2021-07-24', '2021-07-24')
         self.add_tournament_data('444', 'Tremonia Series #4', '2021-07-24', '2021-07-25')
-        self.get_fake_pdga_player_page_with_upcoming_events(111828)
+        self.fake_pdga_player_page_with_upcoming_events(111828)
 
         manolo = Friend.objects.create(username='manolo', pdga_number=111828)
-        Tournament.objects.create(name='Tremonia Series #3', begin=APRIL_2, end=APRIL_2)
-        Tournament.objects.create(name='Tremonia Series #4', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(pdga_id=333, name='Tremonia Series #3', begin=APRIL_2, end=APRIL_2)
+        Tournament.objects.create(pdga_id=444, name='Tremonia Series #4', begin=JULY_24, end=JULY_24)
 
         pdga.update_friend_tournaments(manolo, self.pdga_api)
 
-        ts3 = Tournament.objects.get(name='Tremonia Series #3')
+        ts3 = Tournament.objects.get(pdga_id=333)
         self.assertEqual(ts3.begin, JULY_24)
         self.assertEqual(ts3.end, JULY_24)
 
-        ts4 = Tournament.objects.get(name='Tremonia Series #4')
+        ts4 = Tournament.objects.get(pdga_id=444)
         self.assertEqual(ts4.begin, JULY_24)
         self.assertEqual(ts4.end, JULY_25)
 
@@ -245,7 +251,7 @@ class PdgaTournamentAttendanceTest(TestCase):
                                     'asst_tournament_director_pdga_number': '109371',
                                     'event_email': 'mgg@example.com',
                                     'event_phone': '012-345-6789',
-                                    'event_url': 'https://www.pdga.com/tour/event/333',
+                                    'event_url': f'https://www.pdga.com/tour/event/{tournament_id}',
                                     'website_url': 'https://discgolffriends.de/turniere/tremonia-series',
                                     'registration_url': 'https://discgolfmetrix.com/715021',
                                     'last_modified': '2021-03-15'
@@ -260,7 +266,7 @@ class PdgaTournamentAttendanceTest(TestCase):
                             'token': 'uemWB6CbC0qwseuSJ7wogG65FsC7JNBsEXVOnR-xzQc'},
                       status=200)
 
-    def get_fake_pdga_player_page_without_events(self, pdga_number):
+    def fake_pdga_player_page_without_events(self, pdga_number):
         responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
                       body='<div class="pane-content">'
                            '  <ul class="player-info info-list">'
@@ -292,7 +298,7 @@ class PdgaTournamentAttendanceTest(TestCase):
                            '  </ul>'
                            '</div>')
 
-    def get_fake_pdga_player_page_with_next_event(self, pdga_number):
+    def fake_pdga_player_page_with_next_event(self, pdga_number):
         responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
                       body='<div class="pane-content">'
                            '  <ul class="player-info info-list">'
@@ -328,7 +334,7 @@ class PdgaTournamentAttendanceTest(TestCase):
                            '  </ul>'
                            '</div>')
 
-    def get_fake_pdga_player_page_with_upcoming_events(self, pdga_number):
+    def fake_pdga_player_page_with_upcoming_events(self, pdga_number):
         responses.add(responses.GET, f'https://www.pdga.com/player/{pdga_number}',
                       body='<div class="pane-content">'
                            '  <ul class="player-info info-list">'
