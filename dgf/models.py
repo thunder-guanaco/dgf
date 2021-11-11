@@ -314,7 +314,7 @@ class Tournament(Model):
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
-    url = models.URLField(_('URL'), null=True, blank=False)
+    url = models.URLField(_('URL'), null=True, blank=True)
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)

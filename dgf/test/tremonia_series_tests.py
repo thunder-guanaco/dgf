@@ -25,7 +25,24 @@ class TremoniaSeriesTest(TestCase):
             self.assertTournament(tournaments, id)
 
     @responses.activate
-    def test_tournament_changing_name(self):
+    def test_tournament_incomplete_tournament(self):
+        Tournament.objects.all().delete()
+        Tournament.objects.create(metrix_id=12345,
+                                  name='Tremonia Series #28',
+                                  begin=date(year=1000, month=1, day=1),
+                                  end=date(year=1000, month=1, day=1))
+        self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
+
+        tremonia_series.update_tournaments()
+
+        tournament = Tournament.objects.get(metrix_id=12345)
+        self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
+        self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+        self.assertEqual(tournament.begin, date(year=1000, month=1, day=1))
+        self.assertEqual(tournament.end, date(year=1000, month=1, day=1))
+
+    @responses.activate
+    def test_tournament_name_change(self):
         Tournament.objects.all().delete()
         Tournament.objects.create(metrix_id=12345,
                                   name='Tremonia Series #28',
@@ -38,9 +55,27 @@ class TremoniaSeriesTest(TestCase):
 
         tournament = Tournament.objects.get(metrix_id=12345)
         self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
+        self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
         self.assertEqual(tournament.begin, date(year=1000, month=1, day=1))
         self.assertEqual(tournament.end, date(year=1000, month=1, day=1))
+
+    @responses.activate
+    def test_tournament_date_change(self):
+        Tournament.objects.all().delete()
+        Tournament.objects.create(metrix_id=12345,
+                                  name='Tremonia Series #28',
+                                  begin=date(year=1000, month=1, day=2),
+                                  end=date(year=1000, month=1, day=3),
+                                  url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+        self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
+
+        tremonia_series.update_tournaments()
+
+        tournament = Tournament.objects.get(metrix_id=12345)
+        self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
         self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+        self.assertEqual(tournament.begin, date(year=1000, month=1, day=1))
+        self.assertEqual(tournament.end, date(year=1000, month=1, day=1))
 
     @responses.activate
     def test_tournament_with_results(self):
@@ -200,6 +235,6 @@ class TremoniaSeriesTest(TestCase):
     def assertTournament(self, tournaments, id):
         tournament = tournaments.get(metrix_id=id)
         self.assertTrue(tournament.name.startswith(f'Tremonia Series #{id}'))
+        self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id))
         self.assertEqual(tournament.begin, date(year=1000 * id, month=1, day=1))
         self.assertEqual(tournament.end, date(year=1000 * id, month=1, day=1))
-        self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id))

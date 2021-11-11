@@ -62,20 +62,20 @@ def add_tournament(ts_tournament):
     date = datetime.strptime(ts_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
     id = ts_tournament['ID']
 
-    tournament, created = Tournament.objects.get_or_create(
-        metrix_id=id,
-        defaults={
-            'name': name,
-            'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
-            'begin': date,
-            'end': date,
-        })
+    tournament, created = Tournament.objects.get_or_create(metrix_id=id,
+                                                           defaults={
+                                                               'name': name,
+                                                               'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
+                                                               'begin': date,
+                                                               'end': date,
+                                                           })
 
     if created:
         logger.info(f'Created tournament {tournament}\n')
     else:
-        # Always update the name and the dates
+        # Always update. With Corona you never know
         tournament.name = name
+        tournament.url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id)
         tournament.begin = date
         tournament.end = date
         tournament.save()

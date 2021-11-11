@@ -59,7 +59,9 @@ def add_tournament(gt_tournament):
     if created:
         logger.info(f'Created tournament {tournament}')
     else:
-        # Always update the date. With Corona you never know
+        # Always update. With Corona you never know
+        tournament.name = gt_tournament['name']
+        tournament.url = TOURNAMENT_PAGE.format(gt_tournament['id'])
         tournament.begin = begin_date
         tournament.end = end_date
         tournament.save()

@@ -54,12 +54,16 @@ class GermanTourTest(TestCase):
 
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
         self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
         self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
 
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(attendance_tournament_4.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
         self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
@@ -78,12 +82,16 @@ class GermanTourTest(TestCase):
 
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
         self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
         self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
 
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(attendance_tournament_4.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
         self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
@@ -94,8 +102,8 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
-        tournament_3 = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
-        tournament_4 = Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
+        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
 
         german_tour.update_tournaments()
 
@@ -103,11 +111,19 @@ class GermanTourTest(TestCase):
         self.assertEqual(len(attendance_list), 2)
 
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
-        self.assertEqual(attendance_tournament_3.tournament, tournament_3)
+        self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
+        self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
 
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
-        self.assertEqual(attendance_tournament_4.tournament, tournament_4)
+        self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(attendance_tournament_4.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
+        self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
@@ -133,6 +149,23 @@ class GermanTourTest(TestCase):
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament, tournament_4)
         self.assertEqual(attendance_tournament_4.friend, manolo)
+
+    @responses.activate
+    def test_tournament_name_change(self):
+        self.add_tournament_list()
+        self.add_tournament_attendance_list(333)
+        self.add_tournament_attendance_list(444)
+
+        Tournament.objects.create(gt_id=333, name='Test Tournament #33', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #43', begin=JULY_24, end=JULY_25)
+
+        german_tour.update_tournaments()
+
+        tournament_3 = Tournament.objects.get(gt_id=333)
+        self.assertEqual(tournament_3.name, 'Test Tournament #3')
+
+        tournament_4 = Tournament.objects.get(gt_id=444)
+        self.assertEqual(tournament_4.name, 'Test Tournament #4')
 
     @responses.activate
     def test_tournament_date_change(self):
