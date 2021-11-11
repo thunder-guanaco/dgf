@@ -83,12 +83,28 @@
                         <p>{{friend.club_role}}</p>
                     </div>
                 {% endif %}
-                <div class="friend-header-line">
+                <div class="friend-header-line desktop">
                     {% if friend.city %}
-                        <p>{% trans "City" %}: {{friend.city}}</p>
+                        <p>{% trans "from" %} {{friend.city}}</p>
+                    {% endif %}
+                    {% if friend.gt_number %}
+                        <p class="external-ids"><b>GT </b><b><a href="https://rating.discgolf.de/detail.php?gtn={{friend.gt_number}}" target="_blank">#{{friend.gt_number}}</a></b></p>
                     {% endif %}
                     {% if friend.pdga_number %}
-                        <p class="pdga"><b>PDGA </b><b><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
+                        <p class="external-ids"><b>PDGA </b><b><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
+                    {% endif %}
+                </div>
+                <div class="friend-header-line mobile">
+                    {% if friend.city %}
+                        <p>{% trans "from" %} {{friend.city}}</p>
+                    {% endif %}
+                </div>
+                <div class="friend-header-line mobile">
+                    {% if friend.gt_number %}
+                        <p class="external-ids"><b>GT <a href="https://rating.discgolf.de/detail.php?gtn={{friend.gt_number}}" target="_blank">#{{friend.gt_number}}</a></b></p>
+                    {% endif %}
+                    {% if friend.pdga_number %}
+                        <p class="external-ids"><b>PDGA <a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
                     {% endif %}
                 </div>
                 <hr>
@@ -114,7 +130,7 @@
             <div id="friend-body">
                 {% if friend.plays_since %}
                     <div>
-                        <p class="label">{% trans "plays since" %}</p>
+                        <p class="label">{% trans "Plays disc golf since" %}</p>
                         <p class="value">{{friend.plays_since}}</p>
                     </div>
                 {% endif %}
