@@ -201,19 +201,27 @@ def add_tournament(friend, pdga_tournament):
     begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
     end_date = datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(name=pdga_tournament['tournament_name'],
+    tournament, created = Tournament.objects.get_or_create(pdga_id=pdga_tournament['tournament_id'],
                                                            defaults={
+                                                               'name': pdga_tournament['tournament_name'],
+                                                               'url': pdga_tournament['event_url'],
                                                                'begin': begin_date,
                                                                'end': end_date
                                                            })
     if created:
         logger.info(f'Created tournament {tournament}')
     else:
-        # Always update the date. With Corona you never know
+        # Always update. With Corona you never know
+        tournament.name = pdga_tournament['tournament_name']
+        tournament.url = pdga_tournament['event_url']
         tournament.begin = begin_date
         tournament.end = end_date
         tournament.save()
 
+    return tournament
+
+
+def add_attendance(friend, tournament):
     _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
     if created:
         logger.info(f'Added attendance of {friend} to {tournament}')
@@ -224,4 +232,5 @@ def update_friend_tournaments(friend, pdga_api):
         event_ids = get_upcoming_event_ids(friend.pdga_number)
         for id in event_ids:
             result = pdga_api.query_event(tournament_id=id)
-            add_tournament(friend, result['events'][0])
+            tournament = add_tournament(friend, result['events'][0])
+            add_attendance(friend, tournament)
