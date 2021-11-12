@@ -2,9 +2,11 @@ from django.views import defaults
 
 from .models import Feedback
 
+SENSITIVE_INFO = ['Cookie', 'csrfmiddlewaretoken']
+
 
 def nice_format(dictionary):
-    return '\n'.join([f'* **{key}**: {value}' for key, value in dictionary.items()])
+    return '\n'.join([f'* **{key}**: {value}' for key, value in dictionary.items() if key not in SENSITIVE_INFO])
 
 
 def server_error(request):
