@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-11 23:13+0100\n"
+"POT-Creation-Date: 2021-11-12 12:02+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,43 +57,51 @@ msgstr "Hall Of Fame (ganze Seite)"
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_toolbars.py:12 dgf/templates/dgf/friend_list.html:5
+#: dgf/cms_toolbars.py:14 dgf/templates/dgf/friend_list.html:5
 msgid "Friends"
 msgstr "Friends"
 
-#: dgf/cms_toolbars.py:15
+#: dgf/cms_toolbars.py:17
 #: dgf/templates/dgf/includes/overview/8_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
-#: dgf/cms_toolbars.py:19
+#: dgf/cms_toolbars.py:21
 msgid "New friend"
 msgstr "Neuer Friend"
 
-#: dgf/cms_toolbars.py:29
+#: dgf/cms_toolbars.py:31
 msgid "Courses"
 msgstr "Parcours"
 
-#: dgf/cms_toolbars.py:32
+#: dgf/cms_toolbars.py:34
 msgid "All courses"
 msgstr "Alle Parcours"
 
-#: dgf/cms_toolbars.py:36
+#: dgf/cms_toolbars.py:38
 msgid "New course"
 msgstr "Neuer Parcours"
 
-#: dgf/cms_toolbars.py:46 dgf/templates/dgf/tournament_list.html:5
+#: dgf/cms_toolbars.py:48 dgf/templates/dgf/tournament_list.html:5
 #: dgf/templates/dgf/tournament_list.html:23
 msgid "Tournaments"
 msgstr "Turniere"
 
-#: dgf/cms_toolbars.py:49
+#: dgf/cms_toolbars.py:51
 msgid "All tournaments"
 msgstr "Alle Turniere"
 
-#: dgf/cms_toolbars.py:53
+#: dgf/cms_toolbars.py:55
 msgid "New tournament"
 msgstr "Neues Turnier"
+
+#: dgf/cms_toolbars.py:65
+msgid "Folders"
+msgstr "Ordner"
+
+#: dgf/cms_toolbars.py:68
+msgid "All folders"
+msgstr "Alle Ordner"
 
 #: dgf/models.py:30
 msgid "ID"
