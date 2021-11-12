@@ -1,14 +1,16 @@
-{% if friends %}
-    <div class="arrow-left" onclick="scrollBack()"></div>
-    <div id="scrollable-header">
-        {% for friend in friends %}
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
-        {% endfor %}
-    </div>
-    <div class="arrow-right" onclick="scrollForward()"></div>
-{% else %}
-    <p>There are no friends.</p>
-{% endif %}
+<div id="friends-header" class="slide-right">
+    {% if friends %}
+        <div class="arrow-left" onclick="scrollBack()"></div>
+        <div id="scrollable-header">
+            {% for friend in friends %}
+                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
+            {% endfor %}
+        </div>
+        <div class="arrow-right" onclick="scrollForward()"></div>
+    {% else %}
+        <p>There are no friends.</p>
+    {% endif %}
+</div>
 
 <script>
     function scrollForward() {

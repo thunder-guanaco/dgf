@@ -22,7 +22,7 @@
 @media only screen and (min-width: 1024px) {
 
     #friends-header {
-        padding: 1em;
+        padding: 0.5em;
     }
 
     #friends-header .arrow-left {
@@ -39,7 +39,6 @@
 }
 
 #friends-header {
-    background-color: white;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -88,4 +87,14 @@
 #friends-header a:visited {
     color: #ffffff;
     font-weight: bold;
+}
+
+#friends-header img,
+#friends-header .avatar-container {
+    height: 60px !important;
+    width: 60px !important;
+}
+
+#friends-header .avatar-initials{
+    line-height: 60px !important;
 }
