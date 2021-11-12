@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/friend_list.css' %}">
 {% endblock %}
 
+{% block style %}
+    {% include "dgf/includes/background.html" %}
+{% endblock %}
+
 {% block js %}
     <script type="text/javascript" src="{% static 'js/friend_list.js' %}"></script>
 {% endblock %}

@@ -215,8 +215,8 @@
     }
 
     #navigation-bar-header img {
-        height: 3.3em;
-        width: auto;
+        height: auto;
+        width: 6em;
     }
 
     #navigation-bar-language-chooser {
@@ -309,7 +309,7 @@ body {
 }
 
 .language-chooser {
-    padding: 1em;
+    padding: 0.5em;
     white-space: nowrap;
     text-transform: uppercase;
 }
