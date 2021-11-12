@@ -6,10 +6,10 @@
 # │    │    │    │    │
 # *    *    *    *    * <command to execute> # comment
   0    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_pdga_data         >> /home/ubuntu/logs/cronjobs.log 2>&1
- 10    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_gt_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
- 20    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_ts_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
- 30     0   *    *    *  bash /home/ubuntu/dgf.bash dbbackup --clean        >> /home/ubuntu/logs/cronjobs.log 2>&1
- 35     0   *    *    *  bash /home/ubuntu/dgf.bash mediabackup --clean     >> /home/ubuntu/logs/cronjobs.log 2>&1
- 30     1   *    *    *  bash /home/ubuntu/dgf.bash update_udisc_scores     >> /home/ubuntu/logs/cronjobs.log 2>&1
- 30     2   *    *    *  bash /home/ubuntu/dgf.bash update_approved_discs   >> /home/ubuntu/logs/cronjobs.log 2>&1
- 30     3   *    *    *  sudo supervisorctl restart dgf_cms                 >> /home/ubuntu/logs/cronjobs.log 2>&1
+ 15    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_gt_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
+ 30    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_ts_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     0   *    *    *  bash /home/ubuntu/dgf.bash dbbackup --clean        >> /home/ubuntu/logs/cronjobs.log 2>&1
+ 15     0   *    *    *  bash /home/ubuntu/dgf.bash mediabackup --clean     >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     1   *    *    *  bash /home/ubuntu/dgf.bash update_udisc_scores     >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     2   *    *    *  bash /home/ubuntu/dgf.bash update_approved_discs   >> /home/ubuntu/logs/cronjobs.log 2>&1
+  0     3   *    *    *  sudo supervisorctl restart dgf_cms                 >> /home/ubuntu/logs/cronjobs.log 2>&1

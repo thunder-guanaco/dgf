@@ -82,20 +82,6 @@ elif ENV == 'prod':
             'PASSWORD': get_env_or_die('DJANGO_DB_PASSWORD'),
         }
     }
-
-    # Django DB and media Backups
-    # https://django-dbbackup.readthedocs.io/en/stable/configuration.html
-    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
-    DBBACKUP_STORAGE_OPTIONS = {
-        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
-    }
-    DBBACKUP_DATE_FORMAT = '%Y-%m-%d_%H-%M-%S'
-    DBBACKUP_CLEANUP_FILTER = lambda filename: '-01_' in filename  # the first backup of the month
-    DBBACKUP_FILENAME_TEMPLATE = 'dgf_db_{datetime}.{extension}'
-    DBBACKUP_MEDIA_FILENAME_TEMPLATE = 'dgf_media_{datetime}.{extension}'
-    DBBACKUP_CLEANUP_KEEP = 10
-    DBBACKUP_CLEANUP_KEEP_MEDIA = 5
-
 elif ENV == 'test':
     DATABASES = {
         'default': {
@@ -108,6 +94,25 @@ elif ENV == 'test':
             'USER': ''
         }
     }
+
+
+# Django DB and media Backups
+# https://django-dbbackup.readthedocs.io/en/stable/configuration.html
+def dbbackup_cleanup_filter(filename):
+    return '-01_' in filename
+
+
+if ENV == 'prod':
+    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
+    DBBACKUP_STORAGE_OPTIONS = {
+        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
+    }
+    DBBACKUP_DATE_FORMAT = '%Y-%m-%d_%H-%M-%S'
+    DBBACKUP_CLEANUP_FILTER = dbbackup_cleanup_filter
+    DBBACKUP_FILENAME_TEMPLATE = 'dgf_db_{datetime}.{extension}'
+    DBBACKUP_MEDIA_FILENAME_TEMPLATE = 'dgf_media_{datetime}.{extension}'
+    DBBACKUP_CLEANUP_KEEP = 30
+    DBBACKUP_CLEANUP_KEEP_MEDIA = 15
 
 # UDisc
 UDISC_COURSE_BASE_URL = 'https://udisc.com/courses/{}'
