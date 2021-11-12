@@ -1,7 +1,9 @@
 from cms.toolbar_base import CMSToolbar
 from cms.toolbar_pool import toolbar_pool
 from cms.utils.urlutils import admin_reverse
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from filer.models.foldermodels import Folder
 
 
 class FriendsToolbar(CMSToolbar):
@@ -55,6 +57,25 @@ class TournamentToolbar(CMSToolbar):
         )
 
 
+class FolderToolbar(CMSToolbar):
+
+    def populate(self):
+        menu = self.toolbar.get_or_create_menu(
+            'filer-folder',
+            _('Folders'),
+        )
+        menu.add_sideframe_item(
+            name=_('All folders'),
+            url=admin_reverse('filer_folder_changelist'),
+        )
+        background_folder = Folder.objects.get(name=settings.BACKGROUND_FOLDER)
+        menu.add_sideframe_item(
+            name=_(background_folder.name),
+            url=admin_reverse('filer-directory_listing', args=(background_folder.id,)),
+        )
+
+
 toolbar_pool.register(FriendsToolbar)
 toolbar_pool.register(CourseToolbar)
 toolbar_pool.register(TournamentToolbar)
+toolbar_pool.register(FolderToolbar)

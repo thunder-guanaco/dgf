@@ -188,6 +188,8 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
+BACKGROUND_FOLDER = 'Hintergrund'
+
 SITE_ID = 1
 
 TEMPLATES = [
@@ -231,9 +233,6 @@ MIDDLEWARE = [
     'cms.middleware.language.LanguageCookieMiddleware',
     'compression_middleware.middleware.CompressionMiddleware',
 ]
-
-if ENV == 'dev':
-    MIDDLEWARE.append('silk.middleware.SilkyMiddleware')
 
 INSTALLED_APPS = [
     'dgf',
@@ -282,9 +281,6 @@ INSTALLED_APPS = [
     'djangocms_video',
     'dgf_cms',
 ]
-
-if ENV == 'dev':
-    INSTALLED_APPS.append('silk')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
