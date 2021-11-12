@@ -10,5 +10,8 @@ cd ${ROOT_INSTALLATION_PATH}/django_project
 source ci/ENVIRONMENT_VARIABLES
 . ../env/bin/activate
 
-python manage.py backup
-exit_if_error "DB and media backup" $?
+python manage.py dbbackup --clean
+exit_if_error "DB backup" $?
+
+python manage.py mediabackup --clean
+exit_if_error "Media backup" $?
