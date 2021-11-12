@@ -24,19 +24,14 @@
 
         {% endcompress %}
 
+        <style>
+            {% block style %}
+            {% endblock style %}
+        </style>
+
     </head>
 
-    {% if request.user.username == 'manolo' or request.user.username == 'mario' %}
-        <body style="background-image: url({% random_background_img_url %});
-                 background-position: center;
-                 background-repeat: no-repeat;
-                 background-attachment: fixed;
-                 background-size: cover;
-                 background-color: #efefef;">
-    {% else %}
-        <body>
-    {% endif %}
-
+    <body>
         {% cms_toolbar %}
         {% include "includes/admin_info.html" %}
         {% language_chooser "includes/language_chooser.html" %}
