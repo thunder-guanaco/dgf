@@ -27,21 +27,12 @@
     </head>
 
     {% if request.user.username == 'manolo' or request.user.username == 'mario' %}
-        {% if request.user_agent.is_mobile %}
-            <body style="background-image: url({% static 'img/background-kevin-mobile.jpg' %});
-                     background-position: center;
-                     background-repeat: no-repeat;
-                     background-attachment: fixed;
-                     background-size: cover;
-                     background-color: #efefef;">
-        {% else %}
-            <body style="background-image: url({% static 'img/background-kevin-desktop.jpg' %});
-                     background-position: center;
-                     background-repeat: no-repeat;
-                     background-attachment: fixed;
-                     background-size: cover;
-                     background-color: #efefef;">
-        {% endif %}
+        <body style="background-image: url({% random_background_img_url %});
+                 background-position: center;
+                 background-repeat: no-repeat;
+                 background-attachment: fixed;
+                 background-size: cover;
+                 background-color: #efefef;">
     {% else %}
         <body>
     {% endif %}

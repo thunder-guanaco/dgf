@@ -42,7 +42,4 @@ if settings.DEBUG:
                           {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
                   ] + staticfiles_urlpatterns() + urlpatterns
 
-if settings.ENV == 'dev':
-    urlpatterns.append(url(r'^silk/', include('silk.urls', namespace='silk')))
-
 handler500 = server_error
