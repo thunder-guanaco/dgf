@@ -5,7 +5,7 @@ import responses
 from django.test import TestCase
 
 from dgf import tremonia_series
-from dgf.models import Tournament, Friend
+from dgf.models import Tournament, Friend, Attendance
 from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID, \
     DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
@@ -22,7 +22,7 @@ class TremoniaSeriesTest(TestCase):
         tournaments = Tournament.objects.filter(name__startswith='Tremonia Series')
         self.assertEqual(tournaments.count(), 3)
         for id in [1, 2, 3]:
-            self.assertTournament(tournaments, id)
+            self.assert_tournament(tournaments, id)
 
     @responses.activate
     def test_tournament_incomplete_tournament(self):
@@ -88,7 +88,8 @@ class TremoniaSeriesTest(TestCase):
         tremonia_series.update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
-        results = [(result.friend.username, result.position) for result in tournament.results.all()]
+        results = [(result.friend.username, result.position) for result in
+                   tournament.results.all().order_by('position')]
         self.assertEqual(results, [('manolo', 1), ('fede', 2)])
 
     @responses.activate
@@ -102,7 +103,8 @@ class TremoniaSeriesTest(TestCase):
         tremonia_series.update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
-        results = [(result.friend.username, result.position) for result in tournament.results.all()]
+        results = [(result.friend.username, result.position) for result in
+                   tournament.results.all().order_by('position')]
         self.assertEqual(results, [('manolo', 1), ('fede', 2)])
 
     @responses.activate
@@ -116,8 +118,8 @@ class TremoniaSeriesTest(TestCase):
         tremonia_series.update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
-        attendance = [attendance.friend.username for attendance in tournament.attendance.all()]
-        self.assertEqual(attendance, ['manolo', 'fede'])
+        attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
+        self.assertEqual(attendance, {'manolo', 'fede'})
 
     @responses.activate
     def test_existing_tournament_with_attendance(self):
@@ -135,8 +137,28 @@ class TremoniaSeriesTest(TestCase):
         tremonia_series.update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
-        attendance = [attendance.friend.username for attendance in tournament.attendance.all()]
-        self.assertEqual(attendance, ['manolo', 'fede'])
+        attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
+        self.assertEqual(attendance, {'manolo', 'fede'})
+
+    @responses.activate
+    def test_existing_tournament_adding_attendance(self):
+        Friend.objects.all().delete()
+        manolo = Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
+        Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
+        Tournament.objects.all().delete()
+        tournament = Tournament.objects.create(metrix_id=12345,
+                                               name='Test',
+                                               begin=date(year=3000, month=1, day=1),
+                                               end=date(year=3000, month=1, day=1),
+                                               url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+        Attendance.objects.create(tournament=tournament, friend=manolo)
+        self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None), ('fede', None)])
+
+        tremonia_series.update_tournaments()
+
+        tournament = Tournament.objects.get(metrix_id=12345)
+        attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
+        self.assertEqual(attendance, {'manolo', 'fede'})
 
     def add_three_tournaments(self):
         responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
@@ -232,7 +254,7 @@ class TremoniaSeriesTest(TestCase):
             position_key: player[1]
         }
 
-    def assertTournament(self, tournaments, id):
+    def assert_tournament(self, tournaments, id):
         tournament = tournaments.get(metrix_id=id)
         self.assertTrue(tournament.name.startswith(f'Tremonia Series #{id}'))
         self.assertEqual(tournament.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id))
