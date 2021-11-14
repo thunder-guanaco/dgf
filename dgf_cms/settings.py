@@ -196,6 +196,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
+REVIEWER_GROUP = 'Reviewer'
 BACKGROUND_FOLDER = 'Hintergrund'
 
 SITE_ID = 1

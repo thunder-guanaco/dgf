@@ -1,6 +1,6 @@
 {% load dgf_cms %}
 
-{% if request.user.username == 'manolo' or request.user.username == 'mario' %}
+{% if request.user|is_reviewer %}
     body {
             background-image: url({% random_background_img_url friend %});
             background-position: center;
