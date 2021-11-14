@@ -1,12 +1,10 @@
 {% load dgf_cms %}
 
-{% if request.user|is_reviewer %}
-    body {
-            background-image: url({% random_background_img_url friend %});
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-color: #efefef;
-    }
-{% endif %}
+body {
+        background-image: url({% random_background_img_url friend %});
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-color: #efefef;
+}
