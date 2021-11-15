@@ -54,7 +54,7 @@ def add_results(tournament, ts_tournament):
         Result.objects.create(tournament=tournament,
                               friend=friend,
                               position=get_position(ts_result))
-        logger.info(f'Added attendance of {friend} to {tournament}\n')
+        logger.info(f'Added result of {friend} to {tournament}\n')
 
 
 def add_tournament(ts_tournament):
@@ -68,6 +68,7 @@ def add_tournament(ts_tournament):
                                                                'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
                                                                'begin': date,
                                                                'end': date,
+                                                               'point_system': 'TS_POINTS_PLUS_BEATEN_PLAYERS',
                                                            })
 
     if created:

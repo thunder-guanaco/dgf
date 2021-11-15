@@ -126,10 +126,21 @@ class TournamentAdmin(admin.ModelAdmin):
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
                 'url',
-                'tour'
+                'tour',
+                'point_system',
             ]}
          )
     ]
+
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        if db_field.name == "point_system":
+            kwargs['choices'] = (
+                ('accepted', 'Accepted'),
+                ('denied', 'Denied'),
+            )
+            if request.user.is_superuser:
+                kwargs['choices'] += (('ready', 'Ready for deployment'),)
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
 
     list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id', 'tour')
     list_display_links = ('name',)

@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
+from dgf import tour
 from dgf.post_actions import feedback_post_save
 
 logger = logging.getLogger(__name__)
@@ -328,6 +329,10 @@ class Tour(Model):
         return f'{self.name}'
 
 
+def available_point_systems():
+    return ', '.join([key for key in tour.POINT_SYSTEMS])
+
+
 class Tournament(Model):
     class Meta:
         constraints = [
@@ -342,6 +347,8 @@ class Tournament(Model):
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=True)
     tour = models.ForeignKey(Tour, null=True, on_delete=SET_NULL, related_name='tournaments')
+    point_system = models.CharField(_('Name'), null=True, max_length=300,
+                                    help_text=f'Available point systems: {available_point_systems()}')
 
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
@@ -412,11 +419,16 @@ class Result(Model):
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
+    points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(1)], null=True, blank=True)
 
     @property
     def ordinal_position(self):
         return str(self.position) + {1: 'st', 2: 'nd', 3: 'rd'}.get(
             4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
+
+    def save(self, *args, **kwargs):
+        self.points = tour.get_points(self.tournament.point_system, self.position, self.tournament.results.all())
+        super(Result, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.friend} was {self.ordinal_position} at {self.tournament}'
