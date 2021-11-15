@@ -6,7 +6,7 @@ from cms.plugin_pool import plugin_pool
 from django.db.models import Count, Q
 from django.utils.translation import ugettext as _
 
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel
 from .udisc import get_course_url
 
 
@@ -82,6 +82,14 @@ def friends_order_by_ts_wins():
         .annotate(ts_seconds=Count('results__position', filter=Q(results__position=2))) \
         .annotate(ts_thirds=Count('results__position', filter=Q(results__position=3))) \
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
+
+
+@plugin_pool.register_plugin
+class TourResultsPluginPublisher(CMSPluginBase):
+    model = TourPluginModel
+    module = _('Disc Golf Friends')
+    name = _('Tour Results')
+    render_template = 'dgf/plugins/tour_results.html'
 
 
 @plugin_pool.register_plugin

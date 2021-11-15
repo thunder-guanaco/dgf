@@ -48,6 +48,10 @@ class TournamentToolbar(CMSToolbar):
             _('Tournaments'),
         )
         menu.add_sideframe_item(
+            name=_('All tours'),
+            url=admin_reverse('dgf_tour_changelist'),
+        )
+        menu.add_sideframe_item(
             name=_('All tournaments'),
             url=admin_reverse('dgf_tournament_changelist'),
         )

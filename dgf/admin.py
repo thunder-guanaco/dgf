@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
-    Attendance
+    Attendance, Tour
 
 
 @admin.register(Course)
@@ -125,14 +125,51 @@ class TournamentAdmin(admin.ModelAdmin):
                 'name',
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
-                'url'
+                'url',
+                'tour'
             ]}
          )
     ]
 
-    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
+    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id', 'tour')
+    list_display_links = ('name',)
     search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 
     inlines = [
         ResultInline, AttendanceInline
+    ]
+
+
+class TournamentInline(admin.TabularInline):
+    model = Tournament
+    extra = 0
+
+    def get_queryset(self, request):
+        return Tournament.objects.all().order_by('begin', 'end')
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Tour)
+class TourAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('', {
+            'fields': [
+                'name',
+            ]}
+         )
+    ]
+
+    list_display = ('name', 'begin', 'end')
+    search_fields = ('name',)
+
+    inlines = [
+        TournamentInline
     ]
