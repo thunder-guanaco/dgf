@@ -302,6 +302,32 @@ class Video(Model):
         return str(self.url)
 
 
+class Tour(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name'], name='unique tour name'),
+        ]
+
+    name = models.CharField(_('Name'), max_length=300)
+
+    @property
+    def begin(self):
+        if self.tournaments.count():
+            return self.tournaments.order_by('begin').first().begin
+        else:
+            return None
+
+    @property
+    def end(self):
+        if self.tournaments.count():
+            return self.tournaments.order_by('-end').first().end
+        else:
+            return None
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Tournament(Model):
     class Meta:
         constraints = [
@@ -315,6 +341,8 @@ class Tournament(Model):
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=True)
+    tour = models.ForeignKey(Tour, null=True, on_delete=SET_NULL, related_name='tournaments')
+
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
@@ -406,3 +434,10 @@ class FriendPluginModel(CMSPlugin):
 
     def __str__(self):
         return f'Friend plugin for {str(self.friend)}'
+
+
+class TourPluginModel(CMSPlugin):
+    tour = models.ForeignKey(Tour, on_delete=CASCADE)
+
+    def __str__(self):
+        return f'Tour plugin for {str(self.tour)}'

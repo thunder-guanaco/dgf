@@ -1,0 +1,18 @@
+{% load static i18n dgf %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tour-results.css' %}">
+{% endblock %}
+
+{% with instance.tour as tour %}
+    <div id="tour-results">
+        <h2>
+            {{tour.name}} ({{tour.begin}} - {{tour.end}})
+        </h2>
+        <ul>
+            {% for tournament in tour.tournaments.all %}
+                <li>{{tournament}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endwith %}
