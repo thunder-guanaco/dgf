@@ -28,13 +28,14 @@ jobs:
           target: "django_project"
           rm: true
 
-      - name: "BD Backup"
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
-          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
-          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
-          script: bash /home/ubuntu/django_project/ci/backup.bash
+# ACTIVATE AGAIN WHEN NETCUP SERVER IS ABLE TO DO BACKUPS AGAIN
+#      - name: "BD Backup"
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.DJANGO_DEPLOY_HOST }}
+#          username: ${{ secrets.DJANGO_DEPLOY_USERNAME }}
+#          key: ${{ secrets.DJANGO_DEPLOY_KEY }}
+#          script: bash /home/ubuntu/django_project/ci/backup.bash
 
       - name: "Restart the server"
         uses: appleboy/ssh-action@master
