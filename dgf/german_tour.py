@@ -45,27 +45,61 @@ def delete_tournament(gt_tournament):
     logger.info(f'Deleted tournament {tournament_name}')
 
 
+def find_tournament_by_gt_id(gt_id):
+    try:
+        return Tournament.objects.get(gt_id=gt_id)
+    except Tournament.DoesNotExist:
+        return None
+
+
+def find_pdga_tournament_by_name_and_date(name, begin, end):
+    try:
+        return Tournament.objects.get(name=name,
+                                      begin=begin,
+                                      end=end,
+                                      pdga_id__isnull=False)
+    except Tournament.DoesNotExist:
+        return None
+
+
+def update_tournament(tournament, gt_id=None, name=None, begin=None, end=None):
+    if gt_id:
+        tournament.gt_id = gt_id
+    if name:
+        tournament.name = name
+    if begin:
+        tournament.begin = begin
+    if end:
+        tournament.end = end
+    tournament.save()
+    return tournament
+
+
 def add_tournament(gt_tournament):
-    begin_date = datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT)
-    end_date = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)
+    gt_id = gt_tournament['id']
+    name = gt_tournament['name']
+    url = TOURNAMENT_PAGE.format(gt_tournament['id'])
+    begin = datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT)
+    end = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(gt_id=gt_tournament['id'],
-                                                           defaults={
-                                                               'name': gt_tournament['name'],
-                                                               'url': TOURNAMENT_PAGE.format(gt_tournament['id']),
-                                                               'begin': begin_date,
-                                                               'end': end_date,
-                                                           })
-    if created:
-        logger.info(f'Created tournament {tournament}')
-    else:
-        # Always update. With Corona you never know
-        tournament.name = gt_tournament['name']
-        tournament.url = TOURNAMENT_PAGE.format(gt_tournament['id'])
-        tournament.begin = begin_date
-        tournament.end = end_date
-        tournament.save()
+    tournament = find_tournament_by_gt_id(gt_id)
+    if tournament is not None:
+        logger.info(f'Tournament already exists from previous GT import {tournament} '
+                    f'(PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
+        tournament = update_tournament(tournament, name=name, begin=begin, end=end)
+        logger.info(f'Changed to: {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}')
+        return tournament
 
+    tournament = find_pdga_tournament_by_name_and_date(name, begin, end)
+    if tournament is not None:
+        logger.info(f'Tournament already exists from previous PDGA import {tournament} '
+                    f'(PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
+        tournament = update_tournament(tournament, gt_id=gt_id)
+        logger.info(f'Changed to: {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}')
+        return tournament
+
+    tournament = Tournament.objects.create(gt_id=gt_id, name=name, url=url, begin=begin, end=end)
+    logger.info(f'Created tournament {tournament}')
     return tournament
 
 

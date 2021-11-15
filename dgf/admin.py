@@ -130,8 +130,8 @@ class TournamentAdmin(admin.ModelAdmin):
          )
     ]
 
-    list_display = ('needs_check', 'name', 'begin', 'end')
-    search_fields = ('name',)
+    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
+    search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 
     inlines = [
         ResultInline, AttendanceInline
