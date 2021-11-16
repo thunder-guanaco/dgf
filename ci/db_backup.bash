@@ -12,6 +12,3 @@ source ci/ENVIRONMENT_VARIABLES
 
 python manage.py dbbackup --clean
 exit_if_error "DB backup" $?
-
-python manage.py mediabackup --clean
-exit_if_error "Media backup" $?
