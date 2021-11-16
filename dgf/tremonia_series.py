@@ -94,6 +94,7 @@ def create_tournament(metrix_id):
     # tournament was already played and does not have results
     elif tournament.results.count() == 0:
         add_results(tournament, ts_tournament)
+        tournament.re_calculate_points()
 
 
 def update_tournaments():

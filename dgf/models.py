@@ -303,19 +303,19 @@ class Video(Model):
         return str(self.url)
 
 
-def available_point_systems():
-    return ', '.join([key for key in tour.POINT_SYSTEMS])
-
-
 class Tour(Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['name'], name='unique tour name'),
         ]
 
+    TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
+    POINT_SYSTEM_CHOICES = (
+        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players points')),
+    )
+    point_system = models.CharField(_('Point System'), max_length=100, choices=POINT_SYSTEM_CHOICES,
+                                    default=TS_POINTS_WITH_BEATEN_PLAYERS)
     name = models.CharField(_('Name'), max_length=300)
-    point_system = models.CharField(_('Name'), null=False, blank=False, max_length=300,
-                                    help_text=f'Available point systems: {available_point_systems()}')
 
     @property
     def begin(self):
@@ -334,8 +334,7 @@ class Tour(Model):
     def save(self, *args, **kwargs):
         super(Tour, self).save(*args, **kwargs)
         for tournament in self.tournaments.all():
-            # re-saving will trigger re-calculation of points
-            tournament.save()
+            tournament.re_calculate_points()
 
     def __str__(self):
         return f'{self.name}'
@@ -395,12 +394,15 @@ class Tournament(Model):
                         .order_by('position')
                         .values_list('position', flat=True)) == [1, 2, 3]
 
+    def re_calculate_points(self):
+        for result in self.results.all():
+            result.points = tour.calculate_points(result)
+            result.save()
+
     def save(self, *args, **kwargs):
         super(Tournament, self).save(*args, **kwargs)
         if self.tour:
-            for result in self.results.all():
-                # re-saving will trigger re-calculation of points
-                result.save()
+            self.re_calculate_points()
 
     def __str__(self):
         return f'{self.name} ({self.date})'
@@ -438,10 +440,6 @@ class Result(Model):
     def ordinal_position(self):
         return str(self.position) + {1: 'st', 2: 'nd', 3: 'rd'}.get(
             4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
-
-    def save(self, *args, **kwargs):
-        self.points = tour.calculate_points(self)
-        super(Result, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.friend} was {self.ordinal_position} at {self.tournament}'
