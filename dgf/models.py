@@ -303,6 +303,10 @@ class Video(Model):
         return str(self.url)
 
 
+def available_point_systems():
+    return ', '.join([key for key in tour.POINT_SYSTEMS])
+
+
 class Tour(Model):
     class Meta:
         constraints = [
@@ -310,6 +314,8 @@ class Tour(Model):
         ]
 
     name = models.CharField(_('Name'), max_length=300)
+    point_system = models.CharField(_('Name'), null=False, blank=False, max_length=300,
+                                    help_text=f'Available point systems: {available_point_systems()}')
 
     @property
     def begin(self):
@@ -325,12 +331,14 @@ class Tour(Model):
         else:
             return None
 
+    def save(self, *args, **kwargs):
+        super(Tour, self).save(*args, **kwargs)
+        for tournament in self.tournaments.all():
+            # re-saving will trigger re-calculation of points
+            tournament.save()
+
     def __str__(self):
         return f'{self.name}'
-
-
-def available_point_systems():
-    return ', '.join([key for key in tour.POINT_SYSTEMS])
 
 
 class Tournament(Model):
@@ -347,8 +355,6 @@ class Tournament(Model):
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=True)
     tour = models.ForeignKey(Tour, null=True, on_delete=SET_NULL, related_name='tournaments')
-    point_system = models.CharField(_('Name'), null=True, max_length=300,
-                                    help_text=f'Available point systems: {available_point_systems()}')
 
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
@@ -389,6 +395,13 @@ class Tournament(Model):
                         .order_by('position')
                         .values_list('position', flat=True)) == [1, 2, 3]
 
+    def save(self, *args, **kwargs):
+        super(Tournament, self).save(*args, **kwargs)
+        if self.tour:
+            for result in self.results.all():
+                # re-saving will trigger re-calculation of points
+                result.save()
+
     def __str__(self):
         return f'{self.name} ({self.date})'
 
@@ -427,7 +440,7 @@ class Result(Model):
             4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
 
     def save(self, *args, **kwargs):
-        self.points = tour.get_points(self.tournament.point_system, self.position, self.tournament.results.all())
+        self.points = tour.calculate_points(self)
         super(Result, self).save(*args, **kwargs)
 
     def __str__(self):

@@ -127,7 +127,6 @@ class TournamentAdmin(admin.ModelAdmin):
                 ('begin', 'end'),
                 'url',
                 'tour',
-                'point_system',
             ]}
          )
     ]
@@ -164,11 +163,12 @@ class TourAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
+                'point_system',
             ]}
          )
     ]
 
-    list_display = ('name', 'begin', 'end')
+    list_display = ('name', 'begin', 'end', 'point_system',)
     search_fields = ('name',)
 
     inlines = [

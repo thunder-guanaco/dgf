@@ -18,9 +18,11 @@ TS_POINTS = {
 TS_POINTS_PLUS_BEATEN_PLAYERS = 'TS_POINTS_PLUS_BEATEN_PLAYERS'
 
 
-def ts_points_with_beaten_players(position, all_results):
+def ts_points_with_beaten_players(result):
+    position = result.position
+    all_results = result.tournament.results.all()
     position_points = TS_POINTS.get(position, 0)
-    defeated_players = all_results.count() - position
+    defeated_players = (all_results.count() - position) / 2
     return position_points + defeated_players
 
 
@@ -29,8 +31,13 @@ POINT_SYSTEMS = {
 }
 
 
-def get_points(point_system, position, all_results):
-    get_points_function = POINT_SYSTEMS.get(point_system)
-    if get_points_function is None:
-        logger.error(f'Point system \'{point_system}\' does not exist!')
-    return get_points_function(position, all_results)
+def calculate_points(result):
+    tour = result.tournament.tour
+    if not tour:
+        logger.warning(f'No tour defined for tournament {result.tournament}. Skipping calculating points.')
+        return None
+
+    calculate_points_function = POINT_SYSTEMS.get(tour.point_system)
+    if calculate_points_function is None:
+        logger.error(f'Point system \'{tour.point_system}\' does not exist!')
+    return calculate_points_function(result)

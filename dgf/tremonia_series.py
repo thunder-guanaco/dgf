@@ -3,7 +3,7 @@ from datetime import datetime
 
 import requests
 
-from dgf import external_user_finder, tour
+from dgf import external_user_finder
 from dgf.models import Tournament, Result, Attendance
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,6 @@ def add_tournament(ts_tournament):
                                                                'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
                                                                'begin': date,
                                                                'end': date,
-                                                               'point_system': tour.TS_POINTS_PLUS_BEATEN_PLAYERS,
                                                            })
 
     if created:
