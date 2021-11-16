@@ -1,8 +1,8 @@
-{% load static i18n dgf %}
+{% load sekizai_tags static i18n dgf %}
 
-{% block css %}
+{% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/tremonia_series_hall_of_fame.css' %}">
-{% endblock %}
+{% endaddtoblock %}
 
 <div id="hall-of-fame">
     <h2>

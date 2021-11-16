@@ -1,18 +1,47 @@
-{% load static i18n dgf %}
+{% load sekizai_tags static i18n dgf %}
 
-{% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tour-results.css' %}">
-{% endblock %}
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
+{% endaddtoblock %}
 
 {% with instance.tour as tour %}
-    <div id="tour-results">
-        <h2>
-            {{tour.name}} ({{tour.begin}} - {{tour.end}})
-        </h2>
-        <ul>
-            {% for tournament in tour.tournaments.all %}
-                <li>{{tournament}}</li>
+{% with tour.tournaments.all|order_by:"begin" as tournaments %}
+{% with tour|all_results as results %}
+{% with results|all_friends as friends %}
+
+<div id="tour-results">
+    <h2>
+        {{tour.name}} ({{tour.begin}} - {{tour.end}})
+    </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Position" %}</th>
+                <th>{% trans "Player" %}</th>
+                <th>{% trans "Total" %}</th>
+                {% for tournament in tournaments %}
+                    <th>{{tournament|ts_number}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                {% with friends|get_friend:result.friend as friend %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>{% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}</th>
+                        <th>{{result.total_points}}</th>
+                        {% for tournament in tournaments %}
+                            <td>{{result|get_result:tournament}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endwith %}
             {% endfor %}
-        </ul>
-    </div>
+        </tbody>
+    </table>
+</div>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
 {% endwith %}

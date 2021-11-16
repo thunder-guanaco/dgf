@@ -353,7 +353,7 @@ class Tournament(Model):
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=True)
-    tour = models.ForeignKey(Tour, null=True, on_delete=SET_NULL, related_name='tournaments')
+    tour = models.ForeignKey(Tour, null=True, blank=True, on_delete=SET_NULL, related_name='tournaments')
 
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
@@ -434,7 +434,7 @@ class Result(Model):
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
-    points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(1)], null=True, blank=True)
+    points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
 
     @property
     def ordinal_position(self):
