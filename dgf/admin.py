@@ -126,7 +126,7 @@ class TournamentAdmin(admin.ModelAdmin):
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
                 'url',
-                'tour'
+                'tour',
             ]}
          )
     ]
@@ -163,11 +163,12 @@ class TourAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
+                'point_system',
             ]}
          )
     ]
 
-    list_display = ('name', 'begin', 'end')
+    list_display = ('name', 'begin', 'end', 'point_system',)
     search_fields = ('name',)
 
     inlines = [

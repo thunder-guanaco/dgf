@@ -54,7 +54,7 @@ def add_results(tournament, ts_tournament):
         Result.objects.create(tournament=tournament,
                               friend=friend,
                               position=get_position(ts_result))
-        logger.info(f'Added attendance of {friend} to {tournament}\n')
+        logger.info(f'Added result of {friend} to {tournament}\n')
 
 
 def add_tournament(ts_tournament):
@@ -94,6 +94,7 @@ def create_tournament(metrix_id):
     # tournament was already played and does not have results
     elif tournament.results.count() == 0:
         add_results(tournament, ts_tournament)
+        tournament.re_calculate_points()
 
 
 def update_tournaments():
