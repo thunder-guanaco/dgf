@@ -10,6 +10,7 @@
 #tour-results table td {
     min-width: 3em;
     text-align: center;
+    vertical-align: middle;
 }
 
 #tour-results .friend-ball {

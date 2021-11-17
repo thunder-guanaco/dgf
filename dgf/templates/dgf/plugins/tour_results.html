@@ -11,7 +11,7 @@
 
 <div id="tour-results">
     <h2>
-        {{tour.name}} ({{tour.begin}} - {{tour.end}})
+        {{tour.name}} ({{tour.begin|date:"SHORT_DATE_FORMAT"}} - {{tour.end|date:"SHORT_DATE_FORMAT"}})
     </h2>
     <table class="table table-striped">
         <thead>
