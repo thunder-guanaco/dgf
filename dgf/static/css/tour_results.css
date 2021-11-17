@@ -5,3 +5,18 @@
 /* desktop */
 @media only screen and (min-width: 1024px) {
 }
+
+#tour-results table th,
+#tour-results table td {
+    min-width: 3em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#tour-results .friend-ball {
+    flex-direction: row !important;
+}
+
+#tour-results .friend-ball .friend-name {
+        margin: 0 0 0 0.5em !important;
+    }
