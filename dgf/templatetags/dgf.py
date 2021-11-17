@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 from django import template
-from django.db.models import Count, Q, Sum, F
+from django.db.models import Count, Q, Sum
 
 from ..models import Ace, DiscInBag, Course, Tournament, Result, Friend
 from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
