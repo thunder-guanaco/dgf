@@ -36,7 +36,7 @@ def in_tournaments(aces):
 
 @register.filter
 def current_year(aces):
-    return aces.filter(date__gte=_current_year_as_str())
+    return aces.filter(date__gte=datetime.now().strftime('%Y'))
 
 
 @register.simple_tag
@@ -46,10 +46,6 @@ def favorite_discs(disc_type):
                .annotate(count=Count('disc__display_name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
                .values_list('disc__display_name', flat=True)
-
-
-def _current_year_as_str():
-    return datetime.now().strftime('%Y')
 
 
 @register.filter
@@ -76,21 +72,8 @@ def youtube_id(url):
 
 
 @register.filter
-def filter_discs(friend, type):
-    return list(filter(lambda disc: disc.type == type, friend.discs.all()))
-
-
-@register.filter
 def filter_by_type(queryset, type):
-    return list(filter(lambda x: x.type == type, queryset))
-
-
-@register.filter
-def first_by_type(queryset, type):
-    try:
-        return filter_by_type(queryset, type)[0]
-    except IndexError:
-        return None
+    return queryset.filter(type=type)
 
 
 @register.simple_tag

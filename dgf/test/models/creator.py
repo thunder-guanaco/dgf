@@ -34,3 +34,9 @@ def create_tournaments(amount=1):
                                                               begin=date(day=1, month=1, year=2020),
                                                               end=date(day=1, month=1, year=2020)),
                           amount)
+
+
+def create_videos(amount=1):
+    return create_objects(Disc,
+                          lambda i: Disc.objects.create(mold=f'Disc{i}'),
+                          amount)
