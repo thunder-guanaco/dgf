@@ -25,14 +25,10 @@ def ts_points_with_beaten_players(result):
 
 
 def calculate_points(result):
-    tour = result.tournament.tour
-    if not tour:
-        logger.warning(f'No tour defined for tournament {result.tournament}. Skipping calculating points.')
-        return None
-
-    calculate_points_function = globals().get(tour.point_system)
+    point_system = result.tournament.point_system
+    calculate_points_function = globals().get(point_system)
     if calculate_points_function is None:
-        logger.error(f'Point system \'{tour.point_system}\' does not exist! '
+        logger.error(f'Point system \'{point_system}\' does not exist! '
                      f'Please define a function with that name on tour.py')
         return None
 

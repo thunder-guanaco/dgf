@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
-from dgf import tour
+from dgf.point_systems import calculate_points
 from dgf.post_actions import feedback_post_save
 
 logger = logging.getLogger(__name__)
@@ -303,41 +303,18 @@ class Video(Model):
         return str(self.url)
 
 
-class Tour(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['name'], name='unique tour name'),
-        ]
+def date_string(model):
+    if model.begin == model.end:
+        return model.begin.strftime('%d. %b %Y')
 
-    TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
-    POINT_SYSTEM_CHOICES = (
-        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players points')),
-    )
-    point_system = models.CharField(_('Point System'), max_length=100, choices=POINT_SYSTEM_CHOICES,
-                                    default=TS_POINTS_WITH_BEATEN_PLAYERS)
-    name = models.CharField(_('Name'), max_length=300)
+    if model.begin.month != model.end.month:
+        begin = model.begin.strftime('%d. %b')
+        end = model.end.strftime('%d. %b %Y')
+    else:
+        begin = model.begin.strftime('%d.')
+        end = model.end.strftime('%d. %b %Y')
 
-    @property
-    def begin(self):
-        if self.tournaments.count():
-            return self.tournaments.order_by('begin').first().begin
-        else:
-            return None
-
-    @property
-    def end(self):
-        if self.tournaments.count():
-            return self.tournaments.order_by('-end').first().end
-        else:
-            return None
-
-    def save(self, *args, **kwargs):
-        super(Tour, self).save(*args, **kwargs)
-        for tournament in self.tournaments.all():
-            tournament.re_calculate_points()
-
-    def __str__(self):
-        return f'{self.name}'
+    return f'{begin} - {end}'
 
 
 class Tournament(Model):
@@ -353,25 +330,21 @@ class Tournament(Model):
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
     url = models.URLField(_('URL'), null=True, blank=True)
-    tour = models.ForeignKey(Tour, null=True, blank=True, on_delete=SET_NULL, related_name='tournaments')
 
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
+    TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
+    POINT_SYSTEM_CHOICES = (
+        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players points')),
+    )
+    point_system = models.CharField(_('Point System'), null=True, blank=True,
+                                    max_length=100, choices=POINT_SYSTEM_CHOICES)
+
     @property
     def date(self):
-        if self.begin == self.end:
-            return self.begin.strftime('%d. %b %Y')
-
-        if self.begin.month != self.end.month:
-            begin = self.begin.strftime('%d. %b')
-            end = self.end.strftime('%d. %b %Y')
-        else:
-            begin = self.begin.strftime('%d.')
-            end = self.end.strftime('%d. %b %Y')
-
-        return f'{begin} - {end}'
+        return date_string(self)
 
     def needs_check(self):
         if self.first_positions_are_ok:
@@ -395,14 +368,10 @@ class Tournament(Model):
                         .values_list('position', flat=True)) == [1, 2, 3]
 
     def re_calculate_points(self):
-        for result in self.results.all():
-            result.points = tour.calculate_points(result)
-            result.save()
-
-    def save(self, *args, **kwargs):
-        super(Tournament, self).save(*args, **kwargs)
-        if self.tour:
-            self.re_calculate_points()
+        if self.point_system:
+            for result in self.results.all():
+                result.points = calculate_points(result)
+                result.save()
 
     def __str__(self):
         return f'{self.name} ({self.date})'
@@ -443,6 +412,41 @@ class Result(Model):
 
     def __str__(self):
         return f'{self.friend} was {self.ordinal_position} at {self.tournament}'
+
+
+class Tour(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name'], name='unique tour name'),
+        ]
+
+    name = models.CharField(_('Name'), max_length=300)
+    tournaments = models.ManyToManyField(Tournament, related_name='tours')
+
+    @property
+    def tournament_count(self):
+        return self.tournaments.all().count()
+
+    @property
+    def date(self):
+        return date_string(self)
+
+    @property
+    def begin(self):
+        if self.tournaments.count():
+            return self.tournaments.order_by('begin').first().begin
+        else:
+            return None
+
+    @property
+    def end(self):
+        if self.tournaments.count():
+            return self.tournaments.order_by('-end').first().end
+        else:
+            return None
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class CoursePluginModel(CMSPlugin):
