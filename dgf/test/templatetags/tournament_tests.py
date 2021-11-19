@@ -1,10 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from django.test import TestCase
 
-from ..models.creator import create_friends
-from ...models import Friend, Tournament, Attendance
-from ...templatetags.dgf import current_tournaments, future_tournaments, now_playing, next_tournaments
+from ..models.creator import create_friends, create_tournaments
+from ...models import Friend, Tournament, Attendance, Result
+from ...templatetags.dgf import current_tournaments, future_tournaments, now_playing, next_tournaments, \
+    problematic_tournaments, active_attendance, attends, podium_results
 
 TODAY = datetime.today()
 YESTERDAY = TODAY - timedelta(days=1)
@@ -18,6 +19,7 @@ class TemplatetagsTournamentsTest(TestCase):
         Friend.objects.all().delete()
         Tournament.objects.all().delete()
         Attendance.objects.all().delete()
+        Result.objects.all().delete()
         self.yesterday = Tournament.objects.create(name='yesterday',
                                                    begin=YESTERDAY, end=YESTERDAY)
         self.yesterday_today = Tournament.objects.create(name='yesterday-today',
@@ -103,6 +105,82 @@ class TemplatetagsTournamentsTest(TestCase):
         expected = [tournament.name for tournament in [self.tomorrow_2, self.tomorrow_the_day_after_tomorrow,
                                                        self.the_day_after_tomorrow]]
         self.assertEqual(actual, expected)
+
+    def test_attends(self):
+        tournament = create_tournaments(1)
+        friends = create_friends(3)
+        tournament.attendance.create(friend=friends[0])
+        tournament.attendance.create(friend=friends[1])
+        self.assertTrue(attends(tournament, friends[0]))
+        self.assertTrue(attends(tournament, friends[1]))
+        self.assertFalse(attends(tournament, friends[2]))
+
+    def test_active_attendance(self):
+        tournament = create_tournaments(1)
+        friends = create_friends(3)
+        friends[2].is_active = False
+        friends[2].save()
+        tournament.attendance.create(friend=friends[0])
+        tournament.attendance.create(friend=friends[1])
+        tournament.attendance.create(friend=friends[2])
+
+        filtered_friends = {attendance.friend.username for attendance in active_attendance(tournament)}
+        expected_friends = {friend.username for friend in friends[0:2]}
+
+        self.assertEqual(filtered_friends, expected_friends)
+
+    def test_problematic_tournaments(self):
+        tournaments = create_tournaments(12)
+        friends = create_friends(4)
+        self.create_results(tournaments[0], friends, in_positions=[])  # empty results
+        self.create_results(tournaments[1], friends, in_positions=[1, 2, 3, 4])
+        self.create_results(tournaments[2], friends, in_positions=[1, 2, 3, 3])
+        self.create_results(tournaments[3], friends, in_positions=[1, 2, 2, 3])
+        self.create_results(tournaments[4], friends, in_positions=[1, 2, 2, 4])
+        self.create_results(tournaments[5], friends, in_positions=[1, 2, 2, 2])
+        self.create_results(tournaments[6], friends, in_positions=[1, 1, 3, 4])
+        self.create_results(tournaments[7], friends, in_positions=[1, 1, 3, 3])
+        self.create_results(tournaments[8], friends, in_positions=[1, 1, 1, 2])
+        self.create_results(tournaments[9], friends, in_positions=[1, 1, 1, 3])
+        self.create_results(tournaments[10], friends, in_positions=[1, 1, 1, 4])
+        self.create_results(tournaments[11], friends, in_positions=[1, 1, 1, 1])
+
+        problematic_tournament_names = [tournament.name for tournament in problematic_tournaments()]
+        expected_problematic_tournament_names = [tournament.name for tournament in tournaments[2:]]
+
+        self.assertEqual(problematic_tournament_names, expected_problematic_tournament_names)
+
+    def create_results(self, tournament, friends, in_positions):
+        for i, position in enumerate(in_positions):
+            Result.objects.create(tournament=tournament, friend=friends[i], position=position)
+
+    def test_podium_results_without_results(self):
+        friend = create_friends(1)
+        create_tournaments(10)
+        self.assert_podiums(friend, [])
+
+    def test_podium_results(self):
+        friend = create_friends(1)
+        tournaments = self.create_tournaments(10)
+        Result.objects.create(friend=friend, tournament=tournaments[0], position=1)
+        Result.objects.create(friend=friend, tournament=tournaments[1], position=2)
+        Result.objects.create(friend=friend, tournament=tournaments[2], position=3)
+        Result.objects.create(friend=friend, tournament=tournaments[3], position=4)
+        Result.objects.create(friend=friend, tournament=tournaments[4], position=5)
+        Result.objects.create(friend=friend, tournament=tournaments[5], position=1)
+        self.assert_podiums(friend, [tournaments[0], tournaments[1], tournaments[2], tournaments[5]])
+
+    def create_tournaments(self, amount):
+        return [
+            Tournament.objects.create(name=f'Tournament{i}',
+                                      begin=date(day=i, month=1, year=2020),
+                                      end=date(day=i, month=2, year=2020))
+            for i in range(1, amount + 1)]
+
+    def assert_podiums(self, friend, expected_tournaments):
+        tournament_names = [result.tournament.name for result in podium_results(friend)]
+        expected_tournament_names = [tournament.name for tournament in expected_tournaments]
+        self.assertEqual(tournament_names, expected_tournament_names)
 
     def test_now_playing(self):
         for i, tournament in enumerate(

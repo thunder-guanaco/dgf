@@ -15,7 +15,7 @@
                 <ul>
                 {% for tournament in tournaments|slice:":3" %}
                     <li class="tournament show-all-less">
-                        {% with tournament.attendance.all|active as tournament_players %}
+                        {% with tournament|active_attendance as tournament_players %}
                             <div class="top-info">
                                 <div>
                                     {% if tournament.url %}
@@ -58,7 +58,7 @@
             <ul>
                 {% for tournament in tournaments %}
                     <li class="tournament show-all-less">
-                        {% with tournament.attendance.all|active as tournament_players %}
+                        {% with tournament|active_attendance as tournament_players %}
                             <div class="top-info">
                                 <div>
                                     {% if tournament.url %}

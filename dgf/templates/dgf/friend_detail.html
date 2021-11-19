@@ -245,7 +245,7 @@
                         <div class="value">
                             {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
                         </div>
-                        {% with friend.videos.all|first_by_type:"A" as ace_video %}
+                        {% with friend.videos.all|filter_by_type:"A"|first as ace_video %}
                             {% if ace_video %}
                                 {% include "dgf/includes/youtube_video.html" with youtube_id=ace_video.url|youtube_id %}
                             {% endif %}
@@ -264,29 +264,31 @@
                             </div>
                             <hr>
                             <div class="table-line">
-                                <div>
-                                    {% for disc in friend|filter_discs:"P" %}
-                                        <p>{{disc.in_the_bag}}</p>
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    {% for disc in friend|filter_discs:"M" %}
-                                        <p>{{disc.in_the_bag}}</p>
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    {% for disc in friend|filter_discs:"F" %}
-                                        <p>{{disc.in_the_bag}}</p>
-                                    {% endfor %}
-                                </div>
-                                <div>
-                                    {% for disc in friend|filter_discs:"D" %}
-                                        <p>{{disc.in_the_bag}}</p>
-                                    {% endfor %}
-                                </div>
+                                {% with friend.discs.all as all_discs %}
+                                    <div>
+                                        {% for disc in all_discs|filter_by_type:"P" %}
+                                            <p>{{disc.in_the_bag}}</p>
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        {% for disc in all_discs|filter_by_type:"M" %}
+                                            <p>{{disc.in_the_bag}}</p>
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        {% for disc in all_discs|filter_by_type:"F" %}
+                                            <p>{{disc.in_the_bag}}</p>
+                                        {% endfor %}
+                                    </div>
+                                    <div>
+                                        {% for disc in all_discs|filter_by_type:"D" %}
+                                            <p>{{disc.in_the_bag}}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endwith %}
                             </div>
                         </div>
-                        {% with friend.videos.all|first_by_type:"B" as bag_video %}
+                        {% with friend.videos.all|filter_by_type:"B"|first as bag_video %}
                             {% if bag_video %}
                                 {% include "dgf/includes/youtube_video.html" with youtube_id=bag_video.url|youtube_id %}
                             {% endif %}
