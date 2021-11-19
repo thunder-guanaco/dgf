@@ -3,9 +3,9 @@ import re
 from datetime import datetime
 
 from django import template
-from django.db.models import Count, Q, Sum, F
+from django.db.models import Count, Q
 
-from ..models import Ace, DiscInBag, Course, Tournament, Result, Friend
+from ..models import Ace, DiscInBag, Course, Tournament, Result
 from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 register = template.Library()
@@ -101,8 +101,8 @@ def attends(tournament, friend):
 
 
 @register.filter
-def active(attendance):
-    return attendance.filter(friend__is_active=True)
+def active_attendance(tournament):
+    return tournament.attendance.all().filter(friend__is_active=True)
 
 
 @register.simple_tag
@@ -130,7 +130,10 @@ def next_tournaments(friend):
 
 @register.filter
 def metrix_url(tournament):
-    return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(tournament.metrix_id)
+    if tournament.metrix_id:
+        return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(tournament.metrix_id)
+    else:
+        return ''
 
 
 @register.filter
@@ -139,22 +142,7 @@ def ts_number(tournament):
     if not matches:
         logger.warning(f'Tournament {tournament} has no fitting name for a Tremonia Series tournament')
         return ''
-    return matches[0]
-
-
-@register.filter
-def all_results(tour):
-    queryset = Result.objects.filter(tournament__tour=tour).select_related('friend__short_name').values('friend') \
-        .annotate(total_points=Sum('points'))
-    for tournament in tour.tournaments.all():
-        queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))})
-    return queryset.order_by('-total_points')
-
-
-@register.filter
-def all_friends(results):
-    friend_ids = [result['friend'] for result in results]
-    return {friend.id: friend for friend in Friend.all_objects.filter(id__in=friend_ids)}
+    return f'TS{matches[0]}'
 
 
 @register.filter

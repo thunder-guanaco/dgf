@@ -10,7 +10,7 @@
             <ul>
                 {% for tournament in tournaments %}
                     <li class="tournament show-all-less">
-                        {% with tournament.attendance.all|active as tournament_players %}
+                        {% with tournament|active_attendance as tournament_players %}
                             <div class="top-info">
                                 <div>
                                     <span class="name">{{tournament.name}} </span>
