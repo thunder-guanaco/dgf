@@ -145,13 +145,28 @@ def ts_number(tournament):
     return f'TS{matches[0]}'
 
 
+def _best_results(result_dict, amount):
+    tournament_points = [item for item in result_dict.items()
+                         if item[1] is not None
+                         and item[0] not in ['friend', 'total_points']]
+    best_tournament_points = dict(sorted(tournament_points, key=lambda item: -item[1])[:amount])
+    best_tournament_points['total_points'] = sum(best_tournament_points.values())
+    best_tournament_points['friend'] = result_dict['friend']
+    for key, value in result_dict.items():
+        if key.startswith('position_'):
+            best_tournament_points[key] = value
+    return best_tournament_points
+
+
 @register.filter
-def all_results(tour):
-    queryset = Result.objects.filter(tournament__tour=tour).select_related('friend__short_name').values('friend') \
-        .annotate(total_points=Sum('points'))
+def best_results(tour, amount):
+    queryset = Result.objects.filter(tournament__tour=tour).values('friend').annotate(total_points=Sum('points'))
     for tournament in tour.tournaments.all():
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))})
-    return queryset.order_by('-total_points')
+        queryset = queryset.annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
+
+    best_results = [_best_results(result_dict, amount) for result_dict in queryset]
+    return sorted(best_results, key=lambda item: -item['total_points'])
 
 
 @register.filter
@@ -161,11 +176,12 @@ def all_friends(results):
 
 
 @register.filter
-def get_friend(friends, friend_id):
-    return friends[friend_id]
+def get_points_for(result_dict, tournament):
+    result = result_dict.get(f'points_{tournament.id}')
+    return result if result else '-'
 
 
 @register.filter
-def get_result(result, tournament):
-    result = result.get(f'points_{tournament.id}')
-    return result if result else '-'
+def get_from_dict(list, key):
+    return list[key]
+

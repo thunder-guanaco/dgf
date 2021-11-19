@@ -6,8 +6,8 @@
 
 {% with instance.tour as tour %}
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
-{% with tour|all_results as results %}
-{% with results|all_friends as friends %}
+{% with tour|best_results:6 as best_results %}
+{% with best_results|all_friends as friends %}
 
 <div id="tour-results">
     <h2>
@@ -25,14 +25,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for result in results %}
-                {% with friends|get_friend:result.friend as friend %}
+            {% for friend_results in best_results %}
+                {% with friends|get_from_dict:friend_results.friend as friend %}
                     <tr>
                         <th>{{forloop.counter}}</th>
                         <th>{% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}</th>
-                        <th>{{result.total_points}}</th>
+                        <th>{{friend_results.total_points}}</th>
                         {% for tournament in tournaments %}
-                            <td>{{result|get_result:tournament}}</td>
+                            <td>{{friend_results|get_points_for:tournament}}</td>
                         {% endfor %}
                     </tr>
                 {% endwith %}
