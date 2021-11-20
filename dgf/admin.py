@@ -117,6 +117,14 @@ class AttendanceInline(admin.TabularInline):
         return Attendance.objects.all().order_by('friend__first_name')
 
 
+class TournamentsTourRelationInline(admin.TabularInline):
+    model = Tour.tournaments.through
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        return queryset.order_by('tournament__begin')
+
+
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -126,35 +134,18 @@ class TournamentAdmin(admin.ModelAdmin):
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
                 'url',
-                'tour',
+                'point_system',
             ]}
          )
     ]
 
-    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id', 'tour')
+    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
     list_display_links = ('name',)
     search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 
     inlines = [
-        ResultInline, AttendanceInline
+        TournamentsTourRelationInline, ResultInline, AttendanceInline,
     ]
-
-
-class TournamentInline(admin.TabularInline):
-    model = Tournament
-    extra = 0
-
-    def get_queryset(self, request):
-        return Tournament.objects.all().order_by('begin', 'end')
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 
 @admin.register(Tour)
@@ -163,14 +154,18 @@ class TourAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
-                'point_system',
+                'date',
+                'tournament_count',
             ]}
          )
     ]
 
-    list_display = ('name', 'begin', 'end', 'point_system',)
+    readonly_fields = ['date', 'tournament_count']
+
+    list_display = ('name', 'begin', 'end',)
     search_fields = ('name',)
 
     inlines = [
-        TournamentInline
+        TournamentsTourRelationInline,
     ]
+    exclude = ('tournaments',)

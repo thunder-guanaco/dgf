@@ -2,24 +2,29 @@ from django.test import TestCase
 from parameterized import parameterized
 
 from dgf.models import Tour, Result, Tournament, Friend
+from dgf.point_systems import calculate_points
 from dgf.test.models.creator import create_friends, create_tournaments
-from dgf.tour import calculate_points
 
 
-class TourTest(TestCase):
+class PointSystemsTest(TestCase):
 
     def setUp(self):
         Tournament.objects.all().delete()
         Friend.objects.all().delete()
         Tour.objects.all().delete()
 
-    def test_calculate_points_without_tour(self):
-        self.assert_points(tour=None,
+    def test_calculate_points_without_point_system(self):
+        self.assert_points(point_system=None,
+                           positions=[1, 2],
+                           points=[None, None])
+
+    def test_calculate_points_with_empty_point_system(self):
+        self.assert_points(point_system='',
                            positions=[1, 2],
                            points=[None, None])
 
     def test_calculate_points_with_unknown_point_system(self):
-        self.assert_points(tour=Tour.objects.create(name='test', point_system='unknown_point_system'),
+        self.assert_points(point_system='unknown_point_system',
                            positions=[1, 2],
                            points=[None, None])
 
@@ -46,20 +51,19 @@ class TourTest(TestCase):
         (20, [29, 26, 23, 18, 14, 12, 10, 9, 7, 6, 4, 4, 3, 3, 2, 2, 1, 1, 0, 0]),
     ])
     def test_calculate_points(self, amount_of_players, expected_points):
-        self.assert_points(tour=Tour.objects.create(name='test', point_system=Tour.TS_POINTS_WITH_BEATEN_PLAYERS),
+        self.assert_points(point_system=Tournament.TS_POINTS_WITH_BEATEN_PLAYERS,
                            positions=list(range(1, amount_of_players + 1)),
                            points=expected_points)
 
-    def assert_points(self, tour, positions, points):
+    def assert_points(self, point_system, positions, points):
         self.assertEqual(len(positions), len(points),
                          msg='This test makes no sense: there is not the same number of positions and points')
         friends = create_friends(len(positions))
         if len(positions) == 1:
             friends = [friends]
         tournament = create_tournaments(1)
-        if tour:
-            tournament.tour = tour
-            tournament.save()
+        tournament.point_system = point_system
+        tournament.save()
         results = [Result.objects.create(tournament=tournament,
                                          friend=friends[i],
                                          position=position)

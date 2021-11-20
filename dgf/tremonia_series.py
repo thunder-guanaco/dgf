@@ -68,6 +68,7 @@ def add_tournament(ts_tournament):
                                                                'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
                                                                'begin': date,
                                                                'end': date,
+                                                               'point_system': Tournament.TS_POINTS_WITH_BEATEN_PLAYERS,
                                                            })
 
     if created:
@@ -94,8 +95,7 @@ def create_tournament(metrix_id):
     # tournament was already played and does not have results
     elif tournament.results.count() == 0:
         add_results(tournament, ts_tournament)
-        if tournament.tour:
-            tournament.re_calculate_points()
+        tournament.re_calculate_points()
 
 
 def update_tournaments():

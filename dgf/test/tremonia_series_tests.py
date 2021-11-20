@@ -5,7 +5,7 @@ import responses
 from django.test import TestCase
 
 from dgf import tremonia_series
-from dgf.models import Tournament, Friend, Attendance, Result, Tour
+from dgf.models import Tournament, Friend, Attendance, Result
 from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID, \
     DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
@@ -113,13 +113,6 @@ class TremoniaSeriesTest(TestCase):
 
     @responses.activate
     def test_tournament_with_results_and_points(self):
-        tour = Tour.objects.create(name='test', point_system=Tour.TS_POINTS_WITH_BEATEN_PLAYERS)
-        Tournament.objects.create(metrix_id=12345,
-                                  name='Test',
-                                  begin=date(year=1000, month=1, day=1),
-                                  end=date(year=1000, month=1, day=1),
-                                  url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345),
-                                  tour=tour)
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1), ('fede', 2)])

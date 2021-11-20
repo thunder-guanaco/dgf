@@ -58,67 +58,10 @@ class TournamentModelTest(TestCase):
         self.assert_that(tournament, NOT_OK, friends, in_positions=[1, 1, 1, 4])
         self.assert_that(tournament, NOT_OK, friends, in_positions=[1, 1, 1, 1])
 
-    def test_save_without_tour(self):
+    def test_re_calculate_points(self):
         friends = create_friends(2)
         tournament = create_tournaments(1)
-        first = Result.objects.create(tournament=tournament,
-                                      friend=friends[0],
-                                      position=1)
-        second = Result.objects.create(tournament=tournament,
-                                       friend=friends[1],
-                                       position=2)
-        self.assertEqual(first.points, None)
-        self.assertEqual(second.points, None)
-
-        tournament.save()
-
-        self.assertEqual(first.points, None)
-        self.assertEqual(second.points, None)
-
-    def test_save_with_tour(self):
-        tour = Tour.objects.create(name='test', point_system=Tour.TS_POINTS_WITH_BEATEN_PLAYERS)
-        friends = create_friends(2)
-        tournament = create_tournaments(1)
-        tournament.tour = tour
-        tournament.save()
-        first = Result.objects.create(tournament=tournament,
-                                      friend=friends[0],
-                                      position=1)
-        second = Result.objects.create(tournament=tournament,
-                                       friend=friends[1],
-                                       position=2)
-        self.assertEqual(first.points, None)
-        self.assertEqual(second.points, None)
-
-        tournament.save()
-        first.refresh_from_db()
-        second.refresh_from_db()
-
-        self.assertEqual(first.points, 20)
-        self.assertEqual(second.points, 17)
-
-    def test_re_calculate_points_without_tour(self):
-        friends = create_friends(2)
-        tournament = create_tournaments(1)
-        first = Result.objects.create(tournament=tournament,
-                                      friend=friends[0],
-                                      position=1)
-        second = Result.objects.create(tournament=tournament,
-                                       friend=friends[1],
-                                       position=2)
-        self.assertEqual(first.points, None)
-        self.assertEqual(second.points, None)
-
-        tournament.re_calculate_points()
-
-        self.assertEqual(first.points, None)
-        self.assertEqual(second.points, None)
-
-    def test_re_calculate_points_with_tour(self):
-        tour = Tour.objects.create(name='test', point_system=Tour.TS_POINTS_WITH_BEATEN_PLAYERS)
-        friends = create_friends(2)
-        tournament = create_tournaments(1)
-        tournament.tour = tour
+        tournament.point_system = Tournament.TS_POINTS_WITH_BEATEN_PLAYERS
         tournament.save()
         first = Result.objects.create(tournament=tournament,
                                       friend=friends[0],
