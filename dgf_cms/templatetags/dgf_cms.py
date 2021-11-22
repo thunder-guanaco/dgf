@@ -1,5 +1,9 @@
+from json import dumps
+
 from django import template
 from django.conf import settings
+from django.core.serializers import serialize
+from django.db.models.query import QuerySet
 from filer.models.imagemodels import Image
 
 register = template.Library()
@@ -26,3 +30,10 @@ def random_background_img_url(friend):
 
     background_image = all_images.order_by('?').first()
     return background_image.url if background_image else ''
+
+
+@register.filter
+def json(object):
+    if isinstance(object, QuerySet):
+        return serialize('json', object)
+    return dumps(object)
