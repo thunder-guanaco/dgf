@@ -147,16 +147,16 @@ def ts_number(tournament):
 
 @register.filter
 def all_results(tour):
-    queryset = Result.objects.filter(tournament__tours=tour).values('friend').annotate(total_points=Sum('points'))
+    queryset = Result.objects.filter(tournament__tours=tour).values('friend')
     for tournament in tour.tournaments.all():
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))})
-    return queryset.order_by('-total_points')
+    return queryset
 
 
 @register.filter
 def all_friends(results):
     friend_ids = [result['friend'] for result in results]
-    return {friend.id: friend for friend in Friend.all_objects.filter(id__in=friend_ids)}
+    return Friend.all_objects.filter(id__in=friend_ids)
 
 
 @register.filter

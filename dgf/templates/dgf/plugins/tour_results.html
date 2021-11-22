@@ -1,4 +1,4 @@
-{% load sekizai_tags static i18n dgf %}
+{% load sekizai_tags static i18n dgf dgf_cms %}
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
@@ -7,13 +7,116 @@
 {% with instance.tour as tour %}
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
 {% with tour|all_results as results %}
-{% with results|all_friends as friends %}
+{% with results|all_friends as all_friends %}
+
+{% comment %} This piece of HTML code is just generated to be appended in other places {% endcomment %}
+{% for friend in all_friends %}
+    <div id="friend-ball-{{friend.id}}" style="display:none;">
+        {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
+    </div>
+{% endfor %}
+
+<script>
+    $(window).on("load", function() {
+        console.log("Generating results table...");
+        friends = parseData();
+        generateTable(friends);
+        console.log("Results table was generated");
+    });
+
+
+    function parseData() {
+        friends = [
+        {% for result in results %}
+            {
+                id: {{result.friend}},
+                results: getBestResults({{result|json|safe}}, 6)
+            },
+        {% endfor %}
+        ];
+        friends.sort(function(a, b) {
+            return b.results.total - a.results.total;
+        });
+        return friends;
+    }
+
+    function getBestResults(results, amount) {
+
+        var sortable = [];
+        for (var key in results) {
+            if (key.startsWith("points_")) {
+                sortable.push([key, results[key]]);
+            }
+        }
+        sortable.sort(function(a, b) {
+            return negativeIfNull(b[1]) - negativeIfNull(a[1]);
+        });
+
+        var bestResults = {}
+        var total = 0;
+        sortable.forEach(function(item, index){
+            if (item[1] == null) {
+                value = '-';
+            }
+            else if (index < amount) {
+                value = item[1];
+                total += item[1];
+            }
+            else {
+                value = "[" + item[1] + "]";
+            }
+            bestResults[item[0]] = value;
+        })
+        bestResults.total = total;
+        return bestResults;
+    }
+
+    function negativeIfNull(x) {
+        return x == null ? -1 : x;
+    }
+
+    function generateTable(friends) {
+        var tbody = document.getElementsByTagName("tbody")[0];
+
+        friends.forEach(function(friend, index) {
+
+            var row = document.createElement("tr");
+
+            addCell(row, "th", index + 1);
+            addFriendBall(row, "th", friend.id);
+            addCell(row, "th", friend.results.total);
+            {% for tournament in tournaments %}
+                addCell(row, "td", friend.results.points_{{tournament.id}});
+            {% endfor %}
+
+            tbody.appendChild(row);
+
+        });
+        $("table").fadeIn(500);
+    }
+
+    function addCell(row, type, text) {
+        var cell = document.createElement(type);
+        textNode = document.createTextNode(text);
+        cell.appendChild(textNode);
+        row.appendChild(cell);
+    }
+
+    function addFriendBall(row, type, friend_id) {
+        var cell = document.createElement(type);
+        ball = $("#friend-ball-" + friend_id)[0];
+        $(ball).show();
+        cell.appendChild(ball);
+        row.appendChild(cell);
+    }
+
+</script>
 
 <div id="tour-results">
     <h2>
         {{tour.name}} ({{tour.begin|date:"SHORT_DATE_FORMAT"}} - {{tour.end|date:"SHORT_DATE_FORMAT"}})
     </h2>
-    <table class="table table-striped">
+    <table class="table table-striped" style="display:none;">
         <thead>
             <tr>
                 <th>{% trans "Position" %}</th>
@@ -25,18 +128,6 @@
             </tr>
         </thead>
         <tbody>
-            {% for result in results %}
-                {% with friends|get_friend:result.friend as friend %}
-                    <tr>
-                        <th>{{forloop.counter}}</th>
-                        <th>{% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}</th>
-                        <th>{{result.total_points}}</th>
-                        {% for tournament in tournaments %}
-                            <td>{{result|get_result:tournament}}</td>
-                        {% endfor %}
-                    </tr>
-                {% endwith %}
-            {% endfor %}
         </tbody>
     </table>
 </div>
