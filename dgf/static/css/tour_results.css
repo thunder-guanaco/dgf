@@ -1,5 +1,26 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
+
+    #tour-results table {
+        width: 100% !important;
+    }
+
+    #tour-results table tr {
+        display: table-row !important;
+    }
+
+    #tour-results table th,
+    #tour-results table td {
+        display: table-cell !important;
+        min-width: 0;
+        width: auto;
+    }
+
+    #tour-results .friend-ball img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
 }
 
 /* desktop */
@@ -18,5 +39,5 @@
 }
 
 #tour-results .friend-ball .friend-name {
-        margin: 0 0 0 0.5em !important;
-    }
+    margin: 0 0 0 0.5em !important;
+}

@@ -24,7 +24,6 @@
         console.log("Results table was generated");
     });
 
-
     function parseData() {
         friends = [
         {% for result in results %}
@@ -85,9 +84,13 @@
             addCell(row, "th", index + 1);
             addFriendBall(row, "th", friend.id);
             addCell(row, "th", friend.results.total);
-            {% for tournament in tournaments %}
-                addCell(row, "td", friend.results.points_{{tournament.id}});
-            {% endfor %}
+            {% if request.user_agent.is_mobile %}
+
+            {% else %}
+                {% for tournament in tournaments %}
+                    addCell(row, "td", friend.results.points_{{tournament.id}});
+                {% endfor %}
+            {% endif %}
 
             tbody.appendChild(row);
 
@@ -122,9 +125,13 @@
                 <th>{% trans "Position" %}</th>
                 <th>{% trans "Player" %}</th>
                 <th>{% trans "Total" %}</th>
-                {% for tournament in tournaments %}
-                    <th>{{tournament|ts_number}}</th>
-                {% endfor %}
+                {% if request.user_agent.is_mobile %}
+
+                {% else %}
+                    {% for tournament in tournaments %}
+                        <th>{{tournament|ts_number}}</th>
+                    {% endfor %}
+                {% endif %}
             </tr>
         </thead>
         <tbody>
