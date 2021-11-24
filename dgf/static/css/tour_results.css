@@ -6,8 +6,10 @@
     }
 
     #tour-results table tr {
-        display: table-row !important;
-        float: unset !important;
+        float: none !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
     }
 
     #tour-results table th,
