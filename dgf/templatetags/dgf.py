@@ -142,7 +142,7 @@ def ts_number(tournament):
     if not matches:
         logger.warning(f'Tournament {tournament} has no fitting name for a Tremonia Series tournament')
         return ''
-    return f'TS{matches[0]}'
+    return f'{matches[0]}'
 
 
 @register.filter
