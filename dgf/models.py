@@ -337,7 +337,7 @@ class Tournament(Model):
 
     TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
     POINT_SYSTEM_CHOICES = (
-        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players points')),
+        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players')),
     )
     point_system = models.CharField(_('Point System'), null=True, blank=True,
                                     max_length=100, choices=POINT_SYSTEM_CHOICES)

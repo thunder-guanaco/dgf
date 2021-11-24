@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             model_name='tour',
             name='point_system',
             field=models.CharField(
-                choices=[('ts_points_with_beaten_players', 'Tremonia Series points + half beaten players points')],
+                choices=[('ts_points_with_beaten_players', 'Tremonia Series points + half beaten players')],
                 default='ts_points_with_beaten_players', max_length=100, verbose_name='Point System'),
         ),
     ]
