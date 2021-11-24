@@ -22,15 +22,15 @@ class TemplatetagsTournamentsTest(TestCase):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Series #1'
         tournament.save()
-        self.assertEqual(ts_number(tournament), 'TS#1')
+        self.assertEqual(ts_number(tournament), '#1')
 
-    def test_metrix_url_with_text_after_number(self):
+    def test_ts_number_with_text_after_number(self):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Series #1 (Putter)'
         tournament.save()
-        self.assertEqual(ts_number(tournament), 'TS#1')
+        self.assertEqual(ts_number(tournament), '#1')
 
-    def test_metrix_url_with_no_ts_tournament(self):
+    def test_ts_number_with_no_ts_tournament(self):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Open 2020'
         tournament.save()
