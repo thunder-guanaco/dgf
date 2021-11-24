@@ -241,6 +241,7 @@ MIDDLEWARE = [
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
     'compression_middleware.middleware.CompressionMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 INSTALLED_APPS = [
@@ -248,6 +249,7 @@ INSTALLED_APPS = [
     'django_countries',
     'compressor',
     'dbbackup',
+    'django_user_agents',
 
     'djangocms_admin_style',
     'django.contrib.auth',

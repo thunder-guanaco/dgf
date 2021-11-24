@@ -117,14 +117,17 @@
 
 <div id="tour-results">
     <h2>
-        {{tour.name}} ({{tour.begin|date:"SHORT_DATE_FORMAT"}} - {{tour.end|date:"SHORT_DATE_FORMAT"}})
+        {{tour.name}}
     </h2>
+    <h3>
+        ({{tour.begin|date:"SHORT_DATE_FORMAT"}} - {{tour.end|date:"SHORT_DATE_FORMAT"}})
+    </h3>
     <table class="table table-striped" style="display:none;">
         <thead>
             <tr>
                 <th>{% trans "Position" %}</th>
                 <th>{% trans "Player" %}</th>
-                <th>{% trans "Total" %}</th>
+                <th>{% trans "Points" %}</th>
                 {% if request.user_agent.is_mobile %}
 
                 {% else %}
