@@ -7,13 +7,12 @@
 
     #tour-results table tr {
         display: table-row !important;
+        float: unset !important;
     }
 
     #tour-results table th,
     #tour-results table td {
         display: table-cell !important;
-        min-width: 0;
-        width: auto;
     }
 
     #tour-results .friend-ball img {
@@ -27,9 +26,13 @@
 @media only screen and (min-width: 1024px) {
 }
 
+#tour-results h2,
+#tour-results h3 {
+    text-align: center;
+}
+
 #tour-results table th,
 #tour-results table td {
-    min-width: 3em;
     text-align: center;
     vertical-align: middle;
 }
