@@ -83,16 +83,46 @@
 
             addCell(row, "th", index + 1);
             addFriendBall(row, "th", friend.id);
-            addCell(row, "th", friend.results.total);
+
             {% if request.user_agent.is_mobile %}
+                cell = addCell(row, "th", friend.results.total);
+                cell.classList.add("link");
+                cell.onclick = function () {
+                    $(this).parent().next().toggleClass("hidden");
+                    $(this).parent().next().next().toggleClass("hidden");
+                };
 
             {% else %}
+                addCell(row, "th", friend.results.total);
+
+                // tournament results for DESKTOP
                 {% for tournament in tournaments %}
                     addCell(row, "td", friend.results.points_{{tournament.id}});
                 {% endfor %}
             {% endif %}
 
             tbody.appendChild(row);
+
+            // tournament results for MOBILE
+            {% if request.user_agent.is_mobile %}
+
+                var header_row = document.createElement("tr");
+                var points_row = document.createElement("tr");
+
+                header_row.classList.add("tournament-results-row");
+                points_row.classList.add("tournament-results-row");
+                header_row.classList.add("hidden");
+                points_row.classList.add("hidden");
+
+                {% for tournament in tournaments %}
+                    addCell(header_row, "th", "{{tournament|ts_number}}");
+                    addCell(points_row, "td", friend.results.points_{{tournament.id}});
+                {% endfor %}
+
+                tbody.appendChild(header_row);
+                tbody.appendChild(points_row);
+
+            {% endif %}
 
         });
         $("table").fadeIn(500);
@@ -103,6 +133,7 @@
         textNode = document.createTextNode(text);
         cell.appendChild(textNode);
         row.appendChild(cell);
+        return cell;
     }
 
     function addFriendBall(row, type, friend_id) {
@@ -111,6 +142,7 @@
         $(ball).show();
         cell.appendChild(ball);
         row.appendChild(cell);
+        return cell;
     }
 
 </script>
@@ -128,9 +160,7 @@
                 <th>{% trans "Position" %}</th>
                 <th>{% trans "Player" %}</th>
                 <th>{% trans "Points" %}</th>
-                {% if request.user_agent.is_mobile %}
-
-                {% else %}
+                {% if not request.user_agent.is_mobile %}
                     {% for tournament in tournaments %}
                         <th>{{tournament|ts_number}}</th>
                     {% endfor %}

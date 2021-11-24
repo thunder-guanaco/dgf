@@ -5,9 +5,10 @@
         width: 100% !important;
     }
 
-    #tour-results table tr {
-        float: none !important;
-        display: flex !important;
+    #tour-results table tbody tr,
+    #tour-results table thead tr {
+        float: none;
+        display: flex;
         align-items: center;
         justify-content: space-between;
     }
@@ -20,6 +21,17 @@
     #tour-results .friend-ball img {
         width: 70px !important;
         height: 70px !important;
+    }
+
+    #tour-results table tbody .tournament-results-row th,
+    #tour-results table tbody .tournament-results-row td {
+        font-size: 0.75em;
+        padding: 0.25em;
+    }
+
+    .link {
+        color: #8d1950;
+        text-decoration: none !important;
     }
 
 }
@@ -37,6 +49,7 @@
 #tour-results table td {
     text-align: center;
     vertical-align: middle;
+    border: none;
 }
 
 #tour-results .friend-ball {
