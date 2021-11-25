@@ -5,7 +5,7 @@ import responses
 from django.test import TestCase
 
 from dgf import tremonia_series
-from dgf.models import Tournament, Friend, Attendance, Result
+from dgf.models import Tournament, Friend, Attendance, Result, Tour
 from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID, \
     DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
@@ -183,6 +183,23 @@ class TremoniaSeriesTest(TestCase):
         tournament = Tournament.objects.get(metrix_id=12345)
         attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
         self.assertEqual(attendance, {'manolo', 'fede'})
+
+    @responses.activate
+    def test_add_tours_default_tour(self):
+        self.add_one_tournament(1, 'TS#1', '2018-11-11')
+        self.add_one_tournament(2, 'TS#2', '2018-12-12')
+        self.add_one_tournament(3, 'TS#3', '2019-01-01')
+
+        tremonia_series.update_tournaments()
+
+        self.assert_tournament_in_tour('Ewige Tabelle', {'TS#1', 'TS#2', 'TS#3'})
+        self.assert_tournament_in_tour('Tremonia Series 2018', {'TS#1', 'TS#2'})
+        self.assert_tournament_in_tour('Tremonia Series 2019', {'TS#3'})
+
+    def assert_tournament_in_tour(self, tour_name, expected_tournaments):
+        tour = Tour.objects.get(name=tour_name)
+        tournaments = set(tour.tournaments.all().values_list('tournament__name', falt=True))
+        self.assertEqual(tournaments, expected_tournaments)
 
     def add_three_tournaments(self):
         responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
