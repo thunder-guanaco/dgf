@@ -422,6 +422,8 @@ class Tour(Model):
 
     name = models.CharField(_('Name'), max_length=300)
     tournaments = models.ManyToManyField(Tournament, related_name='tours')
+    evaluate_how_many = models.PositiveIntegerField(_('How many tournaments should be evaluated?'), default=6,
+                                                    validators=[MinValueValidator(1)])
 
     @property
     def tournament_count(self):
