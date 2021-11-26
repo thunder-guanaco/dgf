@@ -81,23 +81,22 @@
 
             var row = document.createElement("tr");
 
-            addCell(row, "th", index + 1);
-            addFriendBall(row, "th", friend.id);
+            addCell(row, "th", ["top"], index + 1);
+            addFriendBall(row, "th", ["top"], friend.id);
 
             {% if request.user_agent.is_mobile %}
-                cell = addCell(row, "th", friend.results.total);
-                cell.classList.add("link");
+                cell = addCell(row, "th", ["top", "link"], friend.results.total);
                 cell.onclick = function () {
                     $(this).parent().next().toggleClass("hidden");
                     $(this).parent().next().next().toggleClass("hidden");
                 };
 
             {% else %}
-                addCell(row, "th", friend.results.total);
+                addCell(row, "th", ["top"], friend.results.total);
 
                 // tournament results for DESKTOP
                 {% for tournament in tournaments %}
-                    addCell(row, "td", friend.results.points_{{tournament.id}});
+                    addCell(row, "td", [], friend.results.points_{{tournament.id}});
                 {% endfor %}
             {% endif %}
 
@@ -115,8 +114,8 @@
                 points_row.classList.add("hidden");
 
                 {% for tournament in tournaments %}
-                    addCell(header_row, "th", "{{tournament|ts_number}}");
-                    addCell(points_row, "td", friend.results.points_{{tournament.id}});
+                    addCell(header_row, "th", [], "{{tournament|ts_number}}");
+                    addCell(points_row, "td", [], friend.results.points_{{tournament.id}});
                 {% endfor %}
 
                 tbody.appendChild(header_row);
@@ -128,16 +127,22 @@
         $("table").fadeIn(500);
     }
 
-    function addCell(row, type, text) {
+    function addCell(row, type, classes, text) {
         var cell = document.createElement(type);
+        classes.forEach(function(item){
+            cell.classList.add(item);
+        });
         textNode = document.createTextNode(text);
         cell.appendChild(textNode);
         row.appendChild(cell);
         return cell;
     }
 
-    function addFriendBall(row, type, friend_id) {
+    function addFriendBall(row, type, classes, friend_id) {
         var cell = document.createElement(type);
+        classes.forEach(function(item){
+            cell.classList.add(item);
+        });
         ball = $("#friend-ball-" + friend_id)[0];
         $(ball).show();
         cell.appendChild(ball);
@@ -154,9 +159,9 @@
     <table class="table table-striped" style="display:none;">
         <thead>
             <tr>
-                <th>{% trans "Position" %}</th>
-                <th>{% trans "Player" %}</th>
-                <th>{% trans "Points" %}</th>
+                <th class="top">{% trans "Position" %}</th>
+                <th class="top">{% trans "Player" %}</th>
+                <th class="top">{% trans "Points" %}</th>
                 {% if not request.user_agent.is_mobile %}
                     {% for tournament in tournaments %}
                         <th>{{tournament|ts_number}}</th>
