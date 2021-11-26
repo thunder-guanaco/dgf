@@ -154,6 +154,7 @@ class TourAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
+                'evaluate_how_many',
                 'date',
                 'tournament_count',
             ]}

@@ -29,7 +29,7 @@
         {% for result in results %}
             {
                 id: {{result.friend}},
-                results: getBestResults({{result|json|safe}}, 6)
+                results: getBestResults({{result|json|safe}}, {{tour.evaluate_how_many}})
             },
         {% endfor %}
         ];
