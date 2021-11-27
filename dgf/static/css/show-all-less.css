@@ -1,3 +1,7 @@
+.hidden {
+    display: none !important;
+}
+
 .show-all-less .show-all,
 .show-all-less .show-less {
     cursor: pointer;
