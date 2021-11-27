@@ -86,9 +86,9 @@ def add_tournament(ts_tournament):
 
 def add_tours(tournament):
     # default tour containing all Tremonia Series
-    if tournament.name.startswith('Tremonia Series #'):
-        tour, _ = Tour.objects.get_or_create(name='Ewige Tabelle', defaults={'evaluate_how_many': 10000})
-        tournament.tours.add(tour)
+    default_tour, _ = Tour.objects.get_or_create(name='Ewige Tabelle',
+                                                 defaults={'evaluate_how_many': 10000})
+    tournament.tours.add(default_tour)
 
     # tournament year's tour
     years_tour, _ = Tour.objects.get_or_create(name=f'Tremonia Series {tournament.begin.year}',
@@ -117,3 +117,8 @@ def update_tournaments():
         if not event['Name'].startswith('[DELETED]'):
             logger.info('--------------------------------------------------------------------------------\n')
             create_tournament(event['ID'])
+
+
+def pt():
+    for t in Tour.objects.all():
+        print(f'{t}               {[tt for tt in t.tournaments.all()]}')
