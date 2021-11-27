@@ -68,3 +68,19 @@
 #tour-results .friend-ball .friend-name {
     margin: 0 0 0 0.5em !important;
 }
+
+#tour-results .position_1:after {
+    content: '\00a0\1F947';
+}
+
+#tour-results .position_2:after {
+    content: '\00a0\1F948';
+}
+
+#tour-results .position_3:after {
+    content: '\00a0\1F949';
+}
+
+#tour-results .position_X {
+    color: #ccc;
+}

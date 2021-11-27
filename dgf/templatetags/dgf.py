@@ -149,7 +149,9 @@ def ts_number(tournament):
 def all_results(tour):
     queryset = Result.objects.filter(tournament__tours=tour).values('friend')
     for tournament in tour.tournaments.all():
-        queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))})
+        # This SUM contains actually JUST ONE element(the result of the Friend for the given Tournament)
+        queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
+                           .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
     return queryset
 
 
