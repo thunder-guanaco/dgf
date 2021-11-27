@@ -4,7 +4,7 @@ from datetime import datetime
 import requests
 
 from dgf import external_user_finder
-from dgf.models import Tournament, Result, Attendance
+from dgf.models import Tournament, Result, Attendance, Tour
 
 logger = logging.getLogger(__name__)
 
@@ -84,9 +84,22 @@ def add_tournament(ts_tournament):
     return tournament
 
 
+def add_tours(tournament):
+    # default tour containing all Tremonia Series
+    default_tour, _ = Tour.objects.get_or_create(name='Ewige Tabelle',
+                                                 defaults={'evaluate_how_many': 10000})
+    tournament.tours.add(default_tour)
+
+    # tournament year's tour
+    years_tour, _ = Tour.objects.get_or_create(name=f'Tremonia Series {tournament.begin.year}',
+                                               defaults={'evaluate_how_many': 6})
+    tournament.tours.add(years_tour)
+
+
 def create_tournament(metrix_id):
     ts_tournament = get_tournament(metrix_id)
     tournament = add_tournament(ts_tournament)
+    add_tours(tournament)
 
     # tournament is either not played yet or still in play
     if tournament.begin >= datetime.today():
