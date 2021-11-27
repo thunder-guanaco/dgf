@@ -168,7 +168,7 @@ class TemplatetagsTournamentsTest(TestCase):
         Result.objects.create(friend=friend, tournament=tournaments[3], position=4)
         Result.objects.create(friend=friend, tournament=tournaments[4], position=5)
         Result.objects.create(friend=friend, tournament=tournaments[5], position=1)
-        self.assert_podiums(friend, [tournaments[0], tournaments[1], tournaments[2], tournaments[5]])
+        self.assert_podiums(friend, [tournaments[5], tournaments[2], tournaments[1], tournaments[0]])
 
     def create_tournaments(self, amount):
         return [
