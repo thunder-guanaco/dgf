@@ -26,10 +26,10 @@
 
     function parseData() {
         friends = [
-        {% for result in results %}
+        {% for friend_results in results %}
             {
-                id: {{result.friend}},
-                results: getBestResults({{result|json|safe}}, {{tour.evaluate_how_many}})
+                id: {{friend_results.friend}},
+                results: getBestResults({{friend_results|json|safe}}, {{tour.evaluate_how_many}})
             },
         {% endfor %}
         ];
@@ -54,17 +54,21 @@
         var bestResults = {}
         var total = 0;
         sortable.forEach(function(item, index){
-            if (item[1] == null) {
-                value = '-';
+            tournamentId = item[0].split("_")[1];
+            points = item[1]
+            position = results["position_" + tournamentId]
+
+            if (points == null) {
+                points = '-';
             }
             else if (index < amount) {
-                value = item[1];
-                total += item[1];
+                total += points;
             }
             else {
-                value = "[" + item[1] + "]";
+                points = "[" + points + "]";
+                position = "X";
             }
-            bestResults[item[0]] = value;
+            bestResults[tournamentId] = {"points": points, "position": position};
         })
         bestResults.total = total;
         return bestResults;
@@ -96,7 +100,8 @@
 
                 // tournament results for DESKTOP
                 {% for tournament in tournaments %}
-                    addCell(row, "td", [], friend.results.points_{{tournament.id}});
+                    result = friend.results[{{tournament.id}}]
+                    addCell(row, "td", ["position_" + result.position], result.points);
                 {% endfor %}
             {% endif %}
 
@@ -115,7 +120,8 @@
 
                 {% for tournament in tournaments %}
                     addCell(header_row, "th", [], "{{tournament|ts_number}}");
-                    addCell(points_row, "td", [], friend.results.points_{{tournament.id}});
+                    result = friend.results[{{tournament.id}}]
+                    addCell(points_row, "td", ["position_" + result.position], result.points);
                 {% endfor %}
 
                 tbody.appendChild(header_row);
