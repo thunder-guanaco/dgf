@@ -112,7 +112,7 @@ def problematic_tournaments():
 
 @register.filter
 def podium_results(friend):
-    return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('tournament__begin')
+    return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('-tournament__begin')
 
 
 @register.filter
