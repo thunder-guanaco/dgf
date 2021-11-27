@@ -186,14 +186,22 @@ class TremoniaSeriesTest(TestCase):
         self.assertEqual(attendance, {'manolo', 'fede'})
 
     @responses.activate
-    def test_add_tours_default_tour(self):
-        self.add_three_tournaments_for_tours()
+    def test_add_automatic_tours(self):
+        Tournament.objects.create(metrix_id=1,
+                                  name='Tremonia Series #1',
+                                  begin=date(year=1000, month=1, day=1),
+                                  end=date(year=1000, month=1, day=1))
+        Tournament.objects.create(metrix_id=2,
+                                  name='Tremonia Series #2',
+                                  begin=date(year=1000, month=2, day=2),
+                                  end=date(year=1000, month=2, day=2))
+        self.add_five_tournaments_for_tours()
 
         tremonia_series.update_tournaments()
 
-        self.assert_tournament_in_tour('Ewige Tabelle', {1, 2, 3})
-        self.assert_tournament_in_tour('Tremonia Series 2018', {1, 2})
-        self.assert_tournament_in_tour('Tremonia Series 2019', {3})
+        self.assert_tournament_in_tour('Ewige Tabelle', {1, 2, 3, 4, 5})
+        self.assert_tournament_in_tour('Tremonia Series 1000', {1, 2, 3})  # 1 and 2 already exists but had no tours
+        self.assert_tournament_in_tour('Tremonia Series 2000', {4, 5})
 
     def assert_tournament_in_tour(self, tour_name, expected_metrix_ids):
         tour = Tour.objects.get(name=tour_name)
@@ -233,7 +241,7 @@ class TremoniaSeriesTest(TestCase):
         self.add_tournament(2, 'Tremonia Series #2 (Midrange)', '2000-01-01')
         self.add_tournament(3, 'Tremonia Series #3', '3000-01-01')
 
-    def add_three_tournaments_for_tours(self):
+    def add_five_tournaments_for_tours(self):
         responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
                       body=json.dumps(
                           {
@@ -243,24 +251,34 @@ class TremoniaSeriesTest(TestCase):
                                   'Events': [
                                       {
                                           'ID': '1',
-                                          'Name': 'Tremonia Series #1 (Putter)'
+                                          'Name': 'Tremonia Series #1'
                                       },
                                       {
                                           'ID': '2',
-                                          'Name': 'Tremonia Series #2 (Midrange)'
+                                          'Name': 'Tremonia Series #2'
                                       },
                                       {
                                           'ID': '3',
-                                          'Name': 'Tremonia Series #3 (Driver)'
+                                          'Name': 'Tremonia Series #3'
+                                      },
+                                      {
+                                          'ID': '4',
+                                          'Name': 'Tremonia Series #4'
+                                      },
+                                      {
+                                          'ID': '5',
+                                          'Name': 'Tremonia Series #5'
                                       }
                                   ]
                               }
                           }),
                       status=200)
 
-        self.add_tournament(1, 'Tremonia Series #1 (Putter)', '2018-01-01')
-        self.add_tournament(2, 'Tremonia Series #2 (Midrange)', '2018-02-02')
-        self.add_tournament(3, 'Tremonia Series #3 (Driver)', '2019-01-01')
+        self.add_tournament(1, 'Tremonia Series #1', '1000-01-01')
+        self.add_tournament(2, 'Tremonia Series #2', '1000-02-02')
+        self.add_tournament(3, 'Tremonia Series #3', '1000-03-03')
+        self.add_tournament(4, 'Tremonia Series #4', '2000-01-01')
+        self.add_tournament(5, 'Tremonia Series #5', '2000-02-02')
 
     def add_one_tournament(self, id, name, date_as_str, players=None, other_format=False):
         if not players:
