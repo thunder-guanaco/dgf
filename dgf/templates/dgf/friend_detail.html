@@ -8,6 +8,7 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/friend_detail.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/grt-youtube-popup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show-all-less.css' %}">
 {% endblock %}
 
 {% block style %}
@@ -17,7 +18,8 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'js/grt-youtube-popup.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/friend_video.js' %}"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="{% static 'js/show-all-less.js' %}"></script>
+<script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/']").parent().addClass("ancestor");
         });
@@ -194,11 +196,19 @@
                     {% if podium_results %}
                         <div class="podiums">
                             <p class="label">{% trans "Tournament achievements" %}</p>
-                            <ul class="value">
-                                {% for result in podium_results %}
-                                    <li>&#12935{{result.position}}; {{result.tournament.name}}</li>
-                                {% endfor %}
-                            </ul>
+                            <div class="value show-all-less">
+                                <div class="top">
+                                    {% for result in podium_results|slice:":5" %}
+                                        <div>&#12935{{result.position}}; {{result.tournament.name}} [{{result.tournament.date}}]</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="all hidden">
+                                    {% for result in podium_results %}
+                                        <div>&#12935{{result.position}}; {{result.tournament.name}} [{{result.tournament.date}}]</div>
+                                    {% endfor %}
+                                </div>
+                                {% include "dgf/includes/show-all-less.html" with minimum=5 amount=podium_results.count %}
+                            </div>
                         </div>
                     {% endif %}
                 {% endwith %}

@@ -1,0 +1,6 @@
+.show-all-less .show-all,
+.show-all-less .show-less {
+    cursor: pointer;
+    color: #8d1950;
+    font-weight: normal;
+}
