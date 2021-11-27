@@ -117,8 +117,3 @@ def update_tournaments():
         if not event['Name'].startswith('[DELETED]'):
             logger.info('--------------------------------------------------------------------------------\n')
             create_tournament(event['ID'])
-
-
-def pt():
-    for t in Tour.objects.all():
-        print(f'{t}               {[tt for tt in t.tournaments.all()]}')
