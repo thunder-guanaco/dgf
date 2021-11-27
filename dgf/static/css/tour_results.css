@@ -13,12 +13,12 @@
         justify-content: space-between;
     }
 
-    #tour-results table th:first-of-type,
-    #tour-results table th:last-of-type {
+    #tour-results table .top:first-of-type,
+    #tour-results table .top:last-of-type {
         width: 25%;
     }
 
-    #tour-results table th:nth-of-type(2) {
+    #tour-results table .top:nth-of-type(2) {
         width: 50%;
     }
 
