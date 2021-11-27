@@ -22,8 +22,6 @@
         friends = parseData();
         generateTable(friends);
         console.log("Results table was generated");
-        colorTable();
-        console.log("Results table was colored");
     });
 
     function parseData() {
@@ -122,7 +120,8 @@
 
                 {% for tournament in tournaments %}
                     addCell(header_row, "th", [], "{{tournament|ts_number}}");
-                    addCell(points_row, "td", [], friend.results[{{tournament.id}}].points);
+                    result = friend.results[{{tournament.id}}]
+                    addCell(points_row, "td", ["position_" + result.position], result.points);
                 {% endfor %}
 
                 tbody.appendChild(header_row);
@@ -157,17 +156,13 @@
         return cell;
     }
 
-    function colorTable() {
-        var table = document.getElementById("results");
-    }
-
 </script>
 
 <div id="tour-results">
     <h2>
         {{tour.name}}
     </h2>
-    <table id="results" class="table table-striped" style="display:none;">
+    <table class="table table-striped" style="display:none;">
         <thead>
             <tr>
                 <th class="top">{% trans "Position" %}</th>

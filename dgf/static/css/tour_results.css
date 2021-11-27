@@ -43,10 +43,35 @@
         text-decoration: none !important;
     }
 
+    #tour-results .position_1 {
+        color: #f9ad0e;
+    }
+
+    #tour-results .position_2 {
+        color: #d1d7da;
+    }
+
+    #tour-results .position_3 {
+        color: #df7e08;
+    }
+
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
+
+    #tour-results .position_1:after {
+        content: '\00a0\1F947';
+    }
+
+    #tour-results .position_2:after {
+        content: '\00a0\1F948';
+    }
+
+    #tour-results .position_3:after {
+        content: '\00a0\1F949';
+    }
+
 }
 
 #tour-results h2,
@@ -69,18 +94,6 @@
     margin: 0 0 0 0.5em !important;
 }
 
-#tour-results .position_1:after {
-    content: '\00a0\1F947';
-}
-
-#tour-results .position_2:after {
-    content: '\00a0\1F948';
-}
-
-#tour-results .position_3:after {
-    content: '\00a0\1F949';
-}
-
 #tour-results .position_X {
-    color: #ccc;
+    color: #666;
 }
