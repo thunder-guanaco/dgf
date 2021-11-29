@@ -2,6 +2,20 @@
 {% with clickable|default_if_none:False as clickable %}
 {% with img_size|add:img_size|stringformat:'s' as double_img_size %}
 
+{% comment %}
+
+IMPORTANT NOTE:
+
+- Clickable means that you can click on the picture and open it
+    - Behaviour: link to the picture itself
+    - Where can you see this? Right now only in the friend detail page
+
+- Not clickable means that you can not open the picture.
+    - Behaviour: link to the friend
+    - Where can you see this? Everywhere but in the friend detail page
+
+{% endcomment %}
+
     {% if clickable %}
         <a href="/media/{{friend.main_photo}}" target="_blank">
     {% endif %}
@@ -19,7 +33,7 @@
                 </div>
             </div>
         {% endif %}
-        {% if not clickable %}
+        {% if not clickable and not request.user_agent.is_mobile %}
             <span class="tooltip-text">
                 <span>{{friend.full_name}}</span>
                 {% if friend.club_role and friend.city %}

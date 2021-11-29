@@ -60,12 +60,24 @@
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
+    #tour-results .position_1:before {
+        content: '\00a0';
+    }
+
     #tour-results .position_1:after {
         content: '\00a0\1F947';
     }
 
+    #tour-results .position_2:before {
+        content: '\00a0';
+    }
+
     #tour-results .position_2:after {
         content: '\00a0\1F948';
+    }
+
+    #tour-results .position_3:before {
+        content: '\00a0';
     }
 
     #tour-results .position_3:after {
@@ -96,4 +108,43 @@
 
 #tour-results .position_X {
     color: #666;
+}
+
+.tournament-tooltip {
+    position: relative;
+}
+
+.tournament-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    line-height: normal;
+    background-color: #1b2633cc;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    z-index: 1;
+    position: absolute;
+    top: 5%;
+    left: 85%;
+}
+
+.tournament-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.tournament-tooltip .tooltip-text .tooltip-smaller-text {
+    font-size: smaller;
+    font-weight: normal;
+}
+
+.tournament-tooltip .tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 25%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #1b2633cc transparent transparent;
 }
