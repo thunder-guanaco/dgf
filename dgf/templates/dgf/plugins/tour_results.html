@@ -8,8 +8,9 @@
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
     <style>
-        #tour-results table .tournament-results-row {
-          grid-template-columns: repeat({{tournaments.count}}, minmax(0, 1fr));
+        .container #tour-results table tbody .tournament-results-row {
+            display: grid;
+            grid-template-columns: repeat({{tournaments.count}}, minmax(0, 1fr));
         }
     </style>
 {% endaddtoblock %}
