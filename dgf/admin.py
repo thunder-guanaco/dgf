@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
     Attendance, Tour
@@ -125,6 +126,14 @@ class TournamentsTourRelationInline(admin.TabularInline):
         return queryset.order_by('tournament__begin')
 
 
+def recalculate_points(modeladmin, request, queryset):
+    for tournament in queryset:
+        tournament.recalculate_points()
+
+
+recalculate_points.short_description = _('Recalculate points')
+
+
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -146,6 +155,8 @@ class TournamentAdmin(admin.ModelAdmin):
     inlines = [
         TournamentsTourRelationInline, ResultInline, AttendanceInline,
     ]
+
+    actions = [recalculate_points]
 
 
 @admin.register(Tour)

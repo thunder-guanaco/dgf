@@ -170,7 +170,11 @@
                 <th class="top">{% trans "Points" %}</th>
                 {% if not request.user_agent.is_mobile %}
                     {% for tournament in tournaments %}
-                        <th>{{tournament|ts_number}}</th>
+                        {% if tournament.url %}
+                            <th><a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a></th>
+                        {% else %}
+                            <th>{{tournament|ts_number}}</th>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </tr>

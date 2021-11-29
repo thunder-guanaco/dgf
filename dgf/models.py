@@ -367,11 +367,14 @@ class Tournament(Model):
                         .order_by('position')
                         .values_list('position', flat=True)) == [1, 2, 3]
 
-    def re_calculate_points(self):
+    def recalculate_points(self):
         if self.point_system:
             for result in self.results.all():
                 result.points = calculate_points(result)
                 result.save()
+            logger.info(f'Recalculated points for tournament {self}')
+        else:
+            logger.warning(f'Could not recalculate points for tournament {self}. No point system defined.')
 
     def __str__(self):
         return f'{self.name} ({self.date})'
