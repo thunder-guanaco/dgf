@@ -1,13 +1,18 @@
 {% load sekizai_tags static i18n dgf dgf_cms %}
 
-{% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
-{% endaddtoblock %}
-
 {% with instance.tour as tour %}
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
 {% with tour|all_results as results %}
 {% with results|all_friends as all_friends %}
+
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
+    <style>
+        #tour-results table .tournament-results-row {
+          grid-template-columns: repeat({{tournaments.count}}, minmax(0, 1fr));
+        }
+    </style>
+{% endaddtoblock %}
 
 {% comment %} This piece of HTML code is just generated to be appended in other places {% endcomment %}
 {% for friend in all_friends %}
@@ -200,7 +205,14 @@
                 {% if not request.user_agent.is_mobile %}
                     {% for tournament in tournaments %}
                         {% if tournament.url %}
-                            <th><a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a></th>
+                            <th class="tournament-tooltip">
+                                <a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a>
+                                <span class="tooltip-text">
+                                    <span>{{tournament.name}}</span>
+                                    <br>
+                                    <span class="tooltip-smaller-text">{{tournament.date}}</span>
+                                </span>
+                            </th>
                         {% else %}
                             <th>{{tournament|ts_number}}</th>
                         {% endif %}
