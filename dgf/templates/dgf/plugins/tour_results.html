@@ -119,7 +119,11 @@
                 points_row.classList.add("hidden");
 
                 {% for tournament in tournaments %}
-                    addCell(header_row, "th", [], "{{tournament|ts_number}}");
+                    {% if tournament.url %}
+                        addCellWithLink(header_row, "th", [], "{{tournament|ts_number}}", "_blank", "{{tournament.url}}");
+                    {% else %}
+                        addCell(header_row, "th", [], "{{tournament|ts_number}}");
+                    {% endif %}
                     result = friend.results[{{tournament.id}}]
                     addCell(points_row, "td", ["position_" + result.position], result.points);
                 {% endfor %}
@@ -138,9 +142,12 @@
         classes.forEach(function(item){
             cell.classList.add(item);
         });
-        textNode = document.createTextNode(text);
+
+        var textNode = document.createTextNode(text);
+
         cell.appendChild(textNode);
         row.appendChild(cell);
+
         return cell;
     }
 
@@ -149,10 +156,32 @@
         classes.forEach(function(item){
             cell.classList.add(item);
         });
-        ball = $("#friend-ball-" + friend_id)[0];
+
+        var ball = $("#friend-ball-" + friend_id)[0];
         $(ball).show();
+
         cell.appendChild(ball);
         row.appendChild(cell);
+
+        return cell;
+    }
+
+    function addCellWithLink(row, type, classes, text, target, url) {
+        var cell = document.createElement(type);
+        classes.forEach(function(item){
+            cell.classList.add(item);
+        });
+
+        var a = document.createElement("a");
+        a.target = target;
+        a.href = url;
+
+        var textNode = document.createTextNode(text);
+
+        a.appendChild(textNode);
+        cell.appendChild(a);
+        row.appendChild(cell);
+
         return cell;
     }
 
@@ -170,7 +199,11 @@
                 <th class="top">{% trans "Points" %}</th>
                 {% if not request.user_agent.is_mobile %}
                     {% for tournament in tournaments %}
-                        <th>{{tournament|ts_number}}</th>
+                        {% if tournament.url %}
+                            <th><a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a></th>
+                        {% else %}
+                            <th>{{tournament|ts_number}}</th>
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </tr>
