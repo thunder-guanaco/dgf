@@ -33,7 +33,7 @@ IMPORTANT NOTE:
                 </div>
             </div>
         {% endif %}
-        {% if not clickable %}
+        {% if not clickable and not request.user_agent.is_mobile %}
             <span class="tooltip-text">
                 <span>{{friend.full_name}}</span>
                 {% if friend.club_role and friend.city %}
