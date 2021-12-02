@@ -20,8 +20,16 @@
         padding: 0.75em 0;
     }
 
+    #tour-results .table .summary > .header {
+        z-index: 1;
+    }
+
     #tour-results .table .summary .details .line.header .results-wrapper {
         background-color: rgba(0,0,0,.05);
+    }
+
+    #tour-results .table .details .results-wrapper.empty {
+        background: none!important;
     }
 
     #tour-results .table .line .result {

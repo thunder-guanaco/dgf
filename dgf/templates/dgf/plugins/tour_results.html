@@ -119,6 +119,8 @@
                         var resultsWrapper = addElement(pointsRow, "div", ["results-wrapper"]);
                         addElement(resultsWrapper, "div", ["result", "position-" + result.position], result.points);
                     {% endfor %}
+                    addElement(headerRow, "div", ["results-wrapper", "empty"]);
+                    addElement(pointsRow, "div", ["results-wrapper", "empty"]);
 
                 {% endif %}
 
