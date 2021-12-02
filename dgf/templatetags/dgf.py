@@ -137,12 +137,17 @@ def metrix_url(tournament):
 
 
 @register.filter
-def ts_number(tournament):
+def ts_number_mobile(tournament):
+    return ts_number(tournament, mobile=True)
+
+
+@register.filter
+def ts_number(tournament, mobile=False):
     matches = re.findall(r'#\d+', tournament.name)
     if not matches:
         logger.warning(f'Tournament {tournament} has no fitting name for a Tremonia Series tournament')
         return ''
-    return f'{matches[0]}'
+    return f'{matches[0]}' if mobile else f'TS{matches[0]}'
 
 
 @register.filter

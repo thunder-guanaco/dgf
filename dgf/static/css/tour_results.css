@@ -1,86 +1,99 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    #tour-results table {
-        width: 100% !important;
-    }
-
-    #tour-results table tbody tr,
-    #tour-results table thead tr {
-        float: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    #tour-results table .top:first-of-type,
-    #tour-results table .top:last-of-type {
-        width: 25%;
-    }
-
-    #tour-results table .top:nth-of-type(2) {
-        width: 50%;
-    }
-
-    #tour-results table th,
-    #tour-results table td {
-        display: table-cell !important;
-    }
-
-    #tour-results .friend-ball img {
-        width: 70px !important;
-        height: 70px !important;
-    }
-
-    #tour-results table tbody .tournament-results-row th,
-    #tour-results table tbody .tournament-results-row td {
-        font-size: 0.75em;
-        padding: 0.25em;
+    #tour-results .table .summary {
+        width: 100%;
     }
 
     .link {
         color: #8d1950;
+        font-weight: bold;
         text-decoration: none !important;
     }
 
-    #tour-results .position_1 {
+    #tour-results .table .details {
+        font-size: 0.75em;
+    }
+
+    #tour-results .table .summary > .line,
+    #tour-results .table .line .results-wrapper {
+        padding: 0.75em 0;
+    }
+
+    #tour-results .table .summary .details .line.header .results-wrapper {
+        background-color: rgba(0,0,0,.05);
+    }
+
+    #tour-results .table .line .result {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #tour-results .position-1 {
         color: #f9ad0e;
     }
 
-    #tour-results .position_2 {
+    #tour-results .position-2 {
         color: #d1d7da;
     }
 
-    #tour-results .position_3 {
+    #tour-results .position-3 {
         color: #df7e08;
     }
-
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #tour-results .position_1:before {
-        content: '\00a0';
+    #tour-results .table .summary {
+        width: 30%;
     }
 
-    #tour-results .position_1:after {
+    #tour-results .table .details {
+        width: 70%;
+    }
+
+    #tour-results .table .summary .line:nth-of-type(even),
+    #tour-results .table .details .line:nth-of-type(even) .results-wrapper {
+        background-color: rgba(0,0,0,.05);
+    }
+
+    #tour-results .table .summary .line,
+    #tour-results .table .details .line .results-wrapper {
+        padding: 0.75em 0;
+    }
+
+    #tour-results .table .details .line .result {
+        height: 70px !important;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #tour-results .position-1:before {
+        content: '\00a0\00a0';
+    }
+
+    #tour-results .position-1:after {
         content: '\00a0\1F947';
     }
 
-    #tour-results .position_2:before {
-        content: '\00a0';
+    #tour-results .position-2:before {
+        content: '\00a0\00a0';
     }
 
-    #tour-results .position_2:after {
+    #tour-results .position-2:after {
         content: '\00a0\1F948';
     }
 
-    #tour-results .position_3:before {
-        content: '\00a0';
+    #tour-results .position-3:before {
+        content: '\00a0\00a0';
     }
 
-    #tour-results .position_3:after {
+    #tour-results .position-3:after {
         content: '\00a0\1F949';
     }
 
@@ -91,13 +104,6 @@
     text-align: center;
 }
 
-#tour-results table th,
-#tour-results table td {
-    text-align: center;
-    vertical-align: middle;
-    border: none;
-}
-
 #tour-results .friend-ball {
     flex-direction: row !important;
 }
@@ -106,7 +112,54 @@
     margin: 0 0 0 0.5em !important;
 }
 
-#tour-results .position_X {
+#tour-results .table .header,
+#tour-results .table .position,
+#tour-results .table .points {
+    font-weight: bold;
+}
+
+#tour-results .table {
+    display: flex;
+    flex-direction: row;
+}
+
+#tour-results .table .summary {
+    display: flex;
+    flex-direction: column;
+}
+
+#tour-results .table .details {
+    display: block;
+}
+
+#tour-results .table .line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#tour-results .friend-ball img {
+    width: 70px !important;
+    height: 70px !important;
+}
+
+#tour-results .table .line {
+    text-align: center;
+}
+
+#tour-results .table .summary .line .position {
+    width: 25%;
+}
+
+#tour-results .table .summary .line .player {
+    width: 50%;
+}
+
+#tour-results .table .summary .line .points {
+    width: 25%;
+}
+
+#tour-results .position-X {
     color: #666;
 }
 
@@ -126,7 +179,7 @@
     z-index: 1;
     position: absolute;
     top: 5%;
-    left: 85%;
+    left: 95%;
 }
 
 .tournament-tooltip:hover .tooltip-text {
