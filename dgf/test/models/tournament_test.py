@@ -58,7 +58,7 @@ class TournamentModelTest(TestCase):
         self.assert_that(tournament, NOT_OK, friends, in_positions=[1, 1, 1, 4])
         self.assert_that(tournament, NOT_OK, friends, in_positions=[1, 1, 1, 1])
 
-    def test_re_calculate_points(self):
+    def test_recalculate_points(self):
         friends = create_friends(2)
         tournament = create_tournaments(1)
         tournament.point_system = Tournament.TS_POINTS_WITH_BEATEN_PLAYERS
@@ -72,12 +72,31 @@ class TournamentModelTest(TestCase):
         self.assertEqual(first.points, None)
         self.assertEqual(second.points, None)
 
-        tournament.re_calculate_points()
+        tournament.recalculate_points()
         first.refresh_from_db()
         second.refresh_from_db()
 
         self.assertEqual(first.points, 20)
         self.assertEqual(second.points, 17)
+
+    def test_recalculate_points_witout_point_system(self):
+        friends = create_friends(2)
+        tournament = create_tournaments(1)
+        first = Result.objects.create(tournament=tournament,
+                                      friend=friends[0],
+                                      position=1)
+        second = Result.objects.create(tournament=tournament,
+                                       friend=friends[1],
+                                       position=2)
+        self.assertEqual(first.points, None)
+        self.assertEqual(second.points, None)
+
+        tournament.recalculate_points()
+        first.refresh_from_db()
+        second.refresh_from_db()
+
+        self.assertEqual(first.points, None)
+        self.assertEqual(second.points, None)
 
     def assert_that(self, tournament, ok, friends, in_positions):
         Result.objects.all().delete()
