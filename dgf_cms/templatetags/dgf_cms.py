@@ -37,3 +37,13 @@ def json(object):
     if isinstance(object, QuerySet):
         return serialize('json', object)
     return dumps(object)
+
+
+@register.filter
+def minimum(a, b):
+    return min(a, b)
+
+
+@register.filter
+def divided_by(a, b):
+    return a / b

@@ -4,16 +4,8 @@
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
 {% with tour|all_results as results %}
 {% with results|all_friends as all_friends %}
-
-{% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
-    <style>
-        .container #tour-results table tbody .tournament-results-row {
-            display: grid;
-            grid-template-columns: repeat({{tournaments.count}}, minmax(0, 1fr));
-        }
-    </style>
-{% endaddtoblock %}
+{% with tournaments.count|minimum:12 as amount_of_tournaments %}
+{% with 100|divided_by:amount_of_tournaments|safe as tournament_column_width %}
 
 {% comment %} This piece of HTML code is just generated to be appended in other places {% endcomment %}
 {% for friend in all_friends %}
@@ -22,190 +14,139 @@
     </div>
 {% endfor %}
 
-<script>
-    $(window).on("load", function() {
-        console.log("Generating results table...");
-        friends = parseData();
-        generateTable(friends);
-        console.log("Results table was generated");
-    });
-
-    function parseData() {
-        friends = [
-        {% for friend_results in results %}
-            {
-                id: {{friend_results.friend}},
-                results: getBestResults({{friend_results|json|safe}}, {{tour.evaluate_how_many}})
-            },
-        {% endfor %}
-        ];
-        friends.sort(function(a, b) {
-            return b.results.total - a.results.total;
-        });
-        return friends;
-    }
-
-    function getBestResults(results, amount) {
-
-        var sortable = [];
-        for (var key in results) {
-            if (key.startsWith("points_")) {
-                sortable.push([key, results[key]]);
-            }
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
+    <style>
+        #tour-results .table .details .line .results-wrapper {
+            min-width: {{tournament_column_width}}%;
         }
-        sortable.sort(function(a, b) {
-            return negativeIfNull(b[1]) - negativeIfNull(a[1]);
-        });
-
-        var bestResults = {}
-        var total = 0;
-        sortable.forEach(function(item, index){
-            tournamentId = item[0].split("_")[1];
-            points = item[1]
-            position = results["position_" + tournamentId]
-
-            if (points == null) {
-                points = '-';
+        {% if tournaments.count > 12 %}
+            #tour-results .table .details {
+                overflow-x: scroll;
+                position: relative;
             }
-            else if (index < amount) {
-                total += points;
+            #tour-results .table {
+                position: relative;
             }
-            else {
-                points = "[" + points + "]";
-                position = "X";
+
+            #tour-results .table .details-fade-out {
+                top: 0;
+                right: 0;
+                width: 10%;
+                height: 100%;
+                background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+                position: absolute;
             }
-            bestResults[tournamentId] = {"points": points, "position": position};
-        })
-        bestResults.total = total;
-        return bestResults;
-    }
+        {% endif %}
+    </style>
+{% endaddtoblock %}
 
-    function negativeIfNull(x) {
-        return x == null ? -1 : x;
-    }
-
-    function generateTable(friends) {
-        var tbody = document.getElementsByTagName("tbody")[0];
-
-        friends.forEach(function(friend, index) {
-
-            var row = document.createElement("tr");
-
-            addCell(row, "th", ["top"], index + 1);
-            addFriendBall(row, "th", ["top"], friend.id);
-
-            {% if request.user_agent.is_mobile %}
-                cell = addCell(row, "th", ["top", "link"], friend.results.total);
-                cell.onclick = function () {
-                    $(this).parent().next().toggleClass("hidden");
-                    $(this).parent().next().next().toggleClass("hidden");
-                };
-
-            {% else %}
-                addCell(row, "th", ["top"], friend.results.total);
-
-                // tournament results for DESKTOP
-                {% for tournament in tournaments %}
-                    result = friend.results[{{tournament.id}}]
-                    addCell(row, "td", ["position_" + result.position], result.points);
-                {% endfor %}
-            {% endif %}
-
-            tbody.appendChild(row);
-
-            // tournament results for MOBILE
-            {% if request.user_agent.is_mobile %}
-
-                var header_row = document.createElement("tr");
-                var points_row = document.createElement("tr");
-
-                header_row.classList.add("tournament-results-row");
-                points_row.classList.add("tournament-results-row");
-                header_row.classList.add("hidden");
-                points_row.classList.add("hidden");
-
-                {% for tournament in tournaments %}
-                    {% if tournament.url %}
-                        addCellWithLink(header_row, "th", [], "{{tournament|ts_number}}", "_blank", "{{tournament.url}}");
-                    {% else %}
-                        addCell(header_row, "th", [], "{{tournament|ts_number}}");
-                    {% endif %}
-                    result = friend.results[{{tournament.id}}]
-                    addCell(points_row, "td", ["position_" + result.position], result.points);
-                {% endfor %}
-
-                tbody.appendChild(header_row);
-                tbody.appendChild(points_row);
-
-            {% endif %}
-
-        });
-        $("table").fadeIn(500);
-    }
-
-    function addCell(row, type, classes, text) {
-        var cell = document.createElement(type);
-        classes.forEach(function(item){
-            cell.classList.add(item);
+{% addtoblock "js" %}
+    <script type="text/javascript" src="{% static 'js/tour_results.js' %}"></script>
+    <script>
+        $(window).on("load", function() {
+            console.log("Generating results table...");
+            friends = parseData();
+            generateTable(friends);
+            console.log("Results table was generated");
         });
 
-        var textNode = document.createTextNode(text);
+        function parseData() {
+            friends = [
+            {% for friend_results in results %}
+                {
+                    id: {{friend_results.friend}},
+                    results: getBestResults({{friend_results|json|safe}}, {{tour.evaluate_how_many}})
+                },
+            {% endfor %}
+            ];
+            friends.sort(function(a, b) {
+                return b.results.total - a.results.total;
+            });
+            return friends;
+        }
 
-        cell.appendChild(textNode);
-        row.appendChild(cell);
+        function generateTable(friends) {
+            var summaryPart = $("#tour-results .table .summary")[0];
 
-        return cell;
-    }
+            friends.forEach(function(friend, index) {
 
-    function addFriendBall(row, type, classes, friend_id) {
-        var cell = document.createElement(type);
-        classes.forEach(function(item){
-            cell.classList.add(item);
-        });
+                var summaryRow = addElement(summaryPart, "div", ["line"]);
 
-        var ball = $("#friend-ball-" + friend_id)[0];
-        $(ball).show();
+                addElement(summaryRow, "div", ["position"], index + 1);
+                addFriendBall(summaryRow, "div", ["player"], friend.id);
 
-        cell.appendChild(ball);
-        row.appendChild(cell);
+                // MOBILE
+                {% if request.user_agent.is_mobile %}
+                    cell = addElement(summaryRow, "div", ["points", "link"], friend.results.total);
+                    cell.onclick = function () {
+                        $(this).parent().next().toggleClass("hidden");
+                        $(this).parent().next().next().toggleClass("hidden");
+                    };
 
-        return cell;
-    }
+                // DESKTOP
+                {% else %}
+                    addElement(summaryRow, "div", ["points"], friend.results.total);
 
-    function addCellWithLink(row, type, classes, text, target, url) {
-        var cell = document.createElement(type);
-        classes.forEach(function(item){
-            cell.classList.add(item);
-        });
+                    var detailsPart = $("#tour-results .table .details")[0];
+                    var detailsRow = addElement(detailsPart, "div", ["line"]);
 
-        var a = document.createElement("a");
-        a.target = target;
-        a.href = url;
+                    {% for tournament in tournaments %}
+                        result = friend.results[{{tournament.id}}]
+                        var resultsWrapper = addElement(detailsRow, "div", ["results-wrapper"]);
+                        addElement(resultsWrapper, "div", ["result", "position-" + result.position], result.points);
+                    {% endfor %}
 
-        var textNode = document.createTextNode(text);
 
-        a.appendChild(textNode);
-        cell.appendChild(a);
-        row.appendChild(cell);
+                {% endif %}
 
-        return cell;
-    }
+                // MOBILE
+                {% if request.user_agent.is_mobile %}
 
-</script>
+                    var detailsRow = addElement(summaryPart, "div", ["details", "hidden"]);
+                    addElement(summaryPart, "div", ["details-fade-out", "hidden"]);
+                    var headerRow = addElement(detailsRow, "div", ["line", "header"]);
+                    var pointsRow = addElement(detailsRow, "div", ["line"]);
+
+                    {% for tournament in tournaments %}
+                        var headerWrapper = addElement(headerRow, "div", ["results-wrapper"]);
+                        {% if tournament.url %}
+                            addElement(headerWrapper, "div", ["result"], "{{tournament|ts_number_mobile}}", "{{tournament.url}}", "_blank");
+                        {% else %}
+                            addElement(headerWrapper, "div", ["result"], "{{tournament|ts_number_mobile}}");
+                        {% endif %}
+                        result = friend.results[{{tournament.id}}]
+                        var resultsWrapper = addElement(pointsRow, "div", ["results-wrapper"]);
+                        addElement(resultsWrapper, "div", ["result", "position-" + result.position], result.points);
+                    {% endfor %}
+                    addElement(headerRow, "div", ["results-wrapper", "empty"]);
+                    addElement(pointsRow, "div", ["results-wrapper", "empty"]);
+
+                {% endif %}
+
+            });
+            $("#tour-results .table").fadeIn(500);
+        }
+    </script>
+{% endaddtoblock %}
 
 <div id="tour-results">
     <h2>
         {{tour.name}}
     </h2>
-    <table class="table table-striped" style="display:none;">
-        <thead>
-            <tr>
-                <th class="top">{% trans "Position" %}</th>
-                <th class="top">{% trans "Player" %}</th>
-                <th class="top">{% trans "Points" %}</th>
-                {% if not request.user_agent.is_mobile %}
+    <div class="table" style="display:none;">
+        <div class="summary">
+            <div class="line header">
+                <div class="position">{% trans "Position" %}</div>
+                <div class="player">{% trans "Player" %}</div>
+                <div class="points">{% trans "Points" %}</div>
+            </div>
+        </div>
+        {% if not request.user_agent.is_mobile %}
+            <div class="details">
+                <div class="line header">
                     {% for tournament in tournaments %}
-                        <th class="tournament-tooltip">
+                        <div class="results-wrapper tournament-tooltip">
                             {% if tournament.url %}
                                 <a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a>
                             {% else %}
@@ -216,16 +157,17 @@
                                 <br>
                                 <span class="tooltip-smaller-text">{{tournament.date}}</span>
                             </span>
-                        </th>
+                        </div>
                     {% endfor %}
-                {% endif %}
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+                </div>
+            </div>
+            <div class="details-fade-out"></div>
+        {% endif %}
+    </div>
 </div>
 
+{% endwith %}
+{% endwith %}
 {% endwith %}
 {% endwith %}
 {% endwith %}

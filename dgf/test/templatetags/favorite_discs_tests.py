@@ -4,7 +4,7 @@ from ...models import Friend, Disc, DiscInBag
 from ...templatetags import dgf
 
 
-class TemplatetagsFavoriteDiscsTest(TestCase):
+class FavoriteDiscsTemplatetagsTest(TestCase):
 
     def setUp(self):
         Friend.objects.all().delete()

@@ -5,7 +5,7 @@ from ...models import Course, Friend, FavoriteCourse
 from ...templatetags import dgf
 
 
-class TemplatetagsFavoriteCoursesTest(TestCase):
+class FavoriteCoursesTemplatetagsTest(TestCase):
 
     def setUp(self):
         Course.objects.all().delete()

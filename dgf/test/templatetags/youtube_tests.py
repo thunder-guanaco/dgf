@@ -3,7 +3,7 @@ from django.test import TestCase
 from ...templatetags import dgf
 
 
-class TemplatetagsYoutubeVideoTest(TestCase):
+class YoutubeTemplatetagsTest(TestCase):
 
     def test_youtube_id(self):
 

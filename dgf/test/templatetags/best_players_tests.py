@@ -5,7 +5,7 @@ from ...models import Friend
 from ...templatetags import dgf
 
 
-class TemplatetagsBestPlayersTest(TestCase):
+class BestPlayersTemplatetagsTest(TestCase):
 
     def setUp(self):
         Friend.objects.all().delete()
