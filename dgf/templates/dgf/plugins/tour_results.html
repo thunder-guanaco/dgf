@@ -103,7 +103,7 @@
                 // MOBILE
                 {% if request.user_agent.is_mobile %}
 
-                    var detailsRow = addElement(summaryPart, "div", ["details", "hidden"]);
+                    var detailsRow = addElement(summaryPart, "div", ["details", "hidden-scrollbar", "hidden"]);
                     addElement(summaryPart, "div", ["details-fade-out", "hidden"]);
                     var headerRow = addElement(detailsRow, "div", ["line", "header"]);
                     var pointsRow = addElement(detailsRow, "div", ["line"]);

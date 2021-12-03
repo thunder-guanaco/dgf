@@ -438,6 +438,17 @@ input[type=button]:active {
 	top:1px;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
 #admin-info {
     position: absolute;
     top: 1em;
