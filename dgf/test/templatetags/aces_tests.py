@@ -7,7 +7,7 @@ from ...models import Course, Friend, Disc, Ace
 from ...templatetags import dgf
 
 
-class TemplatetagsAcesTest(TestCase):
+class AcesTemplatetagsTest(TestCase):
 
     def setUp(self):
         Friend.objects.all().delete()

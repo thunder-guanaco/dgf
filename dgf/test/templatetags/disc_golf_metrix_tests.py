@@ -1,10 +1,10 @@
 from django.test import TestCase
 
-from dgf.templatetags.dgf import metrix_url, ts_number
+from dgf.templatetags.dgf import metrix_url, ts_number, ts_number_mobile
 from dgf.test.models.creator import create_tournaments
 
 
-class TemplatetagsTournamentsTest(TestCase):
+class DiscGolfMetrixTemplatetagsTest(TestCase):
 
     def test_metrix_url(self):
         tournament = create_tournaments(1)
@@ -22,16 +22,34 @@ class TemplatetagsTournamentsTest(TestCase):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Series #1'
         tournament.save()
-        self.assertEqual(ts_number(tournament), '#1')
+        self.assertEqual(ts_number(tournament), 'TS#1')
 
     def test_ts_number_with_text_after_number(self):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Series #1 (Putter)'
         tournament.save()
-        self.assertEqual(ts_number(tournament), '#1')
+        self.assertEqual(ts_number(tournament), 'TS#1')
 
     def test_ts_number_with_no_ts_tournament(self):
         tournament = create_tournaments(1)
         tournament.name = 'Tremonia Open 2020'
         tournament.save()
         self.assertEqual(ts_number(tournament), '')
+
+    def test_ts_number_mobile(self):
+        tournament = create_tournaments(1)
+        tournament.name = 'Tremonia Series #1'
+        tournament.save()
+        self.assertEqual(ts_number_mobile(tournament), '#1')
+
+    def test_ts_number_mobile_with_text_after_number(self):
+        tournament = create_tournaments(1)
+        tournament.name = 'Tremonia Series #1 (Putter)'
+        tournament.save()
+        self.assertEqual(ts_number_mobile(tournament), '#1')
+
+    def test_ts_number_mobile_with_no_ts_tournament(self):
+        tournament = create_tournaments(1)
+        tournament.name = 'Tremonia Open 2020'
+        tournament.save()
+        self.assertEqual(ts_number_mobile(tournament), '')

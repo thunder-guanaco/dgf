@@ -13,7 +13,7 @@ TOMORROW = TODAY + timedelta(days=1)
 THE_DAY_AFTER_TOMORROW = TODAY + timedelta(days=2)
 
 
-class TemplatetagsTournamentsTest(TestCase):
+class TournamentsTemplatetagsTest(TestCase):
 
     def setUp(self):
         Friend.objects.all().delete()

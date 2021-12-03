@@ -5,7 +5,7 @@ from dgf.templatetags.dgf import filter_by_type
 from dgf.test.models.creator import create_friends, create_discs
 
 
-class TypeFilterTests(TestCase):
+class TypeFilterTemplatetagsTests(TestCase):
 
     def setUp(self):
         Disc.objects.all().delete()
