@@ -1,7 +1,7 @@
 <div id="friends-header" class="slide-right">
     {% if friends %}
         <div class="arrow-left" onclick="scrollBack()"></div>
-        <div id="scrollable-header">
+        <div id="scrollable-header" class="hidden-scrollbar">
             {% for friend in friends %}
                 {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
             {% endfor %}
