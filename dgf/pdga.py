@@ -9,10 +9,11 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-from dgf.models import Tournament, Attendance
+from dgf.models import Tournament, Attendance, Result
 
 logger = logging.getLogger(__name__)
 
+PDGA_PAGE_BASE_URL = 'https://www.pdga.com'
 PDGA_DATE_FORMAT = '%Y-%m-%d'
 
 
@@ -172,10 +173,14 @@ class PdgaApi:
                           .content)
 
 
+def get_page(url):
+    url = f'{PDGA_PAGE_BASE_URL}{url}'
+    logger.info(f'Getting {url}')
+    return BeautifulSoup(requests.get(url).content, features='html5lib')
+
+
 def get_player_page(pdga_number):
-    player_url = f'https://www.pdga.com/player/{pdga_number}'
-    logger.info(f'Crawling {player_url}')
-    return BeautifulSoup(requests.get(player_url).content, features='html5lib')
+    return get_page(f'/player/{pdga_number}')
 
 
 def extract_event_ids(events_li):
@@ -183,21 +188,30 @@ def extract_event_ids(events_li):
     return [event['href'].split('/')[-1] for event in events]
 
 
-def get_upcoming_event_ids(pdga_number):
-    soup = get_player_page(pdga_number)
-
-    upcoming_events = soup.find('li', {'class': 'upcoming-events'})
+def get_upcoming_event_ids(player_page_soup):
+    upcoming_events = player_page_soup.find('li', {'class': 'upcoming-events'})
     if upcoming_events:
         return extract_event_ids(upcoming_events)
 
-    next_event = soup.find('li', {'class': 'next-event'})
+    next_event = player_page_soup.find('li', {'class': 'next-event'})
     if next_event:
         return extract_event_ids(next_event)
 
     return []
 
 
-def add_tournament(friend, pdga_tournament):
+def get_year_links(player_page_soup):
+    year_links = player_page_soup.find('div', {'class': 'year-link'})
+    if year_links:
+        return [li.find('a').attrs['href'] for li in year_links.find_all('li')]
+    else:
+        return []
+
+
+def add_tournament(pdga_api, pdga_id):
+    event = pdga_api.query_event(tournament_id=pdga_id)
+    pdga_tournament = event['events'][0]
+
     begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
     end_date = datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)
 
@@ -227,10 +241,42 @@ def add_attendance(friend, tournament):
         logger.info(f'Added attendance of {friend} to {tournament}')
 
 
+def add_result(friend, tournament, position):
+    _, created = Result.objects.get_or_create(tournament=tournament,
+                                              friend=friend,
+                                              position=position)
+    if created:
+        logger.info(f'Added result of {friend} to {tournament}\n')
+
+
+def update_upcoming_events(pdga_api, friend, player_page_soup):
+    event_ids = get_upcoming_event_ids(player_page_soup)
+    for id in event_ids:
+        tournament = add_tournament(pdga_api, pdga_id=id)
+        add_attendance(friend, tournament)
+
+
+def add_tournament_results(pdga_api, friend, year_link):
+    year_page_soup = get_page(year_link)
+    tables = year_page_soup.find_all('div', {'class': 'table-container'})
+    for table in tables:
+        trs = table.find('tbody').find_all('tr')
+        for tr in trs:
+            position = int(tr.find('td', {'class': 'place'}).text)
+            tournament_url = tr.find('td', {'class': 'tournament'}).find('a').attrs['href']
+            tournament_id = tournament_url.split('#')[0].split('/')[-1]
+            tournament = add_tournament(pdga_api, pdga_id=tournament_id)
+            add_result(friend, tournament, position)
+
+
+def update_tournament_results(pdga_api, friend, player_page_soup):
+    year_links = get_year_links(player_page_soup)
+    for link in year_links:
+        add_tournament_results(pdga_api, friend, link)
+
+
 def update_friend_tournaments(friend, pdga_api):
     if friend.pdga_number:
-        event_ids = get_upcoming_event_ids(friend.pdga_number)
-        for id in event_ids:
-            result = pdga_api.query_event(tournament_id=id)
-            tournament = add_tournament(friend, result['events'][0])
-            add_attendance(friend, tournament)
+        player_page_soup = get_player_page(friend.pdga_number)
+        update_upcoming_events(pdga_api, friend, player_page_soup)
+        update_tournament_results(pdga_api, friend, player_page_soup)
