@@ -130,10 +130,17 @@ class TournamentsTemplatetagsTest(TestCase):
         self.assertEqual(filtered_friends, expected_friends)
 
     def test_problematic_tournaments(self):
-        tournaments = create_tournaments(12)
+        tournaments = create_tournaments(24)
+        for tournament in tournaments[:12]:
+            tournament.name = f'Tremonia Series {tournament.name}'
+            tournament.save()
         friends = create_friends(4)
+
+        # ok
         self.create_results(tournaments[0], friends, in_positions=[])  # empty results
         self.create_results(tournaments[1], friends, in_positions=[1, 2, 3, 4])
+
+        # problematic
         self.create_results(tournaments[2], friends, in_positions=[1, 2, 3, 3])
         self.create_results(tournaments[3], friends, in_positions=[1, 2, 2, 3])
         self.create_results(tournaments[4], friends, in_positions=[1, 2, 2, 4])
@@ -145,8 +152,24 @@ class TournamentsTemplatetagsTest(TestCase):
         self.create_results(tournaments[10], friends, in_positions=[1, 1, 1, 4])
         self.create_results(tournaments[11], friends, in_positions=[1, 1, 1, 1])
 
+        # problematic but not TS
+        self.create_results(tournaments[12], friends, in_positions=[1, 2, 3, 3])
+        self.create_results(tournaments[13], friends, in_positions=[1, 2, 2, 3])
+        self.create_results(tournaments[14], friends, in_positions=[1, 2, 2, 4])
+        self.create_results(tournaments[15], friends, in_positions=[1, 2, 2, 2])
+        self.create_results(tournaments[16], friends, in_positions=[1, 1, 3, 4])
+        self.create_results(tournaments[17], friends, in_positions=[1, 1, 3, 3])
+        self.create_results(tournaments[18], friends, in_positions=[1, 1, 1, 2])
+        self.create_results(tournaments[19], friends, in_positions=[1, 1, 1, 3])
+        self.create_results(tournaments[20], friends, in_positions=[1, 1, 1, 4])
+        self.create_results(tournaments[21], friends, in_positions=[1, 1, 1, 1])
+
+        # ok and not TS
+        self.create_results(tournaments[22], friends, in_positions=[])  # empty results
+        self.create_results(tournaments[23], friends, in_positions=[1, 2, 3, 4])
+
         problematic_tournament_names = [tournament.name for tournament in problematic_tournaments()]
-        expected_problematic_tournament_names = [tournament.name for tournament in tournaments[2:]]
+        expected_problematic_tournament_names = [tournament.name for tournament in tournaments[2:12]]
 
         self.assertEqual(problematic_tournament_names, expected_problematic_tournament_names)
 

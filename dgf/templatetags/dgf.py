@@ -107,7 +107,8 @@ def active_attendance(tournament):
 
 @register.simple_tag
 def problematic_tournaments():
-    return [tournament for tournament in Tournament.objects.all() if not tournament.first_positions_are_ok]
+    return [tournament for tournament in Tournament.objects.filter(name__startswith='Tremonia Series') if
+            not tournament.first_positions_are_ok]
 
 
 @register.filter
@@ -124,7 +125,7 @@ def now_playing(friend):
 
 @register.filter
 def next_tournaments(friend):
-    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.today())\
+    return Tournament.objects.filter(attendance__friend=friend, begin__gt=datetime.today()) \
         .order_by('begin', 'end', 'name')
 
 
