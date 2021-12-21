@@ -2,6 +2,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
+from dgf.management import error_handler
 from dgf.models import CoursePluginModel, UdiscRound
 from dgf.udisc import update_udisc_scores
 
@@ -17,7 +18,7 @@ class Command(BaseCommand):
         update_udisc_scores(course)
         return UdiscRound.objects.filter(course=course).count()
 
-    def handle(self, *args, **options):
+    def update_all_scores(self):
 
         all_plugins = CoursePluginModel.objects.all()
         count = all_plugins.count()
@@ -44,9 +45,19 @@ class Command(BaseCommand):
                 except UserWarning as w:
                     # It's impossible to fix this. The user has to do something
                     logger.error(w)
-                    break
+                    raise w
 
                 except Exception as e:
                     # This could always happen because you never know with Selenium
                     logger.warning(e)
                     continue
+            else:
+                raise UserWarning(f'Could not update course {course}')
+
+    def handle(self, *args, **options):
+
+        try:
+            self.update_all_scores()
+
+        except Exception as e:
+            error_handler.handle(self, e)

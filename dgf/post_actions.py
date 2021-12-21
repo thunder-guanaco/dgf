@@ -26,4 +26,4 @@ def feedback_post_save(instance):
     if response.status_code == 201:
         logger.info(f'Successfully created Issue "{instance.title}"')
     else:
-        logger.warning(f'Could not create Issue "{instance.title}"')
+        logger.warning(f'Could not create Issue "{instance.title}": {response.content}')
