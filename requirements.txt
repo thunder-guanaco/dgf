@@ -58,3 +58,4 @@ six==1.16.0
 urllib3==1.26.8
 user-agents==2.2.0
 uWSGI==2.0.20
+

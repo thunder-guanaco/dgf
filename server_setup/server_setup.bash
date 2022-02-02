@@ -22,18 +22,24 @@ read
 ##############
 
 # install
-sudo apt-get install python3 python3-venv python3-pip ipython3 tree gettext firefox
-pip3 install -U pip
+sudo apt-get install python3.8 python3.8-venv python3.8-dbg python3.8-dev python3-pip ipython3 tree gettext firefox
 
 # create virtualenv
 cd ${ROOT_INSTALLATION_PATH}
 python3 -m venv env
 
-# Activate the virtual environment
-. ../env/bin/activate
+# activate the virtual environment
+. ./env/bin/activate
+
+# upgrade pip
+pip install --upgrade pip
+
+# basic dependencies
+pip install wheel
+pip install svglib==1.1.0 # newer versions are not ok
 
 # install dependencies
-pip install -r requirements.txt
+pip install -r django_project/requirements.txt
 
 #############
 ### MYSQL ###
