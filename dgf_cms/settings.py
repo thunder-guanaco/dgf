@@ -45,7 +45,6 @@ if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
-    X_FRAME_OPTIONS = 'SAMEORIGIN'
     DATA_DIR = BASE_DIR
     LOG_DIR = BASE_DIR
     LOG_LEVEL = 'INFO'
@@ -390,3 +389,9 @@ CACHES = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Django 3.0 changed the default behaviour of the XFrameOptionsMiddleware from SAMEORIGIN to DENY.
+# In order for django CMS to function, X_FRAME_OPTIONS needs to be set to SAMEORIGIN
+# https://docs.django-cms.org/en/latest/upgrade/3.7.2.html
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
