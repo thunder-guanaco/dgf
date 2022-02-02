@@ -394,4 +394,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # In order for django CMS to function, X_FRAME_OPTIONS needs to be set to SAMEORIGIN
 # https://docs.django-cms.org/en/latest/upgrade/3.7.2.html
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-
