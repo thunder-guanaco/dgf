@@ -97,10 +97,10 @@ def update_udisc_scores(course):
     scores = get_best_scores(course)
 
     # delete all rounds, we are loading new ones
-    logger.info(f'Deleting all existing rounds...')
+    logger.info('Deleting all existing rounds...')
     UdiscRound.objects.filter(course=course).delete()
 
-    logger.info(f'Adding new rounds from UDisc...')
+    logger.info('Adding new rounds from UDisc...')
     for username, score in scores:
         try:
             friend = Friend.objects.get(udisc_username=username)

@@ -1,8 +1,9 @@
-from django.conf.urls import url, include
+from django.conf.urls import include
 from django.contrib import admin
+from django.urls import re_path
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^friends/', include('dgf.urls')),
-    url(r'', include('cms.urls')),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^friends/', include('dgf.urls')),
+    re_path(r'', include('cms.urls')),
 ]

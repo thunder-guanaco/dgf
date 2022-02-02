@@ -57,6 +57,9 @@ def order_by(friends, ordering):
 
 @register.filter
 def youtube_id(url):
+    if url is None:
+        raise ValueError()
+
     # full Youtube URL
     matches = re.findall('v=[a-zA-Z0-9_-]+', url)
     if matches:

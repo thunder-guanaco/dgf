@@ -79,7 +79,7 @@ class Course(Model):
 
     @staticmethod
     def _words_of(string):
-        return set(re.findall('\w+', string))
+        return set(re.findall(r'\w+', string))
 
 
 class OnlyFriendsManager(UserManager):
@@ -202,10 +202,7 @@ class Feedback(Model):
 
     def save(self, *args, **kwargs):
         super(Feedback, self).save(*args, **kwargs)
-        try:
-            feedback_post_save(self)
-        except:
-            logger.warning('I could not create this feedback as an issue in Github!')
+        feedback_post_save(self)
 
 
 class Highlight(Model):
@@ -225,7 +222,7 @@ class Disc(Model):
         return f'{self.mold} [{self.manufacturer}]'
 
     def save(self, *args, **kwargs):
-        self.display_name = re.sub(' *\(.*\)', '', self.mold)
+        self.display_name = re.sub(r' *\(.*\)', '', self.mold)
         super(Disc, self).save(*args, **kwargs)
 
 
