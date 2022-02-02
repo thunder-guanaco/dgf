@@ -230,22 +230,18 @@ class Disc(Model):
 
 
 class DiscInBag(Model):
+    class Type(models.TextChoices):
+        PUTTER = 'P', _('Putter')
+        MID_RANGE = 'M', _('Mid-Range')
+        FAIRWAY_DRIVER = 'F', _('Fairway Driver')
+        DISTANCE_DRIVER = 'D', _('Distance Driver')
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['disc', 'friend'], name='unique_disc_for_friend'),
         ]
 
-    PUTTER = 'P'
-    MID_RANGE = 'M'
-    FAIRWAY_DRIVER = 'F'
-    DISTANCE_DRIVER = 'D'
-    TYPE_CHOICES = (
-        (PUTTER, _('Putter')),
-        (MID_RANGE, _('Mid-Range')),
-        (FAIRWAY_DRIVER, _('Fairway Driver')),
-        (DISTANCE_DRIVER, _('Distance Driver')),
-    )
-    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
+    type = models.CharField(_('Type'), max_length=1, choices=Type.choices)
     amount = models.PositiveIntegerField(_('Amount'), default=1, validators=[MinValueValidator(1)])
     disc = models.ForeignKey(Disc, on_delete=CASCADE, related_name='bags', verbose_name=_('Disc'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='discs', verbose_name=_('Player'))
@@ -260,19 +256,16 @@ class DiscInBag(Model):
 
 
 class Ace(Model):
-    PRACTICE = 'P'
-    CASUAL_ROUND = 'C'
-    TOURNAMENT = 'T'
-    TYPE_CHOICES = (
-        (PRACTICE, _('Practice')),
-        (CASUAL_ROUND, _('Casual Round')),
-        (TOURNAMENT, _('Tournament')),
-    )
+    class Type(models.TextChoices):
+        PRACTICE = 'P', _('Practice')
+        CASUAL_ROUND = 'C', _('Casual Round')
+        TOURNAMENT = 'T', _('Tournament')
+
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='aces')
     disc = models.ForeignKey(Disc, null=True, on_delete=SET_NULL, related_name='aces', verbose_name=_('Disc'))
     course = models.ForeignKey(Course, null=True, on_delete=SET_NULL, related_name='aces', verbose_name=_('Course'))
     hole = models.CharField(_('Hole'), max_length=20)
-    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES)
+    type = models.CharField(_('Type'), max_length=1, choices=Type.choices)
     date = PartialDateField(_('Date'), null=True, blank=True)
 
     def __str__(self):
@@ -282,20 +275,17 @@ class Ace(Model):
 
 
 class Video(Model):
+    class Type(models.TextChoices):
+        IN_THE_BAG = 'B', _('In the bag')
+        ACE = 'A', _('Ace')
+        OTHER = 'O', _('Other')
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['url', 'friend'], name='unique_video_for_friend'),
         ]
 
-    IN_THE_BAG = 'B'
-    ACE = 'A'
-    OTHER = 'O'
-    TYPE_CHOICES = (
-        (IN_THE_BAG, _('In the bag')),
-        (ACE, _('Ace')),
-        (OTHER, _('Other')),
-    )
-    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES, default=OTHER)
+    type = models.CharField(_('Type'), max_length=1, choices=Type.choices, default=Type.OTHER)
     url = models.URLField(_('URL'), )
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='videos')
 
@@ -318,6 +308,10 @@ def date_string(model):
 
 
 class Tournament(Model):
+    class PointSystem(models.TextChoices):
+        TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players', _(
+            'Tremonia Series points + half beaten players')
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['url'], name='unique_url_for_tournament'),
@@ -335,12 +329,8 @@ class Tournament(Model):
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
-    TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
-    POINT_SYSTEM_CHOICES = (
-        (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players')),
-    )
     point_system = models.CharField(_('Point System'), null=True, blank=True,
-                                    max_length=100, choices=POINT_SYSTEM_CHOICES)
+                                    max_length=100, choices=PointSystem.choices)
 
     @property
     def date(self):
