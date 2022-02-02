@@ -45,6 +45,7 @@ if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+    X_FRAME_OPTIONS = 'SAMEORIGIN'
     DATA_DIR = BASE_DIR
     LOG_DIR = BASE_DIR
     LOG_LEVEL = 'INFO'
@@ -229,6 +230,7 @@ TEMPLATES = [
 
 MIDDLEWARE = [
     'cms.middleware.utils.ApphookReloadMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

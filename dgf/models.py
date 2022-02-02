@@ -10,7 +10,7 @@ from django.db.models import Model
 from django.db.models.deletion import CASCADE, SET_NULL
 from django.utils.html import format_html
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from partial_date import PartialDateField
 

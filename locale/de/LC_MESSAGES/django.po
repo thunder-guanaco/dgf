@@ -646,3 +646,9 @@ msgstr "Sprache wechseln"
 
 msgid "%(model_name)s with this %(field_labels)s already exists."
 msgstr "Bereits ausgewählt"
+
+msgid "This page has no preview!"
+msgstr "Diese Seite hat keine Übersetzung!"
+
+msgid "It is being redirected to:"
+msgstr "Folgende Seite wird immer gezeigt:"

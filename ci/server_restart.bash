@@ -13,14 +13,14 @@ source ci/ENVIRONMENT_VARIABLES
 pip install -r requirements.txt
 exit_if_error "Install dependencies" $?
 
+python manage.py migrate
+exit_if_error "Apply migrations" $?
+
 yes yes | python manage.py collectstatic --clear
 exit_if_error "Collect static files" $?
 
 python manage.py compilemessages -l de
 exit_if_error "Compile messages for translations" $?
-
-python manage.py migrate
-exit_if_error "Apply migrations" $?
 
 crontab -r
 exit_if_error "Delete existing cronjobs" 0

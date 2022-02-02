@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .creator import create_friends, create_courses, create_discs
 from ...models import Ace
