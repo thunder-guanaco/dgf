@@ -6,7 +6,7 @@ from django.db import migrations, models
 def fill_display_name(apps, schema_editor):
     Disc = apps.get_model('dgf', 'Disc')
     for disc in Disc.objects.all():
-        disc.display_name = re.sub(' *\(.*\)', '', disc.mold)
+        disc.display_name = re.sub(r' *\(.*\)', '', disc.mold)
         disc.save()
 
 

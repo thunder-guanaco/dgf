@@ -472,3 +472,20 @@ input[type=button]:active {
     background-color: #1b2633 !important;
     cursor: pointer;
 }
+
+.cms-screenblock {
+    height: auto !important;
+    background: #8d1950 !important;
+}
+
+.cms-screenblock-inner {
+    margin-top: 50px !important;
+}
+
+.cms-screenblock-inner > * {
+    color: #ffffff !important;
+}
+
+.cms-screenblock-inner a {
+    color: #88ccff !important;
+}

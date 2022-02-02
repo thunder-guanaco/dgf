@@ -41,8 +41,8 @@ class YoutubeTemplatetagsTest(TestCase):
             self.expect_youtube_id(url=None,
                                    expected_youtube_id=None)
             self.fail('It makes no sense that a URL is None')
-        except:
-            pass
+        except ValueError:
+            pass  # we expect a ValueError because None is not a valid URL
 
     def expect_youtube_id(self, url, expected_youtube_id):
         self.assertEqual(dgf.youtube_id(url), expected_youtube_id)
