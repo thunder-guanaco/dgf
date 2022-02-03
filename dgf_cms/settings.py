@@ -288,7 +288,7 @@ LOGOUT_REDIRECT_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'de'
+USE_TZ = True
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -296,7 +296,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+LANGUAGE_CODE = 'de'
 
 LANGUAGES = [
     ('de', _('German')),
