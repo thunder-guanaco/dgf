@@ -18,15 +18,14 @@ from dgf.handlers import server_error
 admin.autodiscover()
 
 urlpatterns = [
-    re_path(r'^sitemap\.xml$', sitemap,
-            {'sitemaps': {'cmspages': CMSSitemap}}),
+    re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
 urlpatterns += i18n_patterns(
     re_path(r'^admin/', admin.site.urls),  # NOQA
     re_path(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     re_path(r'^', include('cms.urls')),
     prefix_default_language=False
 )

@@ -1,6 +1,7 @@
 import os
 
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
 
 """
 Django settings for dgf_cms project.
@@ -155,19 +156,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
-
-LANGUAGE_CODE = 'de'
-
-TIME_ZONE = 'Europe/Berlin'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -297,33 +285,48 @@ INSTALLED_APPS = [
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'German'),
-)
+# Internationalization
+# https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+USE_TZ = True
+
+TIME_ZONE = 'Europe/Berlin'
+
+USE_I18N = True
+
+USE_L10N = True
+
+LANGUAGE_CODE = 'de'
+
+LANGUAGES = [
+    ('de', _('German')),
+    ('en', _('English')),
+]
+
+# IMPORTANT: German should be the first one ALWAYS
+# https://docs.django-cms.org/en/latest/reference/configuration.html#std-setting-CMS_LANGUAGES
 CMS_LANGUAGES = {
     1: [
         {
-            'code': 'en',
-            'name': 'English',
-            'redirect_on_fallback': True,
+            'code': 'de',
+            'name': _('German'),
             'public': True,
             'hide_untranslated': False,
+            'redirect_on_fallback': False,
         },
         {
-            'code': 'de',
-            'name': 'German',
-            'redirect_on_fallback': True,
+            'code': 'en',
+            'name': _('English'),
             'public': True,
             'hide_untranslated': False,
+            'redirect_on_fallback': False,
         },
     ],
     'default': {
-        'fallbacks': ['de'],
-        'redirect_on_fallback': True,
+        'fallbacks': ['de', 'en'],
         'public': True,
         'hide_untranslated': False,
+        'redirect_on_fallback': False,
     },
 }
 
