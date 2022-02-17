@@ -1,0 +1,14 @@
+{% load i18n dgf %}
+
+{% with friend.videos.all|filter_by_type:"O" as other_videos %}
+    {% if other_videos %}
+        <div id="videos" class="big-field">
+            <p class="label">{% trans "Videos" %}</p>
+            <div class="value">
+                {% for video in other_videos %}
+                    {% include "dgf/includes/youtube_video.html" with youtube_id=video.url|youtube_id %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

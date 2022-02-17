@@ -1,0 +1,38 @@
+{% load i18n dgf %}
+
+{% with friend|podium_results as podium_results %}
+    {% if podium_results %}
+        <div class="podiums">
+            <p class="label">{% trans "Tournament achievements" %}</p>
+            <div class="value show-all-less">
+                <div class="top">
+                    {% for result in podium_results|slice:":5" %}
+                        <div>
+                            &#12935{{result.position}};
+                            {% if result.tournament.url %}
+                                <a href="{{result.tournament.url}}" target="_blank" class="name">{{result.tournament.name}}</a>
+                            {% else %}
+                                <span class="name">{{result.tournament.name}}</span>
+                            {% endif %}
+                            [{{result.tournament.date}}]
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="all hidden">
+                    {% for result in podium_results %}
+                        <div>
+                            &#12935{{result.position}};
+                            {% if result.tournament.url %}
+                                <a href="{{result.tournament.url}}" target="_blank" class="name">{{result.tournament.name}}</a>
+                            {% else %}
+                                <span class="name">{{result.tournament.name}}</span>
+                            {% endif %}
+                            [{{result.tournament.date}}]
+                        </div>
+                    {% endfor %}
+                </div>
+                {% include "dgf/includes/show_all_less.html" with minimum=5 amount=podium_results.count %}
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}

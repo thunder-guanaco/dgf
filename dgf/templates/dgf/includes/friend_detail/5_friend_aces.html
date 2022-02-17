@@ -1,0 +1,15 @@
+{% load i18n dgf %}
+
+{% if friend.aces.count %}
+    <div id="aces" class="big-field">
+        <p class="label">{% trans "Aces" %}</p>
+        <div class="value">
+            {% include "dgf/includes/aces_table.html" with aces=friend.aces %}
+        </div>
+        {% with friend.videos.all|filter_by_type:"A"|first as ace_video %}
+            {% if ace_video %}
+                {% include "dgf/includes/youtube_video.html" with youtube_id=ace_video.url|youtube_id %}
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endif %}
