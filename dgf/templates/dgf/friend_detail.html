@@ -36,17 +36,20 @@
         </div>
         <div id="friend-info">
 
-            {% include "dgf/includes/friend_detail/0_friend_header.html" with friend=friend %}
+            {% include "dgf/includes/friend_detail/00_friend_header.html" with friend=friend %}
 
             <div id="friend-body">
 
-                {% include "dgf/includes/friend_detail/1_friend_simple_fields.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/2_friend_podium_results.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/3_friend_now_playing.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/4_friend_next_tournaments.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/5_friend_aces.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/6_friend_discs.html" with friend=friend %}
-                {% include "dgf/includes/friend_detail/7_friend_videos.html" with friend=friend %}
+                {% include "dgf/includes/friend_detail/01_friend_simple_fields.html" with friend=friend %}
+
+                {% include "dgf/includes/friend_detail/10_friend_now_playing.html" with friend=friend %}
+                {% include "dgf/includes/friend_detail/11_friend_podium_results.html" with friend=friend %}
+                {% include "dgf/includes/friend_detail/12_friend_next_tournaments.html" with friend=friend %}
+
+                {% include "dgf/includes/friend_detail/20_friend_aces.html" with friend=friend %}
+                {% include "dgf/includes/friend_detail/21_friend_discs.html" with friend=friend %}
+
+                {% include "dgf/includes/friend_detail/30_friend_videos.html" with friend=friend %}
 
             </div>
         </div>

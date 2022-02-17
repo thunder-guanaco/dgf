@@ -35,15 +35,20 @@
 
             <ul id="statistics">
 
-                {% include "dgf/includes/friend_list/0_friends_number_of_club_members.html" with friends=friends %}
-                {% include "dgf/includes/friend_list/1_friends_aces.html" with friends=friends %}
-                {% include "dgf/includes/friend_list/2_friends_favorite_discs.html" %}
-                {% include "dgf/includes/friend_list/3_friends_favorite_courses.html" %}
-                {% include "dgf/includes/friend_list/4_friends_ordered_by_pdga_rating.html" with friends=friends %}
-                {% include "dgf/includes/friend_list/5_friends_best_scores_in_wischlingen.html" with friends=friends %}
-                {% include "dgf/includes/friend_list/6_friends_now_playing.html" %}
-                {% include "dgf/includes/friend_list/7_friends_next_tournaments.html" %}
-                {% include "dgf/includes/friend_list/8_friends_all.html" with friends=friends %}
+                {% include "dgf/includes/friend_list/00_friends_number_of_club_members.html" with friends=friends %}
+
+                {% include "dgf/includes/friend_list/10_friends_now_playing.html" %}
+                {% include "dgf/includes/friend_list/11_friends_podium_results.html" with friend=friends.0 %}
+                {% include "dgf/includes/friend_list/12_friends_next_tournaments.html" %}
+
+                {% include "dgf/includes/friend_list/20_friends_aces.html" with friends=friends %}
+                {% include "dgf/includes/friend_list/21_friends_favorite_discs.html" %}
+                {% include "dgf/includes/friend_list/22_friends_favorite_courses.html" %}
+
+                {% include "dgf/includes/friend_list/30_friends_ordered_by_pdga_rating.html" with friends=friends %}
+                {% include "dgf/includes/friend_list/31_friends_best_scores_in_wischlingen.html" with friends=friends %}
+
+                {% include "dgf/includes/friend_list/99_friends_all.html" with friends=friends %}
 
             </ul>
 
