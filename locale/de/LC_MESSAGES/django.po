@@ -70,7 +70,7 @@ msgid "Friends"
 msgstr "Friends"
 
 #: dgf/cms_toolbars.py:17
-#: dgf/templates/dgf/includes/overview/8_all_friends.html:3
+#: dgf/templates/dgf/includes/friend_list/8_all_friends.html:3
 msgid "All friends"
 msgstr "Alle Friends"
 
@@ -417,7 +417,7 @@ msgstr "Das mache ich, wenn ich nicht Disc Golf spiele"
 
 #: dgf/templates/dgf/friend_detail.html:177
 #: dgf/templates/dgf/friend_profile.html:59
-#: dgf/templates/dgf/includes/overview/3_favorite_courses.html:3
+#: dgf/templates/dgf/includes/friend_list/3_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
@@ -435,12 +435,12 @@ msgid "Now playing"
 msgstr "Spielt gerade..."
 
 #: dgf/templates/dgf/friend_detail.html:224
-#: dgf/templates/dgf/includes/overview/6_now_playing.html:18
+#: dgf/templates/dgf/includes/friend_list/6_now_playing.html:18
 msgid "follow live"
 msgstr "live folgen"
 
 #: dgf/templates/dgf/friend_detail.html:235
-#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:5
+#: dgf/templates/dgf/includes/friend_list/7_next_tournaments.html:5
 msgid "Next tournaments"
 msgstr "Nächste Turniere"
 
@@ -451,25 +451,25 @@ msgstr "Asse"
 
 #: dgf/templates/dgf/friend_detail.html:270
 #: dgf/templates/dgf/friend_profile.html:87
-#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:6
+#: dgf/templates/dgf/includes/friend_list/2_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
 #: dgf/templates/dgf/friend_detail.html:271
 #: dgf/templates/dgf/friend_profile.html:90
-#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:7
+#: dgf/templates/dgf/includes/friend_list/2_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
 #: dgf/templates/dgf/friend_detail.html:272
 #: dgf/templates/dgf/friend_profile.html:93
-#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:8
+#: dgf/templates/dgf/includes/friend_list/2_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
 #: dgf/templates/dgf/friend_detail.html:273
 #: dgf/templates/dgf/friend_profile.html:96
-#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:9
+#: dgf/templates/dgf/includes/friend_list/2_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
@@ -520,38 +520,38 @@ msgstr "davon im Turnier"
 msgid "wins"
 msgstr "Siege"
 
-#: dgf/templates/dgf/includes/overview/0_number_of_club_members.html:3
+#: dgf/templates/dgf/includes/friend_list/0_number_of_club_members.html:3
 msgid "Number of club members"
 msgstr "Anzahl der Mitglieder"
 
-#: dgf/templates/dgf/includes/overview/1_aces.html:3
+#: dgf/templates/dgf/includes/friend_list/1_aces.html:3
 msgid "Total aces"
 msgstr "Asse der Friends"
 
-#: dgf/templates/dgf/includes/overview/2_favorite_discs.html:3
+#: dgf/templates/dgf/includes/friend_list/2_favorite_discs.html:3
 msgid "Favorite discs"
 msgstr "Lieblingsscheiben"
 
-#: dgf/templates/dgf/includes/overview/4_best_friends.html:7
+#: dgf/templates/dgf/includes/friend_list/4_best_friends.html:7
 msgid "Best players"
 msgstr "Beste Spieler (nach PDGA-Rating)"
 
-#: dgf/templates/dgf/includes/overview/5_best_scores_in_wischlingen.html:7
+#: dgf/templates/dgf/includes/friend_list/5_best_scores_in_wischlingen.html:7
 msgid "Best scores in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
-#: dgf/templates/dgf/includes/overview/6_now_playing.html:7
+#: dgf/templates/dgf/includes/friend_list/6_now_playing.html:7
 msgid "We are now..."
 msgstr "Wo spielen wir gerade..."
 
-#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:8
-#: dgf/templates/dgf/includes/show-all-less.html:4
+#: dgf/templates/dgf/includes/friend_list/7_next_tournaments.html:8
+#: dgf/templates/dgf/includes/show_all_less.html:4
 #: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
 msgid "(show all)"
 msgstr "(alle anzeigen)"
 
-#: dgf/templates/dgf/includes/overview/7_next_tournaments.html:9
-#: dgf/templates/dgf/includes/show-all-less.html:5
+#: dgf/templates/dgf/includes/friend_list/7_next_tournaments.html:9
+#: dgf/templates/dgf/includes/show_all_less.html:5
 msgid "(show less)"
 msgstr "(weniger anzeigen)"
 
