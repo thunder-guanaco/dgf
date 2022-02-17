@@ -3,6 +3,11 @@
     {% future_tournaments as tournaments %}
     <h2>
         {% trans "Next tournaments" %}
+        {% comment %}
+         * Yes, the next lines are EXACTLY like the content of show_all_less.html
+         * EXCEPT for the fact that all the classes here are called ...-tournaments
+         */
+        {% endcomment %}
         {% with tournaments.count as amount %}
             {% if amount > 3 %}
                 <div class="show-all-tournaments">{% trans "(show all)" %}</div>
