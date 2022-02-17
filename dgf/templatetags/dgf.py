@@ -90,6 +90,13 @@ def current_tournaments():
 
 
 @register.simple_tag
+def friends_podium_tournaments():
+    return Tournament.objects.annotate(results_count=Count("results"))\
+        .filter(results__position__in=[1, 2, 3]) \
+        .order_by("-begin", "end", "name")
+
+
+@register.simple_tag
 def future_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
         .filter(begin__gt=datetime.today(),
@@ -105,7 +112,12 @@ def attends(tournament, friend):
 
 @register.filter
 def active_attendance(tournament):
-    return tournament.attendance.all().filter(friend__is_active=True)
+    return tournament.attendance.filter(friend__is_active=True)
+
+
+@register.filter
+def active_podium_results(tournament):
+    return tournament.results.filter(friend__is_active=True, position__in=[1, 2, 3])
 
 
 @register.simple_tag
@@ -115,15 +127,15 @@ def problematic_tournaments():
 
 
 @register.filter
-def podium_results(friend):
-    return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('-tournament__begin')
-
-
-@register.filter
 def now_playing(friend):
     return Tournament.objects.filter(attendance__friend=friend,
                                      begin__lte=datetime.today(),
                                      end__gte=datetime.today())
+
+
+@register.filter
+def podium_results(friend):
+    return Result.objects.filter(friend=friend, position__in=[1, 2, 3]).order_by('-tournament__begin')
 
 
 @register.filter

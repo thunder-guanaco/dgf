@@ -204,6 +204,7 @@ h2 .show-less-tournaments {
 }
 
 #now-playing .inner-content ul,
+#podiums .inner-content ul ,
 #tournaments .inner-content ul {
     width: 100%;
 }
