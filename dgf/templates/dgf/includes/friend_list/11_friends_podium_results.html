@@ -10,7 +10,7 @@
          */
         {% endcomment %}
         {% with tournaments.count as amount %}
-            {% if amount > 5 %}
+            {% if amount > 3 %}
                 <div class="show-all-tournaments">{% trans "(show all)" %}</div>
                 <span class="show-less-tournaments hidden">{% trans "(show less)" %}</span>
             {% endif %}
@@ -19,7 +19,7 @@
     <div class="inner-content">
         <div class="top-tournaments list">
             <ul>
-                {% for tournament in tournaments|slice:":5" %}
+                {% for tournament in tournaments|slice:":3" %}
                     <li class="tournament show-all-less">
                         {% with tournament|active_podium_results as tournament_results %}
                             <div class="top-info">
