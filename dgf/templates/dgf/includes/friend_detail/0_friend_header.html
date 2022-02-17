@@ -1,0 +1,101 @@
+{% load static i18n %}
+
+<div id="friend-header">
+    <h1>
+        <div>
+            {{friend.full_name}}
+
+            {% if friend.sponsor_logo %}
+                {% if friend.sponsor_link %}
+                    <a href="{{friend.sponsor_link}}" target="_blank">
+                        <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="50px" height="50px"/>
+                    </a>
+                {% else %}
+                        <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="50px" height="50px"/>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        {% if friend.id == request.user.friend.id %}
+            <a class="desktop edit-button" href="{% url 'dgf:friend_update' %}">
+                <button>
+                    {% trans 'Update profile' %}
+                </button>
+            </a>
+            <a class="desktop edit-button" href="{% url 'dgf:tournament_index' %}">
+                <button>
+                    {% trans 'Update tournaments' %}
+                </button>
+            </a>
+        {% endif %}
+    </h1>
+    {% if friend.id == request.user.friend.id %}
+        <a class="mobile edit-button" href="{% url 'dgf:friend_update' %}">
+            <button>
+                {% trans 'Update profile' %}
+            </button>
+        </a>
+        <a class="mobile edit-button" href="{% url 'dgf:tournament_index' %}">
+            <button>
+                {% trans 'Update tournaments' %}
+            </button>
+        </a>
+    {% endif %}
+    {% if friend.sponsor %}
+        <div class="larger">
+            {% if friend.sponsor_link %}
+                <p>{% trans "Sponsored by" %} <a href="{{friend.sponsor_link}}" target="_blank">{{friend.sponsor}}</a></p>
+            {% else %}
+                <p>{% trans "Sponsored by" %} {{friend.sponsor}}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if friend.club_role %}
+        <div class="larger">
+            <p>{{friend.club_role}}</p>
+        </div>
+    {% endif %}
+    <div class="friend-header-line desktop">
+        {% if friend.city %}
+            <p>{% trans "from" %} {{friend.city}}</p>
+        {% endif %}
+        {% if friend.gt_number %}
+            <p class="external-ids"><b>GT </b><b><a href="https://rating.discgolf.de/detail.php?gtn={{friend.gt_number}}" target="_blank">#{{friend.gt_number}}</a></b></p>
+        {% endif %}
+        {% if friend.pdga_number %}
+            <p class="external-ids"><b>PDGA </b><b><a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
+        {% endif %}
+    </div>
+    <div class="friend-header-line mobile">
+        {% if friend.city %}
+            <p>{% trans "from" %} {{friend.city}}</p>
+        {% endif %}
+    </div>
+    <div class="friend-header-line mobile">
+        {% if friend.gt_number %}
+            <p class="external-ids"><b>GT <a href="https://rating.discgolf.de/detail.php?gtn={{friend.gt_number}}" target="_blank">#{{friend.gt_number}}</a></b></p>
+        {% endif %}
+        {% if friend.pdga_number %}
+            <p class="external-ids"><b>PDGA <a href="https://pdga.com/player/{{friend.pdga_number}}" target="_blank">#{{friend.pdga_number}}</a></b></p>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="friend-header-line">
+        {% if friend.division %}
+            <div class="division">
+                <label>{% trans "Division" %} </label>
+                <div>{{friend.division.id}}</div>
+            </div>
+        {% endif %}
+        {% if friend.rating %}
+            <div class="rating">
+                <label>{% trans "Rating" %} </label>
+                <div class="ball-container">
+                    <div class="ball">
+                        {{friend.rating}}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

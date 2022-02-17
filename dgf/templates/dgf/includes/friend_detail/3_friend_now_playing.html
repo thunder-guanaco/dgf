@@ -1,0 +1,19 @@
+{% load i18n dgf %}
+
+{% with friend|now_playing as tournaments %}
+    {% if tournaments %}
+        <div class="now-playing">
+            <p class="label">{% trans "Now playing" %}</p>
+            <ul class="value">
+                {% for tournament in tournaments %}
+                    <li>
+                        <span class="name">{{tournament.name}} </span>
+                        {% if tournament.metrix_id %}
+                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
