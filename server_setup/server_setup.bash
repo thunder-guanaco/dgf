@@ -122,12 +122,20 @@ upstream dgf_cms_app_server {
 server {
 
     if (\$host = www.tremonia-open.de) {
-        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
-    } 
+        return 301 https://discgolffriends.de/turniere/tremonia-open;
+    }
 
     if (\$host = tremonia-open.de) {
-        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
-    } 
+        return 301 https://discgolffriends.de/turniere/tremonia-open;
+    }
+
+    if (\$host = www.disc-golf-friends.de) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
+    if (\$host = disc-golf-friends.de) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
 
     server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
 
@@ -199,11 +207,19 @@ server {
 server {
 
     if (\$host = www.tremonia-open.de) {
-        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open;
     }
 
     if (\$host = tremonia-open.de) {
-        return 301 https://disc-golf-friends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open;
+    }
+
+    if (\$host = www.disc-golf-friends.de) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
+    if (\$host = disc-golf-friends.de) {
+        return 301 https://discgolffriends.de\$request_uri;
     }
 
     listen 80 default_server;
