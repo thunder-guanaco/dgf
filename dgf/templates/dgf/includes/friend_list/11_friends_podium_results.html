@@ -4,65 +4,11 @@
     {% friends_podium_tournaments as tournaments %}
     <h2>
         {% trans "Tournament achievements" %}
-        {% comment %}
-         * Yes, the next lines are EXACTLY like the content of show_all_less.html
-         * EXCEPT for the fact that all the classes here are called ...-tournaments
-         */
-        {% endcomment %}
-        {% with tournaments.count as amount %}
-            {% if amount > 3 %}
-                <div class="show-all-tournaments">{% trans "(show all)" %}</div>
-                <span class="show-less-tournaments hidden">{% trans "(show less)" %}</span>
-            {% endif %}
-        {% endwith %}
     </h2>
     <div class="inner-content">
         <div class="top-tournaments list">
             <ul>
                 {% for tournament in tournaments|slice:":3" %}
-                    <li class="tournament show-all-less">
-                        {% with tournament|active_podium_results as tournament_results %}
-                            <div class="top-info">
-                                <div>
-                                    {% if tournament.url %}
-                                        <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}} </a>
-                                    {% else %}
-                                        <span class="name">{{tournament.name}} </span>
-                                    {% endif %}
-                                    <span class="date">({{tournament.date}})</span>
-                                    <div class="mobile">
-                                        {% include "dgf/includes/show_all_less.html" with minimum=5 amount=tournament_results.count %}
-                                    </div>
-                                    <div class="desktop">
-                                        {% include "dgf/includes/show_all_less.html" with minimum=10 amount=tournament_results.count %}
-                                    </div>
-                                </div>
-                                <div class="mobile players top">
-                                    {% for result in tournament_results|slice:":5" %}
-                                        {% include "dgf/includes/friend_ball.html" with friend=result.friend position=result.position %}
-                                    {% endfor %}
-                                </div>
-                                <div class="desktop players top">
-                                    {% for result in tournament_results|slice:":10" %}
-                                        {% include "dgf/includes/friend_ball.html" with friend=result.friend position=result.position %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div class="all hidden list">
-                                {% for result in tournament_results %}
-                                    <div class="item">
-                                        {% include "dgf/includes/friend_ball.html" with friend=result.friend position=result.position show_name=True %}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endwith %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="all-tournaments list hidden">
-            <ul>
-                {% for tournament in tournaments %}
                     <li class="tournament show-all-less">
                         {% with tournament|active_podium_results as tournament_results %}
                             <div class="top-info">
