@@ -72,10 +72,6 @@
         flex-direction: row;
     }
 
-    #statistics .show-all-less .inner-content .item {
-        width: auto;
-    }
-
     .tournament .players .friend-ball {
         margin: 1em 1em 1em -2em !important;
     }
@@ -113,7 +109,7 @@
 }
 
 #statistics .list .item {
-    width: 33.33%;
+    width: 20%;
     text-align: center;
     margin: 0;
 }
