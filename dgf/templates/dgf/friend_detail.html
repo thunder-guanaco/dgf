@@ -8,7 +8,7 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/friend_detail.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/grt-youtube-popup.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/show-all-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_all_less.css' %}">
 {% endblock %}
 
 {% block style %}
@@ -18,7 +18,7 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'js/grt-youtube-popup.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/friend_video.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/show-all-less.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/show_all_less.js' %}"></script>
     <script type="text/javascript">
         $(window).on("load", function() {
             $("a[href='/friends/']").parent().addClass("ancestor");
@@ -223,7 +223,7 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                {% include "dgf/includes/show-all-less.html" with minimum=5 amount=podium_results.count %}
+                                {% include "dgf/includes/show_all_less.html" with minimum=5 amount=podium_results.count %}
                             </div>
                         </div>
                     {% endif %}
