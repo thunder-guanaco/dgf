@@ -90,7 +90,13 @@
             {% if request.user.is_superuser %}
                 <script>
                     document.addEventListener('keydown', function (event) {
+
+                        if ($(".cms-modal:visible").length > 0) {
+                            return;
+                        }
+
                         currentUrl = location.origin + location.pathname;
+
                         if (event.key === 'e') {
                             window.location = currentUrl + '?edit';
                         }
