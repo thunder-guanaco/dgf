@@ -163,7 +163,7 @@ class PdgaApi:
                 try:
                     tournaments += int(yearly_stats['tournaments'])
                 except KeyError:
-                    logger.warning(f'{friend.username} has no prices for one given year in their PDGA profile. '
+                    logger.warning(f'{friend.username} has no tournaments for one given year in their PDGA profile. '
                                    f'Possible reasons: player didn\'t play any tournaments')
 
             friend.total_earnings = money_earned
