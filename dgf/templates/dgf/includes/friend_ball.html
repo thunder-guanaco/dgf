@@ -28,8 +28,11 @@
                 {% endif %}
             {% endif %}
             {% if udisc_score %} ({{udisc_score|stringformat:"+i"}}){% endif %}
-            {% if position %} &#12935{{position}};{% endif %}
+
         </div>
+        {% if position %}
+            <div class="friend-position">&#12935{{position}};</div>
+        {% endif %}
 
     </a>
 

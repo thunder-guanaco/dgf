@@ -117,7 +117,7 @@ def active_attendance(tournament):
 
 @register.filter
 def active_podium_results(tournament):
-    return tournament.results.filter(friend__is_active=True, position__in=[1, 2, 3])
+    return tournament.results.filter(friend__is_active=True, position__in=[1, 2, 3]).order_by('-position')
 
 
 @register.simple_tag

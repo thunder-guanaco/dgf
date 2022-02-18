@@ -54,6 +54,11 @@
         margin: 1em 0em 1em -2em !important;
     }
 
+    #podiums .friend-ball .friend-position {
+        bottom: -20px;
+        right: 10px;
+    }
+
 }
 
 
@@ -74,6 +79,11 @@
 
     .tournament .players .friend-ball {
         margin: 1em 1em 1em -2em !important;
+    }
+
+    #podiums .friend-ball .friend-position {
+        bottom: -5px;
+        right: -5px;
     }
 
 }
@@ -203,4 +213,13 @@ h2 .show-less-tournaments {
 #podiums .inner-content ul ,
 #tournaments .inner-content ul {
     width: 100%;
+}
+
+#podiums .friend-ball {
+    position: relative;
+}
+
+#podiums .friend-ball .friend-position {
+    position: absolute;
+    font-size: 1.5em;
 }
