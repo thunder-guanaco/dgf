@@ -133,3 +133,26 @@ class TremoniaSeriesNextTournamentsPluginPublisher(CMSPluginBase):
                 begin__gte=datetime.today()).order_by('begin'),
         })
         return context
+
+
+@plugin_pool.register_plugin
+class OnlyDesktopPluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends Custom CMS')
+    render_template = 'dgf/plugins/only_one_device.html'
+    name = _('Only desktop')
+    device = 'desktop'
+    allow_children = True
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context.update({
+            'device': self.device,
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class OnlyMobilePluginPublisher(OnlyDesktopPluginPublisher):
+    name = _('Only mobile')
+    device = 'mobile'
