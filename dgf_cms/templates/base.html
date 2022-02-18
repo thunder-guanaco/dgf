@@ -86,6 +86,33 @@
                 gtag('js', new Date());
                 gtag('config', 'UA-169368121-1');
             </script>
+
+            {% if request.user.is_superuser %}
+                <script>
+                    document.addEventListener('keydown', function (event) {
+                        currentUrl = location.origin + location.pathname;
+                        if (event.key === 'e') {
+                            window.location = currentUrl + '?edit';
+                        }
+                        if (event.key === 'o') {
+                            window.location = currentUrl + '?toolbar_off';
+                        }
+                        if (event.key === 'p') {
+                            window.location = location.origin + '/admin/cms/page/';
+                        }
+                        if (event.key === 'f') {
+                            window.location = location.origin + '/admin/dgf/friend/';
+                        }
+                        if (event.key === '?') {
+                            alert('e → edit\n' +
+                                  'o → toolbar off\n' +
+                                  'p → admin pages\n' +
+                                  'f → admin friend');
+                        }
+                    });
+                </script>
+            {% endif %}
+
             <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
