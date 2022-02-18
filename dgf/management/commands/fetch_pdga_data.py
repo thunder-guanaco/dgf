@@ -22,23 +22,21 @@ class Command(BaseCommand):
             pdga.update_friend_tournaments(friend, pdga_api)
 
         except Exception as e:
-            logger.exception(f'Exception updating PDGA data for friend: {friend}')
-            error_handler.handle(self, e)
+            logger.error(f'Exception updating PDGA data for friend: {friend}')
+            error_handler.handle(self, e, friend)
 
     def handle(self, *args, **options):
 
         try:
-            logger.info('Fetching PDGA data...')
 
+            logger.info('Fetching PDGA data...')
             pdga_api = PdgaApi()
 
             for friend in Friend.objects.all():
                 self.handle_friend(pdga_api, friend)
 
             pdga_api.logout()
-
             logger.info('PDGA data has been updated')
 
         except Exception as e:
-            logger.exception(f'Exception updating PDGA data!', e)
             error_handler.handle(self, e)
