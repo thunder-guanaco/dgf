@@ -357,7 +357,7 @@ class Tournament(Model):
 
     @property
     def first_positions_are_ok(self):
-        if self.results.all().count() == 0:
+        if not self.name.startswith('Tremonia Series') or self.results.all().count() == 0:
             return True
         else:
             return list(self.results.filter(position__in=[1, 2, 3])
