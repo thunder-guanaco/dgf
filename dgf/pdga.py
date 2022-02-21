@@ -147,17 +147,24 @@ class PdgaApi:
 
             money_earned = 0
             tournaments = 0
-            for yearly_stats in statistics['players']:
+
+            try:
+                players_statistics = statistics['players']
+            except KeyError:
+                logger.warning(f'{friend.username} has no statistics in their PDGA profile. '
+                               f'Possible reasons: membership outdated or new member')
+
+            for yearly_stats in players_statistics:
                 try:
                     money_earned += Decimal(yearly_stats['prize'])
                 except KeyError:
-                    # not all years have to have prizes
-                    pass
+                    logger.warning(f'{friend.username} has no prices for a given year in their PDGA profile. '
+                                   f'Possible reasons: player didn\'t win anything')
                 try:
                     tournaments += int(yearly_stats['tournaments'])
                 except KeyError:
-                    # maybe not all years have to have tournaments
-                    pass
+                    logger.warning(f'{friend.username} has no tournaments for one given year in their PDGA profile. '
+                                   f'Possible reasons: player didn\'t play any tournaments')
 
             friend.total_earnings = money_earned
             friend.total_tournaments = tournaments

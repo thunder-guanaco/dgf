@@ -44,6 +44,7 @@ class TournamentModelTest(TestCase):
 
     def test_repeated_first_positions(self):
         tournament = create_tournaments(1)
+        tournament.name = 'Tremonia Series #1'
         friends = create_friends(4)
         self.assert_that(tournament, IS_OK, friends, in_positions=[])  # empty results
         self.assert_that(tournament, IS_OK, friends, in_positions=[1, 2, 3, 4])
