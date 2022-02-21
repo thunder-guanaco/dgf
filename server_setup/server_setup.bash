@@ -137,6 +137,14 @@ server {
         return 301 https://discgolffriends.de\$request_uri;
     }
 
+    if (\$host = www.vps793990.ovh.net) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
+    if (\$host = vps793990.ovh.net) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
     server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
 
     listen [::]:443 ssl ipv6only=on; # managed by Certbot
@@ -219,6 +227,14 @@ server {
     }
 
     if (\$host = disc-golf-friends.de) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
+    if (\$host = www.vps793990.ovh.net) {
+        return 301 https://discgolffriends.de\$request_uri;
+    }
+
+    if (\$host = vps793990.ovh.net) {
         return 301 https://discgolffriends.de\$request_uri;
     }
 

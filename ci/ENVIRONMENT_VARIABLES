@@ -5,6 +5,6 @@ ROOT_INSTALLATION_PATH=/home/ubuntu
 
 export DJANGO_ENV="prod"
 export DJANGO_LOG_LEVEL="INFO"
-export DJANGO_ALLOWED_HOSTS="vps793990.ovh.net,discgolffriends.de,disc-golf-friends.de,www.discgolffriends.de,www.disc-golf-friends.de"
+export DJANGO_ALLOWED_HOSTS="discgolffriends.de,www.discgolffriends.de"
 source ${ROOT_INSTALLATION_PATH}/secrets
 export DJANGO_DGF_VERSION="$(cat ${ROOT_INSTALLATION_PATH}/django_project/ci/version)"
