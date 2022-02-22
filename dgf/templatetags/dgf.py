@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 from django import template
-from django.db.models import Count, Q, Sum
+from django.db.models import Count, Max, Q, Sum
 
 from ..models import Ace, DiscInBag, Course, Tournament, Result, Friend
 from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
@@ -91,7 +91,7 @@ def current_tournaments():
 
 @register.simple_tag
 def friends_podium_tournaments():
-    return Tournament.objects.annotate(results_count=Count("results"))\
+    return Tournament.objects.annotate(results_count=Count("results")) \
         .filter(results__position__in=[1, 2, 3]) \
         .order_by("-begin", "end", "name")
 
@@ -174,6 +174,15 @@ def all_results(tour):
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
                            .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
     return queryset
+
+
+@register.filter
+def players_count(tour):
+    return dict(
+        tour.tournaments.annotate(players_count=Max('results__position'))
+            .filter(players_count__isnull=False)
+            .values_list('id', 'players_count')
+    )
 
 
 @register.filter
