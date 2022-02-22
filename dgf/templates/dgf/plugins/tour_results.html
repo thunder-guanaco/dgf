@@ -42,7 +42,6 @@
 {% endaddtoblock %}
 
 {% addtoblock "js" %}
-    <script type="text/javascript" src="{% static 'js/tour_results.js' %}"></script>
     <script>
         {% include "dgf/js/tour_results.js" with results=results %}
     </script>
@@ -58,6 +57,7 @@
                 <div class="position">{% trans "Position" %}</div>
                 <div class="player">{% trans "Player" %}</div>
                 <div class="points">{% trans "Points" %}</div>
+                <div class="average">{% trans "Average" %}</div>
             </div>
         </div>
         {% if not request.user_agent.is_mobile %}
