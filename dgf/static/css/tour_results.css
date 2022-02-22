@@ -209,3 +209,38 @@
     border-style: solid;
     border-color: transparent #1b2633cc transparent transparent;
 }
+
+.statistics-tooltip {
+    position: relative;
+}
+
+.statistics-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    line-height: normal;
+    background-color: #1b2633cc;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    z-index: 1;
+    position: absolute;
+    top: -33%;
+    left: -176%;
+}
+
+.statistics-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.statistics-tooltip .tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 25%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #1b2633cc;
+}
+

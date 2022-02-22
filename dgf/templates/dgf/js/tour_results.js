@@ -1,4 +1,4 @@
-{% load dgf dgf_cms %}
+{% load i18n dgf dgf_cms %}
 
 $(window).on("load", function() {
     console.log("Generating results table...");
@@ -26,17 +26,20 @@ function parseData() {
 }
 
 function generateTable(friends) {
+
     var summaryPart = $("#tour-results .table .summary")[0];
 
     friends.forEach(function(friend, index) {
 
         var summaryRow = addElement(summaryPart, "div", ["line"]);
 
-        addElement(summaryRow, "div", ["position"], index + 1);
+        position = addElement(summaryRow, "div", ["position", "statistics-tooltip"], index + 1);
+        addElement(position, "div", ["statistics", "tooltip-text"], generateStatistics(friend.results));
         addFriendBall(summaryRow, "div", ["player"], friend.id);
 
         // MOBILE
         {% if request.user_agent.is_mobile %}
+
             cell = addElement(summaryRow, "div", ["points", "link"], friend.results.total);
             cell.onclick = function () {
                 $(this).parent().next().toggleClass("hidden");
@@ -45,16 +48,8 @@ function generateTable(friends) {
 
         // DESKTOP
         {% else %}
+
             addElement(summaryRow, "div", ["points"], friend.results.total);
-
-            var detailsPart = $("#tour-results .table .details")[0];
-            var detailsRow = addElement(detailsPart, "div", ["line"]);
-
-            {% for tournament in tournaments %}
-                result = friend.results[{{tournament.id}}]
-                var resultsWrapper = addElement(detailsRow, "div", ["results-wrapper"]);
-                addElement(resultsWrapper, "div", ["result", "position-" + result.position], result.points);
-            {% endfor %}
 
         {% endif %}
 
@@ -85,13 +80,28 @@ function generateTable(friends) {
             addElement(headerRow, "div", ["results-wrapper", "empty"]);
             addElement(pointsRow, "div", ["results-wrapper", "empty"]);
 
+        // DESKTOP
+        {% else %}
+
+            var detailsPart = $("#tour-results .table .details")[0];
+            var detailsRow = addElement(detailsPart, "div", ["line"]);
+
+            {% for tournament in tournaments %}
+                result = friend.results[{{tournament.id}}]
+                var resultsWrapper = addElement(detailsRow, "div", ["results-wrapper"]);
+                addElement(resultsWrapper, "div", ["result", "position-" + result.position], result.points);
+            {% endfor %}
+
         {% endif %}
 
     });
+
     $("#tour-results .table").fadeIn(500);
 }
 
-function getBestResults(results, amount) {
+function getBestResults(results, evaluateHowMany) {
+
+    playerAmount = {{tour|players_count}};
 
     var sortable = [];
     for (var key in results) {
@@ -105,6 +115,13 @@ function getBestResults(results, amount) {
 
     var bestResults = {}
     var total = 0;
+    var statistics = {
+        totalPoints: 0,
+        totalEfficiency: 0,
+        playedTournaments: 0,
+    }
+
+    var tournamentAmount = 0;
     sortable.forEach(function(item, index){
         tournamentId = item[0].split("_")[1];
         points = item[1]
@@ -113,16 +130,32 @@ function getBestResults(results, amount) {
         if (points == null) {
             points = '-';
         }
-        else if (index < amount) {
-            total += points;
-        }
         else {
-            points = "[" + points + "]";
-            position = "X";
+
+            // IMPORTANT: do this before changing the points in the next if-else
+            statistics.playedTournaments += 1;
+            statistics.totalPoints += points;
+            beatenPlayers = playerAmount[tournamentId] - position;
+            possibleBeatenPlayers = playerAmount[tournamentId] - 1;
+            statistics.totalEfficiency += beatenPlayers / possibleBeatenPlayers;
+
+            if (index < evaluateHowMany) {
+                total += points;
+            }
+            else {
+                points = "[" + points + "]";
+                position = "X";
+            }
+
         }
+
         bestResults[tournamentId] = {"points": points, "position": position};
     })
+
     bestResults.total = total;
+    bestResults.averagePoints = (statistics.totalPoints / statistics.playedTournaments).toFixed(0);
+    bestResults.averageEfficiency = (statistics.totalEfficiency / statistics.playedTournaments * 100).toFixed(0) + "%";
+
     return bestResults;
 }
 
@@ -155,8 +188,22 @@ function addElement(parent, type, classes, text, url, target) {
     }
 
     if (text != undefined) {
-        var textNode = document.createTextNode(text);
-        addTextTo.appendChild(textNode);
+
+        text = String(text);
+
+        if (text.includes('\n')) {
+            text.split('\n').forEach(function(item){
+                var textNode = document.createTextNode(item);
+                var brNode = document.createElement("br");
+                addTextTo.appendChild(textNode);
+                addTextTo.appendChild(brNode);
+            });
+        }
+        else {
+            var textNode = document.createTextNode(text);
+            addTextTo.appendChild(textNode);
+        }
+
     }
 
     return element;
@@ -175,4 +222,10 @@ function addFriendBall(parent, type, classes, friendId) {
     parent.appendChild(element);
 
     return element;
+}
+
+function generateStatistics(results) {
+    var averageEfficiency = "{% trans "Efficiency" %}: " + results.averageEfficiency;
+    var averagePoints = "{% trans "Average points" %}: " + results.averagePoints;
+    return averageEfficiency + "\n" + averagePoints;
 }
