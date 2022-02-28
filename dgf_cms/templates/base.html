@@ -75,70 +75,7 @@
         </div>
 
         <!-- JS -->
-
-
-        {% compress js file base_js %}
-
-            {% if request.user.is_superuser %}
-
-                {% comment %} This is for the admins to have quick commands {% endcomment %}
-                <script>
-                    document.addEventListener('keydown', function (event) {
-
-                        if ($(".cms-modal:visible").length > 0) {
-                            return;
-                        }
-
-                        currentUrl = location.origin + location.pathname;
-
-                        if (event.key === 'e') {
-                            window.location = currentUrl + '?edit';
-                        }
-                        if (event.key === 'o') {
-                            window.location = currentUrl + '?toolbar_off';
-                        }
-                        if (event.key === 'p') {
-                            window.location = location.origin + '/admin/cms/page/';
-                        }
-                        if (event.key === 'f') {
-                            window.location = location.origin + '/admin/dgf/friend/';
-                        }
-                        if (event.key === '?') {
-                            alert('e → edit\n' +
-                                  'o → toolbar off\n' +
-                                  'p → admin pages\n' +
-                                  'f → admin friend');
-                        }
-                    });
-                </script>
-
-            {% endif %}
-
-            {% if not debug and not request.user.is_superuser %}
-
-                {% comment %} We do not want to track admins' activities {% endcomment %}
-                {% with ANALYTICS_ID="UA-169368121-1" %}
-                    <script async src="https://www.googletagmanager.com/gtag/js?id={{ANALYTICS_ID}}"></script>
-                    <script>
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', '{{ANALYTICS_ID}}');
-                    </script>
-                {% endwith %}
-
-            {% endif %}
-
-            <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-
-            {% block js %}
-            {% endblock js %}
-
-        {% endcompress %}
-
-        {% render_block "js" %}
+        {% include "js/base.js" %}
 
         <div class="container">
             {% block content %}{% endblock content %}
