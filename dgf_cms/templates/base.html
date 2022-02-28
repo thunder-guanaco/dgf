@@ -76,18 +76,12 @@
 
         <!-- JS -->
 
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
 
         {% compress js file base_js %}
 
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-169368121-1');
-            </script>
-
             {% if request.user.is_superuser %}
+
+                {% comment %} This is for the admins to have quick commands {% endcomment %}
                 <script>
                     document.addEventListener('keydown', function (event) {
 
@@ -117,6 +111,22 @@
                         }
                     });
                 </script>
+
+            {% endif %}
+
+            {% if not debug and not request.user.is_superuser %}
+
+                {% comment %} We do not want to track admins' activities {% endcomment %}
+                {% with ANALYTICS_ID="UA-169368121-1" %}
+                    <script async src="https://www.googletagmanager.com/gtag/js?id={{ANALYTICS_ID}}"></script>
+                    <script>
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '{{ANALYTICS_ID}}');
+                    </script>
+                {% endwith %}
+
             {% endif %}
 
             <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>

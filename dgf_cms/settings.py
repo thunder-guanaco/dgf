@@ -42,6 +42,13 @@ ENV = get_env_or_die('DJANGO_ENV')
 if ENV not in ['dev', 'test', 'prod']:
     raise ImproperlyConfigured('Environment variable \'DJANGO_ENV\' must be one of {\'dev\', \'test\', \'prod\'}')
 
+if ENV == 'dev':
+    # Add debug variables when rendering pages from localhost (while developing)
+    # https://docs.djangoproject.com/en/4.0/ref/settings/#internal-ips
+    INTERNAL_IPS = (
+        '127.0.0.1',
+    )
+
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
