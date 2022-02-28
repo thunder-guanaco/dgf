@@ -186,7 +186,7 @@ def players_count(tour):
 
 
 @register.filter
-def all_friends(results):
+def only_friends(results):
     friend_ids = [result['friend'] for result in results]
     return Friend.all_objects.filter(id__in=friend_ids)
 
@@ -200,3 +200,8 @@ def get_friend(friends, friend_id):
 def get_result(result, tournament):
     result = result.get(f'points_{tournament.id}')
     return result if result else '-'
+
+
+@register.simple_tag
+def all_friends():
+    return Friend.objects.all()
