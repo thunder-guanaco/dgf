@@ -3,7 +3,7 @@
 {% with instance.tour as tour %}
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
 {% with tour|all_results as results %}
-{% with results|all_friends as all_friends %}
+{% with results|only_friends as all_friends %}
 {% with tournaments.count|minimum:12 as amount_of_tournaments %}
 {% with 100|divided_by:amount_of_tournaments|safe as tournament_column_width %}
 

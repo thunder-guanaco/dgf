@@ -1,10 +1,8 @@
 {% load i18n dgf dgf_cms %}
 
 $(window).on("load", function() {
-    console.log("Generating results table...");
     friends = parseData();
     generateTable(friends);
-    console.log("Results table was generated");
 });
 
 function parseData() {
