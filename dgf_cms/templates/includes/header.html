@@ -1,0 +1,9 @@
+{% load cms_tags menu_tags %}
+
+{% cms_toolbar %}
+{% include "includes/admin_info.html" %}
+{% language_chooser "includes/language_chooser.html" %}
+
+<div id="header">
+    {% static_placeholder 'header' %}
+</div>

@@ -1,0 +1,45 @@
+{% load cms_tags menu_tags %}
+
+<div id="mobile-navigation-bar">
+
+    {% show_menu 0 100 100 100 "mobile/navigation-bar.html" %}
+
+    <div id="mobile-navigation-bar-language-chooser" style="display: none">
+        {% language_chooser "includes/language_chooser.html" %}
+    </div>
+
+    <div id="mobile-mini-headline">
+        {% comment %}
+            Placeholder for later showing the mobile mini headline when scrolling
+        {% endcomment %}
+    </div>
+
+</div>
+
+{% static_placeholder 'friends-header' %}
+
+<div id="navigation-bar">
+
+    {% comment %}
+        Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
+    {% endcomment %}
+
+    <ul>
+        <li id="navigation-bar-header" style="display: none">
+            {% static_placeholder 'header' %}
+        </li>
+        {% show_menu 0 0 0 0 %}
+        <li id="navigation-bar-language-chooser" style="display: none">
+            {% language_chooser "includes/language_chooser.html" %}
+        </li>
+    </ul>
+
+    <ul>
+        {% show_sub_menu 1 1 0 %}
+    </ul>
+
+    <ul>
+        {% show_sub_menu 1 2 0 %}
+    </ul>
+
+</div>

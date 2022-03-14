@@ -12,10 +12,6 @@
 {% block js %}
 {% endblock %}
 
-{% block headline %}
-    {% static_placeholder 'headline' %}
-{% endblock %}
-
 {% block content %}
 {% with request.user.friend as friend %}
 {% with request.user.is_authenticated as authenticated %}
