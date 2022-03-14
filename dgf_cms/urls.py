@@ -22,6 +22,9 @@ urlpatterns = [
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
+if settings.ENV == 'dev':
+    urlpatterns.append(path('silk/', include('silk.urls', namespace='silk')))
+
 urlpatterns += i18n_patterns(
     re_path(r'^admin/', admin.site.urls),  # NOQA
     re_path(r'^login/$', auth_views.LoginView.as_view(), name='login'),

@@ -112,12 +112,18 @@ def attends(tournament, friend):
 
 @register.filter
 def active_attendance(tournament):
-    return tournament.attendance.filter(friend__is_active=True)
+    return (tournament.attendance
+                      .filter(friend__is_active=True)
+                      .select_related('friend')
+            )
 
 
 @register.filter
 def active_podium_results(tournament):
-    return tournament.results.filter(friend__is_active=True, position__in=[1, 2, 3]).order_by('-position')
+    return (tournament.results
+                      .filter(friend__is_active=True, position__in=[1, 2, 3])
+                      .select_related('friend')
+                      .order_by('-position'))
 
 
 @register.simple_tag
