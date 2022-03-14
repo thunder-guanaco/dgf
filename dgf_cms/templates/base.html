@@ -9,9 +9,6 @@
         <link rel="icon" href="{% static 'img/favicon.png' %}">
 
         <!-- CSS -->
-
-        {% render_block "css" %}
-
         {% compress css file base_css %}
 
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -24,58 +21,18 @@
 
         {% endcompress %}
 
-        <style>
-            {% block style %}
-            {% endblock style %}
-        </style>
+        {% render_block "css" %}
 
     </head>
 
     <body>
-        {% cms_toolbar %}
-        {% include "includes/admin_info.html" %}
-        {% language_chooser "includes/language_chooser.html" %}
-        <div id="header">
-            {% static_placeholder 'header' %}
-        </div>
-        <div id="mobile-navigation-bar">
-            {% show_menu 0 100 100 100 "mobile/navigation-bar.html" %}
-            <div id="mobile-navigation-bar-language-chooser" style="display: none">
-                {% language_chooser "includes/language_chooser.html" %}
-            </div>
-            <div id="mobile-mini-headline">
-                {% comment %}
-                    Placeholder for later showing the mobile mini headline when scrolling
-                {% endcomment %}
-            </div>
-        </div>
-        {% static_placeholder 'friends-header' %}
-        <div id="navigation-bar">
-            {% comment %}
-                Documentation about the navigation bar: http://docs.django-cms.org/en/latest/reference/navigation.html
-            {% endcomment %}
-            <ul>
-                <li id="navigation-bar-header" style="display: none">
-                    {% static_placeholder 'header' %}
-                </li>
-                {% show_menu 0 0 0 0 %}
-                <li id="navigation-bar-language-chooser" style="display: none">
-                    {% language_chooser "includes/language_chooser.html" %}
-                </li>
-            </ul>
-            <ul>
-                {% show_sub_menu 1 1 0 %}
-            </ul>
-            <ul>
-                {% show_sub_menu 1 2 0 %}
-            </ul>
-        </div>
+
+        {% include "includes/header.html" %}
+        {% include "includes/navigation.html" %}
+
         <div id="headline">
             {% block headline %}{% endblock headline %}
         </div>
-
-        <!-- JS -->
-        {% include "js/base.js.html" %}
 
         <div class="container">
             {% block content %}{% endblock content %}
@@ -84,12 +41,31 @@
             {% endif %}
         </div>
 
-        <footer>
-            <div id="pre-footer">
-                {% static_placeholder 'pre-footer' %}
-            </div>
-          {% static_placeholder 'footer' %}
-        </footer>
+        {% include "includes/footer.html" %}
+
+        <!-- JS -->
+
+        {% comment %}
+            Every file you put it inside the COMPRESS tag must be accessible via COMPRESS_URL ('/static/')
+            otherwise it can't be compressed, and we get compressor.exceptions.UncompressableFileError
+            Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
+        {% endcomment %}
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
+
+        {% compress js file base_js %}
+
+            {% include "includes/admin_js.html" %}
+            <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+            {% block js %}
+            {% endblock js %}
+
+        {% endcompress %}
+
+        {% render_block "js" %}
 
     </body>
 </html>
