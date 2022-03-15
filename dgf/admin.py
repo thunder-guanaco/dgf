@@ -139,7 +139,7 @@ class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
             'fields': [
-                'name',
+                ('name', 'active'),
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
                 'url',
@@ -148,7 +148,7 @@ class TournamentAdmin(admin.ModelAdmin):
          )
     ]
 
-    list_display = ('needs_check', 'name', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
+    list_display = ('needs_check', 'name', 'active', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
     list_display_links = ('name',)
     search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 

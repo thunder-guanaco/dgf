@@ -314,7 +314,15 @@ def date_string(model):
     return f'{begin} - {end}'
 
 
+class OnlyActiveManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(active=True)
+
+
 class Tournament(Model):
+    all_objects = models.Manager()
+    objects = OnlyActiveManager()
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['url'], name='unique_url_for_tournament'),
@@ -338,6 +346,8 @@ class Tournament(Model):
     )
     point_system = models.CharField(_('Point System'), null=True, blank=True,
                                     max_length=100, choices=POINT_SYSTEM_CHOICES)
+
+    active = models.BooleanField(null=False, blank=False, default=True)
 
     @property
     def date(self):
