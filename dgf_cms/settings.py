@@ -286,6 +286,7 @@ INSTALLED_APPS = [
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
+    'django_admin_listfilter_dropdown',
     'dgf_cms',
 ]
 

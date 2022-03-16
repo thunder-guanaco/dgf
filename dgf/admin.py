@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from django_admin_listfilter_dropdown.filters import (
+    RelatedDropdownFilter
+)
 
 from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
     Attendance, Tour
@@ -84,7 +87,22 @@ class FriendAdmin(admin.ModelAdmin):
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'nickname', 'pdga_number', 'division')
+    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division',
+                    'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+
+    list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+
+    list_display_links = ('username',)
+
+    list_filter = (
+        'is_active',
+        ('division', RelatedDropdownFilter),
+        ('pdga_number', admin.EmptyFieldListFilter),
+        ('gt_number', admin.EmptyFieldListFilter),
+        ('udisc_username', admin.EmptyFieldListFilter),
+        ('metrix_user_id', admin.EmptyFieldListFilter),
+    )
+
     search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
 
 
@@ -149,7 +167,9 @@ class TournamentAdmin(admin.ModelAdmin):
     ]
 
     list_display = ('needs_check', 'name', 'active', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
+    list_editable = ('active', 'pdga_id', 'gt_id', 'metrix_id')
     list_display_links = ('name',)
+
     search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 
     inlines = [
