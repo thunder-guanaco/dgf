@@ -103,6 +103,7 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
             models.UniqueConstraint(fields=['pdga_number'], name='unique_pdga_number'),
             models.UniqueConstraint(fields=['gt_number'], name='unique_gt_number'),
+            models.UniqueConstraint(fields=['bagtag'], name='unique_bagtag'),
         ]
 
     nickname = models.CharField(_('Nickname'), max_length=30, null=True, blank=True)
@@ -129,9 +130,9 @@ class Friend(User):
     hobbies = models.CharField(_('Other hobbies'), max_length=200, null=True, blank=True)
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
-    rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[
-        MaxValueValidator(2000)
-    ])
+    rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[MaxValueValidator(2000)])
+    bagtag = models.PositiveIntegerField(_('Bagtag'), null=True, blank=True, validators=[MaxValueValidator(100)])
+
     total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
@@ -409,8 +410,7 @@ class Result(Model):
                                     name='the same tournament can not be played twice by the same friend'),
         ]
 
-    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results',
-                                   verbose_name=_('Tournament'))
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results', verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
     points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
@@ -459,6 +459,21 @@ class Tour(Model):
 
     def __str__(self):
         return f'{self.name}'
+
+
+class BagtagChange(Model):
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='bagtag_changes', verbose_name=_('Player'))
+    new_number = models.PositiveIntegerField(_('New number'), validators=[MinValueValidator(1)], null=True, blank=True)
+    previous_number = models.PositiveIntegerField(_('Previous number'), validators=[MinValueValidator(1)], null=True,
+                                                  blank=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.friend} changed bagtag from {self.previous_number} to {self.new_number} on {self.timestamp}'
+
+    def save(self, *args, **kwargs):
+        super(BagtagChange, self).save(*args, **kwargs)
+        logger.info(self)
 
 
 class CoursePluginModel(CMSPlugin):

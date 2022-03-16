@@ -6,6 +6,7 @@
 {% with show_ts_wins|default_if_none:False as show_ts_wins %}
 {% with udisc_score|default_if_none:0 as udisc_score %}
 {% with position|default_if_none:0 as position %}
+{% with bagtag|default_if_none:0 as bagtag %}
 {% with img_size|default:70 as img_size %}
 {% with font_size|default:30 as font_size %}
 
@@ -28,14 +29,17 @@
                 {% endif %}
             {% endif %}
             {% if udisc_score %} ({{udisc_score|stringformat:"+i"}}){% endif %}
-
         </div>
         {% if position %}
             <div class="friend-position">&#12935{{position}};</div>
         {% endif %}
+        {% if bagtag %}
+            <div class="friend-bagtag"><span>{{bagtag}}</span></div>
+        {% endif %}
 
     </a>
 
+{% endwith %}
 {% endwith %}
 {% endwith %}
 {% endwith %}

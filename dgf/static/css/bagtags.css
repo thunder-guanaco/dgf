@@ -1,0 +1,97 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+    .friend-ball img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    #bagtags .header.line {
+        justify-content: flex-end;
+    }
+
+    #bagtags .content .line {
+        justify-content: space-between;
+    }
+
+    #bagtags .content .numbers .wins {
+        padding: 0 0.6em;
+    }
+
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+
+    #bagtags .content .line {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+}
+
+#bagtags .header {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+#bagtags .content {
+    display: flex;
+    flex-direction: column;
+}
+
+#bagtags .line {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 0;
+}
+
+#bagtags .content .number {
+    font-size: 1.5em;
+    background-color: #8d1950;
+    width: 30px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    border: solid #8d1950 2px;
+    box-shadow: 0px 0px 2px 1px white inset;
+    margin: 0 1em;
+}
+
+#bagtags .content .number.clickable {
+    cursor: pointer;
+}
+
+#bagtags .content .number.clickable:hover {
+    background-color: #212529;
+    border: solid #212529 2px;
+}
+
+#bagtags .content .number span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#bagtags .content .player {
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#bagtags .player .friend-ball {
+    margin: 0 1em 0 0 !important;
+}
+
+#bagtags .player .friend-ball .friend-name {
+    display: none;
+}
+
+#bagtags .content .since {
+    margin: 0 1em;
+}
+
+
