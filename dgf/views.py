@@ -148,8 +148,17 @@ def bag_tag_claim(request, bag_tag):
     giver.save()
 
     now = datetime.now()
-    BagTagChange.objects.create(friend=taker, previous_number=taker_bag_tag, new_number=giver_bag_tag, timestamp=now)
-    BagTagChange.objects.create(friend=giver, previous_number=giver_bag_tag, new_number=taker_bag_tag, timestamp=now)
+    BagTagChange.objects.create(actor=request.user.friend,
+                                friend=taker,
+                                previous_number=taker_bag_tag,
+                                new_number=giver_bag_tag,
+                                timestamp=now)
+
+    BagTagChange.objects.create(actor=request.user.friend,
+                                friend=giver,
+                                previous_number=giver_bag_tag,
+                                new_number=taker_bag_tag,
+                                timestamp=now)
 
     return HttpResponse(status=200)
 

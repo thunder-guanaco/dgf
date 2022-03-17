@@ -1,5 +1,6 @@
 import logging
 import re
+from datetime import datetime
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
@@ -151,6 +152,12 @@ class Friend(User):
         second = f' {self.last_name[0]}' if self.last_name else ''
         return f'{first}{second}'
 
+    __original_bag_tag = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_bag_tag = self.bag_tag
+
     def __str__(self):
         last_name = f' {self.last_name}' if self.last_name else ''
         pdga_number = f' #{self.pdga_number}' if self.pdga_number else ''
@@ -158,10 +165,21 @@ class Friend(User):
         return f'{self.first_name}{last_name}{pdga_number}{show_if_inactive}'
 
     def save(self, *args, **kwargs):
+        # slug
         new_slug = self.slug or self.nickname or self.first_name or self.username
         self.slug = slugify(new_slug).lower()
         logger.info(f'Setting slug for {self.username} to {self.slug}')
+
+        # bag tag
+        if not self.__original_bag_tag and self.bag_tag:
+            BagTagChange.objects.create(actor=Friend.objects.get(username='manolo'),
+                                        friend=self.friend,
+                                        previous_number=None,
+                                        new_number=self.bag_tag,
+                                        timestamp=datetime.now())
+
         super(Friend, self).save(*args, **kwargs)
+        self.__original_bag_tag = self.bag_tag
 
 
 class UdiscRound(Model):
@@ -465,7 +483,8 @@ class BagTagChange(Model):
     actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='created_bag_tag_changes',
                               verbose_name=_('Actor'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='bag_tag_changes', verbose_name=_('Player'))
-    new_number = models.PositiveIntegerField(_('New number'), validators=[MinValueValidator(1)], null=True, blank=True)
+    new_number = models.PositiveIntegerField(_('New number'), validators=[MinValueValidator(1)], null=False,
+                                             blank=False)
     previous_number = models.PositiveIntegerField(_('Previous number'), validators=[MinValueValidator(1)], null=True,
                                                   blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
