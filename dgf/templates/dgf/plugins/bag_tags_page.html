@@ -54,19 +54,19 @@
                 {% trans "Change bag tags" %}
             </button>
         </div>
-        <div id="bag-tags-popup" style="display: none;">
-            <h2>{% trans "Change the bag tags" %}</h2>
-            <div id="popup-lists">
-                <ul id="popup-numbers"></ul>
-                <ul id="popup-players"></ul>
-            </div>
-            <div id="popup-error">
-            </div>
-            <div id="popup-save">
-                <button onclick="popupSave()">
-                    {% trans "Save" %}
-                </button>
-            </div>
+    </div>
+    <div id="edit-bag-tags" style="display: none;">
+        <h2>{% trans "Change the bag tags" %}</h2>
+        <div id="popup-lists">
+            <ul id="popup-numbers"></ul>
+            <ul id="popup-players"></ul>
+        </div>
+        <div id="popup-error">
+        </div>
+        <div id="popup-save">
+            <button onclick="popupSave()">
+                {% trans "Save" %}
+            </button>
         </div>
     </div>
 {% endwith %}
