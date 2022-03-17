@@ -6,7 +6,7 @@
 {% with show_ts_wins|default_if_none:False as show_ts_wins %}
 {% with udisc_score|default_if_none:0 as udisc_score %}
 {% with position|default_if_none:0 as position %}
-{% with bagtag|default_if_none:0 as bagtag %}
+{% with bag_tag|default_if_none:0 as bag_tag %}
 {% with img_size|default:70 as img_size %}
 {% with font_size|default:30 as font_size %}
 
@@ -33,8 +33,8 @@
         {% if position %}
             <div class="friend-position">&#12935{{position}};</div>
         {% endif %}
-        {% if bagtag %}
-            <div class="friend-bagtag"><span>{{bagtag}}</span></div>
+        {% if bag_tag %}
+            <div class="friend-bag-tag"><span>{{bag_tag}}</span></div>
         {% endif %}
 
     </a>

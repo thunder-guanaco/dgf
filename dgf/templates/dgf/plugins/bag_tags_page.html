@@ -1,23 +1,23 @@
 {% load sekizai_tags static i18n dgf %}
 
 {% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bagtags.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tags.css' %}">
 {% endaddtoblock %}
 
 {% with request.user.is_authenticated as authenticated %}
-    <div id="bagtags">
+    <div id="bag-tags">
         <h2>
-            {% trans "Bagtags" %}
+            {% trans "Bag Tags" %}
         </h2>
         <div class="content">
             {% for friend in friends %}
                 <div class="line">
-                    {% if authenticated and request.user.friend.bagtag %}
-                        <div class="number clickable" onclick="claimBagtag({{friend.bagtag}}, '{% url 'dgf:bagtag_claim' friend.bagtag %}')">
+                    {% if authenticated and request.user.friend.bag_tag %}
+                        <div class="number clickable" onclick="claimBagTag({{friend.bag_tag}}, '{% url 'dgf:bag_tag_claim' friend.bag_tag %}')">
                     {% else %}
                         <div class="number">
                     {% endif %}
-                        <span>{{friend.bagtag}}</span>
+                        <span>{{friend.bag_tag}}</span>
                     </div>
                     <div class="player">
                         {% include "dgf/includes/friend_ball.html" with friend=friend %}
@@ -35,8 +35,8 @@
 {% endwith %}
 
 <script>
-    function claimBagtag(number, url) {
-        text = "{% trans "Do you claim bagtag number " %}" + number + "?";
+    function claimBagTag(number, url) {
+        text = "{% trans "Do you claim bag tag number " %}" + number + "?";
 
         if (confirm(text) == false) {
             return;
