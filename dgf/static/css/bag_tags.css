@@ -135,7 +135,7 @@
     margin: 1em;
 }
 
-#popup-lists {
+#multiple-bag-tag-lists {
     margin: 1em;
     display: flex;
     flex-direction: row;
@@ -152,23 +152,23 @@
     align-items: flex-start;
 }
 
-#popup-players li {
+#multiple-bag-tag-players li {
     //background-color: #ddf;
     //padding-left: 50px
 }
 
-#popup-players li, #s-l-base li {
+#multiple-bag-tag-players li, #s-l-base li {
     //background-color: #ddf;
     //padding-left: 50px
 }
 
-#popup-error {
+#multiple-bag-tag-error {
     color: red;
     margin-bottom: 1em;
     align-self: center;
 }
 
-#popup-save {
+#multiple-bag-tag-save {
     align-self: center;
     margin-bottom: 2em;
 }
