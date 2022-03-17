@@ -131,7 +131,7 @@ class Friend(User):
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[MaxValueValidator(2000)])
-    bagtag = models.PositiveIntegerField(_('Bagtag'), null=True, blank=True, validators=[MaxValueValidator(100)])
+    bagtag = models.PositiveIntegerField(_('Bagtag'), null=True, blank=True, validators=[MaxValueValidator(500)])
 
     total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
