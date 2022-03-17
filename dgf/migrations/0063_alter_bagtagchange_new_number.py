@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('dgf', '0062_rename_bagtagchange2_bagtagchange'),
     ]
@@ -14,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bagtagchange',
             name='new_number',
-            field=models.PositiveIntegerField(default=None, validators=[django.core.validators.MinValueValidator(1)], verbose_name='New number'),
+            field=models.PositiveIntegerField(default=None, validators=[django.core.validators.MinValueValidator(1)],
+                                              verbose_name='New number'),
             preserve_default=False,
         ),
     ]
