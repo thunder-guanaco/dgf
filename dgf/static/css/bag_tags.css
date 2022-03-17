@@ -153,9 +153,6 @@
 }
 
 #multiple-bag-tag-players li {
-}
-
-#multiple-bag-tag-players li, #s-l-base li {
     background-color: #f3f3f3;
     border-style: groove;
     padding: 0.5em !important;
