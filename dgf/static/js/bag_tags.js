@@ -35,9 +35,6 @@ function toggleMultipleBagTagMode() {
         $("#bag-tags .number").removeClass("selected");
     }
 
-    $("#bag-tags .number").toggleClass("selected");
-    changeMultipleBagTags();
-
 }
 
 function bagTagClicked(bagTag) {

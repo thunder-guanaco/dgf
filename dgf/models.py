@@ -462,6 +462,8 @@ class Tour(Model):
 
 
 class BagTagChange(Model):
+    actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='created_bag_tag_changes',
+                              verbose_name=_('Actor'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='bag_tag_changes', verbose_name=_('Player'))
     new_number = models.PositiveIntegerField(_('New number'), validators=[MinValueValidator(1)], null=True, blank=True)
     previous_number = models.PositiveIntegerField(_('Previous number'), validators=[MinValueValidator(1)], null=True,
@@ -469,7 +471,8 @@ class BagTagChange(Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
 
     def __str__(self):
-        return f'{self.friend} changed bag tag from {self.previous_number} to {self.new_number} on {self.timestamp}'
+        return f'{self.friend} changed bag tag from {self.previous_number} to {self.new_number} ' \
+               f'on {self.timestamp} ({self.actor} said so)'
 
     def save(self, *args, **kwargs):
         super(BagTagChange, self).save(*args, **kwargs)
