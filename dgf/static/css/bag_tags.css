@@ -153,13 +153,18 @@
 }
 
 #multiple-bag-tag-players li {
-    //background-color: #ddf;
-    //padding-left: 50px
 }
 
 #multiple-bag-tag-players li, #s-l-base li {
-    //background-color: #ddf;
-    //padding-left: 50px
+    background-color: #f3f3f3;
+    border-style: groove;
+    padding: 0.5em !important;
+}
+
+.draggedPlayer {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 #multiple-bag-tag-error {

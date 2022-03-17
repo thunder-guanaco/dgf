@@ -71,21 +71,11 @@ function changeMultipleBagTags() {
     $("#edit-bag-tags").show();
     $("#bag-tags").hide();
 
-    /*
-    var options = {
-        // Like a css class name. Class will be removed after drop.
-        currElClass: 'currElemClass',
-        // or like a jQuery css object. Note that css object settings can't be removed
-        currElCss: {
-            'background-color':'green',
-            'color':'#fff',
-            'list-style-type': 'none',
-            'padding': 0,
-            'margin': 0,
-        }
-    }
-    $('#multiple-bag-tag-players').sortableLists(options);
-    */
+    $('#multiple-bag-tag-players').sortableLists({
+        currElClass: 'draggedPlayer',
+        listSelector: 'ul',
+        maxLevels: 1,
+    });
 }
 
 function multipleBagTagsSave() {
