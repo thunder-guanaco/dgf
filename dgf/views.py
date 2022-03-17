@@ -184,8 +184,8 @@ def bag_tag_update(request):
         friend = Friend.objects.get(username=username)
         friend.bag_tag = bag_tag
         friend.save()
-        # TODO: meter al actor
-        BagTagChange.objects.create(friend=friend,
+        BagTagChange.objects.create(actor=actor,
+                                    friend=friend,
                                     previous_number=current_bag_tags[username],
                                     new_number=new_bag_tags[username],
                                     timestamp=now)
