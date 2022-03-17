@@ -6,16 +6,12 @@
         height: 70px !important;
     }
 
-    #bagtags .header.line {
-        justify-content: flex-end;
-    }
-
     #bagtags .content .line {
-        justify-content: space-between;
+        justify-content: space-evenly;
     }
 
-    #bagtags .content .numbers .wins {
-        padding: 0 0.6em;
+    #bagtags .content .line .player {
+        width: 50%;
     }
 
 }
@@ -26,6 +22,11 @@
     #bagtags .content .line {
         width: 100%;
         justify-content: flex-start;
+        margin-left: 5em;
+    }
+
+    #bagtags .content .line .number {
+        margin: 0 1em;
     }
 
 }
@@ -50,15 +51,16 @@
 }
 
 #bagtags .content .number {
-    font-size: 1.5em;
+    font-weight: bold;
+    font-size: 1.25em;
     background-color: #8d1950;
     width: 30px;
     line-height: 35px;
     text-align: center;
     color: white;
     border: solid #8d1950 2px;
+    border-radius: 2px;
     box-shadow: 0px 0px 2px 1px white inset;
-    margin: 0 1em;
 }
 
 #bagtags .content .number.clickable {
