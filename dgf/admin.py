@@ -5,7 +5,7 @@ from django_admin_listfilter_dropdown.filters import (
 )
 
 from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
-    Attendance, Tour
+    Attendance, Tour, BagtagChange
 
 
 @admin.register(Course)
@@ -70,6 +70,7 @@ class FriendAdmin(admin.ModelAdmin):
          ),
         ('Rest', {
             'fields': [
+                'bagtag',
                 'club_role',
                 'sponsor',
                 'sponsor_logo',
@@ -87,10 +88,10 @@ class FriendAdmin(admin.ModelAdmin):
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division',
+    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bagtag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
-    list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+    list_editable = ('bagtag', 'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_display_links = ('username',)
 
@@ -201,3 +202,20 @@ class TourAdmin(admin.ModelAdmin):
         TournamentsTourRelationInline,
     ]
     exclude = ('tournaments',)
+
+
+@admin.register(BagtagChange)
+class BagtagChangeAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('', {
+            'fields': [
+                ('friend', 'timestamp'),
+                ('previous_number', 'new_number'),
+            ]}
+         )
+    ]
+
+    readonly_fields = ['friend', 'previous_number', 'new_number', 'timestamp']
+
+    list_display = ('friend', 'previous_number', 'new_number', 'timestamp')
+    search_fields = ('friend', 'previous_number', 'new_number')

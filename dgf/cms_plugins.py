@@ -3,7 +3,7 @@ from datetime import datetime
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Max
 from django.utils.translation import gettext_lazy as _
 
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel
@@ -84,12 +84,32 @@ def friends_order_by_ts_wins():
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
 
 
+def friends_order_by_bagtag():
+    return Friend.objects.filter(bagtag__isnull=False) \
+        .annotate(since=Max('bagtag_changes__timestamp')) \
+        .order_by('bagtag')
+
+
 @plugin_pool.register_plugin
 class TourResultsPluginPublisher(CMSPluginBase):
     model = TourPluginModel
     module = _('Disc Golf Friends')
     name = _('Tour Results')
     render_template = 'dgf/plugins/tour_results.html'
+
+
+@plugin_pool.register_plugin
+class BagtagsPagePluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends')
+    name = _('Bagtags (whole page)')
+    render_template = 'dgf/plugins/bagtags_page.html'
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'friends': friends_order_by_bagtag(),
+        })
+        return context
 
 
 @plugin_pool.register_plugin
