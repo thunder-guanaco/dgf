@@ -12,7 +12,7 @@
         <div class="content">
             {% for friend in friends %}
                 <div class="line">
-                    {% if authenticated %}
+                    {% if authenticated and request.user.friend.bagtag %}
                         <div class="number clickable" onclick="claimBagtag({{friend.bagtag}}, '{% url 'dgf:bagtag_claim' friend.bagtag %}')">
                     {% else %}
                         <div class="number">

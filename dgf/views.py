@@ -122,9 +122,13 @@ def attendance(request, tournament_id):
 @login_required
 def bagtag_claim(request, bagtag):
     if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')
+        return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     taker = request.user.friend
+
+    if not taker.bagtag:
+        return HttpResponse(status=400, reason='Only friends with bagtag are allowed to claim other.')
+
     giver = Friend.objects.get(bagtag=bagtag)
 
     taker_bagtag = taker.bagtag
