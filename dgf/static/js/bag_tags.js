@@ -68,7 +68,8 @@ function changeMultipleBagTags() {
         $("#bag-tags .content .player[data-bag-tag='" + number + "']").clone().appendTo(playerListItem);
     });
 
-    $("#bag-tags-popup").show();
+    $("#edit-bag-tags").show();
+    $("#bag-tags").hide();
 
     /*
     var options = {
