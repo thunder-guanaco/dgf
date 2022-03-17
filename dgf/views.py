@@ -10,7 +10,7 @@ from django.views.generic import CreateView
 
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
-from dgf.models import Friend, Feedback, Video, Tournament, Attendance, BagtagChange
+from dgf.models import Friend, Feedback, Video, Tournament, Attendance, BagTagChange
 
 
 class IndexView(generic.ListView):
@@ -120,34 +120,34 @@ def attendance(request, tournament_id):
 
 
 @login_required
-def bagtag_claim(request, bagtag):
+def bag_tag_claim(request, bag_tag):
     if request.method != 'POST':
         return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     taker = request.user.friend
 
-    if not taker.bagtag:
-        return HttpResponse(status=400, reason='Only friends with bagtag are allowed to claim other.')
+    if not taker.bag_tag:
+        return HttpResponse(status=400, reason='Only friends with bag_tag are allowed to claim other.')
 
-    giver = Friend.objects.get(bagtag=bagtag)
+    giver = Friend.objects.get(bag_tag=bag_tag)
 
-    taker_bagtag = taker.bagtag
-    giver_bagtag = giver.bagtag
+    taker_bag_tag = taker.bag_tag
+    giver_bag_tag = giver.bag_tag
 
-    # take bagtags away
-    taker.bagtag = None
+    # take bag tags away
+    taker.bag_tag = None
     taker.save()
-    giver.bagtag = None
+    giver.bag_tag = None
     giver.save()
 
-    # save new bagtags
-    taker.bagtag = giver_bagtag
+    # save new bag tags
+    taker.bag_tag = giver_bag_tag
     taker.save()
-    giver.bagtag = taker_bagtag
+    giver.bag_tag = taker_bag_tag
     giver.save()
 
     now = datetime.now()
-    BagtagChange.objects.create(friend=taker, previous_number=taker_bagtag, new_number=giver_bagtag, timestamp=now)
-    BagtagChange.objects.create(friend=giver, previous_number=giver_bagtag, new_number=taker_bagtag, timestamp=now)
+    BagTagChange.objects.create(friend=taker, previous_number=taker_bag_tag, new_number=giver_bag_tag, timestamp=now)
+    BagTagChange.objects.create(friend=giver, previous_number=giver_bag_tag, new_number=taker_bag_tag, timestamp=now)
 
     return HttpResponse(status=200)

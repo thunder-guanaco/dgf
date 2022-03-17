@@ -6,7 +6,7 @@
         height: 70px !important;
     }
 
-    #bagtags .content .line {
+    #bag-tags .content .line {
         margin-left: 1em;
     }
 }
@@ -14,22 +14,22 @@
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #bagtags .content .line {
+    #bag-tags .content .line {
         margin-left: 5em;
     }
 }
 
-#bagtags .header {
+#bag-tags .header {
     font-weight: bold;
     font-size: 1.25em;
 }
 
-#bagtags .content {
+#bag-tags .content {
     display: flex;
     flex-direction: column;
 }
 
-#bagtags .line {
+#bag-tags .line {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -39,7 +39,7 @@
     padding: 0.5em 0;
 }
 
-#bagtags .content .number {
+#bag-tags .content .number {
     font-weight: bold;
     font-size: 1.25em;
     background-color: #8d1950;
@@ -53,36 +53,36 @@
     margin: 0 1em;
 }
 
-#bagtags .content .number.clickable {
+#bag-tags .content .number.clickable {
     cursor: pointer;
 }
 
-#bagtags .content .number.clickable:hover {
+#bag-tags .content .number.clickable:hover {
     background-color: #212529;
     border: solid #212529 2px;
 }
 
-#bagtags .content .number span {
+#bag-tags .content .number span {
     display: inline-block;
     vertical-align: middle;
 }
 
-#bagtags .content .player {
+#bag-tags .content .player {
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#bagtags .player .friend-ball {
+#bag-tags .player .friend-ball {
     margin: 0 1em 0 0 !important;
 }
 
-#bagtags .player .friend-ball .friend-name {
+#bag-tags .player .friend-ball .friend-name {
     display: none;
 }
 
-#bagtags .content .since {
+#bag-tags .content .since {
     margin: 0 1em;
 }
 
