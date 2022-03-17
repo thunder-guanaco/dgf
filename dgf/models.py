@@ -103,7 +103,7 @@ class Friend(User):
             models.UniqueConstraint(fields=['slug'], name='unique_slug'),
             models.UniqueConstraint(fields=['pdga_number'], name='unique_pdga_number'),
             models.UniqueConstraint(fields=['gt_number'], name='unique_gt_number'),
-            models.UniqueConstraint(fields=['bagtag'], name='unique_bagtag'),
+            models.UniqueConstraint(fields=['bag_tag'], name='unique_bag_tag'),
         ]
 
     nickname = models.CharField(_('Nickname'), max_length=30, null=True, blank=True)
@@ -131,7 +131,7 @@ class Friend(User):
 
     slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[MaxValueValidator(2000)])
-    bagtag = models.PositiveIntegerField(_('Bagtag'), null=True, blank=True, validators=[MaxValueValidator(500)])
+    bag_tag = models.PositiveIntegerField(_('Bag Tag'), null=True, blank=True, validators=[MaxValueValidator(500)])
 
     total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
@@ -461,18 +461,18 @@ class Tour(Model):
         return f'{self.name}'
 
 
-class BagtagChange(Model):
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='bagtag_changes', verbose_name=_('Player'))
+class BagTagChange(Model):
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='bag_tag_changes', verbose_name=_('Player'))
     new_number = models.PositiveIntegerField(_('New number'), validators=[MinValueValidator(1)], null=True, blank=True)
     previous_number = models.PositiveIntegerField(_('Previous number'), validators=[MinValueValidator(1)], null=True,
                                                   blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
 
     def __str__(self):
-        return f'{self.friend} changed bagtag from {self.previous_number} to {self.new_number} on {self.timestamp}'
+        return f'{self.friend} changed bag tag from {self.previous_number} to {self.new_number} on {self.timestamp}'
 
     def save(self, *args, **kwargs):
-        super(BagtagChange, self).save(*args, **kwargs)
+        super(BagTagChange, self).save(*args, **kwargs)
         logger.info(self)
 
 

@@ -5,7 +5,7 @@ from django_admin_listfilter_dropdown.filters import (
 )
 
 from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
-    Attendance, Tour, BagtagChange
+    Attendance, Tour, BagTagChange
 
 
 @admin.register(Course)
@@ -70,7 +70,7 @@ class FriendAdmin(admin.ModelAdmin):
          ),
         ('Rest', {
             'fields': [
-                'bagtag',
+                'bag_tag',
                 'club_role',
                 'sponsor',
                 'sponsor_logo',
@@ -88,10 +88,10 @@ class FriendAdmin(admin.ModelAdmin):
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bagtag',
+    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
-    list_editable = ('bagtag', 'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+    list_editable = ('bag_tag', 'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_display_links = ('username',)
 
@@ -204,8 +204,8 @@ class TourAdmin(admin.ModelAdmin):
     exclude = ('tournaments',)
 
 
-@admin.register(BagtagChange)
-class BagtagChangeAdmin(admin.ModelAdmin):
+@admin.register(BagTagChange)
+class BagTagChangeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
             'fields': [

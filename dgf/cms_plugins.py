@@ -84,10 +84,10 @@ def friends_order_by_ts_wins():
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
 
 
-def friends_order_by_bagtag():
-    return Friend.objects.filter(bagtag__isnull=False) \
-        .annotate(since=Max('bagtag_changes__timestamp')) \
-        .order_by('bagtag')
+def friends_order_by_bag_tag():
+    return Friend.objects.filter(bag_tag__isnull=False) \
+        .annotate(since=Max('bag_tag_changes__timestamp')) \
+        .order_by('bag_tag')
 
 
 @plugin_pool.register_plugin
@@ -99,15 +99,15 @@ class TourResultsPluginPublisher(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
-class BagtagsPagePluginPublisher(CMSPluginBase):
+class BagTagsPagePluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Disc Golf Friends')
-    name = _('Bagtags (whole page)')
-    render_template = 'dgf/plugins/bagtags_page.html'
+    name = _('Bag Tags (whole page)')
+    render_template = 'dgf/plugins/bag_tags_page.html'
 
     def render(self, context, instance, placeholder):
         context.update({
-            'friends': friends_order_by_bagtag(),
+            'friends': friends_order_by_bag_tag(),
         })
         return context
 
