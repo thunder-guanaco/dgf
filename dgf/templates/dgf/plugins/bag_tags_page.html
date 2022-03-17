@@ -4,22 +4,40 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tags.css' %}">
 {% endaddtoblock %}
 
+{% addtoblock "js" %}
+    <script>
+        const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
+        const csrfToken = "{{csrf_token}}";
+        const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
+    </script>
+    <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
+{% endaddtoblock %}
+
 {% with request.user.is_authenticated as authenticated %}
     <div id="bag-tags">
-        <h2>
-            {% trans "Bag Tags" %}
-        </h2>
+        <div class="header">
+            <h2>
+                {% trans "Bag Tags" %}
+            </h2>
+            <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
+                <span class="change">{% trans "Change multiple bag tags" %}</span>
+                <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+            </button>
+        </div>
         <div class="content">
             {% for friend in friends %}
                 <div class="line">
                     {% if authenticated and request.user.friend.bag_tag %}
-                        <div class="number clickable" onclick="claimBagTag({{friend.bag_tag}}, '{% url 'dgf:bag_tag_claim' friend.bag_tag %}')">
+                        <div class="number clickable"
+                             data-bag-tag="{{friend.bag_tag}}"
+                             data-url="{% url 'dgf:bag_tag_claim' friend.bag_tag %}"
+                             onclick="bagTagClicked({{friend.bag_tag}})">
                     {% else %}
                         <div class="number">
                     {% endif %}
                         <span>{{friend.bag_tag}}</span>
                     </div>
-                    <div class="player">
+                    <div class="player" data-username="{{friend.username}}" data-bag-tag="{{friend.bag_tag}}">
                         {% include "dgf/includes/friend_ball.html" with friend=friend %}
                         <div>
                             {{friend.short_name}}
@@ -31,30 +49,24 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="footer">
+            <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
+                {% trans "Change bag tags" %}
+            </button>
+        </div>
+        <div id="bag-tags-popup" style="display: none;">
+            <h2>{% trans "Change the bag tags" %}</h2>
+            <div id="popup-lists">
+                <ul id="popup-numbers"></ul>
+                <ul id="popup-players"></ul>
+            </div>
+            <div id="popup-error">
+            </div>
+            <div id="popup-save">
+                <button onclick="popupSave()">
+                    {% trans "Save" %}
+                </button>
+            </div>
+        </div>
     </div>
 {% endwith %}
-
-<script>
-    function claimBagTag(number, url) {
-        text = "{% trans "Do you claim bag tag number " %}" + number + "?";
-
-        if (confirm(text) == false) {
-            return;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            beforeSend:function(xhr){
-                xhr.setRequestHeader("X-CSRFToken", "{{csrf_token}}");
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function(rs, e) {
-                console.log(rs.responseText);
-                console.log(e);
-            }
-        });
-    }
-</script>

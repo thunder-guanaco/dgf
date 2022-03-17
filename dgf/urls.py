@@ -11,5 +11,6 @@ urlpatterns = [
     path('tournaments/', views.TournamentsView.as_view(), name='tournament_index'),
     path('tournaments/<int:tournament_id>/attendance', views.attendance, name='tournament_attendance'),
     path('bag-tags/<int:bag_tag>/claim', views.bag_tag_claim, name='bag_tag_claim'),
+    path('bag-tags/', views.bag_tag_update, name='bag_tag_update'),
     path('<str:slug>/', views.DetailView.as_view(), name='friend_detail'),
 ]

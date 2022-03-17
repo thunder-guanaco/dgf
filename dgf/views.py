@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.views.generic import CreateView
 
@@ -127,7 +128,7 @@ def bag_tag_claim(request, bag_tag):
     taker = request.user.friend
 
     if not taker.bag_tag:
-        return HttpResponse(status=400, reason='Only friends with bag_tag are allowed to claim other.')
+        return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to claim other.')
 
     giver = Friend.objects.get(bag_tag=bag_tag)
 
@@ -149,5 +150,44 @@ def bag_tag_claim(request, bag_tag):
     now = datetime.now()
     BagTagChange.objects.create(friend=taker, previous_number=taker_bag_tag, new_number=giver_bag_tag, timestamp=now)
     BagTagChange.objects.create(friend=giver, previous_number=giver_bag_tag, new_number=taker_bag_tag, timestamp=now)
+
+    return HttpResponse(status=200)
+
+
+@login_required
+def bag_tag_update(request):
+    if request.method != 'POST':
+        return HttpResponse(status=405, reason='Only POST method is allowed here.')
+
+    actor = request.user.friend
+
+    if not actor.bag_tag:
+        return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to change them.')
+
+    current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list("username", "bag_tag"))
+    new_bag_tags = {key: int(value) for key, value in request.POST.items()}
+
+    if set(current_bag_tags.keys()) != set(new_bag_tags.keys()):
+        return HttpResponse(status=400, reason=_('This makes no sense. For these bag tags the users should be: '
+                                                 f'{str(sorted(current_bag_tags.keys()))[1:-1]}'))
+
+    if set(current_bag_tags.values()) != set(new_bag_tags.values()):
+        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
+                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
+
+    # take bag tags away
+    Friend.objects.filter(username__in=request.POST.keys()).update(bag_tag=None)
+
+    now = datetime.now()
+
+    for username, bag_tag in new_bag_tags.items():
+        friend = Friend.objects.get(username=username)
+        friend.bag_tag = bag_tag
+        friend.save()
+        # TODO: meter al actor
+        BagTagChange.objects.create(friend=friend,
+                                    previous_number=current_bag_tags[username],
+                                    new_number=new_bag_tags[username],
+                                    timestamp=now)
 
     return HttpResponse(status=200)
