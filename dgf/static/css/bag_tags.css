@@ -10,7 +10,6 @@
         margin-left: 1em;
     }
 
-
     .header {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -38,6 +37,10 @@
 
     #bag-tags .content .line {
         margin-left: 5em;
+    }
+
+    #edit-bag-tags {
+        margin: 1em;
     }
 }
 
