@@ -27,6 +27,10 @@
     .header > div {
         align-self: flex-end;
     }
+
+    .number {
+        margin: 0 1em 0 0 !important;
+    }
 }
 
 /* desktop */
@@ -155,12 +159,7 @@
     flex-direction: column;
 }
 
-#edit-bag-tags {
-    margin: 1em;
-}
-
 #multiple-bag-tag-lists {
-    margin: 1em;
     display: flex;
     flex-direction: row;
 }

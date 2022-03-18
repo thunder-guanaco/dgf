@@ -396,7 +396,7 @@ msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
 #: dgf/models.py:484
 msgid "Actor"
-msgstr "Täter"
+msgstr "Akteur"
 
 #: dgf/models.py:486
 msgid "New number"
