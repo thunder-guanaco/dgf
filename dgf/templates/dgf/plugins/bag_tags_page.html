@@ -15,18 +15,23 @@
 
 {% with request.user.is_authenticated as authenticated %}
     <div id="bag-tags">
+        <h2>{% trans "Bag Tags" %}</h2>
         <div class="header">
-            <h2>
-                {% trans "Bag Tags" %}
-            </h2>
-            <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
-                <span class="change">{% trans "Change multiple bag tags" %}</span>
-                <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
-            </button>
+            {% if authenticated and request.user.friend.bag_tag %}
+                <h4 id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </h4>
+                <h4 id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on [continue]" %} </h4>
+                <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
+                    {% trans "Continue" %}
+                </button>
+                <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
+                    <span class="change">{% trans "update multiple bag tags" %}</span>
+                    <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+                </button>
+            {% endif %}
         </div>
         <div class="content">
             {% for friend in friends %}
-                <div class="line">
+                <div class="line" >
                     {% if authenticated and request.user.friend.bag_tag %}
                         <div class="number clickable"
                              data-bag-tag="{{friend.bag_tag}}"
@@ -49,24 +54,19 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="footer">
-            <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
-                {% trans "Update bag tags" %}
-            </button>
-        </div>
     </div>
     <div id="edit-bag-tags" style="display: none;">
         <h2>{% trans "Update the bag tags" %}</h2>
-        <div id="multiple-bag-tag-lists">
-            <ul id="multiple-bag-tag-numbers"></ul>
-            <ul id="multiple-bag-tag-players"></ul>
-        </div>
-        <div id="multiple-bag-tag-error">
-        </div>
-        <div id="multiple-bag-tag-save">
-            <button onclick="multipleBagTagsSave()">
+        <div class="header">
+            <h4>{% trans "You can either change the numbers on the left or move the friends on the right. Don't forget to save." %}</h4>
+            <button id="multiple-bag-tag-save" onclick="multipleBagTagsSave()">
                 {% trans "Save" %}
             </button>
+            <button id="multiple-bag-tag-cancel" onclick="multipleBagTagsCancel()">
+                {% trans "Cancel" %}
+            </button>
         </div>
+        <div id="multiple-bag-tag-error"></div>
+        <div id="multiple-bag-tag-lists"></div>
     </div>
 {% endwith %}

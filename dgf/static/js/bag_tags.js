@@ -26,14 +26,38 @@ multipleBagTagMode = false;
 function toggleMultipleBagTagMode() {
 
     multipleBagTagMode = !multipleBagTagMode;
+    $("#bag-tags").toggleClass("multiple-mode");
     $("#bag-tags .number").toggleClass("gray");
     $("#toggle-mode .change").toggle();
     $("#toggle-mode .cancel").toggle();
+    $("#show-bag-tags-hint").toggle();
+    $("#select-bag-tags-hint").toggle();
     $("#change-multiple-bag-tags").toggle();
 
-    if (!multipleBagTagMode) {
+    if (multipleBagTagMode) {
+
+        console.log("enter multipleBagTagMode");
+
+        $("#bag-tags .friend-ball").each(function() {
+            $(this).attr("old-href", $(this).attr("href"));
+            $(this).removeAttr("href");
+        });
+    }
+    else {
+        console.log("exiting multipleBagTagMode");
+
+        $("#bag-tags .friend-ball").each(function() {
+            $(this).attr("href", $(this).attr("old-href"));
+            $(this).removeAttr("old-href");
+        });
+
         $("#bag-tags .number").removeClass("selected");
     }
+
+    // just for debug
+    //$("#bag-tags .number").toggleClass("selected");
+    //changeMultipleBagTags();
+
 
 }
 
@@ -51,8 +75,8 @@ function bagTagClicked(bagTag) {
 
 function changeMultipleBagTags() {
 
-    $("#multiple-bag-tag-numbers li").remove();
-    $("#multiple-bag-tag-players li").remove();
+    $("#multiple-bag-tag-lists").append("<ul id='multiple-bag-tag-numbers'></ul>");
+    $("#multiple-bag-tag-lists").append("<ul id='multiple-bag-tag-players'></ul>");
 
     $("#bag-tags .content .number.selected").each(function(){
         var number = $(this).data("bag-tag");
@@ -68,13 +92,17 @@ function changeMultipleBagTags() {
         $("#bag-tags .content .player[data-bag-tag='" + number + "']").clone().appendTo(playerListItem);
     });
 
-    $("#edit-bag-tags").show();
     $("#bag-tags").hide();
+    $("#edit-bag-tags").show();
 
     $('#multiple-bag-tag-players').sortableLists({
         currElClass: 'draggedPlayer',
         listSelector: 'ul',
         maxLevels: 1,
+        insertZone: 500,
+        //insertZonePlus: true,
+        scroll: 100,
+        placeholderCss: {'background-color': 'rgba(143, 25, 80, 0.1)'},
     });
 }
 
@@ -111,4 +139,14 @@ function multipleBagTagsSave() {
             $("#multiple-bag-tag-error").append("<span>" + response.statusText + "</span>")
         }
     });
+}
+
+function multipleBagTagsCancel() {
+
+    $("#multiple-bag-tag-numbers").remove();
+    $("#multiple-bag-tag-players").remove();
+
+    $("#edit-bag-tags").hide();
+    $("#bag-tags").show();
+
 }

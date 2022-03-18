@@ -60,6 +60,9 @@
             <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 
+            {% comment %}
+                Documentation about sortable lists (drag and drop): http://camohub.github.io/jquery-sortable-lists/index.html
+            {% endcomment %}
             {% if request.user_agent.is_mobile %}
                 <script type="text/javascript" src="{% static 'js/jquery-sortable-lists-mobile.min.js' %}"></script>
             {% else %}

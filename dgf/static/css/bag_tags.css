@@ -19,20 +19,21 @@
     }
 }
 
-#bag-tags {
-    display: flex;
-    flex-direction: column;
-}
-
-#bag-tags .header {
+.header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
-#bag-tags .header button {
+.header button {
     height: fit-content;
+    margin-left: 1em;
+}
+
+#bag-tags {
+    display: flex;
+    flex-direction: column;
 }
 
 #bag-tags .content {
@@ -70,6 +71,10 @@
 #bag-tags .number.gray {
     background-color: #999999;
     border-color: #999999;
+}
+
+#bag-tags.multiple-mode .friend-ball .tooltip-text {
+    display: none;
 }
 
 #bag-tags .number.selected {
@@ -131,7 +136,7 @@
     flex-direction: column;
 }
 
-#edit-bag-tags h2 {
+#edit-bag-tags {
     margin: 1em;
 }
 
@@ -152,10 +157,15 @@
     align-items: flex-start;
 }
 
-#multiple-bag-tag-players li {
+#multiple-bag-tag-players li{
     background-color: #f3f3f3;
-    border-style: groove;
+    border: 1px solid #ccc!important;
+    border-radius: 10px;
     padding: 0.5em !important;
+}
+
+#s-l-base li {
+    opacity: 0.8;
 }
 
 .draggedPlayer {
@@ -166,11 +176,4 @@
 
 #multiple-bag-tag-error {
     color: red;
-    margin-bottom: 1em;
-    align-self: center;
-}
-
-#multiple-bag-tag-save {
-    align-self: center;
-    margin-bottom: 2em;
 }

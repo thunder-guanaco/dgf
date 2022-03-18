@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 23:41+0100\n"
+"POT-Creation-Date: 2022-03-18 12:32+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -593,7 +593,7 @@ msgid "Best scores in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
 #: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:7
-#: dgf/templates/dgf/plugins/bag_tags_page.html:20
+#: dgf/templates/dgf/plugins/bag_tags_page.html:18
 msgid "Bag Tags"
 msgstr "Bagtags"
 
@@ -609,27 +609,47 @@ msgstr "Videos der Friends"
 msgid "Do you claim bag tag number "
 msgstr "Nimmst du Bagtag Nummer "
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:23
-msgid "Change multiple bag tags"
-msgstr "Mehrere Bagtags ändern"
+#: dgf/templates/dgf/plugins/bag_tags_page.html:21
+msgid ""
+"You can either select a bag tag to claim it (and change it with its owner) "
+"or "
+msgstr ""
+"Du kannst entweder einen Bagtag nehmen (und mit dem Friend tauschen) oder "
+
+#: dgf/templates/dgf/plugins/bag_tags_page.html:22
+msgid "Select the bag tags you want to update and then click on [continue]"
+msgstr "Wähle die Bagtags, die du aktualisieren willst und dann klick [Weiter]"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:24
+msgid "Continue"
+msgstr "Weiter"
+
+#: dgf/templates/dgf/plugins/bag_tags_page.html:27
+msgid "update multiple bag tags"
+msgstr "mehrere Bagtags aktualisieren"
+
+#: dgf/templates/dgf/plugins/bag_tags_page.html:28
+#: dgf/templates/dgf/plugins/bag_tags_page.html:66
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:47
+#: dgf/templates/dgf/plugins/bag_tags_page.html:52
 msgid " seit "
 msgstr " since "
-
-#: dgf/templates/dgf/plugins/bag_tags_page.html:54
-msgid "Update bag tags"
-msgstr "Bagtags aktualisieren"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:59
 msgid "Update the bag tags"
 msgstr "Aktualisiere die Bagtags"
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:68
+#: dgf/templates/dgf/plugins/bag_tags_page.html:61
+msgid ""
+"You can either change the numbers on the left or move the friends on the "
+"right. Don't forget to save."
+msgstr ""
+"Du kannst die Nummern (links) ändern oder die Friends (rechts) bewegen. "
+"Vergiss nicht zu speichern"
+
+#: dgf/templates/dgf/plugins/bag_tags_page.html:63
 msgid "Save"
 msgstr "Speichern"
 
