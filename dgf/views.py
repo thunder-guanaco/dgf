@@ -174,7 +174,12 @@ def bag_tag_update(request):
         return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to change them.')
 
     current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list("username", "bag_tag"))
-    new_bag_tags = {key: int(value) for key, value in request.POST.items()}
+
+    try:
+        new_bag_tags = {key: int(value) for key, value in request.POST.items()}
+    except ValueError:
+        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
+                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
 
     if set(current_bag_tags.keys()) != set(new_bag_tags.keys()):
         return HttpResponse(status=400, reason=_('This makes no sense. For these bag tags the users should be: '

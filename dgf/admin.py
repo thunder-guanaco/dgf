@@ -209,13 +209,14 @@ class BagTagChangeAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
             'fields': [
+                'actor',
                 ('friend', 'timestamp'),
                 ('previous_number', 'new_number'),
             ]}
          )
     ]
 
-    readonly_fields = ['friend', 'previous_number', 'new_number', 'timestamp']
+    readonly_fields = ['actor', 'friend', 'previous_number', 'new_number', 'timestamp']
 
-    list_display = ('friend', 'previous_number', 'new_number', 'timestamp')
+    list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp')
     search_fields = ('friend', 'previous_number', 'new_number')
