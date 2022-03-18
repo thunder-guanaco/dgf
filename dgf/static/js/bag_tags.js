@@ -28,11 +28,13 @@ function toggleMultipleBagTagMode() {
     multipleBagTagMode = !multipleBagTagMode;
     $("#bag-tags").toggleClass("multiple-mode");
     $("#bag-tags .number").toggleClass("gray");
-    $("#toggle-mode .change").toggle();
+    $("#toggle-mode").toggleClass("negative");
+    $("#toggle-mode .update").toggle();
     $("#toggle-mode .cancel").toggle();
     $("#show-bag-tags-hint").toggle();
     $("#select-bag-tags-hint").toggle();
     $("#change-multiple-bag-tags").toggle();
+    $(".since").toggle();
 
     if (multipleBagTagMode) {
 
@@ -52,12 +54,9 @@ function toggleMultipleBagTagMode() {
         });
 
         $("#bag-tags .number").removeClass("selected");
+//        $("#bag-tags .number").css("background-color", "#8d1950");
+//        $("#bag-tags .number").css("border-color", "#8d1950");
     }
-
-    // just for debug
-    //$("#bag-tags .number").toggleClass("selected");
-    //changeMultipleBagTags();
-
 
 }
 
@@ -67,6 +66,14 @@ function bagTagClicked(bagTag) {
 
     if (multipleBagTagMode) {
         bagTagElement.toggleClass("selected");
+        if (bagTagElement.hasClass("selected")) {
+//            bagTagElement.css("background-color", "#212529");
+//            bagTagElement.css("border-color", "#212529");
+        }
+        else {
+//            bagTagElement.css("background-color", "#999999");
+//            bagTagElement.css("border-color", "#999999");
+        }
     }
     else {
         claimBagTag(bagTag, bagTagElement.data("url"));
@@ -74,6 +81,15 @@ function bagTagClicked(bagTag) {
 }
 
 function changeMultipleBagTags() {
+
+    amountOfSelectedBagTags = $("#bag-tags .content .number.selected").length;
+    if (amountOfSelectedBagTags < 2) {
+        $("#at-least-2-bag-tags-hint").show();
+        return;
+    }
+    else {
+        $("#at-least-2-bag-tags-hint").hide();
+    }
 
     $("#multiple-bag-tag-lists").append("<ul id='multiple-bag-tag-numbers'></ul>");
     $("#multiple-bag-tag-lists").append("<ul id='multiple-bag-tag-players'></ul>");
