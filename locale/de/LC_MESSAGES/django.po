@@ -622,7 +622,7 @@ msgstr "Wähle die Bagtags, die du aktualisieren willst und dann klick 'Weiter'"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:25
 msgid "You have to select at least 2 bag tags!"
-msgstr ""
+msgstr "Du musst mindestens 2 Bagtags wählen"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:28
 msgid "Continue"
@@ -645,8 +645,6 @@ msgid "Update the bag tags"
 msgstr "Aktualisiere die Bagtags"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:87
-#| "You can either change the numbers on the left or move the friends on the "
-#| "right. Don't forget to save."
 msgid ""
 "You can either change the numbers on the left or move the friends on the "
 "right. Don't forget to save!"

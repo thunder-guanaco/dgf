@@ -115,7 +115,7 @@ function changeMultipleBagTags() {
         currElClass: 'draggedPlayer',
         listSelector: 'ul',
         maxLevels: 1,
-        insertZone: 1000,
+        insertZone: 500,
         //insertZonePlus: true,
         scroll: 100,
         placeholderCss: {'background-color': 'rgba(143, 25, 80, 0.1)'},
