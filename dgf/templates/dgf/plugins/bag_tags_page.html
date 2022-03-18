@@ -9,6 +9,8 @@
         const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
         const csrfToken = "{{csrf_token}}";
         const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
+        const ownBagTagNumer = {{request.user.friend.bag_tag}};
+        const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
     </script>
     <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
 {% endaddtoblock %}
@@ -22,7 +24,6 @@
             <div class="header">
                 <span class="hint" id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </span>
                 <span class="hint" id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on 'continue'." %} </span>
-                <span class="error" id="at-least-2-bag-tags-hint" style="display: none;">{% trans "You have to select at least 2 bag tags!" %} </span>
                 <div>
                     <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
                         {% trans "Continue" %}
@@ -33,6 +34,7 @@
                     </button>
                 </div>
             </div>
+            <span class="error" id="at-least-2-bag-tags-hint" style="display: none;">{% trans "You have to select at least 2 bag tags!" %} </span>
 
         {% endif %}
 

@@ -1,5 +1,10 @@
 function claimBagTag(number, url) {
 
+    if (number == ownBagTagNumer) {
+        alert(youAlreadyHaveThatBagTag + number);
+        return;
+    }
+
     text = bagTagClaimText + number + "?";
     if (!confirm(text)) {
         return;
@@ -58,8 +63,7 @@ function toggleMultipleBagTagMode() {
         });
 
         $("#bag-tags .number").removeClass("selected");
-//        $("#bag-tags .number").css("background-color", "#8d1950");
-//        $("#bag-tags .number").css("border-color", "#8d1950");
+        $("#at-least-2-bag-tags-hint").hide();
     }
 
 }
@@ -70,14 +74,6 @@ function bagTagClicked(bagTag) {
 
     if (multipleBagTagMode) {
         bagTagElement.toggleClass("selected");
-        if (bagTagElement.hasClass("selected")) {
-//            bagTagElement.css("background-color", "#212529");
-//            bagTagElement.css("border-color", "#212529");
-        }
-        else {
-//            bagTagElement.css("background-color", "#999999");
-//            bagTagElement.css("border-color", "#999999");
-        }
     }
     else {
         claimBagTag(bagTag, bagTagElement.data("url"));
@@ -165,6 +161,8 @@ function multipleBagTagsCancel() {
 
     $("#multiple-bag-tag-numbers").remove();
     $("#multiple-bag-tag-players").remove();
+
+    $("#multiple-bag-tag-error span").remove();
 
     $("#edit-bag-tags").hide();
     $("#bag-tags").show();
