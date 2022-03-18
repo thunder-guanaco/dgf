@@ -101,7 +101,7 @@
     border-color: #212529 !important;
 }
 
-#bag-tags .number.clickable {
+#bag-tags .number.clickable, #bag-tags .player.clickable {
     cursor: pointer;
 }
 

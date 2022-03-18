@@ -28,13 +28,17 @@ function toggleMultipleBagTagMode() {
     multipleBagTagMode = !multipleBagTagMode;
     $("#bag-tags").toggleClass("multiple-mode");
     $("#bag-tags .number").toggleClass("gray");
+
     $("#toggle-mode").toggleClass("negative");
     $("#toggle-mode .update").toggle();
     $("#toggle-mode .cancel").toggle();
+
     $("#show-bag-tags-hint").toggle();
     $("#select-bag-tags-hint").toggle();
     $("#change-multiple-bag-tags").toggle();
-    $(".since").toggle();
+
+    $("#bag-tags .player").toggleClass("clickable");
+    $("#bag-tags .since").toggle();
 
     if (multipleBagTagMode) {
 
