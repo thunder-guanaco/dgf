@@ -9,6 +9,24 @@
     #bag-tags .content .line {
         margin-left: 1em;
     }
+
+
+    .header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .header button {
+        margin: 0 !important;
+    }
+
+    .header .hint {
+        margin-bottom: 1em;
+    }
+
+    .header > div {
+        align-self: flex-end;
+    }
 }
 
 /* desktop */
@@ -24,6 +42,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 .header button {
@@ -155,6 +174,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    margin: 0.25em;
 }
 
 #multiple-bag-tag-players li{
@@ -174,6 +194,14 @@
     margin: 0;
 }
 
-#multiple-bag-tag-error {
+.error {
     color: red;
+}
+
+.negative {
+    background-color: #999999 !important;
+}
+
+.negative:hover {
+    background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
 }
