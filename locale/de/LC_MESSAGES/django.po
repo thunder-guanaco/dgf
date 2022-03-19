@@ -649,7 +649,7 @@ msgid ""
 "You can either change the numbers on the left or move the friends on the "
 "right. Don't forget to save!"
 msgstr ""
-"Du kannst die Nummern (links) ändern oder die Friends (rechts) bewegen. "
+"Bewege die Friends oder ändere die Nummern. "
 "Vergiss nicht zu speichern!"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:90
