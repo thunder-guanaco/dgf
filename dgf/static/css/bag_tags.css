@@ -30,6 +30,15 @@
     .number {
         margin: 0 1em 0 0 !important;
     }
+
+    .news {
+        width: 2em;
+        text-align: start;
+    }
+
+    .news.neutral {
+        text-align: center;
+    }
 }
 
 /* desktop */
@@ -41,6 +50,11 @@
 
     #edit-bag-tags {
         margin: 1em;
+    }
+
+    .news {
+        width: 1em;
+        text-align: end;
     }
 }
 
@@ -83,9 +97,8 @@
 }
 
 .news {
-    width: 25px;
     font-weight: bold;
-    text-align: center;
+    margin: 0 0.25em;
 }
 
 .news.positive {
