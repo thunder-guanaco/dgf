@@ -1,3 +1,19 @@
+$(window).on("load", function() {
+    showBestBagTagImprovement();
+});
+
+function showBestBagTagImprovement() {
+    var min = 0;
+    $("#bag-tags .content .news-best").each(function(){
+        var bagTagDifference = $(this).data("bag-tag-difference");
+        if (bagTagDifference < min) {
+            min = bagTagDifference;
+        }
+    });
+    console.log("min; " + min);
+    $("#bag-tags .content .news-best[data-bag-tag-difference='" + min + "']").addClass("fire");
+}
+
 function claimBagTag(number, url) {
 
     if (number == ownBagTagNumer) {
