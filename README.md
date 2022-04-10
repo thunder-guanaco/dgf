@@ -19,36 +19,41 @@ See `server_setup.bash`
 
 `sudo apt-get install python3-virtualenv`
 
-1. Create an environment
+2. Create an environment
 `python3 -m venv ./env`
 
-1. Install MySQL and create the necessary user and tables (this code works with MySQL 8)
+3. Install MySQL and create the necessary user and tables (this code works with MySQL 8)
 ```bash
 sudo apt-get install mysql-server libmysqlclient-dev
-sudo mysql -e "CREATE USER 'dgf'@'localhost' IDENTIFIED BY 'dgf';
+sudo mysql -e "CREATE USER 'dgf'@'localhost' IDENTIFIED BY 'dgf';"
 sudo mysql -e "CREATE DATABASE dgf_cms;"
 sudo mysql -e "GRANT ALL PRIVILEGES ON dgf_cms.* TO 'dgf'@'localhost' WITH GRANT OPTION;"
 ```
+
+4. Copy the `secrets` file from the server and put it in the root folder of the project (DO NOT COMMIT THIS FILE, it is ignored by [.gitignore]).
 
 ### Start the server
 
 1. Activate the environment
 `. env/bin/activate`
 
-1. Install all the requirements (this could take a while the first time)
+2. Install all the requirements (this could take a while the first time)
 `pip install -r requirements.txt`
 
-1. Migrate the database (this could take a while the first time)
-`python manage.py migrate`
+3. Initialize needed env vars from the secrets
+`source secrets`
 
-1. Tell application we're running locally
+4. Tell application we're running locally
 `export DJANGO_ENV=dev`
 
-1. Run the server
+5. Migrate the database (this could take a while the first time)
+`python manage.py migrate`
+
+6. Run the server
 `python manage.py runserver 0.0.0.0:8000`
 
 All of this can be done at once by running the script [run.bash]
-
+`bash run.bash runserver`
 
 ## PDGA support:
 
