@@ -246,6 +246,7 @@ INSTALLED_APPS = [
     'compressor',
     'dbbackup',
     'django_user_agents',
+    'mathfilters',
 
     'djangocms_admin_style',
     'django.contrib.auth',

@@ -1,12 +1,12 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.db.models import Count, Q, Max
+from django.db.models import Count, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, BagTagChange
 from .udisc import get_course_url
 
 
@@ -85,8 +85,18 @@ def friends_order_by_ts_wins():
 
 
 def friends_order_by_bag_tag():
+
+    time_threshold = datetime.now() - timedelta(weeks=1)
+
+    bag_tag_changes = BagTagChange.objects \
+        .filter(previous_number__isnull=False) \
+        .filter(timestamp__gt=time_threshold) \
+        .filter(friend=OuterRef("id")) \
+        .order_by("-timestamp")
+
     return Friend.objects.filter(bag_tag__isnull=False) \
         .annotate(since=Max('bag_tag_changes__timestamp')) \
+        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list("previous_number")[:1])) \
         .order_by('bag_tag')
 
 

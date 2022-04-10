@@ -82,6 +82,49 @@
     border: solid #8d1950 2px;
 }
 
+.news {
+    width: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.news.positive {
+    color: #00a800;
+}
+
+.news.negative {
+    color: #a80000;
+}
+
+.news.neutral {
+    color: #545454;
+}
+
+.news.positive span:before {
+    content: '▲';
+}
+
+.news.negative span:before {
+    content: '▼';
+}
+
+.news.neutral:before {
+    content: '-';
+}
+
+.news.neutral span {
+    display: none;
+}
+
+.news-best {
+    width: 1.5em;
+    text-align: center;
+}
+
+.news-best.fire:before {
+    content: '🔥';
+}
+
 .number {
     font-weight: bold;
     font-size: 1.25em;
@@ -201,10 +244,10 @@
     margin-bottom: 1em;
 }
 
-.negative {
+multiple-bag-tag-cancel.negative {
     background-color: #999999 !important;
 }
 
-.negative:hover {
+multiple-bag-tag-cancel.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
 }
