@@ -642,8 +642,8 @@ msgid "You have to select at least 2 bag tags!"
 msgstr "Du musst mindestens 2 Bagtags wählen"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:99
-msgid " seit "
-msgstr " since "
+msgid " since "
+msgstr " seit dem "
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:108
 msgid "Update the bag tags"
