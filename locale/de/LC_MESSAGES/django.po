@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-11 15:21+0200\n"
+"POT-Creation-Date: 2022-04-11 20:07+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -618,7 +618,7 @@ msgid ""
 "You can either select a bag tag to claim it (and change it with its owner) "
 "or "
 msgstr ""
-"Du kannst entweder einen Bagtag nehmen (und mit dem Friend tauschen) oder "
+"Du kannst entweder ein Bagtag nehmen (und mit dem Friend tauschen) oder "
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:28
 msgid "Select the bag tags you want to update and then click on 'continue'."
@@ -643,20 +643,23 @@ msgstr "Du musst mindestens 2 Bagtags wählen"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:42
 msgid "You don't have a bag tag. If you want one do the following:"
-msgstr "Du hast keinen Bagtag. Wenn du einen möchtest, dann:"
+msgstr "Du hast kein Bagtag. Wenn du eins möchtest, dann:"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:45
-#: dgf/templates/dgf/plugins/bag_tags_page.html:50
 msgid "Contact "
 msgstr "Rede mit"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:47
-msgid " to get one."
-msgstr " um einen zu bekommen."
+msgid " to get one (the bag tags are in the Disc Golf Center)."
+msgstr " um eins zu bekommen (die Bagtags sind im Disc Golf Center)."
+
+#: dgf/templates/dgf/plugins/bag_tags_page.html:50
+msgid "Tell "
+msgstr "Sag"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:52
-msgid " to register it here."
-msgstr " um deinen Bagtag auf der Webseite zu aktivieren."
+msgid " so that he can register it here."
+msgstr " Bescheid, um dein Bagtag auf der Webseite zu aktivieren."
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:117
 msgid " since "
@@ -692,7 +695,7 @@ msgstr "Neue Bagtags zuweisen"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:154
 msgid "Select friends without bag tags and new ones will be assigned"
-msgstr "Wähle Friends ohne Bagtag um neue zu zuweisen"
+msgstr "Wähle Friends ohne Bagtag, um eins oder mehrere zu zuweisen"
 
 #: dgf/templates/dgf/plugins/bag_tags_page.html:174
 msgid "You have to select at least 1 friend!"
