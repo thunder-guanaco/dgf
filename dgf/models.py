@@ -152,12 +152,6 @@ class Friend(User):
         second = f' {self.last_name[0]}' if self.last_name else ''
         return f'{first}{second}'
 
-    __original_bag_tag = None
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__original_bag_tag = self.bag_tag
-
     def __str__(self):
         last_name = f' {self.last_name}' if self.last_name else ''
         pdga_number = f' #{self.pdga_number}' if self.pdga_number else ''
@@ -165,21 +159,10 @@ class Friend(User):
         return f'{self.first_name}{last_name}{pdga_number}{show_if_inactive}'
 
     def save(self, *args, **kwargs):
-        # slug
         new_slug = self.slug or self.nickname or self.first_name or self.username
         self.slug = slugify(new_slug).lower()
         logger.info(f'Setting slug for {self.username} to {self.slug}')
-
-        # bag tag
-        if not self.__original_bag_tag and self.bag_tag:
-            BagTagChange.objects.create(actor=Friend.objects.get(username='manolo'),
-                                        friend=self.friend,
-                                        previous_number=None,
-                                        new_number=self.bag_tag,
-                                        timestamp=datetime.now())
-
         super(Friend, self).save(*args, **kwargs)
-        self.__original_bag_tag = self.bag_tag
 
 
 class UdiscRound(Model):

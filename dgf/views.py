@@ -163,6 +163,40 @@ def bag_tag_claim(request, bag_tag):
     return HttpResponse(status=200)
 
 
+def get_next_bag_tag():
+    return Friend.objects.filter(bag_tag__isnull=False).order_by("-bag_tag")[0].bag_tag + 1
+
+
+@login_required
+def bag_tag_new(request):
+    if request.method != 'POST':
+        return HttpResponse(status=405, reason='Only POST method is allowed here.')
+
+    actor = request.user.friend
+
+    if not actor.is_superuser:
+        return HttpResponse(status=400, reason='Only admins are allowed to assign new bag tags.')
+
+    friends = sorted(Friend.objects.filter(username__in=request.POST.getlist("players[]")),
+                     key=lambda f: f.short_name)
+
+    next_bag_tag = get_next_bag_tag()
+    next_bag_tags = list(range(next_bag_tag, next_bag_tag + len(friends)))
+
+    now = datetime.now()
+
+    for friend, bag_tag in zip(friends, next_bag_tags):
+        friend.bag_tag = bag_tag
+        friend.save()
+        BagTagChange.objects.create(actor=actor,
+                                    friend=friend,
+                                    previous_number=None,
+                                    new_number=bag_tag,
+                                    timestamp=now)
+
+    return HttpResponse(status=200)
+
+
 @login_required
 def bag_tag_update(request):
     if request.method != 'POST':

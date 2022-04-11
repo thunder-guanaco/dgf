@@ -91,7 +91,7 @@ class FriendAdmin(admin.ModelAdmin):
     list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
-    list_editable = ('bag_tag', 'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+    list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_display_links = ('username',)
 

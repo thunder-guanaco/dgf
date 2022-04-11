@@ -9,6 +9,7 @@
         const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
         const csrfToken = "{{csrf_token}}";
         const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
+        const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
         const ownBagTagNumer = {{request.user.friend.bag_tag}};
         const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
     </script>
@@ -116,9 +117,42 @@
                     </button>
                 </div>
             </div>
-            <div id="multiple-bag-tag-error" class="error" ></div>
+            <div id="multiple-bag-tag-error" class="error"></div>
             <div id="multiple-bag-tag-lists"></div>
         </div>
     {% endif %}
 
 {% endwith %}
+
+{% if request.user.is_superuser %}
+
+    <div id="admin-bag-tags">
+        <h3>{% trans "Admin zone" %}</h3>
+        <button id="assign-new-bag-tag-button" onclick="assignNewBagTagPopup()">
+            <span class="assign">{% trans "Assign new bag tag" %}</span>
+            <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+        </button>
+        <div id="assign-new-bag-tag-popup" style="display: none;">
+            {% for friend in friends_without_bag_tag|slice:"3" %}
+                <div class="line clickable"
+                     onclick="emptyBagTagClicked('{{friend.username}}')"
+                     data-username="{{friend.username}}">
+                    <div class="number">
+                        &nbsp
+                    </div>
+                    <div class="player">
+                        {% include "dgf/includes/friend_ball.html" with friend=friend %}
+                        <div>
+                            {{friend.short_name}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <button id="assign-new-bag-tag-trigger" onclick="assignNewBagTags()">
+                {% trans "Assign new bag tags" %}
+            </button>
+            <div id="assign-new-bag-tag-popup-error" class="error"></div>
+        </div>
+    </div>
+
+{% endif %}
