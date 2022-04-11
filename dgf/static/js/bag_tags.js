@@ -10,7 +10,6 @@ function showBestBagTagImprovement() {
             min = bagTagDifference;
         }
     });
-    console.log("min; " + min);
     $("#bag-tags .content .news-best[data-bag-tag-difference='" + min + "']").addClass("fire");
 }
 
@@ -63,15 +62,12 @@ function toggleMultipleBagTagMode() {
 
     if (multipleBagTagMode) {
 
-        console.log("enter multipleBagTagMode");
-
         $("#bag-tags .friend-ball").each(function() {
             $(this).attr("old-href", $(this).attr("href"));
             $(this).removeAttr("href");
         });
     }
     else {
-        console.log("exiting multipleBagTagMode");
 
         $("#bag-tags .friend-ball").each(function() {
             $(this).attr("href", $(this).attr("old-href"));
@@ -152,7 +148,6 @@ function multipleBagTagsSave() {
 
     var data = {};
     players.forEach((player, i) => data[player] = bagTags[i]);
-    console.log(data)
 
     $("#multiple-bag-tag-error span").remove();
     $.ajax({
@@ -183,4 +178,76 @@ function multipleBagTagsCancel() {
     $("#edit-bag-tags").hide();
     $("#bag-tags").show();
 
+}
+
+assignNewBagTagsMode = false;
+
+function assignNewBagTagPopup() {
+
+    assignNewBagTagsMode = !assignNewBagTagsMode;
+
+    if (assignNewBagTagsMode) {
+
+        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
+            $(this).attr("old-href", $(this).attr("href"));
+            $(this).removeAttr("href");
+        });
+    }
+    else {
+        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
+            $(this).attr("href", $(this).attr("old-href"));
+            $(this).removeAttr("old-href");
+        });
+    }
+
+    $("#assign-new-bag-tag-button .assign").toggle();
+    $("#assign-new-bag-tag-button .cancel").toggle();
+
+    $("#assign-new-bag-tag-popup .player").toggleClass("clickable");
+    $("#assign-new-bag-tag-popup").toggle();
+}
+
+function emptyBagTagClicked(username) {
+
+    bagTagElement = $("#assign-new-bag-tag-popup .line[data-username='" + username + "'] .number");
+    bagTagElement.toggleClass("selected");
+}
+
+function assignNewBagTags() {
+
+    $("#assign-new-bag-tag-popup-error span").remove();
+
+    var players = [];
+    $("#assign-new-bag-tag-popup .number.selected").each(function(){
+        players.push($(this).parent().data("username"));
+    });
+
+    if (players.length == 0) {
+        $("#at-least-1-friend-hint").show();
+        return;
+    }
+    else {
+        $("#at-least-1-friend-hint").hide();
+    }
+
+    var data = {
+        "players": players,
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: assignNewBagTagsUrl,
+        data: data,
+        beforeSend:function(xhr){
+            xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
+        success: function(response) {
+            location.reload();
+        },
+        error: function(response, e) {
+            console.log(response.statusText);
+            console.log(e);
+            $("#assign-new-bag-tag-popup-error").append("<span>" + response.statusText + "</span>")
+        }
+    });
 }

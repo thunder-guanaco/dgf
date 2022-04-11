@@ -100,6 +100,10 @@ def friends_order_by_bag_tag():
         .order_by('bag_tag')
 
 
+def friends_without_bag_tag():
+    return sorted(Friend.objects.filter(bag_tag__isnull=True), key=lambda f: f.short_name)
+
+
 @plugin_pool.register_plugin
 class TourResultsPluginPublisher(CMSPluginBase):
     model = TourPluginModel
@@ -118,6 +122,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'friends': friends_order_by_bag_tag(),
+            'friends_without_bag_tag': friends_without_bag_tag(),
         })
         return context
 

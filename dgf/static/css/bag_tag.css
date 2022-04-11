@@ -81,7 +81,7 @@
     flex-direction: column;
 }
 
-#bag-tags .line {
+.line {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -263,4 +263,33 @@ multiple-bag-tag-cancel.negative {
 
 multiple-bag-tag-cancel.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
+}
+
+#admin-bag-tags button {
+    float: right;
+}
+
+#admin-bag-tags {
+    border: dotted black 3px;
+    padding: 0em 1em 1em 1em;
+    margin-top: 1em;
+}
+
+#admin-bag-tags .number {
+    background-color: #8d1950;
+    border: solid #8d1950 2px;
+}
+
+#admin-bag-tags .number:hover {
+    background-color: #212529;
+    border: solid #212529 2px;
+}
+
+#admin-bag-tags .clickable {
+    cursor: pointer;
+}
+
+#admin-bag-tags .number.selected {
+    background-color: #212529 !important;
+    border-color: #212529 !important;
 }
