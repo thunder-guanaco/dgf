@@ -177,7 +177,7 @@ def bag_tag_new(request):
     if not actor.is_superuser:
         return HttpResponse(status=400, reason='Only admins are allowed to assign new bag tags.')
 
-    friends = sorted(Friend.objects.filter(username__in=request.POST.getlist("players[]")),
+    friends = sorted(Friend.objects.filter(bag_tag__isnull=True).filter(username__in=request.POST.getlist("players[]")),
                      key=lambda f: f.short_name)
 
     next_bag_tag = get_next_bag_tag()

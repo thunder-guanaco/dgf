@@ -214,16 +214,26 @@ function emptyBagTagClicked(username) {
 }
 
 function assignNewBagTags() {
+
+    $("#assign-new-bag-tag-popup-error span").remove();
+
     var players = [];
     $("#assign-new-bag-tag-popup .number.selected").each(function(){
         players.push($(this).parent().data("username"));
     });
 
+    if (players.length == 0) {
+        $("#at-least-1-friend-hint").show();
+        return;
+    }
+    else {
+        $("#at-least-1-friend-hint").hide();
+    }
+
     var data = {
         "players": players,
     };
 
-    $("#assign-new-bag-tag-popup-error span").remove();
     $.ajax({
         type: 'POST',
         url: assignNewBagTagsUrl,
