@@ -265,6 +265,16 @@ multiple-bag-tag-cancel.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
 }
 
+#you-dont-have-bag-tags {
+    border: dotted #a80000 3px;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+#you-dont-have-bag-tags ul {
+    margin: 1em 1em 0em 1em;
+}
+
 #admin-bag-tags button {
     float: right;
 }
