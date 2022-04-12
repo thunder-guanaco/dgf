@@ -191,3 +191,27 @@ class OnlyDesktopPluginPublisher(CMSPluginBase):
 class OnlyMobilePluginPublisher(OnlyDesktopPluginPublisher):
     name = _('Only mobile')
     device = 'mobile'
+
+
+@plugin_pool.register_plugin
+class DiscGolfFriendsFacebookPluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends Facebook Pages')
+    name = _('Facebook - Disc Golf Friends')
+    render_template = 'dgf/plugins/facebook.html'
+    page_id = 'discgolffriends'
+    page_name = 'Disc Golf Friends'
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'page_id': self.page_id,
+            'page_name': self.page_name,
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class TremoniaOpenFacebookPluginPublisher(DiscGolfFriendsFacebookPluginPublisher):
+    name = _('Facebook - Tremonia Open')
+    page_id = 'tremoniaopen'
+    page_name = 'Tremonia Open'

@@ -247,6 +247,7 @@ INSTALLED_APPS = [
     'dbbackup',
     'django_user_agents',
     'mathfilters',
+    'cookie_consent',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -406,3 +407,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # In order for django CMS to function, X_FRAME_OPTIONS needs to be set to SAMEORIGIN
 # https://docs.django-cms.org/en/latest/upgrade/3.7.2.html
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+COOKIE_CONSENT_OPT_OUT = True
+COOKIE_CONSENT_NAME = 'cookie_consent'

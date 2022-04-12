@@ -1,5 +1,15 @@
-{% if request.user.is_authenticated %}
-    {% include "dgf/includes/google_calendar.html" with calendar_id="j5ma4ntv19re4hegppglc5nd9c%40group.calendar.google.com" %}
+{% load cookie_consent_tags %}
+
+{% if request|cookie_group_accepted:"google" %}
+
+    {% if request.user.is_authenticated %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="j5ma4ntv19re4hegppglc5nd9c%40group.calendar.google.com" %}
+    {% else %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="0ollbcuh696psfjkr6cdakg778%40group.calendar.google.com" %}
+    {% endif %}
+
 {% else %}
-    {% include "dgf/includes/google_calendar.html" with calendar_id="0ollbcuh696psfjkr6cdakg778%40group.calendar.google.com" %}
+
+    {% include "includes/no_cookies_no_content.html" with source="Google Calendar" %}
+
 {% endif %}
