@@ -194,6 +194,46 @@ class OnlyMobilePluginPublisher(OnlyDesktopPluginPublisher):
 
 
 @plugin_pool.register_plugin
+class OnlyAvailableWithGoogleCookiesPluginPublisher(CMSPluginBase):
+    model = CMSPlugin
+    module = _('Disc Golf Friends Custom CMS')
+    render_template = 'dgf/plugins/only_available_with_cookies.html'
+    name = _('Only available with Google cookies')
+    allow_children = True
+    group = 'google'
+    source = 'Google'
+
+    def render(self, context, instance, placeholder):
+        context = super().render(context, instance, placeholder)
+        context.update({
+            'group': self.group,
+            'source': self.source,
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class OnlyAvailableWithGoogleCalendarCookiesPluginPublisher(OnlyAvailableWithGoogleCookiesPluginPublisher):
+    name = _('Only available with Google Calendar cookies')
+    group = 'google'
+    source = 'Google Calendar'
+
+
+@plugin_pool.register_plugin
+class OnlyAvailableWithGoogleMapsCookiesPluginPublisher(OnlyAvailableWithGoogleCookiesPluginPublisher):
+    name = _('Only available with Google Maps cookies')
+    group = 'google'
+    source = 'Google Maps'
+
+
+@plugin_pool.register_plugin
+class OnlyAvailableWithYouTubeCookiesPluginPublisher(OnlyAvailableWithGoogleCookiesPluginPublisher):
+    name = _('Only available with YouTube cookies')
+    group = 'google'
+    source = 'YouTube'
+
+
+@plugin_pool.register_plugin
 class DiscGolfFriendsFacebookPluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Disc Golf Friends Facebook Pages')

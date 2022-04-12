@@ -408,6 +408,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # https://docs.django-cms.org/en/latest/upgrade/3.7.2.html
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-
-COOKIE_CONSENT_OPT_OUT = True
 COOKIE_CONSENT_NAME = 'cookie_consent'

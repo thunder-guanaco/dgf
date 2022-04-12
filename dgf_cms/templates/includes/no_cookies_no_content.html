@@ -6,13 +6,10 @@
 
         <div>{% blocktranslate %}This is some really cool content from {{source}} you can not see until you accept the usage of cookies.{% endblocktranslate %}</div>
 
-        {% not_accepted_or_declined_cookie_groups request as cookie_groups %}
-        {% if cookie_groups %}
-            <div>
-                <span>{% trans "If you already decline them but you changed your mind, you can always accept them again " %}</span>
-                <a href="{% url 'cookie_consent_cookie_group_list' %}">{% trans "here" %}.</a>
-            </div>
-        {% endif %}
+        <div>
+            <span>{% trans "If you already decline them but you changed your mind, you can always accept them again " %}</span>
+            <a href="{% url 'cookie_consent_cookie_group_list' %}">{% trans "here" %}.</a>
+        </div>
 
     </div>
 

@@ -844,11 +844,11 @@ msgid ""
 "If you already decline them but you changed your mind, you can always accept "
 "them again "
 msgstr ""
-"Wenn su schon die Cookies abgelehnt hast, kannst du ihre Verwendung wieder akzeptieren."
+"Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, kannst du ihre Verwendung wieder akzeptieren."
 
 #: dgf_cms/templates/includes/no_cookies_no_content.html:13
 msgid "here"
-msgstr "Bitte klick hier."
+msgstr "Bitte klick hier"
 
 msgid "Efficiency"
 msgstr "Gewinn-Wahrscheinlichkeit"

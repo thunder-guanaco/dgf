@@ -36,9 +36,10 @@
             Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
         {% endcomment %}
 
-        {% if request|cookie_group_accepted:"google" %}
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1"></script>
-        {% endif %}
+        <script async type="{% js_type_for_cookie_consent request 'google' %}"
+                data-varname="google"
+                src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1">
+        </script>
 
         {% compress js file base_js %}
 
@@ -63,9 +64,9 @@
 
         {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
 
-        <!-- PAGE CONTENT -->
-
         {% include "includes/cookie_consent.html" %}
+
+        <!-- PAGE CONTENT -->
         {% include "includes/header.html" %}
         {% include "includes/navigation.html" %}
 
