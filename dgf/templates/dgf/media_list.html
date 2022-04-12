@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n dgf %}
+{% load static cms_tags i18n dgf cookie_consent_tags %}
 
 {% block title %}
     {% trans "Media" %}
@@ -24,11 +24,19 @@
 
             <h1>{% trans "Our Videos" %}</h1>
 
-            <div class="videos" style="min-height: 444px">
-                {% for video_url in video_urls %}
-                    {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id %}
-                {% endfor %}
-            </div>
+            {% if request|cookie_group_accepted:"google" %}
+
+                <div class="videos" style="min-height: 444px">
+                    {% for video_url in video_urls %}
+                        {% include "dgf/includes/youtube_video.html" with youtube_id=video_url|youtube_id %}
+                    {% endfor %}
+                </div>
+
+            {% else %}
+
+                {% include "includes/no_cookies_no_content.html" with source="YouTube" %}
+
+            {% endif %}
 
         {% endif %}
 

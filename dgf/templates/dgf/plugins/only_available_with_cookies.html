@@ -1,0 +1,14 @@
+{% load cms_tags cookie_consent_tags %}
+
+{% if request|cookie_group_accepted:group %}
+
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+
+{% else %}
+
+    {% include "includes/no_cookies_no_content.html" with source=source %}
+
+{% endif %}
+

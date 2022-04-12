@@ -1,0 +1,25 @@
+{% load cookie_consent_tags %}
+
+<center>
+    <div id="fb-root"></div>
+        <script async defer
+                crossorigin="anonymous"
+                type="{% js_type_for_cookie_consent request 'facebook' %}"
+                data-varname="facebook"
+                src="https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v7.0">
+        </script>
+        <div class="fb-page"
+            data-href="https://www.facebook.com/{{page_id}}"
+            data-tabs="timeline"
+            data-width="{{width}}"
+            data-height=""
+            data-small-header="false"
+            data-adapt-container-width="true"
+            data-hide-cover="false"
+            data-show-facepile="false">
+        <blockquote cite="https://www.facebook.com/{{page_id}}"
+                    class="fb-xfbml-parse-ignore">
+            <a href="https://www.facebook.com/{{page_id}}">{{page_name}}</a>
+        </blockquote>
+    </div>
+</center>
