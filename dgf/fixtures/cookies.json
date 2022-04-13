@@ -4,7 +4,7 @@
     "model": "cookie_consent.cookiegroup",
     "fields": {
       "is_deletable": false,
-      "name": "Required cookies",
+      "name": "Required own cookies",
       "created": "2020-01-01T12:54:15.809",
       "ordering": 0,
       "varname": "required",
@@ -22,7 +22,7 @@
       "ordering": 0,
       "varname": "google",
       "is_required": false,
-      "description": "Google cookies make your online experience easier by saving browsing information. More information: <a href=\"https://policies.google.com/technologies/cookies\">How Google uses cookies</a>"
+      "description": "Google cookies make your online experience easier by saving browsing information"
     }
   },
   {
@@ -71,7 +71,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 1,
       "path": "/",
-      "description": "Stores the CSRF token of the user to provide protection against Cross Site Request Forgeries. More info: https://www.squarefree.com/securitytips/web-developers.html#CSRF"
+      "description": "Stores the CSRF token of the user to provide protection against Cross Site Request Forgeries. More information about Cross Site Request Forgeries: https://www.squarefree.com/securitytips/web-developers.html#CSRF"
     }
   },
   {
@@ -95,7 +95,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
-      "description": ""
+      "description": "More information about how Google uses cookies: https://policies.google.com/technologies/cookies"
     }
   },
   {
@@ -107,7 +107,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
-      "description": ""
+      "description": "More information about how Google uses cookies: https://policies.google.com/technologies/cookies"
     }
   },
   {
@@ -119,7 +119,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
-      "description": "More info on how YouTube uses cookies <a href=\"https://policies.google.com/technologies/cookies\">here</a>"
+      "description": "More info on how YouTube uses cookies: https://policies.google.com/technologies/cookies"
     }
   },
   {
@@ -131,7 +131,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
-      "description": "Google Analytics uses cookies to report on visitor (aka. user) interactions on Google Analytics customers’ websites. Users may disable cookies or delete any individual cookie. More information <a href=\"https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gajs\">here</a>"
+      "description": "Google Analytics uses cookies to report on visitor (aka. user) interactions on Google Analytics customers’ websites. Users may disable cookies or delete any individual cookie. More information about how Google Analytics uses cookies: https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gajs"
     }
   },
   {
@@ -143,7 +143,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 3,
       "path": "/",
-      "description": "This cookies are used by Facebook to allow sharing content. More info: https://www.facebook.com/policy/cookies/"
+      "description": "This cookies are used by Facebook to allow sharing content. More information about how YouTube uses cookies: https://www.facebook.com/policy/cookies/"
     }
   }
 ]

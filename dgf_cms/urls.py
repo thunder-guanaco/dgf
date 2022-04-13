@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
+import cookie_consent.views
 from cms.sitemaps import CMSSitemap
 from django.conf import settings
 from django.conf.urls import include
@@ -11,6 +12,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, re_path
 from django.views.generic import TemplateView
+from django.views.i18n import JavaScriptCatalog
 from django.views.static import serve
 
 from dgf.handlers import server_error
@@ -20,6 +22,7 @@ admin.autodiscover()
 urlpatterns = [
     re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 ]
 
 urlpatterns += i18n_patterns(
