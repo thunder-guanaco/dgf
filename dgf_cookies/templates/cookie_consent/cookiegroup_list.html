@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/cookies.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dgf_cookies/css/cookies.css' %}">
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'js/cookies.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dgf_cookies/js/cookies.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
     </p>
 
     {% for cookie_group in object_list  %}
-        {% include "cookie_consent/_cookie_group.html" %}
+        {% include "dgf_cookies/includes/cookie_group.html" %}
     {% endfor %}
 
 {% endblock %}

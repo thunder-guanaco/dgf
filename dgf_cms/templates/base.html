@@ -14,7 +14,7 @@
 
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'css/cookie_consent.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'dgf_cookies/css/cookie_consent.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/friend_base.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/friends_header.css' %}">
 
@@ -84,8 +84,8 @@
         {% include "includes/footer.html" %}
 
         <!-- COOKIE CONSENT -->
-        {% include "includes/cookie_consent.js.html" %}
-        {% include "includes/hide_iframes.js.html" %}
+        {% include "dgf_cookies/includes/cookie_consent.js.html" %}
+        {% include "dgf_cookies/includes/hide_iframes.js.html" %}
 
     </body>
 </html>
