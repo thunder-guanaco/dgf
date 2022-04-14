@@ -48,7 +48,7 @@
       "ordering": 0,
       "varname": "facebook",
       "is_required": false,
-      "description": "This cookies are used by Facebook to allow sharing content. More information about how YouTube uses cookies: https://www.facebook.com/policy/cookies/"
+      "description": "This cookies are used by Facebook to allow sharing content. More information about how Facebook uses cookies: https://www.facebook.com/policy/cookies/"
     }
   },
   {
@@ -228,7 +228,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 3,
       "path": "/",
-      "description": "used by YouTube to remember user input and associate a user’s actions. This cookie lasts for as long as the user keeps their browser open."
+      "description": "Used by YouTube to remember user input and associate a user’s actions. This cookie lasts for as long as the user keeps their browser open."
     }
   },
   {

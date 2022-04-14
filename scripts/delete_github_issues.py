@@ -2,11 +2,9 @@ import requests
 import json
 
 # CONFIG
-GITHUB_TOKEN = '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'
-RANGE = range(1500, 2300)
-SEARCH_TERMS = ['Julia: Error while executing management command',
-                'Marian: Error while executing management command',
-                'Jogi: Error while executing management command']
+GITHUB_TOKEN = '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'
+RANGE = range(1970, 2300)
+SEARCH_TERMS = ['Anonymous user: Error while executing management command']
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
 url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'

@@ -1,87 +1,96 @@
-{% load i18n cookie_consent_tags %}
+{% load i18n cookie_consent_tags dgf_cookies %}
+{% get_current_language as LANGUAGE_CODE %}
 
-<div class="cookie-group">
-    <div class="cookie-group-title">
 
-        {% if cookie_group.varname == 'required' %}
-            <span class="cookie-consent cookie-consent-accepted">✓</span>
-        {% endif %}
+{% with cookie_group|translate_cookie_group:LANGUAGE_CODE as translated_cookie_group %}
 
-        {% if request|cookie_group_accepted:cookie_group.varname %}
-            <span class="cookie-consent cookie-consent-accepted">✓</span>
-        {% endif %}
+    <div class="cookie-group">
 
-        {% if request|cookie_group_declined:cookie_group.varname %}
-            <span class="cookie-consent cookie-consent-declined">✗</span>
-        {% endif %}
+        <div class="cookie-group-title">
 
-        <h2>{{cookie_group.name}}</h2>
+            {% if cookie_group.varname == 'required' %}
+                <span class="cookie-consent cookie-consent-accepted">✓</span>
+            {% endif %}
 
-        {% if not cookie_group.is_required %}
-            <div class="cookie-group-form">
+            {% if request|cookie_group_accepted:cookie_group.varname %}
+                <span class="cookie-consent cookie-consent-accepted">✓</span>
+            {% endif %}
 
-                {% if not request|cookie_group_accepted:cookie_group.varname %}
-                    <form class="cookie-consent-accept"
-                          action="{% url 'cookie_consent_accept' cookie_group.varname %}"
-                          method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value="{% trans 'Accept' %}">
-                    </form>
-                {% endif %}
+            {% if request|cookie_group_declined:cookie_group.varname %}
+                <span class="cookie-consent cookie-consent-declined">✗</span>
+            {% endif %}
 
-                {% if not request|cookie_group_declined:cookie_group.varname %}
-                    <form class="cookie-consent-decline"
-                          action="{% url 'cookie_consent_decline' cookie_group.varname %}"
-                          method="POST">
-                          {% csrf_token %}
-                          <input type="submit" value="{% trans 'Decline' %}">
-                    </form>
-                {% endif %}
-            </div>
-        {% endif %}
+            <h2>{{translated_cookie_group.name}}</h2>
 
-    </div>
+            {% if not cookie_group.is_required %}
+                <div class="cookie-group-form">
 
-    <div class="cookie-group-description">
-
-        <p>
-            {{cookie_group.description}}
-        </p>
-
-        <a onclick="$('#cookie-set-{{cookie_group.varname}}').toggle()">
-            {% trans 'Show all' %}
-        </a>
-
-    </div>
-
-    <table style="display: none" id="cookie-set-{{cookie_group.varname}}" class="cookie-set">
-        <tr class="header">
-            <th>{% trans "Cookie name" %}</th>
-            <th>{% trans "Domain" %}</th>
-            <th>{% trans "Description" %}</th>
-        </tr>
-        {% for cookie in cookie_group.cookie_set.all %}
-            <tr>
-                <th>
-                    {{cookie.name}}
-                    <span class="mobile">
-                      {% if cookie.domain %}
-                          ({{cookie.domain}})
-                      {% endif %}
-                    </span>
-                </th>
-                <td class="desktop">
-                    {% if cookie.domain %}
-                        {{cookie.domain}}
+                    {% if not request|cookie_group_accepted:cookie_group.varname %}
+                        <form class="cookie-consent-accept"
+                              action="{% url 'cookie_consent_accept' cookie_group.varname %}"
+                              method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="{% trans 'Accept' %}">
+                        </form>
                     {% endif %}
-                </td>
-                <td>
-                    {% if cookie.description %}
-                        {{cookie.description}}
+
+                    {% if not request|cookie_group_declined:cookie_group.varname %}
+                        <form class="cookie-consent-decline"
+                              action="{% url 'cookie_consent_decline' cookie_group.varname %}"
+                              method="POST">
+                              {% csrf_token %}
+                              <input type="submit" value="{% trans 'Decline' %}">
+                        </form>
                     {% endif %}
-                </td>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="cookie-group-description">
+
+            <p>
+                {{translated_cookie_group.description}}
+            </p>
+
+            <a onclick="$('#cookie-set-{{cookie_group.varname}}').toggle()">
+                {% trans 'Show all' %}
+            </a>
+
+        </div>
+
+        <table style="display: none" id="cookie-set-{{cookie_group.varname}}" class="cookie-set">
+            <tr class="header">
+                <th>{% trans "Cookie name" %}</th>
+                <th>{% trans "Domain" %}</th>
+                <th>{% trans "Description" %}</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for cookie in cookie_group.cookie_set.all %}
+                {% with cookie|translate_cookie:LANGUAGE_CODE as translated_cookie %}
+                    <tr>
+                        <th>
+                            {{cookie.name}}
+                            <span class="mobile">
+                              {% if cookie.domain %}
+                                  ({{cookie.domain}})
+                              {% endif %}
+                            </span>
+                        </th>
+                        <td class="desktop">
+                            {% if cookie.domain %}
+                                {{cookie.domain}}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if translated_cookie.description %}
+                                {{translated_cookie.description}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+        </table>
 
-</div>
+    </div>
+
+{% endwith %}
