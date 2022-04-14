@@ -6,7 +6,7 @@
     {% not_accepted_or_declined_cookie_groups request as cookie_groups %}
 
     {% if cookie_groups %}
-        {% url "cookie_consent_cookie_group_list" as url_cookies %}
+        {% url 'cookie_consent:cookie_consent_cookie_group_list' %}
         {% cookie_consent_accept_url cookie_groups as url_accept %}
         {% cookie_consent_decline_url cookie_groups as url_decline %}
         <script type="text/javascript">
