@@ -2,8 +2,8 @@ import requests
 import json
 
 # CONFIG
-GITHUB_TOKEN = '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'
-RANGE = range(1000, 2300)
+GITHUB_TOKEN = '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'
+RANGE = range(1500, 2300)
 SEARCH_TERMS = ['Julia: Error while executing management command',
                 'Marian: Error while executing management command',
                 'Jogi: Error while executing management command']
