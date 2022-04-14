@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-12 21:51+0200\n"
+"POT-Creation-Date: 2022-04-14 17:27+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +69,7 @@ msgstr "Hall Of Fame (ganze Seite)"
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:176
+#: dgf/cms_plugins.py:176 dgf/cms_plugins.py:199
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
@@ -81,15 +81,31 @@ msgstr "Nur am Desktop sichtbar"
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:199
+#: dgf/cms_plugins.py:201
+msgid "Only available with Google cookies"
+msgstr ""
+
+#: dgf/cms_plugins.py:217
+msgid "Only available with Google Calendar cookies"
+msgstr ""
+
+#: dgf/cms_plugins.py:224
+msgid "Only available with Google Maps cookies"
+msgstr ""
+
+#: dgf/cms_plugins.py:231
+msgid "Only available with YouTube cookies"
+msgstr ""
+
+#: dgf/cms_plugins.py:239
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:200
+#: dgf/cms_plugins.py:240
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:215
+#: dgf/cms_plugins.py:255
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
@@ -806,24 +822,57 @@ msgstr "Uppsala! Etwas ist schiefgelaufen."
 msgid "Go back to home page"
 msgstr "Zurück zur Startseite"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:28
+#, fuzzy
+#| msgid "Accept all"
+msgid "Accept"
+msgstr "Alle akzeptieren"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:37
+#, fuzzy
+#| msgid "Decline all"
+msgid "Decline"
+msgstr "Alle ablehnen"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:52
+#, fuzzy
+#| msgid "(show all)"
+msgid "Show all"
+msgstr "(alle anzeigen)"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:59
+msgid "Cookie name"
+msgstr ""
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:60
+msgid "Domain"
+msgstr ""
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:61
+#, fuzzy
+#| msgid "Position"
+msgid "Description"
+msgstr "Platz"
+
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 #, python-format
 msgid ""
 "This site uses cookies from %(cookie_groups)s and some own required cookies "
 "for better performance and user experience. Do you agree to use cookies?"
 msgstr ""
-"Wir verwenden Cookies von %(cookie_groups)s und auch ein paar eigene (die notwendig "
-"sind) um dir eine coole Seite zu liefern. Dürfen wir Cookies verwenden?"
+"Wir verwenden Cookies von %(cookie_groups)s und auch ein paar eigene (die "
+"notwendig sind) um dir eine coole Seite zu liefern. Dürfen wir Cookies "
+"verwenden?"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Decline all"
 msgstr "Alle ablehnen"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Manage cookies"
 msgstr "Mehr Infos / Cookies einzeln verwalten"
 
@@ -831,27 +880,46 @@ msgstr "Mehr Infos / Cookies einzeln verwalten"
 msgid "Change to language"
 msgstr "Sprache wechseln"
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:7
-#, python-format
+#: dgf_cms/templates/includes/no_cookies_no_content.html:9
+#, fuzzy, python-format
+#| msgid ""
+#| "This is some really cool content from %(source)s you can not see until "
+#| "you accept the usage of cookies."
 msgid ""
-"This is some really cool content from %(source)s you can not see until you "
-"accept the usage of cookies."
+"\n"
+"                    This is some really cool content from %(source)s you can "
+"not see until you accept the usage of cookies.\n"
+"                "
 msgstr ""
-"Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die Verwendung von Cookies akzeptierst."
+"Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die "
+"Verwendung von Cookies akzeptierst."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:12
+#: dgf_cms/templates/includes/no_cookies_no_content.html:15
+#, fuzzy
+#| msgid ""
+#| "This is some really cool content from %(source)s you can not see until "
+#| "you accept the usage of cookies."
+msgid ""
+"This is some really cool content you can not see until you accept the usage "
+"of cookies."
+msgstr ""
+"Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die "
+"Verwendung von Cookies akzeptierst."
+
+#: dgf_cms/templates/includes/no_cookies_no_content.html:20
 msgid ""
 "If you already decline them but you changed your mind, you can always accept "
 "them again "
 msgstr ""
-"Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, kannst du ihre Verwendung wieder akzeptieren."
+"Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, "
+"kannst du ihre Verwendung wieder akzeptieren."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:13
+#: dgf_cms/templates/includes/no_cookies_no_content.html:21
 msgid "here"
 msgstr "Bitte klick hier"
 
-msgid "Efficiency"
-msgstr "Gewinn-Wahrscheinlichkeit"
+#~ msgid "Efficiency"
+#~ msgstr "Gewinn-Wahrscheinlichkeit"
 
-msgid "Average points"
-msgstr "Durchschnittliche Punkte"
+#~ msgid "Average points"
+#~ msgstr "Durchschnittliche Punkte"
