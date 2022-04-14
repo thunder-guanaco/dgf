@@ -37,8 +37,8 @@
             Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
         {% endcomment %}
 
-        <script async type="{% js_type_for_cookie_consent request 'google' %}"
-                data-varname="google"
+        <script async type="{% js_type_for_cookie_consent request 'analytics' %}"
+                data-varname="analytics"
                 src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1">
         </script>
 
