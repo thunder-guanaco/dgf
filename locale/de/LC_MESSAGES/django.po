@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-14 17:34+0200\n"
+"POT-Creation-Date: 2022-04-15 00:04+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -152,6 +152,7 @@ msgid "Text"
 msgstr "Text"
 
 #: dgf/models.py:49 dgf/models.py:337 dgf/models.py:433
+#: dgf_cookies/models.py:13
 msgid "Name"
 msgstr "Name"
 
@@ -770,11 +771,11 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:312 dgf_cms/settings.py:322
+#: dgf_cms/settings.py:314 dgf_cms/settings.py:324
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:313 dgf_cms/settings.py:329
+#: dgf_cms/settings.py:315 dgf_cms/settings.py:331
 msgid "English"
 msgstr "Englisch"
 
@@ -806,31 +807,32 @@ msgstr "Uppsala! Etwas ist schiefgelaufen."
 msgid "Go back to home page"
 msgstr "Zurück zur Startseite"
 
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:28
-msgid "Accept"
-msgstr "Alle akzeptieren"
+#: dgf_cms/templates/includes/language_chooser.html:8
+msgid "Change to language"
+msgstr "Sprache wechseln"
 
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:37
-msgid "Decline"
-msgstr "Alle ablehnen"
+#: dgf_cookies/models.py:12 dgf_cookies/models.py:23
+msgid "Language"
+msgstr "Sprache"
 
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:52
-msgid "Show all"
-msgstr "Alle anzeigen"
-
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:59
-msgid "Cookie name"
-msgstr "Cookie-Name"
-
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:60
-msgid "Domain"
-msgstr "Anbieter"
-
-#: dgf_cms/templates/cookie_consent/_cookie_group.html:61
+#: dgf_cookies/models.py:14 dgf_cookies/models.py:24
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:66
 msgid "Description"
 msgstr "Beschreibung"
 
-#: dgf_cms/templates/includes/cookie_consent.js.html:22
+#: dgf_cookies/templates/cookie_consent/cookiegroup_list.html:18
+msgid "What cookies do we use?"
+msgstr "Welche Cookies verwenden wir?"
+
+#: dgf_cookies/templates/cookie_consent/cookiegroup_list.html:21
+msgid ""
+"This is a list of the categories of cookies used in our website and why we "
+"use them."
+msgstr ""
+"Diese Website verwendet Cookies. Dabei handelt es sich um kleine Textdateien, welche auf Ihrem Endgerät gespeichert werden. Diese richten keinerlei Schaden an. Ihr Browser greift auf diese Dateien zu. Durch den Einsatz von Cookies erhöht sich die Benutzerfreundlichkeit und Sicherheit dieser Website."
+"Gängige Browser bieten die Einstellungsoption, Cookies nicht zuzulassen. Hinweis: Es ist nicht gewährleistet, dass Sie auf alle Funktionen dieser Website ohne Einschränkungen zugreifen können, wenn Sie entsprechende Einstellungen vornehmen. Folgende Cookies werden von dieser Website verwendet:"
+
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_consent.js.html:22
 #, python-format
 msgid ""
 "This site uses cookies from %(cookie_groups)s and some own required cookies "
@@ -840,23 +842,40 @@ msgstr ""
 "notwendig sind) um dir eine coole Seite zu liefern. Dürfen wir Cookies "
 "verwenden?"
 
-#: dgf_cms/templates/includes/cookie_consent.js.html:22
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_consent.js.html:22
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: dgf_cms/templates/includes/cookie_consent.js.html:22
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_consent.js.html:22
 msgid "Decline all"
 msgstr "Alle ablehnen"
 
-#: dgf_cms/templates/includes/cookie_consent.js.html:22
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_consent.js.html:22
 msgid "Manage cookies"
 msgstr "Mehr Infos / Cookies einzeln verwalten"
 
-#: dgf_cms/templates/includes/language_chooser.html:8
-msgid "Change to language"
-msgstr "Sprache wechseln"
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:33
+msgid "Accept"
+msgstr "Alle akzeptieren"
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:9
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:42
+msgid "Decline"
+msgstr "Alle ablehnen"
+
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:57
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:64
+msgid "Cookie name"
+msgstr "Cookie-Name"
+
+#: dgf_cookies/templates/dgf_cookies/includes/cookie_group.html:65
+msgid "Domain"
+msgstr "Anbieter"
+
+#: dgf_cookies/templates/dgf_cookies/includes/no_cookies_no_content.html:9
+#, python-format
 msgid ""
 "This is some really cool content from %(source)s you can not see until you "
 "accept the usage of cookies."
@@ -864,15 +883,15 @@ msgstr ""
 "Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die "
 "Verwendung von Cookies akzeptierst."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:13
+#: dgf_cookies/templates/dgf_cookies/includes/no_cookies_no_content.html:13
 msgid ""
 "This is some really cool content you can not see until you accept the usage "
 "of cookies."
 msgstr ""
-"Diesen coolen Inhalt dürfen dir nicht zeigen bis du die "
-"Verwendung von Cookies akzeptierst."
+"Diesen coolen Inhalt dürfen dir nicht zeigen bis du die Verwendung von "
+"Cookies akzeptierst."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:18
+#: dgf_cookies/templates/dgf_cookies/includes/no_cookies_no_content.html:18
 msgid ""
 "If you already decline them but you changed your mind, you can always accept "
 "them again "
@@ -880,6 +899,6 @@ msgstr ""
 "Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, "
 "kannst du ihre Verwendung wieder akzeptieren."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:19
+#: dgf_cookies/templates/dgf_cookies/includes/no_cookies_no_content.html:19
 msgid "here"
 msgstr "Bitte klick hier"

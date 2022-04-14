@@ -15,10 +15,10 @@
 
 {% block content %}
 
-    <h1>What cookies do we use?</h1>
+    <h1>{% trans "What cookies do we use?" %}</h1>
 
     <p>
-        This is a list of the categories of cookies used in our website and why we use them.
+        {% trans "This is a list of the categories of cookies used in our website and why we use them." %}
     </p>
 
     {% for cookie_group in object_list  %}
