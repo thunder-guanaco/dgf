@@ -9,6 +9,7 @@
         <link rel="icon" href="{% static 'img/favicon.png' %}">
 
         <!-- CSS -->
+
         {% compress css file base_css %}
 
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -64,9 +65,8 @@
 
         {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
 
-        {% include "includes/cookie_consent.html" %}
-
         <!-- PAGE CONTENT -->
+
         {% include "includes/header.html" %}
         {% include "includes/navigation.html" %}
 
@@ -82,6 +82,10 @@
         </div>
 
         {% include "includes/footer.html" %}
+
+        <!-- COOKIE CONSENT -->
+        {% include "includes/cookie_consent.js.html" %}
+        {% include "includes/hide_iframes.js.html" %}
 
     </body>
 </html>

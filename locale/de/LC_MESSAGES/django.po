@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-12 21:51+0200\n"
+"POT-Creation-Date: 2022-04-14 17:34+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -806,24 +806,49 @@ msgstr "Uppsala! Etwas ist schiefgelaufen."
 msgid "Go back to home page"
 msgstr "Zurück zur Startseite"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:28
+msgid "Accept"
+msgstr "Alle akzeptieren"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:37
+msgid "Decline"
+msgstr "Alle ablehnen"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:52
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:59
+msgid "Cookie name"
+msgstr "Cookie-Name"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:60
+msgid "Domain"
+msgstr "Anbieter"
+
+#: dgf_cms/templates/cookie_consent/_cookie_group.html:61
+msgid "Description"
+msgstr "Beschreibung"
+
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 #, python-format
 msgid ""
 "This site uses cookies from %(cookie_groups)s and some own required cookies "
 "for better performance and user experience. Do you agree to use cookies?"
 msgstr ""
-"Wir verwenden Cookies von %(cookie_groups)s und auch ein paar eigene (die notwendig "
-"sind) um dir eine coole Seite zu liefern. Dürfen wir Cookies verwenden?"
+"Wir verwenden Cookies von %(cookie_groups)s und auch ein paar eigene (die "
+"notwendig sind) um dir eine coole Seite zu liefern. Dürfen wir Cookies "
+"verwenden?"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Accept all"
 msgstr "Alle akzeptieren"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Decline all"
 msgstr "Alle ablehnen"
 
-#: dgf_cms/templates/includes/cookie_consent.html:22
+#: dgf_cms/templates/includes/cookie_consent.js.html:22
 msgid "Manage cookies"
 msgstr "Mehr Infos / Cookies einzeln verwalten"
 
@@ -831,27 +856,30 @@ msgstr "Mehr Infos / Cookies einzeln verwalten"
 msgid "Change to language"
 msgstr "Sprache wechseln"
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:7
-#, python-format
+#: dgf_cms/templates/includes/no_cookies_no_content.html:9
 msgid ""
 "This is some really cool content from %(source)s you can not see until you "
 "accept the usage of cookies."
 msgstr ""
-"Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die Verwendung von Cookies akzeptierst."
+"Diesen coolen Inhalt von %(source)s dürfen dir nicht zeigen bis du die "
+"Verwendung von Cookies akzeptierst."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:12
+#: dgf_cms/templates/includes/no_cookies_no_content.html:13
+msgid ""
+"This is some really cool content you can not see until you accept the usage "
+"of cookies."
+msgstr ""
+"Diesen coolen Inhalt dürfen dir nicht zeigen bis du die "
+"Verwendung von Cookies akzeptierst."
+
+#: dgf_cms/templates/includes/no_cookies_no_content.html:18
 msgid ""
 "If you already decline them but you changed your mind, you can always accept "
 "them again "
 msgstr ""
-"Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, kannst du ihre Verwendung wieder akzeptieren."
+"Wenn su schon die Cookies abgelehnt hast aber deine Meinung geändert hast, "
+"kannst du ihre Verwendung wieder akzeptieren."
 
-#: dgf_cms/templates/includes/no_cookies_no_content.html:13
+#: dgf_cms/templates/includes/no_cookies_no_content.html:19
 msgid "here"
 msgstr "Bitte klick hier"
-
-msgid "Efficiency"
-msgstr "Gewinn-Wahrscheinlichkeit"
-
-msgid "Average points"
-msgstr "Durchschnittliche Punkte"
