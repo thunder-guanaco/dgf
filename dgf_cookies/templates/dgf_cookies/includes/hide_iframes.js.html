@@ -7,7 +7,7 @@
 {% endcomment %}
 
 <div id="hidden-iframe-no-cookies-no-content" style="display: none;">
-    {% include "includes/no_cookies_no_content.html" %}
+    {% include "dgf_cookies/includes/no_cookies_no_content.html" %}
 </div>
 
 {% if not request|cookie_group_accepted:"google" %}

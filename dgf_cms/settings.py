@@ -241,6 +241,7 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf_cookies',
     'dgf',
     'django_countries',
     'compressor',
