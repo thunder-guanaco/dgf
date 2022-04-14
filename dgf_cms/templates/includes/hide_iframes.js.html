@@ -1,0 +1,40 @@
+{% load cookie_consent_tags %}
+
+{% comment %}
+    If the user didn't accept the Google cookies:
+      - first deactivate and hide all iframes
+      - after the user accepted the cookies, activate and show all iframes again
+{% endcomment %}
+
+<div id="hidden-iframe-no-cookies-no-content" style="display: none;">
+    {% include "includes/no_cookies_no_content.html" %}
+</div>
+
+{% if not request|cookie_group_accepted:"google" %}
+
+    <!-- Hide all iframes -->
+    <script type="text/javascript">
+        $("iframe").each(function(){
+
+            $(this).data("src", $(this).attr("src"));
+            $(this).attr("src", "");
+            $(this).hide();
+
+            var parent = $(this).parent();
+            $("#hidden-iframe-no-cookies-no-content .no-cookies-no-content-wrapper").clone().appendTo(parent).show();
+        });
+    </script>
+
+    <!-- Show all iframes again after the user accepted the cookies -->
+    <script type="{% js_type_for_cookie_consent request 'google' %}" data-varname="google">
+        $("iframe").each(function(){
+
+            $(this).attr("src", $(this).data("src"));
+            $(this).show();
+
+            $(this).parent().find(".no-cookies-no-content-wrapper").remove();
+        });
+    </script>
+
+{% endif %}
+
