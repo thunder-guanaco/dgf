@@ -188,7 +188,7 @@
     "model": "cookie_consent.cookie",
     "fields": {
       "domain": "discgolffriends.de",
-      "name": "_gac_<property-id>",
+      "name": "_gac_property-id",
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
