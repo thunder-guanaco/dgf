@@ -1,7 +1,19 @@
 {% load cookie_consent_tags %}
 
 {% if request.user.is_authenticated %}
-    {% include "dgf/includes/google_calendar.html" with calendar_id="j5ma4ntv19re4hegppglc5nd9c%40group.calendar.google.com" %}
+
+    {% if request.user_agent.is_mobile %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="j5ma4ntv19re4hegppglc5nd9c%40group.calendar.google.com" div_height="500px" iframe_height="500px" iframe_src_height="500" extra_options="showTabs=0&amp;mode=AGENDA&amp;" %}
+    {% else %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="j5ma4ntv19re4hegppglc5nd9c%40group.calendar.google.com" div_height="0" iframe_height="100%" iframe_src_height="200" extra_options="" %}
+    {% endif %}
+
 {% else %}
-    {% include "dgf/includes/google_calendar.html" with calendar_id="0ollbcuh696psfjkr6cdakg778%40group.calendar.google.com" %}
+
+    {% if request.user_agent.is_mobile %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="0ollbcuh696psfjkr6cdakg778%40group.calendar.google.com" div_height="500px" iframe_height="500px" iframe_src_height="500" extra_options="showTabs=0&amp;mode=AGENDA&amp;" %}
+    {% else %}
+        {% include "dgf/includes/google_calendar.html" with calendar_id="0ollbcuh696psfjkr6cdakg778%40group.calendar.google.com" div_height="0" iframe_height="100%" iframe_src_height="200" extra_options="" %}
+    {% endif %}
+
 {% endif %}
