@@ -156,7 +156,7 @@
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
-      "description": "Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property- id>."
+      "description": "Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property-id>."
     }
   },
   {
@@ -188,7 +188,7 @@
     "model": "cookie_consent.cookie",
     "fields": {
       "domain": "discgolffriends.de",
-      "name": "_gac_<property-id>",
+      "name": "_gac_property-id",
       "created": "2020-01-01T12:54:15.809",
       "cookiegroup": 2,
       "path": "/",
