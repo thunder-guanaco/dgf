@@ -160,8 +160,8 @@
 }
 
 #bag-tags .number.selected {
-    background-color: #212529 !important;
-    border-color: #212529 !important;
+    background-color: #1b2633 !important;
+    border-color: #1b2633 !important;
 }
 
 #bag-tags .number.clickable, #bag-tags .player.clickable {
@@ -169,8 +169,8 @@
 }
 
 #bag-tags .number.clickable:hover {
-    background-color: #212529;
-    border: solid #212529 2px;
+    background-color: #1b2633;
+    border: solid #1b2633 2px;
 }
 
 #bag-tags .number span {
@@ -183,7 +183,7 @@
     width: 40px;
     padding: 0.25em;
     border-radius: 5px;
-    border: solid #212529 2px;
+    border: solid #1b2633 2px;
 }
 
 .player {
@@ -291,8 +291,8 @@ multiple-bag-tag-cancel.negative:hover {
 }
 
 #admin-bag-tags .number:hover {
-    background-color: #212529;
-    border: solid #212529 2px;
+    background-color: #1b2633;
+    border: solid #1b2633 2px;
 }
 
 #admin-bag-tags .clickable {
@@ -300,6 +300,6 @@ multiple-bag-tag-cancel.negative:hover {
 }
 
 #admin-bag-tags .number.selected {
-    background-color: #212529 !important;
-    border-color: #212529 !important;
+    background-color: #1b2633 !important;
+    border-color: #1b2633 !important;
 }
