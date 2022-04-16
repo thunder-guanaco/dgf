@@ -65,6 +65,8 @@ function toggleMultipleBagTagMode() {
         $("#bag-tags .friend-ball").each(function() {
             $(this).attr("old-href", $(this).attr("href"));
             $(this).removeAttr("href");
+            $("#bag-tags .news").css({"visibility": "hidden"});
+            $("#bag-tags .news-best").css({"visibility": "hidden"});
         });
     }
     else {
@@ -72,6 +74,8 @@ function toggleMultipleBagTagMode() {
         $("#bag-tags .friend-ball").each(function() {
             $(this).attr("href", $(this).attr("old-href"));
             $(this).removeAttr("old-href");
+            $("#bag-tags .news").css({"visibility": "visible"});
+            $("#bag-tags .news-best").css({"visibility": "visible"});
         });
 
         $("#bag-tags .number").removeClass("selected");

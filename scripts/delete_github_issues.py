@@ -2,9 +2,11 @@ import requests
 import json
 
 # CONFIG
-GITHUB_TOKEN = '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'
-RANGE = range(2600, 2700)
-SEARCH_TERMS = ['Anonymous user: Server error on GET /cookies/']
+GITHUB_TOKEN = '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'
+RANGE = range(2600, 2900)
+SEARCH_TERMS = ['Manolo: Server error on POST /cookies/decline/analytics/',
+                'Anonymous user: Server error on POST /cookies/decline/analytics,google,facebook',
+                'Anonymous user: Server error on POST /cookies/decline/analytics/']
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
 url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'
