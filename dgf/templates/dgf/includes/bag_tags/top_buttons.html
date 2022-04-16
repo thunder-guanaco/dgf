@@ -1,0 +1,34 @@
+{% load i18n %}
+
+{% if request.user.friend.bag_tag %}
+    <div class="header">
+        <span class="hint" id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </span>
+        <span class="hint" id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on 'continue'." %} </span>
+        <div>
+            <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
+                {% trans "Continue" %}
+            </button>
+            <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
+                <span class="update">{% trans "update multiple bag tags" %}</span>
+                <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+            </button>
+        </div>
+    </div>
+    <span class="error" id="at-least-2-bag-tags-hint" style="display: none;">{% trans "You have to select at least 2 bag tags!" %} </span>
+{% else %}
+    <div id="you-dont-have-bag-tags">
+        <span>{% trans "You don't have a bag tag. If you want one do the following:" %}</span>
+        <ol>
+            <li>
+                <span>{% trans "Contact " %}</span>
+                <a href="{% url 'dgf:friend_detail' 'david' %}">David</a>
+                <span>{% trans " to get one (the bag tags are in the Disc Golf Center)." %}</span>
+            </li>
+            <li>
+                <span class="hint">{% trans "Tell " %}</span>
+                <a href="{% url 'dgf:friend_detail' 'manolo' %}">Manolo</a>
+                <span>{% trans " so that he can register it here." %}</span>
+            </li>
+        </ol>
+    </div>
+{% endif %}
