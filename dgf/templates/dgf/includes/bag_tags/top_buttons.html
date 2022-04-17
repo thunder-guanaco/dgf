@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n dgf %}
 
 {% if request.user.friend.bag_tag %}
 
@@ -16,11 +16,14 @@
             <button id="exit-multiple-bag-tag-mode" class="negative" style="display: none;" onclick="exitMultipleBagTagMode()">
                 {% trans "Cancel" %}
             </button>
-            <button id="enter-select-from-metrix" class="new" style="display: none;" onclick="enterSelectFromMetrix()">
-                {% trans "Select from Metrix (new!)" %}
-            </button>
-            <button id="exit-select-from-metrix" class="negative" style="display: none;" onclick="exitSelectFromMetrix()">
-                {% trans "Back" %}
+            {% tournaments_ending_today_with_metrix_id as tournaments %}
+            {% if tournaments %}
+                <button id="enter-select-from-metrix" class="new" style="display: none;" onclick="enterSelectFromMetrix()">
+                    {% trans "Select from Metrix (new!)" %}
+                </button>
+                <button id="exit-select-from-metrix" class="negative" style="display: none;" onclick="exitSelectFromMetrix()">
+                    {% trans "Back" %}
+            {% endif %}
             </button>
         </div>
     </div>

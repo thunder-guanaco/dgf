@@ -90,9 +90,10 @@ def current_tournaments():
 
 
 @register.simple_tag
-def tournaments_ending_today():
+def tournaments_ending_today_with_metrix_id():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(end=datetime.today(),
+        .filter(metrix_id__isnull=False,
+                end=datetime.today(),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
         .order_by('begin', 'end', 'name')
