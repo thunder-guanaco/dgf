@@ -263,12 +263,20 @@
     margin-bottom: 1em;
 }
 
-#exit-multiple-bag-tag-mode {
+button.negative {
     background-color: #999999 !important;
 }
 
-#exit-multiple-bag-tag-mode:hover {
+button.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
+}
+
+button.new {
+    background-color: #8d1950 !important;
+}
+
+button.new:hover {
+    background:linear-gradient(to top, #5a001d 5%, #8d1950 100%) !important;
 }
 
 #you-dont-have-bag-tags {
@@ -316,7 +324,7 @@
 }
 
 #bag-tags-metrix li {
-    list-style: none;
+    margin-left: 2em;
 }
 
 #bag-tags-metrix a {

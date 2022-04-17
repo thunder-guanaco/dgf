@@ -57,7 +57,7 @@ function enterMultipleBagTagMode() {
     $("#enter-multiple-bag-tag-mode").hide();
     $("#exit-multiple-bag-tag-mode").show();
     $("#change-multiple-bag-tags").show();
-    $("#select-from-metrix").show();
+    $("#enter-select-from-metrix").show();
 
     // bag tag numbers
     $("#bag-tags .friend-ball").each(function() {
@@ -87,7 +87,7 @@ function exitMultipleBagTagMode() {
     $("#enter-multiple-bag-tag-mode").show();
     $("#exit-multiple-bag-tag-mode").hide();
     $("#change-multiple-bag-tags").hide();
-    $("#select-from-metrix").hide();
+    $("#enter-select-from-metrix").hide();
 
     // bag tag numbers
     $("#bag-tags .friend-ball").each(function() {
@@ -116,6 +116,7 @@ function bagTagClicked(bagTag) {
     }
 }
 
+resultsFromMetrix = false;
 function changeMultipleBagTags() {
 
     amountOfSelectedBagTags = $("#bag-tags .content .number.selected").length;
@@ -156,6 +157,7 @@ function changeMultipleBagTags() {
         scroll: 100,
         placeholderCss: {"background-color": "rgba(143, 25, 80, 0.1)"},
     });
+
 }
 
 function multipleBagTagsSave() {
@@ -201,6 +203,21 @@ function multipleBagTagsCancel() {
 
     $("#edit-bag-tags").hide();
     $("#bag-tags").show();
+
+    if (resultsFromMetrix) {
+        resultsFromMetrix = false;
+
+        // buttons
+        $("#enter-select-from-metrix").show();
+        $("#exit-select-from-metrix").hide();
+        $("#change-multiple-bag-tags").show();
+        $("#exit-multiple-bag-tag-mode").show();
+
+        // hints
+        $("#select-bag-tags-hint").show();
+        $("#select-metrix-tournament-hint").hide();
+
+    }
 
 }
 
@@ -276,13 +293,41 @@ function assignNewBagTags() {
     });
 }
 
-function selectFromMetrix() {
+function enterSelectFromMetrix() {
 
-    $("#select-from-metrix .select").toggle();
-    $("#select-from-metrix .back").toggle();
+    // buttons
+    $("#enter-select-from-metrix").hide();
+    $("#exit-select-from-metrix").show();
+    $("#change-multiple-bag-tags").hide();
+    $("#exit-multiple-bag-tag-mode").hide();
 
-    $("#bag-tags-metrix").toggle();
-    $("#bag-tags .content").toggle();
+    // hints
+    $("#select-bag-tags-hint").hide();
+    $("#select-metrix-tournament-hint").show();
+
+    // divs
+    $("#bag-tags-metrix").show();
+    $("#bag-tags .content").hide();
+
+    // de-select all selected friends
+    $("#bag-tags .number").removeClass("selected");
+}
+
+function exitSelectFromMetrix() {
+
+    // buttons
+    $("#enter-select-from-metrix").show();
+    $("#exit-select-from-metrix").hide();
+    $("#change-multiple-bag-tags").show();
+    $("#exit-multiple-bag-tag-mode").show();
+
+    // hints
+    $("#select-bag-tags-hint").show();
+    $("#select-metrix-tournament-hint").hide();
+
+    // divs
+    $("#bag-tags-metrix").hide();
+    $("#bag-tags .content").show();
 }
 
 function tournamentClicked(tournamentId) {
@@ -388,6 +433,7 @@ function handleMetrixResponse(response) {
     changeMultipleBagTags();
     sortBagTags();
     addScores();
+    resultsFromMetrix = true;
 }
 
 function getMetrixPlace(li) {

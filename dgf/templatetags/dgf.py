@@ -1,6 +1,6 @@
 import logging
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django import template
 from django.db.models import Count, Max, Q, Sum
@@ -79,15 +79,20 @@ def filter_by_type(queryset, type):
     return queryset.filter(type=type)
 
 
-# .filter(begin__lte=datetime(year=2021, month=11, day=28),
-#         end__gte=datetime(year=2021, month=11, day=28),
-# .filter(begin__lte=datetime(year=2022, month=3, day=26),
-#         end__gte=datetime(year=2022, month=3, day=26),
 @register.simple_tag
 def current_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(begin__lte=datetime(year=2022, month=3, day=26),
-                end__gte=datetime(year=2022, month=3, day=26),
+        .filter(begin__lte=datetime.today(),
+                end__gte=datetime.today(),
+                attendance__friend__is_active=True,
+                players_count__gt=0) \
+        .order_by('begin', 'end', 'name')
+
+
+@register.simple_tag
+def tournaments_ending_today():
+    return Tournament.objects.annotate(players_count=Count('attendance')) \
+        .filter(end=datetime(year=2022, month=3, day=27),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
         .order_by('begin', 'end', 'name')

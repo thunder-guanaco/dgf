@@ -2,9 +2,9 @@
 
 <div id="bag-tags-metrix" style="display: none;">
     <h3>
-        {% trans "Select a tournament" %}
+        {% trans "Tournaments that ended today" %}
     </h3>
-    {% current_tournaments as tournaments %}
+    {% tournaments_ending_today as tournaments %}
     {% if tournaments %}
         <ul id="current-tournaments">
             {% for tournament in tournaments %}
