@@ -43,48 +43,65 @@ function claimBagTag(number, url) {
 
 multipleBagTagMode = false;
 
-function toggleMultipleBagTagMode() {
 
-    multipleBagTagMode = !multipleBagTagMode;
-    $("#bag-tags").toggleClass("multiple-mode");
-    $("#bag-tags .number").toggleClass("gray");
+function enterMultipleBagTagMode() {
 
-    $("#toggle-mode").toggleClass("negative");
-    $("#toggle-mode .update").toggle();
-    $("#toggle-mode .cancel").toggle();
+    multipleBagTagMode = true;
 
-    $("#show-bag-tags-hint").toggle();
-    $("#select-bag-tags-hint").toggle();
-    $("#change-multiple-bag-tags").toggle();
-    $("#select-from-metrix").toggle();
+    // divs
+    $("#bag-tags").addClass("multiple-mode");
+    $("#bag-tags .number").addClass("gray");
+    $("#bag-tags .player").addClass("clickable");
 
-    $("#bag-tags .player").toggleClass("clickable");
-    $("#bag-tags .since").toggle();
+    // buttons
+    $("#enter-multiple-bag-tag-mode").hide();
+    $("#exit-multiple-bag-tag-mode").show();
+    $("#change-multiple-bag-tags").show();
+    $("#select-from-metrix").show();
 
-    $("#admin-bag-tags").toggle();
+    // bag tag numbers
+    $("#bag-tags .friend-ball").each(function() {
+        $(this).attr("old-href", $(this).attr("href"));
+        $(this).removeAttr("href");
+    });
 
-    if (multipleBagTagMode) {
+    // hints
+    $("#show-bag-tags-hint").hide();
+    $("#select-bag-tags-hint").show();
 
-        $("#bag-tags .friend-ball").each(function() {
-            $(this).attr("old-href", $(this).attr("href"));
-            $(this).removeAttr("href");
-            $("#bag-tags .news").css({"visibility": "hidden"});
-            $("#bag-tags .news-best").css({"visibility": "hidden"});
-        });
-    }
-    else {
+    // admin
+    $("#admin-bag-tags").hide();
+}
 
-        $("#bag-tags .friend-ball").each(function() {
-            $(this).attr("href", $(this).attr("old-href"));
-            $(this).removeAttr("old-href");
-            $("#bag-tags .news").css({"visibility": "visible"});
-            $("#bag-tags .news-best").css({"visibility": "visible"});
-        });
+function exitMultipleBagTagMode() {
 
-        $("#bag-tags .number").removeClass("selected");
-        $("#at-least-2-bag-tags-hint").hide();
-    }
+    multipleBagTagMode = false;
 
+    // divs
+    $("#bag-tags").removeClass("multiple-mode");
+    $("#bag-tags .number").removeClass("gray");
+    $("#bag-tags .number").removeClass("selected");
+    $("#bag-tags .player").removeClass("clickable");
+
+    // buttons
+    $("#enter-multiple-bag-tag-mode").show();
+    $("#exit-multiple-bag-tag-mode").hide();
+    $("#change-multiple-bag-tags").hide();
+    $("#select-from-metrix").hide();
+
+    // bag tag numbers
+    $("#bag-tags .friend-ball").each(function() {
+        $(this).attr("href", $(this).attr("old-href"));
+        $(this).removeAttr("old-href");
+    });
+
+    // hints
+    $("#show-bag-tags-hint").show();
+    $("#select-bag-tags-hint").hide();
+    $("#at-least-2-bag-tags-hint").hide();
+
+    // admin
+    $("#admin-bag-tags").show();
 }
 
 function bagTagClicked(bagTag) {

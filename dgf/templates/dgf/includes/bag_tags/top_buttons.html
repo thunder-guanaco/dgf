@@ -9,9 +9,11 @@
             <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
                 {% trans "Continue" %}
             </button>
-            <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
-                <span class="update">{% trans "update multiple bag tags" %}</span>
-                <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+            <button id="enter-multiple-bag-tag-mode" onclick="enterMultipleBagTagMode()">
+                {% trans "update multiple bag tags" %}
+            </button>
+            <button id="exit-multiple-bag-tag-mode" style="display: none;" onclick="exitMultipleBagTagMode()">
+                {% trans "Cancel" %}
             </button>
             <button id="select-from-metrix" style="display: none;" onclick="selectFromMetrix()">
                 <span class="select">{% trans "Select from Metrix (new!)" %}</span>
