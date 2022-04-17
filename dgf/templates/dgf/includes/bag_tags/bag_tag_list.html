@@ -28,11 +28,12 @@
 
                 <div class="number clickable"
                      data-bag-tag="{{friend.bag_tag}}"
+                     data-username="{{friend.username}}"
                      data-url="{% url 'dgf:bag_tag_claim' friend.bag_tag %}"
                      onclick="bagTagClicked({{friend.bag_tag}})">
                     <span>{{friend.bag_tag}}</span>
                 </div>
-                <div class="player"
+                <div class="player clickable"
                      data-bag-tag="{{friend.bag_tag}}"
                      data-username="{{friend.username}}"
                      onclick="bagTagClicked({{friend.bag_tag}})">

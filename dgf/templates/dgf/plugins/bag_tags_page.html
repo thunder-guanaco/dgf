@@ -1,4 +1,4 @@
-{% load sekizai_tags static i18n %}
+{% load sekizai_tags static i18n dgf %}
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tag.css' %}">
@@ -12,26 +12,36 @@
         const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
         const ownBagTagNumer = {{request.user.friend.bag_tag}};
         const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
+        const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
+        const metrixUserIds = Object.keys(metrixUserIdToFriend);
+        {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const disableClickOnFriends = true;
+        {% else %}
+            const disableClickOnFriends = false;
+        {% endif %}
     </script>
     <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
 {% endaddtoblock %}
 
-<div id="bag-tags">
+<div id="bag-tags-wrapper">
+    <div id="bag-tags">
 
-    <h2>{% trans "Bag Tags" %}</h2>
+        <h2>{% trans "Bag Tags" %}</h2>
 
-    {% if request.user.is_authenticated %}
-        {% include "dgf/includes/bag_tags/top_buttons.html" %}
+        {% if request.user.is_authenticated %}
+            {% include "dgf/includes/bag_tags/top_buttons.html" %}
+        {% endif %}
+
+        {% include "dgf/includes/bag_tags/bag_tag_list.html" %}
+
+    </div>
+
+    {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+        {% include "dgf/includes/bag_tags/edit.html" %}
+        {% include "dgf/includes/bag_tags/metrix.html" %}
     {% endif %}
 
-    {% include "dgf/includes/bag_tags/bag_tag_list.html" %}
-
+    {% if request.user.is_superuser %}
+        {% include "dgf/includes/bag_tags/admin.html" %}
+    {% endif %}
 </div>
-
-{% if request.user.is_authenticated and request.user.friend.bag_tag %}
-    {% include "dgf/includes/bag_tags/edit.html" %}
-{% endif %}
-
-{% if request.user.is_superuser %}
-    {% include "dgf/includes/bag_tags/admin.html" %}
-{% endif %}

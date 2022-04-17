@@ -1,21 +1,33 @@
 {% load i18n %}
 
 {% if request.user.friend.bag_tag %}
+
     <div class="header">
         <span class="hint" id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </span>
         <span class="hint" id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on 'continue'." %} </span>
+        <span class="hint" id="select-metrix-tournament-hint" style="display: none;">{% trans "Select a tournament from the list below" %} </span>
         <div>
             <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
                 {% trans "Continue" %}
             </button>
-            <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
-                <span class="update">{% trans "update multiple bag tags" %}</span>
-                <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
+            <button id="enter-multiple-bag-tag-mode" onclick="enterMultipleBagTagMode()">
+                {% trans "update multiple bag tags" %}
+            </button>
+            <button id="exit-multiple-bag-tag-mode" class="negative" style="display: none;" onclick="exitMultipleBagTagMode()">
+                {% trans "Cancel" %}
+            </button>
+            <button id="enter-select-from-metrix" class="new" style="display: none;" onclick="enterSelectFromMetrix()">
+                {% trans "Select from Metrix (new!)" %}
+            </button>
+            <button id="exit-select-from-metrix" class="negative" style="display: none;" onclick="exitSelectFromMetrix()">
+                {% trans "Back" %}
             </button>
         </div>
     </div>
     <span class="error" id="at-least-2-bag-tags-hint" style="display: none;">{% trans "You have to select at least 2 bag tags!" %} </span>
+
 {% else %}
+
     <div id="you-dont-have-bag-tags">
         <span>{% trans "You don't have a bag tag. If you want one do the following:" %}</span>
         <ol>

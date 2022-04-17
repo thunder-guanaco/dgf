@@ -1,6 +1,19 @@
 $(window).on("load", function() {
     showBestBagTagImprovement();
+    checkClickableFriends();
 });
+
+function checkClickableFriends() {
+
+    if (disableClickOnFriends) {
+        $("#bag-tags .friend-ball").each(function() {
+            $(this).attr("old-href", $(this).attr("href"));
+            $(this).removeAttr("href");
+        });
+
+        $(".friend-ball .tooltip-text").css("display", "none");
+    }
+}
 
 function showBestBagTagImprovement() {
     var min = 0;
@@ -26,7 +39,7 @@ function claimBagTag(number, url) {
     }
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: url,
         beforeSend:function(xhr){
             xhr.setRequestHeader("X-CSRFToken", csrfToken);
@@ -43,45 +56,51 @@ function claimBagTag(number, url) {
 
 multipleBagTagMode = false;
 
-function toggleMultipleBagTagMode() {
 
-    multipleBagTagMode = !multipleBagTagMode;
-    $("#bag-tags").toggleClass("multiple-mode");
-    $("#bag-tags .number").toggleClass("gray");
+function enterMultipleBagTagMode() {
 
-    $("#toggle-mode").toggleClass("negative");
-    $("#toggle-mode .update").toggle();
-    $("#toggle-mode .cancel").toggle();
+    multipleBagTagMode = true;
 
-    $("#show-bag-tags-hint").toggle();
-    $("#select-bag-tags-hint").toggle();
-    $("#change-multiple-bag-tags").toggle();
+    // divs
+    $("#bag-tags").addClass("multiple-mode");
+    $("#bag-tags .number").addClass("gray");
 
-    $("#bag-tags .player").toggleClass("clickable");
-    $("#bag-tags .since").toggle();
+    // buttons
+    $("#enter-multiple-bag-tag-mode").hide();
+    $("#exit-multiple-bag-tag-mode").show();
+    $("#change-multiple-bag-tags").show();
+    $("#enter-select-from-metrix").show();
 
-    if (multipleBagTagMode) {
+    // hints
+    $("#show-bag-tags-hint").hide();
+    $("#select-bag-tags-hint").show();
 
-        $("#bag-tags .friend-ball").each(function() {
-            $(this).attr("old-href", $(this).attr("href"));
-            $(this).removeAttr("href");
-            $("#bag-tags .news").css({"visibility": "hidden"});
-            $("#bag-tags .news-best").css({"visibility": "hidden"});
-        });
-    }
-    else {
+    // admin
+    $("#admin-bag-tags").hide();
+}
 
-        $("#bag-tags .friend-ball").each(function() {
-            $(this).attr("href", $(this).attr("old-href"));
-            $(this).removeAttr("old-href");
-            $("#bag-tags .news").css({"visibility": "visible"});
-            $("#bag-tags .news-best").css({"visibility": "visible"});
-        });
+function exitMultipleBagTagMode() {
 
-        $("#bag-tags .number").removeClass("selected");
-        $("#at-least-2-bag-tags-hint").hide();
-    }
+    multipleBagTagMode = false;
 
+    // divs
+    $("#bag-tags").removeClass("multiple-mode");
+    $("#bag-tags .number").removeClass("gray");
+    $("#bag-tags .number").removeClass("selected");
+
+    // buttons
+    $("#enter-multiple-bag-tag-mode").show();
+    $("#exit-multiple-bag-tag-mode").hide();
+    $("#change-multiple-bag-tags").hide();
+    $("#enter-select-from-metrix").hide();
+
+    // hints
+    $("#show-bag-tags-hint").show();
+    $("#select-bag-tags-hint").hide();
+    $("#at-least-2-bag-tags-hint").hide();
+
+    // admin
+    $("#admin-bag-tags").show();
 }
 
 function bagTagClicked(bagTag) {
@@ -96,6 +115,7 @@ function bagTagClicked(bagTag) {
     }
 }
 
+resultsFromMetrix = false;
 function changeMultipleBagTags() {
 
     amountOfSelectedBagTags = $("#bag-tags .content .number.selected").length;
@@ -127,15 +147,16 @@ function changeMultipleBagTags() {
     $("#bag-tags").hide();
     $("#edit-bag-tags").show();
 
-    $('#multiple-bag-tag-players').sortableLists({
-        currElClass: 'draggedPlayer',
-        listSelector: 'ul',
+    $("#multiple-bag-tag-players").sortableLists({
+        currElClass: "draggedPlayer",
+        listSelector: "ul",
         maxLevels: 1,
         insertZone: 500,
         //insertZonePlus: true,
         scroll: 100,
-        placeholderCss: {'background-color': 'rgba(143, 25, 80, 0.1)'},
+        placeholderCss: {"background-color": "rgba(143, 25, 80, 0.1)"},
     });
+
 }
 
 function multipleBagTagsSave() {
@@ -155,7 +176,7 @@ function multipleBagTagsSave() {
 
     $("#multiple-bag-tag-error span").remove();
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: bagTagUpdateUrl,
         data: data,
         beforeSend:function(xhr){
@@ -182,6 +203,21 @@ function multipleBagTagsCancel() {
     $("#edit-bag-tags").hide();
     $("#bag-tags").show();
 
+    if (resultsFromMetrix) {
+        resultsFromMetrix = false;
+
+        // buttons
+        $("#enter-select-from-metrix").show();
+        $("#exit-select-from-metrix").hide();
+        $("#change-multiple-bag-tags").show();
+        $("#exit-multiple-bag-tag-mode").show();
+
+        // hints
+        $("#select-bag-tags-hint").show();
+        $("#select-metrix-tournament-hint").hide();
+
+    }
+
 }
 
 assignNewBagTagsMode = false;
@@ -189,20 +225,6 @@ assignNewBagTagsMode = false;
 function assignNewBagTagPopup() {
 
     assignNewBagTagsMode = !assignNewBagTagsMode;
-
-    if (assignNewBagTagsMode) {
-
-        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
-            $(this).attr("old-href", $(this).attr("href"));
-            $(this).removeAttr("href");
-        });
-    }
-    else {
-        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
-            $(this).attr("href", $(this).attr("old-href"));
-            $(this).removeAttr("old-href");
-        });
-    }
 
     $("#assign-new-bag-tag-button .assign").toggle();
     $("#assign-new-bag-tag-button .cancel").toggle();
@@ -239,7 +261,7 @@ function assignNewBagTags() {
     };
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: assignNewBagTagsUrl,
         data: data,
         beforeSend:function(xhr){
@@ -253,5 +275,166 @@ function assignNewBagTags() {
             console.log(e);
             $("#assign-new-bag-tag-popup-error").append("<span>" + response.statusText + "</span>")
         }
+    });
+}
+
+function enterSelectFromMetrix() {
+
+    // buttons
+    $("#enter-select-from-metrix").hide();
+    $("#exit-select-from-metrix").show();
+    $("#change-multiple-bag-tags").hide();
+    $("#exit-multiple-bag-tag-mode").hide();
+
+    // hints
+    $("#select-bag-tags-hint").hide();
+    $("#select-metrix-tournament-hint").show();
+
+    // divs
+    $("#bag-tags-metrix").show();
+    $("#bag-tags .content").hide();
+
+    // de-select all selected friends
+    $("#bag-tags .number").removeClass("selected");
+}
+
+function exitSelectFromMetrix() {
+
+    // buttons
+    $("#enter-select-from-metrix").show();
+    $("#exit-select-from-metrix").hide();
+    $("#change-multiple-bag-tags").show();
+    $("#exit-multiple-bag-tag-mode").show();
+
+    // hints
+    $("#select-bag-tags-hint").show();
+    $("#select-metrix-tournament-hint").hide();
+
+    // divs
+    $("#bag-tags-metrix").hide();
+    $("#bag-tags .content").show();
+}
+
+function tournamentClicked(tournamentId) {
+    $.ajax({
+        type: "GET",
+        url: "https://discgolfmetrix.com/api.php?content=result&id=" + tournamentId,
+        success: function(response) {
+            handleMetrixResponse(response);
+        },
+        error: function(response, e) {
+            console.log(response.statusText);
+            console.log(e);
+        }
+    });
+}
+
+function sortBy(results, field, reverse=false) {
+    return results.sort(function(a, b) {
+        if (reverse) {
+            return b[field] - a[field];
+        }
+        else {
+            return a[field] - b[field];
+        }
+    });
+}
+
+function parseTourResults(results) {
+
+    var sortedResults = sortBy(results, "Place");
+    var parsedResults = {};
+
+    sortedResults.forEach(result => {
+        var userId = result["UserID"];
+        if (metrixUserIds.includes(userId)) {
+            var username = metrixUserIdToFriend[userId];
+            $("#bag-tags .content .number[data-username='" + username + "']").addClass("selected");
+            parsedResults[username] = {
+                "place": result["Place"],
+                "score": result["Total"],
+            };
+        }
+    });
+    return parsedResults;
+}
+
+function parseSubCompetitions(competitions) {
+
+    var allResults = {};
+    competitions.forEach(competition => {
+        competition["Results"].forEach(result => {
+            var userId = result["UserID"];
+            if (metrixUserIds.includes(userId)) {
+                var username = metrixUserIdToFriend[userId];
+                var score = result["Sum"];
+                if (username in allResults) {
+                    allResults[username]["score"] += score;
+                }
+                else {
+                    allResults[username] = {
+                        "score": score,
+                        "username": username,
+                    };
+                }
+            }
+        });
+    });
+
+    var unsortedResults = Object.keys(allResults).map(function(key){
+        return allResults[key];
+    });
+
+    var sortedResults = sortBy(unsortedResults, "score");
+
+    var parsedResults = {};
+    var i = 1;
+    sortedResults.forEach(result => {
+        var username = result["username"];
+        $("#bag-tags .content .number[data-username='" + username + "']").addClass("selected");
+        parsedResults[username] = {
+            "place": i,
+            "score": result["score"],
+        };
+        i += 1;
+    });
+    return parsedResults;
+}
+
+metrixResults = {};
+function handleMetrixResponse(response) {
+
+    var competition = response["Competition"];
+    if (competition["ShowTourView"] == "1") {
+        metrixResults = parseTourResults(competition["TourResults"]);
+    }
+    else {
+        metrixResults = parseSubCompetitions(competition["SubCompetitions"]);
+    }
+
+    $("#bag-tags .content").show();
+    $("#bag-tags-metrix").hide();
+
+    changeMultipleBagTags();
+    sortBagTags();
+    addScores();
+    resultsFromMetrix = true;
+}
+
+function getMetrixPlace(li) {
+    return metrixResults[$(li).children("div").first().data("username")]["place"];
+}
+
+function sortBagTags() {
+    $("#multiple-bag-tag-players li").sort(function(a, b){
+        return getMetrixPlace(a) - getMetrixPlace(b);
+    }).appendTo("#multiple-bag-tag-players");
+}
+
+function addScores() {
+    $("#multiple-bag-tag-players .player").each(function(){
+        var username = $(this).data("username");
+        var score = metrixResults[username]["score"];
+        $(this).append("<span class='score'>(" + score + ")</span>");
     });
 }

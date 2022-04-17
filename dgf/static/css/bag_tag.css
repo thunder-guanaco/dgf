@@ -155,8 +155,13 @@
     border-color: #999999;
 }
 
-#bag-tags.multiple-mode .friend-ball .tooltip-text {
+#bag-tags.multiple-mode .since {
     display: none;
+}
+
+#bag-tags.multiple-mode .news,
+#bag-tags.multiple-mode .news-best {
+    visibility: hidden;
 }
 
 #bag-tags .number.selected {
@@ -257,12 +262,20 @@
     margin-bottom: 1em;
 }
 
-multiple-bag-tag-cancel.negative {
+button.negative {
     background-color: #999999 !important;
 }
 
-multiple-bag-tag-cancel.negative:hover {
+button.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
+}
+
+button.new {
+    background-color: #8d1950 !important;
+}
+
+button.new:hover {
+    background:linear-gradient(to top, #5a001d 5%, #8d1950 100%) !important;
 }
 
 #you-dont-have-bag-tags {
@@ -303,4 +316,21 @@ multiple-bag-tag-cancel.negative:hover {
 #admin-bag-tags .number.selected {
     background-color: #1b2633 !important;
     border-color: #1b2633 !important;
+}
+
+#bag-tags-wrapper {
+    position: relative;
+}
+
+#bag-tags-metrix li {
+    margin-left: 2em;
+}
+
+#bag-tags-metrix a {
+    color: #8d1950 !important;
+    cursor: pointer;
+}
+
+#multiple-bag-tag-players .player .score {
+    margin-left: 0.5em;
 }
