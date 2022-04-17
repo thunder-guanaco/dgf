@@ -1,6 +1,19 @@
 $(window).on("load", function() {
     showBestBagTagImprovement();
+    checkClickableFriends();
 });
+
+function checkClickableFriends() {
+
+    if (disableClickOnFriends) {
+        $("#bag-tags .friend-ball").each(function() {
+            $(this).attr("old-href", $(this).attr("href"));
+            $(this).removeAttr("href");
+        });
+
+        $(".friend-ball .tooltip-text").css("display", "none");
+    }
+}
 
 function showBestBagTagImprovement() {
     var min = 0;
@@ -51,19 +64,12 @@ function enterMultipleBagTagMode() {
     // divs
     $("#bag-tags").addClass("multiple-mode");
     $("#bag-tags .number").addClass("gray");
-    $("#bag-tags .player").addClass("clickable");
 
     // buttons
     $("#enter-multiple-bag-tag-mode").hide();
     $("#exit-multiple-bag-tag-mode").show();
     $("#change-multiple-bag-tags").show();
     $("#enter-select-from-metrix").show();
-
-    // bag tag numbers
-    $("#bag-tags .friend-ball").each(function() {
-        $(this).attr("old-href", $(this).attr("href"));
-        $(this).removeAttr("href");
-    });
 
     // hints
     $("#show-bag-tags-hint").hide();
@@ -81,19 +87,12 @@ function exitMultipleBagTagMode() {
     $("#bag-tags").removeClass("multiple-mode");
     $("#bag-tags .number").removeClass("gray");
     $("#bag-tags .number").removeClass("selected");
-    $("#bag-tags .player").removeClass("clickable");
 
     // buttons
     $("#enter-multiple-bag-tag-mode").show();
     $("#exit-multiple-bag-tag-mode").hide();
     $("#change-multiple-bag-tags").hide();
     $("#enter-select-from-metrix").hide();
-
-    // bag tag numbers
-    $("#bag-tags .friend-ball").each(function() {
-        $(this).attr("href", $(this).attr("old-href"));
-        $(this).removeAttr("old-href");
-    });
 
     // hints
     $("#show-bag-tags-hint").show();
@@ -226,20 +225,6 @@ assignNewBagTagsMode = false;
 function assignNewBagTagPopup() {
 
     assignNewBagTagsMode = !assignNewBagTagsMode;
-
-    if (assignNewBagTagsMode) {
-
-        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
-            $(this).attr("old-href", $(this).attr("href"));
-            $(this).removeAttr("href");
-        });
-    }
-    else {
-        $("#assign-new-bag-tag-popup .friend-ball").each(function() {
-            $(this).attr("href", $(this).attr("old-href"));
-            $(this).removeAttr("old-href");
-        });
-    }
 
     $("#assign-new-bag-tag-button .assign").toggle();
     $("#assign-new-bag-tag-button .cancel").toggle();

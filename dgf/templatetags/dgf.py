@@ -1,6 +1,6 @@
 import logging
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from django import template
 from django.db.models import Count, Max, Q, Sum
@@ -92,7 +92,7 @@ def current_tournaments():
 @register.simple_tag
 def tournaments_ending_today():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(end=datetime(year=2022, month=3, day=27),
+        .filter(end=datetime.today(),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
         .order_by('begin', 'end', 'name')

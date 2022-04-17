@@ -14,6 +14,11 @@
         const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
         const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
         const metrixUserIds = Object.keys(metrixUserIdToFriend);
+        {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const disableClickOnFriends = true;
+        {% else %}
+            const disableClickOnFriends = false;
+        {% endif %}
     </script>
     <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
 {% endaddtoblock %}
