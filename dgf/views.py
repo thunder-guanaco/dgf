@@ -207,7 +207,7 @@ def bag_tag_update(request):
     if not actor.bag_tag:
         return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to change them.')
 
-    current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list("username", "bag_tag"))
+    current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list('username', 'bag_tag'))
 
     try:
         new_bag_tags = {key: int(value) for key, value in request.POST.items()}

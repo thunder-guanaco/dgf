@@ -79,11 +79,15 @@ def filter_by_type(queryset, type):
     return queryset.filter(type=type)
 
 
+# .filter(begin__lte=datetime(year=2021, month=11, day=28),
+#         end__gte=datetime(year=2021, month=11, day=28),
+# .filter(begin__lte=datetime(year=2022, month=3, day=26),
+#         end__gte=datetime(year=2022, month=3, day=26),
 @register.simple_tag
 def current_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \
-        .filter(begin__lte=datetime.today(),
-                end__gte=datetime.today(),
+        .filter(begin__lte=datetime(year=2022, month=3, day=26),
+                end__gte=datetime(year=2022, month=3, day=26),
                 attendance__friend__is_active=True,
                 players_count__gt=0) \
         .order_by('begin', 'end', 'name')
@@ -205,3 +209,33 @@ def get_result(result, tournament):
 @register.simple_tag
 def all_friends():
     return Friend.objects.all()
+
+
+@register.filter
+def with_metrix_user_id(friends):
+    return friends.filter(metrix_user_id__isnull=False)
+
+
+@register.filter
+def values(friends, fields):
+    return friends.values(*fields.split(','))
+
+
+@register.filter
+def values_list(friends, fields):
+    return friends.values_list(*fields.split(','))
+
+
+@register.filter
+def values_list_flat(friends, field):
+    return friends.values_list(field, flat=True)
+
+
+@register.filter
+def to_list(queryset):
+    return list(queryset)
+
+
+@register.filter
+def to_dict(queryset):
+    return dict(queryset)

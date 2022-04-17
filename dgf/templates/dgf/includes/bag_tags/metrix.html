@@ -1,0 +1,23 @@
+{% load i18n dgf %}
+
+<div id="bag-tags-metrix" style="display: none;">
+    <h3>
+        {% trans "Select a tournament" %}
+    </h3>
+    {% current_tournaments as tournaments %}
+    {% if tournaments %}
+        <ul id="current-tournaments">
+            {% for tournament in tournaments %}
+                {% if tournament.metrix_id %}
+                    <li class="tournament">
+                        <a onclick="tournamentClicked({{tournament.metrix_id}})">
+                            {{tournament.name}}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        {% trans "There are no tournaments today in Metrix (or at least I don't know about them)" %}
+    {% endif %}
+</div>

@@ -304,3 +304,20 @@ multiple-bag-tag-cancel.negative:hover {
     background-color: #1b2633 !important;
     border-color: #1b2633 !important;
 }
+
+#bag-tags-wrapper {
+    position: relative;
+}
+
+#bag-tags-metrix li {
+    list-style: none;
+}
+
+#bag-tags-metrix a {
+    color: #8d1950 !important;
+    cursor: pointer;
+}
+
+#multiple-bag-tag-players .player .score {
+    margin-left: 0.5em;
+}

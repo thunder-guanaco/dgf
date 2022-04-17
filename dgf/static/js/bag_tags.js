@@ -26,7 +26,7 @@ function claimBagTag(number, url) {
     }
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: url,
         beforeSend:function(xhr){
             xhr.setRequestHeader("X-CSRFToken", csrfToken);
@@ -56,9 +56,12 @@ function toggleMultipleBagTagMode() {
     $("#show-bag-tags-hint").toggle();
     $("#select-bag-tags-hint").toggle();
     $("#change-multiple-bag-tags").toggle();
+    $("#select-from-metrix").toggle();
 
     $("#bag-tags .player").toggleClass("clickable");
     $("#bag-tags .since").toggle();
+
+    $("#admin-bag-tags").toggle();
 
     if (multipleBagTagMode) {
 
@@ -127,14 +130,14 @@ function changeMultipleBagTags() {
     $("#bag-tags").hide();
     $("#edit-bag-tags").show();
 
-    $('#multiple-bag-tag-players').sortableLists({
-        currElClass: 'draggedPlayer',
-        listSelector: 'ul',
+    $("#multiple-bag-tag-players").sortableLists({
+        currElClass: "draggedPlayer",
+        listSelector: "ul",
         maxLevels: 1,
         insertZone: 500,
         //insertZonePlus: true,
         scroll: 100,
-        placeholderCss: {'background-color': 'rgba(143, 25, 80, 0.1)'},
+        placeholderCss: {"background-color": "rgba(143, 25, 80, 0.1)"},
     });
 }
 
@@ -155,7 +158,7 @@ function multipleBagTagsSave() {
 
     $("#multiple-bag-tag-error span").remove();
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: bagTagUpdateUrl,
         data: data,
         beforeSend:function(xhr){
@@ -239,7 +242,7 @@ function assignNewBagTags() {
     };
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: assignNewBagTagsUrl,
         data: data,
         beforeSend:function(xhr){
@@ -253,5 +256,137 @@ function assignNewBagTags() {
             console.log(e);
             $("#assign-new-bag-tag-popup-error").append("<span>" + response.statusText + "</span>")
         }
+    });
+}
+
+function selectFromMetrix() {
+
+    $("#select-from-metrix .select").toggle();
+    $("#select-from-metrix .back").toggle();
+
+    $("#bag-tags-metrix").toggle();
+    $("#bag-tags .content").toggle();
+}
+
+function tournamentClicked(tournamentId) {
+    $.ajax({
+        type: "GET",
+        url: "https://discgolfmetrix.com/api.php?content=result&id=" + tournamentId,
+        success: function(response) {
+            handleMetrixResponse(response);
+        },
+        error: function(response, e) {
+            console.log(response.statusText);
+            console.log(e);
+        }
+    });
+}
+
+function sortBy(results, field, reverse=false) {
+    return results.sort(function(a, b) {
+        if (reverse) {
+            return b[field] - a[field];
+        }
+        else {
+            return a[field] - b[field];
+        }
+    });
+}
+
+function parseTourResults(results) {
+
+    var sortedResults = sortBy(results, "Place");
+    var parsedResults = {};
+
+    sortedResults.forEach(result => {
+        var userId = result["UserID"];
+        if (metrixUserIds.includes(userId)) {
+            var username = metrixUserIdToFriend[userId];
+            $("#bag-tags .content .number[data-username='" + username + "']").addClass("selected");
+            parsedResults[username] = {
+                "place": result["Place"],
+                "score": result["Total"],
+            };
+        }
+    });
+    return parsedResults;
+}
+
+function parseSubCompetitions(competitions) {
+
+    var allResults = {};
+    competitions.forEach(competition => {
+        competition["Results"].forEach(result => {
+            var userId = result["UserID"];
+            if (metrixUserIds.includes(userId)) {
+                var username = metrixUserIdToFriend[userId];
+                var score = result["Sum"];
+                if (username in allResults) {
+                    allResults[username]["score"] += score;
+                }
+                else {
+                    allResults[username] = {
+                        "score": score,
+                        "username": username,
+                    };
+                }
+            }
+        });
+    });
+
+    var unsortedResults = Object.keys(allResults).map(function(key){
+        return allResults[key];
+    });
+
+    var sortedResults = sortBy(unsortedResults, "score");
+
+    var parsedResults = {};
+    var i = 1;
+    sortedResults.forEach(result => {
+        var username = result["username"];
+        $("#bag-tags .content .number[data-username='" + username + "']").addClass("selected");
+        parsedResults[username] = {
+            "place": i,
+            "score": result["score"],
+        };
+        i += 1;
+    });
+    return parsedResults;
+}
+
+metrixResults = {};
+function handleMetrixResponse(response) {
+
+    var competition = response["Competition"];
+    if (competition["ShowTourView"] == "1") {
+        metrixResults = parseTourResults(competition["TourResults"]);
+    }
+    else {
+        metrixResults = parseSubCompetitions(competition["SubCompetitions"]);
+    }
+
+    $("#bag-tags .content").show();
+    $("#bag-tags-metrix").hide();
+
+    changeMultipleBagTags();
+    sortBagTags();
+    addScores();
+}
+
+function getMetrixPlace(li) {
+    return metrixResults[$(li).children("div").first().data("username")]["place"];
+}
+
+function sortBagTags() {
+    $("#multiple-bag-tag-players li").sort(function(a, b){
+        return getMetrixPlace(a) - getMetrixPlace(b);
+    }).appendTo("#multiple-bag-tag-players");
+}
+
+function addScores() {
+    $("#multiple-bag-tag-players .player").each(function(){
+        var username = $(this).data("username");
+        var score = metrixResults[username]["score"];
+        $(this).append("<span class='score'>(" + score + ")</span>");
     });
 }
