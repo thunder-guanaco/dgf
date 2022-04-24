@@ -155,13 +155,18 @@
     border-color: #999999;
 }
 
-#bag-tags.multiple-mode .friend-ball .tooltip-text {
+#bag-tags.multiple-mode .since {
     display: none;
 }
 
+#bag-tags.multiple-mode .news,
+#bag-tags.multiple-mode .news-best {
+    visibility: hidden;
+}
+
 #bag-tags .number.selected {
-    background-color: #212529 !important;
-    border-color: #212529 !important;
+    background-color: #1b2633 !important;
+    border-color: #1b2633 !important;
 }
 
 #bag-tags .number.clickable, #bag-tags .player.clickable {
@@ -169,8 +174,8 @@
 }
 
 #bag-tags .number.clickable:hover {
-    background-color: #212529;
-    border: solid #212529 2px;
+    background-color: #1b2633;
+    border: solid #1b2633 2px;
 }
 
 #bag-tags .number span {
@@ -183,7 +188,7 @@
     width: 40px;
     padding: 0.25em;
     border-radius: 5px;
-    border: solid #212529 2px;
+    border: solid #1b2633 2px;
 }
 
 .player {
@@ -257,12 +262,20 @@
     margin-bottom: 1em;
 }
 
-multiple-bag-tag-cancel.negative {
+button.negative {
     background-color: #999999 !important;
 }
 
-multiple-bag-tag-cancel.negative:hover {
+button.negative:hover {
     background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
+}
+
+button.new {
+    background-color: #8d1950 !important;
+}
+
+button.new:hover {
+    background:linear-gradient(to top, #5a001d 5%, #8d1950 100%) !important;
 }
 
 #you-dont-have-bag-tags {
@@ -277,6 +290,7 @@ multiple-bag-tag-cancel.negative:hover {
 
 #admin-bag-tags button {
     float: right;
+    margin-left: 0.5em;
 }
 
 #admin-bag-tags {
@@ -291,8 +305,8 @@ multiple-bag-tag-cancel.negative:hover {
 }
 
 #admin-bag-tags .number:hover {
-    background-color: #212529;
-    border: solid #212529 2px;
+    background-color: #1b2633;
+    border: solid #1b2633 2px;
 }
 
 #admin-bag-tags .clickable {
@@ -300,6 +314,23 @@ multiple-bag-tag-cancel.negative:hover {
 }
 
 #admin-bag-tags .number.selected {
-    background-color: #212529 !important;
-    border-color: #212529 !important;
+    background-color: #1b2633 !important;
+    border-color: #1b2633 !important;
+}
+
+#bag-tags-wrapper {
+    position: relative;
+}
+
+#bag-tags-metrix li {
+    margin-left: 2em;
+}
+
+#bag-tags-metrix a {
+    color: #8d1950 !important;
+    cursor: pointer;
+}
+
+#multiple-bag-tag-players .player .score {
+    margin-left: 0.5em;
 }

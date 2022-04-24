@@ -1,0 +1,24 @@
+{% load i18n static cookie_consent_tags %}
+
+<div class="no-cookies-no-content-wrapper">
+
+    <div class="no-cookies-no-content">
+
+        {% if source %}
+            <div>
+                {% blocktranslate %}This is some really cool content from {{source}} you can not see until you accept the usage of cookies.{% endblocktranslate %}
+            </div>
+        {% else %}
+            <div>
+                {% trans "This is some really cool content you can not see until you accept the usage of cookies." %}
+            </div>
+        {% endif %}
+
+        <div>
+            <span>{% trans "If you already decline them but you changed your mind, you can always accept them again " %}</span>
+            <a href="{% url 'cookie_consent_cookie_group_list' %}">{% trans "here" %}.</a>
+        </div>
+
+    </div>
+
+</div>

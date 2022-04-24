@@ -1,4 +1,4 @@
-{% load sekizai_tags static i18n dgf mathfilters %}
+{% load sekizai_tags static i18n dgf %}
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tag.css' %}">
@@ -12,167 +12,36 @@
         const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
         const ownBagTagNumer = {{request.user.friend.bag_tag}};
         const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
+        const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
+        const metrixUserIds = Object.keys(metrixUserIdToFriend);
+        {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const disableClickOnFriends = true;
+        {% else %}
+            const disableClickOnFriends = false;
+        {% endif %}
     </script>
     <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
 {% endaddtoblock %}
 
-{% with request.user.is_authenticated as authenticated %}
+<div id="bag-tags-wrapper">
     <div id="bag-tags">
 
         <h2>{% trans "Bag Tags" %}</h2>
 
-        {% if authenticated %}
-            {% if request.user.friend.bag_tag %}
-                <div class="header">
-                    <span class="hint" id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </span>
-                    <span class="hint" id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on 'continue'." %} </span>
-                    <div>
-                        <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
-                            {% trans "Continue" %}
-                        </button>
-                        <button id="toggle-mode" onclick="toggleMultipleBagTagMode()">
-                            <span class="update">{% trans "update multiple bag tags" %}</span>
-                            <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
-                        </button>
-                    </div>
-                </div>
-                <span class="error" id="at-least-2-bag-tags-hint" style="display: none;">{% trans "You have to select at least 2 bag tags!" %} </span>
-            {% else %}
-                <div id="you-dont-have-bag-tags">
-                    <span>{% trans "You don't have a bag tag. If you want one do the following:" %}</span>
-                    <ol>
-                        <li>
-                            <span>{% trans "Contact " %}</span>
-                            <a href="{% url 'dgf:friend_detail' 'david' %}">David</a>
-                            <span>{% trans " to get one (the bag tags are in the Disc Golf Center)." %}</span>
-                        </li>
-                        <li>
-                            <span class="hint">{% trans "Tell " %}</span>
-                            <a href="{% url 'dgf:friend_detail' 'manolo' %}">Manolo</a>
-                            <span>{% trans " so that he can register it here." %}</span>
-                        </li>
-                    </ol>
-                </div>
-            {% endif %}
-
+        {% if request.user.is_authenticated %}
+            {% include "dgf/includes/bag_tags/top_buttons.html" %}
         {% endif %}
 
-        <div class="content">
-            {% for friend in friends %}
-                <div class="line">
+        {% include "dgf/includes/bag_tags/bag_tag_list.html" %}
 
-                    {% with bag_tag_difference=friend.bag_tag|sub:friend.previous_bag_tag %}
-
-                        <div class="news-best" data-bag-tag-difference="{{bag_tag_difference}}">
-                        </div>
-
-                        <div class="news
-                                {% if bag_tag_difference < 0 %}
-                                    positive
-                                {% elif bag_tag_difference > 0 %}
-                                    negative
-                                {% elif bag_tag_difference == 0 %}
-                                    neutral
-                                {% else %}
-                                    none
-                                {% endif %}">
-                            <span>{{bag_tag_difference|abs}}</span>
-                        </div>
-
-                    {% endwith %}
-
-                    {% if authenticated and request.user.friend.bag_tag %}
-
-                        <div class="number clickable"
-                             data-bag-tag="{{friend.bag_tag}}"
-                             data-url="{% url 'dgf:bag_tag_claim' friend.bag_tag %}"
-                             onclick="bagTagClicked({{friend.bag_tag}})">
-                            <span>{{friend.bag_tag}}</span>
-                        </div>
-                        <div class="player"
-                             data-bag-tag="{{friend.bag_tag}}"
-                             data-username="{{friend.username}}"
-                             onclick="bagTagClicked({{friend.bag_tag}})">
-                            {% include "dgf/includes/friend_ball.html" with friend=friend %}
-                            <div>
-                                {{friend.short_name}}
-                            </div>
-                        </div>
-
-                    {% else %}
-
-                        <div class="number">
-                            <span>{{friend.bag_tag}}</span>
-                        </div>
-                        <div class="player">
-                            {% include "dgf/includes/friend_ball.html" with friend=friend %}
-                            <div>
-                                {{friend.short_name}}
-                            </div>
-                        </div>
-
-                    {% endif %}
-
-                    <div class="since desktop">
-                        {% trans " since " %} {{friend.since|date}}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
     </div>
 
-    {% if authenticated and request.user.friend.bag_tag %}
-        <div id="edit-bag-tags" style="display: none;">
-            <h2>{% trans "Update the bag tags" %}</h2>
-            <div class="header">
-                <span class="hint">{% trans "You can either change the numbers on the left or move the friends on the right. Don't forget to save!" %}</span>
-                <div>
-                    <button id="multiple-bag-tag-save" onclick="multipleBagTagsSave()">
-                        {% trans "Save" %}
-                    </button>
-                    <button id="multiple-bag-tag-cancel" class="negative" onclick="multipleBagTagsCancel()">
-                        {% trans "Back" %}
-                    </button>
-                </div>
-            </div>
-            <div id="multiple-bag-tag-error" class="error"></div>
-            <div id="multiple-bag-tag-lists"></div>
-        </div>
+    {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+        {% include "dgf/includes/bag_tags/edit.html" %}
+        {% include "dgf/includes/bag_tags/metrix.html" %}
     {% endif %}
 
-{% endwith %}
-
-{% if request.user.is_superuser %}
-
-    <div id="admin-bag-tags">
-        <h3>{% trans "Admin zone" %}</h3>
-        <button id="assign-new-bag-tag-button" onclick="assignNewBagTagPopup()">
-            <span class="assign">{% trans "Assign new bag tag(s)" %}</span>
-            <span class="cancel" style="display: none;">{% trans "Cancel" %}</span>
-        </button>
-        <div id="assign-new-bag-tag-popup" style="display: none;">
-            <span class="hint">{% trans "Select friends without bag tags and new ones will be assigned" %} </span>
-            {% for friend in friends_without_bag_tag %}
-                <div class="line clickable"
-                     onclick="emptyBagTagClicked('{{friend.username}}')"
-                     data-username="{{friend.username}}">
-                    <div class="number">
-                        &nbsp
-                    </div>
-                    <div class="player">
-                        {% include "dgf/includes/friend_ball.html" with friend=friend %}
-                        <div>
-                            {{friend.short_name}}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            <button id="assign-new-bag-tag-trigger" onclick="assignNewBagTags()">
-                {% trans "Assign new bag tag(s)" %}
-            </button>
-            <div id="assign-new-bag-tag-popup-error" class="error"></div>
-            <span class="error" id="at-least-1-friend-hint" style="display: none;">{% trans "You have to select at least 1 friend!" %} </span>
-        </div>
-    </div>
-
-{% endif %}
+    {% if request.user.is_superuser %}
+        {% include "dgf/includes/bag_tags/admin.html" %}
+    {% endif %}
+</div>

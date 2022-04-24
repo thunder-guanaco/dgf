@@ -1,0 +1,267 @@
+[
+  {
+    "pk": 1,
+    "model": "dgf_cookies.cookiegrouptranslation",
+    "fields": {
+      "cookie_group": 1,
+      "language": "de",
+      "name": "Notwendige Cookies",
+      "description": "Notwendige Cookies helfen dabei, eine Webseite nutzbar zu machen, indem sie Grundfunktionen wie Seitennavigation und Zugriff auf sichere Bereiche der Webseite ermöglichen. Die Webseite kann ohne diese Cookies nicht richtig funktionieren."
+    }
+  },
+  {
+    "pk": 2,
+    "model": "dgf_cookies.cookiegrouptranslation",
+    "fields": {
+      "cookie_group": 2,
+      "language": "de",
+      "name": "Google Analytics",
+      "description": "Statistik-Cookies helfen Webseiten-Besitzern zu verstehen, wie Besucher mit Webseiten interagieren, indem Informationen anonym gesammelt und gemeldet werden. Mehr Informationen über Google Analytics-Cookies: https://developers.google.com/analytics/devguides/collection/gtagjs/cookie-usage"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "dgf_cookies.cookiegrouptranslation",
+    "fields": {
+      "cookie_group": 3,
+      "language": "de",
+      "name": "Google",
+      "description": "Google greift beispielsweise auf Cookies zurück, um deine bevorzugte Sprache zu speichern, für dich relevantere Werbung zu zeigen, Besucherzahlen pro Seite zu erheben, dich bei der Registrierung in seinen Diensten zu unterstützen, um deine Daten zu schützen und um deine Einstellungen für Werbung zu speichern. Mehr Informationen über Google-Cookies: https://policies.google.com/technologies/cookies?hl=de"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "dgf_cookies.cookiegrouptranslation",
+    "fields": {
+      "cookie_group": 4,
+      "language": "de",
+      "name": "Facebook",
+      "description": " Cookies ermöglichen es Meta, dir die Meta-Produkte anzubieten, und außerdem, die Informationen zu verstehen, die wir über dich erhalten, einschließlich Informationen über deine Nutzung anderer Websites und Apps, und zwar unabhängig davon, ob du registriert bzw. angemeldet bist oder nicht. Mehr Informationen über Facebook-Cookies: https://www.facebook.com/policy/cookies/"
+    }
+  },
+  {
+    "pk": 100,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 100,
+      "language": "de",
+      "description": "Wird verwendet, um festzustellen, ob der Besucher die Cookies akzeptiert hat. Dieser Cookie ist notwendig für die Einhaltung der DSGVO der Webseite."
+    }
+  },
+  {
+    "pk": 101,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 101,
+      "language": "de",
+      "description": "Wird verwendet, um festzustellen, ob der Besucher die Cookies akzeptiert hat. Dieser Cookie ist notwendig für die Einhaltung der DSGVO der Webseite."
+    }
+  },
+  {
+    "pk": 102,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 102,
+      "language": "de",
+      "description": "Wird verwendet, um festzustellen, ob der Besucher die Cookies akzeptiert hat. Dieser Cookie ist notwendig für die Einhaltung der DSGVO der Webseite."
+    }
+  },
+  {
+    "pk": 103,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 103,
+      "language": "de",
+      "description": "Wird verwendet, um die Session-ID des Besucher zu speichern. Mehr Informationen über Django Session-ID Cookies: https://docs.djangoproject.com/en/4.0/topics/http/sessions/#technical-details"
+    }
+  },
+  {
+    "pk": 104,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 104,
+      "language": "de",
+      "description": "Wird verwendet, um den CSRF-Token zu speichern. Mehr Informationen über Cross Site Request Forgeries: https://www.squarefree.com/securitytips/web-developers.html#CSRF"
+    }
+  },
+  {
+    "pk": 105,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 105,
+      "language": "de",
+      "description": "Bestimmt die bevorzugte Sprache des Besuchers. Ermöglicht der Webseite, beim erneuten Besuch des Besuchers die bevorzugte Sprache festzulegen."
+    }
+  },
+  {
+    "pk": 106,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 106,
+      "language": "de",
+      "description": "Wird verwendet, um zu die Scroll-Position zu speichern."
+    }
+  },
+  {
+    "pk": 200,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 200,
+      "language": "de",
+      "description": "Registriert eine eindeutige ID, die verwendet wird, um statistische Daten dazu, wie der Besucher die Website nutzt, zu generieren."
+    }
+  },
+  {
+    "pk": 201,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 201,
+      "language": "de",
+      "description": "Wird von Google Analytics verwendet, um die Anforderungsrate ein zu schränken."
+    }
+  },
+  {
+    "pk": 202,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 202,
+      "language": "de",
+      "description": "Registriert eine eindeutige ID, die verwendet wird, um statistische Daten dazu, wie der Besucher die Website nutzt, zu generieren."
+    }
+  },
+  {
+    "pk": 203,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 203,
+      "language": "de",
+      "description": "Wird verwendet, um Client-IDs zu speichern."
+    }
+  },
+  {
+    "pk": 204,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 204,
+      "language": "de",
+      "description": "Wird verwendet um Werbe-Informationen zu speichern. Mehr Informationen über Google-Ads Cookies: https://support.google.com/google-ads/answer/7521212?hl=de"
+    }
+  },
+  {
+    "pk": 205,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 205,
+      "language": "de",
+      "description": "Wird verwendet, um Daten zu Google Analytics über das Gerät und das Verhalten des Besuchers zusenden. Erfasst den Besucher über Geräte und Marketingkanäle hinweg."
+    }
+  },
+  {
+    "pk": 300,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 300,
+      "language": "de",
+      "description": "Versucht, die Benutzerbandbreite auf Seiten mit integrierten YouTube-Videos zu schätzen."
+    }
+  },
+  {
+    "pk": 301,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 301,
+      "language": "de",
+      "description": "Registriert eine eindeutige ID, um Statistiken der Videos von YouTube, die der Benutzer geseh en hat, zu behalten."
+    }
+  },
+  {
+    "pk": 302,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 302,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 303,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 303,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 304,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 304,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 305,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 305,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 306,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 306,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 307,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 307,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 308,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 308,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 309,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 309,
+      "language": "de",
+      "description": "Speichert die Benutzereinstellungen beim Abruf eines auf anderen Webseiten integrierten Youtube-Videos"
+    }
+  },
+  {
+    "pk": 400,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 400,
+      "language": "de",
+      "description": "Wird von Facebook genutzt, um eine Reihe von Werbeprodukten an zu zeigen, zum Beispiel Echtzeitgebote dritter Werbetreibender."
+    }
+  },
+  {
+    "pk": 401,
+    "model": "dgf_cookies.cookietranslation",
+    "fields": {
+      "cookie": 401,
+      "language": "de",
+      "description": "Wird von Facebook genutzt, um eine Reihe von Werbeprodukten an zu zeigen, zum Beispiel Echtzeitgebote dritter Werbetreibender."
+    }
+  }
+]

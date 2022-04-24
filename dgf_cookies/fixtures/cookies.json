@@ -1,0 +1,354 @@
+[
+  {
+    "pk": 1,
+    "model": "cookie_consent.cookiegroup",
+    "fields": {
+      "is_deletable": false,
+      "name": "Required cookies",
+      "created": "2020-01-01T12:54:15.809",
+      "ordering": 0,
+      "varname": "required",
+      "is_required": true,
+      "description": "These cookies are necessary for our website to function properly and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms or where they’re essential to provide you with a service you have requested. You cannot opt-out of these cookies. You can set your browser to block or alert you about these cookies, but if you do, some parts of the site will not then work."
+    }
+  },
+  {
+    "pk": 2,
+    "model": "cookie_consent.cookiegroup",
+    "fields": {
+      "is_deletable": true,
+      "name": "Google Analytics",
+      "created": "2020-01-01T12:54:15.809",
+      "ordering": 0,
+      "varname": "analytics",
+      "is_required": false,
+      "description": "Google Analytics uses cookies to report on visitor (aka. user) interactions on Google Analytics customers’ websites. Users may disable cookies or delete any individual cookie. More information about how Google Analytics uses cookies: https://developers.google.com/analytics/devguides/collection/gtagjs/cookie-usage"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "cookie_consent.cookiegroup",
+    "fields": {
+      "is_deletable": true,
+      "name": "Google",
+      "created": "2020-01-01T12:54:15.809",
+      "ordering": 0,
+      "varname": "google",
+      "is_required": false,
+      "description": "Google cookies make your online experience easier by saving browsing information. More information about how Google uses cookies: https://policies.google.com/technologies/cookies"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "cookie_consent.cookiegroup",
+    "fields": {
+      "is_deletable": true,
+      "name": "Facebook",
+      "created": "2020-01-01T12:54:15.809",
+      "ordering": 0,
+      "varname": "facebook",
+      "is_required": false,
+      "description": "This cookies are used by Facebook to allow sharing content. More information about how Facebook uses cookies: https://www.facebook.com/policy/cookies/"
+    }
+  },
+  {
+    "pk": 100,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "cookie_consent",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Used to store if the user has accepted the usage of cookies."
+    }
+  },
+  {
+    "pk": 101,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".google.com",
+      "name": "CONSENT",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Used to store if the user has accepted the usage of cookies."
+    }
+  },
+  {
+    "pk": 102,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "CONSENT",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Used to store if the user has accepted the usage of cookies."
+    }
+  },
+  {
+    "pk": 103,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "sessionid",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Stores the session ID, which is used to uniquely identify your session. More information: https://docs.djangoproject.com/en/4.0/topics/http/sessions/#technical-details"
+    }
+  },
+  {
+    "pk": 104,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "csrftoken",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Stores the CSRF token of the user to provide protection against Cross Site Request Forgeries. More information about Cross Site Request Forgeries: https://www.squarefree.com/securitytips/web-developers.html#CSRF"
+    }
+  },
+  {
+    "pk": 105,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "django_language",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Stores your language preferences."
+    }
+  },
+  {
+    "pk": 106,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "arp_scroll_position",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 1,
+      "path": "/",
+      "description": "Stores the scroll position of the page when the user has scrolled to the bottom of the page."
+    }
+  },
+  {
+    "pk": 200,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "_ga",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "Used to distinguish users."
+    }
+  },
+  {
+    "pk": 201,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "_gat",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "Used to throttle request rate. If Google Analytics is deployed via Google Tag Manager, this cookie will be named _dc_gtm_<property-id>."
+    }
+  },
+  {
+    "pk": 202,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "_gid",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "Used to distinguish users."
+    }
+  },
+  {
+    "pk": 203,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "AMP_TOKEN",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service."
+    }
+  },
+  {
+    "pk": 204,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": "discgolffriends.de",
+      "name": "_gac_property-id",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "Contains campaign related information for the user. If you have linked your Google Analytics and Google Ads accounts, Google Ads website conversion tags will read this cookie unless you opt-out. Learn more: https://support.google.com/google-ads/answer/7521212"
+    }
+  },
+  {
+    "pk": 205,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".google-analytics.com",
+      "name": "collect",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 2,
+      "path": "/",
+      "description": "More information about how Google uses cookies: https://policies.google.com/technologies/cookies"
+    }
+  },
+  {
+    "pk": 300,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "VISITOR_INFO1_LIVE",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Used to detect and resolve problems with YouTube."
+    }
+  },
+  {
+    "pk": 301,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "YSC",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Used by YouTube to remember user input and associate a user’s actions. This cookie lasts for as long as the user keeps their browser open."
+    }
+  },
+  {
+    "pk": 302,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "ytidb::LAST_RESULT_ENTRY_KEY",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 303,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-cast-available",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 304,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-cast-installed",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 305,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-connected-devices",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 306,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-device-id",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 307,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-fast-check-period",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 308,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-session-app",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 309,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".youtube.com",
+      "name": "yt-remote-session-name",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 3,
+      "path": "/",
+      "description": "Saves user preferences for embedded videos."
+    }
+  },
+  {
+    "pk": 400,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".facebook.com",
+      "name": "fr",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 4,
+      "path": "/",
+      "description": "Used to deliver, measure and improve the relevancy of ads, with a lifespan of 90 days."
+    }
+  },
+  {
+    "pk": 401,
+    "model": "cookie_consent.cookie",
+    "fields": {
+      "domain": ".facebook.com",
+      "name": "sb",
+      "created": "2020-01-01T12:54:15.809",
+      "cookiegroup": 4,
+      "path": "/",
+      "description": "Enables Facebook to identify your browser securely."
+    }
+  }
+]

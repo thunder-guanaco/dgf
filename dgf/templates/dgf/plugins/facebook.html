@@ -1,2 +1,9 @@
-{% comment %}make this nicer for mobile devices{% endcomment %}
-{% include "dgf/includes/facebook.html" with width="500px" %}
+{% if request.user_agent.is_mobile %}
+
+    {% include "dgf/includes/facebook.html" with width="350px" %}
+
+{% else %}
+
+    {% include "dgf/includes/facebook.html" with width="500px" %}
+
+{% endif %}

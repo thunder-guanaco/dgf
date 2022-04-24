@@ -90,6 +90,16 @@ def current_tournaments():
 
 
 @register.simple_tag
+def tournaments_ending_today_with_metrix_id():
+    return Tournament.objects.annotate(players_count=Count('attendance')) \
+        .filter(metrix_id__isnull=False,
+                end=datetime.today(),
+                attendance__friend__is_active=True,
+                players_count__gt=0) \
+        .order_by('begin', 'end', 'name')
+
+
+@register.simple_tag
 def friends_podium_tournaments():
     return Tournament.objects.annotate(results_count=Count("results")) \
         .filter(results__position__in=[1, 2, 3]) \
@@ -205,3 +215,33 @@ def get_result(result, tournament):
 @register.simple_tag
 def all_friends():
     return Friend.objects.all()
+
+
+@register.filter
+def with_metrix_user_id(friends):
+    return friends.filter(metrix_user_id__isnull=False)
+
+
+@register.filter
+def values(friends, fields):
+    return friends.values(*fields.split(','))
+
+
+@register.filter
+def values_list(friends, fields):
+    return friends.values_list(*fields.split(','))
+
+
+@register.filter
+def values_list_flat(friends, field):
+    return friends.values_list(field, flat=True)
+
+
+@register.filter
+def to_list(queryset):
+    return list(queryset)
+
+
+@register.filter
+def to_dict(queryset):
+    return dict(queryset)

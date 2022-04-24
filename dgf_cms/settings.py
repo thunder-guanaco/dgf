@@ -241,6 +241,7 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf_cookies',
     'dgf',
     'django_countries',
     'compressor',
@@ -307,6 +308,7 @@ USE_I18N = True
 USE_L10N = True
 
 LANGUAGE_CODE = 'de'
+DEFAULT_TRANSLATION_LANGUAGE = 'en'
 
 LANGUAGES = [
     ('de', _('German')),
