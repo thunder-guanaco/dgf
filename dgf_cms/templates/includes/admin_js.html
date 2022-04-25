@@ -1,12 +1,11 @@
-{% if request.user.is_superuser %}
+{% comment %}
+    This is only temporary until this gets fixed: https://github.com/thunder-guanaco/dgf/issues/2982
+{% endcomment %}
+{% if request.user.username == "juanito" %}
 
     {% comment %} This allows the admins to have quick commands {% endcomment %}
     <script>
         document.addEventListener('keydown', function (event) {
-
-            if ($(".cms-modal:visible").length > 0) {
-                return;
-            }
 
             currentUrl = location.origin + location.pathname;
 
