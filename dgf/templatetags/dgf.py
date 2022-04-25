@@ -5,8 +5,8 @@ from datetime import datetime
 from django import template
 from django.db.models import Count, Max, Q, Sum
 
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 from ..models import Ace, DiscInBag, Course, Tournament, Result, Friend
-from ..tremonia_series import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 register = template.Library()
 

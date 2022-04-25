@@ -10,11 +10,9 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 from dgf.models import Tournament, Attendance, Result
+from dgf_cms.settings import PDGA_DATE_FORMAT, PDGA_PAGE_BASE_URL
 
 logger = logging.getLogger(__name__)
-
-PDGA_PAGE_BASE_URL = 'https://www.pdga.com'
-PDGA_DATE_FORMAT = '%Y-%m-%d'
 
 
 class PdgaApi:
@@ -222,19 +220,17 @@ def add_tournament(pdga_api, pdga_id):
     begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
     end_date = datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)
 
-    tournament, created = Tournament.objects.get_or_create(pdga_id=pdga_tournament['tournament_id'],
-                                                           defaults={
-                                                               'name': pdga_tournament['tournament_name'],
-                                                               'url': pdga_tournament['event_url'],
-                                                               'begin': begin_date,
-                                                               'end': end_date
-                                                           })
+    tournament, created = Tournament.all_objects.get_or_create(pdga_id=pdga_tournament['tournament_id'],
+                                                               defaults={
+                                                                   'name': pdga_tournament['tournament_name'],
+                                                                   'begin': begin_date,
+                                                                   'end': end_date
+                                                               })
     if created:
         logger.info(f'Created tournament {tournament}')
     else:
         # Always update. With Corona you never know
         tournament.name = pdga_tournament['tournament_name']
-        tournament.url = pdga_tournament['event_url']
         tournament.begin = begin_date
         tournament.end = end_date
         tournament.save()

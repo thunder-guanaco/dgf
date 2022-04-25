@@ -109,10 +109,8 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(333)
         self.add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
-        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24,
-                                  url='https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
-        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25,
-                                  url='https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
+        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
 
         german_tour.update_tournaments()
 
@@ -273,17 +271,15 @@ class GermanTourTest(TestCase):
         self.add_tournament_with_empty_attendance_list(777)
         self.add_tournament_with_empty_attendance_list(888)
 
-        Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25,
-                                  url='https://www.pdga.com/tour/event/7777')
-        Tournament.objects.create(pdga_id=8888, name='Tremonia Classics', begin=APRIL_2, end=APRIL_2,
-                                  url='https://www.pdga.com/tour/event/8888')
+        Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
+        Tournament.objects.create(pdga_id=8888, name='Tremonia Classics', begin=APRIL_2, end=APRIL_2)
 
         german_tour.update_tournaments()
 
         tournament_7 = Tournament.objects.get(name='Tremonia Open')
         self.assertEqual(tournament_7.pdga_id, 7777)
         self.assertEqual(tournament_7.gt_id, 777)
-        self.assertEqual(tournament_7.url, 'https://www.pdga.com/tour/event/7777')
+        self.assertEqual(tournament_7.url, 'https://turniere.discgolf.de/index.php?p=events&sp=view&id=777')
         self.assertEqual(tournament_7.begin, JULY_24)
         self.assertEqual(tournament_7.end, JULY_25)
 
@@ -310,8 +306,7 @@ class GermanTourTest(TestCase):
 
         Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
         manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
-        tournament_7 = Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25,
-                                                 url='https://www.pdga.com/tour/event/7777')
+        tournament_7 = Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
         Attendance.objects.create(friend=manolo, tournament=tournament_7)
 
         german_tour.update_tournaments()

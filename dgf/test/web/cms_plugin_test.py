@@ -128,26 +128,21 @@ class CmsPluginsTests(TestCase):
         return [
             Tournament.objects.create(begin=PAST_DAY,
                                       end=PAST_DAY,
-                                      name='Tremonia Open 2000',
-                                      url='http://example.com/to2000'),
+                                      name='Tremonia Open 2000'),
 
             Tournament.objects.create(begin=PAST_DAY,
                                       end=PAST_DAY,
-                                      name='Tremonia Series #1',
-                                      url='http://example.com/ts1'),
+                                      name='Tremonia Series #1'),
 
             Tournament.objects.create(begin=FUTURE_DAY,
                                       end=FUTURE_DAY,
-                                      name='Tremonia Open 3000',
-                                      url='http://example.com/to3000'),
+                                      name='Tremonia Open 3000'),
 
             Tournament.objects.create(begin=FUTURE_DAY + timedelta(days=1),
                                       end=FUTURE_DAY + timedelta(days=1),
-                                      name='Tremonia Series #9999',
-                                      url='http://example.com/ts9999'),
+                                      name='Tremonia Series #9999'),
 
             Tournament.objects.create(begin=FUTURE_DAY,
                                       end=FUTURE_DAY,
-                                      name='Tremonia Series #8888',
-                                      url='http://example.com/ts8888'),
+                                      name='Tremonia Series #8888'),
         ]
