@@ -232,10 +232,11 @@ def bag_tag_update(request):
         friend = Friend.objects.get(username=username)
         friend.bag_tag = bag_tag
         friend.save()
-        BagTagChange.objects.create(actor=actor,
-                                    friend=friend,
-                                    previous_number=current_bag_tags[username],
-                                    new_number=new_bag_tags[username],
-                                    timestamp=now)
+        if current_bag_tags[username] != new_bag_tags[username]:
+            BagTagChange.objects.create(actor=actor,
+                                        friend=friend,
+                                        previous_number=current_bag_tags[username],
+                                        new_number=new_bag_tags[username],
+                                        timestamp=now)
 
     return HttpResponse(status=200)

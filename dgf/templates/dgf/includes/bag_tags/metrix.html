@@ -5,13 +5,24 @@
         {% trans "Tournaments that ended today" %}
     </h3>
     {% tournaments_ending_today_with_metrix_id as tournaments %}
-    <ul id="current-tournaments">
-        {% for tournament in tournaments %}
-            <li class="tournament">
-                <a onclick="tournamentClicked({{tournament.metrix_id}})">
-                    {{tournament.name}}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    {% if tournaments %}
+        <ul id="current-tournaments">
+            {% for tournament in tournaments %}
+                <li class="tournament">
+                    <a onclick="tournamentClicked({{tournament.metrix_id}})">
+                        {{tournament.name}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div id="no-metrix-tournaments">
+            <span>{% trans "No tournaments found" %}</span>
+            <div>
+                <span>{% trans "Get results from tournament by ID" %}</span>
+                <input id="metrix-tournament-id" type="number">
+                <button onclick="getTournamentById()">{% trans "Go!" %}</button>
+            </div>
+        </div>
+    {% endif %}
 </div>

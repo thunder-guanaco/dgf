@@ -329,6 +329,10 @@ function tournamentClicked(tournamentId) {
     });
 }
 
+function getTournamentById() {
+    tournamentClicked($("#metrix-tournament-id").val());
+}
+
 function sortBy(results, field, reverse=false) {
     return results.sort(function(a, b) {
         if (reverse) {

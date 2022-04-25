@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.db.models import Count, Q, Max, OuterRef, Subquery
+from django.db.models import Count, F, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, BagTagChange
