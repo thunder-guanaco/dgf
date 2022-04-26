@@ -5,13 +5,10 @@ import requests
 
 from dgf import external_user_finder
 from dgf.models import Tournament, Result, Attendance, Tour
+from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_METRIX_DATE_FORMAT, \
+    TREMONIA_SERIES_ROOT_ID
 
 logger = logging.getLogger(__name__)
-
-DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
-DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
-TREMONIA_SERIES_ROOT_ID = '715021'
-DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
 
 
 def get_tournament(id):
@@ -65,7 +62,6 @@ def add_tournament(ts_tournament):
     tournament, created = Tournament.objects.get_or_create(metrix_id=id,
                                                            defaults={
                                                                'name': name,
-                                                               'url': DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id),
                                                                'begin': date,
                                                                'end': date,
                                                                'point_system': Tournament.TS_POINTS_WITH_BEATEN_PLAYERS,
@@ -76,7 +72,6 @@ def add_tournament(ts_tournament):
     else:
         # Always update. With Corona you never know
         tournament.name = name
-        tournament.url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(id)
         tournament.begin = date
         tournament.end = date
         tournament.save()

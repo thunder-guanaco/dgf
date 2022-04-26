@@ -16,6 +16,7 @@ from partial_date import PartialDateField
 
 from dgf.point_systems import calculate_points
 from dgf.post_actions import feedback_post_save
+from dgf_cms.settings import TOURNAMENT_PAGE, PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -326,7 +327,6 @@ class Tournament(Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['url'], name='unique_url_for_tournament'),
             models.UniqueConstraint(fields=['pdga_id'], name='unique_pdga_id_for_tournament'),
             models.UniqueConstraint(fields=['gt_id'], name='unique_gt_id_for_tournament'),
             models.UniqueConstraint(fields=['metrix_id'], name='unique_metrix_id_for_tournament'),
@@ -335,7 +335,6 @@ class Tournament(Model):
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     name = models.CharField(_('Name'), max_length=300)
-    url = models.URLField(_('URL'), null=True, blank=True)
 
     pdga_id = models.PositiveIntegerField(_('PDGA ID'), null=True, blank=True)
     gt_id = models.PositiveIntegerField(_('GT ID'), null=True, blank=True)
@@ -353,6 +352,17 @@ class Tournament(Model):
     @property
     def date(self):
         return date_string(self)
+
+    @property
+    def url(self):
+        if self.gt_id:
+            return TOURNAMENT_PAGE.format(self.gt_id)
+        elif self.pdga_id:
+            return PDGA_EVENT_URL.format(self.pdga_id)
+        elif self.metrix_id:
+            return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(self.metrix_id)
+        else:
+            return None
 
     def needs_check(self):
         if self.first_positions_are_ok:

@@ -5,14 +5,9 @@ import requests
 from bs4 import BeautifulSoup
 
 from dgf.models import Tournament, Friend, Attendance
+from dgf_cms.settings import TOURNAMENT_LIST_PAGE, GT_DATE_FORMAT, TOURNAMENT_ATTENDANCE_PAGE
 
 logger = logging.getLogger(__name__)
-
-TOURNAMENT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
-TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
-TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
-
-GT_DATE_FORMAT = '%d.%m.%Y'
 
 
 def get(url):
@@ -78,7 +73,6 @@ def update_tournament(tournament, gt_id=None, name=None, begin=None, end=None):
 def add_tournament(gt_tournament):
     gt_id = gt_tournament['id']
     name = gt_tournament['name']
-    url = TOURNAMENT_PAGE.format(gt_tournament['id'])
     begin = datetime.strptime(gt_tournament['begin'], GT_DATE_FORMAT)
     end = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT)
 
@@ -98,7 +92,7 @@ def add_tournament(gt_tournament):
         logger.info(f'Changed to: {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}')
         return tournament
 
-    tournament = Tournament.objects.create(gt_id=gt_id, name=name, url=url, begin=begin, end=end)
+    tournament = Tournament.objects.create(gt_id=gt_id, name=name, begin=begin, end=end)
     logger.info(f'Created tournament {tournament}')
     return tournament
 

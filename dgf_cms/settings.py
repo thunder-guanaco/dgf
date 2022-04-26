@@ -127,6 +127,9 @@ UDISC_COURSE_BASE_URL = 'https://udisc.com/courses/{}'
 SELENIUM_DRIVER_EXECUTABLE_PATH = os.path.join(BASE_DIR, 'geckodriver')
 
 # PDGA
+PDGA_PAGE_BASE_URL = 'https://www.pdga.com'
+PDGA_EVENT_URL = PDGA_PAGE_BASE_URL + '/tour/event/{}'
+PDGA_DATE_FORMAT = '%Y-%m-%d'
 APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
 
 if ENV == 'test':
@@ -137,6 +140,18 @@ else:
     PDGA_BASE_URL = 'https://api.pdga.com/services/json'
     PDGA_USERNAME = get_env_or_die('DJANGO_PDGA_USERNAME')
     PDGA_PASSWORD = get_env_or_die('DJANGO_PDGA_PASSWORD')
+
+# GERMAN TOUR
+TOURNAMENT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
+TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
+GT_DATE_FORMAT = '%d.%m.%Y'
+
+# DISC GOLF METRIX
+DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
+DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
+DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
+TREMONIA_SERIES_ROOT_ID = '715021'
 
 ROOT_URLCONF = 'dgf_cms.urls'
 LOGIN_URL = 'login'

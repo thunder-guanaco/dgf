@@ -19,8 +19,7 @@ class TournamentModelTest(TestCase):
         self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021)',
                           name='Tremonia Series #24',
                           begin=date(day=27, month=6, year=2021),
-                          end=date(day=27, month=6, year=2021),
-                          url='http://discgolffriends.de/turniere/tremonia-series')
+                          end=date(day=27, month=6, year=2021))
 
     def test_date(self):
         # same dates

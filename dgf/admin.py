@@ -161,7 +161,6 @@ class TournamentAdmin(admin.ModelAdmin):
                 ('name', 'active'),
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
-                'url',
                 'point_system',
             ]}
          )

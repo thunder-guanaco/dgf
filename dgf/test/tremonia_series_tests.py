@@ -6,8 +6,8 @@ from django.test import TestCase
 
 from dgf import tremonia_series
 from dgf.models import Tournament, Friend, Attendance, Result, Tour
-from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID, \
-    DISC_GOLF_METRIX_TOURNAMENT_PAGE
+from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 
 class TremoniaSeriesTest(TestCase):
@@ -49,8 +49,7 @@ class TremoniaSeriesTest(TestCase):
         Tournament.objects.create(metrix_id=12345,
                                   name='Tremonia Series #28',
                                   begin=date(year=1000, month=1, day=1),
-                                  end=date(year=1000, month=1, day=1),
-                                  url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+                                  end=date(year=1000, month=1, day=1))
         self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
         tremonia_series.update_tournaments()
@@ -66,8 +65,7 @@ class TremoniaSeriesTest(TestCase):
         Tournament.objects.create(metrix_id=12345,
                                   name='Tremonia Series #28',
                                   begin=date(year=1000, month=1, day=2),
-                                  end=date(year=1000, month=1, day=3),
-                                  url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+                                  end=date(year=1000, month=1, day=3))
         self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
         tremonia_series.update_tournaments()
@@ -96,8 +94,7 @@ class TremoniaSeriesTest(TestCase):
         tournament = Tournament.objects.create(metrix_id=12345,
                                                name='Test',
                                                begin=date(year=1000, month=1, day=1),
-                                               end=date(year=1000, month=1, day=1),
-                                               url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+                                               end=date(year=1000, month=1, day=1))
         manolo = Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         fede = Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         Result.objects.create(friend=manolo, tournament=tournament, position=2)
@@ -157,8 +154,7 @@ class TremoniaSeriesTest(TestCase):
         Tournament.objects.create(metrix_id=12345,
                                   name='Test',
                                   begin=date(year=3000, month=1, day=1),
-                                  end=date(year=3000, month=1, day=1),
-                                  url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+                                  end=date(year=3000, month=1, day=1))
         self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None), ('fede', None)])
 
         tremonia_series.update_tournaments()
@@ -174,8 +170,7 @@ class TremoniaSeriesTest(TestCase):
         tournament = Tournament.objects.create(metrix_id=12345,
                                                name='Test',
                                                begin=date(year=3000, month=1, day=1),
-                                               end=date(year=3000, month=1, day=1),
-                                               url=DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(12345))
+                                               end=date(year=3000, month=1, day=1))
         Attendance.objects.create(tournament=tournament, friend=manolo)
         self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None), ('fede', None)])
 
