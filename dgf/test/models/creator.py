@@ -1,6 +1,6 @@
 from datetime import date
 
-from dgf.models import Course, Friend, Disc, Tournament
+from dgf.models import Course, Friend, Disc, Tournament, Division
 
 
 def create_objects(type, generator, amount=1):
@@ -34,3 +34,12 @@ def create_tournaments(amount=1):
                                                               begin=date(day=1, month=1, year=2020),
                                                               end=date(day=1, month=1, year=2020)),
                           amount)
+
+
+def create_divisions():
+    Division.objects.create(id='MPO', text='MPO - Pro Open')
+    Division.objects.create(id='FPO', text='FPO - Pro Open Women')
+    Division.objects.create(id='MA1', text='MA1 - Advanced')
+    Division.objects.create(id='MA2', text='MA2 - Intermediate')
+    Division.objects.create(id='MA3', text='MA3 - Recreational')
+    Division.objects.create(id='MA4', text='MA4 - Novice')

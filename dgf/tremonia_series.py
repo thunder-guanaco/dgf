@@ -4,7 +4,7 @@ from datetime import datetime
 import requests
 
 from dgf import external_user_finder
-from dgf.models import Tournament, Result, Attendance, Tour
+from dgf.models import Tournament, Result, Attendance, Tour, Division
 from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_METRIX_DATE_FORMAT, \
     TREMONIA_SERIES_ROOT_ID
 
@@ -22,9 +22,9 @@ def extract_name(ts_tournament):
 
 
 def get_results(ts_tournament):
-    if 'TourResults' in ts_tournament:
+    try:
         return ts_tournament['TourResults']
-    else:
+    except KeyError:
         return ts_tournament['SubCompetitions'][0]['Results']
 
 
@@ -33,6 +33,17 @@ def get_position(ts_result):
         return ts_result['Place']
     except KeyError:
         return ts_result['OrderNumber']
+
+
+TS_DIVISIONS = {
+    'Open': 'MPO',
+    'Amateur': 'MA4',
+}
+
+
+def get_division(ts_result):
+    ts_class = ts_result.get('ClassName') or 'Open'
+    return Division.objects.get(id=TS_DIVISIONS[ts_class])
 
 
 def add_attendance(tournament, ts_tournament):
@@ -48,13 +59,14 @@ def add_results(tournament, ts_tournament):
     for ts_result in get_results(ts_tournament):
         friend = external_user_finder.find_friend(ts_result['UserID'], ts_result['Name'])
         logger.info(f'Using Friend: {friend}')
-        Result.objects.create(tournament=tournament,
-                              friend=friend,
-                              position=get_position(ts_result))
-        logger.info(f'Added result of {friend} to {tournament}\n')
+        result = Result.objects.create(tournament=tournament,
+                                       friend=friend,
+                                       position=get_position(ts_result),
+                                       division=get_division(ts_result))
+        logger.info(f'Added result: {result}')
 
 
-def add_tournament(ts_tournament):
+def add_or_update_tournament(ts_tournament):
     name = extract_name(ts_tournament)
     date = datetime.strptime(ts_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
     id = ts_tournament['ID']
@@ -70,7 +82,7 @@ def add_tournament(ts_tournament):
     if created:
         logger.info(f'Created tournament {tournament}\n')
     else:
-        # Always update. With Corona you never know
+        # Always update, the dates might have changed and the name changes after the tournament
         tournament.name = name
         tournament.begin = date
         tournament.end = date
@@ -91,9 +103,9 @@ def add_tours(tournament):
     tournament.tours.add(years_tour)
 
 
-def create_tournament(metrix_id):
+def create_or_update_tournament(metrix_id):
     ts_tournament = get_tournament(metrix_id)
-    tournament = add_tournament(ts_tournament)
+    tournament = add_or_update_tournament(ts_tournament)
     add_tours(tournament)
 
     # tournament is either not played yet or still in play
@@ -110,5 +122,6 @@ def update_tournaments():
     tournament = get_tournament(TREMONIA_SERIES_ROOT_ID)
     for event in tournament['Events']:
         if not event['Name'].startswith('[DELETED]'):
-            logger.info('--------------------------------------------------------------------------------\n')
-            create_tournament(event['ID'])
+            logger.info('\n')
+            create_or_update_tournament(event['ID'])
+            logger.info('--------------------------------------------------------------------------------')
