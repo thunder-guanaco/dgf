@@ -438,11 +438,12 @@ class Result(Model):
 class Tour(Model):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['name'], name='unique tour name'),
+            models.UniqueConstraint(fields=['name', 'division'], name='unique tour name and division'),
         ]
 
     name = models.CharField(_('Name'), max_length=300)
     tournaments = models.ManyToManyField(Tournament, related_name='tours')
+    division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     evaluate_how_many = models.PositiveIntegerField(_('How many tournaments should be evaluated?'), default=6,
                                                     validators=[MinValueValidator(1)])
 
@@ -469,7 +470,7 @@ class Tour(Model):
             return None
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} ({self.division})'
 
 
 class BagTagChange(Model):

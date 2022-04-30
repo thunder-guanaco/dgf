@@ -8,7 +8,7 @@ $(window).on("load", function() {
 function parseData() {
 
     friends = [
-        {% for friend_results in results %}
+        {% for friend_results in results|filter_by_division:tour.division %}
             {
                 id: {{friend_results.friend}},
                 results: getBestResults({{friend_results|json|safe}}, {{tour.evaluate_how_many}})

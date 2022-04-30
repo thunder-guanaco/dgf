@@ -79,6 +79,11 @@ def filter_by_type(queryset, type):
     return queryset.filter(type=type)
 
 
+@register.filter
+def filter_by_division(queryset, division):
+    return queryset.filter(division=division.id)
+
+
 @register.simple_tag
 def current_tournaments():
     return Tournament.objects.annotate(players_count=Count('attendance')) \

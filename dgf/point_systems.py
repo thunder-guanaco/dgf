@@ -18,7 +18,7 @@ TS_POINTS = {
 
 def ts_points_with_beaten_players(result):
     position = result.position
-    all_results = result.tournament.results.all()
+    all_results = result.tournament.results.filter(division=result.division)
     position_points = TS_POINTS.get(position, 0)
     defeated_players_points = (all_results.count() - position) // 2
     return position_points + defeated_players_points
@@ -29,7 +29,7 @@ def calculate_points(result):
     calculate_points_function = globals().get(point_system)
     if calculate_points_function is None:
         logger.error(f'Point system \'{point_system}\' does not exist! '
-                     f'Please define a function with that name on tour.py')
+                     f'Please define a function with that name on point_systems.py')
         return None
 
     return calculate_points_function(result)

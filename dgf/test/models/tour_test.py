@@ -2,7 +2,8 @@ from datetime import date
 
 from django.test import TestCase
 
-from dgf.models import Tournament, Tour
+from dgf.models import Tournament, Tour, Division
+from dgf.test.models.creator import create_divisions
 
 IS_OK = True
 NOT_OK = False
@@ -13,9 +14,12 @@ class TourModelTest(TestCase):
     def setUp(self):
         Tournament.objects.all().delete()
         Tour.objects.all().delete()
+        create_divisions()
 
     def test_representation(self):
-        self.assertEqual(str(Tour.objects.create(name='Tremonia Series 2022')), 'Tremonia Series 2022')
+        self.assertEqual(str(Tour.objects.create(name='Tremonia Series 2022',
+                                                 division=Division.objects.get(id='MPO'))),
+                         'Tremonia Series 2022 (MPO - Pro Open)')
 
     def test_date_properties(self):
         tour = Tour.objects.create(name='test')

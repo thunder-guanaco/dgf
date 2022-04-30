@@ -112,6 +112,13 @@
     text-align: center;
 }
 
+#tour-results h2 .division {
+    background-color: #1b2633;
+    color: white;
+    border-radius: 0.25em;
+    padding: 0.1em 0.3em;
+}
+
 #tour-results .friend-ball {
     flex-direction: row !important;
 }

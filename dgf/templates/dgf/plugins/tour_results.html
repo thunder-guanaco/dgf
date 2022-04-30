@@ -43,13 +43,13 @@
 
 {% addtoblock "js" %}
     <script>
-        {% include "dgf/js/tour_results.js" with results=results %}
+        {% include "dgf/js/tour_results.js" with tour=tour results=results %}
     </script>
 {% endaddtoblock %}
 
 <div id="tour-results">
     <h2>
-        {{tour.name}}
+        {{tour.name}} {% if tour.division %}<span class="division">{{tour.division.text}}</span>{% endif %}
     </h2>
     <div class="table" style="display:none;">
         <div class="summary">
