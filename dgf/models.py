@@ -33,7 +33,7 @@ class Division(Model):
     text = models.CharField(_('Text'), max_length=100)
 
     def __str__(self):
-        return self.text
+        return self.text or self.id
 
 
 class Course(Model):

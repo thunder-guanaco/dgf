@@ -12,6 +12,9 @@ class ModelRepresentationTest(TestCase):
         division = Division(id='MPO', text='MPO - Pro Open')
         self.assertEqual(str(division), division.text)
 
+        division = Division(id='MJ1')
+        self.assertEqual(str(division), division.id)
+
     def test_udisc_round_representation(self):
         udisc_round = UdiscRound(friend=create_friends(1), course=create_courses(1), score=50)
         self.assertEqual(str(udisc_round), 'Friend0 scored 50 in Course0')
