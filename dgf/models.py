@@ -424,6 +424,7 @@ class Result(Model):
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='results', verbose_name=_('Player'))
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
     points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
+    division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
 
     @property
     def ordinal_position(self):
@@ -431,7 +432,7 @@ class Result(Model):
             4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
 
     def __str__(self):
-        return f'{self.friend} was {self.ordinal_position} at {self.tournament}'
+        return f'{self.friend} was {self.ordinal_position} at {self.tournament} in the "{self.division}" division'
 
 
 class Tour(Model):

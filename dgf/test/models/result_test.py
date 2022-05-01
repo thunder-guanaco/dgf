@@ -1,16 +1,18 @@
 from django.test import TestCase
 
-from dgf.models import Result
-from dgf.test.models.creator import create_friends, create_tournaments
+from dgf.models import Result, Division
+from dgf.test.models.creator import create_friends, create_tournaments, create_divisions
 
 
 class ResultModelTest(TestCase):
 
     def test_representation(self):
+        create_divisions()
         result = Result(friend=create_friends(1),
                         tournament=create_tournaments(1),
-                        position=1)
-        self.assertEqual(str(result), 'Friend0 was 1st at Tournament0 (01. Jan 2020)')
+                        position=1,
+                        division=Division.objects.get(id='MPO'))
+        self.assertEqual(str(result), 'Friend0 was 1st at Tournament0 (01. Jan 2020) in the "MPO - Pro Open" division')
 
     def test_ordinal(self):
         self.assert_ordinal('1st', position=1)
