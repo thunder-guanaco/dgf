@@ -185,6 +185,7 @@ class TourAdmin(admin.ModelAdmin):
         ('', {
             'fields': [
                 'name',
+                'division',
                 'evaluate_how_many',
                 'date',
                 'tournament_count',
@@ -194,8 +195,8 @@ class TourAdmin(admin.ModelAdmin):
 
     readonly_fields = ['date', 'tournament_count']
 
-    list_display = ('name', 'begin', 'end',)
-    search_fields = ('name',)
+    list_display = ('name', 'division', 'begin', 'end',)
+    search_fields = ('name', 'division')
 
     inlines = [
         TournamentsTourRelationInline,

@@ -11,6 +11,12 @@ from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_ME
 logger = logging.getLogger(__name__)
 
 
+TS_DIVISIONS = {
+    'Open': 'MPO',
+    'Amateur': 'MA4',
+}
+
+
 def get_tournament(id):
     url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
     logger.info(f'GET {url}')
@@ -33,12 +39,6 @@ def get_position(ts_result):
         return ts_result['Place']
     except KeyError:
         return ts_result['OrderNumber']
-
-
-TS_DIVISIONS = {
-    'Open': 'MPO',
-    'Amateur': 'MA4',
-}
 
 
 def get_division(ts_result):
@@ -92,21 +92,28 @@ def add_or_update_tournament(ts_tournament):
 
 
 def add_tours(tournament):
+    divisions = tournament.results.filter(division__isnull=False).values_list('division', flat=True).distinct()
+
     # default tour containing all Tremonia Series
-    default_tour, _ = Tour.objects.get_or_create(name='Ewige Tabelle',
-                                                 defaults={'evaluate_how_many': 10000})
-    tournament.tours.add(default_tour)
+    name = 'Ewige Tabelle'
+    for division in divisions:
+        default_tour, _ = Tour.objects.get_or_create(name=name,
+                                                     division=Division.objects.get(id=division),
+                                                     defaults={'evaluate_how_many': 10000})
+        tournament.tours.add(default_tour)
 
     # tournament year's tour
-    years_tour, _ = Tour.objects.get_or_create(name=f'Tremonia Series {tournament.begin.year}',
-                                               defaults={'evaluate_how_many': 6})
-    tournament.tours.add(years_tour)
+    name = f'Tremonia Series {tournament.begin.year}'
+    for division in divisions:
+        years_tour, _ = Tour.objects.get_or_create(name=name,
+                                                   division=Division.objects.get(id=division),
+                                                   defaults={'evaluate_how_many': 6})
+        tournament.tours.add(years_tour)
 
 
 def create_or_update_tournament(metrix_id):
     ts_tournament = get_tournament(metrix_id)
     tournament = add_or_update_tournament(ts_tournament)
-    add_tours(tournament)
 
     # tournament is either not played yet or still in play
     if tournament.begin >= datetime.today():
@@ -116,6 +123,8 @@ def create_or_update_tournament(metrix_id):
     elif tournament.results.count() == 0:
         add_results(tournament, ts_tournament)
         tournament.recalculate_points()
+
+    add_tours(tournament)
 
 
 def update_tournaments():
