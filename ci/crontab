@@ -7,8 +7,7 @@
 # *    *    *    *    * <command to execute> # comment
   0    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_pdga_data         >> /home/ubuntu/logs/cronjobs.log 2>&1
  15    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_gt_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
-# TS job will remain deactivated until is fixed https://github.com/thunder-guanaco/dgf/issues/2976
-# 30    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_ts_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
+ 30    */6  *    *    *  bash /home/ubuntu/dgf.bash fetch_ts_data           >> /home/ubuntu/logs/cronjobs.log 2>&1
   0     1   *    *    1  bash /home/ubuntu/dgf.bash dbbackup --clean        >> /home/ubuntu/logs/cronjobs.log 2>&1
  15     1   1    *    *  bash /home/ubuntu/dgf.bash mediabackup --clean     >> /home/ubuntu/logs/cronjobs.log 2>&1
 # Udisc job will remain deactivated until is fixed https://github.com/thunder-guanaco/dgf/issues/695
