@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-from dgf.models import Tournament, Attendance, Result
+from dgf.models import Tournament, Attendance, Result, Division
 from dgf_cms.settings import PDGA_DATE_FORMAT, PDGA_PAGE_BASE_URL
 
 logger = logging.getLogger(__name__)
@@ -244,12 +244,22 @@ def add_attendance(friend, tournament):
         logger.info(f'Added attendance of {friend} to {tournament}')
 
 
-def add_result(friend, tournament, position):
-    _, created = Result.objects.get_or_create(tournament=tournament,
-                                              friend=friend,
-                                              position=position)
+def add_result(friend, tournament, position, division):
+
+    # get_or_create because we want to create legacy divisions
+    division, created = Division.objects.get_or_create(id=division)
     if created:
-        logger.info(f'Added result of {friend} to {tournament}\n')
+        logger.info(f'Created division {division}')
+
+    result, created = Result.objects.get_or_create(tournament=tournament,
+                                                   friend=friend,
+                                                   position=position)
+
+    result.division = division  # update division (some results might not have one)
+    result.save()
+
+    if created:
+        logger.info(f'Added result: {result}')
 
 
 def update_upcoming_events(pdga_api, friend, player_page_soup):
@@ -265,11 +275,12 @@ def add_tournament_results(pdga_api, friend, year_link):
     for table in tables:
         trs = table.find('tbody').find_all('tr')
         for tr in trs:
+            division = tr.find('td', {'class': 'tournament'}).find('a')['href'].split('#')[1]
             position = int(tr.find('td', {'class': 'place'}).text)
             tournament_url = tr.find('td', {'class': 'tournament'}).find('a').attrs['href']
             tournament_id = tournament_url.split('#')[0].split('/')[-1]
             tournament = add_tournament(pdga_api, pdga_id=tournament_id)
-            add_result(friend, tournament, position)
+            add_result(friend, tournament, position, division)
 
 
 def update_tournament_results(pdga_api, friend, player_page_soup):

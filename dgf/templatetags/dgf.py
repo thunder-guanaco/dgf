@@ -50,9 +50,12 @@ def favorite_discs(disc_type):
 
 @register.filter
 def order_by(friends, ordering):
-    attribute = ordering[1:] if ordering[0] == '-' else ordering
-    query = Q(**{'%s__isnull' % attribute: False})
-    return friends.filter(query).order_by(ordering)
+    order_list = ordering.split(',')
+    for order in order_list:
+        attribute = order[1:] if order[0] == '-' else order
+        query = Q(**{f'{attribute}__isnull': False})
+        friends = friends.filter(query)
+    return friends.order_by(*order_list)
 
 
 @register.filter
