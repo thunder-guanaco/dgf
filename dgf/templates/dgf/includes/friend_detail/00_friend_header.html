@@ -32,16 +32,18 @@
         {% endif %}
     </h1>
     {% if friend.id == request.user.friend.id %}
-        <a class="mobile edit-button" href="{% url 'dgf:friend_update' %}">
-            <button>
-                {% trans 'Update profile' %}
-            </button>
-        </a>
-        <a class="mobile edit-button" href="{% url 'dgf:tournament_index' %}">
-            <button>
-                {% trans 'Update tournaments' %}
-            </button>
-        </a>
+        <div id="mobile-edit-buttons">
+            <a class="mobile edit-button" href="{% url 'dgf:friend_update' %}">
+                <button>
+                    {% trans 'Update profile' %}
+                </button>
+            </a>
+            <a class="mobile edit-button" href="{% url 'dgf:tournament_index' %}">
+                <button>
+                    {% trans 'Update tournaments' %}
+                </button>
+            </a>
+        </div>
     {% endif %}
     {% if friend.sponsor %}
         <div class="larger">
