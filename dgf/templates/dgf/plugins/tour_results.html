@@ -49,8 +49,13 @@
 
 <div id="tour-results">
     <h2>
-        {{tour.name}} {% if tour.division %}<span class="division">{{tour.division.text}}</span>{% endif %}
+        {{tour.name}}
     </h2>
+    {% if tour.division %}
+        <h3>
+            {{tour.division.text}}
+        </h3>
+    {% endif %}
     <div class="table" style="display:none;">
         <div class="summary">
             <div class="line header">
