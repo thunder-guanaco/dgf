@@ -381,9 +381,14 @@ class Tournament(Model):
         if not self.name.startswith('Tremonia Series') or self.results.all().count() == 0:
             return True
         else:
-            return list(self.results.filter(position__in=[1, 2, 3])
-                        .order_by('position')
-                        .values_list('position', flat=True)) == [1, 2, 3]
+            if self.begin.year < 2022:
+                return list(self.results.filter(position__in=[1, 2, 3])
+                            .order_by('position')
+                            .values_list('position', flat=True)) == [1, 2, 3]
+            else:
+                return sorted(list(self.results.filter(position__in=[1, 2, 3])
+                                   .order_by('position')
+                                   .values_list('position', flat=True))) == [1, 1, 2, 2, 3, 3]
 
     def recalculate_points(self):
         if self.point_system:
