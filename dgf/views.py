@@ -34,8 +34,8 @@ class DetailView(generic.DetailView):
 
 class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Friend
-    fields = ['first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
-              'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'division', 'city', 'main_photo',
+    fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role', 'sponsor', 'sponsor_logo', 'sponsor_link',
+              'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'division', 'city',
               'plays_since', 'best_score_in_wischlingen', 'free_text', 'job', 'hobbies']
     template_name_suffix = '_profile'
     formsets = [('favorite_courses', favorite_course_formset_factory),
