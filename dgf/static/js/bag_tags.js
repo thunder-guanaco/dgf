@@ -6,7 +6,7 @@ $(window).on("load", function() {
 function checkClickableFriends() {
 
     if (disableClickOnFriends) {
-        $("#bag-tags .friend-ball").each(function() {
+        $(".friend-ball").each(function() {
             $(this).attr("old-href", $(this).attr("href"));
             $(this).removeAttr("href");
         });

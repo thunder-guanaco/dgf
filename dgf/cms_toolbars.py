@@ -14,6 +14,10 @@ class FriendsToolbar(CMSToolbar):
             _('Friends'),
         )
         menu.add_sideframe_item(
+            name=_('Bag tag changes'),
+            url=admin_reverse('dgf_bagtagchange_changelist'),
+        )
+        menu.add_sideframe_item(
             name=_('All friends'),
             url=admin_reverse('dgf_friend_changelist'),
         )

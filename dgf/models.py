@@ -483,6 +483,8 @@ class BagTagChange(Model):
                                                   blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
 
+    active = models.BooleanField(null=False, blank=False, default=True)
+
     def __str__(self):
         return f'{self.friend} changed bag tag from {self.previous_number} to {self.new_number} ' \
                f'on {self.timestamp} ({self.actor} said so)'

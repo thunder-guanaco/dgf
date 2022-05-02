@@ -90,6 +90,7 @@ def friends_order_by_bag_tag():
 
     bag_tag_changes = BagTagChange.objects \
         .filter(previous_number__isnull=False) \
+        .filter(active=True) \
         .filter(timestamp__gt=time_threshold) \
         .filter(friend=OuterRef("id")) \
         .order_by("-timestamp")
