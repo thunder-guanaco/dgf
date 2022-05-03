@@ -35,6 +35,14 @@
         width: 100%;
     }
 
+    #mobile-edit-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin: 1em 0;
+    }
+
     #friend .edit-button {
         align-self: center;
         margin: 0.2em 0;
