@@ -5,10 +5,6 @@
         width: 100%;
     }
 
-    form img {
-        width: 50% !important;
-    }
-
     form .field {
         display: flex;
         flex-direction: column;
@@ -20,6 +16,10 @@
 
     form label {
         font-weight: bold;
+    }
+
+    label[for="id_sponsor_logo"] + .field-image img {
+        width: 33% !important;
     }
 
     form .field-image label {
@@ -118,6 +118,16 @@
     .disc > * {
         margin: 1em;
     }
+
+    label[for="id_main_photo"] + .field-image img {
+        width: 80% !important;
+        height: auto;
+    }
+
+    label[for="id_sponsor_logo"] + .field-image img {
+        width: 10% !important;
+        height: auto;
+    }
 }
 
 .container {
@@ -128,6 +138,11 @@ form {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+}
+
+form .field-image {
+    flex-direction: column;
+    align-items: center !important;
 }
 
 form .field-image input[type=checkbox] {
