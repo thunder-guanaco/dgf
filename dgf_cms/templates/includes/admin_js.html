@@ -1,11 +1,12 @@
-{% comment %}
-    This is only temporary until this gets fixed: https://github.com/thunder-guanaco/dgf/issues/2982
-{% endcomment %}
-{% if request.user.username == "juanito" %}
+{% if request.user.username == "manolo" %}
 
-    {% comment %} This allows the admins to have quick commands {% endcomment %}
+    {% comment %} This allows Manolo to have quick commands {% endcomment %}
     <script>
         document.addEventListener('keydown', function (event) {
+
+            if (['text', 'checkbox', 'number', 'textarea'].includes(document.activeElement.type)) {
+                return;
+            }
 
             currentUrl = location.origin + location.pathname;
 
@@ -18,6 +19,9 @@
             if (event.key === 'p') {
                 window.location = location.origin + '/admin/cms/page/';
             }
+            if (event.key === 'c') {
+                window.location = location.origin + '/admin/dgf/bagtagchange/';
+            }
             if (event.key === 'f') {
                 window.location = location.origin + '/admin/dgf/friend/';
             }
@@ -25,6 +29,7 @@
                 alert('e → edit\n' +
                       'o → toolbar off\n' +
                       'p → admin pages\n' +
+                      'c → admin bag tag changes\n' +
                       'f → admin friend');
             }
         });
