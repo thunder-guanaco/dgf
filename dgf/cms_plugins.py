@@ -96,7 +96,7 @@ def friends_order_by_bag_tag():
         .order_by("-timestamp")
 
     return Friend.objects.filter(bag_tag__isnull=False) \
-        .annotate(since=Max('bag_tag_changes__timestamp')) \
+        .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
         .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list("previous_number")[:1])) \
         .order_by('bag_tag')
 
