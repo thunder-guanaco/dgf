@@ -127,7 +127,7 @@ class ResultInline(admin.TabularInline):
     model = Result
 
     def get_queryset(self, request):
-        return Result.objects.all().order_by('position')
+        return Result.objects.all().order_by('-division', 'position')
 
 
 class AttendanceInline(admin.TabularInline):
