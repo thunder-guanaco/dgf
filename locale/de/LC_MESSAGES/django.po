@@ -590,8 +590,8 @@ msgid "update multiple bag tags"
 msgstr "mehrere Bagtags aktualisieren"
 
 #: dgf/templates/dgf/includes/bag_tags/top_buttons.html:20
-msgid "Select from Metrix (new!)"
-msgstr "Aus Metrix sortieren (neu!)"
+msgid "Select from Metrix (experimental!)"
+msgstr "Aus Metrix sortieren (experimentell!)"
 
 #: dgf/templates/dgf/includes/bag_tags/top_buttons.html:27
 msgid "You have to select at least 2 bag tags!"

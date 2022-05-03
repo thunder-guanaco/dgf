@@ -236,6 +236,7 @@ def bag_tag_update(request):
                                     friend=friend,
                                     previous_number=current_bag_tags[username],
                                     new_number=new_bag_tags[username],
-                                    timestamp=now)
+                                    timestamp=now,
+                                    active=new_bag_tags[username] != current_bag_tags[username])
 
     return HttpResponse(status=200)
