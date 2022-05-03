@@ -127,7 +127,7 @@ class ResultInline(admin.TabularInline):
     model = Result
 
     def get_queryset(self, request):
-        return Result.objects.all().order_by('position')
+        return Result.objects.all().order_by('-division', 'position')
 
 
 class AttendanceInline(admin.TabularInline):
@@ -212,11 +212,12 @@ class BagTagChangeAdmin(admin.ModelAdmin):
                 'actor',
                 ('friend', 'timestamp'),
                 ('previous_number', 'new_number'),
+                'active'
             ]}
          )
     ]
 
-    readonly_fields = ['actor', 'friend', 'previous_number', 'new_number', 'timestamp']
+    readonly_fields = ['actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active']
 
-    list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp')
+    list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active')
     search_fields = ('friend', 'previous_number', 'new_number')

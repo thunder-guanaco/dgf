@@ -381,9 +381,14 @@ class Tournament(Model):
         if not self.name.startswith('Tremonia Series') or self.results.all().count() == 0:
             return True
         else:
-            return list(self.results.filter(position__in=[1, 2, 3])
-                        .order_by('position')
-                        .values_list('position', flat=True)) == [1, 2, 3]
+            if self.begin.year < 2022:
+                return list(self.results.filter(position__in=[1, 2, 3])
+                            .order_by('position')
+                            .values_list('position', flat=True)) == [1, 2, 3]
+            else:
+                return sorted(list(self.results.filter(position__in=[1, 2, 3])
+                                   .order_by('position')
+                                   .values_list('position', flat=True))) == [1, 1, 2, 2, 3, 3]
 
     def recalculate_points(self):
         if self.point_system:
@@ -482,6 +487,8 @@ class BagTagChange(Model):
     previous_number = models.PositiveIntegerField(_('Previous number'), validators=[MinValueValidator(1)], null=True,
                                                   blank=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, null=False, blank=False)
+
+    active = models.BooleanField(null=False, blank=False, default=True)
 
     def __str__(self):
         return f'{self.friend} changed bag tag from {self.previous_number} to {self.new_number} ' \
