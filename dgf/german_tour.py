@@ -230,6 +230,7 @@ def parse_turniere_discgolf_de_tournament(tournament_id):
     }
 
 
+# TODO: #3090
 def parse_german_tour_online_tournament(tournament_id):
     return None
 
@@ -244,6 +245,7 @@ def parse_turniere_discgolf_de_results(tournament, tournament_id):
         parse_turniere_discgolf_de_table_results(table_header, table_content, tournament)
 
 
+# TODO: #3090
 def parse_german_tour_online_results(tournament, url):
     pass
 
@@ -279,6 +281,7 @@ def update_tournament_results():
 
         elif 'german-tour-online.de' in url:
             logger.info(f'(still) ignoring tournaments from german-tour-online.de: {url}')
+            # TODO: #3090
             # add_tournament_result(url,
             #                       get_german_tour_online_id,
             #                       parse_german_tour_online_tournament,
