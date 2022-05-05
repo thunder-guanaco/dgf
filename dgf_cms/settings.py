@@ -144,7 +144,9 @@ else:
 # GERMAN TOUR
 TOURNAMENT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
 TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
+TOURNAMENT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
 TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
+RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
 GT_DATE_FORMAT = '%d.%m.%Y'
 
 # DISC GOLF METRIX

@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 from dgf import german_tour
 from dgf.management import error_handler
+from dgf.models import Friend
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,9 @@ class Command(BaseCommand):
 
         try:
             logger.info('Fetching German Tour data...')
-            german_tour.update_tournaments()
+            # ACTIVATE ME!
+            #german_tour.update_tournaments()
+            german_tour.update_tournament_results()
             logger.info('German Tour data has been updated')
 
         except Exception as e:
