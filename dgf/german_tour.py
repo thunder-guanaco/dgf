@@ -6,8 +6,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from dgf.models import Tournament, Friend, Attendance, Result, Division
-from dgf_cms.settings import TOURNAMENT_LIST_PAGE, GT_DATE_FORMAT, TOURNAMENT_ATTENDANCE_PAGE, TOURNAMENT_RESULTS_PAGE, \
-    RATINGS_PAGE, TOURNAMENT_PAGE
+from dgf_cms.settings import TOURNAMENT_LIST_PAGE, GT_DATE_FORMAT, TOURNAMENT_ATTENDANCE_PAGE, \
+    TOURNAMENT_RESULTS_PAGE, RATINGS_PAGE, TOURNAMENT_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -195,7 +195,7 @@ def parse_division(division_text):
 
 def parse_position(position_text):
     if 'DNF' in position_text:
-        return 'DNF'
+        return None
 
     return int(position_text)
 
@@ -261,7 +261,7 @@ def get_all_result_urls():
     urls = set()
     for friend in Friend.objects.filter(gt_number__isnull=False):
         player_page_soup = get(RATINGS_PAGE.format(friend.gt_number))
-        result_links = player_page_soup.findAll('a', text='GT Ergebnisse')
+        result_links = player_page_soup.findAll('a', title='GT Ergebnisse')
         for link in result_links:
             urls.add(link['href'])
 
@@ -269,7 +269,9 @@ def get_all_result_urls():
 
 
 def update_tournament_results():
-    for url in get_all_result_urls():
+    urls = get_all_result_urls()
+    logger.info(f'{len(urls)} URLs to parse')
+    for url in urls:
 
         logger.info('\n-------------------------------------------')
 
