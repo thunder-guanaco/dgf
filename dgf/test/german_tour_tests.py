@@ -5,7 +5,8 @@ from django.test import TestCase
 
 from dgf import german_tour
 from dgf.german_tour import TOURNAMENT_LIST_PAGE, TOURNAMENT_ATTENDANCE_PAGE
-from dgf.models import Tournament, Friend, Attendance
+from dgf.models import Tournament, Friend, Attendance, Division, Result
+from dgf_cms.settings import RATINGS_PAGE, TOURNAMENT_RESULTS_PAGE, TOURNAMENT_PAGE
 
 APRIL_2 = date(year=2021, month=4, day=2)
 JULY_24 = date(year=2021, month=7, day=24)
@@ -317,6 +318,139 @@ class GermanTourTest(TestCase):
         self.assertEqual(attendance, {'manolo', 'fede'})
         attendance = set(Attendance.objects.filter(tournament__gt_id=888).values_list('friend__username', flat=True))
         self.assertEqual(attendance, {'manolo', 'fede'})
+
+    @responses.activate
+    def test_tournament_results(self):
+        self.add_tournaments_to_ratings_list()
+        self.add_tournament_results(333, 'Test Tournament #3', '24.07.2021', [1, 2, 1922, 4, 5, 2106])
+        self.add_tournament_results(444, 'Test Tournament #4', '25.07.2021', [2106, 2, 3])
+
+        mpo, _ = Division.objects.get_or_create(id='MPO')
+
+        manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
+        fede = Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
+
+        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
+
+        german_tour.update_tournament_results()
+
+        results = Result.objects.filter(friend=manolo)
+        self.assertEqual(len(results), 1)
+
+        result_tournament_3 = results.get(tournament__gt_id=333)
+        self.assertEqual(result_tournament_3.position, 3)
+        self.assertEqual(result_tournament_3.division, mpo)
+
+        results = Result.objects.filter(friend=fede)
+        self.assertEqual(len(results), 2)
+
+        result_tournament_3 = results.get(tournament__gt_id=333)
+        self.assertEqual(result_tournament_3.position, 6)
+        self.assertEqual(result_tournament_3.division, mpo)
+
+        result_tournament_4 = results.get(tournament__gt_id=444)
+        self.assertEqual(result_tournament_4.position, 1)
+        self.assertEqual(result_tournament_4.division, mpo)
+
+    def add_tournaments_to_ratings_list(self):
+        responses.add(responses.GET, RATINGS_PAGE.format(1922),
+                      body='<body>'
+                           '  <td style="">'
+                           '    <a title="GT Ergebnisse"'
+                           '     target="_blank"'
+                           '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=333">'
+                           '      GT Ergebnisse'
+                           '    </a>'
+                           '  </td>'
+                           '</body>',
+                      status=200)
+        responses.add(responses.GET, RATINGS_PAGE.format(2106),
+                      body='<body>'
+                           '  <td style="">'
+                           '    <a title="GT Ergebnisse"'
+                           '     target="_blank"'
+                           '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=333">'
+                           '      GT Ergebnisse'
+                           '    </a>'
+                           '  </td>'
+                           '  <td style="">'
+                           '    <a title="GT Ergebnisse"'
+                           '     target="_blank"'
+                           '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=444">'
+                           '      GT Ergebnisse'
+                           '    </a>'
+                           '  </td>'
+                           '</body>',
+                      status=200)
+
+    def add_tournament_results(self, tournament_id, tournament_name, date, gt_ids):
+        responses.add(responses.GET, TOURNAMENT_PAGE.format(tournament_id),
+                      body='<body>'
+                           f'  <h2>{tournament_name}</h2>'
+                           '  <table class="tabletable-sm">'
+                           '    <tbody>'
+                           '      <tr>'
+                           '        <td>Ansprechpartner/Turnierdirektor</td>'
+                           '        <td>DRIVEDiscGolf(DavidStrott)</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Ort</td>'
+                           '        <td>'
+                           '          <a href="http://www.google.com/maps/place/51.517945,7.398306" target="_blank">'
+                           '            Dortmund'
+                           '          </a>'
+                           '        </td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Turnierbetrieb</td>'
+                           f'       <td>{date}</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>PDGAStatus</td>'
+                           '        <td>'
+                           '          <a href="https://www.pdga.com/tour/event/57760"target="_blank">C-Tier</a>'
+                           '        </td>'
+                           '      </tr>    '
+                           '    </tbody>'
+                           '  </table>'
+                           '</body>',
+                      status=200)
+
+        body = '<body>\n'
+        for position, gt_id in enumerate(gt_ids, start=1):
+            body += (f'  <table class="table table-striped table-sm" style="font-size: 12px; " id="results_layout_">'
+                     '    <thead>'
+                     '      <tr>'
+                     '        <th>Division </th>'
+                     '        <th>#</th>'
+                     '        <th>Name</th>'
+                     '        <th>f.Div</th>'
+                     '        <th>GT#</th>'
+                     '        <th>par</th>'
+                     '        <th>R1</th>'
+                     '        <th>R2</th>'
+                     '        <th>Gesamt</th>'
+                     '        <th>Kommentar</th>'
+                     '      </tr>'
+                     '    </thead>'
+                     '    <tbody>'
+                     '      <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
+                     '        <td>O</td>'
+                     f'       <td class="text-right" data-order="{position}">{position}</td>'
+                     '        <td>Name, Vorname</td>'
+                     '        <td></td>'
+                     f'       <td>{gt_id}</td>'
+                     '        <td>-18</td>'
+                     '        <td>49</td>'
+                     '        <td>45</td>'
+                     '        <td data-order="94">94</td>'
+                     '        <td></td>'
+                     '      </tr>'
+                     '    </tbody>'
+                     '  </table>')
+        body += '</body>'
+        responses.add(responses.GET, TOURNAMENT_RESULTS_PAGE.format(tournament_id), body=body, status=200)
 
     def add_tournament_list(self):
         responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
