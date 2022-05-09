@@ -6,7 +6,8 @@ from django.test import TestCase
 from dgf import german_tour
 from dgf.german_tour import TOURNAMENT_LIST_PAGE, TOURNAMENT_ATTENDANCE_PAGE
 from dgf.models import Tournament, Friend, Attendance, Division, Result
-from dgf_cms.settings import RATINGS_PAGE, TOURNAMENT_RESULTS_PAGE, TOURNAMENT_PAGE
+from dgf_cms.settings import RATINGS_PAGE, TOURNAMENT_RESULTS_PAGE, TOURNAMENT_PAGE, GTO_TOURNAMENT_PAGE, \
+    GTO_RESULTS_PAGE, GTO_RESULTS_LIST_PAGE
 
 APRIL_2 = date(year=2021, month=4, day=2)
 JULY_24 = date(year=2021, month=7, day=24)
@@ -29,7 +30,7 @@ class GermanTourTest(TestCase):
         self.add_tournament_with_empty_attendance_list(444)
         Friend.objects.create(username='manolo', gt_number=1922)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = list(Attendance.objects.all())
         self.assertListEqual(attendance_list, [])
@@ -43,7 +44,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
         Friend.objects.create(username='manolo', gt_number=1922)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = list(Attendance.objects.all())
         self.assertListEqual(attendance_list, [])
@@ -55,7 +56,7 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -83,7 +84,7 @@ class GermanTourTest(TestCase):
         self.add_tournament_attendance_list_with_other_format(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -113,7 +114,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -145,7 +146,7 @@ class GermanTourTest(TestCase):
         Attendance.objects.create(friend=manolo, tournament=tournament_3)
         Attendance.objects.create(friend=manolo, tournament=tournament_4)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -167,7 +168,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #33', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=444, name='Test Tournament #43', begin=JULY_24, end=JULY_25)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_3 = Tournament.objects.get(gt_id=333)
         self.assertEqual(tournament_3.name, 'Test Tournament #3')
@@ -184,7 +185,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=APRIL_2, end=APRIL_2)
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_24)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_3 = Tournament.objects.get(gt_id=333)
         self.assertEqual(tournament_3.begin, JULY_24)
@@ -199,7 +200,7 @@ class GermanTourTest(TestCase):
         self.add_tournament_list_with_canceled_event()
         self.add_tournament_with_empty_attendance_list(666)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -217,7 +218,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(gt_id=555, name='Test Tournament #5', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=666, name='Test Tournament #6', begin=JULY_25, end=JULY_25)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -238,7 +239,7 @@ class GermanTourTest(TestCase):
         Attendance.objects.create(friend=manolo, tournament=tournament_5)
         Attendance.objects.create(friend=manolo, tournament=tournament_6)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -257,7 +258,7 @@ class GermanTourTest(TestCase):
         Friend.objects.create(username='manolo', gt_number=1922)
         Tournament.objects.create(metrix_id=5555, name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_5 = Tournament.objects.get(name='Tremonia Series #5')  # there's just one
         self.assertEqual(tournament_5.metrix_id, 5555)  # and it's not modified
@@ -275,7 +276,7 @@ class GermanTourTest(TestCase):
         Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
         Tournament.objects.create(pdga_id=8888, name='Tremonia Classics', begin=APRIL_2, end=APRIL_2)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         tournament_7 = Tournament.objects.get(name='Tremonia Open')
         self.assertEqual(tournament_7.pdga_id, 7777)
@@ -310,7 +311,7 @@ class GermanTourTest(TestCase):
         tournament_7 = Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
         Attendance.objects.create(friend=manolo, tournament=tournament_7)
 
-        german_tour.update_tournaments()
+        german_tour.update_tournament_attendance()
 
         attendance = set(Attendance.objects.filter(tournament__pdga_id=7777).values_list('friend__username', flat=True))
         self.assertEqual(attendance, {'manolo', 'fede'})
@@ -320,20 +321,17 @@ class GermanTourTest(TestCase):
         self.assertEqual(attendance, {'manolo', 'fede'})
 
     @responses.activate
-    def test_tournament_results(self):
+    def test_turniere_discgolf_tournament_results(self):
         self.add_tournaments_to_ratings_list()
-        self.add_tournament_results(333, 'Test Tournament #3', '24.07.2021', [1, 2, 1922, 4, 5, 2106])
-        self.add_tournament_results(444, 'Test Tournament #4', '25.07.2021', [2106, 2, 3])
+        self.add_tournament_results(333, 'Test Tournament #3', '24.07.2021 - 25.07.2021', [1, 2, 1922, 4, 5, 2106])
+        self.add_tournament_results(444, 'Test Tournament #4', '26.07.2021', [2106, 2, 3])
 
         mpo, _ = Division.objects.get_or_create(id='MPO')
 
         manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
         fede = Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
 
-        Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
-        Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
-
-        german_tour.update_tournament_results()
+        german_tour.update_turniere_discgolf_de_tournament_results()
 
         results = Result.objects.filter(friend=manolo)
         self.assertEqual(len(results), 1)
@@ -341,6 +339,10 @@ class GermanTourTest(TestCase):
         result_tournament_3 = results.get(tournament__gt_id=333)
         self.assertEqual(result_tournament_3.position, 3)
         self.assertEqual(result_tournament_3.division, mpo)
+        self.assertEqual(result_tournament_3.tournament.gt_id, 333)
+        self.assertEqual(result_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
         results = Result.objects.filter(friend=fede)
         self.assertEqual(len(results), 2)
@@ -348,10 +350,184 @@ class GermanTourTest(TestCase):
         result_tournament_3 = results.get(tournament__gt_id=333)
         self.assertEqual(result_tournament_3.position, 6)
         self.assertEqual(result_tournament_3.division, mpo)
+        self.assertEqual(result_tournament_3.tournament.gt_id, 333)
+        self.assertEqual(result_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
         result_tournament_4 = results.get(tournament__gt_id=444)
         self.assertEqual(result_tournament_4.position, 1)
         self.assertEqual(result_tournament_4.division, mpo)
+        self.assertEqual(result_tournament_4.tournament.gt_id, 444)
+        self.assertEqual(result_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(result_tournament_4.tournament.begin, JULY_26)
+        self.assertEqual(result_tournament_4.tournament.end, JULY_26)
+
+    @responses.activate
+    def test_gto_tournament_results(self):
+        self.add_gto_result_list()
+        self.add_gto_results(956, '1. GW-Kley Open', '4.3. - 5.3.2017', {'Open': [427, 2, 3, 1922]})
+        self.add_gto_results(150, 'Seepark Open', '18.7. - 18.7.2009', {'Junioren': [1, 427, 3]})
+
+        MARCH_4_2017 = date(year=2017, month=3, day=4)
+        MARCH_5_2017 = date(year=2017, month=3, day=5)
+        JULY_18_2009 = date(year=2009, month=7, day=18)
+
+        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mj18, _ = Division.objects.get_or_create(id='MJ18')
+
+        manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
+        kevin = Friend.objects.create(username='kevin', first_name='Kevin', gt_number=427)
+
+        german_tour.update_gto_tournament_results()
+
+        manolo_results = Result.objects.filter(friend=manolo)
+        self.assertEqual(len(manolo_results), 1)
+
+        gwk_open = manolo_results.get(tournament__gt_id=956)
+        self.assertEqual(gwk_open.position, 4)
+        self.assertEqual(gwk_open.division, mpo)
+        self.assertEqual(gwk_open.tournament.gt_id, 956)
+        self.assertEqual(gwk_open.tournament.name, '1. GW-Kley Open')
+        self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
+        self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
+
+        kevins_results = Result.objects.filter(friend=kevin)
+        self.assertEqual(len(kevins_results), 2)
+
+        gwk_open = kevins_results.get(tournament__gt_id=956)
+        self.assertEqual(gwk_open.position, 1)
+        self.assertEqual(gwk_open.division, mpo)
+        self.assertEqual(gwk_open.tournament.gt_id, 956)
+        self.assertEqual(gwk_open.tournament.name, '1. GW-Kley Open')
+        self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
+        self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
+
+        seepark_open = kevins_results.get(tournament__gt_id=150)
+        self.assertEqual(seepark_open.position, 2)
+        self.assertEqual(seepark_open.division, mj18)
+        self.assertEqual(seepark_open.tournament.gt_id, 150)
+        self.assertEqual(seepark_open.tournament.name, 'Seepark Open')
+        self.assertEqual(seepark_open.tournament.begin, JULY_18_2009)
+        self.assertEqual(seepark_open.tournament.end, JULY_18_2009)
+
+    def add_gto_results(self, tournament_id, tournament_name, date, results):
+        responses.add(responses.GET, GTO_TOURNAMENT_PAGE.format(tournament_id),
+                      body='<body>'
+                           '<div id="content">'
+                           f' <h2>{tournament_name}</h2>'
+                           '  <fieldset style="">'
+                           '    <legend>Basisdaten</legend>'
+                           '    <table class="noborder">'
+                           '      <tbody>'
+                           '      <tr>'
+                           '        <td>Veranstalter:</td>'
+                           '        <td>GW-KLEY</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Ansprechpartner/Turnierdirektor:</td>'
+                           '        <td>Dennis Laake</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Ort:</td>'
+                           '        <td>Dortmund (<a href="/events/map/956">GPS: 51.522163 7.398745</a>)</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Turnierbetrieb:</td>'
+                           f'       <td>{date}</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>GT-Status:</td>'
+                           '        <td>C</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>PDGA-Status:</td>'
+                           '        <td>C</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>D-Rating:</td>'
+                           '        <td>Wird nicht berücksichtigt</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Turnier-Website:</td>'
+                           '        <td>https://gwkleyopen.jimdo.com/</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>Turnier angemeldet:</td>'
+                           '        <td>23.10.2016</td>'
+                           '      </tr>'
+                           '      <tr>'
+                           '        <td>DFV-Mitgliedschaft erforderlich:</td>'
+                           '        <td>Ja</td>'
+                           '      </tr>'
+                           '      </tbody>'
+                           '    </table>'
+                           '  </fieldset>'
+                           '</div>'
+                           '</body>',
+                      status=200)
+
+        body = '<body>\n'
+        for division, gt_ids in results.items():
+            body += (
+                f'<h2>{division}</h2>'
+                '<table>'
+                '  <tbody>'
+                '    <tr>'
+                '      <th>#\n\t\t</th>'
+                '      <th>Name'
+                '      </th>'
+                '      <th>'
+                '      </th>'
+                '      <th>GT# </th>'
+                '      <th>R1</th>'
+                '      <th>R2</th>'
+                '      <th>Ges.</th>'
+                '      <th>Punkte</th>'
+                '      <th>€</th>'
+                '    </tr>'
+            )
+            for position, gt_id in enumerate(gt_ids, start=1):
+                body += (
+                    '    <tr class="">'
+                    f'     <td>{position}</td>'
+                    '      <td>Name, Vorname</td>'
+                    '      <td>DE</td>'
+                    f'     <td>{gt_id}</td>'
+                    '      <td>44</td>'
+                    '      <td>45</td>'
+                    '      <td>89</td>'
+                    '      <td>40.00</td>'
+                    '      <td>-</td>'
+                    '    </tr>'
+                )
+
+            body += (
+                '  </tbody>'
+                '</table>'
+            )
+        body += '</body>'
+        responses.add(responses.GET, GTO_RESULTS_PAGE.format(tournament_id), body=body, status=200)
+
+    def add_gto_result_list(self):
+        responses.add(responses.GET, GTO_RESULTS_LIST_PAGE,
+                      body='<body>'
+                           '  <tr class="">'
+                           '    <td>1. GW-Kley Open</td>'
+                           '    <td><a href="results/956">Ergebnisse</a> | <a href="details/956">Info</a></td>'
+                           '    <td>31.10.20</td>'
+                           '    <td>31.10.20</td>'
+                           '    <td>C</td>'
+                           '  </tr>'
+                           '  <tr class="">'
+                           '    <td>Seepark Open</td>'
+                           '    <td><a href="results/150">Ergebnisse</a> | <a href="details/150">Info</a></td>'
+                           '    <td>31.10.20</td>'
+                           '    <td>31.10.20</td>'
+                           '    <td>C</td>'
+                           '  </tr>'
+                           '</body>',
+                      status=200)
 
     def add_tournaments_to_ratings_list(self):
         responses.add(responses.GET, RATINGS_PAGE.format(1922),
