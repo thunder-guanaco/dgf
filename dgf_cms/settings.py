@@ -147,6 +147,9 @@ TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp
 TOURNAMENT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
 TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
 RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
+GTO_TOURNAMENT_PAGE = 'https://german-tour-online.de/events/details/{}'
+GTO_RESULTS_PAGE = 'https://german-tour-online.de/events/results/{}'
+GTO_RESULTS_LIST_PAGE = 'https://german-tour-online.de/events/results_list'
 GT_DATE_FORMAT = '%d.%m.%Y'
 
 # DISC GOLF METRIX
