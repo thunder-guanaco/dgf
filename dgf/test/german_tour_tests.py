@@ -64,7 +64,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
         self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
         self.assertEqual(attendance_tournament_3.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
         self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
@@ -72,7 +72,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
         self.assertEqual(attendance_tournament_4.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=444')
         self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
@@ -92,7 +92,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
         self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
         self.assertEqual(attendance_tournament_3.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
         self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
@@ -100,7 +100,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
         self.assertEqual(attendance_tournament_4.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=444')
         self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
@@ -122,7 +122,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
         self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
         self.assertEqual(attendance_tournament_3.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=333')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
         self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
         self.assertEqual(attendance_tournament_3.friend, manolo)
@@ -130,7 +130,7 @@ class GermanTourTest(TestCase):
         attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
         self.assertEqual(attendance_tournament_4.tournament.name, 'Test Tournament #4')
         self.assertEqual(attendance_tournament_4.tournament.url,
-                         'https://turniere.discgolf.de/index.php?p=events&sp=view&id=444')
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=444')
         self.assertEqual(attendance_tournament_4.tournament.begin, JULY_24)
         self.assertEqual(attendance_tournament_4.tournament.end, JULY_25)
         self.assertEqual(attendance_tournament_4.friend, manolo)
@@ -281,7 +281,7 @@ class GermanTourTest(TestCase):
         tournament_7 = Tournament.objects.get(name='Tremonia Open')
         self.assertEqual(tournament_7.pdga_id, 7777)
         self.assertEqual(tournament_7.gt_id, 777)
-        self.assertEqual(tournament_7.url, 'https://turniere.discgolf.de/index.php?p=events&sp=view&id=777')
+        self.assertEqual(tournament_7.url, 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=777')
         self.assertEqual(tournament_7.begin, JULY_24)
         self.assertEqual(tournament_7.end, JULY_25)
 
@@ -296,7 +296,7 @@ class GermanTourTest(TestCase):
 
         gt_tournament_8 = Tournament.objects.get(gt_id=888)
         self.assertEqual(gt_tournament_8.pdga_id, None)
-        self.assertEqual(gt_tournament_8.url, 'https://turniere.discgolf.de/index.php?p=events&sp=view&id=888')
+        self.assertEqual(gt_tournament_8.url, 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=888')
         self.assertEqual(gt_tournament_8.begin, JULY_26)
         self.assertEqual(gt_tournament_8.end, JULY_27)
 
@@ -341,6 +341,8 @@ class GermanTourTest(TestCase):
         self.assertEqual(result_tournament_3.division, mpo)
         self.assertEqual(result_tournament_3.tournament.gt_id, 333)
         self.assertEqual(result_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(result_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
         self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
@@ -352,6 +354,8 @@ class GermanTourTest(TestCase):
         self.assertEqual(result_tournament_3.division, mpo)
         self.assertEqual(result_tournament_3.tournament.gt_id, 333)
         self.assertEqual(result_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(result_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
         self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
@@ -360,6 +364,8 @@ class GermanTourTest(TestCase):
         self.assertEqual(result_tournament_4.division, mpo)
         self.assertEqual(result_tournament_4.tournament.gt_id, 444)
         self.assertEqual(result_tournament_4.tournament.name, 'Test Tournament #4')
+        self.assertEqual(result_tournament_4.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=444')
         self.assertEqual(result_tournament_4.tournament.begin, JULY_26)
         self.assertEqual(result_tournament_4.tournament.end, JULY_26)
 
@@ -389,6 +395,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(gwk_open.division, mpo)
         self.assertEqual(gwk_open.tournament.gt_id, 956)
         self.assertEqual(gwk_open.tournament.name, '1. GW-Kley Open')
+        self.assertEqual(gwk_open.tournament.url, 'https://german-tour-online.de/events/results/956')
         self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
         self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
 
@@ -400,6 +407,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(gwk_open.division, mpo)
         self.assertEqual(gwk_open.tournament.gt_id, 956)
         self.assertEqual(gwk_open.tournament.name, '1. GW-Kley Open')
+        self.assertEqual(gwk_open.tournament.url, 'https://german-tour-online.de/events/results/956')
         self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
         self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
 
@@ -408,6 +416,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(seepark_open.division, mj18)
         self.assertEqual(seepark_open.tournament.gt_id, 150)
         self.assertEqual(seepark_open.tournament.name, 'Seepark Open')
+        self.assertEqual(seepark_open.tournament.url, 'https://german-tour-online.de/events/results/150')
         self.assertEqual(seepark_open.tournament.begin, JULY_18_2009)
         self.assertEqual(seepark_open.tournament.end, JULY_18_2009)
 
