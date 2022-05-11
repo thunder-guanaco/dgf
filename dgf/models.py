@@ -195,7 +195,7 @@ class FavoriteCourse(Model):
 
 class Feedback(Model):
     title = models.CharField(_('Title'), max_length=200)
-    feedback = models.TextField(_('Feedback'), )
+    feedback = models.TextField(_('Feedback'), null=True, blank=True)
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
 
     def __str__(self):
