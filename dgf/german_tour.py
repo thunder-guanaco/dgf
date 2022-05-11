@@ -6,8 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 
 from dgf.models import Tournament, Friend, Attendance, Result, Division
-from dgf_cms.settings import TOURNAMENT_LIST_PAGE, GT_DATE_FORMAT, TOURNAMENT_ATTENDANCE_PAGE, \
-    TOURNAMENT_RESULTS_PAGE, RATINGS_PAGE, TOURNAMENT_PAGE, GTO_TOURNAMENT_PAGE, GTO_RESULTS_PAGE, GTO_RESULTS_LIST_PAGE
+from dgf_cms.settings import GT_DATE_FORMAT, RATINGS_PAGE, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE, \
+    TURNIERE_DISCGOLF_DE_LIST_PAGE, TURNIERE_DISCGOLF_DE_DETAILS_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE,\
+    GTO_LIST_PAGE, GTO_DETAILS_PAGE, GTO_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -20,14 +21,14 @@ def get(url):
     logger.info(f'GET {url}')
     response = requests.get(url)
 
-    if url != GTO_RESULTS_LIST_PAGE and response.url == GTO_RESULTS_LIST_PAGE:
+    if url != GTO_LIST_PAGE and response.url == GTO_LIST_PAGE:
         raise NoResultFromGermanTourOnline()
 
     return BeautifulSoup(response.content, features='html5lib')
 
 
 def get_all_tournaments():
-    soup = get(TOURNAMENT_LIST_PAGE)
+    soup = get(TURNIERE_DISCGOLF_DE_LIST_PAGE)
     tournaments_table = soup.find('table', id='list_tournaments').find('tbody')
 
     tournaments = []
@@ -126,7 +127,7 @@ def parse_gt_numbers(attendance_header, attendance_content):
 
 
 def add_attendance(gt_tournament, tournament):
-    attendance_soup = get(TOURNAMENT_ATTENDANCE_PAGE.format(gt_tournament['id']))
+    attendance_soup = get(TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE.format(gt_tournament['id']))
     attendance_table = attendance_soup.find('table', id='starterlist')
     table_header = attendance_table.find('thead')
     table_content = attendance_table.find('tbody')
@@ -178,7 +179,7 @@ def get_gto_id(url):
 
 
 def parse_turniere_discgolf_de_tournament(tournament_id):
-    tournament_soup = get(TOURNAMENT_PAGE.format(tournament_id))
+    tournament_soup = get(TURNIERE_DISCGOLF_DE_DETAILS_PAGE.format(tournament_id))
     dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
     return {
         'id': tournament_id,
@@ -189,7 +190,7 @@ def parse_turniere_discgolf_de_tournament(tournament_id):
 
 
 def parse_gto_tournament(tournament_id):
-    tournament_soup = get(GTO_TOURNAMENT_PAGE.format(tournament_id))
+    tournament_soup = get(GTO_DETAILS_PAGE.format(tournament_id))
     dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb:").parent()[1].text.strip().split("-")]
     return {
         'id': tournament_id,
@@ -263,7 +264,7 @@ def parse_turniere_discgolf_de_table_results(results_header, results_content, to
 
 
 def parse_turniere_discgolf_de_results(tournament, tournament_id):
-    results_soup = get(TOURNAMENT_RESULTS_PAGE.format(tournament_id))
+    results_soup = get(TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(tournament_id))
 
     results_tables = results_soup.find_all('table')
     for results_table in results_tables:
@@ -332,7 +333,7 @@ def get_turniere_discgolf_de_urls():
 
 
 def get_gto_urls():
-    results_list_soup = get(GTO_RESULTS_LIST_PAGE)
+    results_list_soup = get(GTO_LIST_PAGE)
     return [get_gto_id(link['href']) for link in results_list_soup.findAll("a", text="Info")]
 
 

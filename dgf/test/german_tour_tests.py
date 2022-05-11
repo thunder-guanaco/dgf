@@ -4,10 +4,10 @@ import responses
 from django.test import TestCase
 
 from dgf import german_tour
-from dgf.german_tour import TOURNAMENT_LIST_PAGE, TOURNAMENT_ATTENDANCE_PAGE
+from dgf.german_tour import TURNIERE_DISCGOLF_DE_LIST_PAGE, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE
 from dgf.models import Tournament, Friend, Attendance, Division, Result
-from dgf_cms.settings import RATINGS_PAGE, TOURNAMENT_RESULTS_PAGE, TOURNAMENT_PAGE, GTO_TOURNAMENT_PAGE, \
-    GTO_RESULTS_PAGE, GTO_RESULTS_LIST_PAGE
+from dgf_cms.settings import RATINGS_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE, TURNIERE_DISCGOLF_DE_DETAILS_PAGE,\
+    GTO_DETAILS_PAGE, GTO_RESULTS_PAGE, GTO_LIST_PAGE
 
 APRIL_2 = date(year=2021, month=4, day=2)
 JULY_24 = date(year=2021, month=7, day=24)
@@ -421,7 +421,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(seepark_open.tournament.end, JULY_18_2009)
 
     def add_gto_results(self, tournament_id, tournament_name, date, results):
-        responses.add(responses.GET, GTO_TOURNAMENT_PAGE.format(tournament_id),
+        responses.add(responses.GET, GTO_DETAILS_PAGE.format(tournament_id),
                       body='<body>'
                            '<div id="content">'
                            f' <h2>{tournament_name}</h2>'
@@ -519,7 +519,7 @@ class GermanTourTest(TestCase):
         responses.add(responses.GET, GTO_RESULTS_PAGE.format(tournament_id), body=body, status=200)
 
     def add_gto_result_list(self):
-        responses.add(responses.GET, GTO_RESULTS_LIST_PAGE,
+        responses.add(responses.GET, GTO_LIST_PAGE,
                       body='<body>'
                            '  <tr class="">'
                            '    <td>1. GW-Kley Open</td>'
@@ -570,7 +570,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_results(self, tournament_id, tournament_name, date, gt_ids):
-        responses.add(responses.GET, TOURNAMENT_PAGE.format(tournament_id),
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_DETAILS_PAGE.format(tournament_id),
                       body='<body>'
                            f'  <h2>{tournament_name}</h2>'
                            '  <table class="tabletable-sm">'
@@ -635,10 +635,10 @@ class GermanTourTest(TestCase):
                      '    </tbody>'
                      '  </table>')
         body += '</body>'
-        responses.add(responses.GET, TOURNAMENT_RESULTS_PAGE.format(tournament_id), body=body, status=200)
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(tournament_id), body=body, status=200)
 
     def add_tournament_list(self):
-        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_LIST_PAGE,
                       body='<body>'
                            '  <table class="table table-sm table-striped dataTable no-footer"'
                            '         id="list_tournaments" role="grid"'
@@ -725,7 +725,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_list_with_canceled_event(self):
-        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_LIST_PAGE,
                       body='<body>'
                            '  <table class="table table-sm table-striped dataTable no-footer"'
                            '         id="list_tournaments" role="grid"'
@@ -822,7 +822,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_with_empty_attendance_list(self, tournament_id):
-        responses.add(responses.GET, TOURNAMENT_ATTENDANCE_PAGE.format(tournament_id),
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE.format(tournament_id),
                       body='<body>'
                            '  <table id="starterlist"'
                            '         class="table table-striped table-sm table-hover p-0 m-0 dataTable no-footer"'
@@ -873,7 +873,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_without_attendance_list(self, tournament_id):
-        responses.add(responses.GET, TOURNAMENT_ATTENDANCE_PAGE.format(tournament_id),
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE.format(tournament_id),
                       body='<body>'
                            '  <table id="starterlist"'
                            '         class="table table-striped table-sm table-hover p-0 m-0 dataTable no-footer"'
@@ -903,7 +903,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_attendance_list(self, tournament_id):
-        responses.add(responses.GET, TOURNAMENT_ATTENDANCE_PAGE.format(tournament_id),
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE.format(tournament_id),
                       body='<body>'
                            '  <table id="starterlist"'
                            '         class="table table-striped table-sm table-hover p-0 m-0 dataTable no-footer"'
@@ -967,7 +967,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_attendance_list_with_other_format(self, tournament_id):
-        responses.add(responses.GET, TOURNAMENT_ATTENDANCE_PAGE.format(tournament_id),
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE.format(tournament_id),
                       body='<body>'
                            '  <table id="starterlist"'
                            '         class="table table-striped table-sm table-hover p-0 m-0 dataTable no-footer"'
@@ -1035,7 +1035,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_list_with_tremonias_series_event(self):
-        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_LIST_PAGE,
                       body='<body>'
                            '  <table class="table table-sm table-striped dataTable no-footer"'
                            '         id="list_tournaments" role="grid"'
@@ -1132,7 +1132,7 @@ class GermanTourTest(TestCase):
                       status=200)
 
     def add_tournament_list_with_pdga_event(self):
-        responses.add(responses.GET, TOURNAMENT_LIST_PAGE,
+        responses.add(responses.GET, TURNIERE_DISCGOLF_DE_LIST_PAGE,
                       body='<body>'
                            '  <table class="table table-sm table-striped dataTable no-footer"'
                            '         id="list_tournaments" role="grid"'

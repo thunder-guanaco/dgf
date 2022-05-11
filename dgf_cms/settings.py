@@ -142,15 +142,18 @@ else:
     PDGA_PASSWORD = get_env_or_die('DJANGO_PDGA_PASSWORD')
 
 # GERMAN TOUR
-TOURNAMENT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
-TOURNAMENT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
-TOURNAMENT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
-TOURNAMENT_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
-RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
-GTO_TOURNAMENT_PAGE = 'https://german-tour-online.de/events/details/{}'
-GTO_RESULTS_PAGE = 'https://german-tour-online.de/events/results/{}'
-GTO_RESULTS_LIST_PAGE = 'https://german-tour-online.de/events/results_list'
 GT_DATE_FORMAT = '%d.%m.%Y'
+RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
+
+TURNIERE_DISCGOLF_DE_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+TURNIERE_DISCGOLF_DE_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
+TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
+TURNIERE_DISCGOLF_DE_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
+
+GTO_LIST_PAGE = 'https://german-tour-online.de/events/results_list'
+GTO_DETAILS_PAGE = 'https://german-tour-online.de/events/details/{}'
+GTO_RESULTS_PAGE = 'https://german-tour-online.de/events/results/{}'
+
 
 # DISC GOLF METRIX
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
