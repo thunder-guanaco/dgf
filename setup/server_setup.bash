@@ -122,11 +122,11 @@ upstream dgf_cms_app_server {
 server {
 
     if (\$host = www.tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
     }
 
     if (\$host = tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
     }
 
     if (\$host = www.disc-golf-friends.de) {
@@ -215,11 +215,11 @@ server {
 server {
 
     if (\$host = www.tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
     }
 
     if (\$host = tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open;
+        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
     }
 
     if (\$host = www.disc-golf-friends.de) {
