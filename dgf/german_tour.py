@@ -178,14 +178,24 @@ def get_gto_id(url):
     return url.split('/')[-1]
 
 
+def get_pdga_id(url):
+    return int(url.split('/')[-1]) if url else None
+
+
 def parse_turniere_discgolf_de_tournament(tournament_id):
     tournament_soup = get(TURNIERE_DISCGOLF_DE_DETAILS_PAGE.format(tournament_id))
     dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
+    import ipdb
+    ipdb.set_trace()
+    pdga_link = tournament_soup.find("td", text="PDGA Status").parent()[1].find('a')
+    pdga_url = pdga_link['href'] if pdga_link else None
+
     return {
         'id': tournament_id,
         'name': tournament_soup.find('h2').text.strip(),
         'begin': dates[0],
-        'end': dates[1] if len(dates) > 1 else dates[0]
+        'end': dates[1] if len(dates) > 1 else dates[0],
+        'pdga_id': get_pdga_id(pdga_url),
     }
 
 
@@ -338,8 +348,9 @@ def get_gto_urls():
 
 
 def update_tournament_result(get_all_tournament_ids, parse_tournament, parse_results):
-    tournament_ids = get_all_tournament_ids()
-    logger.info(f'{len(tournament_ids)} tournaments to import')
+    #tournament_ids = get_all_tournament_ids()
+    #logger.info(f'{len(tournament_ids)} tournaments to import: {tournament_ids}')
+    tournament_ids = {1678, 1692, 1698, 1724, 1725, 1601, 1732, 1605, 1734, 1737, 1610, 1611, 1612, 1741, 1615, 1619, 1621, 1622, 1624, 1629, 1630, 1632, 1761, 1635, 1766, 1638, 1640, 1641, 1645, 1646, 1648, 1778, 1651, 1652, 1656, 1657}
     for tournament_id in tournament_ids:
         logger.info('\n-------------------------------------------')
         gt_tournament = parse_tournament(tournament_id)
