@@ -1,12 +1,20 @@
+import re
 from datetime import datetime, timedelta
 
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
+from djangocms_picture.models import Picture
+from djangocms_picture.forms import PictureForm
 from django.db.models import Count, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, BagTagChange
+import requests
+from bs4 import BeautifulSoup
+
+from .forms import TournamentResultForm
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
+    BagTagChange, DiscGolfMetrixResultPluginModel
 from .udisc import get_course_url
 
 
@@ -85,19 +93,18 @@ def friends_order_by_ts_wins():
 
 
 def friends_order_by_bag_tag():
-
     time_threshold = datetime.now() - timedelta(weeks=1)
 
     bag_tag_changes = BagTagChange.objects \
         .filter(previous_number__isnull=False) \
         .filter(active=True) \
         .filter(timestamp__gt=time_threshold) \
-        .filter(friend=OuterRef("id")) \
-        .order_by("-timestamp")
+        .filter(friend=OuterRef('id')) \
+        .order_by('-timestamp')
 
     return Friend.objects.filter(bag_tag__isnull=False) \
         .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
-        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list("previous_number")[:1])) \
+        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1])) \
         .order_by('bag_tag')
 
 
@@ -216,3 +223,43 @@ class TremoniaOpenFacebookPluginPublisher(DiscGolfFriendsFacebookPluginPublisher
     name = _('Facebook - Tremonia Open')
     page_id = 'tremoniaopen'
     page_name = 'Tremonia Open'
+
+
+
+def get_soup(url):
+    response = requests.get(url)
+    return BeautifulSoup(response.content, features='html5lib')
+
+
+def get_results_tables(soup, is_tremoria_series):
+    table = soup.find('table')
+    amateur_tr = table.find('th', text=re.compile('.*Amateur.*')).parent
+    previous_tds = reversed(list(amateur_tr.previous_siblings))
+
+    return {
+        'results_header': table.find('thead').prettify(),
+        'results_open': '\n'.join([tag.prettify() for tag in previous_tds if 'Open' not in tag.prettify()]),
+        'results_amateur': '\n'.join([tag.prettify() for tag in amateur_tr.next_siblings]),
+    }
+
+
+def get_title(soup):
+    return soup.find('head').find('title').text.split('→')[1]
+
+
+@plugin_pool.register_plugin
+class TremoniaSeriesLastTournamentResultsPluginPublisher(CMSPluginBase):
+    model = DiscGolfMetrixResultPluginModel
+    module = _('Social Media')
+    name = _('Tournament Results')
+    render_template = 'dgf/plugins/tournament_results_for_social_media.html'
+
+    def render(self, context, instance, placeholder):
+        soup = get_soup(instance.url)
+        title = get_title(soup)
+        context.update({
+            'background_image': instance.background_image,
+            'title': title,
+        })
+        context.update(get_results_tables(soup, 'Tremonia Series' in title))
+        return context

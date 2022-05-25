@@ -3,6 +3,7 @@ import re
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
+from djangocms_picture.models import Picture
 from django.contrib.auth.models import UserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -522,3 +523,11 @@ class TourPluginModel(CMSPlugin):
 
     def __str__(self):
         return f'Tour plugin for {str(self.tour)}'
+
+
+class DiscGolfMetrixResultPluginModel(CMSPlugin):
+    background_image = models.ImageField(null=False, blank=False)
+    url = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return f'Disc Golf Metrix result plugin for {self.url} and background image: {self.background_image}'
