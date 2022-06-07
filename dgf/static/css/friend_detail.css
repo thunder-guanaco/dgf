@@ -230,18 +230,7 @@
 }
 
 .bag-tag-number {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    font-weight: bold;
-    font-size: 2em;
-    width: 45px;
-    line-height: 53px;
-    text-align: center;
-    color: white;
-    border-radius: 2px;
-    box-shadow: 0px 0px 2px 1px white inset;
-    margin: 0;
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+    font-size: 2em !important;
+    width: 45px !important;
+    line-height: 53px !important;
 }
