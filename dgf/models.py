@@ -528,6 +528,20 @@ class TourPluginModel(CMSPlugin):
 class DiscGolfMetrixResultPluginModel(CMSPlugin):
     background_image = models.ImageField(null=False, blank=False)
     url = models.CharField(max_length=100, null=False, blank=False)
+    show_only_friends = models.BooleanField(null=False, blank=False, default=True)
+
+    MANUAL_TABLE = 'M'
+    DIFFERENT_COURSES_TABLE = 'D'
+    SAME_COURSE_TABLE = 'S'
+    TABLE_TYPE_CHOICES = (
+        (MANUAL_TABLE, _('Use manually combined summary table')),
+        (DIFFERENT_COURSES_TABLE, _('Use default results table (containing results from 2 different courses)')),
+        (SAME_COURSE_TABLE, _('Use default results table (containing all results, from all the holes)')),
+    )
+    table_type = models.CharField(_('Table type'), max_length=1, choices=TABLE_TYPE_CHOICES,
+                                  null=False, blank=False, default=SAME_COURSE_TABLE)
 
     def __str__(self):
-        return f'Disc Golf Metrix result plugin for {self.url} and background image: {self.background_image}'
+        return f'Disc Golf Metrix result plugin for {self.url} and background image: {self.background_image} ' \
+               f'(show only friends? {self.show_only_friends})' \
+               f'(using table type: {self.table_type})'

@@ -253,3 +253,8 @@ def to_list(queryset):
 @register.filter
 def to_dict(queryset):
     return dict(queryset)
+
+
+@register.filter
+def negate(boolean):
+    return not boolean

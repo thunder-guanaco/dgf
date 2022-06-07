@@ -34,6 +34,8 @@ urlpatterns += i18n_patterns(
 # This is only needed when using runserver.
 if settings.DEBUG:
     urlpatterns = [
+                      re_path(r'^mock/$', TemplateView.as_view(template_name='mock.html')),
+                      re_path(r'^mock2/$', TemplateView.as_view(template_name='mock2.html')),
                       re_path(r'^403/$', TemplateView.as_view(template_name='403.html')),
                       re_path(r'^404/$', TemplateView.as_view(template_name='404.html')),
                       re_path(r'^500/$', TemplateView.as_view(template_name='500.html')),
