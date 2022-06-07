@@ -11,7 +11,7 @@
         </h2>
         <div class="row justify-content-md-center">
             {% for friend in friends_ordered_by_bag_tag|slice:":3" %}
-                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True bag_tag=friend.bag_tag %}
+                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_bag_tag=True %}
             {% endfor %}
         </div>
     </div>
