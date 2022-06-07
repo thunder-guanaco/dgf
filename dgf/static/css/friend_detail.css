@@ -228,3 +228,20 @@
 #friend-body .now-playing li:before {
     content: '>\00a0\00a0\00a0';
 }
+
+.bag-tag-number {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-weight: bold;
+    font-size: 2em;
+    width: 45px;
+    line-height: 53px;
+    text-align: center;
+    color: white;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px white inset;
+    margin: 0;
+    background-color: #8d1950;
+    border: solid #8d1950 2px;
+}
