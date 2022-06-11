@@ -217,6 +217,8 @@ class BagTagChangeAdmin(admin.ModelAdmin):
          )
     ]
 
+    ordering = ('-timestamp', 'new_number')
+
     readonly_fields = ['actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active']
 
     list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active')

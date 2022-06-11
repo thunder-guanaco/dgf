@@ -228,3 +228,9 @@
 #friend-body .now-playing li:before {
     content: '>\00a0\00a0\00a0';
 }
+
+.bag-tag-number {
+    font-size: 2em !important;
+    width: 45px !important;
+    line-height: 53px !important;
+}
