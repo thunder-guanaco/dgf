@@ -1,21 +1,14 @@
-import re
 from datetime import datetime, timedelta
 
-import ipdb
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from djangocms_picture.models import Picture
-from djangocms_picture.forms import PictureForm
 from django.db.models import Count, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-import requests
-from bs4 import BeautifulSoup
 
-from .forms import TournamentResultForm
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
-    BagTagChange, DiscGolfMetrixResultPluginModel
+    BagTagChange, TournamentResultsPluginModel
 from .udisc import get_course_url
 
 
@@ -227,115 +220,9 @@ class TremoniaOpenFacebookPluginPublisher(DiscGolfFriendsFacebookPluginPublisher
 
 
 @plugin_pool.register_plugin
-class DiscGolfMetrixResultPluginPublisher(CMSPluginBase):
-    model = DiscGolfMetrixResultPluginModel
+class TournamentResultsPluginPublisher(CMSPluginBase):
+    model = TournamentResultsPluginModel
     module = _('Social Media')
-    name = _('Disc Golf Metrix Tournament Results')
+    name = _('Tournament Results')
     render_template = 'dgf/plugins/tournament_results_for_social_media.html'
 
-    def render(self, context, instance, placeholder):
-        soup = self.get_soup(instance.url)
-        title = self.get_title(soup)
-        context.update({
-            'title': title,
-            'background_image': instance.background_image,
-            'show_only_friends': instance.show_only_friends,
-            'table_type': instance.table_type,
-            'friends': Friend.objects.all()
-        })
-
-        if instance.table_type == DiscGolfMetrixResultPluginModel.MANUAL_TABLE:
-            context.update(self.get_results_from_manual_results_table(soup))
-        elif instance.table_type == DiscGolfMetrixResultPluginModel.DIFFERENT_COURSES_TABLE:
-            context.update(self.get_results_from_default_results_table_with_different_courses(soup))
-        else:
-            context.update(self.get_results_from_default_results_table_with_same_course(soup))
-
-        return context
-
-    def get_soup(self, url):
-        response = requests.get(url)
-        return BeautifulSoup(response.content, features='html5lib')
-
-    def get_title(self, soup):
-        title = soup.find('head').find('title').text
-        if '→' in title:
-            return title.split('→')[1]
-        else:
-            return title
-
-    def get_results_from_manual_results_table(self, soup):
-        table = soup.find('table')
-        header = table.find('thead')
-        body = table.find('tbody')
-        divisions = []
-        for tr in body.find_all('tr'):
-            if tr.find('th'):
-                divisions.append({
-                    'name': tr.find_all("th")[1].text,
-                    'results': [],
-                })
-            else:
-                divisions[-1]['results'].append(tr.prettify())
-
-        return {
-            'results_header': header.prettify(),
-            'results_body': divisions,
-        }
-
-    def get_results_from_default_results_table_with_different_courses(self, soup):
-        table = soup.find("table", {"class": "score-table"})
-        headers = table.find_all('thead')
-        bodies = table.find_all('tbody')
-        divisions = []
-        division_names = []
-        for head in headers[1:]:
-            division_names.append(head.find("tr").find_all("th")[1].text.split(" (")[0])
-
-        for division_names, tbody in zip(division_names, bodies):
-            divisions.append({
-                'name': division_names,
-                'results': [tr.prettify for tr in tbody.find_all('tr')],
-            })
-
-        return {
-            'results_header': headers[0].prettify(),
-            'results_body': divisions,
-        }
-
-    def get_results_and_fill_metrix_id(self, tbody):
-        results = []
-        current_player_id = None
-        for tr in tbody.find_all('tr'):
-
-            player_cell = tr.find('td', {"class": "player-cell"})
-            if player_cell:
-                profile_link = player_cell.find('a', {'class': 'profile-link'})
-                if profile_link:
-                    current_player_id = profile_link.attrs['href'].split('/')[-1]
-                else:
-                    current_player_id = None
-
-            results.append(tr.prettify())
-
-        return results
-
-    def get_results_from_default_results_table_with_same_course(self, soup):
-        table = soup.find("table", {"class": "score-table"})
-        headers = table.find_all('thead')
-        bodies = table.find_all('tbody')[1:]  # THIS IS DIFFERENT FROM THE ONE WHERE THE COURSES ARE DIFFERENT
-        divisions = []
-        division_names = []
-        for head in headers[1:]:
-            division_names.append(head.find("tr").find_all("th")[1].text.split(" (")[0])
-
-        for division_names, tbody in zip(division_names, bodies):
-            divisions.append({
-                'name': division_names,
-                'results': [tr.prettify for tr in tbody.find_all('tr')], # self.get_results_and_fill_metrix_id(tbody),
-            })
-
-        return {
-            'results_header': headers[0].prettify(),
-            'results_body': divisions,
-        }

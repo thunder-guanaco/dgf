@@ -31,11 +31,23 @@ class FriendModelTest(TestCase):
         self.assert_field('__str__', expected='Kermit (not DGF)',
                           username='kermit', first_name='Kermit', last_name='', is_active=False)
 
+    def test_first_and_last_name(self):
+        self.assert_field('full_name', expected='Manuel García García (Manolo)',
+                          username='manolo', first_name='Manuel', last_name='García García')
+        self.assert_field('full_name', expected='David Strott',
+                          username='david', first_name='David', last_name='Strott')
+        self.assert_field('full_name', expected='David',
+                          username='davidb', first_name='David', last_name=None)
+
     def test_full_name(self):
         self.assert_field('full_name', expected='Manuel García García (Manolo)',
                           username='manolo', first_name='Manuel', last_name='García García', nickname='Manolo')
         self.assert_field('full_name', expected='David Strott',
                           username='david', first_name='David', last_name='Strott', nickname=None)
+        self.assert_field('full_name', expected='Markus (Mendoza)',
+                          username='markus', first_name='Markus', last_name=None, nickname='Mendoza')
+        self.assert_field('full_name', expected='David',
+                          username='davidb', first_name='David', last_name=None, nickname=None)
 
     def test_short_name(self):
         self.assert_field('short_name', expected='Manolo',

@@ -8,76 +8,9 @@ h1, h2 {
     margin: 0.4em 0 0.2em 0;
 }
 
-#last-tournament-results-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#width-height-options {
+#options-wrapper {
     height: auto;
     width: 100%;
-}
-
-#background-image {
-    position: absolute;
-    top: 0px;
-    opacity: 0.25;
-    filter: contrast(300%) saturate(4);
-}
-
-.width-100 {
-    width: 100%;
-    height: auto;
-}
-
-.height-100 {
-    width: auto;
-    height: 100%;
-}
-
-#tournament-results {
-    z-index: 100;
-    padding: 1em 0 3em 0;
-    display: flex;
-    flex-direction: column;
-}
-
-#tournament-results .content-wrapper {
-    display: flex;
-    flex-direction: row;
-}
-
-#tournament-results .table-wrapper {
-    margin: 0 2em;
-}
-
-#tournament-results th,
-#tournament-results td {
-    text-align: center;
-    padding: 0.25em 0.5em;
-    white-space: nowrap;
-}
-
-#tournament-results tr:nth-child(1) td:first-child:before {
-    content: '\00a0\1F947';
-}
-
-#tournament-results tr:nth-child(2) td:first-child:before {
-    content: '\00a0\1F948';
-}
-
-#tournament-results tr:nth-child(3) td:first-child:before {
-    content: '\00a0\1F949';
-}
-
-#tournament-results tr td:first-child:before {
-    content: '\00a0\00a0\00a0\00a0\00a0\00a0';
-}
-
-#tournament-results td:nth-child(2) {
-    font-weight: bold;
 }
 
 #options {
@@ -87,4 +20,81 @@ h1, h2 {
 
 #options .option-group {
     margin-right: 4em;
+}
+
+#tournament-results-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#background-image {
+    position: absolute;
+    top: 0px;
+    opacity: 0.25;
+    filter: contrast(300%) saturate(4);
+    width: 800px;
+    height: auto;
+}
+
+#tournament-results {
+    z-index: 100;
+    padding: 1em 0 3em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+}
+
+#tournament-results h1 {
+    height: 20%;
+}
+
+#content-wrapper {
+    height: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 800px;
+}
+
+#content-wrapper .table-wrapper {
+    display: block;
+    margin: 1em;
+}
+
+#content-wrapper .table-wrapper table {
+    margin: auto;
+}
+
+#content-wrapper td {
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
+}
+
+#content-wrapper td.position {
+    font-weight: bold;
+    text-align: right;
+}
+
+#content-wrapper td.name {
+    text-align: left;
+}
+
+#content-wrapper td.medal {
+    padding: 0;
+    text-align: left;
+}
+
+#content-wrapper td.medal-1:before {
+    content: '\00a0\1F947';
+}
+
+#content-wrapper td.medal-2:before {
+    content: '\00a0\1F948';
+}
+
+#content-wrapper td.medal-3:before {
+    content: '\00a0\1F949';
 }

@@ -4,61 +4,39 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/tournament_results_for_social_media.css' %}">
 {% endaddtoblock %}
 
-{% addtoblock "js" %}
-    <script type="text/javascript">
-        tableType = "{{ table_type }}";
-        metrixUserIds = {{friends|with_metrix_user_id|values_list_flat:"metrix_user_id"|to_list|safe}};
-        {% if show_only_friends %}
-            showOnlyFriends = true;
-        {% else %}
-            showOnlyFriends = false;
-        {% endif %}
-    </script>
-    <script type="text/javascript" src="{% static 'js/tournament_results_for_social_media.js' %}"></script>
-{% endaddtoblock %}
-
-<style>
-
-</style>
-<div id="width-height-options">
-    <h2>Options</h2>
+<div id="options-wrapper">
+    <h2>Optionen</h2>
     <div id="options">
         <div class="option-group">
-            <input type="radio" id="height" checked="true" name="width-height-options" onclick="$('#background-image').addClass('height-100').removeClass('width-100');">
-            <label for="height">100$ height</label>
-            <br>
-            <input type="radio" id="width" name="width-height-options" onclick="$('#background-image').addClass('width-100').removeClass('height-100');">
-            <label for="width">100% width</label>
-            <br>
-        </div>
-        <div class="option-group">
-            <input type="radio" id="all" {% if show_only_friends|negate %}checked{% endif %} name="show-only-friends" onclick="$('tr').show();">
-            <label for="all">Show all players</label>
-            <br>
-            <input type="radio" id="friends" {% if show_only_friends %}checked{% endif %} name="show-only-friends" onclick="hideNonFriends();">
-            <label for="friends">Show only Friends</label>
+            <label for="width">Größe:</label>
+            <input type="text" id="width" name="width" value="800">
+            <button type="button" onclick="
+                width = $('#width').val() + 'px';
+                $('#background-image').css('width', width);
+                $('#content-wrapper').css('width', width);
+                $('#tournament-results-wrapper').css('width', width);
+            ">Resize</button>
             <br>
         </div>
     </div>
 </div>
-<div id="last-tournament-results-wrapper">
-    <img id="background-image" class="height-100" src="{{background_image.url}}">
+<div id="tournament-results-wrapper">
+    <img id="background-image" src="{{instance.background_image.url}}">
     <div id="tournament-results">
-        <h1>{{title}}</h1>
-        <div class="content-wrapper">
-            {% for division in results_body %}
+        <h1>{{instance.tournament.name}}</h1>
+        <div id="content-wrapper">
+            {% for division in instance.tournament|divisions %}
                 <div class="table-wrapper">
-                    <h2>{{division.name}}</h2>
+                    <h2>{{division.text}}</h2>
                     <table>
-                        {% autoescape off %}
-                            {{results_header}}
-                        {% endautoescape %}
                         <tbody>
-                            {% autoescape off %}
-                                {% for tr in division.results %}
-                                    {{tr}}
-                                {% endfor %}
-                            {% endautoescape %}
+                            {% for result in instance.tournament.results|filter_by_division:division|order_by:'position' %}
+                                <tr>
+                                    <td class="position">{{result.position}}.</td>
+                                    <td class="name">{{result.friend.short_name}}</td>
+                                    <td class="medal medal-{{result.position}}"></td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -66,7 +44,4 @@
         </div>
     </div>
 </div>
-{% comment %}
-    TAKE JS AND CSS TO SEPARATE FILES!!!
-{% endcomment %}
 

@@ -140,9 +140,14 @@ class Friend(User):
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
+    def first_and_last_name(self):
+        last_name = f' {self.last_name}' if self.last_name else ''
+        return f'{self.first_name}{last_name}'
+
+    @property
     def full_name(self):
         nickname = f' ({self.nickname})' if self.nickname else ''
-        return f'{self.first_name} {self.last_name}{nickname}'
+        return f'{self.first_and_last_name}{nickname}'
 
     @property
     def short_name(self):
@@ -525,23 +530,12 @@ class TourPluginModel(CMSPlugin):
         return f'Tour plugin for {str(self.tour)}'
 
 
-class DiscGolfMetrixResultPluginModel(CMSPlugin):
+class TournamentResultsPluginModel(CMSPlugin):
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE)
     background_image = models.ImageField(null=False, blank=False)
-    url = models.CharField(max_length=100, null=False, blank=False)
     show_only_friends = models.BooleanField(null=False, blank=False, default=True)
 
-    MANUAL_TABLE = 'M'
-    DIFFERENT_COURSES_TABLE = 'D'
-    SAME_COURSE_TABLE = 'S'
-    TABLE_TYPE_CHOICES = (
-        (MANUAL_TABLE, _('Use manually combined summary table')),
-        (DIFFERENT_COURSES_TABLE, _('Use default results table (containing results from 2 different courses)')),
-        (SAME_COURSE_TABLE, _('Use default results table (containing all results, from all the holes)')),
-    )
-    table_type = models.CharField(_('Table type'), max_length=1, choices=TABLE_TYPE_CHOICES,
-                                  null=False, blank=False, default=SAME_COURSE_TABLE)
-
     def __str__(self):
-        return f'Disc Golf Metrix result plugin for {self.url} and background image: {self.background_image} ' \
-               f'(show only friends? {self.show_only_friends})' \
-               f'(using table type: {self.table_type})'
+        return f'Tournament result plugin for {self.tournament}\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(show only friends? {self.show_only_friends})'

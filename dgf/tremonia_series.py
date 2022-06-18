@@ -8,6 +8,9 @@ from dgf.models import Tournament, Result, Attendance, Tour, Division
 from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_METRIX_DATE_FORMAT, \
     TREMONIA_SERIES_ROOT_ID
 
+import requests
+from bs4 import BeautifulSoup
+
 logger = logging.getLogger(__name__)
 
 
@@ -16,6 +19,32 @@ TS_DIVISIONS = {
     'Amateur': 'MA4',
 }
 
+
+# TODO: do something with us!
+
+def get_soup(url):
+    response = requests.get(url)
+    return BeautifulSoup(response.content, features='html5lib')
+
+
+def get_results_from_manual_results_table(soup):
+    table = soup.find('table')
+    header = table.find('thead')
+    body = table.find('tbody')
+    divisions = []
+    for tr in body.find_all('tr'):
+        if tr.find('th'):
+            divisions.append({
+                'name': tr.find_all("th")[1].text,
+                'results': [],
+            })
+        else:
+            divisions[-1]['results'].append(tr.prettify())
+
+    return {
+        'results_header': header.prettify(),
+        'results_body': divisions,
+    }
 
 def get_tournament(id):
     url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)

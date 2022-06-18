@@ -84,7 +84,12 @@ def filter_by_type(queryset, type):
 
 @register.filter
 def filter_by_division(queryset, division):
-    return queryset.filter(division=division.id)
+    return queryset.filter(division=division)
+
+
+@register.filter
+def divisions(tournament):
+    return set([result.division for result in tournament.results.order_by('division')])
 
 
 @register.simple_tag
@@ -231,18 +236,23 @@ def with_metrix_user_id(friends):
 
 
 @register.filter
-def values(friends, fields):
-    return friends.values(*fields.split(','))
+def values(queryset, fields):
+    return queryset.values(*fields.split(','))
 
 
 @register.filter
-def values_list(friends, fields):
-    return friends.values_list(*fields.split(','))
+def values_list(queryset, fields):
+    return queryset.values_list(*fields.split(','))
 
 
 @register.filter
-def values_list_flat(friends, field):
-    return friends.values_list(field, flat=True)
+def values_list_flat(queryset, field):
+    return queryset.values_list(field, flat=True)
+
+
+@register.filter
+def order_by(queryset, field):
+    return queryset.order_by(field)
 
 
 @register.filter
@@ -258,3 +268,9 @@ def to_dict(queryset):
 @register.filter
 def negate(boolean):
     return not boolean
+
+
+@register.filter
+def to_set(iterable):
+    return set(iterable)
+
