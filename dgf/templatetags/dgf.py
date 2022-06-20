@@ -251,11 +251,6 @@ def values_list_flat(queryset, field):
 
 
 @register.filter
-def order_by(queryset, field):
-    return queryset.order_by(field)
-
-
-@register.filter
 def to_list(queryset):
     return list(queryset)
 

@@ -1,0 +1,19 @@
+{% load sekizai_tags static %}
+
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tournament_results_for_social_media.css' %}">
+    <style>
+        #tournament-results-wrapper, #background-image {
+            width: {{instance.width}};
+            height: {{instance.height}};
+        }
+    </style>
+{% endaddtoblock %}
+
+<div id="tournament-results-wrapper">
+    <img id="background-image" src="{{instance.background_image.url}}">
+    <div id="tournament-results">
+        {% block table %}{% endblock table %}
+    </div>
+</div>
+

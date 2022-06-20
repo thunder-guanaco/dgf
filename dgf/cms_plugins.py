@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
-    BagTagChange, TournamentResultsPluginModel
+    BagTagChange, ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
 from .udisc import get_course_url
 
 
@@ -220,9 +220,16 @@ class TremoniaOpenFacebookPluginPublisher(DiscGolfFriendsFacebookPluginPublisher
 
 
 @plugin_pool.register_plugin
-class TournamentResultsPluginPublisher(CMSPluginBase):
-    model = TournamentResultsPluginModel
+class ConcreteTournamentResultsPluginPublisher(CMSPluginBase):
+    model = ConcreteTournamentResultsPluginModel
     module = _('Social Media')
-    name = _('Tournament Results')
-    render_template = 'dgf/plugins/tournament_results_for_social_media.html'
+    name = _('Concrete Tournament Results')
+    render_template = 'dgf/plugins/social_media/concrete_tournament_results.html'
 
+
+@plugin_pool.register_plugin
+class LastTremoniaSeriesResultsPluginPublisher(CMSPluginBase):
+    model = LastTremoniaSeriesResultsPluginModel
+    module = _('Social Media')
+    name = _('Last Tremonia Series Results')
+    render_template = 'dgf/plugins/social_media/last_tremonia_series_results.html'

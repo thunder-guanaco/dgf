@@ -333,6 +333,7 @@ class Tournament(Model):
     objects = OnlyActiveManager()
 
     class Meta:
+        ordering = ['-end']
         constraints = [
             models.UniqueConstraint(fields=['pdga_id'], name='unique_pdga_id_for_tournament'),
             models.UniqueConstraint(fields=['gt_id'], name='unique_gt_id_for_tournament'),
@@ -530,12 +531,26 @@ class TourPluginModel(CMSPlugin):
         return f'Tour plugin for {str(self.tour)}'
 
 
-class TournamentResultsPluginModel(CMSPlugin):
-    tournament = models.ForeignKey(Tournament, on_delete=CASCADE)
+class ResultsPluginModel(CMSPlugin):
     background_image = models.ImageField(null=False, blank=False)
+    width = models.CharField(max_length=6, null=False, blank=False, default="800px")
+    height = models.CharField(max_length=6, blank=False, default="500px")
+
+
+class ConcreteTournamentResultsPluginModel(ResultsPluginModel):
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE)
+
+    def __str__(self):
+        return f'Concrete tournament result plugin for {self.tournament}\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})'
+
+
+class LastTremoniaSeriesResultsPluginModel(ResultsPluginModel):
     show_only_friends = models.BooleanField(null=False, blank=False, default=True)
 
     def __str__(self):
-        return f'Tournament result plugin for {self.tournament}\n' \
+        return f'Last Tremonia Series result plugin\n' \
                f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})\n' \
                f'(show only friends? {self.show_only_friends})'

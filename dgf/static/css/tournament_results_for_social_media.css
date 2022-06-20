@@ -1,3 +1,11 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+    #tournament-results-wrapper, #background-image {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
 .container {
     margin: auto !important;
 }
@@ -8,25 +16,12 @@ h1, h2 {
     margin: 0.4em 0 0.2em 0;
 }
 
-#options-wrapper {
-    height: auto;
-    width: 100%;
-}
-
-#options {
-    display: flex;
-    flex-direction: row;
-}
-
-#options .option-group {
-    margin-right: 4em;
-}
-
 #tournament-results-wrapper {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: auto;
 }
 
 #background-image {
@@ -34,8 +29,7 @@ h1, h2 {
     top: 0px;
     opacity: 0.25;
     filter: contrast(300%) saturate(4);
-    width: 800px;
-    height: auto;
+    object-fit: cover;
 }
 
 #tournament-results {
@@ -44,7 +38,6 @@ h1, h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
 }
 
 #tournament-results h1 {
@@ -56,7 +49,6 @@ h1, h2 {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width: 800px;
 }
 
 #content-wrapper .table-wrapper {
