@@ -139,9 +139,14 @@ class Friend(User):
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
+    def first_and_last_name(self):
+        last_name = f' {self.last_name}' if self.last_name else ''
+        return f'{self.first_name}{last_name}'
+
+    @property
     def full_name(self):
         nickname = f' ({self.nickname})' if self.nickname else ''
-        return f'{self.first_name} {self.last_name}{nickname}'
+        return f'{self.first_and_last_name}{nickname}'
 
     @property
     def short_name(self):
@@ -327,6 +332,7 @@ class Tournament(Model):
     objects = OnlyActiveManager()
 
     class Meta:
+        ordering = ['-end']
         constraints = [
             models.UniqueConstraint(fields=['pdga_id'], name='unique_pdga_id_for_tournament'),
             models.UniqueConstraint(fields=['gt_id'], name='unique_gt_id_for_tournament'),
@@ -522,3 +528,26 @@ class TourPluginModel(CMSPlugin):
 
     def __str__(self):
         return f'Tour plugin for {str(self.tour)}'
+
+
+class ResultsPluginModel(CMSPlugin):
+    background_image = models.ImageField(_('Background image'), null=False, blank=False)
+    width = models.CharField(_('Width'), max_length=6, null=False, blank=False, default="800px")
+    height = models.CharField(_('Height'), max_length=6, blank=False, default="500px")
+
+
+class ConcreteTournamentResultsPluginModel(ResultsPluginModel):
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'Concrete tournament result plugin for {self.tournament}\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})'
+
+
+class LastTremoniaSeriesResultsPluginModel(ResultsPluginModel):
+
+    def __str__(self):
+        return f'Last Tremonia Series result plugin\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})'

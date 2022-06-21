@@ -1,0 +1,43 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+    .tournament-results-wrapper,
+    .background-image {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+.tournament-results-wrapper h1,
+.tournament-results-wrapper h2 {
+    text-align: center;
+    text-transform: none !important;
+    margin: 0.4em 0 0.2em 0;
+}
+
+.tournament-results-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.background-image {
+    position: absolute;
+    top: 0px;
+    opacity: 0.25;
+    filter: contrast(300%) saturate(4);
+    object-fit: cover;
+}
+
+.tournament-results {
+    z-index: 100;
+    padding: 1em 0 3em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tournament-results h1 {
+    height: 20%;
+}
