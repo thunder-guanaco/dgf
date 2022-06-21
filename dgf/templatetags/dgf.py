@@ -89,7 +89,10 @@ def filter_by_division(queryset, division):
 
 @register.filter
 def divisions(tournament):
-    return set([result.division for result in tournament.results.order_by('division')])
+    return sorted(
+        {result.division for result in tournament.results.all()},
+        key=lambda d: d.id,
+    )
 
 
 @register.simple_tag

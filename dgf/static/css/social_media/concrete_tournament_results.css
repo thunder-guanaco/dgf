@@ -1,0 +1,46 @@
+.concrete-tournament-results-wrapper {
+    height: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.concrete-tournament-results-wrapper .table-wrapper {
+    display: block;
+    margin: 1em;
+}
+
+.concrete-tournament-results-wrapper .table-wrapper table {
+    margin: auto;
+}
+
+.concrete-tournament-results-wrapper td {
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
+}
+
+.concrete-tournament-results-wrapper td.position {
+    font-weight: bold;
+    text-align: right;
+}
+
+.concrete-tournament-results-wrapper td.name {
+    text-align: left;
+}
+
+.concrete-tournament-results-wrapper td.medal {
+    padding: 0;
+    text-align: left;
+}
+
+.concrete-tournament-results-wrapper td.medal-1:before {
+    content: '\00a0\1F947';
+}
+
+.concrete-tournament-results-wrapper td.medal-2:before {
+    content: '\00a0\1F948';
+}
+
+.concrete-tournament-results-wrapper td.medal-3:before {
+    content: '\00a0\1F949';
+}

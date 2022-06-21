@@ -1,5 +1,8 @@
 from datetime import datetime, timedelta
 
+import requests
+from bs4 import BeautifulSoup
+
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
@@ -226,6 +229,16 @@ class ConcreteTournamentResultsPluginPublisher(CMSPluginBase):
     name = _('Concrete Tournament Results')
     render_template = 'dgf/plugins/social_media/concrete_tournament_results.html'
 
+    def render(self, context, instance, placeholder):
+
+        if not instance.tournament:
+            instance.tournament = Tournament.objects \
+                .filter(end__lte=datetime.today()) \
+                .order_by('-end') \
+                .first()
+
+        return super().render(context, instance, placeholder)
+
 
 @plugin_pool.register_plugin
 class LastTremoniaSeriesResultsPluginPublisher(CMSPluginBase):
@@ -233,3 +246,73 @@ class LastTremoniaSeriesResultsPluginPublisher(CMSPluginBase):
     module = _('Social Media')
     name = _('Last Tremonia Series Results')
     render_template = 'dgf/plugins/social_media/last_tremonia_series_results.html'
+
+    def render(self, context, instance, placeholder):
+        last_ts = Tournament.objects.filter(name__startswith='Tremonia Series') \
+            .filter(end__lte=datetime.today()) \
+            .order_by('-end') \
+            .first()
+        soup = self.get_soup(last_ts.url)
+        title = self.get_title(soup)
+        context.update({
+            'instance': instance,
+            'title': title,
+        })
+
+        try:
+            context.update(self.get_results_from_manual_results_table(soup))
+        except Exception as e:
+            context.update({'manual_table_error': True})
+            context.update(self.get_results_from_default_results_table_with_different_courses(soup))
+
+        return context
+
+    def get_soup(self, url):
+        response = requests.get(url)
+        return BeautifulSoup(response.content, features='html5lib')
+
+    def get_title(self, soup):
+        title = soup.find('head').find('title').text
+        if '→' in title:
+            return title.split('→')[1]
+        else:
+            return title
+
+    def get_results_from_manual_results_table(self, soup):
+        table = soup.find('table')
+        header = table.find('thead')
+        body = table.find('tbody')
+        divisions = []
+        for tr in body.find_all('tr'):
+            if tr.find('th'):
+                divisions.append({
+                    'name': tr.find_all("th")[1].text,
+                    'results': [],
+                })
+            else:
+                divisions[-1]['results'].append(tr.prettify())
+
+        return {
+            'results_header': header.prettify(),
+            'results_body': divisions,
+        }
+
+    def get_results_from_default_results_table_with_different_courses(self, soup):
+        table = soup.find("table", {"class": "score-table"})
+        headers = table.find_all('thead')
+        bodies = table.find_all('tbody')
+        divisions = []
+        division_names = []
+        for head in headers[1:]:
+            division_names.append(head.find("tr").find_all("th")[1].text.split(" (")[0])
+
+        for division_names, tbody in zip(division_names, bodies):
+            divisions.append({
+                'name': division_names,
+                'results': [tr.prettify for tr in tbody.find_all('tr')],
+            })
+
+        return {
+            'results_header': headers[0].prettify(),
+            'results_body': divisions,
+        }
