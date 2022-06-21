@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('cms', '0022_auto_20180620_1551'),
         ('dgf', '0069_alter_feedback_feedback'),
@@ -15,7 +14,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ResultsPluginModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='dgf_resultspluginmodel', serialize=False, to='cms.cmsplugin')),
+                ('cmsplugin_ptr',
+                 models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True,
+                                      primary_key=True, related_name='dgf_resultspluginmodel', serialize=False,
+                                      to='cms.cmsplugin')),
                 ('background_image', models.ImageField(upload_to='', verbose_name='Background image')),
                 ('width', models.CharField(default='800px', max_length=6, verbose_name='Width')),
                 ('height', models.CharField(default='500px', max_length=6, verbose_name='Height')),
@@ -32,7 +34,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LastTremoniaSeriesResultsPluginModel',
             fields=[
-                ('resultspluginmodel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dgf.resultspluginmodel')),
+                ('resultspluginmodel_ptr',
+                 models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True,
+                                      primary_key=True, serialize=False, to='dgf.resultspluginmodel')),
             ],
             options={
                 'abstract': False,
@@ -42,8 +46,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ConcreteTournamentResultsPluginModel',
             fields=[
-                ('resultspluginmodel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dgf.resultspluginmodel')),
-                ('tournament', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dgf.tournament')),
+                ('resultspluginmodel_ptr',
+                 models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True,
+                                      primary_key=True, serialize=False, to='dgf.resultspluginmodel')),
+                ('tournament', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                                 to='dgf.tournament')),
             ],
             options={
                 'abstract': False,

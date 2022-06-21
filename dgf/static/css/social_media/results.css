@@ -1,6 +1,7 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
-    .tournament-results-wrapper, .background-image {
+    .tournament-results-wrapper,
+    .background-image {
         width: 100% !important;
         height: 100% !important;
     }
