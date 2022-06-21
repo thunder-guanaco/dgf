@@ -1,6 +1,22 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
+    table.cookie-set {
+        width: 100% !important;
+        height: auto;
+    }
+
+    table.cookie-set tr {
+        display: block;
+        float: left;
+        margin-bottom: 0.5em;
+    }
+
+    table.cookie-set th,
+    table.container table td {
+        display: block;
+    }
+
     .cookie-group-description {
         flex-direction: column;
     }
