@@ -271,4 +271,3 @@ def negate(boolean):
 @register.filter
 def to_set(iterable):
     return set(iterable)
-

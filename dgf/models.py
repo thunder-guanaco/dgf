@@ -3,7 +3,6 @@ import re
 from decimal import Decimal
 
 from cms.models import User, CMSPlugin
-from djangocms_picture.models import Picture
 from django.contrib.auth.models import UserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models

@@ -261,7 +261,7 @@ class LastTremoniaSeriesResultsPluginPublisher(CMSPluginBase):
 
         try:
             context.update(self.get_results_from_manual_results_table(soup))
-        except Exception as e:
+        except Exception:
             context.update({'manual_table_error': True})
             context.update(self.get_results_from_default_results_table_with_different_courses(soup))
 
