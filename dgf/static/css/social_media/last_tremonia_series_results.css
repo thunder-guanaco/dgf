@@ -2,12 +2,12 @@
 @media only screen and (max-width: 1024px) {
 
     .tournament-results h1 {
-        font-size: 1.5em;
+        font-size: 1.25em;
     }
 
     .last-tremonia-series-results-wrapper {
         flex-direction: column !important;
-        font-size: 0.9em;
+        font-size: 0.75em;
     }
 
     .last-tremonia-series-results-wrapper h2 {
