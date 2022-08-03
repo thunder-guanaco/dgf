@@ -234,3 +234,8 @@
     width: 45px !important;
     line-height: 53px !important;
 }
+
+.friend-division {
+    color: #1b2633;
+    padding: 0.1em 0.3em;
+}
