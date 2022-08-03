@@ -7,28 +7,12 @@
             <div class="value show-all-less">
                 <div class="top">
                     {% for result in podium_results|slice:":5" %}
-                        <div>
-                            &#12935{{result.position}};
-                            {% if result.tournament.url %}
-                                <a href="{{result.tournament.url}}" target="_blank" class="name">{{result.tournament.name}}</a>
-                            {% else %}
-                                <span class="name">{{result.tournament.name}}</span>
-                            {% endif %}
-                            [{{result.tournament.date}}]
-                        </div>
+                        {% include "dgf/includes/podium_result.html" with result=result %}
                     {% endfor %}
                 </div>
                 <div class="all hidden">
                     {% for result in podium_results %}
-                        <div>
-                            &#12935{{result.position}};
-                            {% if result.tournament.url %}
-                                <a href="{{result.tournament.url}}" target="_blank" class="name">{{result.tournament.name}}</a>
-                            {% else %}
-                                <span class="name">{{result.tournament.name}}</span>
-                            {% endif %}
-                            [{{result.tournament.date}}]
-                        </div>
+                        {% include "dgf/includes/podium_result.html" with result=result %}
                     {% endfor %}
                 </div>
                 {% include "dgf/includes/show_all_less.html" with minimum=5 amount=podium_results.count %}
