@@ -7,10 +7,7 @@
             <ul class="value">
                 {% for tournament in tournaments %}
                     <li>
-                        <span class="name">{{tournament.name}} </span>
-                        {% if tournament.metrix_id %}
-                            <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
-                        {% endif %}
+                        {% include "dgf/includes/now_playing.html" with tournament=tournament %}
                     </li>
                 {% endfor %}
             </ul>

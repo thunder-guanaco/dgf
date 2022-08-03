@@ -13,10 +13,7 @@
                         {% with tournament|active_attendance as tournament_players %}
                             <div class="top-info">
                                 <div>
-                                    <span class="name">{{tournament.name}} </span>
-                                    {% if tournament.metrix_id %}
-                                        <a href="{{tournament|metrix_url}}" target="_blank" class="name"> → {% trans "follow live" %}</a>
-                                    {% endif %}
+                                    {% include "dgf/includes/now_playing.html" with tournament=tournament %}
                                     <div class="mobile">
                                         {% include "dgf/includes/show_all_less.html" with minimum=5 amount=tournament_players.count %}
                                     </div>
