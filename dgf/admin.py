@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
-from django.contrib.auth import forms as auth_forms
-from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_admin_listfilter_dropdown.filters import (
     RelatedDropdownFilter
