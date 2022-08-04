@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import admin as auth_admin
 from django.utils.translation import gettext_lazy as _
 from django_admin_listfilter_dropdown.filters import (
     RelatedDropdownFilter
@@ -54,12 +55,31 @@ class VideoInline(admin.TabularInline):
 
 
 @admin.register(Friend)
-class FriendAdmin(admin.ModelAdmin):
+class FriendAdmin(auth_admin.UserAdmin):
+
+    add_fieldsets = (
+        ('Basic', {
+            'fields': [
+                ('username', 'slug'),
+                ('first_name', 'last_name', 'nickname'),
+                ('is_active',),
+                ('password1', 'password2'),
+            ]}
+         ),
+        ('External IDs', {
+            'fields': [
+                ('pdga_number', 'gt_number'),
+                ('udisc_username', 'metrix_user_id'),
+            ]}
+         ),
+    )
+
     fieldsets = [
         ('Basic', {
             'fields': [
                 ('username', 'slug'),
                 ('first_name', 'last_name', 'nickname'),
+                ('is_active', 'password'),
             ]}
          ),
         ('External IDs', {
@@ -88,7 +108,7 @@ class FriendAdmin(admin.ModelAdmin):
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
 
-    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
+    list_display = ('is_active', 'username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
@@ -105,6 +125,11 @@ class FriendAdmin(admin.ModelAdmin):
     )
 
     search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
+
+    def get_inlines(self, request, obj):
+        if not obj:
+            return []
+        return self.inlines
 
 
 @admin.register(Feedback)
