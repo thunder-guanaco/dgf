@@ -252,10 +252,13 @@ def parse_turniere_discgolf_de_table_results(results_header, results_content, to
 
         gt_number = parse_gt_number(tr.find_all('td')[gt_number_i].text)
         if not gt_number:
-            continue
+            continue  # not someone we are interested in, all Friends have a GT number
 
         division = parse_division(tr.find_all('td')[division_i].text.strip(), TURNIERE_DISCGOLF_DE_DIVISION_MAPPING)
         position = parse_position(tr.find_all('td')[position_i].text.strip())
+        if not position:
+            continue  # no position, maybe DNF?
+
         try:
             friend = Friend.objects.get(gt_number=gt_number)
             create_result(friend, tournament, position, division)
