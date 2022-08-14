@@ -322,9 +322,11 @@ class GermanTourTest(TestCase):
 
     @responses.activate
     def test_turniere_discgolf_tournament_results(self):
-        self.add_tournaments_to_ratings_list()
-        self.add_tournament_results(333, 'Test Tournament #3', '24.07.2021 - 25.07.2021', [1, 2, 1922, 4, 5, 2106])
-        self.add_tournament_results(444, 'Test Tournament #4', '26.07.2021', [2106, 2, 3])
+        self.add_turniere_discgolf_result_list()
+        self.add_turniere_discgolf_results(333, 'Test Tournament #3', '24.07.2021 - 25.07.2021',
+                                           ([1, 2, 1922, 4, 5, 2106], []))
+        self.add_turniere_discgolf_results(444, 'Test Tournament #4', '26.07.2021',
+                                           ([2106, 2, 3], [1922]))
 
         mpo, _ = Division.objects.get_or_create(id='MPO')
 
@@ -333,10 +335,10 @@ class GermanTourTest(TestCase):
 
         german_tour.update_turniere_discgolf_de_tournament_results()
 
-        results = Result.objects.filter(friend=manolo)
-        self.assertEqual(len(results), 1)
+        manolo_results = Result.objects.filter(friend=manolo)
+        self.assertEqual(len(manolo_results), 1)
 
-        result_tournament_3 = results.get(tournament__gt_id=333)
+        result_tournament_3 = manolo_results.get(tournament__gt_id=333)
         self.assertEqual(result_tournament_3.position, 3)
         self.assertEqual(result_tournament_3.division, mpo)
         self.assertEqual(result_tournament_3.tournament.gt_id, 333)
@@ -346,10 +348,10 @@ class GermanTourTest(TestCase):
         self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
-        results = Result.objects.filter(friend=fede)
-        self.assertEqual(len(results), 2)
+        fede_results = Result.objects.filter(friend=fede)
+        self.assertEqual(len(fede_results), 2)
 
-        result_tournament_3 = results.get(tournament__gt_id=333)
+        result_tournament_3 = fede_results.get(tournament__gt_id=333)
         self.assertEqual(result_tournament_3.position, 6)
         self.assertEqual(result_tournament_3.division, mpo)
         self.assertEqual(result_tournament_3.tournament.gt_id, 333)
@@ -359,7 +361,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
         self.assertEqual(result_tournament_3.tournament.end, JULY_25)
 
-        result_tournament_4 = results.get(tournament__gt_id=444)
+        result_tournament_4 = fede_results.get(tournament__gt_id=444)
         self.assertEqual(result_tournament_4.position, 1)
         self.assertEqual(result_tournament_4.division, mpo)
         self.assertEqual(result_tournament_4.tournament.gt_id, 444)
@@ -372,8 +374,10 @@ class GermanTourTest(TestCase):
     @responses.activate
     def test_gto_tournament_results(self):
         self.add_gto_result_list()
-        self.add_gto_results(956, '1. GW-Kley Open', '4.3. - 5.3.2017', {'Open': [427, 2, 3, 1922]})
-        self.add_gto_results(150, 'Seepark Open', '18.7. - 18.7.2009', {'Junioren': [1, 427, 3]})
+        self.add_gto_results(956, '1. GW-Kley Open', '4.3. - 5.3.2017',
+                             {'Open': ([427, 2, 3, 1922], [1769])})
+        self.add_gto_results(150, 'Seepark Open', '18.7. - 18.7.2009',
+                             {'Junioren': ([1, 427, 3], [])})
 
         MARCH_4_2017 = date(year=2017, month=3, day=4)
         MARCH_5_2017 = date(year=2017, month=3, day=5)
@@ -384,6 +388,7 @@ class GermanTourTest(TestCase):
 
         manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
         kevin = Friend.objects.create(username='kevin', first_name='Kevin', gt_number=427)
+        uli = Friend.objects.create(username='uli', first_name='Uli', gt_number=1769)
 
         german_tour.update_gto_tournament_results()
 
@@ -399,10 +404,10 @@ class GermanTourTest(TestCase):
         self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
         self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
 
-        kevins_results = Result.objects.filter(friend=kevin)
-        self.assertEqual(len(kevins_results), 2)
+        kevin_results = Result.objects.filter(friend=kevin)
+        self.assertEqual(len(kevin_results), 2)
 
-        gwk_open = kevins_results.get(tournament__gt_id=956)
+        gwk_open = kevin_results.get(tournament__gt_id=956)
         self.assertEqual(gwk_open.position, 1)
         self.assertEqual(gwk_open.division, mpo)
         self.assertEqual(gwk_open.tournament.gt_id, 956)
@@ -411,7 +416,7 @@ class GermanTourTest(TestCase):
         self.assertEqual(gwk_open.tournament.begin, MARCH_4_2017)
         self.assertEqual(gwk_open.tournament.end, MARCH_5_2017)
 
-        seepark_open = kevins_results.get(tournament__gt_id=150)
+        seepark_open = kevin_results.get(tournament__gt_id=150)
         self.assertEqual(seepark_open.position, 2)
         self.assertEqual(seepark_open.division, mj18)
         self.assertEqual(seepark_open.tournament.gt_id, 150)
@@ -419,6 +424,9 @@ class GermanTourTest(TestCase):
         self.assertEqual(seepark_open.tournament.url, 'https://german-tour-online.de/events/results/150')
         self.assertEqual(seepark_open.tournament.begin, JULY_18_2009)
         self.assertEqual(seepark_open.tournament.end, JULY_18_2009)
+
+        uli_results = Result.objects.filter(friend=uli)
+        self.assertEqual(len(uli_results), 0)
 
     def add_gto_results(self, tournament_id, tournament_name, date, results):
         responses.add(responses.GET, GTO_DETAILS_PAGE.format(tournament_id),
@@ -496,7 +504,8 @@ class GermanTourTest(TestCase):
                 '      <th>€</th>'
                 '    </tr>'
             )
-            for position, gt_id in enumerate(gt_ids, start=1):
+            # gt_ids[0] contains the sorted results
+            for position, gt_id in enumerate(gt_ids[0], start=1):
                 body += (
                     '    <tr class="">'
                     f'     <td>{position}</td>'
@@ -507,6 +516,21 @@ class GermanTourTest(TestCase):
                     '      <td>45</td>'
                     '      <td>89</td>'
                     '      <td>40.00</td>'
+                    '      <td>-</td>'
+                    '    </tr>'
+                )
+            # gt_ids[1] contains the DNFs
+            for gt_id in gt_ids[1]:
+                body += (
+                    '    <tr class="">'
+                    '     <td>DNF</td>'
+                    '      <td>Name, Vorname</td>'
+                    '      <td>DE</td>'
+                    f'     <td>{gt_id}</td>'
+                    '      <td>44</td>'
+                    '      <td></td>'
+                    '      <td>DNF</td>'
+                    '      <td>0.00</td>'
                     '      <td>-</td>'
                     '    </tr>'
                 )
@@ -538,7 +562,7 @@ class GermanTourTest(TestCase):
                            '</body>',
                       status=200)
 
-    def add_tournaments_to_ratings_list(self):
+    def add_turniere_discgolf_result_list(self):
         responses.add(responses.GET, RATINGS_PAGE.format(1922),
                       body='<body>'
                            '  <td style="">'
@@ -569,7 +593,7 @@ class GermanTourTest(TestCase):
                            '</body>',
                       status=200)
 
-    def add_tournament_results(self, tournament_id, tournament_name, date, gt_ids):
+    def add_turniere_discgolf_results(self, tournament_id, tournament_name, date, gt_ids):
         responses.add(responses.GET, TURNIERE_DISCGOLF_DE_DETAILS_PAGE.format(tournament_id),
                       body='<body>'
                            f'  <h2>{tournament_name}</h2>'
@@ -603,24 +627,25 @@ class GermanTourTest(TestCase):
                       status=200)
 
         body = '<body>\n'
-        for position, gt_id in enumerate(gt_ids, start=1):
-            body += (f'  <table class="table table-striped table-sm" style="font-size: 12px; " id="results_layout_">'
-                     '    <thead>'
-                     '      <tr>'
-                     '        <th>Division </th>'
-                     '        <th>#</th>'
-                     '        <th>Name</th>'
-                     '        <th>f.Div</th>'
-                     '        <th>GT#</th>'
-                     '        <th>par</th>'
-                     '        <th>R1</th>'
-                     '        <th>R2</th>'
-                     '        <th>Gesamt</th>'
-                     '        <th>Kommentar</th>'
-                     '      </tr>'
-                     '    </thead>'
-                     '    <tbody>'
-                     '      <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
+        body += ('  <table class="table table-striped table-sm" style="font-size: 12px; " id="results_layout_">'
+                 '    <thead>'
+                 '      <tr>'
+                 '        <th>Division </th>'
+                 '        <th>#</th>'
+                 '        <th>Name</th>'
+                 '        <th>f.Div</th>'
+                 '        <th>GT#</th>'
+                 '        <th>par</th>'
+                 '        <th>R1</th>'
+                 '        <th>R2</th>'
+                 '        <th>Gesamt</th>'
+                 '        <th>Kommentar</th>'
+                 '      </tr>'
+                 '    </thead>'
+                 '    <tbody>')
+        # gt_ids[0] contains the sorted results
+        for position, gt_id in enumerate(gt_ids[0], start=1):
+            body += ('    <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
                      '        <td>O</td>'
                      f'       <td class="text-right" data-order="{position}">{position}</td>'
                      '        <td>Name, Vorname</td>'
@@ -631,10 +656,24 @@ class GermanTourTest(TestCase):
                      '        <td>45</td>'
                      '        <td data-order="94">94</td>'
                      '        <td></td>'
-                     '      </tr>'
-                     '    </tbody>'
-                     '  </table>')
-        body += '</body>'
+                     '      </tr>')
+        # gt_ids[1] contains the DNFs
+        for gt_id in gt_ids[1]:
+            body += ('    <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
+                     '        <td>O</td>'
+                     f'       <td class="text-right" data-order="9999"> DNF </td>'
+                     '        <td>Name, Vorname</td>'
+                     '        <td></td>'
+                     f'       <td>{gt_id}</td>'
+                     '        <td>-</td>'
+                     '        <td>49</td>'
+                     '        <td>999</td>'
+                     '        <td data-order="9999"> DNF </td>'
+                     '        <td></td>'
+                     '      </tr>')
+        body += ('    </tbody>'
+                 '  </table>'
+                 '</body>')
         responses.add(responses.GET, TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(tournament_id), body=body, status=200)
 
     def add_tournament_list(self):
