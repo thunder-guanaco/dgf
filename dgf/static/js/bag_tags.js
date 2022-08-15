@@ -15,7 +15,7 @@ function checkClickableFriends() {
     }
 }
 
-const SAD_EMOJIS = ['😭', '😞', '💩', '🥶', '😢', '🪦', '⚰️', '🥲', '📉', '🧊', '☃️', '❄️'];
+const SAD_EMOJIS = ['😭', '😞', '💩', '🥶', '😢', '🥲', '📉', '🧊', '☃️', '❄️'];
 
 function randomSadEmoji() {
     var randomIndex = Math.floor(Math.random() * (SAD_EMOJIS.length));
