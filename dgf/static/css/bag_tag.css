@@ -139,7 +139,7 @@
 }
 
 .news-best.sad:before {
-    content: '😢';
+    content: attr(data-content);
 }
 
 .number {
