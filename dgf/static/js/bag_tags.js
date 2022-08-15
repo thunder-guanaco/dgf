@@ -15,6 +15,14 @@ function checkClickableFriends() {
     }
 }
 
+const SAD_EMOJIS = ['😭', '😞', '💩', '🥶', '😢', '🪦', '⚰️', '🥲', '📉', '🧊', '☃️', '❄️'];
+
+function randomSadEmoji() {
+    var randomIndex = Math.floor(Math.random() * (SAD_EMOJIS.length));
+    return randomIndex, SAD_EMOJIS[randomIndex];
+}
+
+
 function showBestBagTagImprovement() {
     var min = 0;
     var max = 0;
@@ -28,7 +36,7 @@ function showBestBagTagImprovement() {
         }
     });
     $("#bag-tags .content .news-best[data-bag-tag-difference='" + min + "']").addClass("fire");
-    $("#bag-tags .content .news-best[data-bag-tag-difference='" + max + "']").addClass("sad");
+    $("#bag-tags .content .news-best[data-bag-tag-difference='" + max + "']").addClass("sad").attr("data-content", randomSadEmoji());
 }
 
 function claimBagTag(number, url) {
