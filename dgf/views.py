@@ -12,7 +12,7 @@ from django.views.generic import CreateView
 
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
-from dgf.models import Friend, Feedback, Video, Tournament, Attendance, BagTagChange
+from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
 
 
 class IndexView(generic.ListView):
@@ -81,11 +81,12 @@ class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class FeedbackCreate(LoginRequiredMixin, CreateView):
-    model = Feedback
-    fields = ['title', 'feedback']
+    model = GitHubIssue
+    fields = ['title', 'body']
 
     def form_valid(self, form):
         form.instance.friend = self.request.user.friend
+        form.type = GitHubIssue.FEEDBACK
         return super().form_valid(form)
 
     def get_success_url(self):
