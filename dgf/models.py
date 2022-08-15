@@ -15,7 +15,7 @@ from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
 from dgf.point_systems import calculate_points
-from dgf.post_actions import feedback_post_save
+from dgf.post_actions import github_issue_post_save
 from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE, \
     GTO_RESULTS_PAGE
 
@@ -199,18 +199,28 @@ class FavoriteCourse(Model):
         return str(self.course)
 
 
-class Feedback(Model):
+class GitHubIssue(Model):
     title = models.CharField(_('Title'), max_length=200)
-    feedback = models.TextField(_('Feedback'), null=True, blank=True)
+    body = models.TextField(_('Body'), null=True, blank=True)
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
+
+    FEEDBACK = 'F'
+    LIVE_ERROR = 'L'
+    MANAGEMENT_COMMAND_ERROR = 'M'
+    TYPE_CHOICES = (
+        (FEEDBACK, 'Feedback'),
+        (LIVE_ERROR, 'Live Error'),
+        (MANAGEMENT_COMMAND_ERROR, 'Management Command Error'),
+    )
+    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES, default=FEEDBACK)
 
     def __str__(self):
         friend = f'{self.friend.short_name} - ' if self.friend else ''
-        return f'{friend}{self.title}'
+        return f'{friend}{self.title} ({self.get_type_display()})'
 
     def save(self, *args, **kwargs):
-        super(Feedback, self).save(*args, **kwargs)
-        feedback_post_save(self)
+        super(GitHubIssue, self).save(*args, **kwargs)
+        github_issue_post_save(self)
 
 
 class Highlight(Model):

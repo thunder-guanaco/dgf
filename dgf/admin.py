@@ -5,7 +5,7 @@ from django_admin_listfilter_dropdown.filters import (
     RelatedDropdownFilter
 )
 
-from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
+from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
     Attendance, Tour, BagTagChange
 
 
@@ -132,19 +132,21 @@ class FriendAdmin(auth_admin.UserAdmin):
         return self.inlines
 
 
-@admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
+@admin.register(GitHubIssue)
+class GitHubIssueAdmin(admin.ModelAdmin):
     fieldsets = [
         ('', {
             'fields': [
+                'type',
                 'title',
-                'feedback',
-                'friend'
+                'body',
+                'friend',
             ]}
          )
     ]
 
-    list_display = ('title', 'feedback', 'friend')
+    list_display = ('type', 'title', 'body', 'friend')
+    list_display_links = ('title',)
     search_fields = list_display
 
 

@@ -9,10 +9,23 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+from dgf.handlers import nice_json_format
 from dgf.models import Tournament, Attendance, Result, Division
 from dgf_cms.settings import PDGA_DATE_FORMAT, PDGA_PAGE_BASE_URL
 
 logger = logging.getLogger(__name__)
+
+
+class PdgaApiError(Exception):
+    pass
+
+
+def raise_pdga_api_error(endpoint, field, response):
+    title = f'Missing field \'{field}\' while calling PDGA API endpoint: {endpoint}'
+    body = f'API response:\n{nice_json_format(response)}'
+    logger.error(title)
+    logger.error(body)
+    raise PdgaApiError(title, body)
 
 
 class PdgaApi:
@@ -143,14 +156,14 @@ class PdgaApi:
         if friend.pdga_number:
             statistics = self.query_player_statistics(pdga_number=friend.pdga_number)
 
-            money_earned = 0
-            tournaments = 0
-
             try:
                 players_statistics = statistics['players']
             except KeyError:
-                logger.warning(f'{friend.username} has no statistics in their PDGA profile. '
-                               f'Possible reasons: membership outdated or new member')
+                raise_pdga_api_error('player-statistics', 'players', statistics)
+                return
+
+            money_earned = 0
+            tournaments = 0
 
             for yearly_stats in players_statistics:
                 try:
@@ -215,6 +228,11 @@ def get_year_links(player_page_soup):
 
 def add_tournament(pdga_api, pdga_id):
     event = pdga_api.query_event(tournament_id=pdga_id)
+
+    if 'events' not in event:
+        raise_pdga_api_error('event', 'events', event)
+        return
+
     pdga_tournament = event['events'][0]
 
     begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
@@ -245,7 +263,6 @@ def add_attendance(friend, tournament):
 
 
 def add_result(friend, tournament, position, division):
-
     # get_or_create because we want to create legacy divisions
     division, created = Division.objects.get_or_create(id=division)
     if created:
