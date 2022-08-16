@@ -48,3 +48,13 @@ Every screen of your application that contains PDGA event or player information 
 Player and event data ©2015 PDGA (where 2015 is the current year)
 Everywhere a player name or event name is displayed, the name must link to the player or event page at pdga.com.
 
+## GitHub
+
+There are 3 cases in which GitHub issues will be created:
+- Feedback from a Friend
+- Server error
+- Management command error
+
+The issues are created using [GitHub's API](https://docs.github.com/en).
+In order to use it you'll need to add a secret called `DJANGO_GITHUB_TOKEN` containing the Personal Access Token (PAT) with the following scopes:
+* `repo` → `public_repo` (Access public repositories)
