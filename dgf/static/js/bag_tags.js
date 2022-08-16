@@ -22,7 +22,6 @@ function randomSadEmoji() {
     return randomIndex, SAD_EMOJIS[randomIndex];
 }
 
-
 function showBestBagTagImprovement() {
     var min = 0;
     var max = 0;
