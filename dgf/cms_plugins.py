@@ -89,20 +89,22 @@ def friends_order_by_ts_wins():
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
 
 
-def friends_order_by_bag_tag():
+def friends_order_by_bag_tag(for_mobile=False):
     time_threshold = datetime.now() - timedelta(weeks=1)
 
     bag_tag_changes = BagTagChange.objects \
-        .filter(previous_number__isnull=False) \
         .filter(active=True) \
+        .filter(previous_number__isnull=False) \
         .filter(timestamp__gt=time_threshold) \
         .filter(friend=OuterRef('id')) \
         .order_by('-timestamp')
 
-    return Friend.objects.filter(bag_tag__isnull=False) \
-        .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
-        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1])) \
-        .order_by('bag_tag')
+    friends = Friend.objects.filter(bag_tag__isnull=False) \
+                            .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1]))
+    if not for_mobile:
+        friends = friends.annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True)))
+
+    return friends.order_by('bag_tag')
 
 
 def friends_without_bag_tag():
@@ -126,7 +128,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({
-            'friends': friends_order_by_bag_tag(),
+            'friends': friends_order_by_bag_tag(for_mobile=context['request'].user_agent.is_mobile),
             'friends_without_bag_tag': friends_without_bag_tag(),
         })
         return context
