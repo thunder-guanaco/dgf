@@ -274,8 +274,8 @@ h2 .show-less-tournaments {
 }
 
 .bag-tag-number {
-    top: -5px !important;
-    left: -5px !important;
-    bottom: auto !important;
-    right: auto !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: -5px !important;
+    right: -5px !important;
 }
