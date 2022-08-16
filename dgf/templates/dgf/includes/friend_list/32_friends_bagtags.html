@@ -1,19 +1,17 @@
 {% load i18n dgf %}
 
-{% with friends|order_by:"bag_tag" as friends_ordered_by_bag_tag %}
+{% with friends|order_by:"bag_tag"|slice:":3" as friends_ordered_by_bag_tag %}
 
-    <div id="bag-tags">
+    <li id="bag-tags" class="show-all-less">
         <h2>
-            {% trans "Bag Tags" %}
+            <div>{% trans "Bag Tags" %}</div>
             <a class="show-all" href="/bag-tags">
                 {% trans "(show all)" %}
             </a>
         </h2>
-        <div class="row justify-content-md-center">
-            {% for friend in friends_ordered_by_bag_tag|slice:":3" %}
-                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_bag_tag=True %}
-            {% endfor %}
+        <div class="inner-content">
+            {% include "dgf/includes/friend_balls.html" with friends=friends_ordered_by_bag_tag show_name=True show_bag_tag=True %}
         </div>
-    </div>
+    </li>
 
 {% endwith %}
