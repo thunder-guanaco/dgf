@@ -8,6 +8,10 @@
         align-items: center;
     }
 
+    #friend button {
+        font-size: smaller;
+    }
+
     #friend-picture {
         margin-bottom: 1em;
     }
@@ -90,6 +94,10 @@
         align-items: flex-start;
     }
 
+    #friend button {
+        font-size: large;
+    }
+
     #friend-picture {
         margin-right: 2em;
     }
@@ -168,10 +176,6 @@
 
 #friend .friend-header-line label {
     margin: 0;
-}
-
-#friend button {
-    font-size: smaller;
 }
 
 #friend .external-ids {
