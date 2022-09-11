@@ -2,10 +2,10 @@ import requests
 import json
 
 # CONFIG
-GITHUB_TOKEN = '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'
-RANGE = range(3275, 3583)
+GITHUB_TOKEN = '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'
+RANGE = range(3925, 4027)
 SEARCH_TERMS = [
-    'Error while executing management command: dgf.management.commands.fetch_pdga_data.Command'
+    'Anonymous user: Server error on GET /turniere/tremonia-series/'
 ]
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
