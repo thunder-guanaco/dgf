@@ -7,23 +7,14 @@ from bs4 import BeautifulSoup
 
 from dgf.models import Tournament, Friend, Attendance, Result, Division
 from dgf_cms.settings import GT_DATE_FORMAT, RATINGS_PAGE, TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE, \
-    TURNIERE_DISCGOLF_DE_LIST_PAGE, TURNIERE_DISCGOLF_DE_DETAILS_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE,\
-    GTO_LIST_PAGE, GTO_DETAILS_PAGE, GTO_RESULTS_PAGE
+    TURNIERE_DISCGOLF_DE_LIST_PAGE, TURNIERE_DISCGOLF_DE_DETAILS_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
-
-
-class NoResultFromGermanTourOnline(Exception):
-    pass
 
 
 def get(url):
     logger.info(f'GET {url}')
     response = requests.get(url)
-
-    if url != GTO_LIST_PAGE and response.url == GTO_LIST_PAGE:
-        raise NoResultFromGermanTourOnline()
-
     return BeautifulSoup(response.content, features='html5lib')
 
 
@@ -174,10 +165,6 @@ def get_turniere_discgolf_de_id(url):
     return int(parsed_query_params['id'][0])
 
 
-def get_gto_id(url):
-    return url.split('/')[-1]
-
-
 def parse_turniere_discgolf_de_tournament(tournament_id):
     tournament_soup = get(TURNIERE_DISCGOLF_DE_DETAILS_PAGE.format(tournament_id))
     dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
@@ -186,17 +173,6 @@ def parse_turniere_discgolf_de_tournament(tournament_id):
         'name': tournament_soup.find('h2').text.strip(),
         'begin': dates[0],
         'end': dates[1] if len(dates) > 1 else dates[0]
-    }
-
-
-def parse_gto_tournament(tournament_id):
-    tournament_soup = get(GTO_DETAILS_PAGE.format(tournament_id))
-    dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb:").parent()[1].text.strip().split("-")]
-    return {
-        'id': tournament_id,
-        'name': tournament_soup.find(id="content").find("h2").text.strip(),
-        'begin': dates[0] + dates[1].split('.')[2],  # Add year. Only the second one has it
-        'end': dates[1]
     }
 
 
@@ -212,16 +188,6 @@ TURNIERE_DISCGOLF_DE_DIVISION_MAPPING = {
     'M60': 'MP60',
     'M70': 'MP70',
     'WM40': 'FP40',
-}
-
-GTO_DIVISION_MAPPING = {
-    'Open': 'MPO',
-    'Damen': 'FPO',
-    'Masters': 'MP40',
-    'Grandmaster': 'MP50',
-    'Senior Grandmaster': 'MP60',
-    'Legend': 'MP70',
-    'Junioren': 'MJ18',
 }
 
 
@@ -276,45 +242,6 @@ def parse_turniere_discgolf_de_results(tournament, tournament_id):
         parse_turniere_discgolf_de_table_results(table_header, table_content, tournament)
 
 
-def parse_gto_table_results(results_content, division, tournament):
-    division = parse_division(division, GTO_DIVISION_MAPPING)
-    gt_number_i = find_column(results_content, 'GT# ')
-    position_i = find_column(results_content, '#\n\t\t')
-    position = None
-    for i, tr in enumerate(results_content.find_all('tr')):
-
-        if i == 0:
-            continue  # skip first row (headers)
-
-        gt_number = parse_gt_number(tr.find_all('td')[gt_number_i].text)
-        if not gt_number:
-            continue  # not someone we are interested in, all Friends have a GT number
-
-        position = parse_position(tr.find_all('td')[position_i].text.strip(), position)
-        if not position:
-            continue  # no position, maybe DNF?
-
-        try:
-            friend = Friend.objects.get(gt_number=gt_number)
-            create_result(friend, tournament, position, division)
-        except Friend.DoesNotExist:
-            pass  # it's not a Friend, ignore them
-
-
-def parse_gto_results(tournament, tournament_id):
-    try:
-        results_soup = get(GTO_RESULTS_PAGE.format(tournament_id))
-    except NoResultFromGermanTourOnline:
-        logger.warning(f'There are no results for this tournament in the GTO platform: {tournament}')
-        return
-
-    results_tables = results_soup.find_all('table')
-    for results_table in results_tables:
-        table_content = results_table.find('tbody')
-        division = results_table.previous_sibling.text
-        parse_gto_table_results(table_content, division, tournament)
-
-
 def get_turniere_discgolf_de_urls():
     tournament_ids = set()
     for friend in Friend.objects.filter(gt_number__isnull=False):
@@ -327,17 +254,12 @@ def get_turniere_discgolf_de_urls():
                 tournament_id = get_turniere_discgolf_de_id(url)
                 tournament_ids.add(tournament_id)
             elif 'german-tour-online.de' in url:
-                # we will parse all of them from the HUGE list at https://german-tour-online.de/events/results_list
+                # we do not parse these URLS anymore since https://german-tour-online.de is not live anymore
                 pass
             else:
                 raise ValueError(f'Tournament URL not recognized: {url}')
 
     return tournament_ids
-
-
-def get_gto_urls():
-    results_list_soup = get(GTO_LIST_PAGE)
-    return [get_gto_id(link['href']) for link in results_list_soup.findAll("a", text="Info")]
 
 
 def update_tournament_result(get_all_tournament_ids, parse_tournament, parse_results):
@@ -354,9 +276,3 @@ def update_turniere_discgolf_de_tournament_results():
     update_tournament_result(get_turniere_discgolf_de_urls,
                              parse_turniere_discgolf_de_tournament,
                              parse_turniere_discgolf_de_results)
-
-
-def update_gto_tournament_results():
-    update_tournament_result(get_gto_urls,
-                             parse_gto_tournament,
-                             parse_gto_results)
