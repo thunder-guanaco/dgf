@@ -150,11 +150,6 @@ TURNIERE_DISCGOLF_DE_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=ev
 TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
 TURNIERE_DISCGOLF_DE_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
 
-GTO_LIST_PAGE = 'https://german-tour-online.de/events/results_list'
-GTO_DETAILS_PAGE = 'https://german-tour-online.de/events/details/{}'
-GTO_RESULTS_PAGE = 'https://german-tour-online.de/events/results/{}'
-
-
 # DISC GOLF METRIX
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
 DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
