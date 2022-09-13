@@ -143,12 +143,11 @@ else:
 
 # GERMAN TOUR
 GT_DATE_FORMAT = '%d.%m.%Y'
-RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
-
-TURNIERE_DISCGOLF_DE_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
-TURNIERE_DISCGOLF_DE_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
-TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
-TURNIERE_DISCGOLF_DE_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
+GT_RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
+GT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+GT_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
+GT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
+GT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
 
 # DISC GOLF METRIX
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'

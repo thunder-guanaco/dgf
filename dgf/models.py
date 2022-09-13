@@ -16,7 +16,7 @@ from partial_date import PartialDateField
 
 from dgf.point_systems import calculate_points
 from dgf.post_actions import github_issue_post_save
-from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE
+from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, GT_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -373,7 +373,7 @@ class Tournament(Model):
     def url(self):
         if self.gt_id:
             if self.begin.year > 2020:
-                return TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(self.gt_id)
+                return GT_RESULTS_PAGE.format(self.gt_id)
         elif self.pdga_id:
             return PDGA_EVENT_URL.format(self.pdga_id)
         elif self.metrix_id:
