@@ -220,7 +220,7 @@ class TournamentAdmin(admin.ModelAdmin):
         TournamentsTourRelationInline, ResultInline, AttendanceInline,
     ]
 
-    actions = [recalculate_points, reimport_results]
+    actions = [recalculate_points, reimport_attendance, reimport_results]
 
 
 @admin.register(Tour)
