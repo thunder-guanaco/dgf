@@ -95,8 +95,8 @@ def update_results_from_table(results_header, results_content, tournament):
             pass  # it's not a Friend, ignore them
 
 
-def update_tournament_results(tournament, tournament_id):
-    results_soup = get(GT_RESULTS_PAGE.format(tournament_id))
+def update_tournament_results(tournament):
+    results_soup = get(GT_RESULTS_PAGE.format(tournament.gt_id))
 
     results_tables = results_soup.find_all('table')
     for results_table in results_tables:
@@ -123,4 +123,4 @@ def update_all_tournaments_results():
         logger.info('\n-------------------------------------------')
         gt_tournament = parse_tournament_from_details_page(tournament_id)
         tournament = add_tournament(gt_tournament)
-        update_tournament_results(tournament, tournament_id)
+        update_tournament_results(tournament)

@@ -3,8 +3,8 @@ from datetime import date
 import responses
 from django.test import TestCase
 
+from dgf import german_tour
 from dgf.german_tour.common import ColumnNotFound
-from dgf.german_tour.results import update_all_tournaments_results
 from dgf.models import Friend, Division, Result, Tournament
 from dgf_cms.settings import GT_RATINGS_PAGE, GT_RESULTS_PAGE, GT_DETAILS_PAGE
 
@@ -22,7 +22,13 @@ class GermanTourResultsTest(TestCase):
 
     @responses.activate
     def test_tournament_results(self):
-        add_ratings_pages()
+
+        mpo, _ = Division.objects.get_or_create(id='MPO')
+        manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
+        fede = Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
+
+        add_rating_page(1922, [333])
+        add_rating_page(2106, [333, 444])
         add_tournament_results(333,
                                'Test Tournament #3',
                                '24.07.2021 - 25.07.2021',
@@ -32,12 +38,7 @@ class GermanTourResultsTest(TestCase):
                                '26.07.2021',
                                ([2106, 2, 3], [1922]))
 
-        mpo, _ = Division.objects.get_or_create(id='MPO')
-
-        manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
-        fede = Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
-
-        update_all_tournaments_results()
+        german_tour.update_all_tournaments_results()
 
         manolo_results = Result.objects.filter(friend=manolo)
         self.assertEqual(len(manolo_results), 1)
@@ -77,58 +78,57 @@ class GermanTourResultsTest(TestCase):
 
     @responses.activate
     def test_tournament_results_with_broken_page(self):
-        add_ratings_pages()
+        Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
+        add_rating_page(1922, [333])
         add_broken_tournament_results(333,
                                       'Test Tournament #3',
                                       '24.07.2021 - 25.07.2021',
                                       ([1, 2, 1922, 4, 5, 2106], []))
-        add_tournament_results(444,
-                               'Test Tournament #4',
-                               '26.07.2021',
-                               ([2106, 2, 3], [1922]))
-
-        mpo, _ = Division.objects.get_or_create(id='MPO')
-
-        Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
-        Friend.objects.create(username='fede', first_name='Fede', gt_number=2106)
 
         try:
-            update_all_tournaments_results()
+            german_tour.update_all_tournaments_results()
             self.fail('This should have thrown an exception')
         except ColumnNotFound as error:
             self.assertEqual(error.text, 'Division ')
 
+    @responses.activate
+    def test_results_from_one_tournament(self):
+        mpo, _ = Division.objects.get_or_create(id='MPO')
+        manolo = Friend.objects.create(username='manolo', first_name='Manolo', gt_number=1922)
+        tournament = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_25)
+        add_tournament_results(333,
+                               'Test Tournament #3',
+                               '24.07.2021 - 25.07.2021',
+                               ([1, 2, 1922], []))
 
-def add_ratings_pages():
-    responses.add(responses.GET, GT_RATINGS_PAGE.format(1922),
-                  body='<body>'
-                       '  <td style="">'
-                       '    <a title="GT Ergebnisse"'
-                       '     target="_blank"'
-                       '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=333">'
-                       '      GT Ergebnisse'
-                       '    </a>'
-                       '  </td>'
-                       '</body>',
-                  status=200)
-    responses.add(responses.GET, GT_RATINGS_PAGE.format(2106),
-                  body='<body>'
-                       '  <td style="">'
-                       '    <a title="GT Ergebnisse"'
-                       '     target="_blank"'
-                       '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=333">'
-                       '      GT Ergebnisse'
-                       '    </a>'
-                       '  </td>'
-                       '  <td style="">'
-                       '    <a title="GT Ergebnisse"'
-                       '     target="_blank"'
-                       '     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id=444">'
-                       '      GT Ergebnisse'
-                       '    </a>'
-                       '  </td>'
-                       '</body>',
-                  status=200)
+        german_tour.update_tournament_results(tournament)
+
+        manolo_results = Result.objects.filter(friend=manolo)
+        self.assertEqual(len(manolo_results), 1)
+        result_tournament_3 = manolo_results.get(tournament__gt_id=333)
+        self.assertEqual(result_tournament_3.position, 3)
+        self.assertEqual(result_tournament_3.division, mpo)
+        self.assertEqual(result_tournament_3.tournament.gt_id, 333)
+        self.assertEqual(result_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(result_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
+        self.assertEqual(result_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(result_tournament_3.tournament.end, JULY_25)
+
+
+def add_rating_page(player_gt_id, tournament_gt_ids):
+    body = '<body>'
+    for gt_id in tournament_gt_ids:
+        body += ('  <td style="">'
+                 '    <a title="GT Ergebnisse"'
+                 '     target="_blank"'
+                 f'     href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results&amp;id={gt_id}">'
+                 '      GT Ergebnisse'
+                 '    </a>'
+                 '  </td>'
+                 )
+    body += '</body>'
+    responses.add(responses.GET, GT_RATINGS_PAGE.format(player_gt_id), body=body, status=200)
 
 
 def add_tournament_results(tournament_id, tournament_name, date, gt_ids):
