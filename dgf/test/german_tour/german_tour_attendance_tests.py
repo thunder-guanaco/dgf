@@ -158,6 +158,29 @@ class GermanTourAttendanceTest(TestCase):
         self.assertEqual(attendance_tournament_4.friend, manolo)
 
     @responses.activate
+    def test_tournament_with_attendance_existing_attendance_adding_more_existing_tournaments(self):
+        add_tournament_list()
+        add_tournament_attendance_list(333)
+        add_tournament_attendance_list(444)
+        manolo = Friend.objects.create(username='manolo', gt_number=1922)
+        tournament_3 = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+        tournament_4 = Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
+        Attendance.objects.create(friend=manolo, tournament=tournament_3)
+
+        german_tour.update_all_tournaments_attendance()
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEqual(len(attendance_list), 2)
+
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament, tournament_3)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
+
+        attendance_tournament_4 = attendance_list.get(tournament__gt_id=444)
+        self.assertEqual(attendance_tournament_4.tournament, tournament_4)
+        self.assertEqual(attendance_tournament_4.friend, manolo)
+
+    @responses.activate
     def test_tournament_name_change(self):
         add_tournament_list()
         add_tournament_attendance_list(333)
@@ -317,6 +340,25 @@ class GermanTourAttendanceTest(TestCase):
         self.assertEqual(attendance, {'manolo', 'fede'})
         attendance = set(Attendance.objects.filter(tournament__gt_id=888).values_list('friend__username', flat=True))
         self.assertEqual(attendance, {'manolo', 'fede'})
+
+    @responses.activate
+    def test_attendance_from_one_tournament(self):
+        add_tournament_attendance_list(333)
+        manolo = Friend.objects.create(username='manolo', gt_number=1922)
+        tournament = Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
+
+        german_tour.update_tournament_attendance(tournament)
+
+        attendance_list = Attendance.objects.filter(friend=manolo)
+        self.assertEqual(len(attendance_list), 1)
+
+        attendance_tournament_3 = attendance_list.get(tournament__gt_id=333)
+        self.assertEqual(attendance_tournament_3.tournament.name, 'Test Tournament #3')
+        self.assertEqual(attendance_tournament_3.tournament.url,
+                         'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=333')
+        self.assertEqual(attendance_tournament_3.tournament.begin, JULY_24)
+        self.assertEqual(attendance_tournament_3.tournament.end, JULY_24)
+        self.assertEqual(attendance_tournament_3.friend, manolo)
 
 
 def add_tournament_list():

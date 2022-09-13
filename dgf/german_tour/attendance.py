@@ -36,8 +36,8 @@ def extract_gt_numbers(attendance_header, attendance_content):
     return gt_numbers
 
 
-def add_attendance(gt_tournament, tournament):
-    attendance_soup = get(GT_ATTENDANCE_PAGE.format(gt_tournament['id']))
+def update_tournament_attendance(tournament):
+    attendance_soup = get(GT_ATTENDANCE_PAGE.format(tournament.gt_id))
     attendance_table = attendance_soup.find('table', id='starterlist')
     table_header = attendance_table.find('thead')
     table_content = attendance_table.find('tbody')
@@ -63,4 +63,4 @@ def update_all_tournaments_attendance():
                         f'Tremonia Series tournaments are handled separately')
         else:
             tournament = add_tournament(gt_tournament)
-            add_attendance(gt_tournament, tournament)
+            update_tournament_attendance(tournament)

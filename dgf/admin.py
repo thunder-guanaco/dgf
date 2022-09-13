@@ -181,6 +181,14 @@ def recalculate_points(modeladmin, request, queryset):
 recalculate_points.short_description = _('Recalculate points')
 
 
+def reimport_attendance(modeladmin, request, queryset):
+    for tournament in queryset.filter(gt_id__isnull=False):
+        german_tour.update_tournament_attendance(tournament)
+
+
+reimport_attendance.short_description = _('Reimport attendance from turniere.discgolf.de')
+
+
 def reimport_results(modeladmin, request, queryset):
     for tournament in queryset.filter(gt_id__isnull=False):
         german_tour.update_tournament_results(tournament)
@@ -212,7 +220,7 @@ class TournamentAdmin(admin.ModelAdmin):
         TournamentsTourRelationInline, ResultInline, AttendanceInline,
     ]
 
-    actions = [recalculate_points, reimport_results]
+    actions = [recalculate_points, reimport_attendance, reimport_results]
 
 
 @admin.register(Tour)
