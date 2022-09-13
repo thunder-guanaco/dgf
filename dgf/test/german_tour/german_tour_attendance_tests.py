@@ -3,7 +3,7 @@ from datetime import date
 import responses
 from django.test import TestCase
 
-from dgf.german_tour.attendance import update_all_tournaments_attendance
+from dgf import german_tour
 from dgf.models import Tournament, Friend, Attendance
 from dgf_cms.settings import GT_LIST_PAGE, GT_ATTENDANCE_PAGE
 
@@ -28,7 +28,7 @@ class GermanTourAttendanceTest(TestCase):
         add_tournament_with_empty_attendance_list(444)
         Friend.objects.create(username='manolo', gt_number=1922)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = list(Attendance.objects.all())
         self.assertListEqual(attendance_list, [])
@@ -42,7 +42,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
         Friend.objects.create(username='manolo', gt_number=1922)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = list(Attendance.objects.all())
         self.assertListEqual(attendance_list, [])
@@ -54,7 +54,7 @@ class GermanTourAttendanceTest(TestCase):
         add_tournament_attendance_list(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -82,7 +82,7 @@ class GermanTourAttendanceTest(TestCase):
         add_tournament_attendance_list_with_other_format(444)
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -112,7 +112,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_25)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -144,7 +144,7 @@ class GermanTourAttendanceTest(TestCase):
         Attendance.objects.create(friend=manolo, tournament=tournament_3)
         Attendance.objects.create(friend=manolo, tournament=tournament_4)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance_list = Attendance.objects.filter(friend=manolo)
         self.assertEqual(len(attendance_list), 2)
@@ -166,7 +166,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #33', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=444, name='Test Tournament #43', begin=JULY_24, end=JULY_25)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_3 = Tournament.objects.get(gt_id=333)
         self.assertEqual(tournament_3.name, 'Test Tournament #3')
@@ -183,7 +183,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=APRIL_2, end=APRIL_2)
         Tournament.objects.create(gt_id=444, name='Test Tournament #4', begin=JULY_24, end=JULY_24)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_3 = Tournament.objects.get(gt_id=333)
         self.assertEqual(tournament_3.begin, JULY_24)
@@ -198,7 +198,7 @@ class GermanTourAttendanceTest(TestCase):
         add_tournament_list_with_canceled_event()
         add_tournament_with_empty_attendance_list(666)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -216,7 +216,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(gt_id=555, name='Test Tournament #5', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(gt_id=666, name='Test Tournament #6', begin=JULY_25, end=JULY_25)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -237,7 +237,7 @@ class GermanTourAttendanceTest(TestCase):
         Attendance.objects.create(friend=manolo, tournament=tournament_5)
         Attendance.objects.create(friend=manolo, tournament=tournament_6)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_5 = list(Tournament.objects.filter(gt_id=555))
         self.assertEqual(tournament_5, [])
@@ -256,7 +256,7 @@ class GermanTourAttendanceTest(TestCase):
         Friend.objects.create(username='manolo', gt_number=1922)
         Tournament.objects.create(metrix_id=5555, name='Tremonia Series #5', begin=JULY_24, end=JULY_24)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_5 = Tournament.objects.get(name='Tremonia Series #5')  # there's just one
         self.assertEqual(tournament_5.metrix_id, 5555)  # and it's not modified
@@ -274,7 +274,7 @@ class GermanTourAttendanceTest(TestCase):
         Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
         Tournament.objects.create(pdga_id=8888, name='Tremonia Classics', begin=APRIL_2, end=APRIL_2)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         tournament_7 = Tournament.objects.get(name='Tremonia Open')
         self.assertEqual(tournament_7.pdga_id, 7777)
@@ -309,7 +309,7 @@ class GermanTourAttendanceTest(TestCase):
         tournament_7 = Tournament.objects.create(pdga_id=7777, name='Tremonia Open', begin=JULY_24, end=JULY_25)
         Attendance.objects.create(friend=manolo, tournament=tournament_7)
 
-        update_all_tournaments_attendance()
+        german_tour.update_all_tournaments_attendance()
 
         attendance = set(Attendance.objects.filter(tournament__pdga_id=7777).values_list('friend__username', flat=True))
         self.assertEqual(attendance, {'manolo', 'fede'})

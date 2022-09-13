@@ -5,6 +5,7 @@ from django_admin_listfilter_dropdown.filters import (
     RelatedDropdownFilter
 )
 
+from . import german_tour
 from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
     Attendance, Tour, BagTagChange
 
@@ -180,6 +181,14 @@ def recalculate_points(modeladmin, request, queryset):
 recalculate_points.short_description = _('Recalculate points')
 
 
+def reimport_results(modeladmin, request, queryset):
+    for tournament in queryset.filter(gt_id__isnull=False):
+        german_tour.update_tournament_results(tournament)
+
+
+reimport_results.short_description = _('Reimport results from turniere.discgolf.de')
+
+
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -203,7 +212,7 @@ class TournamentAdmin(admin.ModelAdmin):
         TournamentsTourRelationInline, ResultInline, AttendanceInline,
     ]
 
-    actions = [recalculate_points]
+    actions = [recalculate_points, reimport_results]
 
 
 @admin.register(Tour)
