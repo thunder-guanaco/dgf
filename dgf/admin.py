@@ -42,13 +42,12 @@ class HighlightInline(admin.TabularInline):
 
 class InTheBagInline(admin.TabularInline):
     model = DiscInBag
-
-    def get_queryset(self, request):
-        return DiscInBag.objects.all().order_by('-type')
+    ordering = ('-type',)
 
 
 class AceInline(admin.TabularInline):
     model = Ace
+    ordering = ('date',)
 
 
 class VideoInline(admin.TabularInline):
@@ -105,6 +104,8 @@ class FriendAdmin(auth_admin.UserAdmin):
          ),
     ]
 
+    ordering = ('first_name', )
+
     inlines = [
         FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
     ]
@@ -151,26 +152,27 @@ class GitHubIssueAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
-class ResultInline(admin.TabularInline):
+class OnlyFriendsInFieldsInline(admin.TabularInline):
+    def get_field_queryset(self, db, db_field, request):
+        field_queryset = super().get_field_queryset(db, db_field, request)
+        if db_field.name == 'friend':
+            field_queryset = field_queryset.filter(is_active=True)
+        return field_queryset
+
+
+class ResultInline(OnlyFriendsInFieldsInline):
     model = Result
-
-    def get_queryset(self, request):
-        return Result.objects.all().order_by('-division', 'position')
+    ordering = ('-division', 'position')
 
 
-class AttendanceInline(admin.TabularInline):
+class AttendanceInline(OnlyFriendsInFieldsInline):
     model = Attendance
-
-    def get_queryset(self, request):
-        return Attendance.objects.all().order_by('friend__first_name')
+    ordering = ('friend__first_name',)
 
 
 class TournamentsTourRelationInline(admin.TabularInline):
     model = Tour.tournaments.through
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return queryset.order_by('tournament__begin')
+    ordering = ('-tour__division', 'tour__name')
 
 
 def recalculate_points(modeladmin, request, queryset):
@@ -236,6 +238,8 @@ class TourAdmin(admin.ModelAdmin):
             ]}
          )
     ]
+
+    ordering = ('-division', 'name')
 
     readonly_fields = ['date', 'tournament_count']
 
