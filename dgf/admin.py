@@ -1,3 +1,5 @@
+import re
+
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +14,6 @@ from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Vide
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-
     fieldsets = (
         ('', {
             'fields': (
@@ -57,7 +58,6 @@ class VideoInline(admin.TabularInline):
 
 @admin.register(Friend)
 class FriendAdmin(auth_admin.UserAdmin):
-
     add_fieldsets = (
         ('Basic', {
             'fields': (
@@ -105,7 +105,7 @@ class FriendAdmin(auth_admin.UserAdmin):
          )
     )
 
-    ordering = ('first_name',)
+    ordering = ('-is_active', 'first_name',)
 
     list_display = ('is_active', 'username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
@@ -123,7 +123,8 @@ class FriendAdmin(auth_admin.UserAdmin):
         ('metrix_user_id', admin.EmptyFieldListFilter)
     )
 
-    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
+    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug',
+                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     inlines = (FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline)
 
@@ -135,7 +136,6 @@ class FriendAdmin(auth_admin.UserAdmin):
 
 @admin.register(GitHubIssue)
 class GitHubIssueAdmin(admin.ModelAdmin):
-
     fieldsets = (
         ('', {
             'fields': (
@@ -152,12 +152,24 @@ class GitHubIssueAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
+def is_current_tournament_tremonia_series(request):
+    search = re.search(r'/admin/dgf/tournament/(?P<id>\d+)/change/', request.get_full_path())
+    tournament_id = search.group('id')
+    tournament = Tournament.objects.get(id=tournament_id)
+    return tournament.name.startswith('Tremonia Series #')
+
+
 class OnlyFriendsInFieldsInline(admin.TabularInline):
 
     def get_field_queryset(self, db, db_field, request):
         field_queryset = super().get_field_queryset(db, db_field, request)
+
         if db_field.name == 'friend':
-            field_queryset = field_queryset.filter(is_active=True)
+            if is_current_tournament_tremonia_series(request):
+                field_queryset = field_queryset.order_by('first_name')
+            else:
+                field_queryset = field_queryset.filter(is_active=True)
+
         return field_queryset
 
 
@@ -202,7 +214,6 @@ reimport_results.short_description = _('Reimport results from turniere.discgolf.
 
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
-
     fieldsets = (
         ('', {
             'fields': (
@@ -227,7 +238,6 @@ class TournamentAdmin(admin.ModelAdmin):
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
-
     fieldsets = (
         ('', {
             'fields': (
@@ -253,7 +263,6 @@ class TourAdmin(admin.ModelAdmin):
 
 @admin.register(BagTagChange)
 class BagTagChangeAdmin(admin.ModelAdmin):
-
     fieldsets = (
         ('', {
             'fields': (
