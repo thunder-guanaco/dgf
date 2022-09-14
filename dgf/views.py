@@ -90,7 +90,7 @@ class FeedbackCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+        return reverse('dgf:feedback')
 
 
 class MediaIndex(generic.ListView):
