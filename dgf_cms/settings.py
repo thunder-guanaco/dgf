@@ -266,7 +266,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'mathfilters',
     'cookie_consent',
-    'django_non_dark_admin',
+    'django_light',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -429,5 +429,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 COOKIE_CONSENT_NAME = 'cookie_consent'
-
-DISABLE_DARK_MODE = True
