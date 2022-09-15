@@ -266,6 +266,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'mathfilters',
     'cookie_consent',
+    'django_light',
 
     'djangocms_admin_style',
     'django.contrib.auth',
