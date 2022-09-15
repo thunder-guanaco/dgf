@@ -267,6 +267,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'cookie_consent',
     'django_light',
+    'jazzmin',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -429,3 +430,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 COOKIE_CONSENT_NAME = 'cookie_consent'
+
+JAZZMIN_SETTINGS = {
+    'site_logo': 'img/favicon.png',
+    'topmenu_links': [
+        {'model': 'auth.User'},
+        {'model': 'dgf.Friend'},
+        {'model': 'dgf.Tournament'},
+        {'app': 'dgf'},
+    ]
+}
