@@ -430,6 +430,8 @@ class Attendance(Model):
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='attendance',
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.friend} will attend {self.tournament}'
@@ -447,6 +449,8 @@ class Result(Model):
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
     points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def ordinal_position(self):
