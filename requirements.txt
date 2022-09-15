@@ -27,6 +27,7 @@ django-formtools==2.3
 django-js-asset==1.2.2
 django-login==1.0
 django-mptt==0.13.4
+django-non-dark-admin==2.0.2
 django-partial-date==1.3.2
 django-polymorphic==3.0.0
 django-sekizai==3.0.1
@@ -45,7 +46,7 @@ django-mathfilters==1.0.0
 mysqlclient==2.1.0
 parameterized==0.8.1
 Pillow==9.0.1
-pycodestyle>=2.7.0<2.8.0
+pycodestyle==2.7.0
 pyflakes==2.3.1
 PyMySQL==1.0.2
 pytest==6.2.5
