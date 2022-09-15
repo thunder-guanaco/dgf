@@ -24,6 +24,7 @@ django-countries==7.2.1
 django-dbbackup==3.3.0
 django-filer==2.1.2
 django-formtools==2.3
+django-jazzmin==2.5.0
 django-js-asset==1.2.2
 django-light==0.1.0.post3
 django-login==1.0
