@@ -3,9 +3,6 @@ import re
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.utils.translation import gettext_lazy as _
-from django_admin_listfilter_dropdown.filters import (
-    RelatedDropdownFilter
-)
 
 from . import german_tour
 from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
@@ -116,7 +113,6 @@ class FriendAdmin(auth_admin.UserAdmin):
 
     list_filter = (
         'is_active',
-        ('division', RelatedDropdownFilter),
         ('pdga_number', admin.EmptyFieldListFilter),
         ('gt_number', admin.EmptyFieldListFilter),
         ('udisc_username', admin.EmptyFieldListFilter),
