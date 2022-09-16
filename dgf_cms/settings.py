@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-""""
+"""
 Rule of thumb:
  * prod: sensible configuration data comes from environment variables
  * dev or test: dummy configuration
@@ -431,12 +431,66 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 COOKIE_CONSENT_NAME = 'cookie_consent'
 
+# Docs: https://django-jazzmin.readthedocs.io/configuration/
 JAZZMIN_SETTINGS = {
-    'site_logo': 'img/favicon.png',
+
+    'site_brand': 'Disc Golf Friends',
+    'site_logo': '/img/logo.png',
+    'site_logo_classes': 'elevation-0',
+    'welcome_sign': 'Disc Golf Friends Admin',
+    'copyright': 'Disc Golf Friends Dortmund e.V',
+    'search_model': 'dgf.Friend',
+
     'topmenu_links': [
-        {'model': 'auth.User'},
+        {'name': 'discgolffriends.de', 'url': '/'},
         {'model': 'dgf.Friend'},
         {'model': 'dgf.Tournament'},
-        {'app': 'dgf'},
-    ]
+        {'model': 'auth.User'},
+    ],
+
+    'show_sidebar': True,
+    'navigation_expanded': False,
+    'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange', 'auth', 'cms'],
+
+    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free
+    'icons': {
+        'dgf': 'fas fa-users',
+        'dgf.friend': 'fas fa-user',
+        'dgf.tournament': 'fas fa-medal',
+        'dgf.bagtagchange': 'fas fa-tag',
+        'dgf.course': 'fas fa-tree',
+        'dgf.githubissue': 'fas fa-newspaper',
+        'dgf.tour': 'fas fa-route',
+        'auth': 'fas fa-users-cog',
+        'auth.user': 'fas fa-user',
+        'auth.group': 'fas fa-users',
+    },
+
+    'related_modal_active': True,
+
+    # Relative paths to custom CSS/JS scripts (must be present in static files)
+    'custom_css': None,
+    'custom_js': None,
+
+    'show_ui_builder': True,
+    'changeform_format': 'horizontal_tabs',
+}
+
+JAZZMIN_UI_TWEAKS = {
+    'accent': 'accent-navy',
+    'navbar': 'navbar-navy navbar-dark',
+    'navbar_fixed': True,
+    'sidebar': 'sidebar-light-navy',
+    'sidebar_nav_child_indent': True,
+    'sidebar_nav_flat_style': True,
+    'theme': 'default',
+    'dark_mode_theme': None,
+    'button_classes': {
+        'primary': 'btn-outline-primary',
+        'secondary': 'btn-outline-secondary',
+        'info': 'btn-outline-info',
+        'warning': 'btn-outline-warning',
+        'danger': 'btn-outline-danger',
+        'success': 'btn-outline-success'
+    },
 }
