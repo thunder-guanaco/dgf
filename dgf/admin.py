@@ -116,7 +116,6 @@ class FriendAdmin(auth_admin.UserAdmin):
 
     list_filter = (
         'is_active',
-        ('division', RelatedDropdownFilter),
         ('pdga_number', admin.EmptyFieldListFilter),
         ('gt_number', admin.EmptyFieldListFilter),
         ('udisc_username', admin.EmptyFieldListFilter),
