@@ -440,14 +440,6 @@ JAZZMIN_SETTINGS = {
     'welcome_sign': 'Disc Golf Friends Admin',
     'copyright': 'Disc Golf Friends Dortmund e.V',
     'search_model': 'dgf.Friend',
-
-    'topmenu_links': [
-        {'name': 'discgolffriends.de', 'url': '/'},
-        {'model': 'dgf.Friend'},
-        {'model': 'dgf.Tournament'},
-        {'model': 'auth.User'},
-    ],
-
     'show_sidebar': True,
     'navigation_expanded': False,
     'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange', 'auth', 'cms'],
