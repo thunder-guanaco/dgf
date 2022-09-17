@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from dgf.models import Tournament
-from dgf_cms.settings import GT_DATE_FORMAT
+from dgf_cms.settings import GT_DATE_FORMAT, GT_LIST_PAGE, GT_DETAILS_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +23,31 @@ def extract_gt_id(url):
     parsed_url = urlparse(url)
     parsed_query_params = parse_qs(parsed_url.query)
     return int(parsed_query_params['id'][0])
+
+
+def get_all_tournaments_from_list_page():
+    soup = get(GT_LIST_PAGE)
+    tournaments_table = soup.find('table', id='list_tournaments').find('tbody')
+
+    ids = []
+    for tournament_tr in tournaments_table.findChildren(recursive=False):
+        tournament_tds = tournament_tr.findChildren(recursive=False)
+        url = tournament_tds[0].find('a')['href']
+        ids.append(extract_gt_id(url))
+    return ids
+
+
+def parse_tournament_from_details_page(tournament_id):
+    tournament_soup = get(GT_DETAILS_PAGE.format(tournament_id))
+    dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
+    badge = tournament_soup.find('h2').find('i')
+    return {
+        'id': tournament_id,
+        'name': tournament_soup.find('h2').text.strip(),
+        'begin': dates[0],
+        'end': dates[1] if len(dates) > 1 else dates[0],
+        'canceled': badge is not None and badge.text.strip() == 'ABGESAGT',
+    }
 
 
 # ADD AND DELETE
@@ -85,7 +110,7 @@ def add_tournament(gt_tournament):
 
 
 def delete_tournament(gt_tournament):
-    tournament_name = gt_tournament['name']  # shouldn't we use the ID?
+    tournament_name = gt_tournament['name']  # shouldn't we use the GT ID?
     Tournament.all_objects.filter(name=tournament_name).delete()
     logger.info(f'Deleted tournament {tournament_name}')
 

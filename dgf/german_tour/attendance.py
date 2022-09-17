@@ -1,29 +1,11 @@
 import logging
 
-from dgf.german_tour.common import get, delete_tournament, add_tournament, find_column
+from dgf.german_tour.common import get, delete_tournament, add_tournament, find_column, extract_gt_id, \
+    get_all_tournaments_from_list_page, parse_tournament_from_details_page
 from dgf.models import Friend, Attendance
 from dgf_cms.settings import GT_ATTENDANCE_PAGE, GT_LIST_PAGE
 
 logger = logging.getLogger(__name__)
-
-
-def get_all_tournaments_from_list_page():
-    soup = get(GT_LIST_PAGE)
-    tournaments_table = soup.find('table', id='list_tournaments').find('tbody')
-
-    tournaments = []
-    for tournament_tr in tournaments_table.findChildren(recursive=False):
-        tournament_tds = tournament_tr.findChildren(recursive=False)
-        badge = tournament_tds[0].find('h6')
-        tournaments.append({
-            'id': tournament_tds[0].find('a')['href'].split('=')[-1],  # use get_gt_id de results.py
-            'name': tournament_tds[0].find('a').text.strip(),
-            'begin': tournament_tds[2].find('a').text.strip(),
-            'end': tournament_tds[3].find('a').text.strip(),
-            'canceled': badge is not None and badge.text.strip() == 'ABGESAGT',
-        })
-
-    return tournaments
 
 
 def extract_gt_numbers(attendance_header, attendance_content):
@@ -54,8 +36,9 @@ def update_tournament_attendance(tournament):
 
 
 def update_all_tournaments_attendance():
-    gt_tournaments = get_all_tournaments_from_list_page()
-    for gt_tournament in gt_tournaments:
+    tournament_ids = get_all_tournaments_from_list_page()
+    for tournament_id in tournament_ids:
+        gt_tournament = parse_tournament_from_details_page(tournament_id)
         if gt_tournament['canceled']:
             delete_tournament(gt_tournament)
         elif gt_tournament['name'].startswith('Tremonia Series #'):

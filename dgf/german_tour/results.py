@@ -1,6 +1,6 @@
 import logging
 
-from dgf.german_tour.common import get, add_tournament, find_column, extract_gt_id
+from dgf.german_tour.common import get, add_tournament, find_column, extract_gt_id, parse_tournament_from_details_page
 from dgf.models import Friend, Result, Division
 from dgf_cms.settings import GT_RATINGS_PAGE, GT_DETAILS_PAGE, GT_RESULTS_PAGE
 
@@ -103,17 +103,6 @@ def update_tournament_results(tournament):
         table_header = results_table.find('thead')
         table_content = results_table.find('tbody')
         update_results_from_table(table_header, table_content, tournament)
-
-
-def parse_tournament_from_details_page(tournament_id):
-    tournament_soup = get(GT_DETAILS_PAGE.format(tournament_id))
-    dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
-    return {
-        'id': tournament_id,
-        'name': tournament_soup.find('h2').text.strip(),
-        'begin': dates[0],
-        'end': dates[1] if len(dates) > 1 else dates[0]
-    }
 
 
 def update_all_tournaments_results():
