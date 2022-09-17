@@ -15,15 +15,27 @@ function checkClickableFriends() {
     }
 }
 
+const SAD_EMOJIS = ['😭', '😞', '💩', '🥶', '😢', '🥲', '📉', '🧊', '☃️', '❄️'];
+
+function randomSadEmoji() {
+    var randomIndex = Math.floor(Math.random() * (SAD_EMOJIS.length));
+    return randomIndex, SAD_EMOJIS[randomIndex];
+}
+
 function showBestBagTagImprovement() {
     var min = 0;
+    var max = 0;
     $("#bag-tags .content .news-best").each(function(){
         var bagTagDifference = $(this).data("bag-tag-difference");
         if (bagTagDifference < min) {
             min = bagTagDifference;
         }
+        if (bagTagDifference > max) {
+            max = bagTagDifference;
+        }
     });
     $("#bag-tags .content .news-best[data-bag-tag-difference='" + min + "']").addClass("fire");
+    $("#bag-tags .content .news-best[data-bag-tag-difference='" + max + "']").addClass("sad").attr("data-content", randomSadEmoji());
 }
 
 function claimBagTag(number, url) {

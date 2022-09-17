@@ -272,3 +272,10 @@ h2 .show-less-tournaments {
     display: inline-block;
     vertical-align: middle;
 }
+
+.bag-tag-number {
+    top: auto !important;
+    left: auto !important;
+    bottom: -5px !important;
+    right: -5px !important;
+}

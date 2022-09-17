@@ -1,0 +1,12 @@
+{% load i18n dgf %}
+
+<div>
+    &#12935{{result.position}};
+    <span class="friend-division">{{result.division.id}}</span>
+    {% if result.tournament.url %}
+        <a href="{{result.tournament.url}}" target="_blank" class="name">{{result.tournament.name}}</a>
+    {% else %}
+        <span class="name">{{result.tournament.name}}</span>
+    {% endif %}
+    [{{result.tournament.date}}]
+</div>

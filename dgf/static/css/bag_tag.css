@@ -138,6 +138,10 @@
     content: '🔥';
 }
 
+.news-best.sad:before {
+    content: attr(data-content);
+}
+
 .number {
     font-weight: bold;
     font-size: 1.25em;

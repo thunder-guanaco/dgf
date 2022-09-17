@@ -34,6 +34,8 @@ class TournamentModelTest(TestCase):
         self.assert_field('date', expected='30. Jun - 01. Jul 2021',
                           begin=date(day=30, month=6, year=2021), end=date(day=1, month=7, year=2021))
 
+    # test URL method
+
     def assert_field(self, what, expected, **fields):
         Tournament.objects.all().delete()
         tournament = Tournament(**fields)
@@ -79,7 +81,7 @@ class TournamentModelTest(TestCase):
         self.assertEqual(first.points, 20)
         self.assertEqual(second.points, 17)
 
-    def test_recalculate_points_witout_point_system(self):
+    def test_recalculate_points_without_point_system(self):
         friends = create_friends(2)
         tournament = create_tournaments(1)
         first = Result.objects.create(tournament=tournament,

@@ -37,10 +37,13 @@
             Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
         {% endcomment %}
 
-        <script async type="{% js_type_for_cookie_consent request 'analytics' %}"
-                data-varname="analytics"
-                src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1">
-        </script>
+        {% if not debug and not request.user.is_superuser %}
+            {% comment %} We do not want to track admins' activities {% endcomment %}
+            <script async type="{% js_type_for_cookie_consent request 'analytics' %}"
+                    data-varname="analytics"
+                    src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1">
+            </script>
+        {% endif %}
 
         {% compress js file base_js %}
 

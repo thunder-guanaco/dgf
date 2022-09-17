@@ -1,0 +1,11 @@
+{% load i18n dgf %}
+
+{% if tournament.url %}
+    <a href="{{tournament.url}}" target="_blank" class="name">{{tournament.name}}</a>
+{% else %}
+    <span class="name">{{tournament.name}}</span>
+{% endif %}
+{% if tournament.metrix_id %}
+    <span>&nbsp;→&nbsp;</span>
+    <a href="{{tournament|metrix_url}}" target="_blank" class="name">{% trans "follow live" %}</a>
+{% endif %}

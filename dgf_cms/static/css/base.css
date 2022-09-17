@@ -162,21 +162,6 @@
         height: auto;
     }
 
-    .container table {
-        width: 100% !important;
-        height: auto;
-    }
-
-    .container table tr {
-        display: block;
-        float: left;
-    }
-
-    .container table th,
-    .container table td {
-        display: block;
-    }
-
     .container > img {
         width: 100%;
     }

@@ -4,6 +4,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
@@ -11,7 +12,7 @@ from django.views.generic import CreateView
 
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
-from dgf.models import Friend, Feedback, Video, Tournament, Attendance, BagTagChange
+from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
 
 
 class IndexView(generic.ListView):
@@ -80,15 +81,16 @@ class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
 
 
 class FeedbackCreate(LoginRequiredMixin, CreateView):
-    model = Feedback
-    fields = ['title', 'feedback']
+    model = GitHubIssue
+    fields = ['title', 'body']
 
     def form_valid(self, form):
         form.instance.friend = self.request.user.friend
+        form.type = GitHubIssue.FEEDBACK
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+        return reverse('dgf:feedback')
 
 
 class MediaIndex(generic.ListView):
@@ -242,3 +244,11 @@ def bag_tag_update(request):
                                     active=new_bag_tags[username] != current_bag_tags[username])
 
     return HttpResponse(status=200)
+
+
+def next_tremonia_series(request):
+    next_ts = Tournament.objects.filter(name__startswith='Tremonia Series') \
+        .filter(begin__gte=datetime.today()) \
+        .order_by('begin') \
+        .first()
+    return redirect(next_ts.url)

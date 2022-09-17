@@ -1,30 +1,31 @@
-from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
-from django_admin_listfilter_dropdown.filters import (
-    RelatedDropdownFilter
-)
+import re
 
-from .models import Highlight, DiscInBag, Ace, Feedback, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
+from django.contrib import admin
+from django.contrib.auth import admin as auth_admin
+from django.utils.translation import gettext_lazy as _
+
+from . import german_tour
+from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
     Attendance, Tour, BagTagChange
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    fieldsets = [
+    fieldsets = (
         ('', {
-            'fields': [
+            'fields': (
                 'name',
                 ('postal_code', 'city'),
                 'country'
-            ]}
+            )}
          ),
         ('UDisc', {
-            'fields': [
+            'fields': (
                 'udisc_id',
                 'udisc_main_layout'
-            ]}
+            )}
          )
-    ]
+    )
 
     list_display = ('name', 'postal_code', 'city', 'country', 'udisc_id')
     search_fields = list_display
@@ -40,13 +41,12 @@ class HighlightInline(admin.TabularInline):
 
 class InTheBagInline(admin.TabularInline):
     model = DiscInBag
-
-    def get_queryset(self, request):
-        return DiscInBag.objects.all().order_by('-type')
+    ordering = ('-type',)
 
 
 class AceInline(admin.TabularInline):
     model = Ace
+    ordering = ('date',)
 
 
 class VideoInline(admin.TabularInline):
@@ -54,22 +54,40 @@ class VideoInline(admin.TabularInline):
 
 
 @admin.register(Friend)
-class FriendAdmin(admin.ModelAdmin):
-    fieldsets = [
+class FriendAdmin(auth_admin.UserAdmin):
+    add_fieldsets = (
         ('Basic', {
-            'fields': [
+            'fields': (
                 ('username', 'slug'),
                 ('first_name', 'last_name', 'nickname'),
-            ]}
+                ('is_active',),
+                ('password1', 'password2')
+            )}
          ),
         ('External IDs', {
-            'fields': [
+            'fields': (
                 ('pdga_number', 'gt_number'),
-                ('udisc_username', 'metrix_user_id'),
-            ]}
+                ('udisc_username', 'metrix_user_id')
+            )}
+         )
+    )
+
+    fieldsets = (
+        ('Basic', {
+            'fields': (
+                ('username', 'slug'),
+                ('first_name', 'last_name', 'nickname'),
+                ('is_active', 'password')
+            )}
+         ),
+        ('External IDs', {
+            'fields': (
+                ('pdga_number', 'gt_number'),
+                ('udisc_username', 'metrix_user_id')
+            )}
          ),
         ('Rest', {
-            'fields': [
+            'fields': (
                 'bag_tag',
                 'club_role',
                 'sponsor',
@@ -79,16 +97,14 @@ class FriendAdmin(admin.ModelAdmin):
                 'city',
                 'main_photo',
                 ('plays_since', 'best_score_in_wischlingen', 'free_text'),
-                ('job', 'hobbies'),
-            ]}
-         ),
-    ]
+                ('job', 'hobbies')
+            )}
+         )
+    )
 
-    inlines = [
-        FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline
-    ]
+    ordering = ('-is_active', 'first_name',)
 
-    list_display = ('username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
+    list_display = ('is_active', 'username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
@@ -97,52 +113,75 @@ class FriendAdmin(admin.ModelAdmin):
 
     list_filter = (
         'is_active',
-        ('division', RelatedDropdownFilter),
         ('pdga_number', admin.EmptyFieldListFilter),
         ('gt_number', admin.EmptyFieldListFilter),
         ('udisc_username', admin.EmptyFieldListFilter),
-        ('metrix_user_id', admin.EmptyFieldListFilter),
+        ('metrix_user_id', admin.EmptyFieldListFilter)
     )
 
-    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug', 'udisc_username', 'pdga_number')
+    search_fields = ('username', 'first_name', 'last_name', 'nickname', 'slug',
+                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
+
+    inlines = (FavoriteCourseInline, HighlightInline, InTheBagInline, AceInline, VideoInline)
+
+    def get_inlines(self, request, obj):
+        if not obj:
+            return ()
+        return self.inlines
 
 
-@admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
-    fieldsets = [
+@admin.register(GitHubIssue)
+class GitHubIssueAdmin(admin.ModelAdmin):
+    fieldsets = (
         ('', {
-            'fields': [
+            'fields': (
+                'type',
                 'title',
-                'feedback',
+                'body',
                 'friend'
-            ]}
-         )
-    ]
+            )}
+         ),
+    )
 
-    list_display = ('title', 'feedback', 'friend')
+    list_display = ('type', 'title', 'body', 'friend')
+    list_display_links = ('title',)
     search_fields = list_display
 
 
-class ResultInline(admin.TabularInline):
+def is_current_tournament_tremonia_series(request):
+    search = re.search(r'/admin/dgf/tournament/(?P<id>\d+)/change/', request.get_full_path())
+    tournament_id = search.group('id')
+    tournament = Tournament.objects.get(id=tournament_id)
+    return tournament.name.startswith('Tremonia Series #')
+
+
+class OnlyFriendsInFieldsInline(admin.TabularInline):
+
+    def get_field_queryset(self, db, db_field, request):
+        field_queryset = super().get_field_queryset(db, db_field, request)
+
+        if db_field.name == 'friend':
+            if is_current_tournament_tremonia_series(request):
+                field_queryset = field_queryset.order_by('first_name')
+            else:
+                field_queryset = field_queryset.filter(is_active=True)
+
+        return field_queryset
+
+
+class ResultInline(OnlyFriendsInFieldsInline):
     model = Result
-
-    def get_queryset(self, request):
-        return Result.objects.all().order_by('-division', 'position')
+    ordering = ('-division', 'position')
 
 
-class AttendanceInline(admin.TabularInline):
+class AttendanceInline(OnlyFriendsInFieldsInline):
     model = Attendance
-
-    def get_queryset(self, request):
-        return Attendance.objects.all().order_by('friend__first_name')
+    ordering = ('friend__first_name',)
 
 
 class TournamentsTourRelationInline(admin.TabularInline):
     model = Tour.tournaments.through
-
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return queryset.order_by('tournament__begin')
+    ordering = ('-tour__division', 'tour__name')
 
 
 def recalculate_points(modeladmin, request, queryset):
@@ -153,18 +192,34 @@ def recalculate_points(modeladmin, request, queryset):
 recalculate_points.short_description = _('Recalculate points')
 
 
+def reimport_attendance(modeladmin, request, queryset):
+    for tournament in queryset.filter(gt_id__isnull=False):
+        german_tour.update_tournament_attendance(tournament)
+
+
+reimport_attendance.short_description = _('Reimport attendance from turniere.discgolf.de')
+
+
+def reimport_results(modeladmin, request, queryset):
+    for tournament in queryset.filter(gt_id__isnull=False):
+        german_tour.update_tournament_results(tournament)
+
+
+reimport_results.short_description = _('Reimport results from turniere.discgolf.de')
+
+
 @admin.register(Tournament)
 class TournamentAdmin(admin.ModelAdmin):
-    fieldsets = [
+    fieldsets = (
         ('', {
-            'fields': [
+            'fields': (
                 ('name', 'active'),
                 ('pdga_id', 'gt_id', 'metrix_id'),
                 ('begin', 'end'),
-                'point_system',
-            ]}
-         )
-    ]
+                'point_system'
+            )}
+         ),
+    )
 
     list_display = ('needs_check', 'name', 'active', 'begin', 'end', 'pdga_id', 'gt_id', 'metrix_id')
     list_editable = ('active', 'pdga_id', 'gt_id', 'metrix_id')
@@ -172,52 +227,52 @@ class TournamentAdmin(admin.ModelAdmin):
 
     search_fields = ('name', 'pdga_id', 'gt_id', 'metrix_id')
 
-    inlines = [
-        TournamentsTourRelationInline, ResultInline, AttendanceInline,
-    ]
+    inlines = (TournamentsTourRelationInline, ResultInline, AttendanceInline)
 
-    actions = [recalculate_points]
+    actions = (recalculate_points, reimport_attendance, reimport_results)
 
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
-    fieldsets = [
+    fieldsets = (
         ('', {
-            'fields': [
+            'fields': (
                 'name',
                 'division',
                 'evaluate_how_many',
                 'date',
-                'tournament_count',
-            ]}
-         )
-    ]
+                'tournament_count'
+            )}
+         ),
+    )
 
-    readonly_fields = ['date', 'tournament_count']
+    ordering = ('-division', 'name')
 
-    list_display = ('name', 'division', 'begin', 'end',)
+    readonly_fields = ('date', 'tournament_count')
+
+    list_display = ('name', 'division', 'begin', 'end')
     search_fields = ('name', 'division')
 
-    inlines = [
-        TournamentsTourRelationInline,
-    ]
+    inlines = (TournamentsTourRelationInline,)
     exclude = ('tournaments',)
 
 
 @admin.register(BagTagChange)
 class BagTagChangeAdmin(admin.ModelAdmin):
-    fieldsets = [
+    fieldsets = (
         ('', {
-            'fields': [
+            'fields': (
                 'actor',
                 ('friend', 'timestamp'),
                 ('previous_number', 'new_number'),
                 'active'
-            ]}
-         )
-    ]
+            )}
+         ),
+    )
 
-    readonly_fields = ['actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active']
+    ordering = ('-timestamp', 'new_number')
+
+    readonly_fields = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active')
 
     list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active')
     search_fields = ('friend', 'previous_number', 'new_number')

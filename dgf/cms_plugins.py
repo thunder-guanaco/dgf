@@ -1,12 +1,17 @@
 from datetime import datetime, timedelta
 
+import requests
+from bs4 import BeautifulSoup
+
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.db.models import Count, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, BagTagChange
+
+from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
+    BagTagChange, ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
 from .udisc import get_course_url
 
 
@@ -84,21 +89,22 @@ def friends_order_by_ts_wins():
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
 
 
-def friends_order_by_bag_tag():
-
+def friends_order_by_bag_tag(for_mobile=False):
     time_threshold = datetime.now() - timedelta(weeks=1)
 
     bag_tag_changes = BagTagChange.objects \
-        .filter(previous_number__isnull=False) \
         .filter(active=True) \
+        .filter(previous_number__isnull=False) \
         .filter(timestamp__gt=time_threshold) \
-        .filter(friend=OuterRef("id")) \
-        .order_by("-timestamp")
+        .filter(friend=OuterRef('id')) \
+        .order_by('-timestamp')
 
-    return Friend.objects.filter(bag_tag__isnull=False) \
-        .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
-        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list("previous_number")[:1])) \
-        .order_by('bag_tag')
+    friends = Friend.objects.filter(bag_tag__isnull=False) \
+                            .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1]))
+    if not for_mobile:
+        friends = friends.annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True)))
+
+    return friends.order_by('bag_tag')
 
 
 def friends_without_bag_tag():
@@ -122,7 +128,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({
-            'friends': friends_order_by_bag_tag(),
+            'friends': friends_order_by_bag_tag(for_mobile=context['request'].user_agent.is_mobile),
             'friends_without_bag_tag': friends_without_bag_tag(),
         })
         return context
@@ -216,3 +222,99 @@ class TremoniaOpenFacebookPluginPublisher(DiscGolfFriendsFacebookPluginPublisher
     name = _('Facebook - Tremonia Open')
     page_id = 'tremoniaopen'
     page_name = 'Tremonia Open'
+
+
+@plugin_pool.register_plugin
+class ConcreteTournamentResultsPluginPublisher(CMSPluginBase):
+    model = ConcreteTournamentResultsPluginModel
+    module = _('Social Media')
+    name = _('Concrete Tournament Results')
+    render_template = 'dgf/plugins/social_media/concrete_tournament_results.html'
+
+    def render(self, context, instance, placeholder):
+
+        if not instance.tournament:
+            instance.tournament = Tournament.objects \
+                .filter(end__lte=datetime.today()) \
+                .order_by('-end') \
+                .first()
+
+        return super().render(context, instance, placeholder)
+
+
+@plugin_pool.register_plugin
+class LastTremoniaSeriesResultsPluginPublisher(CMSPluginBase):
+    model = LastTremoniaSeriesResultsPluginModel
+    module = _('Social Media')
+    name = _('Last Tremonia Series Results')
+    render_template = 'dgf/plugins/social_media/last_tremonia_series_results.html'
+
+    def render(self, context, instance, placeholder):
+        last_ts = Tournament.objects.filter(name__startswith='Tremonia Series') \
+            .filter(end__lte=datetime.today()) \
+            .order_by('-end') \
+            .first()
+        soup = self.get_soup(last_ts.url)
+        title = self.get_title(soup)
+        context.update({
+            'instance': instance,
+            'title': title,
+        })
+
+        try:
+            context.update(self.get_results_from_manual_results_table(soup))
+        except Exception:
+            context.update({'manual_table_error': True})
+            context.update(self.get_results_from_default_results_table_with_different_courses(soup))
+
+        return context
+
+    def get_soup(self, url):
+        response = requests.get(url)
+        return BeautifulSoup(response.content, features='html5lib')
+
+    def get_title(self, soup):
+        title = soup.find('head').find('title').text
+        if '→' in title:
+            return title.split('→')[1]
+        else:
+            return title
+
+    def get_results_from_manual_results_table(self, soup):
+        table = soup.find('table')
+        header = table.find('thead')
+        body = table.find('tbody')
+        divisions = []
+        for tr in body.find_all('tr'):
+            if tr.find('th'):
+                divisions.append({
+                    'name': tr.find_all("th")[1].text,
+                    'results': [],
+                })
+            else:
+                divisions[-1]['results'].append(tr.prettify())
+
+        return {
+            'results_header': header.prettify(),
+            'results_body': divisions,
+        }
+
+    def get_results_from_default_results_table_with_different_courses(self, soup):
+        table = soup.find("table", {"class": "score-table"})
+        headers = table.find_all('thead')
+        bodies = table.find_all('tbody')
+        divisions = []
+        division_names = []
+        for head in headers[1:]:
+            division_names.append(head.find("tr").find_all("th")[1].text.split(" (")[0])
+
+        for division_names, tbody in zip(division_names, bodies):
+            divisions.append({
+                'name': division_names,
+                'results': [tr.prettify for tr in tbody.find_all('tr')],
+            })
+
+        return {
+            'results_header': headers[0].prettify(),
+            'results_body': divisions,
+        }

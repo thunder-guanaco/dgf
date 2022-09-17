@@ -1,6 +1,9 @@
-{% load thumbnail i18n %}
+{% load thumbnail i18n cms_tags %}
+
 {% with clickable|default_if_none:False as clickable %}
 {% with img_size|add:img_size|stringformat:'s' as double_img_size %}
+{% with show_bag_tag|default_if_none:False as show_bag_tag %}
+{% with clickable_bag_tag|default_if_none:False as clickable_bag_tag %}
 
 {% comment %}
 
@@ -56,11 +59,27 @@ IMPORTANT NOTE:
                 {% endif %}
             </span>
         {% endif %}
+        {% if show_bag_tag and friend.bag_tag %}
+
+            {% if clickable_bag_tag %}
+            <a href='{% page_url "bag-tags" %}'>
+            {% endif %}
+
+                <div class="bag-tag-number">
+                    <span>{{friend.bag_tag}}</span>
+                </div>
+            {% if clickable_bag_tag %}
+            </a>
+            {% endif %}
+
+        {% endif %}
     </div>
 
     {% if clickable %}
         </a>
     {% endif %}
 
+{% endwith %}
+{% endwith %}
 {% endwith %}
 {% endwith %}

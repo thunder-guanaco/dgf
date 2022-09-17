@@ -7,16 +7,17 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-def feedback_post_save(instance):
+def github_issue_post_save(instance):
     url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'
     friend_name = instance.friend.short_name if instance.friend else 'Anonymous user'
 
     # Create our issue
     issue = {
         'title': f'{friend_name}: {instance.title}',
-        'body': instance.feedback,
-        'labels': ['Feedback']
+        'body': instance.body,
+        'labels': [instance.get_type_display()]
     }
+
     headers = {
         'Authorization': f'token {settings.GITHUB_TOKEN}'
     }

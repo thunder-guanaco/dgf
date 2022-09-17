@@ -15,9 +15,8 @@ from django_countries.fields import CountryField
 from partial_date import PartialDateField
 
 from dgf.point_systems import calculate_points
-from dgf.post_actions import feedback_post_save
-from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE, \
-    GTO_RESULTS_PAGE
+from dgf.post_actions import github_issue_post_save
+from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, GT_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -139,9 +138,14 @@ class Friend(User):
     total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
+    def first_and_last_name(self):
+        last_name = f' {self.last_name}' if self.last_name else ''
+        return f'{self.first_name}{last_name}'
+
+    @property
     def full_name(self):
         nickname = f' ({self.nickname})' if self.nickname else ''
-        return f'{self.first_name} {self.last_name}{nickname}'
+        return f'{self.first_and_last_name}{nickname}'
 
     @property
     def short_name(self):
@@ -194,18 +198,28 @@ class FavoriteCourse(Model):
         return str(self.course)
 
 
-class Feedback(Model):
+class GitHubIssue(Model):
     title = models.CharField(_('Title'), max_length=200)
-    feedback = models.TextField(_('Feedback'), null=True, blank=True)
+    body = models.TextField(_('Body'), null=True, blank=True)
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
+
+    FEEDBACK = 'F'
+    LIVE_ERROR = 'L'
+    MANAGEMENT_COMMAND_ERROR = 'M'
+    TYPE_CHOICES = (
+        (FEEDBACK, 'Feedback'),
+        (LIVE_ERROR, 'Live Error'),
+        (MANAGEMENT_COMMAND_ERROR, 'Management Command Error'),
+    )
+    type = models.CharField(_('Type'), max_length=1, choices=TYPE_CHOICES, default=FEEDBACK)
 
     def __str__(self):
         friend = f'{self.friend.short_name} - ' if self.friend else ''
-        return f'{friend}{self.title}'
+        return f'{friend}{self.title} ({self.get_type_display()})'
 
     def save(self, *args, **kwargs):
-        super(Feedback, self).save(*args, **kwargs)
-        feedback_post_save(self)
+        super(GitHubIssue, self).save(*args, **kwargs)
+        github_issue_post_save(self)
 
 
 class Highlight(Model):
@@ -327,6 +341,7 @@ class Tournament(Model):
     objects = OnlyActiveManager()
 
     class Meta:
+        ordering = ['-end']
         constraints = [
             models.UniqueConstraint(fields=['pdga_id'], name='unique_pdga_id_for_tournament'),
             models.UniqueConstraint(fields=['gt_id'], name='unique_gt_id_for_tournament'),
@@ -358,9 +373,7 @@ class Tournament(Model):
     def url(self):
         if self.gt_id:
             if self.begin.year > 2020:
-                return TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(self.gt_id)
-            else:
-                return GTO_RESULTS_PAGE.format(self.gt_id)
+                return GT_RESULTS_PAGE.format(self.gt_id)
         elif self.pdga_id:
             return PDGA_EVENT_URL.format(self.pdga_id)
         elif self.metrix_id:
@@ -417,6 +430,8 @@ class Attendance(Model):
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='attendance',
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.friend} will attend {self.tournament}'
@@ -434,6 +449,8 @@ class Result(Model):
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
     points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def ordinal_position(self):
@@ -522,3 +539,26 @@ class TourPluginModel(CMSPlugin):
 
     def __str__(self):
         return f'Tour plugin for {str(self.tour)}'
+
+
+class ResultsPluginModel(CMSPlugin):
+    background_image = models.ImageField(_('Background image'), null=False, blank=False)
+    width = models.CharField(_('Width'), max_length=6, null=False, blank=False, default="800px")
+    height = models.CharField(_('Height'), max_length=6, blank=False, default="500px")
+
+
+class ConcreteTournamentResultsPluginModel(ResultsPluginModel):
+    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'Concrete tournament result plugin for {self.tournament}\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})'
+
+
+class LastTremoniaSeriesResultsPluginModel(ResultsPluginModel):
+
+    def __str__(self):
+        return f'Last Tremonia Series result plugin\n' \
+               f'with background image: {self.background_image}\n' \
+               f'(width: {self.width}, height: {self.height})'
