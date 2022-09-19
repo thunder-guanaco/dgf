@@ -1,30 +1,10 @@
 import logging
 
-from dgf.german_tour.common import get, add_tournament, find_column, extract_gt_id
+from dgf.german_tour.common import get, find_column
 from dgf.models import Friend, Result, Division
-from dgf_cms.settings import GT_RATINGS_PAGE, GT_DETAILS_PAGE, GT_RESULTS_PAGE
+from dgf_cms.settings import GT_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
-
-
-def get_all_tournaments_from_ratings_page():
-    tournament_ids = set()
-    for friend in Friend.objects.filter(gt_number__isnull=False):
-        player_page_soup = get(GT_RATINGS_PAGE.format(friend.gt_number))
-        result_links = player_page_soup.findAll('a', title='GT Ergebnisse')
-        for link in result_links:
-
-            url = link['href']
-            if 'turniere.discgolf.de' in url:
-                tournament_id = extract_gt_id(url)
-                tournament_ids.add(tournament_id)
-            elif 'german-tour-online.de' in url:
-                # we do not parse these URLS anymore since https://german-tour-online.de is not live anymore
-                pass
-            else:
-                raise ValueError(f'Tournament URL not recognized: {url}')
-
-    return tournament_ids
 
 
 def parse_gt_number(gt_number_text):
@@ -95,32 +75,20 @@ def update_results_from_table(results_header, results_content, tournament):
             pass  # it's not a Friend, ignore them
 
 
+def tournament_has_no_results(results_soup):
+    alert_warning = results_soup.find('div', {'class': 'alert-warning'})
+    return alert_warning and 'Bitte warten sie bis das Turnier abgeschlossen ist.' in alert_warning.text
+
+
 def update_tournament_results(tournament):
     results_soup = get(GT_RESULTS_PAGE.format(tournament.gt_id))
+
+    if tournament_has_no_results(results_soup):
+        logger.info(f'Tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}) has no results yet')
+        return
 
     results_tables = results_soup.find_all('table')
     for results_table in results_tables:
         table_header = results_table.find('thead')
         table_content = results_table.find('tbody')
         update_results_from_table(table_header, table_content, tournament)
-
-
-def parse_tournament_from_details_page(tournament_id):
-    tournament_soup = get(GT_DETAILS_PAGE.format(tournament_id))
-    dates = [d.strip() for d in tournament_soup.find("td", text="Turnierbetrieb").parent()[1].text.strip().split("-")]
-    return {
-        'id': tournament_id,
-        'name': tournament_soup.find('h2').text.strip(),
-        'begin': dates[0],
-        'end': dates[1] if len(dates) > 1 else dates[0]
-    }
-
-
-def update_all_tournaments_results():
-    tournament_ids = get_all_tournaments_from_ratings_page()
-    logger.info(f'{len(tournament_ids)} tournaments to import')
-    for tournament_id in tournament_ids:
-        logger.info('\n-------------------------------------------')
-        gt_tournament = parse_tournament_from_details_page(tournament_id)
-        tournament = add_tournament(gt_tournament)
-        update_tournament_results(tournament)

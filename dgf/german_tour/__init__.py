@@ -1,10 +1,8 @@
-from dgf.german_tour.attendance import update_all_tournaments_attendance, update_tournament_attendance
-from dgf.german_tour.results import update_tournament_results, update_all_tournaments_results
+from dgf.german_tour.attendance import update_tournament_attendance
+from dgf.german_tour.main import update_all_tournaments
+from dgf.german_tour.results import update_tournament_results
 
 # public functions
-
-update_all_tournaments_attendance = update_all_tournaments_attendance
+update_all_tournaments = update_all_tournaments
 update_tournament_attendance = update_tournament_attendance
-
-update_all_tournaments_results = update_all_tournaments_results
 update_tournament_results = update_tournament_results
