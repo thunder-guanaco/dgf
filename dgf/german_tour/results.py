@@ -2,7 +2,7 @@ import logging
 
 from dgf.german_tour.common import get, add_tournament, find_column, extract_gt_id, parse_tournament_from_details_page
 from dgf.models import Friend, Result, Division
-from dgf_cms.settings import GT_RATINGS_PAGE, GT_DETAILS_PAGE, GT_RESULTS_PAGE
+from dgf_cms.settings import GT_RATINGS_PAGE, GT_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
 

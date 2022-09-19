@@ -1,9 +1,9 @@
 import logging
 
-from dgf.german_tour.common import get, delete_tournament, add_tournament, find_column, extract_gt_id, \
+from dgf.german_tour.common import get, delete_tournament, add_tournament, find_column, \
     get_all_tournaments_from_list_page, parse_tournament_from_details_page
 from dgf.models import Friend, Attendance
-from dgf_cms.settings import GT_ATTENDANCE_PAGE, GT_LIST_PAGE
+from dgf_cms.settings import GT_ATTENDANCE_PAGE
 
 logger = logging.getLogger(__name__)
 
