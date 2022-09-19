@@ -143,7 +143,7 @@ else:
 
 # GERMAN TOUR
 GT_DATE_FORMAT = '%d.%m.%Y'
-GT_RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
+GT_RATING_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
 GT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
 GT_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
 GT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
