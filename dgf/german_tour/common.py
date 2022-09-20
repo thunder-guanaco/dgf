@@ -4,6 +4,8 @@ from urllib.parse import urlparse, parse_qs
 
 import requests
 from bs4 import BeautifulSoup
+from django.db.models import Value
+from django.db.models.functions import Replace
 
 from dgf.models import Tournament, Friend
 from dgf_cms.settings import GT_DATE_FORMAT, GT_LIST_PAGE, GT_DETAILS_PAGE, GT_RATING_PAGE
@@ -78,22 +80,23 @@ def get_all_tournaments_from_ratings_page():
 
 # ADD AND DELETE
 
-def update_tournament(tournament, gt_id=None, name=None, begin=None, end=None, pdga_id=None):
+def update_tournament(tournament, gt_id=None, pdga_id=None, name=None, begin=None, end=None):
     if gt_id:
         tournament.gt_id = gt_id
+    if pdga_id:
+        tournament.pdga_id = pdga_id
     if name:
         tournament.name = name
     if begin:
         tournament.begin = begin
     if end:
         tournament.end = end
-    if pdga_id:
-        tournament.pdga_id = pdga_id
     tournament.save()
+    logger.info(f'Updated tournament {tournament} (GT={tournament.gt_id}, PDGA={tournament.pdga_id})')
     return tournament
 
 
-def find_tournament_by_gt_id(gt_id):
+def find_gt_tournament(gt_id):
     try:
         logger.info('Trying to find tournament by GT ID...')
         return Tournament.all_objects.get(gt_id=gt_id)
@@ -101,33 +104,47 @@ def find_tournament_by_gt_id(gt_id):
         return None
 
 
-def find_pdga_tournament_by_pdga_id(pdga_id):
-    try:
-        logger.info('Trying to find tournament by PDGA ID...')
-        return Tournament.all_objects.get(pdga_id=pdga_id)
-    except Tournament.DoesNotExist:
-        return None
-
-
 def find_pdga_tournament_by_name_and_date(name, begin, end):
     try:
+        simple_name = name.replace(' ', '')
         logger.info('Trying to find tournament by name and date...')
-        return Tournament.all_objects.get(name=name,
-                                          begin=begin,
-                                          end=end,
-                                          pdga_id__isnull=False)
+        return (Tournament.all_objects.filter(pdga_id__isnull=False,
+                                              begin=begin,
+                                              end=end)
+                .annotate(simple_name=Replace("name", Value(" "), Value("")))
+                .get(simple_name__iexact=simple_name))  # Further steps like icontains should be done by humans...
     except Tournament.DoesNotExist:
         return None
 
 
-def delete_pdga_only_tournament(pdga_id):
-    """
-    We have to ensure, that older imports (where we imported PDGA and GT separately) are cleaned up
-    """
-    if pdga_id:
-        deleted, _ = Tournament.objects.filter(pdga_id=pdga_id, gt_id__isnull=True).delete()
-        if deleted:
-            logger.info(f'Deleted old PDGA tournament with PDGA ID = {pdga_id}')
+def find_pdga_tournament(pdga_id, name, begin, end):
+    try:
+        logger.info('Trying to find tournament by PDGA ID...')
+        return Tournament.all_objects.get(pdga_id__isnull=False,
+                                          pdga_id=pdga_id)
+    except Tournament.DoesNotExist:
+        return find_pdga_tournament_by_name_and_date(name, begin, end)
+
+
+def delete_pdga_tournament(tournament):
+    tournament.delete()
+    logger.info(f'Deleted PDGA tournament with PDGA ID = {tournament.pdga_id}')
+
+
+def log_not_found_tournament(name, gt_id, pdga_id):
+    logger.info(f'Tournament {name} was not found (GT: {gt_id}, PDGA: {pdga_id})')
+
+
+def log_found_tournament(tournament, previous_import=''):
+    message = f'Tournament already exists from previous {previous_import} import {tournament} '
+    if previous_import == '':
+        message += f'(GT: {tournament.gt_id}, PDGA: {tournament.pdga_id})'
+    if previous_import == 'gt':
+        message += f'(GT: {tournament.gt_id})'
+    if previous_import == 'pdga':
+        message += f'(PDGA: {tournament.pdga_id})'
+
+    logger.info(message)
 
 
 def add_or_update_tournament(gt_tournament):
@@ -137,29 +154,40 @@ def add_or_update_tournament(gt_tournament):
     end = datetime.strptime(gt_tournament['end'], GT_DATE_FORMAT).date()
     pdga_id = gt_tournament['pdga_id']
 
-    tournament = find_tournament_by_gt_id(gt_id)
-    if tournament:
-        logger.info(f'Tournament already exists from previous GT import {tournament} '
-                    f'(PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
-        delete_pdga_only_tournament(pdga_id=pdga_id)  # GT has priority
-        tournament = update_tournament(tournament, name=name, begin=begin, end=end, pdga_id=pdga_id)
-        logger.info(f'Updated tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
-        return tournament
+    existing_gt_tournament = find_gt_tournament(gt_id)
+    existing_pdga_tournament = find_pdga_tournament(pdga_id, name, begin, end)
 
-    if pdga_id:
-        tournament = find_pdga_tournament_by_pdga_id(pdga_id)
-    if not tournament:
-        tournament = find_pdga_tournament_by_name_and_date(name, begin, end)
+    if existing_gt_tournament:
 
-    if tournament:
-        logger.info(f'Tournament already exists from previous PDGA import {tournament} '
-                    f'(PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
-        tournament = update_tournament(tournament, gt_id=gt_id)
-        logger.info(f'Updated tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
-        return tournament
+        # GT + PDGA
+        if existing_pdga_tournament:
+            pdga_id = existing_pdga_tournament.pdga_id  # just in case the pdga_id is not set in gt_tournament
+            if existing_gt_tournament.id == existing_pdga_tournament.id:
+                log_found_tournament(existing_gt_tournament)
+            else:
+                log_found_tournament(existing_gt_tournament, previous_import='gt')
+                log_found_tournament(existing_pdga_tournament, previous_import='pdga')
+                # GT is the leading source
+                delete_pdga_tournament(existing_pdga_tournament)
+            tournament = update_tournament(existing_gt_tournament, pdga_id=pdga_id, name=name, begin=begin, end=end)
 
-    tournament = Tournament.objects.create(gt_id=gt_id, name=name, begin=begin, end=end, pdga_id=pdga_id)
-    logger.info(f'Created tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id})')
+        # GT
+        else:
+            log_found_tournament(existing_gt_tournament, previous_import='gt')
+            tournament = update_tournament(existing_gt_tournament, pdga_id=pdga_id, name=name, begin=begin, end=end)
+    else:
+
+        # PDGA
+        if existing_pdga_tournament:
+            log_found_tournament(existing_pdga_tournament, previous_import='pdga')
+            tournament = update_tournament(existing_pdga_tournament, gt_id=gt_id, name=name, begin=begin, end=end)
+
+        # not found
+        else:
+            log_not_found_tournament(name, gt_id, pdga_id)
+            tournament = Tournament.objects.create(gt_id=gt_id, pdga_id=pdga_id, name=name, begin=begin, end=end)
+            logger.info(f'Created tournament {tournament} (GT={tournament.gt_id}, PDGA={tournament.pdga_id})')
+
     return tournament
 
 

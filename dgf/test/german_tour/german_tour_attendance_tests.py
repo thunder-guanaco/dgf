@@ -300,7 +300,7 @@ class GermanTourAttendanceTest(GermanTourTest):
                                       pdga_id=1111)
 
     @responses.activate
-    def test_pdga_tournament_existing_tournament_without_pdga_status(self):
+    def test_pdga_tournament_find_existing_tournament_by_name_and_dates_without_pdga_status(self):
         Tournament.objects.create(pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
 
         add_list_page([111])
@@ -315,7 +315,53 @@ class GermanTourAttendanceTest(GermanTourTest):
                                       pdga_id=1111)
 
     @responses.activate
-    def test_pdga_tournament_existing_tournament_with_empty_pdga_status(self):
+    def test_pdga_tournament_find_existing_tournament_by_fuzzy_name_and_dates_without_pdga_status(self):
+        Tournament.objects.create(pdga_id=1111, name='PDGA Tournament#1', begin=JULY_24, end=JULY_24)
+
+        add_list_page([111])
+        add_details_page(111, 'PDGA Tournament #1', '24.07.3000 - 24.07.3000')
+        add_attendance_page(111, None)
+
+        german_tour.update_all_tournaments()
+
+        self.assert_tournament_amount(1)
+        self.assert_tournament_exists(111, 'PDGA Tournament #1', JULY_24, JULY_24,
+                                      'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=111',
+                                      pdga_id=1111)
+
+    @responses.activate
+    def test_pdga_tournament_find_existing_tournament_by_fuzzy_name_and_dates_without_pdga_status_name_change(self):
+        Tournament.objects.create(pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
+
+        add_list_page([111])
+        add_details_page(111, 'PDGA Tournament#1', '24.07.3000 - 24.07.3000')
+        add_attendance_page(111, None)
+
+        german_tour.update_all_tournaments()
+
+        self.assert_tournament_amount(1)
+        self.assert_tournament_exists(111, 'PDGA Tournament#1', JULY_24, JULY_24,
+                                      'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=111',
+                                      pdga_id=1111)
+
+    @responses.activate
+    def test_pdga_tournament_find_existing_gt_and_pdga_tournament_by_fuzzy_name_and_dates_without_pdga_status(self):
+        Tournament.objects.create(gt_id=111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(pdga_id=1111, name='PDGA Tournament#1', begin=JULY_24, end=JULY_24)
+
+        add_list_page([111])
+        add_details_page(111, 'PDGA Tournament #1', '24.07.3000 - 24.07.3000')
+        add_attendance_page(111, None)
+
+        german_tour.update_all_tournaments()
+
+        self.assert_tournament_amount(1)
+        self.assert_tournament_exists(111, 'PDGA Tournament #1', JULY_24, JULY_24,
+                                      'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=111',
+                                      pdga_id=1111)
+
+    @responses.activate
+    def test_pdga_tournament_find_existing_tournament_by_name_and_dates__with_empty_pdga_status(self):
         Tournament.objects.create(pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
 
         add_list_page([111])
@@ -330,7 +376,7 @@ class GermanTourAttendanceTest(GermanTourTest):
                                       pdga_id=1111)
 
     @responses.activate
-    def test_pdga_tournament_existing_tournament_with_pdga_id_in_pdga_status(self):
+    def test_pdga_tournament_find_existing_tournament_by_pdga_id_with_pdga_id_in_pdga_status(self):
         Tournament.objects.create(pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
 
         add_list_page([111])
@@ -345,7 +391,7 @@ class GermanTourAttendanceTest(GermanTourTest):
                                       pdga_id=1111)
 
     @responses.activate
-    def test_pdga_tournament_existing_tournament_with_pdga_id_in_pdga_status_with_gt_id(self):
+    def test_pdga_tournament_find_existing_tournament_by_gt_id_with_pdga_id_in_pdga_status_with_gt_id(self):
         Tournament.objects.create(gt_id=111, pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
 
         add_list_page([111])
@@ -379,6 +425,22 @@ class GermanTourAttendanceTest(GermanTourTest):
 
     @responses.activate
     def test_pdga_tournament_with_existing_gt_and_pdga_tournaments_already(self):
+        Tournament.objects.create(gt_id=111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
+        Tournament.objects.create(pdga_id=1111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
+
+        add_list_page([111])
+        add_details_page(111, 'PDGA Tournament #1', '24.07.3000 - 24.07.3000', pdga_id=1111)
+        add_attendance_page(111, None)
+
+        german_tour.update_all_tournaments()
+
+        self.assert_tournament_amount(1)
+        self.assert_tournament_exists(111, 'PDGA Tournament #1', JULY_24, JULY_24,
+                                      'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=111',
+                                      pdga_id=1111)
+
+    @responses.activate
+    def test_pdga_tournament_with_existing_gt_and_pdga_tournaments_already_different_names(self):
         Tournament.objects.create(gt_id=111, name='PDGA Tournament #1', begin=JULY_24, end=JULY_24)
         Tournament.objects.create(pdga_id=1111, name='1. PDGA Tournament', begin=JULY_24, end=JULY_24)
 
