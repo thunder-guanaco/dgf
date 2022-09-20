@@ -270,11 +270,10 @@ def add_result(friend, tournament, position, division):
 
     result, created = Result.objects.get_or_create(tournament=tournament,
                                                    friend=friend,
-                                                   position=position)
-
-    result.division = division  # update division (some results might not have one)
-    result.save()
-
+                                                   defaults={
+                                                       'position': position,
+                                                       'division': division
+                                                   })
     if created:
         logger.info(f'Added result: {result}')
 
