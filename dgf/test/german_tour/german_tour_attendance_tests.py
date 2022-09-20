@@ -4,7 +4,7 @@ import responses
 
 from dgf import german_tour
 from dgf.models import Tournament, Friend, Attendance
-from dgf.test.german_tour.parent import GermanTourTest
+from dgf.test.german_tour.german_tour_test import GermanTourTest
 from dgf.test.german_tour.responses import add_list_page, add_details_page, add_attendance_page, add_rating_page
 
 APRIL_2 = date(year=3000, month=4, day=2)

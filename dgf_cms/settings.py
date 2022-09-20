@@ -131,13 +131,12 @@ PDGA_PAGE_BASE_URL = 'https://www.pdga.com'
 PDGA_EVENT_URL = PDGA_PAGE_BASE_URL + '/tour/event/{}'
 PDGA_DATE_FORMAT = '%Y-%m-%d'
 APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
+PDGA_BASE_URL = 'https://api.pdga.com/services/json'
 
 if ENV == 'test':
-    PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
     PDGA_PASSWORD = 'nothing'
 else:
-    PDGA_BASE_URL = 'https://api.pdga.com/services/json'
     PDGA_USERNAME = get_env_or_die('DJANGO_PDGA_USERNAME')
     PDGA_PASSWORD = get_env_or_die('DJANGO_PDGA_PASSWORD')
 

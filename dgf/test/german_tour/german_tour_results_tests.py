@@ -5,7 +5,7 @@ import responses
 from dgf import german_tour
 from dgf.german_tour.common import ColumnNotFound
 from dgf.models import Friend, Division, Result, Tournament
-from dgf.test.german_tour.parent import GermanTourTest
+from dgf.test.german_tour.german_tour_test import GermanTourTest
 from dgf.test.german_tour.responses import add_details_page, add_results_page, add_rating_page, add_list_page, \
     add_empty_results_page
 
@@ -19,10 +19,11 @@ class GermanTourResultsTest(GermanTourTest):
     def setUp(self):
         super().setUp()
         Result.objects.all().delete()
+        Division.objects.all().delete()
 
     @responses.activate
     def test_tournament_empty_results(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        Division.objects.create(id='MPO')
         Friend.objects.create(username='manolo', gt_number=1922)
 
         add_list_page([])
@@ -37,7 +38,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_results_coming_from_list_page(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
         fede = Friend.objects.create(username='fede', gt_number=2106)
 
@@ -59,7 +60,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_results(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
         fede = Friend.objects.create(username='fede', gt_number=2106)
 
@@ -81,7 +82,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_results_with_existing_tournament(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
         fede = Friend.objects.create(username='fede', gt_number=2106)
         Tournament.objects.create(gt_id=333, name='Test Tournament #3', begin=PAST_JULY_24, end=PAST_JULY_25)
@@ -104,7 +105,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_results_with_existing_results(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
         fede = Friend.objects.create(username='fede', gt_number=2106)
         tournament_3 = Tournament.objects.create(gt_id=333, name='Test Tournament #3',
@@ -144,7 +145,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_with_old_url_from_rating_page(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
 
         add_list_page([])
@@ -160,7 +161,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_tournament_with_unknown_url_from_rating_page(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        Division.objects.create(id='MPO')
         Friend.objects.create(username='manolo', gt_number=1922)
 
         add_list_page([])
@@ -174,7 +175,7 @@ class GermanTourResultsTest(GermanTourTest):
 
     @responses.activate
     def test_results_from_one_tournament(self):
-        mpo, _ = Division.objects.get_or_create(id='MPO')
+        mpo = Division.objects.create(id='MPO')
         manolo = Friend.objects.create(username='manolo', gt_number=1922)
         tournament = Tournament.objects.create(gt_id=333, name='Test Tournament #3',
                                                begin=PAST_JULY_24, end=PAST_JULY_25)
