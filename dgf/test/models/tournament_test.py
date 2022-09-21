@@ -4,6 +4,7 @@ from django.test import TestCase
 
 from dgf.models import Tournament, Result, Tour
 from dgf.test.models.creator import create_friends, create_tournaments
+from dgf_cms.settings import GT_RESULTS_PAGE, PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 IS_OK = True
 NOT_OK = False
@@ -34,7 +35,32 @@ class TournamentModelTest(TestCase):
         self.assert_field('date', expected='30. Jun - 01. Jul 2021',
                           begin=date(day=30, month=6, year=2021), end=date(day=1, month=7, year=2021))
 
-    # test URL method
+    def test_url(self):
+        gt = GT_RESULTS_PAGE.format(111)
+        pdga = PDGA_EVENT_URL.format(222)
+        metrix = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(333)
+
+        self.assert_url(None)  # no external IDs
+
+        self.assert_url(gt, gt_id=111)
+        self.assert_url(None, gt_id=111, old=True)
+        self.assert_url(pdga, pdga_id=222)
+        self.assert_url(metrix, metrix_id=333)
+
+        self.assert_url(gt, gt_id=111, pdga_id=222)
+        self.assert_url(gt, gt_id=111, metrix_id=333)
+        self.assert_url(pdga, gt_id=111, pdga_id=222, old=True)
+        self.assert_url(metrix, gt_id=111, metrix_id=333, old=True)
+        self.assert_url(pdga, pdga_id=222, metrix_id=333)
+
+        self.assert_url(gt, gt_id=111, pdga_id=222, metrix_id=333)
+        self.assert_url(pdga, gt_id=111, pdga_id=222, metrix_id=333, old=True)
+
+    def assert_url(self, expected_url, gt_id=None, pdga_id=None, metrix_id=None, old=False):
+        tournament_date = date.today() if not old else date(day=21, month=9, year=2008)
+        self.assert_field('url', expected=expected_url,
+                          gt_id=gt_id, pdga_id=pdga_id, metrix_id=metrix_id,
+                          begin=tournament_date, end=tournament_date)
 
     def assert_field(self, what, expected, **fields):
         Tournament.objects.all().delete()
