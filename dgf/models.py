@@ -371,9 +371,8 @@ class Tournament(Model):
 
     @property
     def url(self):
-        if self.gt_id:
-            if self.begin.year > 2020:
-                return GT_RESULTS_PAGE.format(self.gt_id)
+        if self.gt_id and self.begin.year > 2020:  # older tournaments do not exist in turniere.discgolf.de anymore
+            return GT_RESULTS_PAGE.format(self.gt_id)
         elif self.pdga_id:
             return PDGA_EVENT_URL.format(self.pdga_id)
         elif self.metrix_id:
