@@ -17,10 +17,35 @@ class TournamentModelTest(TestCase):
         Tour.objects.all().delete()
 
     def test_representation(self):
+        some_day = date(day=27, month=6, year=2021)
+
         self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021)',
-                          name='Tremonia Series #24',
-                          begin=date(day=27, month=6, year=2021),
-                          end=date(day=27, month=6, year=2021))
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24')
+
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [GT: 111]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', gt_id=111)
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [PDGA: 222]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', pdga_id=222)
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [Metrix: 333]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', metrix_id=333)
+
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [GT: 111, PDGA: 222]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', gt_id=111, pdga_id=222)
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [GT: 111, Metrix: 333]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', gt_id=111, metrix_id=333)
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [PDGA: 222, Metrix: 333]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', pdga_id=222, metrix_id=333)
+
+        self.assert_field('__str__', expected='Tremonia Series #24 (27. Jun 2021) [GT: 111, PDGA: 222, Metrix: 333]',
+                          begin=some_day, end=some_day,
+                          name='Tremonia Series #24', gt_id=111, pdga_id=222, metrix_id=333)
 
     def test_date(self):
         # same dates
