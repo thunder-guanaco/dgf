@@ -415,8 +415,19 @@ class Tournament(Model):
         else:
             logger.warning(f'Could not recalculate points for tournament {self}. No point system defined.')
 
+    def external_ids_str(self):
+        external_ids = []
+        if self.gt_id:
+            external_ids.append(f'GT: {self.gt_id}')
+        if self.pdga_id:
+            external_ids.append(f'PDGA: {self.pdga_id}')
+        if self.metrix_id:
+            external_ids.append(f'Metrix: {self.metrix_id}')
+
+        return f' [{", ".join(external_ids)}]' if external_ids else ''
+
     def __str__(self):
-        return f'{self.name} ({self.date})'
+        return f'{self.name} ({self.date}){self.external_ids_str()}'
 
 
 class Attendance(Model):
