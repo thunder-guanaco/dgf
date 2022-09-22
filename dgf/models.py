@@ -119,6 +119,8 @@ class Friend(User):
     udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
     metrix_user_id = models.CharField(_('Disc Golf Metrix User ID'), max_length=100, null=True, blank=True)
 
+    social_media_agreement = models.BooleanField(null=True)
+
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     city = models.CharField(_('City'), max_length=100, null=True, blank=True)
     main_photo = models.ImageField(_('Main photo'), null=True, blank=True)
