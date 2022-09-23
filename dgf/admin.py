@@ -55,37 +55,34 @@ class VideoInline(admin.TabularInline):
 
 @admin.register(Friend)
 class FriendAdmin(auth_admin.UserAdmin):
+    BASIC_FIELDS = (
+        ('username', 'slug'),
+        ('first_name', 'last_name'),
+        ('nickname',),
+        ('is_active',),
+        ('social_media_agreement',),
+    )
+    EXTERNAL_IDS_FIELDS = (
+        ('pdga_number', 'gt_number'),
+        ('udisc_username', 'metrix_user_id')
+    )
+
     add_fieldsets = (
         ('Basic', {
-            'fields': (
-                ('username', 'slug'),
-                ('first_name', 'last_name', 'nickname'),
-                ('is_active',),
-                ('password1', 'password2')
-            )}
-         ),
+            'fields': BASIC_FIELDS + ('password1', 'password2')
+        }),
         ('External IDs', {
-            'fields': (
-                ('pdga_number', 'gt_number'),
-                ('udisc_username', 'metrix_user_id')
-            )}
-         )
+            'fields': EXTERNAL_IDS_FIELDS
+        })
     )
 
     fieldsets = (
         ('Basic', {
-            'fields': (
-                ('username', 'slug'),
-                ('first_name', 'last_name', 'nickname'),
-                ('is_active', 'password')
-            )}
-         ),
+            'fields': BASIC_FIELDS + ('password',)
+        }),
         ('External IDs', {
-            'fields': (
-                ('pdga_number', 'gt_number'),
-                ('udisc_username', 'metrix_user_id')
-            )}
-         ),
+            'fields': EXTERNAL_IDS_FIELDS
+        }),
         ('Rest', {
             'fields': (
                 'bag_tag',
@@ -96,10 +93,13 @@ class FriendAdmin(auth_admin.UserAdmin):
                 'division',
                 'city',
                 'main_photo',
-                ('plays_since', 'best_score_in_wischlingen', 'free_text'),
-                ('job', 'hobbies')
+                'plays_since',
+                'best_score_in_wischlingen',
+                'free_text',
+                'job',
+                'hobbies'
             )}
-         )
+         ),
     )
 
     ordering = ('-is_active', 'first_name',)
@@ -213,9 +213,13 @@ class TournamentAdmin(admin.ModelAdmin):
     fieldsets = (
         ('', {
             'fields': (
-                ('name', 'active'),
-                ('pdga_id', 'gt_id', 'metrix_id'),
-                ('begin', 'end'),
+                'name',
+                'active',
+                'pdga_id',
+                'gt_id',
+                'metrix_id',
+                'begin',
+                'end',
                 'point_system'
             )}
          ),
@@ -263,8 +267,10 @@ class BagTagChangeAdmin(admin.ModelAdmin):
         ('', {
             'fields': (
                 'actor',
-                ('friend', 'timestamp'),
-                ('previous_number', 'new_number'),
+                'friend',
+                'timestamp',
+                'previous_number',
+                'new_number',
                 'active'
             )}
          ),

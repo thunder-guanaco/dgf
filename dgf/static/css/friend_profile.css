@@ -164,6 +164,10 @@ form .chosen-container-single .chosen-single {
     padding: 0.5em;
 }
 
+#bag .chosen-container-single .chosen-single span {
+    min-width: 15em;
+}
+
 form .chosen-container .chosen-results li,
 form .chosen-container-single .chosen-search input[type=text],
 form .chosen-container-single .chosen-single div b {
@@ -173,16 +177,6 @@ form .chosen-container-single .chosen-single div b {
 form .chosen-container-single .chosen-single div {
     right: 0.5em;
     top: 0.25em;
-}
-
-form .field input[name=plays_since] {
-    width: fit-content;
-    text-align: center;
-}
-
-form .field input[name=best_score_in_wischlingen] {
-    width: 3em;
-    text-align: center;
 }
 
 #favorite-courses label,

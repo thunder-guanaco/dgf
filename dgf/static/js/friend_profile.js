@@ -37,7 +37,7 @@ function loadInTheBag(){
 function activateDiscChosen(selector) {
     $(selector).chosen({
         disable_search_threshold: 10,
-        width: "80%"
+        width: "90%"
     });
     $(selector).on('change', function(event, params) {
 
@@ -125,9 +125,15 @@ function addNewForm(formset_id, parent_div_id, empty_form_id) {
 }
 
 function loadOther() {
+
+    $("#id_social_media_agreement").chosen({
+        disable_search_threshold: 3,
+        width: REQUEST_USER_AGENT_IS_MOBILE ? "100%" : "20%"
+    });
+
     $("#id_division").chosen({
         disable_search_threshold: 10,
-        width: "80%"
+        width: REQUEST_USER_AGENT_IS_MOBILE ? "100%" : "80%"
     });
 }
 
