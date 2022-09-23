@@ -14,7 +14,7 @@ friends = {
     'davidb': [True],
     'fede': [True],
     'frank': [True],
-    'helge': [],
+    'helge': [True],
     'hilde': [True],
     'ilija': [True],
     'jan': [True],
@@ -27,7 +27,6 @@ friends = {
     'kevind': [True],
     'lennard': [True],
     'manolo': [True],
-    'marcel': [],
     'marcelk': [True],
     'marian': [True],
     'mario': [True],
@@ -43,13 +42,14 @@ friends = {
     'tana': [True],
 
     # declined
+    'marcelr': [False],
     'tobias': [False],
     'uli': [False],
 
     # incomplete
     'jogi': [None],
     'lux': [None],
-    'marcelr': [None],
+    'marcel': [None],
     'paul': [None],
     'ralf': [None],
     'sven': [None],
