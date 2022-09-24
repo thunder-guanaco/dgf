@@ -1,6 +1,6 @@
 {% load dgf %}
 
-{% if request.user.is_superuser %}
+{% if request.user.username == 'manolo' %}
     {% problematic_tournaments as tournaments %}
     {% if tournaments|length %}
         <div id="admin-info">

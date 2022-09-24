@@ -5,22 +5,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-23 12:17+0200\n"
+"POT-Creation-Date: 2022-09-24 10:07+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dgf/admin.py:192
+#: dgf/admin.py:209
 msgid "Recalculate points"
 msgstr "Punkte neu berechnen"
 
-#: dgf/admin.py:200
+#: dgf/admin.py:217
 msgid "Reimport attendance from turniere.discgolf.de"
 msgstr "Teilnehmerliste aus turniere.discgolf.de neu portieren"
 
-#: dgf/admin.py:208
+#: dgf/admin.py:225
 msgid "Reimport results from turniere.discgolf.de"
 msgstr "Ergebnisse aus turniere.discgolf.de neu portieren"
 
@@ -238,10 +238,11 @@ msgstr "Disc Golf Metrix Benutzer ID"
 
 #: dgf/models.py:122
 msgid "Can we use this profile information in our social media accounts?"
-msgstr "Können wir die Profil-Informationen für unsere Social Media Konten benutzen?"
+msgstr ""
+"Können wir deine Profil-Informationen für unsere Social Media Konten benutzen?"
 
 #: dgf/models.py:125 dgf/models.py:464 dgf/models.py:485
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:88
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:103
 msgid "Division"
 msgstr "Division"
 
@@ -275,7 +276,7 @@ msgid "Slug"
 msgstr "Slug"
 
 #: dgf/models.py:137
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:94
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:109
 #: dgf/templates/dgf/includes/friend_picture.html:56
 msgid "Rating"
 msgstr "Rating"
@@ -378,7 +379,7 @@ msgstr "Bahn"
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:311 dgf/templates/dgf/friend_profile.html:83
+#: dgf/models.py:311 dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:5
 msgid "In the bag"
 msgstr "In the Bag"
@@ -459,6 +460,14 @@ msgstr "Breite"
 msgid "Height"
 msgstr "Höhe"
 
+#: dgf/templates/admin/dgf/friend/submit_line.html:10
+msgid "Go to profile"
+msgstr "Zum Profil"
+
+#: dgf/templates/admin/dgf/friend/submit_line.html:16
+msgid "Save and go to profile"
+msgstr "Speichern und zum Profil"
+
 #: dgf/templates/dgf/friend_list.html:33
 msgid "Stats"
 msgstr "Erfolge/Statistiken der Disc Golf Friends"
@@ -467,69 +476,69 @@ msgstr "Erfolge/Statistiken der Disc Golf Friends"
 msgid "Profile"
 msgstr "Profil"
 
-#: dgf/templates/dgf/friend_profile.html:21
+#: dgf/templates/dgf/friend_profile.html:28
 msgid "Your profile"
 msgstr "Dein Profil"
 
-#: dgf/templates/dgf/friend_profile.html:33
-#: dgf/templates/dgf/friend_profile.html:44
+#: dgf/templates/dgf/friend_profile.html:40
+#: dgf/templates/dgf/friend_profile.html:51
 msgid "Clear"
 msgstr "Löschen"
 
-#: dgf/templates/dgf/friend_profile.html:59
+#: dgf/templates/dgf/friend_profile.html:66
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:43
 #: dgf/templates/dgf/includes/friend_list/22_friends_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_profile.html:71
+#: dgf/templates/dgf/friend_profile.html:78
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:53
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_profile.html:87
+#: dgf/templates/dgf/friend_profile.html:94
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:8
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_profile.html:90
+#: dgf/templates/dgf/friend_profile.html:97
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:9
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_profile.html:93
+#: dgf/templates/dgf/friend_profile.html:100
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:10
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:96
+#: dgf/templates/dgf/friend_profile.html:103
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:11
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:114
+#: dgf/templates/dgf/friend_profile.html:121
 #: dgf/templates/dgf/includes/friend_detail/20_friend_aces.html:5
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_profile.html:128
+#: dgf/templates/dgf/friend_profile.html:135
 msgid "Add ace"
 msgstr "Ass hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:132
+#: dgf/templates/dgf/friend_profile.html:139
 #: dgf/templates/dgf/includes/friend_detail/30_friend_videos.html:6
 msgid "Videos"
 msgstr "Videos"
 
-#: dgf/templates/dgf/friend_profile.html:146
+#: dgf/templates/dgf/friend_profile.html:153
 msgid "Add video"
 msgstr "Video hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:149
+#: dgf/templates/dgf/friend_profile.html:156
 msgid "Update"
 msgstr "Speichern"
 
@@ -660,22 +669,27 @@ msgid "wins"
 msgstr "Siege"
 
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:22
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:36
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:44
 msgid "Update profile"
 msgstr "Profil aktualisieren"
 
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:27
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:41
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:49
 msgid "Update tournaments"
 msgstr "Turnierteilnahme bearbeiten"
 
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:49
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:51
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:35
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:57
+msgid "Open in admin"
+msgstr "Im Admin öffen"
+
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:66
 msgid "Sponsored by"
 msgstr "Gesponsert von"
 
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:62
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:73
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:77
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:88
 msgid "from"
 msgstr "aus"
 

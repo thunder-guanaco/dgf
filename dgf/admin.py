@@ -1,7 +1,11 @@
 import re
 
 from django.contrib import admin
+from django.contrib import messages
 from django.contrib.auth import admin as auth_admin
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from . import german_tour
@@ -104,7 +108,7 @@ class FriendAdmin(auth_admin.UserAdmin):
 
     ordering = ('-is_active', 'first_name',)
 
-    list_display = ('is_active', 'username', 'first_name', 'last_name', 'nickname', 'division', 'bag_tag',
+    list_display = ('is_active', 'username', 'first_name', 'last_name', 'nickname', 'bag_tag',
                     'pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
 
     list_editable = ('pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id')
@@ -128,6 +132,20 @@ class FriendAdmin(auth_admin.UserAdmin):
         if not obj:
             return ()
         return self.inlines
+
+    def response_post_save_change(self, request, obj):
+        profile_url = reverse('dgf:friend_detail', args=[obj.slug])
+
+        if '_save' in request.POST:
+            message = mark_safe(f'{_("See profile")}: <a href="{profile_url}">{obj}</a>')
+            self.message_user(request, message, level=messages.INFO)
+            return super(FriendAdmin, self).response_post_save_change(request, obj)
+
+        if '_save_and_to_to_profile' in request.POST:
+            return HttpResponseRedirect(profile_url)
+
+        else:
+            return super(FriendAdmin, self).response_post_save_change(request, obj)
 
 
 @admin.register(GitHubIssue)
