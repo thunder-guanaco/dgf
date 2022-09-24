@@ -1,0 +1,19 @@
+{% extends "admin/submit_line.html" %}
+{% load i18n admin_urls jazzmin %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block extra-actions %}
+
+    {% if original %}
+        <div class="form-group">
+            <a href="{% url 'dgf:friend_detail' original.slug|admin_urlquote %}" class="btn {{ jazzmin_ui.button_classes.secondary }} form-control">
+                {% trans "Go to profile" %}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="form-group">
+        <input type="submit" name="_save_and_to_to_profile" value="{% trans 'Save and go to profile' %}" class="btn {{ jazzmin_ui.button_classes.success }} form-control">
+    </div>
+
+{% endblock %}

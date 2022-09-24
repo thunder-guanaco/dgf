@@ -28,6 +28,14 @@
                 </button>
             </a>
         {% endif %}
+
+        {% if request.user.friend.username == 'manolo' %}
+            <a class="desktop edit-button admin-button" href="{% url 'admin:dgf_friend_change' friend.id %}">
+                <button class="admin-button">
+                    {% trans 'Open in admin' %}
+                </button>
+            </a>
+        {% endif %}
     </h1>
     {% if friend.id == request.user.friend.id %}
         <div id="mobile-edit-buttons">
@@ -42,6 +50,13 @@
                 </button>
             </a>
         </div>
+    {% endif %}
+    {% if request.user.friend.username == 'manolo' %}
+        <a class="mobile edit-button" href="{% url 'admin:dgf_friend_change' friend.id %}">
+            <button class="admin-button">
+                {% trans 'Open in admin' %}
+            </button>
+        </a>
     {% endif %}
     {% if friend.sponsor %}
         <div class="larger">
