@@ -41,15 +41,13 @@
 
     #mobile-edit-buttons {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        flex-direction: column;
+        gap: 0.25rem;
         align-items: center;
-        margin: 1em 0;
-    }
-
-    #friend .edit-button {
-        align-self: center;
-        margin: 0.2em 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     #friend-body > div {
@@ -92,6 +90,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
+        position: relative;
     }
 
     #friend button {
@@ -100,6 +99,10 @@
 
     #friend-picture {
         margin-right: 2em;
+    }
+
+    #friend .edit-button button {
+        vertical-align: text-top;
     }
 
     #friend-info {
