@@ -101,7 +101,14 @@
         margin-right: 2em;
     }
 
-    #friend .edit-button button {
+    #friend #friend-info h1 #desktop-edit-buttons {
+        display: flex;
+        flex-flow: row;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    #desktop-edit-buttons button {
         vertical-align: text-top;
     }
 
