@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% if friend.id == request.user.friend.id %}
+    <a href="{% url 'dgf:friend_update' %}">
+        <button>&#128221;</button>
+    </a>
+    <a href="{% url 'dgf:tournament_index' %}">
+        <button>&#129359;</button>
+    </a>
+{% endif %}
+
+{% if request.user.friend.username == 'manolo' %}
+    <a href="{% url 'admin:dgf_friend_change' friend.id %}">
+        <button class="admin-button">&#128221;</button>
+    </a>
+{% endif %}
