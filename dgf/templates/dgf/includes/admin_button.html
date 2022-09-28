@@ -1,0 +1,13 @@
+{% load i18n %}
+{% with full_on_mobile|default_if_none:False as full_on_mobile %}
+
+{% if request.user.friend.username == 'manolo' %}
+    <a href={{url}}>
+        <button class="admin-button">
+            &#128221;
+            <span class="{% if not full_on_mobile %}desktop{% endif %}">{% trans 'Open in admin' %}</span>
+        </button>
+    </a>
+{% endif %}
+
+{% endwith %}

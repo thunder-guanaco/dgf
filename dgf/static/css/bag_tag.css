@@ -292,15 +292,24 @@ button.new:hover {
     margin: 1em 1em 0em 1em;
 }
 
-#admin-bag-tags button {
-    float: right;
-    margin-left: 0.5em;
-}
-
 #admin-bag-tags {
     border: dotted black 3px;
     padding: 0em 1em 3em 1em;
     margin-top: 1em;
+    display: flex;
+    flex-flow: column;
+}
+
+#admin-bag-tags #admin-buttons {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5em;
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+#admin-bag-tags #admin-buttons button {
+    width: fit-content;
 }
 
 #admin-bag-tags .number {

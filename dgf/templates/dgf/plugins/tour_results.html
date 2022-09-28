@@ -48,14 +48,20 @@
 {% endaddtoblock %}
 
 <div id="tour-results">
+
+    {% url 'admin:dgf_tour_change' tour.id as admin_url %}
+    {% include "dgf/includes/admin_button.html" with url=admin_url %}
+
     <h2>
         {{tour.name}}
     </h2>
+
     {% if tour.division %}
         <h3>
             {{tour.division.text}}
         </h3>
     {% endif %}
+
     <div class="table" style="display:none;">
         <div class="summary">
             <div class="line header">
