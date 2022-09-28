@@ -15,11 +15,5 @@
     </a>
 {% endif %}
 
-{% if request.user.friend.username == 'manolo' %}
-    <a href="{% url 'admin:dgf_friend_change' friend.id %}">
-        <button class="admin-button">
-            &#128221;
-            <span class="desktop">{% trans 'Open in admin' %}</span>
-        </button>
-    </a>
-{% endif %}
+{% url 'admin:dgf_friend_change' friend.id as admin_url %}
+{% include "dgf/includes/admin_button.html" with url=admin_url %}
