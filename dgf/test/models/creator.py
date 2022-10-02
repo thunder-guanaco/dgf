@@ -37,6 +37,7 @@ def create_tournaments(amount=1):
 
 
 def create_divisions():
+    Division.objects.all().delete()
     Division.objects.create(id='MPO', text='MPO - Pro Open')
     Division.objects.create(id='FPO', text='FPO - Pro Open Women')
     Division.objects.create(id='MA1', text='MA1 - Advanced')

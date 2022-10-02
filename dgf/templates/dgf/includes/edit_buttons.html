@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if friend.id == request.user.friend.id %}
+    <a href="{% url 'dgf:friend_update' %}">
+        <button>
+            &#128221;
+            <span class="desktop">{% trans 'Update profile' %}</span>
+        </button>
+    </a>
+    <a href="{% url 'dgf:tournament_index' %}">
+        <button>
+            &#129359;
+            <span class="desktop">{% trans 'Tournaments' %}</span>
+        </button>
+    </a>
+{% endif %}
+
+{% url 'admin:dgf_friend_change' friend.id as admin_url %}
+{% include "dgf/includes/admin_button.html" with url=admin_url %}

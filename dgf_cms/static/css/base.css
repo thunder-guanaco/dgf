@@ -418,17 +418,25 @@ input[type=button] {
     text-decoration: none;
 }
 
+button.admin-button {
+    background-color: #8d1950 !important;
+}
+
+button.admin-button:hover {
+    background:linear-gradient(to top, #a34672 5%, #8d1950 100%);
+}
+
 input[type=button] {
     background-color: #999999 !important;
 }
 
 button:hover,
 input[type=submit]:hover {
-    background:linear-gradient(to top, #4e5966 5%, #1b2633 100%);
+    background:linear-gradient(to top, #48515b 5%, #1b2633 100%);
 }
 
 input[type=button]:hover {
-    background:linear-gradient(to top, #666666 5%, #999999 100%);
+    background:linear-gradient(to top, #7a7a7a 5%, #999999 100%);
 }
 
 button:active,

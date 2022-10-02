@@ -16,8 +16,7 @@ from partial_date import PartialDateField
 
 from dgf.point_systems import calculate_points
 from dgf.post_actions import github_issue_post_save
-from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, TURNIERE_DISCGOLF_DE_RESULTS_PAGE, \
-    GTO_RESULTS_PAGE
+from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, GT_RESULTS_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +118,9 @@ class Friend(User):
     gt_number = models.PositiveIntegerField(_('GT Number'), null=True, blank=True)
     udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
     metrix_user_id = models.CharField(_('Disc Golf Metrix User ID'), max_length=100, null=True, blank=True)
+
+    social_media_agreement = models.BooleanField(_('Can we use this profile information in our social media accounts?'),
+                                                 null=True)
 
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     city = models.CharField(_('City'), max_length=100, null=True, blank=True)
@@ -372,11 +374,8 @@ class Tournament(Model):
 
     @property
     def url(self):
-        if self.gt_id:
-            if self.begin.year > 2020:
-                return TURNIERE_DISCGOLF_DE_RESULTS_PAGE.format(self.gt_id)
-            else:
-                return GTO_RESULTS_PAGE.format(self.gt_id)
+        if self.gt_id and self.begin.year > 2020:  # older tournaments do not exist in turniere.discgolf.de anymore
+            return GT_RESULTS_PAGE.format(self.gt_id)
         elif self.pdga_id:
             return PDGA_EVENT_URL.format(self.pdga_id)
         elif self.metrix_id:
@@ -419,8 +418,19 @@ class Tournament(Model):
         else:
             logger.warning(f'Could not recalculate points for tournament {self}. No point system defined.')
 
+    def external_ids_str(self):
+        external_ids = []
+        if self.gt_id:
+            external_ids.append(f'GT: {self.gt_id}')
+        if self.pdga_id:
+            external_ids.append(f'PDGA: {self.pdga_id}')
+        if self.metrix_id:
+            external_ids.append(f'Metrix: {self.metrix_id}')
+
+        return f' [{", ".join(external_ids)}]' if external_ids else ''
+
     def __str__(self):
-        return f'{self.name} ({self.date})'
+        return f'{self.name} ({self.date}){self.external_ids_str()}'
 
 
 class Attendance(Model):
@@ -433,6 +443,8 @@ class Attendance(Model):
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='attendance',
                                    verbose_name=_('Tournament'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='attendance', verbose_name=_('Player'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.friend} will attend {self.tournament}'
@@ -450,6 +462,8 @@ class Result(Model):
     position = models.PositiveIntegerField(_('Position'), validators=[MinValueValidator(1)], null=False, blank=False)
     points = models.PositiveIntegerField(_('Points'), null=True, blank=True)
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def ordinal_position(self):

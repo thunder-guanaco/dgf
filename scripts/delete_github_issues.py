@@ -1,11 +1,13 @@
-import requests
 import json
 
+import requests
+
 # CONFIG
-GITHUB_TOKEN = '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'
-RANGE = range(3275, 3583)
+GITHUB_TOKEN = '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'
+FIRST_ISSUE = 4400
+LAST_ISSUE = 4433
 SEARCH_TERMS = [
-    'Error while executing management command: dgf.management.commands.fetch_pdga_data.Command'
+    'Manolo: Server error on GET /turniere/tremonia-series/',
 ]
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
@@ -17,7 +19,7 @@ for term in SEARCH_TERMS:
 print('')
 
 closed_amount = 0
-for i in RANGE:
+for i in range(FIRST_ISSUE, LAST_ISSUE + 1):
 
     response = requests.get(url + f'/{i}', headers=headers)
     issue = json.loads(response.content)

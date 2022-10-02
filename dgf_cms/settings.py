@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-""""
+"""
 Rule of thumb:
  * prod: sensible configuration data comes from environment variables
  * dev or test: dummy configuration
@@ -131,29 +131,22 @@ PDGA_PAGE_BASE_URL = 'https://www.pdga.com'
 PDGA_EVENT_URL = PDGA_PAGE_BASE_URL + '/tour/event/{}'
 PDGA_DATE_FORMAT = '%Y-%m-%d'
 APPROVED_DISCS_URL = 'https://www.pdga.com/technical-standards/equipment-certification/discs/export'
+PDGA_BASE_URL = 'https://api.pdga.com/services/json'
 
 if ENV == 'test':
-    PDGA_BASE_URL = 'http://nowhere.com'
     PDGA_USERNAME = 'nobody'
     PDGA_PASSWORD = 'nothing'
 else:
-    PDGA_BASE_URL = 'https://api.pdga.com/services/json'
     PDGA_USERNAME = get_env_or_die('DJANGO_PDGA_USERNAME')
     PDGA_PASSWORD = get_env_or_die('DJANGO_PDGA_PASSWORD')
 
 # GERMAN TOUR
 GT_DATE_FORMAT = '%d.%m.%Y'
-RATINGS_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
-
-TURNIERE_DISCGOLF_DE_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
-TURNIERE_DISCGOLF_DE_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
-TURNIERE_DISCGOLF_DE_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
-TURNIERE_DISCGOLF_DE_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
-
-GTO_LIST_PAGE = 'https://german-tour-online.de/events/results_list'
-GTO_DETAILS_PAGE = 'https://german-tour-online.de/events/details/{}'
-GTO_RESULTS_PAGE = 'https://german-tour-online.de/events/results/{}'
-
+GT_RATING_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
+GT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+GT_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
+GT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
+GT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
 
 # DISC GOLF METRIX
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
@@ -272,6 +265,8 @@ INSTALLED_APPS = [
     'django_user_agents',
     'mathfilters',
     'cookie_consent',
+    'django_light',
+    'jazzmin',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -434,3 +429,59 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 COOKIE_CONSENT_NAME = 'cookie_consent'
+
+# Docs: https://django-jazzmin.readthedocs.io/configuration/
+JAZZMIN_SETTINGS = {
+
+    'site_brand': 'Disc Golf Friends',
+    'site_logo': '/img/logo.png',
+    'site_logo_classes': 'elevation-0',
+    'welcome_sign': 'Disc Golf Friends Admin',
+    'copyright': 'Disc Golf Friends Dortmund e.V',
+    'search_model': 'dgf.Friend',
+    'show_sidebar': True,
+    'navigation_expanded': False,
+    'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange', 'auth', 'cms'],
+
+    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free
+    'icons': {
+        'dgf': 'fas fa-users',
+        'dgf.friend': 'fas fa-user',
+        'dgf.tournament': 'fas fa-medal',
+        'dgf.bagtagchange': 'fas fa-tag',
+        'dgf.course': 'fas fa-tree',
+        'dgf.githubissue': 'fas fa-newspaper',
+        'dgf.tour': 'fas fa-route',
+        'auth': 'fas fa-users-cog',
+        'auth.user': 'fas fa-user',
+        'auth.group': 'fas fa-users',
+    },
+
+    'related_modal_active': True,
+
+    # Relative paths to custom CSS/JS scripts (must be present in static files)
+    'custom_css': None,
+    'custom_js': None,
+
+    'show_ui_builder': True,
+    'changeform_format': 'horizontal_tabs',
+}
+
+JAZZMIN_UI_TWEAKS = {
+    'accent': 'accent-navy',
+    'navbar': 'navbar-navy navbar-dark',
+    'navbar_fixed': True,
+    'sidebar': 'sidebar-light-navy',
+    'sidebar_nav_child_indent': True,
+    'sidebar_nav_flat_style': True,
+    'theme': 'default',
+    'dark_mode_theme': None,
+    'button_classes': {
+        'primary': 'btn-outline-primary',
+        'secondary': 'btn-outline-secondary',
+        'info': 'btn-outline-info',
+        'warning': 'btn-outline-warning',
+        'danger': 'btn-outline-danger',
+        'success': 'btn-outline-success'
+    },
+}

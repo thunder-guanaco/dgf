@@ -16,7 +16,7 @@ def handle(command, exception, friend=None):
 
     exception_args_str = '\n'.join([f'* {arg}' for arg in exception.args])
 
-    logger.error(f'{friend_msg}: {error_msg}')
+    logger.exception(f'{friend_msg}: {error_msg}')
     GitHubIssue.objects.create(title=error_msg,
                                body=f'# {exception_name}\n{exception_args_str}',
                                friend=friend,

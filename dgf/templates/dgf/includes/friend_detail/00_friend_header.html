@@ -15,34 +15,10 @@
                 {% endif %}
             {% endif %}
         </div>
-
-        {% if friend.id == request.user.friend.id %}
-            <a class="desktop edit-button" href="{% url 'dgf:friend_update' %}">
-                <button>
-                    {% trans 'Update profile' %}
-                </button>
-            </a>
-            <a class="desktop edit-button" href="{% url 'dgf:tournament_index' %}">
-                <button>
-                    {% trans 'Update tournaments' %}
-                </button>
-            </a>
-        {% endif %}
-    </h1>
-    {% if friend.id == request.user.friend.id %}
-        <div id="mobile-edit-buttons">
-            <a class="mobile edit-button" href="{% url 'dgf:friend_update' %}">
-                <button>
-                    {% trans 'Update profile' %}
-                </button>
-            </a>
-            <a class="mobile edit-button" href="{% url 'dgf:tournament_index' %}">
-                <button>
-                    {% trans 'Update tournaments' %}
-                </button>
-            </a>
+        <div id="desktop-edit-buttons" class="desktop">
+            {% include "dgf/includes/edit_buttons.html" with friend=friend %}
         </div>
-    {% endif %}
+    </h1>
     {% if friend.sponsor %}
         <div class="larger">
             {% if friend.sponsor_link %}

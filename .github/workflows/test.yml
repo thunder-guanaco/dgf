@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.8 # this is the current prod version (in Ubuntu 18.04)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

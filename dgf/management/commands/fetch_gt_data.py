@@ -15,9 +15,7 @@ class Command(BaseCommand):
 
         try:
             logger.info('Fetching German Tour data...')
-            german_tour.update_tournament_attendance()
-            german_tour.update_turniere_discgolf_de_tournament_results()
-            german_tour.update_gto_tournament_results()
+            german_tour.update_all_tournaments()
             logger.info('German Tour data has been updated')
 
         except Exception as e:

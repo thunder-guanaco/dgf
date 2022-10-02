@@ -1,17 +1,15 @@
 import json
 import logging
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta
 from decimal import Decimal
 from urllib.parse import urlencode
 
 import requests
-from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 from dgf.handlers import nice_json_format
-from dgf.models import Tournament, Attendance, Result, Division
-from dgf_cms.settings import PDGA_DATE_FORMAT, PDGA_PAGE_BASE_URL
+from dgf_cms.settings import PDGA_DATE_FORMAT
 
 logger = logging.getLogger(__name__)
 
@@ -137,8 +135,13 @@ class PdgaApi:
             'offset': offset,
             'limit': limit
         }
-
         return self._query_pdga('event', query_parameters)
+
+    def get_event(self, tournament_id):
+        event = self.query_event(tournament_id=tournament_id)
+        if 'events' not in event:
+            raise_pdga_api_error('event', 'events', event)
+        return event['events'][0]
 
     def update_friend_rating(self, friend):
         if friend.pdga_number:
@@ -189,125 +192,3 @@ class PdgaApi:
                                                      f'{self.credentials["sessid"]}'
                                        })
                           .content)
-
-
-def get_page(url):
-    url = f'{PDGA_PAGE_BASE_URL}{url}'
-    logger.info(f'Getting {url}')
-    return BeautifulSoup(requests.get(url).content, features='html5lib')
-
-
-def get_player_page(pdga_number):
-    return get_page(f'/player/{pdga_number}')
-
-
-def extract_event_ids(events_li):
-    events = events_li.find_all('a')
-    return [event['href'].split('/')[-1] for event in events]
-
-
-def get_upcoming_event_ids(player_page_soup):
-    upcoming_events = player_page_soup.find('li', {'class': 'upcoming-events'})
-    if upcoming_events:
-        return extract_event_ids(upcoming_events)
-
-    next_event = player_page_soup.find('li', {'class': 'next-event'})
-    if next_event:
-        return extract_event_ids(next_event)
-
-    return []
-
-
-def get_year_links(player_page_soup):
-    year_links = player_page_soup.find('div', {'class': 'year-link'})
-    if year_links:
-        return [li.find('a').attrs['href'] for li in year_links.find_all('li')]
-    else:
-        return []
-
-
-def add_tournament(pdga_api, pdga_id):
-    event = pdga_api.query_event(tournament_id=pdga_id)
-
-    if 'events' not in event:
-        raise_pdga_api_error('event', 'events', event)
-        return
-
-    pdga_tournament = event['events'][0]
-
-    begin_date = datetime.strptime(pdga_tournament['start_date'], PDGA_DATE_FORMAT)
-    end_date = datetime.strptime(pdga_tournament['end_date'], PDGA_DATE_FORMAT)
-
-    tournament, created = Tournament.all_objects.get_or_create(pdga_id=pdga_tournament['tournament_id'],
-                                                               defaults={
-                                                                   'name': pdga_tournament['tournament_name'],
-                                                                   'begin': begin_date,
-                                                                   'end': end_date
-                                                               })
-    if created:
-        logger.info(f'Created tournament {tournament}')
-    else:
-        # Always update. With Corona you never know
-        tournament.name = pdga_tournament['tournament_name']
-        tournament.begin = begin_date
-        tournament.end = end_date
-        tournament.save()
-
-    return tournament
-
-
-def add_attendance(friend, tournament):
-    _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
-    if created:
-        logger.info(f'Added attendance of {friend} to {tournament}')
-
-
-def add_result(friend, tournament, position, division):
-    # get_or_create because we want to create legacy divisions
-    division, created = Division.objects.get_or_create(id=division)
-    if created:
-        logger.info(f'Created division {division}')
-
-    result, created = Result.objects.get_or_create(tournament=tournament,
-                                                   friend=friend,
-                                                   position=position)
-
-    result.division = division  # update division (some results might not have one)
-    result.save()
-
-    if created:
-        logger.info(f'Added result: {result}')
-
-
-def update_upcoming_events(pdga_api, friend, player_page_soup):
-    event_ids = get_upcoming_event_ids(player_page_soup)
-    for id in event_ids:
-        tournament = add_tournament(pdga_api, pdga_id=id)
-        add_attendance(friend, tournament)
-
-
-def add_tournament_results(pdga_api, friend, year_link):
-    year_page_soup = get_page(year_link)
-    tables = year_page_soup.find_all('div', {'class': 'table-container'})
-    for table in tables:
-        trs = table.find('tbody').find_all('tr')
-        for tr in trs:
-            division = tr.find('td', {'class': 'tournament'}).find('a')['href'].split('#')[1]
-            position = int(tr.find('td', {'class': 'place'}).text)
-            tournament_url = tr.find('td', {'class': 'tournament'}).find('a').attrs['href']
-            tournament_id = tournament_url.split('#')[0].split('/')[-1]
-            tournament = add_tournament(pdga_api, pdga_id=tournament_id)
-            add_result(friend, tournament, position, division)
-
-
-def update_tournament_results(pdga_api, friend, player_page_soup):
-    year_links = get_year_links(player_page_soup)
-    for link in year_links:
-        add_tournament_results(pdga_api, friend, link)
-
-
-def update_friend_tournaments(friend, pdga_api):
-    if friend.pdga_number:
-        player_page_soup = get_player_page(friend.pdga_number)
-        update_upcoming_events(pdga_api, friend, player_page_soup)
-        update_tournament_results(pdga_api, friend, player_page_soup)

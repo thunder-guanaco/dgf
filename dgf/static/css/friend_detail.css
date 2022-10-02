@@ -8,6 +8,10 @@
         align-items: center;
     }
 
+    #friend button {
+        font-size: smaller;
+    }
+
     #friend-picture {
         margin-bottom: 1em;
     }
@@ -37,15 +41,13 @@
 
     #mobile-edit-buttons {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        flex-direction: column;
+        gap: 0.25rem;
         align-items: center;
-        margin: 1em 0;
-    }
-
-    #friend .edit-button {
-        align-self: center;
-        margin: 0.2em 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     #friend-body > div {
@@ -88,10 +90,26 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
+        position: relative;
+    }
+
+    #friend button {
+        font-size: large;
     }
 
     #friend-picture {
         margin-right: 2em;
+    }
+
+    #friend #friend-info h1 #desktop-edit-buttons {
+        display: flex;
+        flex-flow: row;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    #desktop-edit-buttons button {
+        vertical-align: text-top;
     }
 
     #friend-info {
@@ -168,10 +186,6 @@
 
 #friend .friend-header-line label {
     margin: 0;
-}
-
-#friend button {
-    font-size: smaller;
 }
 
 #friend .external-ids {

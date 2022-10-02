@@ -37,7 +37,7 @@ class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Friend
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
-              'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id',
+              'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'social_media_agreement',
               'division', 'city', 'plays_since', 'best_score_in_wischlingen', 'free_text',
               'job', 'hobbies']
     template_name_suffix = '_profile'
@@ -90,7 +90,7 @@ class FeedbackCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+        return reverse('dgf:feedback')
 
 
 class MediaIndex(generic.ListView):
