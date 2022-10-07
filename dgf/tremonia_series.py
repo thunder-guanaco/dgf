@@ -134,3 +134,9 @@ def update_tournaments():
             logger.info('\n')
             create_or_update_tournament(event['ID'])
             logger.info('--------------------------------------------------------------------------------')
+
+
+def next_tournaments():
+    return Tournament.objects.filter(name__startswith='Tremonia Series') \
+        .filter(begin__gte=datetime.today()) \
+        .order_by('begin')
