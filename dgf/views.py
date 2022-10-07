@@ -4,12 +4,13 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.views.generic import CreateView
 
+from dgf import tremonia_series
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
@@ -246,9 +247,12 @@ def bag_tag_update(request):
     return HttpResponse(status=200)
 
 
-def next_tremonia_series(request):
-    next_ts = Tournament.objects.filter(name__startswith='Tremonia Series') \
-        .filter(begin__gte=datetime.today()) \
-        .order_by('begin') \
-        .first()
-    return redirect(next_ts.url)
+def ts_next_tournament(request):
+    return redirect(tremonia_series.next_tournaments().first().url)
+
+
+def ts_future_dates(request):
+    return render(request, 'dgf/plugins/tremonia_series_next_tournaments.html',
+                  context={
+                      'tournaments': tremonia_series.next_tournaments(),
+                  })
