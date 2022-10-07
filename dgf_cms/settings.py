@@ -103,6 +103,10 @@ elif ENV == 'test':
         }
     }
 
+CORS_ALLOWED_ORIGINS = [
+    'https://discgolfmetrix.com',
+]
+
 
 # Django DB and media Backups
 # https://django-dbbackup.readthedocs.io/en/stable/configuration.html
@@ -239,6 +243,7 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -267,6 +272,7 @@ INSTALLED_APPS = [
     'cookie_consent',
     'django_light',
     'jazzmin',
+    'corsheaders',
 
     'djangocms_admin_style',
     'django.contrib.auth',
