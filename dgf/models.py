@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE, SET_NULL
+from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -322,14 +323,14 @@ class Video(Model):
 
 def date_string(model):
     if model.begin == model.end:
-        return model.begin.strftime('%d. %b %Y')
+        return date_format(model.begin, format='d. b. Y')
 
     if model.begin.month != model.end.month:
-        begin = model.begin.strftime('%d. %b')
-        end = model.end.strftime('%d. %b %Y')
+        begin = date_format(model.begin, format='d. b.')
     else:
-        begin = model.begin.strftime('%d.')
-        end = model.end.strftime('%d. %b %Y')
+        begin = date_format(model.begin, format='d.')
+
+    end = date_format(model.end, format='d. b. Y')
 
     return f'{begin} - {end}'
 
