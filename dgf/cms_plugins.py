@@ -2,13 +2,11 @@ from datetime import datetime, timedelta
 
 import requests
 from bs4 import BeautifulSoup
-
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.db.models import Count, Q, Max, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
-
 
 from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
     BagTagChange, ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
@@ -102,8 +100,7 @@ def friends_order_by_bag_tag(for_mobile=False):
     friends = Friend.objects.filter(bag_tag__isnull=False) \
                             .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1]))
     if not for_mobile:
-        friends = friends.annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
-                         .annotate(tournament=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True)))
+        friends = friends.annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True)))
 
     return friends.order_by('bag_tag')
 
