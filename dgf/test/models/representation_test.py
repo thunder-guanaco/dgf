@@ -33,7 +33,7 @@ class ModelRepresentationTest(TestCase):
 
     def test_attendance_representation(self):
         attendance = Attendance(friend=create_friends(1), tournament=create_tournaments(1))
-        self.assertEqual(str(attendance), 'Friend0 will attend Tournament0 (01. Jan 2020)')
+        self.assertEqual(str(attendance), 'Friend0 will attend Tournament0 (01. Jan. 2020)')
 
     @parameterized.expand([
         ('Course', CoursePluginModel, Course, 'name',),
