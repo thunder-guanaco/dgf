@@ -3,11 +3,13 @@ import json
 import requests
 
 # CONFIG
-GITHUB_TOKEN = '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'
-FIRST_ISSUE = 4400
-LAST_ISSUE = 4433
+GITHUB_TOKEN = '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'
+FIRST_ISSUE = 4841
+LAST_ISSUE = 5203
 SEARCH_TERMS = [
-    'Manolo: Server error on GET /turniere/tremonia-series/',
+    'Anonymous user: Server error on GET /',
+    'Anonymous user: Server error on GET /turniere/tremonia-open/',
+    'Anonymous user: DoesNotExist while executing management command: dgf.management.commands.fetch_gt_data.Command'
 ]
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
