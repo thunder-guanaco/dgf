@@ -251,6 +251,9 @@ class TournamentAdmin(admin.ModelAdmin):
 
     inlines = (TournamentsTourRelationInline, ResultInline, AttendanceInline)
 
+    def get_inlines(self, request, obj):
+        return self.inlines if obj else []
+
     actions = (recalculate_points, reimport_attendance, reimport_results)
 
 

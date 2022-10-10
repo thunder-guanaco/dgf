@@ -1,6 +1,6 @@
-from datetime import date
+from datetime import date, datetime
 
-from dgf.models import Course, Friend, Disc, Tournament, Division
+from dgf.models import Course, Friend, Disc, Tournament, Division, BagTagChange, GitHubIssue, Tour
 
 
 def create_objects(type, generator, amount=1):
@@ -33,6 +33,29 @@ def create_tournaments(amount=1):
                           lambda i: Tournament.objects.create(name=f'Tournament{i}',
                                                               begin=date(day=1, month=1, year=2020),
                                                               end=date(day=1, month=1, year=2020)),
+                          amount)
+
+
+def create_bag_tag_changes(amount=1):
+    friend, _ = Friend.objects.get_or_create(username='friend_x')
+    return create_objects(BagTagChange,
+                          lambda i: BagTagChange.objects.create(actor=friend,
+                                                                friend=friend,
+                                                                new_number=i,
+                                                                previous_number=10,
+                                                                timestamp=datetime.now()),
+                          amount)
+
+
+def create_git_hub_issues(amount=1):
+    return create_objects(GitHubIssue,
+                          lambda i: GitHubIssue.objects.create(title=f'GitHub Issue {i}'),
+                          amount)
+
+
+def create_tours(amount=1):
+    return create_objects(Tour,
+                          lambda i: Tour.objects.create(name=f'Tour {i}'),
                           amount)
 
 

@@ -76,7 +76,7 @@ class FolderToolbar(CMSToolbar):
             name=_('All folders'),
             url=admin_reverse('filer_folder_changelist'),
         )
-        background_folder = Folder.objects.get(name=settings.BACKGROUND_FOLDER)
+        background_folder, __ = Folder.objects.get_or_create(name=settings.BACKGROUND_FOLDER)
         menu.add_sideframe_item(
             name=_(background_folder.name),
             url=admin_reverse('filer-directory_listing', args=(background_folder.id,)),
