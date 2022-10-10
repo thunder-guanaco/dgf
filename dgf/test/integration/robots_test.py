@@ -3,7 +3,7 @@ from http import HTTPStatus
 from django.test import TestCase
 
 
-class RobotsTxtTests(TestCase):
+class RobotsTests(TestCase):
     def test_get(self):
         response = self.client.get("/robots.txt")
 

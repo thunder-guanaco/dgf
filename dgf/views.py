@@ -7,22 +7,22 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views import generic
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dgf import tremonia_series
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, TREMONIA_SERIES_ROOT_ID
 
 
-class IndexView(generic.ListView):
+class IndexView(ListView):
     template_name = 'dgf/friend_list.html'
     context_object_name = 'friends'
     queryset = Friend.objects.all().order_by('?')
 
 
-class DetailView(generic.DetailView):
+class DetailView(DetailView):
     model = Friend
     slug_field = 'slug'
     template_name = 'dgf/friend_detail.html'
@@ -34,7 +34,7 @@ class DetailView(generic.DetailView):
                 )
 
 
-class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
+class UpdateView(LoginRequiredMixin, UpdateView):
     model = Friend
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
@@ -94,7 +94,7 @@ class FeedbackCreate(LoginRequiredMixin, CreateView):
         return reverse('dgf:feedback')
 
 
-class MediaIndex(generic.ListView):
+class MediaIndex(ListView):
     template_name = 'dgf/media_list.html'
     context_object_name = 'video_urls'
 
@@ -104,7 +104,7 @@ class MediaIndex(generic.ListView):
         return all_videos
 
 
-class TournamentsView(generic.ListView):
+class TournamentsView(LoginRequiredMixin, ListView):
     context_object_name = 'tournaments'
     template_name = 'dgf/tournament_list.html'
     queryset = Tournament.objects.filter(begin__gte=datetime.now()).order_by('begin')
@@ -248,7 +248,13 @@ def bag_tag_update(request):
 
 
 def ts_next_tournament(request):
-    return redirect(tremonia_series.next_tournaments().first().url)
+    next_ts = tremonia_series.next_tournaments().first()
+    if next_ts:
+        url = next_ts.url
+    else:
+        url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(TREMONIA_SERIES_ROOT_ID)
+
+    return redirect(url)
 
 
 def ts_future_dates(request):
