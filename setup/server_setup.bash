@@ -162,6 +162,7 @@ server {
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
+        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
     location /media/ {
@@ -169,6 +170,7 @@ server {
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
+        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
     location / {

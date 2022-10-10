@@ -1,11 +1,26 @@
 /*
- * This JS script takes the current Disc Golf Metrix Tournament and lists it's children tournaments that will happen in the future
- * It needs to be used in a page where a div with "next-tournament" as ID exists.
- *
- * Example usage:
- * <div id="next-tournaments"></div>
- * <script type="text/javascript" src="static/dgf/js/discgolfmetrix/next_tournaments.js"></script>
- */
+
+ This JS script takes the current Disc Golf Metrix Tournament and lists it's children tournaments that will happen in the future
+ It needs to be used in a page where a div with "next-tournament" as ID exists.
+
+ Example usage:
+    <div id="next-tournaments"></div>
+    <script type="text/javascript" src="https://discgolffriends.de/static/js/discgolfmetrix/next_tournaments.js"></script>
+
+ Actually... this will never be used because Dis Golf Metrix does not allow loading JS from places they don't trust...
+ So we are doing the following in Metrix:
+
+    <div id="next-tournaments"></div>
+    <script>
+        $.ajax({
+            url: "https://discgolffriends.de/friends/tremonia-series/future-dates",
+            success: function(response) {
+                $("#next-tournaments").html(response);
+            }
+        });
+    </script>
+
+*/
 
 $(document).ready(function() {
     $.ajax({
