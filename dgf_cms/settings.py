@@ -106,6 +106,9 @@ elif ENV == 'test':
 CORS_ALLOWED_ORIGINS = [
     'https://discgolfmetrix.com',
 ]
+CORS_ALLOW_METHODS = [
+    "GET",
+]
 
 
 # Django DB and media Backups
