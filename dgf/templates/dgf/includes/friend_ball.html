@@ -32,10 +32,12 @@
             {% if udisc_score %} ({{udisc_score|stringformat:"+i"}}){% endif %}
         </div>
         {% if position %}
-            <div class="friend-position">&#12935{{position}};</div>
-        {% endif %}
-        {% if division %}
-            <div class="friend-division">{{division.id}}</div>
+            <div class="friend-result">
+                <div class="friend-position">&#12935{{position}};</div>
+                {% if division %}
+                    <div class="friend-division">{{division.id}}</div>
+                {% endif %}
+            </div>
         {% endif %}
         {% if bag_tag %}
             <div class="friend-bag-tag"><span>{{bag_tag}}</span></div>
