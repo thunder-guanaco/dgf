@@ -220,11 +220,10 @@ h2 .show-less-tournaments {
 #podiums .friend-ball .friend-result {
     position: absolute;
     bottom: -10px;
-    left: -10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
 }
 
 #podiums .friend-ball .friend-position {
@@ -237,6 +236,7 @@ h2 .show-less-tournaments {
     border-radius: 0.25em;
     padding: 0.1em 0.3em;
     height: fit-content;
+    width: max-content;
 }
 
 #bag-tags .friend-ball {
