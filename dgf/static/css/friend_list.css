@@ -58,16 +58,6 @@
         margin: 1em 0em 1em 0 !important;
     }
 
-    #podiums .friend-ball .friend-position {
-        bottom: -20px;
-        left: 0px;
-    }
-
-    #podiums .friend-ball .friend-division {
-        bottom: -15px;
-        right: 5px;
-    }
-
 }
 
 
@@ -92,16 +82,6 @@
 
     #podiums .tournament .players .friend-ball {
         margin: 1em 1em 1em 0 !important;
-    }
-
-    #podiums .friend-ball .friend-position {
-        bottom: -12px;
-        left: -5px;
-    }
-
-    #podiums .friend-ball .friend-division {
-        bottom: -5px;
-        right: -5px;
     }
 
 }
@@ -237,17 +217,26 @@ h2 .show-less-tournaments {
     position: relative;
 }
 
-#podiums .friend-ball .friend-position {
+#podiums .friend-ball .friend-result {
     position: absolute;
+    bottom: -10px;
+    left: -10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#podiums .friend-ball .friend-position {
     font-size: 1.5em;
 }
 
 #podiums .friend-ball .friend-division {
-    position: absolute;
     background-color: #1b2633;
     color: white;
     border-radius: 0.25em;
     padding: 0.1em 0.3em;
+    height: fit-content;
 }
 
 #bag-tags .friend-ball {
