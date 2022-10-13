@@ -3,7 +3,7 @@
 }
 
 .button:hover {
-    color: #ba7596;
+    background-color: #ba7596;
 }
 
 .button.hollow {
@@ -12,10 +12,27 @@
     border-color: #8d1950;
 }
 
+#competition-submenu .button:hover {
+    background-color: #8d1950;
+    color: white;
+}
+
 .main-header-meta i[class^=fi-] {
     color: #8d1950;
 }
 
-.main-header .main-header-meta svg use {
-    fill: #8d1950;
+body {
+    color: #1b2633;
+}
+
+.off-canvas-content {
+    background-color: #e6e6e6;
+}
+
+a {
+    color: #a3a8ad;
+}
+
+a:hover {
+    color: #1b2633;
 }
