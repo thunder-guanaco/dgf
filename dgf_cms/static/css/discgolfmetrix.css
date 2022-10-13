@@ -1,0 +1,21 @@
+.button {
+    background-color: #8d1950;
+}
+
+.button:hover {
+    color: #ba7596;
+}
+
+.button.hollow {
+    background-color: inherit;
+    color: #8d1950;
+    border-color: #8d1950;
+}
+
+.main-header-meta i[class^=fi-] {
+    color: #8d1950;
+}
+
+.main-header .main-header-meta svg use {
+    fill: #8d1950;
+}
