@@ -3,12 +3,24 @@
     .desktop {
         display: none;
     }
+
+    .discgolffriends-banner span {
+        bottom: 2rem;
+        right: 0.5rem;
+        font-size: 2rem;
+    }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
     .mobile {
         display: none;
+    }
+
+    .discgolffriends-banner span {
+        bottom: 6rem;
+        right: 1rem;
+        font-size: 5rem;
     }
 }
 
@@ -86,9 +98,6 @@ a:hover {
 
 .discgolffriends-banner span {
     position: absolute;
-    bottom: 6rem;
-    right: 1rem;
-    font-size: 6rem;
     font-family: fantasy;
     color: #f6e7ee;
 }
