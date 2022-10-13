@@ -1,3 +1,36 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+    .desktop {
+        display: none;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+    .mobile {
+        display: none;
+    }
+}
+
+body {
+    color: #1b2633;
+}
+
+.top-bar, .top-bar ul,
+#top-menu-row .is-active {
+    background-color: #1b2633;
+}
+
+a,
+#competition-submenu li a b,
+font {
+    color: #4f7097;
+}
+
+a:hover {
+    color: #1b2633;
+}
+
 .button {
     background-color: #8d1950;
 }
@@ -6,10 +39,17 @@
     background-color: #ba7596;
 }
 
-.button.hollow {
+.button.hollow,
+.button.hollow.alert {
     background-color: inherit;
     color: #8d1950;
     border-color: #8d1950;
+}
+
+.button.hollow:hover,
+.button.hollow.alert:hover {
+    background-color: #8d1950;
+    color: white;
 }
 
 #competition-submenu .button:hover {
@@ -21,18 +61,35 @@
     color: #8d1950;
 }
 
-body {
-    color: #1b2633;
+/*
+.discgolffriends-banner {
+    position: relative;
 }
 
-.off-canvas-content {
-    background-color: #e6e6e6;
+.discgolffriends-banner h1 {
+    position: absolute;
+    bottom: 5rem;
+    right: 1rem;
+    transform: rotate(356deg);
 }
 
-a {
-    color: #a3a8ad;
+.discgolffriends-banner h1 a {
+    color: #edd3e1;
+    font-family: fantasy;
+    font-weight: lighter;
+}
+*/
+
+.discgolffriends-banner {
+    position: relative;
 }
 
-a:hover {
-    color: #1b2633;
+.discgolffriends-banner span {
+    position: absolute;
+    bottom: 6rem;
+    right: 1rem;
+    font-size: 6rem;
+    font-family: fantasy;
+    color: #f6e7ee;
 }
+
