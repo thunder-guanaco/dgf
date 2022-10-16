@@ -1,33 +1,10 @@
-/* mobile */
-@media only screen and (max-width: 1024px) {
-    .desktop {
-        display: none;
-    }
-
-    .discgolffriends-banner span {
-        bottom: 2rem;
-        right: 0.5rem;
-        font-size: 2rem;
-    }
-}
-
-/* desktop */
-@media only screen and (min-width: 1024px) {
-    .mobile {
-        display: none;
-    }
-
-    .discgolffriends-banner span {
-        bottom: 6rem;
-        right: 1rem;
-        font-size: 5rem;
-    }
-}
+/* COLORS  */
 
 body {
     color: #1b2633;
 }
 
+.title-bar,
 .top-bar, .top-bar ul,
 #top-menu-row .is-active {
     background-color: #1b2633;
@@ -73,24 +50,11 @@ a:hover {
     color: #8d1950;
 }
 
-/*
-.discgolffriends-banner {
-    position: relative;
+td.player-cell .expand-arrow:before {
+    border-color: transparent transparent transparent #8d1950;
 }
 
-.discgolffriends-banner h1 {
-    position: absolute;
-    bottom: 5rem;
-    right: 1rem;
-    transform: rotate(356deg);
-}
-
-.discgolffriends-banner h1 a {
-    color: #edd3e1;
-    font-family: fantasy;
-    font-weight: lighter;
-}
-*/
+/* BANNER */
 
 .discgolffriends-banner {
     position: relative;
@@ -98,7 +62,120 @@ a:hover {
 
 .discgolffriends-banner span {
     position: absolute;
-    font-family: fantasy;
+    font-family: Impact, fantasy;
     color: #f6e7ee;
+    transform: rotate(356deg);
 }
 
+/* mobile */
+@media only screen and (max-width: 1024px) {
+    .desktop {
+        display: none;
+    }
+
+    .discgolffriends-banner span {
+        bottom: 2rem;
+        right: 0.5rem;
+        font-size: 1.25rem;
+    }
+
+    .discgolffriends-banner span.larger {
+        font-size: 2rem;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+    .mobile {
+        display: none;
+    }
+
+    .discgolffriends-banner span {
+        bottom: 6rem;
+        right: 1rem;
+        font-size: 3rem;
+    }
+
+    .discgolffriends-banner span.larger {
+        font-size: 5rem;
+    }
+}
+
+/* BUTTONS */
+
+#subcompetitions {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+#subcompetitions .button {
+    background-color: #1b2633;
+}
+
+#subcompetitions .button:hover {
+    background-color: #767c84;
+}
+
+.main-header .main-title .button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+/* SHINE */
+
+td.eagle,
+td.holeinone {
+  position: relative;
+  overflow: hidden;
+}
+
+td.eagle:after,
+td.holeinone:after {
+
+  animation: shine 3s ease-in-out  infinite;
+  animation-fill-mode: forwards;
+  content: "";
+  position: absolute;
+  top: -110%;
+  left: -210%;
+  width: 200%;
+  height: 200%;
+  opacity: 0;
+  transform: rotate(30deg);
+
+  background: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.13) 77%,
+    rgba(255, 255, 255, 0.5) 92%,
+    rgba(255, 255, 255, 0.0) 100%
+  );
+}
+
+td.eagle:active:after,
+td.holeinone:active:after {
+  opacity: 0;
+}
+
+@keyframes shine{
+  10% {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+  100% {
+    opacity: 0;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+  }
+}
