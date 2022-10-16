@@ -1,4 +1,3 @@
-/*    */
 function loadCss() {
     $.ajax({
         url: "https://discgolffriends.de/static/css/discgolfmetrix.css",
