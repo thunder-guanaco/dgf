@@ -16,6 +16,7 @@ DIVISION_MAPPING = {
     'W': 'FPO',
     'M40': 'MP40',
     'M50': 'MP50',
+    'M55': 'MP55',
     'M60': 'MP60',
     'M70': 'MP70',
     'WM40': 'FP40',
@@ -27,7 +28,7 @@ def parse_division(division_text):
     try:
         return Division.objects.get(id=division_id)
     except Division.DoesNotExist as e:
-        e.args = (*e.args, f'division text="{division_text}", division id={division_id}')
+        e.args = (*e.args, f'division text="{division_text}", division id="{division_id}"')
         raise e
 
 
