@@ -26,6 +26,7 @@ cronjobs.log
 
 # secrets from this project. NEVER PUSH THIS!!!
 secrets
+delete_github_issues_config.py
 
 #selenium
 geckodriver.log

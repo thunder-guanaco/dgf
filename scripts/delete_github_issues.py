@@ -2,20 +2,13 @@ import json
 
 import requests
 
-# CONFIG
-GITHUB_TOKEN = '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'
-FIRST_ISSUE = 4841
-LAST_ISSUE = 5203
-SEARCH_TERMS = [
-    'Anonymous user: Server error on GET /',
-    'Anonymous user: Server error on GET /turniere/tremonia-open/',
-    'Anonymous user: DoesNotExist while executing management command: dgf.management.commands.fetch_gt_data.Command'
-]
+from delete_github_issues_config import GITHUB_TOKEN, SEARCH_TERMS, FIRST_ISSUE, LAST_ISSUE
 
 headers = {'Authorization': f'token {GITHUB_TOKEN}'}
 url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'
 
-print('\nClosing issues matching titles:\n')
+print(f'\nScanning issues from {FIRST_ISSUE} to {LAST_ISSUE}.')
+print('Looking for the ones matching titles:\n')
 for term in SEARCH_TERMS:
     print(f'- {term}')
 print('')
