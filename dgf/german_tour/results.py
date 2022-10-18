@@ -27,7 +27,7 @@ def parse_division(division_text):
     try:
         return Division.objects.get(id=division_id)
     except Division.DoesNotExist as e:
-        logger.error(f'Division "{division_text}" does not exist')
+        e.args = (*e.args, f'division text="{division_text}", division id={division_id}')
         raise e
 
 
