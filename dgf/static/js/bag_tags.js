@@ -6,12 +6,12 @@ $(window).on("load", function() {
 function checkClickableFriends() {
 
     if (disableClickOnFriends) {
-        $(".friend-ball").each(function() {
+        $("#bag-tags .friend-ball").each(function() {
             $(this).attr("old-href", $(this).attr("href"));
             $(this).removeAttr("href");
         });
 
-        $(".friend-ball .tooltip-text").css("display", "none");
+        $("#bag-tags .friend-ball .tooltip-text").css("display", "none");
     }
 }
 
