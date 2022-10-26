@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import admin as auth_admin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -255,6 +256,18 @@ class TournamentAdmin(admin.ModelAdmin):
         return self.inlines if obj else []
 
     actions = (recalculate_points, reimport_attendance, reimport_results)
+
+    def needs_check(self, obj):
+        if obj.first_positions_are_ok:
+            color = 'green'
+            label = _('OK')
+        else:
+            color = 'red'
+            label = _('please check')
+        return format_html(
+            '<span style="color: {};">{}</span>',
+            color, label,
+        )
 
 
 @admin.register(Tour)
