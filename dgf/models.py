@@ -9,7 +9,6 @@ from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE, SET_NULL
 from django.utils.formats import date_format
-from django.utils.html import format_html
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
@@ -383,18 +382,6 @@ class Tournament(Model):
             return DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(self.metrix_id)
         else:
             return None
-
-    def needs_check(self):
-        if self.first_positions_are_ok:
-            color = 'green'
-            label = _('OK')
-        else:
-            color = 'red'
-            label = _('please check')
-        return format_html(
-            '<span style="color: {};">{}</span>',
-            color, label,
-        )
 
     @property
     def first_positions_are_ok(self):
