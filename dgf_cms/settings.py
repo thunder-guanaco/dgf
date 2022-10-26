@@ -151,6 +151,7 @@ else:
 GT_DATE_FORMAT = '%d.%m.%Y'
 GT_RATING_PAGE = 'https://rating.discgolf.de/detail.php?gtn={}'
 GT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events'
+GT_RESULT_LIST_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results-overview'
 GT_DETAILS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=view&id={}'
 GT_ATTENDANCE_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-players&id={}'
 GT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-results&id={}'
@@ -466,7 +467,8 @@ JAZZMIN_SETTINGS = {
         'auth.group': 'fas fa-users',
     },
 
-    'related_modal_active': True,
+    # this should stay to false because otherwise it messes up with JS code from DjangoCMS
+    'related_modal_active': False,
 
     # Relative paths to custom CSS/JS scripts (must be present in static files)
     'custom_css': None,
