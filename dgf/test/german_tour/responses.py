@@ -1,6 +1,7 @@
 import responses
 
-from dgf_cms.settings import GT_LIST_PAGE, GT_ATTENDANCE_PAGE, GT_DETAILS_PAGE, GT_RESULTS_PAGE, GT_RATING_PAGE
+from dgf_cms.settings import GT_LIST_PAGE, GT_ATTENDANCE_PAGE, GT_DETAILS_PAGE, GT_RESULTS_PAGE, GT_RATING_PAGE, \
+    GT_RESULT_LIST_PAGE
 
 
 def add_list_page(tournament_ids):
@@ -27,6 +28,45 @@ def add_list_page(tournament_ids):
              )
 
     responses.add(responses.GET, GT_LIST_PAGE, body=body, status=200)
+
+
+def add_result_list_page(tournament_ids):
+    body = ('<body>'
+            '  <table class="table table-sm table-striped">'
+            '  <thead></thead>'
+            '  <tbody>'
+            )
+
+    for tournament_id in tournament_ids:
+        body += ('</tr>'
+                 '<tr>'
+                 '  <td>Landesmeisterschaft Niedersachsen</td>'
+                 '  <td>'
+                 '    <a href="https://turniere.discgolf.de/index.php?p=events&amp;sp=list-results'
+                 f'            &amp;id={tournament_id}&amp;cameFrom=list-results-overview">'
+                 f'      Ergebnisse'
+                 f'   </a>'
+                 '  </td>'
+                 '  <td>'
+                 '    <a href="https://turniere.discgolf.de/index.php?p=events&amp;sp=view'
+                 f'            &amp;id={tournament_id}&amp;cameFrom=list-results-overview">'
+                 f'     Info'
+                 f'    </a>'
+                 '  </td>'
+                 '  <td class="d-none d-sm-table-cell">30.10.2022</td>'
+                 '  <td class="d-none d-sm-table-cell">30.10.2022</td>'
+                 '  <td>'
+                 '    <span class="badge badge-secondary">Landesmeisterschaft</span>'
+                 '  </td>'
+                 '</tr>'
+                 )
+
+    body += ('    </tbody>'
+             '  </table>'
+             '</body>'
+             )
+
+    responses.add(responses.GET, GT_RESULT_LIST_PAGE, body=body, status=200)
 
 
 def add_details_page(gt_id, name, dates, canceled=False, pdga_id=None):

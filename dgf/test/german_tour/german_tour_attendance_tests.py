@@ -5,7 +5,8 @@ import responses
 from dgf import german_tour
 from dgf.models import Tournament, Friend, Attendance
 from dgf.test.german_tour.german_tour_test import GermanTourTest
-from dgf.test.german_tour.responses import add_list_page, add_details_page, add_attendance_page, add_rating_page
+from dgf.test.german_tour.responses import add_list_page, add_details_page, add_attendance_page, add_rating_page, \
+    add_result_list_page
 
 APRIL_2 = date(year=3000, month=4, day=2)
 JULY_24 = date(year=3000, month=7, day=24)
@@ -20,6 +21,7 @@ class GermanTourAttendanceTest(GermanTourTest):
         Attendance.objects.all().delete()
 
         self.manolo = Friend.objects.create(username='manolo', gt_number=1922)
+        add_result_list_page([])  # we don't need the result's page for attendance tests
         add_rating_page(1922, [])  # we don't need ratings for attendance tests
 
     @responses.activate
