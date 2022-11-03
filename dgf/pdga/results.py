@@ -14,9 +14,9 @@ def get_year_links(player_page_soup):
         return []
 
 
-def add_result(friend, tournament, position, division):
+def add_result(friend, tournament, position, division_id):
     # get_or_create because we want to create legacy divisions
-    division, created = Division.objects.get_or_create(id=division)
+    division, created = Division.objects.get_or_create(id=division_id, defaults={'text': division_id})
     if created:
         logger.info(f'Created division {division}')
 

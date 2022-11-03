@@ -1,5 +1,6 @@
 from dgf.models import Division
 
-for division in ['A', 'B', 'C', 'D', 'E']:
-    text = f'{division}-Klasse'
-    Division.objects.create(id=text, text=text)
+for division in ['RAE', 'RAF', 'OR', 'R900']:
+    division, _ = Division.objects.get_or_create(id=division)
+    division.text = division.id
+    division.save()

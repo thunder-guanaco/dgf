@@ -23,12 +23,18 @@ DIVISION_MAPPING = {
 }
 
 
-def parse_division(division_text):
-    division_id = DIVISION_MAPPING.get(division_text, division_text)
+def parse_division(division_id):
+    if not division_id:
+        return None
+
+    division_id = DIVISION_MAPPING.get(division_id, division_id)
     try:
         return Division.objects.get(id=division_id)
     except Division.DoesNotExist as e:
-        e.args = (*e.args, f'division text="{division_text}", division id="{division_id}"')
+        # We do not want to create divisions that do not exist automatically...
+        # The German Tour has weird divisions that normally have a matching PDGA division (but it's called different)
+        # Therefore this should fail and the found division will be either added to the mapping above or added manually
+        e.args = (*e.args, f'division id="{division_id}"')
         raise e
 
 

@@ -223,20 +223,21 @@ def add_results_page(tournament_id, results, dnf=None, broken=False):
              '   <tbody>'
              )
 
-    for position, gt_id in enumerate(results, start=1):
-        body += ('    <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
-                 '        <td>O</td>'
-                 f'       <td class="text-right" data-order="{position}">{position}</td>'
-                 '        <td>Name, Vorname</td>'
-                 '        <td></td>'
-                 f'       <td>{gt_id}</td>'
-                 '        <td>-18</td>'
-                 '        <td>49</td>'
-                 '        <td>45</td>'
-                 '        <td data-order="94">94</td>'
-                 '        <td></td>'
-                 '      </tr>'
-                 )
+    for division_text, positions in results.items():
+        for position, gt_id in enumerate(positions, start=1):
+            body += ('    <tr style="line-height: 10px; min-height: 10px; height: 10px;" class="">'
+                     f'       <td>{division_text}</td>'
+                     f'       <td class="text-right" data-order="{position}">{position}</td>'
+                     '        <td>Name, Vorname</td>'
+                     '        <td></td>'
+                     f'       <td>{gt_id}</td>'
+                     '        <td>-18</td>'
+                     '        <td>49</td>'
+                     '        <td>45</td>'
+                     '        <td data-order="94">94</td>'
+                     '        <td></td>'
+                     '      </tr>'
+                     )
 
     if dnf:
         for gt_id in dnf:
