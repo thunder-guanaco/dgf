@@ -8,7 +8,7 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 
 from dgf.models import Tournament, Friend
-from dgf_cms.settings import GT_DATE_FORMAT, GT_LIST_PAGE, GT_DETAILS_PAGE, GT_RATING_PAGE
+from dgf_cms.settings import GT_DATE_FORMAT, GT_LIST_PAGE, GT_DETAILS_PAGE, GT_RATING_PAGE, GT_RESULT_LIST_PAGE
 
 logger = logging.getLogger(__name__)
 
@@ -43,19 +43,16 @@ def get_all_tournaments_from_list_page():
     return ids
 
 
-def parse_tournament_from_details_page(tournament_id):
-    tournament_soup = get(GT_DETAILS_PAGE.format(tournament_id))
-    dates = [d.strip() for d in tournament_soup.find('td', text='Turnierbetrieb').parent()[1].text.strip().split('-')]
-    pdga_status = tournament_soup.find('td', text='PDGA Status').parent()[1].find('a')
-    badge = tournament_soup.find('h2').find('i')
-    return {
-        'gt_id': tournament_id,
-        'name': tournament_soup.find('h2').text.strip(),
-        'begin': dates[0],
-        'end': dates[1] if len(dates) > 1 else dates[0],
-        'pdga_id': extract_pdga_id(pdga_status['href']) if pdga_status else None,
-        'canceled': badge is not None and badge.text.strip() == 'ABGESAGT',
-    }
+def get_all_tournaments_from_result_list_page():
+    soup = get(GT_RESULT_LIST_PAGE)
+    ids = set()
+    for table in soup.findAll('table'):
+        for tournament_tr in table.find('tbody').findAll(recursive=False):
+            tournament_tds = tournament_tr.findChildren(recursive=False)
+            url = tournament_tds[2].find('a')['href']
+            ids.add(extract_gt_id(url))
+
+    return ids
 
 
 def get_all_tournaments_from_ratings_page():
@@ -76,6 +73,21 @@ def get_all_tournaments_from_ratings_page():
                 raise ValueError(f'Tournament URL not recognized: {url}')
 
     return tournament_ids
+
+
+def parse_tournament_from_details_page(tournament_id):
+    tournament_soup = get(GT_DETAILS_PAGE.format(tournament_id))
+    dates = [d.strip() for d in tournament_soup.find('td', text='Turnierbetrieb').parent()[1].text.strip().split('-')]
+    pdga_status = tournament_soup.find('td', text='PDGA Status').parent()[1].find('a')
+    badge = tournament_soup.find('h2').find('i')
+    return {
+        'gt_id': tournament_id,
+        'name': tournament_soup.find('h2').text.strip(),
+        'begin': dates[0],
+        'end': dates[1] if len(dates) > 1 else dates[0],
+        'pdga_id': extract_pdga_id(pdga_status['href']) if pdga_status else None,
+        'canceled': badge is not None and badge.text.strip() == 'ABGESAGT',
+    }
 
 
 # ADD AND DELETE

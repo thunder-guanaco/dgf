@@ -2,8 +2,9 @@ import logging
 from datetime import date
 
 from dgf.german_tour.attendance import update_tournament_attendance
-from dgf.german_tour.common import get_all_tournaments_from_list_page, get_all_tournaments_from_ratings_page, \
-    parse_tournament_from_details_page, delete_tournament, add_or_update_tournament
+from dgf.german_tour.common import get_all_tournaments_from_result_list_page, \
+    parse_tournament_from_details_page, delete_tournament, \
+    add_or_update_tournament, get_all_tournaments_from_list_page, get_all_tournaments_from_ratings_page
 from dgf.german_tour.results import update_tournament_results
 
 logger = logging.getLogger(__name__)
@@ -11,8 +12,9 @@ logger = logging.getLogger(__name__)
 
 def update_all_tournaments():
     ids_from_list_page = get_all_tournaments_from_list_page()
+    ids_from_result_list_page = get_all_tournaments_from_result_list_page()
     ids_from_ratings_page = get_all_tournaments_from_ratings_page()
-    all_tournament_ids = ids_from_list_page | ids_from_ratings_page
+    all_tournament_ids = ids_from_list_page | ids_from_result_list_page | ids_from_ratings_page
     logger.info(f'{len(all_tournament_ids)} tournaments to update')
 
     for tournament_id in all_tournament_ids:
