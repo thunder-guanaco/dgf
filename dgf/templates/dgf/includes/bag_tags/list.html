@@ -1,4 +1,4 @@
-{% load i18n mathfilters %}
+{% load dgf i18n mathfilters %}
 
 <div class="content">
     {% for friend in friends %}
@@ -57,11 +57,30 @@
 
             {% endif %}
 
-            {% if not request.user_agent.is_mobile %}
-                <div class="since">
-                    {% trans " since " %} {{friend.since|date}}
-                </div>
-            {% endif %}
+            <div class="since" onclick="switchStatistics({{friend.bag_tag}})">
+                {% if not request.user_agent.is_mobile %}
+                    {% trans " since " %}{{friend.since|date}}
+                {% endif %}
+                <span class="statistics-button closed"
+                     data-bag-tag="{{friend.bag_tag}}">
+                </span>
+            </div>
         </div>
+        {% if friend.since %}
+            <div class="statistics"
+                 data-bag-tag="{{friend.bag_tag}}"
+                 style="display: none;">
+                {% if request.user_agent.is_mobile %}
+                    <span>⏱&nbsp;{% blocktranslate with date=friend.since|date days=friend.since|days_since %}Since {{date}} ({{days}} days){% endblocktranslate %}</span>
+                {% else %}
+                    <span>⏱&nbsp;{% blocktranslate with days=friend.since|days_since %}Since {{days}} days{% endblocktranslate %}</span>
+                {% endif %}
+                <span>👍️ {% trans "Best:" %} {{friend.best_bag_tag}}</span>
+                <span>👎 {% trans "Worst:" %} {{friend.worst_bag_tag}}</span>
+                <span>👉 {% trans "Average:" %} {{friend.average_bag_tag|floatformat:0}}</span>
+                <span>🫴 {% trans "Most received:" %} {{friend.most_received_bag_tag}}</span>
+                <span>🔄&nbsp;{% blocktranslate with changes=friend.bag_tag_changes_count first_date=friend.first_bag_tag_change|date %}{{changes}} bag tag changes since {{first_date}}{% endblocktranslate %}</span>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>

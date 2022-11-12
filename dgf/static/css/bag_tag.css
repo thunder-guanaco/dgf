@@ -10,6 +10,12 @@
         margin-left: 1em;
     }
 
+    #bag-tags .statistics {
+        margin: 1rem 0 2rem 8em !important;
+        flex-flow: column !important;
+        gap: 1rem !important;
+    }
+
     .header {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -212,6 +218,30 @@
 
 #bag-tags .since {
     margin: 0 1em;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+#bag-tags .since:hover {
+    cursor: pointer;
+    color: #8d1950;
+}
+
+#bag-tags .statistics-button.closed:after {
+    content: '▶';
+}
+
+#bag-tags .statistics-button.open:after {
+    content: '▼';
+}
+
+#bag-tags .statistics {
+    margin: 1rem 0 2rem 12em;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2rem;
 }
 
 #bag-tags .footer {
