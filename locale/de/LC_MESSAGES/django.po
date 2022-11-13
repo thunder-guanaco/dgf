@@ -639,7 +639,7 @@ msgstr "Durchschnitt"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:81
 msgid "Most received:"
-msgstr "Am meisten gekriegt:"
+msgstr "Am häufigsten bekommen:"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:82
 #, python-format
