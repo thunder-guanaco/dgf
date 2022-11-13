@@ -6,12 +6,8 @@
         height: 70px !important;
     }
 
-    #bag-tags .content .line {
-        margin-left: 1em;
-    }
-
     #bag-tags .statistics {
-        margin: 1rem 0 2rem 8em !important;
+        margin: 1rem 0 2rem 3rem !important;
         flex-flow: column !important;
         gap: 1rem !important;
     }
