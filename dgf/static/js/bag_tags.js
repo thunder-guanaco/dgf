@@ -450,3 +450,9 @@ function addScores() {
         $(this).append("<span class='score'>(" + score + ")</span>");
     });
 }
+
+function switchStatistics(bagTag) {
+    $(".statistics-button[data-bag-tag='" + bagTag + "']").toggleClass("closed");
+    $(".statistics-button[data-bag-tag='" + bagTag + "']").toggleClass("open");
+    $(".statistics[data-bag-tag='" + bagTag + "']").toggle();
+}

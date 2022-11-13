@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from cms.models import CMSPlugin
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from django.db.models import Count, Q, Max, OuterRef, Subquery
+from django.db.models import Count, Q, Max, Min, Avg, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
 from . import tremonia_series
@@ -88,7 +88,7 @@ def friends_order_by_ts_wins():
         .order_by('-ts_wins', '-ts_seconds', '-ts_thirds')
 
 
-def friends_order_by_bag_tag(for_mobile=False):
+def friends_order_by_bag_tag():
     time_threshold = datetime.now() - timedelta(weeks=1)
 
     bag_tag_changes = BagTagChange.objects \
@@ -98,12 +98,22 @@ def friends_order_by_bag_tag(for_mobile=False):
         .filter(friend=OuterRef('id')) \
         .order_by('-timestamp')
 
-    friends = Friend.objects.filter(bag_tag__isnull=False) \
-                            .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1]))
-    if not for_mobile:
-        friends = friends.annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True)))
+    bag_tag_changes_grouped_by_number = BagTagChange.objects \
+        .filter(friend=OuterRef('id')) \
+        .values('new_number') \
+        .annotate(amount=Count('new_number')) \
+        .order_by('-amount', 'new_number')
 
-    return friends.order_by('bag_tag')
+    return Friend.objects.filter(bag_tag__isnull=False) \
+        .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1])) \
+        .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
+        .annotate(bag_tag_changes_count=Count('bag_tag_changes')) \
+        .annotate(first_bag_tag_change=Min('bag_tag_changes__timestamp')) \
+        .annotate(best_bag_tag=Min('bag_tag_changes__new_number')) \
+        .annotate(worst_bag_tag=Max('bag_tag_changes__new_number')) \
+        .annotate(average_bag_tag=Avg('bag_tag_changes__new_number')) \
+        .annotate(most_received_bag_tag=Subquery(bag_tag_changes_grouped_by_number.values_list('new_number')[:1])) \
+        .order_by('bag_tag')
 
 
 def friends_without_bag_tag():
@@ -127,7 +137,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.update({
-            'friends': friends_order_by_bag_tag(for_mobile=context['request'].user_agent.is_mobile),
+            'friends': friends_order_by_bag_tag(),
             'friends_without_bag_tag': friends_without_bag_tag(),
         })
         return context

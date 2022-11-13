@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django import template
 from django.db.models import Count, Max, Q, Sum
+from django.utils import timezone
 
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 from ..models import Ace, DiscInBag, Course, Tournament, Result, Friend
@@ -271,3 +272,8 @@ def negate(boolean):
 @register.filter
 def to_set(iterable):
     return set(iterable)
+
+
+@register.filter
+def days_since(date):
+    return (timezone.now() - date).days

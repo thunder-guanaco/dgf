@@ -5,111 +5,119 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-26 15:38+0200\n"
+"POT-Creation-Date: 2022-11-13 01:38+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dgf/admin.py:210
+#: dgf/admin.py:211
 msgid "Recalculate points"
 msgstr "Punkte neu berechnen"
 
-#: dgf/admin.py:218
+#: dgf/admin.py:219
 msgid "Reimport attendance from turniere.discgolf.de"
 msgstr "Teilnehmerliste aus turniere.discgolf.de neu portieren"
 
-#: dgf/admin.py:226
+#: dgf/admin.py:227
 msgid "Reimport results from turniere.discgolf.de"
 msgstr "Ergebnisse aus turniere.discgolf.de neu portieren"
 
-#: dgf/cms_plugins.py:21 dgf/cms_plugins.py:49 dgf/cms_plugins.py:61
-#: dgf/cms_plugins.py:78 dgf/cms_plugins.py:117 dgf/cms_plugins.py:125
+#: dgf/admin.py:263
+msgid "OK"
+msgstr "OK"
+
+#: dgf/admin.py:266
+msgid "please check"
+msgstr "bitte überprüfen"
+
+#: dgf/cms_plugins.py:20 dgf/cms_plugins.py:48 dgf/cms_plugins.py:60
+#: dgf/cms_plugins.py:77 dgf/cms_plugins.py:126 dgf/cms_plugins.py:134
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:22 dgf/models.py:198 dgf/models.py:207
+#: dgf/cms_plugins.py:21 dgf/models.py:198 dgf/models.py:207
 msgid "Friend"
 msgstr "Friend"
 
-#: dgf/cms_plugins.py:36
+#: dgf/cms_plugins.py:35
 msgid "Friend (small)"
 msgstr "Friends (klein)"
 
-#: dgf/cms_plugins.py:42
+#: dgf/cms_plugins.py:41
 msgid "Friend (big)"
 msgstr "Friend (groß)"
 
-#: dgf/cms_plugins.py:50
+#: dgf/cms_plugins.py:49
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
-#: dgf/cms_plugins.py:62
+#: dgf/cms_plugins.py:61
 msgid "UDisc Best Scores"
 msgstr "Beste Runden aus UDisc"
 
-#: dgf/cms_plugins.py:79
+#: dgf/cms_plugins.py:78
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:118
+#: dgf/cms_plugins.py:127
 msgid "Tour Results"
 msgstr "Tourergebnisse"
 
-#: dgf/cms_plugins.py:126
+#: dgf/cms_plugins.py:135
 msgid "Bag Tags (whole page)"
 msgstr "Bagtags (ganze Seite)"
 
-#: dgf/cms_plugins.py:140 dgf/cms_plugins.py:154 dgf/cms_plugins.py:168
+#: dgf/cms_plugins.py:149 dgf/cms_plugins.py:163 dgf/cms_plugins.py:177
 msgid "Tremonia Series"
 msgstr "Tremonia Series"
 
-#: dgf/cms_plugins.py:141
+#: dgf/cms_plugins.py:150
 msgid "Hall Of Fame (small)"
 msgstr "Hall Of Fame (klein)"
 
-#: dgf/cms_plugins.py:155
+#: dgf/cms_plugins.py:164
 msgid "Hall Of Fame (whole page)"
 msgstr "Hall Of Fame (ganze Seite)"
 
-#: dgf/cms_plugins.py:169
+#: dgf/cms_plugins.py:178
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:183
+#: dgf/cms_plugins.py:191
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
-#: dgf/cms_plugins.py:185
+#: dgf/cms_plugins.py:193
 msgid "Only desktop"
 msgstr "Nur am Desktop sichtbar"
 
-#: dgf/cms_plugins.py:199
+#: dgf/cms_plugins.py:207
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:206
+#: dgf/cms_plugins.py:214
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:207
+#: dgf/cms_plugins.py:215
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:222
+#: dgf/cms_plugins.py:230
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
-#: dgf/cms_plugins.py:230 dgf/cms_plugins.py:248
+#: dgf/cms_plugins.py:238 dgf/cms_plugins.py:256
 msgid "Social Media"
 msgstr "Soziale Netzwerke"
 
-#: dgf/cms_plugins.py:231
+#: dgf/cms_plugins.py:239
 msgid "Concrete Tournament Results"
 msgstr "Bestimmtes Turnier"
 
-#: dgf/cms_plugins.py:249
+#: dgf/cms_plugins.py:257
 msgid "Last Tremonia Series Results"
 msgstr "Letzte Tremonia Series Ergebnisse"
 
@@ -142,8 +150,7 @@ msgstr "Alle Parcours"
 msgid "New course"
 msgstr "Neuer Parcours"
 
-#: dgf/cms_toolbars.py:52
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:27
+#: dgf/cms_toolbars.py:52 dgf/templates/dgf/includes/edit_buttons.html:13
 #: dgf/templates/dgf/tournament_list.html:5
 #: dgf/templates/dgf/tournament_list.html:19
 msgid "Tournaments"
@@ -177,7 +184,7 @@ msgstr "ID"
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:50 dgf/models.py:356 dgf/models.py:483
+#: dgf/models.py:50 dgf/models.py:356 dgf/models.py:471
 #: dgf_cookies/models.py:14
 msgid "Name"
 msgstr "Name"
@@ -244,8 +251,8 @@ msgstr ""
 "Können wir deine Profil-Informationen bei unseren Social Media Konten "
 "benutzen?"
 
-#: dgf/models.py:125 dgf/models.py:464 dgf/models.py:485
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:82
+#: dgf/models.py:125 dgf/models.py:452 dgf/models.py:473
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
 msgid "Division"
 msgstr "Division"
 
@@ -279,7 +286,7 @@ msgid "Slug"
 msgstr "Slug"
 
 #: dgf/models.py:137
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:88
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:70
 #: dgf/templates/dgf/includes/friend_picture.html:56
 msgid "Rating"
 msgstr "Rating"
@@ -356,8 +363,8 @@ msgstr "Menge"
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:268 dgf/models.py:445 dgf/models.py:461 dgf/models.py:518
-#: dgf/templates/dgf/plugins/tour_results.html:64
+#: dgf/models.py:268 dgf/models.py:433 dgf/models.py:449 dgf/models.py:506
+#: dgf/templates/dgf/plugins/tour_results.html:70
 msgid "Player"
 msgstr "Spieler"
 
@@ -369,7 +376,7 @@ msgstr "Übung"
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:286 dgf/models.py:444 dgf/models.py:460
+#: dgf/models.py:286 dgf/models.py:432 dgf/models.py:448
 #: dgf/templates/dgf/tournament_list.html:22
 msgid "Tournament"
 msgstr "Turnier"
@@ -419,47 +426,39 @@ msgstr "Tremonia Series Punkte + Hälfte der geschlagenen Spieler"
 msgid "Point System"
 msgstr "Punktsystem"
 
-#: dgf/models.py:389
-msgid "OK"
-msgstr "OK"
-
-#: dgf/models.py:392
-msgid "please check"
-msgstr "bitte überprüfen"
-
-#: dgf/models.py:462 dgf/templates/dgf/plugins/tour_results.html:63
+#: dgf/models.py:450 dgf/templates/dgf/plugins/tour_results.html:69
 msgid "Position"
 msgstr "Platz"
 
-#: dgf/models.py:463 dgf/templates/dgf/plugins/tour_results.html:65
+#: dgf/models.py:451 dgf/templates/dgf/plugins/tour_results.html:71
 msgid "Points"
 msgstr "Punkte"
 
-#: dgf/models.py:486
+#: dgf/models.py:474
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:517
+#: dgf/models.py:505
 msgid "Actor"
 msgstr "Akteur"
 
-#: dgf/models.py:519
+#: dgf/models.py:507
 msgid "New number"
 msgstr "Neue Nummer"
 
-#: dgf/models.py:521
+#: dgf/models.py:509
 msgid "Previous number"
 msgstr "Vorherige Nummer"
 
-#: dgf/models.py:558
+#: dgf/models.py:546
 msgid "Background image"
 msgstr "Hintergrundbild"
 
-#: dgf/models.py:559
+#: dgf/models.py:547
 msgid "Width"
 msgstr "Breite"
 
-#: dgf/models.py:560
+#: dgf/models.py:548
 msgid "Height"
 msgstr "Höhe"
 
@@ -549,11 +548,11 @@ msgstr "Speichern"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: dgf/templates/dgf/githubissue_form.html:19
+#: dgf/templates/dgf/githubissue_form.html:20
 msgid "Thank you for the feedback"
 msgstr "Danke für dein Feedback"
 
-#: dgf/templates/dgf/githubissue_form.html:20
+#: dgf/templates/dgf/githubissue_form.html:21
 msgid "Send"
 msgstr "Senden"
 
@@ -566,31 +565,31 @@ msgstr "GESAMT"
 msgid "in a tournament"
 msgstr "davon im Turnier"
 
+#: dgf/templates/dgf/includes/admin_button.html:8
+msgid "Open in admin"
+msgstr "Im Admin öffen"
+
 #: dgf/templates/dgf/includes/bag_tags/admin.html:4
 msgid "Admin zone"
 msgstr "Admin-Bereich"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:6
-#: dgf/templates/dgf/includes/bag_tags/admin.html:27
+#: dgf/templates/dgf/includes/bag_tags/admin.html:7
+#: dgf/templates/dgf/includes/bag_tags/admin.html:31
 msgid "Assign new bag tag(s)"
 msgstr "Neue Bagtags zuweisen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:7
+#: dgf/templates/dgf/includes/bag_tags/admin.html:8
 #: dgf/templates/dgf/includes/bag_tags/top_buttons.html:17
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:10
+#: dgf/templates/dgf/includes/bag_tags/admin.html:14
 msgid "Select friends without bag tags and new ones will be assigned"
 msgstr "Wähle Friends ohne Bagtag, um eins oder mehrere zu zuweisen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:30
+#: dgf/templates/dgf/includes/bag_tags/admin.html:34
 msgid "You have to select at least 1 friend!"
 msgstr "Du musst mindestens 1 Friend wählen"
-
-#: dgf/templates/dgf/includes/bag_tags/bag_tag_list.html:62
-msgid " since "
-msgstr " seit dem "
 
 #: dgf/templates/dgf/includes/bag_tags/edit.html:4
 msgid "Update the bag tags"
@@ -612,9 +611,44 @@ msgstr "Speichern"
 msgid "Back"
 msgstr "Zurück"
 
+#: dgf/templates/dgf/includes/bag_tags/list.html:62
+msgid " since "
+msgstr " seit dem "
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:74
+#, python-format
+msgid "Since %(date)s (%(days)s days)"
+msgstr "Seit dem %(date)s (%(days)s Tage)"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:76
+#, python-format
+msgid "Since %(days)s days"
+msgstr "Seit %(days)s Tagen"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:78
+msgid "Best:"
+msgstr "Beste:"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:79
+msgid "Worst:"
+msgstr "Schlechteste"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:80
+msgid "Average:"
+msgstr "Durchschnitt"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:81
+msgid "Most received:"
+msgstr "Am meisten gekriegt:"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:82
+#, python-format
+msgid "%(changes)s bag tag changes since %(first_date)s"
+msgstr "%(changes)s Male Bagtags getauscht seit dem %(first_date)s"
+
 #: dgf/templates/dgf/includes/bag_tags/metrix.html:5
 msgid "Tournaments that ended today"
-msgstr ""
+msgstr "Turniere die heute enden"
 
 #: dgf/templates/dgf/includes/bag_tags/top_buttons.html:6
 msgid ""
@@ -667,25 +701,21 @@ msgstr "Sag"
 msgid " so that he can register it here."
 msgstr " Bescheid, um dein Bagtag auf der Webseite zu aktivieren."
 
+#: dgf/templates/dgf/includes/edit_buttons.html:7
+msgid "Update profile"
+msgstr "Profil aktualisieren"
+
 #: dgf/templates/dgf/includes/friend_ball.html:24
 msgid "wins"
 msgstr "Siege"
 
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:22
-msgid "Update profile"
-msgstr "Profil aktualisieren"
-
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:35
-msgid "Open in admin"
-msgstr "Im Admin öffen"
-
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:43
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:45
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:25
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:27
 msgid "Sponsored by"
 msgstr "Gesponsert von"
 
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:56
-#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:67
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:38
+#: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:49
 msgid "from"
 msgstr "aus"
 
@@ -829,19 +859,19 @@ msgstr "Bin nicht dabei"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf/views.py:219 dgf/views.py:227
+#: dgf/views.py:220 dgf/views.py:228
 msgid "This makes no sense. For these users the bag tags should be: "
 msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 
-#: dgf/views.py:223
+#: dgf/views.py:224
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:332 dgf_cms/settings.py:342
+#: dgf_cms/settings.py:342 dgf_cms/settings.py:352
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:333 dgf_cms/settings.py:349
+#: dgf_cms/settings.py:343 dgf_cms/settings.py:359
 msgid "English"
 msgstr "Englisch"
 
