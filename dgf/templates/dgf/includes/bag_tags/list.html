@@ -58,8 +58,8 @@
             {% endif %}
 
             <div class="since" onclick="switchStatistics({{friend.bag_tag}})">
-                {% if not request.user_agent.is_mobile %}
-                    {% trans " since " %}{{friend.since|date}}
+                {% if not request.user_agent.is_mobile and friend.since %}
+                    {% blocktranslate with date=friend.since|date days=friend.since|days_since %}Since {{date}} ({{days}} days){% endblocktranslate %}
                 {% endif %}
                 <span class="statistics-button closed"
                      data-bag-tag="{{friend.bag_tag}}">
@@ -72,14 +72,15 @@
                  style="display: none;">
                 {% if request.user_agent.is_mobile %}
                     <span>⏱&nbsp;{% blocktranslate with date=friend.since|date days=friend.since|days_since %}Since {{date}} ({{days}} days){% endblocktranslate %}</span>
-                {% else %}
-                    <span>⏱&nbsp;{% blocktranslate with days=friend.since|days_since %}Since {{days}} days{% endblocktranslate %}</span>
                 {% endif %}
-                <span>👍️ {% trans "Best:" %} {{friend.best_bag_tag}}</span>
-                <span>👎 {% trans "Worst:" %} {{friend.worst_bag_tag}}</span>
-                <span>👉 {% trans "Average:" %} {{friend.average_bag_tag|floatformat:0}}</span>
-                <span>🫴 {% trans "Most received:" %} {{friend.most_received_bag_tag}}</span>
-                <span>🔄&nbsp;{% blocktranslate with changes=friend.bag_tag_changes_count first_date=friend.first_bag_tag_change|date %}{{changes}} bag tag changes since {{first_date}}{% endblocktranslate %}</span>
+                {% if friend.bag_tag_changes_count > 0 %}
+                    <span>👍️&nbsp;{% trans "Best:" %} {{friend.best_bag_tag}}</span>
+                    <span>👎&nbsp;{% trans "Worst:" %} {{friend.worst_bag_tag}}</span>
+                    <span>👉&nbsp;{% trans "Average:" %} {{friend.average_bag_tag|floatformat:0}}</span>
+                    <span>🫴&nbsp;{% trans "Most received:" %} {{friend.most_received_bag_tag}}</span>
+                {% endif %}
+                <span>🔄&nbsp;{% blocktranslate count changes=friend.bag_tag_changes_count %}1 bag tag change{% plural %}{{changes}} bag tag changes{% endblocktranslate %}</span>
+                <span>1️⃣&nbsp;{% blocktranslate with first_change=friend.first_bag_tag_change|date %}Got their first bag tag on {{first_change}}{% endblocktranslate %}</span>
             </div>
         {% endif %}
     {% endfor %}

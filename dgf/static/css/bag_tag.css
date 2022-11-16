@@ -9,7 +9,7 @@
     #bag-tags .statistics {
         margin: 1rem 0 2rem 3rem !important;
         flex-flow: column !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
     }
 
     .header {
@@ -237,7 +237,7 @@
     margin: 1rem 0 2rem 12em;
     display: flex;
     flex-flow: row wrap;
-    gap: 2rem;
+    gap: 1rem 2rem;
 }
 
 #bag-tags .footer {
