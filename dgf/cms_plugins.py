@@ -106,8 +106,10 @@ def friends_order_by_bag_tag():
 
     return Friend.objects.filter(bag_tag__isnull=False) \
         .annotate(previous_bag_tag=Subquery(bag_tag_changes.values_list('previous_number')[:1])) \
-        .annotate(since=Max('bag_tag_changes__timestamp', filter=Q(bag_tag_changes__active=True))) \
-        .annotate(bag_tag_changes_count=Count('bag_tag_changes')) \
+        .annotate(since=Max('bag_tag_changes__timestamp',
+                            filter=Q(bag_tag_changes__active=True))) \
+        .annotate(bag_tag_changes_count=Count('bag_tag_changes',
+                                              filter=Q(bag_tag_changes__previous_number__isnull=False))) \
         .annotate(first_bag_tag_change=Min('bag_tag_changes__timestamp')) \
         .annotate(best_bag_tag=Min('bag_tag_changes__new_number')) \
         .annotate(worst_bag_tag=Max('bag_tag_changes__new_number')) \

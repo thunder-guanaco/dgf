@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-13 01:38+0100\n"
+"POT-Creation-Date: 2022-11-16 13:51+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgid "please check"
 msgstr "bitte überprüfen"
 
 #: dgf/cms_plugins.py:20 dgf/cms_plugins.py:48 dgf/cms_plugins.py:60
-#: dgf/cms_plugins.py:77 dgf/cms_plugins.py:126 dgf/cms_plugins.py:134
+#: dgf/cms_plugins.py:77 dgf/cms_plugins.py:128 dgf/cms_plugins.py:136
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
@@ -61,63 +61,63 @@ msgstr "Beste Runden aus UDisc"
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:127
+#: dgf/cms_plugins.py:129
 msgid "Tour Results"
 msgstr "Tourergebnisse"
 
-#: dgf/cms_plugins.py:135
+#: dgf/cms_plugins.py:137
 msgid "Bag Tags (whole page)"
 msgstr "Bagtags (ganze Seite)"
 
-#: dgf/cms_plugins.py:149 dgf/cms_plugins.py:163 dgf/cms_plugins.py:177
+#: dgf/cms_plugins.py:151 dgf/cms_plugins.py:165 dgf/cms_plugins.py:179
 msgid "Tremonia Series"
 msgstr "Tremonia Series"
 
-#: dgf/cms_plugins.py:150
+#: dgf/cms_plugins.py:152
 msgid "Hall Of Fame (small)"
 msgstr "Hall Of Fame (klein)"
 
-#: dgf/cms_plugins.py:164
+#: dgf/cms_plugins.py:166
 msgid "Hall Of Fame (whole page)"
 msgstr "Hall Of Fame (ganze Seite)"
 
-#: dgf/cms_plugins.py:178
+#: dgf/cms_plugins.py:180
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:191
+#: dgf/cms_plugins.py:193
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
-#: dgf/cms_plugins.py:193
+#: dgf/cms_plugins.py:195
 msgid "Only desktop"
 msgstr "Nur am Desktop sichtbar"
 
-#: dgf/cms_plugins.py:207
+#: dgf/cms_plugins.py:209
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:214
+#: dgf/cms_plugins.py:216
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:215
+#: dgf/cms_plugins.py:217
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:230
+#: dgf/cms_plugins.py:232
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
-#: dgf/cms_plugins.py:238 dgf/cms_plugins.py:256
+#: dgf/cms_plugins.py:240 dgf/cms_plugins.py:258
 msgid "Social Media"
 msgstr "Soziale Netzwerke"
 
-#: dgf/cms_plugins.py:239
+#: dgf/cms_plugins.py:241
 msgid "Concrete Tournament Results"
 msgstr "Bestimmtes Turnier"
 
-#: dgf/cms_plugins.py:257
+#: dgf/cms_plugins.py:259
 msgid "Last Tremonia Series Results"
 msgstr "Letzte Tremonia Series Ergebnisse"
 
@@ -612,43 +612,42 @@ msgid "Back"
 msgstr "Zurück"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:62
-msgid " since "
-msgstr " seit dem "
-
 #: dgf/templates/dgf/includes/bag_tags/list.html:74
 #, python-format
 msgid "Since %(date)s (%(days)s days)"
 msgstr "Seit dem %(date)s (%(days)s Tage)"
 
-#: dgf/templates/dgf/includes/bag_tags/list.html:76
-#, python-format
-msgid "Since %(days)s days"
-msgstr "Seit %(days)s Tagen"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:78
+#: dgf/templates/dgf/includes/bag_tags/list.html:77
 msgid "Best:"
 msgstr "Beste:"
 
-#: dgf/templates/dgf/includes/bag_tags/list.html:79
+#: dgf/templates/dgf/includes/bag_tags/list.html:78
 msgid "Worst:"
-msgstr "Schlechteste"
+msgstr "Schlechteste:"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:79
+msgid "Average:"
+msgstr "Im Durchschnitt bekommen:"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:80
-msgid "Average:"
-msgstr "Durchschnitt"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:81
 msgid "Most received:"
 msgstr "Am häufigsten bekommen:"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:82
 #, python-format
-msgid "%(changes)s bag tag changes since %(first_date)s"
-msgstr "%(changes)s Male Bagtags getauscht seit dem %(first_date)s"
+msgid "1 bag tag change"
+msgid_plural "%(changes)s bag tag changes"
+msgstr[0] "1 Bagtag Änderung"
+msgstr[1] "%(changes)s Bagtag Änderungen"
+
+#: dgf/templates/dgf/includes/bag_tags/list.html:83
+#, python-format
+msgid "Got their first bag tag on %(first_change)s"
+msgstr "Erstes Bagtag am %(first_change)s bekommen"
 
 #: dgf/templates/dgf/includes/bag_tags/metrix.html:5
 msgid "Tournaments that ended today"
-msgstr "Turniere die heute enden"
+msgstr "Turniere, die heute enden"
 
 #: dgf/templates/dgf/includes/bag_tags/top_buttons.html:6
 msgid ""
