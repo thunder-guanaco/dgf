@@ -637,8 +637,8 @@ msgstr "Am häufigsten bekommen:"
 #, python-format
 msgid "1 bag tag change"
 msgid_plural "%(changes)s bag tag changes"
-msgstr[0] "1 Bagtag Änderung"
-msgstr[1] "%(changes)s Bagtag Änderungen"
+msgstr[0] "1 Mal Bagtag getauscht"
+msgstr[1] "%(changes)s Male Bagtag getauscht"
 
 #: dgf/templates/dgf/includes/bag_tags/list.html:83
 #, python-format
