@@ -16,6 +16,9 @@ exit_if_error "Install dependencies" $?
 python manage.py migrate
 exit_if_error "Apply migrations" $?
 
+# invalidate django compress cache
+rm ${ROOT_INSTALLATION_PATH}/static/CACHE
+
 yes yes | python manage.py collectstatic --clear
 exit_if_error "Collect static files" $?
 
