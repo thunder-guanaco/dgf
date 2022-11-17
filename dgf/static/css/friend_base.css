@@ -13,21 +13,21 @@
         height: -webkit-fill-available !important;
     }
 
-    #hall-of-fame-plugin .friend-ball img {
+    .hall-of-fame-plugin .friend-ball img {
         width: 70px !important;
         height: 70px !important;
     }
 
-    #hall-of-fame-plugin .friend-ball {
+    .hall-of-fame-plugin .friend-ball {
         flex-direction: row !important;
         margin: 0.5em;
     }
 
-    #hall-of-fame-plugin .friend-ball .friend-name {
+    .hall-of-fame-plugin .friend-ball .friend-name {
         margin: 0 0 0 0.5em !important;
     }
 
-    #hall-of-fame-plugin .row {
+    .hall-of-fame-plugin .row {
         flex-direction: column;
         align-items: center;
     }
@@ -292,4 +292,11 @@ hr {
     margin: 0;
     background-color: #8d1950;
     border: solid #8d1950 2px;
+}
+
+.hall-of-fame-title {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 1em;
 }

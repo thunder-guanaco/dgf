@@ -154,20 +154,19 @@ class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context.update({
             'friends': friends_order_by_ts_wins(instance.division),
+            'division': instance.division,
         })
         return context
 
 
 @plugin_pool.register_plugin
 class TremoniaSeriesHallOfFameSmallPluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
-    model = TremoniaSeriesHallOfFamePluginModel
     name = _('Hall Of Fame (small)')
-    render_template = 'dgf/plugins/tremonia_series_hall_of_fame.html'
+    render_template = 'dgf/plugins/tremonia_series_hall_of_fame_small.html'
 
 
 @plugin_pool.register_plugin
-class TremoniaSeriesHallOfFamePagePluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
-    model = CMSPlugin
+class TremoniaSeriesHallOfFameWholePagePluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
     name = _('Hall Of Fame (whole page)')
     render_template = 'dgf/plugins/tremonia_series_hall_of_fame_page.html'
 
