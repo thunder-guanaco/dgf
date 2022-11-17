@@ -9,8 +9,9 @@ from django.db.models import Count, Q, Max, Min, Avg, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
 from . import tremonia_series
-from .models import FriendPluginModel, Friend, CoursePluginModel, UdiscRound, Tournament, TourPluginModel, \
-    BagTagChange, ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
+from .models import Friend, UdiscRound, Tournament, BagTagChange
+from .plugin_models import FriendPluginModel, CoursePluginModel, TourPluginModel, \
+    ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
 from .udisc import get_course_url
 
 
