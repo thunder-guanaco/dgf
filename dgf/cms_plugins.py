@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from . import tremonia_series
 from .models import Friend, UdiscRound, Tournament, BagTagChange
 from .plugin_models import FriendPluginModel, CoursePluginModel, TourPluginModel, \
-    ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel
+    ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel, TremoniaSeriesHallOfFamePluginModel
 from .udisc import get_course_url
 
 
@@ -80,8 +80,9 @@ class GoogleCalendarPluginPublisher(CMSPluginBase):
     render_template = 'dgf/plugins/calendar.html'
 
 
-def friends_order_by_ts_wins():
+def friends_order_by_ts_wins(division):
     return Friend.all_objects.filter(results__tournament__name__startswith='Tremonia Series',
+                                     results__division=division,
                                      results__position__in=[1, 2, 3]) \
         .annotate(ts_wins=Count('results__position', filter=Q(results__position=1))) \
         .annotate(ts_seconds=Count('results__position', filter=Q(results__position=2))) \
@@ -146,32 +147,29 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
         return context
 
 
-@plugin_pool.register_plugin
 class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
-    model = CMSPlugin
+    model = TremoniaSeriesHallOfFamePluginModel
     module = _('Tremonia Series')
+
+    def render(self, context, instance, placeholder):
+        context.update({
+            'friends': friends_order_by_ts_wins(instance.division),
+        })
+        return context
+
+
+@plugin_pool.register_plugin
+class TremoniaSeriesHallOfFameSmallPluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
+    model = TremoniaSeriesHallOfFamePluginModel
     name = _('Hall Of Fame (small)')
     render_template = 'dgf/plugins/tremonia_series_hall_of_fame.html'
 
-    def render(self, context, instance, placeholder):
-        context.update({
-            'friends': friends_order_by_ts_wins(),
-        })
-        return context
-
 
 @plugin_pool.register_plugin
-class TremoniaSeriesHallOfFamePagePluginPublisher(CMSPluginBase):
+class TremoniaSeriesHallOfFamePagePluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
     model = CMSPlugin
-    module = _('Tremonia Series')
     name = _('Hall Of Fame (whole page)')
     render_template = 'dgf/plugins/tremonia_series_hall_of_fame_page.html'
-
-    def render(self, context, instance, placeholder):
-        context.update({
-            'friends': friends_order_by_ts_wins(),
-        })
-        return context
 
 
 @plugin_pool.register_plugin
