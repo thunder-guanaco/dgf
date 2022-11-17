@@ -8,9 +8,9 @@ from parameterized import parameterized
 from ..models.creator import create_friends, create_courses
 from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher, SmallerFriendPluginPublisher, \
     BiggerFriendPluginPublisher, UdiscPluginPublisher, GoogleCalendarPluginPublisher, \
-    TremoniaSeriesNextTournamentsPluginPublisher, TremoniaSeriesHallOfFamePluginPublisher, \
-    TremoniaSeriesHallOfFamePagePluginPublisher
-from ...models import UdiscRound, Tournament, Result
+    TremoniaSeriesNextTournamentsPluginPublisher, TremoniaSeriesHallOfFameSmallPluginPublisher, \
+    TremoniaSeriesHallOfFameWholePagePluginPublisher
+from ...models import UdiscRound, Tournament, Result, Division
 
 PAST_DAY = date(year=2000, month=1, day=1)
 FUTURE_DAY = date(year=3000, month=1, day=1)
@@ -71,29 +71,43 @@ class CmsPluginsTests(TestCase):
         self.render_plugin(GoogleCalendarPluginPublisher)
 
     @parameterized.expand([
-        (TremoniaSeriesHallOfFamePluginPublisher,),
-        (TremoniaSeriesHallOfFamePagePluginPublisher,),
+        (TremoniaSeriesHallOfFameSmallPluginPublisher,),
+        (TremoniaSeriesHallOfFameWholePagePluginPublisher,),
     ])
     def test_tremonia_series_hall_of_fame_plugin(self, plugin_class):
         friends = create_friends(3)
+        mpo, _ = Division.objects.get_or_create(id='MPO', defaults={'text': 'MPO - Pro Open'})
+        ma4, _ = Division.objects.get_or_create(id='MA4', defaults={'text': 'MA4 - Novice'})
         tournaments = self.create_tournaments()
         Result.objects.all().delete()
 
-        Result.objects.create(friend=friends[0], tournament=tournaments[1], position=1)
-        Result.objects.create(friend=friends[0], tournament=tournaments[3], position=3)
-        Result.objects.create(friend=friends[0], tournament=tournaments[4], position=1)
+        Result.objects.create(friend=friends[0], tournament=tournaments[1], position=1, division=mpo)
+        Result.objects.create(friend=friends[0], tournament=tournaments[2], position=1)  # no division
+        Result.objects.create(friend=friends[0], tournament=tournaments[3], position=3, division=mpo)
+        Result.objects.create(friend=friends[0], tournament=tournaments[4], position=1, division=mpo)
 
-        Result.objects.create(friend=friends[1], tournament=tournaments[1], position=1)
-        Result.objects.create(friend=friends[1], tournament=tournaments[3], position=1)
-        Result.objects.create(friend=friends[1], tournament=tournaments[4], position=2)
+        Result.objects.create(friend=friends[1], tournament=tournaments[1], position=1, division=mpo)
+        Result.objects.create(friend=friends[1], tournament=tournaments[3], position=1, division=mpo)
+        Result.objects.create(friend=friends[1], tournament=tournaments[4], position=2, division=mpo)
+        Result.objects.create(friend=friends[1], tournament=tournaments[5], position=1, division=ma4)  # wrong division
+        Result.objects.create(friend=friends[1], tournament=tournaments[6], position=1, division=ma4)  # wrong division
 
-        Result.objects.create(friend=friends[2], tournament=tournaments[0], position=1)  # not TS
-        Result.objects.create(friend=friends[2], tournament=tournaments[1], position=3)
-        Result.objects.create(friend=friends[2], tournament=tournaments[2], position=1)  # not TS
-        Result.objects.create(friend=friends[2], tournament=tournaments[3], position=2)
-        Result.objects.create(friend=friends[2], tournament=tournaments[4], position=1)
+        Result.objects.create(friend=friends[2], tournament=tournaments[0], position=1, division=mpo)  # not TS
+        Result.objects.create(friend=friends[2], tournament=tournaments[1], position=3, division=mpo)
+        Result.objects.create(friend=friends[2], tournament=tournaments[2], position=1, division=mpo)  # not TS
+        Result.objects.create(friend=friends[2], tournament=tournaments[3], position=2, division=mpo)
+        Result.objects.create(friend=friends[2], tournament=tournaments[4], position=1, division=mpo)
 
-        context = self.render_plugin(plugin_class)
+        placeholder = Placeholder.objects.create(slot='test')
+        model_instance = add_plugin(
+            placeholder,
+            plugin_class,
+            'en',
+            target=None,
+            division=mpo
+        )
+        plugin_instance = model_instance.get_plugin_class_instance()
+        context = plugin_instance.render({}, model_instance, None)
 
         self.assertEqual([friend.username for friend in context['friends']], ['friend_1', 'friend_0', 'friend_2'])
 
@@ -145,4 +159,12 @@ class CmsPluginsTests(TestCase):
             Tournament.objects.create(begin=FUTURE_DAY,
                                       end=FUTURE_DAY,
                                       name='Tremonia Series #8888'),
+
+            Tournament.objects.create(begin=PAST_DAY,
+                                      end=PAST_DAY,
+                                      name='Tremonia Series #7777'),
+
+            Tournament.objects.create(begin=PAST_DAY,
+                                      end=PAST_DAY,
+                                      name='Tremonia Series #6666'),
         ]
