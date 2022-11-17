@@ -2,7 +2,7 @@ import logging
 import re
 from decimal import Decimal
 
-from cms.models import User, CMSPlugin
+from cms.models import User
 from django.contrib.auth.models import UserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -519,47 +519,3 @@ class BagTagChange(Model):
     def save(self, *args, **kwargs):
         super(BagTagChange, self).save(*args, **kwargs)
         logger.info(self)
-
-
-class CoursePluginModel(CMSPlugin):
-    course = models.ForeignKey(Course, on_delete=CASCADE)
-
-    def __str__(self):
-        return f'Course plugin for {str(self.course)}'
-
-
-class FriendPluginModel(CMSPlugin):
-    friend = models.ForeignKey(Friend, on_delete=CASCADE)
-
-    def __str__(self):
-        return f'Friend plugin for {str(self.friend)}'
-
-
-class TourPluginModel(CMSPlugin):
-    tour = models.ForeignKey(Tour, on_delete=CASCADE)
-
-    def __str__(self):
-        return f'Tour plugin for {str(self.tour)}'
-
-
-class ResultsPluginModel(CMSPlugin):
-    background_image = models.ImageField(_('Background image'), null=False, blank=False)
-    width = models.CharField(_('Width'), max_length=6, null=False, blank=False, default="800px")
-    height = models.CharField(_('Height'), max_length=6, blank=False, default="500px")
-
-
-class ConcreteTournamentResultsPluginModel(ResultsPluginModel):
-    tournament = models.ForeignKey(Tournament, on_delete=CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return f'Concrete tournament result plugin for {self.tournament}\n' \
-               f'with background image: {self.background_image}\n' \
-               f'(width: {self.width}, height: {self.height})'
-
-
-class LastTremoniaSeriesResultsPluginModel(ResultsPluginModel):
-
-    def __str__(self):
-        return f'Last Tremonia Series result plugin\n' \
-               f'with background image: {self.background_image}\n' \
-               f'(width: {self.width}, height: {self.height})'

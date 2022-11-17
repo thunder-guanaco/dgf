@@ -1,9 +1,10 @@
 from django.test import TestCase
 from parameterized import parameterized
 
-from dgf.models import Division, FavoriteCourse, CoursePluginModel, FriendPluginModel, Friend, Course, UdiscRound, \
+from dgf.models import Division, FavoriteCourse, Friend, Course, UdiscRound, \
     Highlight, Video, Attendance
 from .creator import create_friends, create_courses, create_tournaments
+from ...plugin_models import CoursePluginModel, FriendPluginModel
 
 
 class ModelRepresentationTest(TestCase):
