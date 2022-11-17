@@ -10,7 +10,7 @@
 
         <!-- CSS -->
 
-        {% compress css file base_css %}
+        {% compress css file base2_css %}
 
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
@@ -45,7 +45,7 @@
             </script>
         {% endif %}
 
-        {% compress js file base_js %}
+        {% compress js file base2_js %}
 
             {% include "includes/admin_js.html" %}
             <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
