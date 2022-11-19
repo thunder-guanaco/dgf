@@ -8,6 +8,10 @@ logger = logging.getLogger(__name__)
 
 
 def github_issue_post_save(instance):
+    if settings.DEBUG:
+        logger.info(f'We have an issue "{instance.title}"')
+        return
+
     url = 'https://api.github.com/repos/thunder-guanaco/dgf/issues'
     friend_name = instance.friend.short_name if instance.friend else 'Anonymous user'
 
