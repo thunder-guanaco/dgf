@@ -1,5 +1,6 @@
 import logging
 import re
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 from cms.models import User
@@ -205,6 +206,7 @@ class GitHubIssue(Model):
     title = models.CharField(_('Title'), max_length=200)
     body = models.TextField(_('Body'), null=True, blank=True)
     friend = models.ForeignKey(Friend, null=True, on_delete=CASCADE, verbose_name=_('Friend'))
+    timestamp = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
     FEEDBACK = 'F'
     LIVE_ERROR = 'L'
@@ -222,7 +224,12 @@ class GitHubIssue(Model):
 
     def save(self, *args, **kwargs):
         super(GitHubIssue, self).save(*args, **kwargs)
-        github_issue_post_save(self)
+        time_threshold = datetime.now() - timedelta(minutes=1)
+        similar_issues = GitHubIssue.objects.exclude(id=self.id) \
+            .filter(title=self.title) \
+            .filter(timestamp__gt=time_threshold)
+        if not similar_issues.exists():
+            github_issue_post_save(self)
 
 
 class Highlight(Model):
