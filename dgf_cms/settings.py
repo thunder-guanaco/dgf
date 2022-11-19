@@ -266,6 +266,7 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf_images',
     'dgf_cookies',
     'dgf',
     'django_countries',

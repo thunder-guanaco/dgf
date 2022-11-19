@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static i18n dgf %}
+
+{% block title %}
+    {{image_generator.name}}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/'|add:image_generator.slug|add:'.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/html2canvas.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/detail.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{image_generator.name}}</h1>
+
+    <div id="image-for-social-media">
+        {% block image_generator %}
+        {% endblock %}
+    </div>
+
+    <button onclick="capture('#image-for-social-media')">{% trans "Download" %}</button>
+
+{% endblock %}

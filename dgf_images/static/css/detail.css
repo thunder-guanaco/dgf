@@ -1,0 +1,7 @@
+.container {
+    gap: 1em;
+}
+
+button {
+    width: fit-content;
+}

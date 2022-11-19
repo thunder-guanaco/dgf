@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Image Generators" %}
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="image-generators">
+
+        <h1>{% trans "Image Generators" %}</h1>
+
+        {% for image_generator in image_generators %}
+            <a href="{% url 'dgf_images:detail' image_generator.slug %}">
+                <button>{{image_generator.name}}</button>
+            </a>
+        {% empty %}
+            There are no image generators (yet!)
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
