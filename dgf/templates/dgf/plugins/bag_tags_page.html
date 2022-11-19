@@ -14,11 +14,11 @@
         const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
         const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
 
-        const ownBagTagNumer = {{request.user.friend.bag_tag}};
         const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
         const metrixUserIds = Object.keys(metrixUserIdToFriend);
 
         {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const ownBagTagNumer = {{request.user.friend.bag_tag}};
             const disableClickOnFriends = true;
         {% else %}
             const disableClickOnFriends = false;
