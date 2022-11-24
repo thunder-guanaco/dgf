@@ -1,18 +1,17 @@
-from django.views.generic import DetailView, ListView
+from django.http import Http404
+from django.shortcuts import render
 
-from dgf_images.models import ImageGenerator
-
-
-class IndexView(ListView):
-    queryset = ImageGenerator.objects.filter(active=True)
-    context_object_name = 'image_generators'
-    template_name = 'dgf_images/list.html'
+IMAGE_GENERATORS = [
+    'all-friends-background-with-text',
+]
 
 
-class DetailView(DetailView):
-    model = ImageGenerator
-    context_object_name = 'image_generator'
-    slug_field = 'slug'
+def index(request):
+    return render(request, 'dgf_images/index.html', {'image_generators': IMAGE_GENERATORS})
 
-    def get_template_names(self):
-        return f'dgf_images/generators/{self.object.slug}.html'
+
+def generator(request, slug):
+    if slug in IMAGE_GENERATORS:
+        return render(request, f'dgf_images/generators/{slug}.html', {'image_generator': slug})
+    else:
+        raise Http404(f'There\'s no generator with the given slug: {slug}')

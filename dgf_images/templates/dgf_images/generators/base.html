@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
-{% load static i18n dgf %}
+{% load static i18n dgf_images %}
 
 {% block title %}
-    {{image_generator.name}}
+    {{image_generator}}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/'|add:image_generator.slug|add:'.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/'|add:image_generator|add:'.css' %}">
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript" src="{% static 'js/html2canvas.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/detail.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/'|add:image_generator.slug|add:'.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/generators/base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/generators/'|add:image_generator|add:'.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
     <div id="image-generator">
 
-        <h1>{{image_generator.name}}</h1>
+        <h1>{{image_generator|replace:"-| "|title}}</h1>
 
         <div id="configuration">
             {% block configuration %}

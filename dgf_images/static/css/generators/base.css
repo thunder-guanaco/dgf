@@ -1,3 +1,7 @@
+#configuration {
+    z-index: 100;
+}
+
 #image-generator {
     display: flex;
     flex-flow: column;
