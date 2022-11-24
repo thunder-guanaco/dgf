@@ -1008,29 +1008,27 @@ msgstr "Bitte klick hier"
 
 #: dgf_images/models.py:14
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: dgf_images/templates/dgf_images/detail.html:35
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:11
-#, fuzzy
-#| msgid "Friends Header"
 msgid "Friends per row"
-msgstr "Friends Kopfzeile"
+msgstr "Friends pro Zeile"
 
 #: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:17
 msgid "Add Logo at the beginning?"
-msgstr ""
+msgstr "Logo am Anfang?"
 
 #: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:22
 msgid "Add Logo at the end?"
-msgstr ""
+msgstr "Logo am Ende?"
 
 #: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:33
 msgid "We are 60 friends now!"
-msgstr ""
+msgstr "Wir sind schon 60 Friends!"
 
 #: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:34
 msgid "Write something here..."

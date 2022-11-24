@@ -12,3 +12,6 @@ class ImageGenerator(Model):
     name = models.CharField(_('Name'), max_length=50, null=False, blank=False)
     slug = models.SlugField(_('Slug'), max_length=50, null=False, blank=False)
     active = models.BooleanField(_('Active'), null=False, blank=False, default=True)
+
+    def __str__(self):
+        return f'{self.name} (/{self.slug}) [{"active" if self.active else "inactive"}]'
