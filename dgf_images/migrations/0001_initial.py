@@ -15,8 +15,8 @@ class Migration(migrations.Migration):
             name='ImageGenerator',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='Name')),
-                ('slug', models.SlugField(max_length=30, verbose_name='Slug')),
+                ('name', models.CharField(max_length=50, verbose_name='Name')),
+                ('slug', models.SlugField(max_length=50, verbose_name='Slug')),
             ],
         ),
         migrations.AddConstraint(
