@@ -452,7 +452,9 @@ JAZZMIN_SETTINGS = {
     'search_model': 'dgf.Friend',
     'show_sidebar': True,
     'navigation_expanded': False,
-    'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange', 'auth', 'cms'],
+    'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange',
+                              'dgf_images', 'dgf_images.imagegenerator',
+                              'auth', 'cms'],
 
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free
     'icons': {
@@ -463,6 +465,8 @@ JAZZMIN_SETTINGS = {
         'dgf.course': 'fas fa-tree',
         'dgf.githubissue': 'fas fa-newspaper',
         'dgf.tour': 'fas fa-route',
+        'dgf_images': 'fas fa-images',
+        'dgf_images.imagegenerator': 'fas fa-print',
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.group': 'fas fa-users',

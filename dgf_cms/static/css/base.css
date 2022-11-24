@@ -475,6 +475,10 @@ input[type=button]:active {
     color: white !important;
 }
 
+#dgf-version {
+    margin: 1em 0;
+}
+
 .badge-dark {
     color: #ffffff !important;
     background-color: #1b2633 !important;

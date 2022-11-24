@@ -1,5 +1,9 @@
 function capture(jquerySelector) {
-    html2canvas(document.querySelector(jquerySelector)).then(canvas => {
+    const element = document.querySelector(jquerySelector);
+    html2canvas(element, {
+        scale: 5,
+        allowTaint: true,
+    }).then(canvas => {
         download(canvas);
     });
 }
@@ -11,4 +15,8 @@ function download(canvas) {
     const filename = now.toISOString().split('Z')[0].replace('T', '_')
     a.download = `generated_image_${filename}.png`
     a.dispatchEvent(new MouseEvent("click"))
+}
+
+function showIfChecked(selector, element) {
+    $(selector).css('display', $(element).is(':checked') ? 'unset' : 'none');
 }

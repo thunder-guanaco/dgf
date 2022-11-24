@@ -13,17 +13,27 @@
 {% block js %}
     <script type="text/javascript" src="{% static 'js/html2canvas.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/'|add:image_generator.slug|add:'.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-    <h1>{{image_generator.name}}</h1>
+    <div id="image-generator">
 
-    <div id="image-for-social-media">
-        {% block image_generator %}
-        {% endblock %}
+        <h1>{{image_generator.name}}</h1>
+
+        <div id="configuration">
+            {% block configuration %}
+            {% endblock %}
+        </div>
+
+        <div id="generated-content">
+            {% block generated_content %}
+            {% endblock %}
+        </div>
+
+        <button id="download-button" onclick="capture('#generated-content')">{% trans "Download" %}</button>
+
     </div>
-
-    <button onclick="capture('#image-for-social-media')">{% trans "Download" %}</button>
 
 {% endblock %}
