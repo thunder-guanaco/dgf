@@ -1,4 +1,4 @@
-{% extends 'dgf_images/detail.html' %}
+{% extends 'dgf_images/generators/base.html' %}
 {% load static i18n thumbnail dgf_images %}
 
 {% block configuration%}
@@ -85,7 +85,7 @@
 
         <img id="last-logo"
              class="logo"
-             src="{% static 'img/logo.png' %}"
+             src="{% static 'img/dgf-logo.png' %}"
              width="100x"
              height="100px"/>
     </div>

@@ -26,10 +26,6 @@
     opacity: 0.5;
 }
 
-#all-friends img.logo {
-    z-index: 4;
-}
-
 #overlay {
     z-index: 2;
     position: absolute;

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n dgf_images %}
 
 {% block title %}
     {% trans "Image Generators" %}
@@ -18,8 +18,8 @@
         <h1>{% trans "Image Generators" %}</h1>
 
         {% for image_generator in image_generators %}
-            <a href="{% url 'dgf_images:detail' image_generator.slug %}">
-                <button>{{image_generator.name}}</button>
+            <a href="{% url 'dgf_images:generator' image_generator %}">
+                <button>{{image_generator|replace:"-| "|title}}</button>
             </a>
         {% empty %}
             There are no image generators (yet!)
