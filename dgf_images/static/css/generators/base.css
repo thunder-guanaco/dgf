@@ -1,5 +1,65 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+    #configuration {
+        width: 100%;
+    }
+
+    #configuration .group {
+        flex-flow: column;
+    }
+
+    #configuration .group > * {
+        width: 100%;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+
+    #configuration .group {
+        flex-flow: row;
+    }
+}
+
 #configuration {
     z-index: 100;
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+}
+
+#configuration .group {
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#configuration .group > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+#configuration input[type=number] {
+    width: 3em;
+    text-align: center;
+}
+
+#configuration textarea {
+    overflow: auto;
+    resize: none;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    padding: 1em;
+}
+
+#configuration label {
+    font-weight: bold;
+    margin: 0;
 }
 
 #image-generator {

@@ -1,7 +1,7 @@
 $(window).on("load", function() {
 
     $("#friends-per-row").change(function() {
-        $("#all-friends").css("width", $(this).val() + "00");
+        $("#all-friends").css("width", $(this).val());
     }).change();
 
     $("#show-first-logo").change(function() {
