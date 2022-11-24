@@ -3,63 +3,67 @@
 
 {% block configuration%}
 
-    <div class="column">
-
-        <div class="row">
-            <div>
-                <label>{% trans "Friends per row" %}</label>
+    <div class="group">
+        <div>
+            <label>{% trans "Picture width" %}</label>
+            <span>
                 <input id="friends-per-row"
                        type="number"
-                       value="7">
-            </div>
-            <div>
-                <label>{% trans "Add Logo at the beginning?" %}</label>
-                <input id="show-first-logo"
-                       type="checkbox">
-            </div>
-            <div>
-                <label>{% trans "Add Logo at the end?" %}</label>
-                <input id="show-last-logo"
-                       type="checkbox"
-                       checked>
-            </div>
-        </div>
-
-        <div class="row">
-            <div>
-                <label>{% trans "Text" %}</label>
-                <input id="text"
-                       value="{% trans 'We are 60 friends now!' %}"
-                       placeholder="{% trans 'Write something here...' %}">
-            </div>
-            <div>
-                <label>{% trans "Text size" %}</label>
-                <input id="text-size"
-                       type="number"
-                       value="100">
+                       value="{% if request.user_agent.is_mobile %}250{% else %}700{% endif %}"
+                       step="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}">
                 <span>px</span>
-            </div>
-            <div>
-                <label>{% trans "Text color" %}</label>
-                <select id="text-color">
-                    <option value="#1b2633">{% trans "DGF blue" %}</option>
-                    <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
-                    <option value="#fff">{% trans "White" %}</option>
-                    <option value="#000">{% trans "Black" %}</option>
-                    <option value="#888">{% trans "Gray" %}</option>
-                </select>
-            </div>
-            <div>
-                <label>{% trans "Overlay color" %}</label>
-                <select id="overlay-color">
-                    <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
-                    <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                    <option value="#fff">{% trans "White" %}</option>
-                    <option value="#000">{% trans "Black" %}</option>
-                    <option value="#888">{% trans "Gray" %}</option>
-                    <option value="unset">{% trans "None" %}</option>
-                </select>
-            </div>
+            </span>
+        </div>
+        <div>
+            <label>{% trans "Add Logo at the beginning?" %}</label>
+            <input id="show-first-logo"
+                   type="checkbox">
+        </div>
+        <div>
+            <label>{% trans "Add Logo at the end?" %}</label>
+            <input id="show-last-logo"
+                   type="checkbox"
+                   checked>
+        </div>
+    </div>
+
+    <div class="group">
+        <div>
+            <label>{% trans "Text" %}</label>
+            <textarea id="text">{% trans 'We are 60 friends now!' %}"</textarea>
+        </div>
+    </div>
+
+    <div class="group">
+        <div>
+            <label>{% trans "Text size" %}</label>
+            <span>
+                <input id="text-size"
+                   type="number"
+                   value="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}">
+                <span>px</span>
+            </span>
+        </div>
+        <div>
+            <label>{% trans "Text color" %}</label>
+            <select id="text-color">
+                <option value="#1b2633">{% trans "DGF blue" %}</option>
+                <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
+                <option value="#fff">{% trans "White" %}</option>
+                <option value="#000">{% trans "Black" %}</option>
+                <option value="#888">{% trans "Gray" %}</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Overlay color" %}</label>
+            <select id="overlay-color">
+                <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
+                <option value="#8d1950">{% trans "DGF Pink" %}</option>
+                <option value="#fff">{% trans "White" %}</option>
+                <option value="#000">{% trans "Black" %}</option>
+                <option value="#888">{% trans "Gray" %}</option>
+                <option value="unset">{% trans "None" %}</option>
+            </select>
         </div>
     </div>
 
