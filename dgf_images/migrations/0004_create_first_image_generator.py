@@ -8,7 +8,7 @@ def create_image_generators(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('dgf_images', '0002_imagegenerator_active'),
+        ('dgf_images', '0003_auto_20221121_2328'),
     ]
 
     operations = [
