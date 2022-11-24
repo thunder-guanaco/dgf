@@ -1,0 +1,14 @@
+#image-generator {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1em;
+}
+
+#generated-content {
+    position: relative;
+}
+
+#download-button {
+    width: fit-content;
+}

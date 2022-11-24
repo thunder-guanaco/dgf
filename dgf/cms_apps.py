@@ -18,3 +18,12 @@ class CookiesApphook(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ['cookie_consent.urls']
+
+
+@apphook_pool.register
+class ImagesApphook(CMSApp):
+    app_name = 'dgf_images'
+    name = 'Images Application'
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ['dgf_images.urls']

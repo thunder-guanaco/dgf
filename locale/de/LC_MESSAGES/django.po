@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-16 13:51+0100\n"
+"POT-Creation-Date: 2022-11-24 01:14+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,92 +32,92 @@ msgstr "OK"
 msgid "please check"
 msgstr "bitte überprüfen"
 
-#: dgf/cms_plugins.py:20 dgf/cms_plugins.py:48 dgf/cms_plugins.py:60
-#: dgf/cms_plugins.py:77 dgf/cms_plugins.py:128 dgf/cms_plugins.py:136
+#: dgf/cms_plugins.py:21 dgf/cms_plugins.py:49 dgf/cms_plugins.py:61
+#: dgf/cms_plugins.py:78 dgf/cms_plugins.py:130 dgf/cms_plugins.py:138
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:21 dgf/models.py:198 dgf/models.py:207
+#: dgf/cms_plugins.py:22 dgf/models.py:199 dgf/models.py:208
 msgid "Friend"
 msgstr "Friend"
 
-#: dgf/cms_plugins.py:35
+#: dgf/cms_plugins.py:36
 msgid "Friend (small)"
 msgstr "Friends (klein)"
 
-#: dgf/cms_plugins.py:41
+#: dgf/cms_plugins.py:42
 msgid "Friend (big)"
 msgstr "Friend (groß)"
 
-#: dgf/cms_plugins.py:49
+#: dgf/cms_plugins.py:50
 msgid "Friends Header"
 msgstr "Friends Kopfzeile"
 
-#: dgf/cms_plugins.py:61
+#: dgf/cms_plugins.py:62
 msgid "UDisc Best Scores"
 msgstr "Beste Runden aus UDisc"
 
-#: dgf/cms_plugins.py:78
+#: dgf/cms_plugins.py:79
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:129
+#: dgf/cms_plugins.py:131
 msgid "Tour Results"
 msgstr "Tourergebnisse"
 
-#: dgf/cms_plugins.py:137
+#: dgf/cms_plugins.py:139
 msgid "Bag Tags (whole page)"
 msgstr "Bagtags (ganze Seite)"
 
-#: dgf/cms_plugins.py:151 dgf/cms_plugins.py:165 dgf/cms_plugins.py:179
+#: dgf/cms_plugins.py:152 dgf/cms_plugins.py:177
 msgid "Tremonia Series"
 msgstr "Tremonia Series"
 
-#: dgf/cms_plugins.py:152
+#: dgf/cms_plugins.py:164
 msgid "Hall Of Fame (small)"
 msgstr "Hall Of Fame (klein)"
 
-#: dgf/cms_plugins.py:166
+#: dgf/cms_plugins.py:170
 msgid "Hall Of Fame (whole page)"
 msgstr "Hall Of Fame (ganze Seite)"
 
-#: dgf/cms_plugins.py:180
+#: dgf/cms_plugins.py:178
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:193
+#: dgf/cms_plugins.py:191
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
-#: dgf/cms_plugins.py:195
+#: dgf/cms_plugins.py:193
 msgid "Only desktop"
 msgstr "Nur am Desktop sichtbar"
 
-#: dgf/cms_plugins.py:209
+#: dgf/cms_plugins.py:207
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:216
+#: dgf/cms_plugins.py:214
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:217
+#: dgf/cms_plugins.py:215
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:232
+#: dgf/cms_plugins.py:230
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
-#: dgf/cms_plugins.py:240 dgf/cms_plugins.py:258
+#: dgf/cms_plugins.py:238 dgf/cms_plugins.py:256
 msgid "Social Media"
 msgstr "Soziale Netzwerke"
 
-#: dgf/cms_plugins.py:241
+#: dgf/cms_plugins.py:239
 msgid "Concrete Tournament Results"
 msgstr "Bestimmtes Turnier"
 
-#: dgf/cms_plugins.py:259
+#: dgf/cms_plugins.py:257
 msgid "Last Tremonia Series Results"
 msgstr "Letzte Tremonia Series Ergebnisse"
 
@@ -176,289 +176,290 @@ msgstr "Ordner"
 msgid "All folders"
 msgstr "Alle Ordner"
 
-#: dgf/models.py:32
+#: dgf/models.py:33
 msgid "ID"
 msgstr "ID"
 
-#: dgf/models.py:33
+#: dgf/models.py:34
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:31
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:50 dgf/models.py:356 dgf/models.py:471
-#: dgf_cookies/models.py:14
+#: dgf/models.py:51 dgf/models.py:363 dgf/models.py:478
+#: dgf_cookies/models.py:14 dgf_images/models.py:12
 msgid "Name"
 msgstr "Name"
 
-#: dgf/models.py:51
+#: dgf/models.py:52
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: dgf/models.py:52 dgf/models.py:126
+#: dgf/models.py:53 dgf/models.py:127
 msgid "City"
 msgstr "Stadt"
 
-#: dgf/models.py:53
+#: dgf/models.py:54
 msgid "Country"
 msgstr "Land"
 
-#: dgf/models.py:54
+#: dgf/models.py:55
 msgid "UDisc ID"
 msgstr "UDisc ID"
 
-#: dgf/models.py:55
+#: dgf/models.py:56
 msgid "Main Layout"
 msgstr "Haupt-Layout"
 
-#: dgf/models.py:110
+#: dgf/models.py:111
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: dgf/models.py:111
+#: dgf/models.py:112
 msgid "Club role"
 msgstr "Vereinsrolle"
 
-#: dgf/models.py:113
+#: dgf/models.py:114
 msgid "Sponsor"
 msgstr "Sponsor"
 
-#: dgf/models.py:114
+#: dgf/models.py:115
 msgid "Sponsor logo"
 msgstr "Sponsors Logo"
 
-#: dgf/models.py:115
+#: dgf/models.py:116
 msgid "Sponsor link"
 msgstr "Sponsors URL"
 
-#: dgf/models.py:117
+#: dgf/models.py:118
 msgid "PDGA Number"
 msgstr "PDGA Nummer"
 
-#: dgf/models.py:118
+#: dgf/models.py:119
 msgid "GT Number"
 msgstr "GT Nummer"
 
-#: dgf/models.py:119
+#: dgf/models.py:120
 msgid "UDisc Username"
 msgstr "UDisc-Benutzername"
 
-#: dgf/models.py:120
+#: dgf/models.py:121
 msgid "Disc Golf Metrix User ID"
 msgstr "Disc Golf Metrix Benutzer ID"
 
-#: dgf/models.py:122
+#: dgf/models.py:123
 msgid "Can we use this profile information in our social media accounts?"
 msgstr ""
 "Können wir deine Profil-Informationen bei unseren Social Media Konten "
 "benutzen?"
 
-#: dgf/models.py:125 dgf/models.py:452 dgf/models.py:473
+#: dgf/models.py:126 dgf/models.py:459 dgf/models.py:480
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
 msgid "Division"
 msgstr "Division"
 
-#: dgf/models.py:127
+#: dgf/models.py:128
 msgid "Main photo"
 msgstr "Hauptbild"
 
-#: dgf/models.py:128
+#: dgf/models.py:129
 msgid "Plays since"
 msgstr "Ich spiele Disc Golf seit"
 
-#: dgf/models.py:130
+#: dgf/models.py:131
 msgid "Best score in Wischlingen (relative to par)"
 msgstr "Beste Runde in Wischlingen (relativ zu par 71)"
 
-#: dgf/models.py:132
+#: dgf/models.py:133
 msgid "Started playing"
 msgstr "Ich bin zum Sport gekommen..."
 
-#: dgf/models.py:133
+#: dgf/models.py:134
 msgid "Job"
 msgstr "Das mache ich beruflich"
 
-#: dgf/models.py:134
+#: dgf/models.py:135
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:37
 msgid "Other hobbies"
 msgstr "Andere Hobbies"
 
-#: dgf/models.py:136
+#: dgf/models.py:137 dgf_images/models.py:13
 msgid "Slug"
 msgstr "Slug"
 
-#: dgf/models.py:137
+#: dgf/models.py:138
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:70
 #: dgf/templates/dgf/includes/friend_picture.html:56
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/models.py:138
+#: dgf/models.py:139
 msgid "Bag Tag"
 msgstr "Bagtag"
 
-#: dgf/models.py:140
+#: dgf/models.py:141
 msgid "Total tournaments"
 msgstr "Gespielte Turniere"
 
-#: dgf/models.py:141
+#: dgf/models.py:142
 msgid "Total earnings"
 msgstr "Gesamtgewinn im Turniere"
 
-#: dgf/models.py:185
+#: dgf/models.py:186
 msgid "Last score from UDisc"
 msgstr "Letzte Runde aus UDisc"
 
-#: dgf/models.py:197 dgf/models.py:290
+#: dgf/models.py:198 dgf/models.py:297
 msgid "Course"
 msgstr "Parcours"
 
-#: dgf/models.py:205
+#: dgf/models.py:206
 msgid "Title"
 msgstr "Titel"
 
-#: dgf/models.py:206
+#: dgf/models.py:207
 msgid "Body"
 msgstr "Inhalt"
 
-#: dgf/models.py:217 dgf/models.py:265 dgf/models.py:292 dgf/models.py:315
+#: dgf/models.py:219 dgf/models.py:272 dgf/models.py:299 dgf/models.py:322
 msgid "Type"
 msgstr "Art"
 
-#: dgf/models.py:229
+#: dgf/models.py:236
 msgid "Content"
 msgstr "Inhalt"
 
-#: dgf/models.py:237
+#: dgf/models.py:244
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: dgf/models.py:238
+#: dgf/models.py:245
 msgid "Mold"
 msgstr "Scheibenmodell"
 
-#: dgf/models.py:239
+#: dgf/models.py:246
 msgid "Display name"
 msgstr "Scheibenname"
 
-#: dgf/models.py:260
+#: dgf/models.py:267
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:261
+#: dgf/models.py:268
 msgid "Mid-Range"
 msgstr "Midrange"
 
-#: dgf/models.py:262
+#: dgf/models.py:269
 msgid "Fairway Driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:263
+#: dgf/models.py:270
 msgid "Distance Driver"
 msgstr "Distance Driver"
 
-#: dgf/models.py:266
+#: dgf/models.py:273
 msgid "Amount"
 msgstr "Menge"
 
-#: dgf/models.py:267 dgf/models.py:289
+#: dgf/models.py:274 dgf/models.py:296
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:268 dgf/models.py:433 dgf/models.py:449 dgf/models.py:506
+#: dgf/models.py:275 dgf/models.py:440 dgf/models.py:456 dgf/models.py:513
 #: dgf/templates/dgf/plugins/tour_results.html:70
 msgid "Player"
 msgstr "Spieler"
 
-#: dgf/models.py:284
+#: dgf/models.py:291
 msgid "Practice"
 msgstr "Übung"
 
-#: dgf/models.py:285
+#: dgf/models.py:292
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:286 dgf/models.py:432 dgf/models.py:448
+#: dgf/models.py:293 dgf/models.py:439 dgf/models.py:455
 #: dgf/templates/dgf/tournament_list.html:22
 msgid "Tournament"
 msgstr "Turnier"
 
-#: dgf/models.py:291
+#: dgf/models.py:298
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:293 dgf/templates/dgf/tournament_list.html:23
+#: dgf/models.py:300 dgf/templates/dgf/tournament_list.html:23
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:311 dgf/templates/dgf/friend_profile.html:90
+#: dgf/models.py:318 dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:5
 msgid "In the bag"
 msgstr "In the Bag"
 
-#: dgf/models.py:312
+#: dgf/models.py:319
 msgid "Ace"
 msgstr "Ass"
 
-#: dgf/models.py:313
+#: dgf/models.py:320
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:316
+#: dgf/models.py:323
 msgid "URL"
 msgstr "URL Addresse"
 
-#: dgf/models.py:358
+#: dgf/models.py:365
 msgid "PDGA ID"
 msgstr "PDGA ID"
 
-#: dgf/models.py:359
+#: dgf/models.py:366
 msgid "GT ID"
 msgstr "GT ID"
 
-#: dgf/models.py:360
+#: dgf/models.py:367
 msgid "Disc Golf Metrix ID"
 msgstr "Disc Golf Metrix ID"
 
-#: dgf/models.py:364
+#: dgf/models.py:371
 msgid "Tremonia Series points + half beaten players"
 msgstr "Tremonia Series Punkte + Hälfte der geschlagenen Spieler"
 
-#: dgf/models.py:366
+#: dgf/models.py:373
 msgid "Point System"
 msgstr "Punktsystem"
 
-#: dgf/models.py:450 dgf/templates/dgf/plugins/tour_results.html:69
+#: dgf/models.py:457 dgf/templates/dgf/plugins/tour_results.html:69
 msgid "Position"
 msgstr "Platz"
 
-#: dgf/models.py:451 dgf/templates/dgf/plugins/tour_results.html:71
+#: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:71
 msgid "Points"
 msgstr "Punkte"
 
-#: dgf/models.py:474
+#: dgf/models.py:481
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:505
+#: dgf/models.py:512
 msgid "Actor"
 msgstr "Akteur"
 
-#: dgf/models.py:507
+#: dgf/models.py:514
 msgid "New number"
 msgstr "Neue Nummer"
 
-#: dgf/models.py:509
+#: dgf/models.py:516
 msgid "Previous number"
 msgstr "Vorherige Nummer"
 
-#: dgf/models.py:546
+#: dgf/plugin_models.py:40
 msgid "Background image"
 msgstr "Hintergrundbild"
 
-#: dgf/models.py:547
+#: dgf/plugin_models.py:41
 msgid "Width"
 msgstr "Breite"
 
-#: dgf/models.py:548
+#: dgf/plugin_models.py:42
 msgid "Height"
 msgstr "Höhe"
 
@@ -759,7 +760,7 @@ msgstr "Wo spielen wir gerade..."
 #: dgf/templates/dgf/includes/friend_list/12_friends_next_tournaments.html:15
 #: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:9
 #: dgf/templates/dgf/includes/show_all_less.html:4
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:7
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_small.html:15
 msgid "(show all)"
 msgstr "(alle anzeigen)"
 
@@ -809,24 +810,24 @@ msgstr "Nimmst du Bagtag Nummer "
 msgid "You already have bag tag number "
 msgstr "Du hast bereits Bagtag Nummer "
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame.html:5
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:9
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:10
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_small.html:6
 msgid "Hall Of Fame"
 msgstr "Hall Of Fame"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:12
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:20
 msgid "All winners of the Tremonia Series"
 msgstr "Alle Gewinner der Tremonia Series"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:24
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:32
 msgid "Wins"
 msgstr "Siege"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:25
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:33
 msgid "Second places"
 msgstr "Zweitplatzierungen"
 
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:26
+#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:34
 msgid "Third places"
 msgstr "Drittplatzierungen"
 
@@ -866,11 +867,11 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:342 dgf_cms/settings.py:352
+#: dgf_cms/settings.py:343 dgf_cms/settings.py:353
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:343 dgf_cms/settings.py:359
+#: dgf_cms/settings.py:344 dgf_cms/settings.py:360
 msgid "English"
 msgstr "Englisch"
 
@@ -1004,3 +1005,77 @@ msgstr ""
 #: dgf_cookies/templates/dgf_cookies/includes/no_cookies_no_content.html:19
 msgid "here"
 msgstr "Bitte klick hier"
+
+#: dgf_images/models.py:14
+msgid "Active"
+msgstr "Aktiv"
+
+#: dgf_images/templates/dgf_images/detail.html:35
+msgid "Download"
+msgstr "Download"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:11
+msgid "Friends per row"
+msgstr "Friends pro Zeile"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:17
+msgid "Add Logo at the beginning?"
+msgstr "Logo am Anfang?"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:22
+msgid "Add Logo at the end?"
+msgstr "Logo am Ende?"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:33
+msgid "We are 60 friends now!"
+msgstr "Wir sind schon 60 Friends!"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:34
+msgid "Write something here..."
+msgstr "Schreib etwas hier..."
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:37
+msgid "Text size"
+msgstr "Textgröße"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:44
+msgid "Text color"
+msgstr "Textfarbe"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:46
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:56
+msgid "DGF blue"
+msgstr "DGF Blau"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:47
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:57
+msgid "DGF Pink"
+msgstr "DGF Pink"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:48
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:58
+msgid "White"
+msgstr "Weiß"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:49
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:59
+msgid "Black"
+msgstr "Schwarz"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:50
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:60
+msgid "Gray"
+msgstr "Grau"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:54
+msgid "Overlay color"
+msgstr "Overlays Farbe"
+
+#: dgf_images/templates/dgf_images/generators/all-friends-background-with-text.html:61
+msgid "None"
+msgstr "Keine"
+
+#: dgf_images/templates/dgf_images/list.html:5
+#: dgf_images/templates/dgf_images/list.html:18
+msgid "Image Generators"
+msgstr "Bild Generator"

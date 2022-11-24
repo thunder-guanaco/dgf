@@ -1,0 +1,96 @@
+{% extends 'dgf_images/detail.html' %}
+{% load static i18n thumbnail dgf_images %}
+
+{% block configuration%}
+
+    <div class="column">
+
+        <div class="row">
+            <div>
+                <label>{% trans "Friends per row" %}</label>
+                <input id="friends-per-row"
+                       type="number"
+                       value="7">
+            </div>
+            <div>
+                <label>{% trans "Add Logo at the beginning?" %}</label>
+                <input id="show-first-logo"
+                       type="checkbox">
+            </div>
+            <div>
+                <label>{% trans "Add Logo at the end?" %}</label>
+                <input id="show-last-logo"
+                       type="checkbox"
+                       checked>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <label>{% trans "Text" %}</label>
+                <input id="text"
+                       value="{% trans 'We are 60 friends now!' %}"
+                       placeholder="{% trans 'Write something here...' %}">
+            </div>
+            <div>
+                <label>{% trans "Text size" %}</label>
+                <input id="text-size"
+                       type="number"
+                       value="100">
+                <span>px</span>
+            </div>
+            <div>
+                <label>{% trans "Text color" %}</label>
+                <select id="text-color">
+                    <option value="#1b2633">{% trans "DGF blue" %}</option>
+                    <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
+                    <option value="#fff">{% trans "White" %}</option>
+                    <option value="#000">{% trans "Black" %}</option>
+                    <option value="#888">{% trans "Gray" %}</option>
+                </select>
+            </div>
+            <div>
+                <label>{% trans "Overlay color" %}</label>
+                <select id="overlay-color">
+                    <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
+                    <option value="#8d1950">{% trans "DGF Pink" %}</option>
+                    <option value="#fff">{% trans "White" %}</option>
+                    <option value="#000">{% trans "Black" %}</option>
+                    <option value="#888">{% trans "Gray" %}</option>
+                    <option value="unset">{% trans "None" %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block generated_content %}
+
+    <div id="all-friends">
+
+        <img id="first-logo"
+             class="logo"
+             src="{% static 'img/dgf-logo.png' %}"
+             width="100x"
+             height="100px"/>
+
+        {% all_friends as friends %}
+        {% for friend in friends %}
+            <img class="friend"
+                 src="{% thumbnail friend.main_photo 500x500 crop %}"
+                 width="100x"
+                 height="100px"/>
+        {% endfor %}
+
+        <img id="last-logo"
+             class="logo"
+             src="{% static 'img/logo.png' %}"
+             width="100x"
+             height="100px"/>
+    </div>
+
+    <div id="generated-text"></div>
+    <div id="overlay"></div>
+
+{% endblock %}

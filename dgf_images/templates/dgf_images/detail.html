@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static i18n dgf %}
+
+{% block title %}
+    {{image_generator.name}}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/'|add:image_generator.slug|add:'.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/html2canvas.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/'|add:image_generator.slug|add:'.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div id="image-generator">
+
+        <h1>{{image_generator.name}}</h1>
+
+        <div id="configuration">
+            {% block configuration %}
+            {% endblock %}
+        </div>
+
+        <div id="generated-content">
+            {% block generated_content %}
+            {% endblock %}
+        </div>
+
+        <button id="download-button" onclick="capture('#generated-content')">{% trans "Download" %}</button>
+
+    </div>
+
+{% endblock %}
