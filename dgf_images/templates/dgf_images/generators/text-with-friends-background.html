@@ -71,11 +71,14 @@
 
 {% block generated_content %}
 
+    <div id="generated-text"></div>
+
+    <div id="overlay"></div>
+
     <div id="all-friends">
 
         <img id="first-logo"
-             class="logo"
-             src="{% static 'img/dgf-logo.png' %}"
+             src="{% static 'img/dgf-logo-blue-squared.png' %}"
              width="100x"
              height="100px"/>
 
@@ -88,13 +91,9 @@
         {% endfor %}
 
         <img id="last-logo"
-             class="logo"
-             src="{% static 'img/dgf-logo.png' %}"
+             src="{% static 'img/dgf-logo-blue-squared.png' %}"
              width="100x"
              height="100px"/>
     </div>
-
-    <div id="generated-text"></div>
-    <div id="overlay"></div>
 
 {% endblock %}

@@ -12,6 +12,11 @@
     #configuration .group > * {
         width: 100%;
     }
+
+    #generated-content img {
+        width: unset !important;
+        height: unset !important;
+    }
 }
 
 /* desktop */
@@ -20,6 +25,13 @@
     #configuration .group {
         flex-flow: row;
     }
+}
+
+#image-generator {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1em;
 }
 
 #configuration {
@@ -43,9 +55,21 @@
     gap: 1em;
 }
 
+#configuration label {
+    font-weight: bold;
+    margin: 0;
+}
+
+input {
+    text-align: center;
+}
+
 #configuration input[type=number] {
     width: 3em;
-    text-align: center;
+}
+
+#configuration input[type=url] {
+    width: 500px;
 }
 
 #configuration textarea {
@@ -55,18 +79,6 @@
     height: 100px;
     text-align: center;
     padding: 1em;
-}
-
-#configuration label {
-    font-weight: bold;
-    margin: 0;
-}
-
-#image-generator {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    gap: 1em;
 }
 
 #generated-content {
