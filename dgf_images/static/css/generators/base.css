@@ -12,6 +12,11 @@
     #configuration .group > * {
         width: 100%;
     }
+
+    #generated-content img {
+        width: unset !important;
+        height: unset !important;
+    }
 }
 
 /* desktop */

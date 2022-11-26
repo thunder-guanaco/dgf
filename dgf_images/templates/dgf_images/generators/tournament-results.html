@@ -118,13 +118,13 @@
     <img id="dgf-logo-blue"
          class="dgf-logo"
          src="{% static 'img/dgf-logo-blue.png' %}"
-         width="100"
-         height="44"/>
+         width="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}"
+         height="{% if request.user_agent.is_mobile %}22{% else %}44{% endif %}"/>
 
     <img id="dgf-logo-white"
          class="dgf-logo"
          src="{% static 'img/dgf-logo-white.png' %}"
-         width="100"
-         height="44"/>
+         width="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}"
+         height="{% if request.user_agent.is_mobile %}22{% else %}44{% endif %}"/>
 
 {% endblock %}

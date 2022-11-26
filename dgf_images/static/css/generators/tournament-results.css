@@ -1,10 +1,23 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
+    #generated-content {
+        font-size: small;
+        zoom: 0.5;
+    }
 
+    #results-table th,
+    #results-table td {
+        padding: 3px 5px;
+    }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
+
+    #results-table th,
+    #results-table td {
+        padding: 5px 10px;
+    }
 
 }
 
@@ -14,13 +27,12 @@
 }
 
 #results-table {
-    border-radius: 10px;
+    border-radius: 0.5em;
     margin: 0;
 }
 
 #results-table th,
 #results-table td {
-    padding: 5px 10px;
     text-align: center;
 }
 
