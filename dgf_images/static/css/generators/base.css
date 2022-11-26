@@ -22,6 +22,13 @@
     }
 }
 
+#image-generator {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1em;
+}
+
 #configuration {
     z-index: 100;
     display: flex;
@@ -43,9 +50,21 @@
     gap: 1em;
 }
 
+#configuration label {
+    font-weight: bold;
+    margin: 0;
+}
+
+input {
+    text-align: center;
+}
+
 #configuration input[type=number] {
     width: 3em;
-    text-align: center;
+}
+
+#configuration input[type=url] {
+    width: 500px;
 }
 
 #configuration textarea {
@@ -55,18 +74,6 @@
     height: 100px;
     text-align: center;
     padding: 1em;
-}
-
-#configuration label {
-    font-weight: bold;
-    margin: 0;
-}
-
-#image-generator {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    gap: 1em;
 }
 
 #generated-content {

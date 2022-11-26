@@ -2,7 +2,8 @@ from django.http import Http404
 from django.shortcuts import render
 
 IMAGE_GENERATORS = [
-    'all-friends-background-with-text',
+    'text-with-friends-background',
+    'tournament-results'
 ]
 
 

@@ -2,13 +2,6 @@
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/social_media/results.css' %}">
-    <style>
-        .tournament-results-wrapper,
-        .background-image {
-            width: {{instance.width}};
-            height: {{instance.height}};
-        }
-    </style>
     {% block css %}{% endblock css %}
 {% endaddtoblock %}
 
@@ -16,10 +9,8 @@
     {% block js %}{% endblock js %}
 {% endaddtoblock %}
 
-<div class="tournament-results-wrapper">
-    <img class="background-image" src="{{instance.background_image.url}}">
-    <div class="tournament-results">
-        {% block content %}{% endblock content %}
-    </div>
+<img class="background-image" src="{{instance.background_image.url}}">
+<div class="tournament-results">
+    {% block content %}{% endblock content %}
 </div>
 

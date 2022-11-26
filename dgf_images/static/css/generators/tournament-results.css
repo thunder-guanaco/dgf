@@ -1,0 +1,75 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+
+}
+
+#generated-content {
+    text-transform: uppercase;
+    overflow: hidden;
+}
+
+#results-table {
+    border-radius: 10px;
+    margin: 0;
+}
+
+#results-table th,
+#results-table td {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+#results-table td.position-1:after {
+    content: '\00a0\1F947';
+}
+
+#results-table td.position-2:after {
+    content: '\00a0\1F948';
+}
+
+#results-table td.position-3:after {
+    content: '\00a0\1F949';
+}
+
+#results-table td.name {
+    text-align: left;
+}
+
+#tournament-title > *,
+#tournament-subtitle > * {
+    margin: 0 1em;
+}
+
+.dgf-logo {
+    z-index: 4;
+    position: absolute;
+    margin: 1em;
+}
+
+#tournament-results {
+    z-index: 3;
+    position: absolute;
+    padding: 1em;
+}
+
+#overlay {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#tournament-picture {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}

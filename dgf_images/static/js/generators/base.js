@@ -20,3 +20,16 @@ function download(canvas) {
 function showIfChecked(selector, element) {
     $(selector).css('display', $(element).is(':checked') ? 'unset' : 'none');
 }
+
+function changeAbsolutePositionFromElement(selector, element) {
+    changeAbsolutePosition(selector, $(element).val().split("-"));
+}
+
+function changeAbsolutePosition(selector, positions) {
+    ["top", "bottom", "left", "right"].forEach((position) => {
+        $(selector).css(position, "unset");
+    });
+    positions.forEach((position) => {
+        $(selector).css(position, "0");
+    });
+}

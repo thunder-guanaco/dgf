@@ -15,24 +15,5 @@
 {% endblock js %}
 
 {% block content %}
-	<h1>{{title}}</h1>
-	<div class="last-tremonia-series-results-wrapper">
-		{% for division in results_body %}
-			<div class="table-wrapper">
-				<h2>{{division.name}}</h2>
-				<table>
-					{% autoescape off %}
-						{{results_header}}
-					{% endautoescape %}
-					<tbody>
-						{% autoescape off %}
-							{% for tr in division.results %}
-								{{tr}}
-							{% endfor %}
-						{% endautoescape %}
-					</tbody>
-				</table>
-			</div>
-		{% endfor %}
-	</div>
+
 {% endblock content %}

@@ -1,0 +1,130 @@
+{% extends 'dgf_images/generators/base.html' %}
+{% load static i18n thumbnail dgf_images %}
+
+{% block configuration%}
+
+    <div class="group">
+        <div>
+            <label>{% trans "Disc Golf MetrixURL" %}</label>
+            <input id="disc-golf-metrix-url"
+                   type="url"
+                   value="https://discgolfmetrix.com/2063098">
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Division" %}</label>
+            <!-- TODO: fill from metrix -->
+            <select id="disc-golf-metrix-division">
+                <option value="Open" selected>Open</option>
+                <option value="Amateur">Amateur</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Only Friends?" %}</label>
+            <input id="only-friends"
+                   type="checkbox">
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Results position" %}</label>
+            <select id="results-position">
+                <option value="bottom-left">{% trans "Left" %}</option>
+                <option value="bottom-right" selected>{% trans "Right" %}</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Logo position" %}</label>
+            <select id="dgf-logo-position">
+                <option value="top" selected>{% trans "Top" %}</option>
+                <option value="bottom">{% trans "Bottom" %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Text color" %}</label>
+            <select id="text-color">
+                <option value="#1b2633">{% trans "DGF blue" %}</option>
+                <option value="#8d1950">{% trans "DGF Pink" %}</option>
+                <option value="#fff" selected>{% trans "White" %}</option>
+                <option value="#000">{% trans "Black" %}</option>
+                <option value="#888">{% trans "Gray" %}</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Logo color" %}</label>
+            <select id="dgf-logo-color">
+                <option value="#dgf-logo-blue">{% trans "DGF blue" %}</option>
+                <option value="#dgf-logo-white" selected>{% trans "White" %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Background color" %}</label>
+            <select id="background-color">
+                <option value="#1b2633">{% trans "DGF blue" %}</option>
+                <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
+                <option value="#fff">{% trans "White" %}</option>
+                <option value="#000">{% trans "Black" %}</option>
+                <option value="#888">{% trans "Gray" %}</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Overlay color" %}</label>
+            <select id="overlay-color">
+                <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
+                <option value="#8d1950">{% trans "DGF Pink" %}</option>
+                <option value="#fff">{% trans "White" %}</option>
+                <option value="#000">{% trans "Black" %}</option>
+                <option value="#888">{% trans "Gray" %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Background image" %}</label>
+            <input id="background-picture"
+                   type="file"
+                   accept="image/jpeg, image/png, image/jpg">
+        </div>
+        <div>
+            <label>{% trans "Move picture" %}</label>
+            <span>
+                <input id="move-picture"
+                       type="number"
+                       value="0"
+                       step="{% if request.user_agent.is_mobile %}25{% else %}50{% endif %}">
+                <span>px</span>
+            </span>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block generated_content %}
+
+    <div id="tournament-results">
+        <h1 id="tournament-title"></h1>
+        <h2 id="tournament-subtitle"></h2>
+        <table id="results-table"></table>
+    </div>
+
+    <div id="overlay"></div>
+    <div id="tournament-picture"></div>
+
+    <img id="dgf-logo-blue"
+         class="dgf-logo"
+         src="{% static 'img/dgf-logo-blue.png' %}"
+         width="100"
+         height="44"/>
+
+    <img id="dgf-logo-white"
+         class="dgf-logo"
+         src="{% static 'img/dgf-logo-white.png' %}"
+         width="100"
+         height="44"/>
+
+{% endblock %}
