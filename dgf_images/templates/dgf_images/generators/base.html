@@ -18,9 +18,13 @@
 
 {% block content %}
 
+    <a id="back-to-image-generators" href="{% url 'dgf_images:index' %}">
+        <button>{% trans "Zurück" %}</button>
+    </a>
+
     <div id="image-generator">
 
-        <h1>{{image_generator|replace:"-| "|title}}</h1>
+        <h1 id="image-generator-title">{{image_generator|replace:"-| "|title}}</h1>
 
         <div id="configuration">
             {% block configuration %}

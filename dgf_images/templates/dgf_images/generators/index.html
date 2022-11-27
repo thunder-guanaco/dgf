@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n static dgf_images %}
+
+{% block title %}
+    {% trans "Image Generators" %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/index.css' %}">
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="image-generators">
+
+        <h1 class="title">{% trans "Image Generators" %}</h1>
+
+        <div class="list">
+            {% for image_generator in image_generators %}
+                <a href="{% url 'dgf_images:generator' image_generator %}">
+                    <button>{{image_generator|replace:"-| "|title}}</button>
+                </a>
+            {% empty %}
+                There are no image generators (yet!)
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}

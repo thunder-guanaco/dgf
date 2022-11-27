@@ -1,8 +1,14 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
+
     #generated-content {
         font-size: small;
         zoom: 0.5;
+    }
+
+    #generated-content img {
+        width: unset !important;
+        height: unset !important;
     }
 
     #results-table th,
@@ -18,7 +24,6 @@
     #results-table td {
         padding: 5px 10px;
     }
-
 }
 
 #generated-content {
