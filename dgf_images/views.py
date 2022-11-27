@@ -8,7 +8,7 @@ IMAGE_GENERATORS = [
 
 
 def index(request):
-    return render(request, 'dgf_images/index.html', {'image_generators': IMAGE_GENERATORS})
+    return render(request, 'dgf_images/generators/index.html', {'image_generators': IMAGE_GENERATORS})
 
 
 def generator(request, slug):

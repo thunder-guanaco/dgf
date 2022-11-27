@@ -45,7 +45,6 @@ $(window).on("load", function() {
         const reader = new FileReader();
         reader.addEventListener("load", () => {
             const uploadedImageUrl = reader.result;
-            //$("#tournament-picture").css("background-image", `linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, ${backgroundColor} 50%), url(${uploadedImageUrl})`);
             $("#tournament-picture").css("background-image", `url(${uploadedImageUrl})`);
             resetPicturePosition();
         });
@@ -89,7 +88,7 @@ function handleMetrixResponse(response) {
         appendTourResults(competition, table);
     }
     else {
-        // TODO: check this type of tournaments
+        // TODO: #5688 check this type of tournaments
         displaySubCompetitions(competition["SubCompetitions"]);
     }
 
@@ -214,10 +213,6 @@ function changeOverlayColor() {
     var firstPercent = resultsOnTheRightSide ? 0 : 50;
     var secondPercent = resultsOnTheRightSide ? 50 : 100;
     $("#overlay").css("background-image", `linear-gradient(90deg, ${firstColor} ${firstPercent}%, ${secondColor} ${secondPercent}%)`);
-
-    //var currentCss = $("#tournament-picture").css("background-image");
-    //var currentUrl = currentCss.substring(currentCss.indexOf("url("));
-    //$("#tournament-picture").css("background-image", `linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, ${backgroundColor} 50%), ${currentUrl}`);
 }
 
 function resetPicturePosition() {

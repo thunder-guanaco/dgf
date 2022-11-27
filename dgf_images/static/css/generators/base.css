@@ -1,6 +1,14 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
+    #back-to-image-generators {
+        text-align: center;
+    }
+
+    #image-generator-title {
+        text-align: center;
+    }
+
     #configuration {
         width: 100%;
     }
@@ -13,10 +21,6 @@
         width: 100%;
     }
 
-    #generated-content img {
-        width: unset !important;
-        height: unset !important;
-    }
 }
 
 /* desktop */
