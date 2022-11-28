@@ -46,13 +46,23 @@
     </div>
     <div class="group">
         <div>
+            <label>{% trans "Justify results" %}</label>
+            <select id="results-justify-content">
+                <option value="center">center</option>
+                <option value="space-around">space-around</option>
+                <option value="space-between" selected>space-between</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
             <label>{% trans "Text color" %}</label>
             <select id="text-color">
                 <option value="#1b2633">{% trans "DGF blue" %}</option>
                 <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#fff" selected>{% trans "White" %}</option>
-                <option value="#000">{% trans "Black" %}</option>
-                <option value="#888">{% trans "Gray" %}</option>
+                <option value="#ffffff" selected>{% trans "White" %}</option>
+                <option value="#000000">{% trans "Black" %}</option>
+                <option value="#888888">{% trans "Gray" %}</option>
             </select>
         </div>
         <div>
@@ -68,10 +78,10 @@
             <label>{% trans "Background color" %}</label>
             <select id="background-color">
                 <option value="#1b2633">{% trans "DGF blue" %}</option>
-                <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
-                <option value="#fff">{% trans "White" %}</option>
-                <option value="#000">{% trans "Black" %}</option>
-                <option value="#888">{% trans "Gray" %}</option>
+                <option value="#8d1950">{% trans "DGF Pink" %}</option>
+                <option value="#ffffff">{% trans "White" %}</option>
+                <option value="#000000" selected>{% trans "Black" %}</option>
+                <option value="#888888">{% trans "Gray" %}</option>
             </select>
         </div>
         <div>
@@ -79,9 +89,9 @@
             <select id="overlay-color">
                 <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
                 <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#fff">{% trans "White" %}</option>
-                <option value="#000">{% trans "Black" %}</option>
-                <option value="#888">{% trans "Gray" %}</option>
+                <option value="#ffffff">{% trans "White" %}</option>
+                <option value="#000000">{% trans "Black" %}</option>
+                <option value="#888888">{% trans "Gray" %}</option>
             </select>
         </div>
     </div>
@@ -111,8 +121,11 @@
     <div id="tournament-results">
         <div id="tournament-header">
             <h1 id="tournament-title"></h1>
+            <h3 id="tournament-subtitle">
+                <span id="tournament-date"></span>
+                <span id="tournament-mode"></span>
+            </h3>
             <h2 id="tournament-division"></h2>
-            <h3 id="tournament-date"></h3>
         </div>
         <table id="results-table"></table>
     </div>
