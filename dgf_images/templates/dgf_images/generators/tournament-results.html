@@ -8,7 +8,7 @@
             <label>{% trans "Disc Golf MetrixURL" %}</label>
             <input id="disc-golf-metrix-url"
                    type="url"
-                   value="https://discgolfmetrix.com/2063098">
+                   value="https://discgolfmetrix.com/2063102">
         </div>
     </div>
     <div class="group">
@@ -32,8 +32,8 @@
         <div>
             <label>{% trans "Results position" %}</label>
             <select id="results-position">
-                <option value="bottom-left">{% trans "Left" %}</option>
-                <option value="bottom-right" selected>{% trans "Right" %}</option>
+                <option value="left">{% trans "Left" %}</option>
+                <option value="right" selected>{% trans "Right" %}</option>
             </select>
         </div>
         <div>
@@ -109,24 +109,27 @@
 {% block generated_content %}
 
     <div id="tournament-results">
-        <h1 id="tournament-title"></h1>
-        <h2 id="tournament-subtitle"></h2>
+        <div id="tournament-header">
+            <h1 id="tournament-title"></h1>
+            <h2 id="tournament-division"></h2>
+            <h3 id="tournament-date"></h3>
+        </div>
         <table id="results-table"></table>
     </div>
 
     <div id="overlay"></div>
-    <div id="tournament-picture"></div>
+    <img id="tournament-picture"/>
 
     <img id="dgf-logo-blue"
          class="dgf-logo"
          src="{% static 'img/dgf-logo-blue.png' %}"
-         width="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}"
-         height="{% if request.user_agent.is_mobile %}22{% else %}44{% endif %}"/>
+         width="100"
+         height="44"/>
 
     <img id="dgf-logo-white"
          class="dgf-logo"
          src="{% static 'img/dgf-logo-white.png' %}"
-         width="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}"
-         height="{% if request.user_agent.is_mobile %}22{% else %}44{% endif %}"/>
+         width="100"
+         height="44"/>
 
 {% endblock %}

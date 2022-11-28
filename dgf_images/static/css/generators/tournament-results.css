@@ -3,12 +3,12 @@
 
     #generated-content {
         font-size: small;
-        zoom: 0.5;
+        zoom: 0.75;
     }
 
-    #generated-content img {
-        width: unset !important;
-        height: unset !important;
+    #generated-content img.dgf-logo {
+        width: 75px;
+        height: auto;
     }
 
     #results-table th,
@@ -57,9 +57,10 @@
     text-align: left;
 }
 
-#tournament-title > *,
-#tournament-subtitle > * {
-    margin: 0 1em;
+#tournament-title,
+#tournament-division,
+#tournament-date {
+    margin: 0;
 }
 
 .dgf-logo {
@@ -70,8 +71,12 @@
 
 #tournament-results {
     z-index: 3;
-    position: absolute;
+    position: absolute; /* this has to be absolute, otherwise z-index does not work */
     padding: 1em;
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+    justify-content: space-between;
 }
 
 #overlay {
@@ -85,8 +90,6 @@
     z-index: 1;
     position: absolute;
     top: 0;
-    width: 100%;
+    width: auto;
     height: 100%;
-    background-position: center;
-    background-size: cover;
 }
