@@ -57,10 +57,16 @@
     text-align: left;
 }
 
-#tournament-title,
-#tournament-division,
-#tournament-date {
+#tournament-header h1,
+#tournament-header h2,
+#tournament-header h3 {
     margin: 0;
+}
+
+#tournament-subtitle {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
 }
 
 .dgf-logo {
@@ -73,10 +79,10 @@
     z-index: 3;
     position: absolute; /* this has to be absolute, otherwise z-index does not work */
     padding: 1em;
+    height: auto;
     display: flex;
     flex-flow: column;
     gap: 1em;
-    justify-content: space-between;
 }
 
 #overlay {

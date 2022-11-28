@@ -38,6 +38,10 @@ $(window).on("load", function() {
         changeAbsolutePosition(".dgf-logo", [$(this).val(), oppositePosition]);
     }).change();
 
+    $("#results-justify-content").change(function() {
+       $("#tournament-results").css("justify-content", $(this).val());
+    }).change();
+
     $("#background-picture").change(function() {
         var backgroundColor = $("#background-color").val();
         const reader = new FileReader();
@@ -95,12 +99,14 @@ function handleMetrixResponse(response) {
 
 function changeTitle(competition) {
 
-    var name = competition["Name"].split(" &rarr; ").pop();
+    var name = competition["Name"].split(" &rarr; ").pop().split(" (")[0];
+    var comment = competition["Comment"];
     var division = $("#disc-golf-metrix-division").val();
     var date = new Date(competition["Date"]).toLocaleDateString('de-de');
 
     $("#tournament-title").text(name);
-    $("#tournament-division").text(`${division} Division`);
+    $("#tournament-mode").text(comment);
+    $("#tournament-division").text(division);
     $("#tournament-date").text(date);
 }
 
@@ -181,15 +187,23 @@ function displaySubCompetitions(competitions) {
     return parsedResults;
 }
 
+const pxToInt = (text) => parseInt(text.replace("px", ""));
+
 function changeGeneratedContentHeight() {
-    // why twice? no idea... otherwise it does not work because the height changes...
-    [0, 1].forEach(() => {
-        var sideLength = $("#tournament-results").height() + 100;
-        $("#generated-content").css("height", `${sideLength}px`);
-        $("#generated-content").css("width", `${sideLength}px`);
-    });
-    var sideLength = $("#tournament-results").height() + 100;
-    $("#tournament-results").css("height", `${sideLength}px`);
+
+    // make it big so that the results fit inside (#tournament-results has the height set to auto)
+    $("#generated-content").height(2000);
+    $("#generated-content").width(2000);
+    $("#tournament-results").css("height", "auto");
+
+    var resultsHeight = pxToInt($("#tournament-results").css("height"));
+    var resultsWidth = pxToInt($("#tournament-results").css("width"));
+    var sideLength = `${Math.max(resultsHeight, resultsWidth + 125)}px`;
+
+    // and now let's resize it
+    $("#generated-content").css("height", sideLength);
+    $("#generated-content").css("width", sideLength);
+    $("#tournament-results").css("height", sideLength);
 }
 
 function changeOverlayColor() {
@@ -210,6 +224,8 @@ function resetPicturePosition() {
 
 function changeHeaderAlignment(alignment) {
     var flexAlignment = alignment === "right" ? "flex-end" : "flex-start";
+    var flexFlow = alignment === "right" ? "row" : "row-reverse";
     $("#tournament-results").css("align-items", flexAlignment);
     $("#tournament-results > *").css("text-align", alignment);
+    $("#tournament-subtitle").css("flex-flow", flexFlow)
 }
