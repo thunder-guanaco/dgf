@@ -21,12 +21,11 @@ $(window).on("load", function() {
     }).change();
 
     $("#results-position").change(function() {
-        changeAbsolutePositionFromElement("#tournament-results", this);
+        changeAbsolutePosition("#tournament-results", ["bottom", $(this).val()]);
         $("#dgf-logo-position").change();
         changeOverlayColor();
-        changeGeneratedContentHeight();
         resetPicturePosition();
-        changeTitleAndSubtitleAlignment($(this).val().split("-")[1]);
+        changeHeaderAlignment($(this).val());
     }).change();
 
     $("#dgf-logo-color").change(function() {
@@ -35,17 +34,15 @@ $(window).on("load", function() {
     }).change();
 
     $("#dgf-logo-position").change(function() {
-        var oppositePosition = $("#results-position").val().split("-")[1] === "right" ? "left" : "right";
+        var oppositePosition = $("#results-position").val() === "right" ? "left" : "right";
         changeAbsolutePosition(".dgf-logo", [$(this).val(), oppositePosition]);
-        changeGeneratedContentHeight();
     }).change();
 
     $("#background-picture").change(function() {
         var backgroundColor = $("#background-color").val();
         const reader = new FileReader();
         reader.addEventListener("load", () => {
-            const uploadedImageUrl = reader.result;
-            $("#tournament-picture").css("background-image", `url(${uploadedImageUrl})`);
+            $("#tournament-picture").attr("src", reader.result);
             resetPicturePosition();
         });
         reader.readAsDataURL(this.files[0]);
@@ -100,12 +97,11 @@ function changeTitle(competition) {
 
     var name = competition["Name"].split(" &rarr; ").pop();
     var division = $("#disc-golf-metrix-division").val();
-    var date = competition["Date"];
+    var date = new Date(competition["Date"]).toLocaleDateString('de-de');
 
     $("#tournament-title").text(name);
-    $("#tournament-subtitle").empty();
-    $("#tournament-subtitle").append(`<span>${division} Division</span>`);
-    $("#tournament-subtitle").append(date);
+    $("#tournament-division").text(`${division} Division`);
+    $("#tournament-date").text(date);
 }
 
 function appendHeader(competition, table) {
@@ -186,28 +182,21 @@ function displaySubCompetitions(competitions) {
 }
 
 function changeGeneratedContentHeight() {
-    var extraHeight = selectedSide("#results-position") === selectedSide("#dgf-logo-position") ? 90 : 0;
-    var extraWidth = selectedSide("#results-position") !== selectedSide("#dgf-logo-position") ? 100 : 0;
-
     // why twice? no idea... otherwise it does not work because the height changes...
-        [0, 1].forEach(() => {
-        var height = $("#tournament-results").height() + extraHeight;
-        var width = $("#tournament-results").height() + extraWidth;
-        $("#generated-content").height(height);
-        $("#generated-content").width(width);
+    [0, 1].forEach(() => {
+        var sideLength = $("#tournament-results").height() + 100;
+        $("#generated-content").css("height", `${sideLength}px`);
+        $("#generated-content").css("width", `${sideLength}px`);
     });
-
-}
-
-function selectedSide(selector) {
-    return $(selector).val().split('-')[1];
+    var sideLength = $("#tournament-results").height() + 100;
+    $("#tournament-results").css("height", `${sideLength}px`);
 }
 
 function changeOverlayColor() {
     var backgroundColor = $("#overlay-color").val();
     var transparent = "rgba(255, 255, 255, 0)";
 
-    var resultsOnTheRightSide = selectedSide("#results-position") === "right";
+    var resultsOnTheRightSide = $("#results-position").val() === "right";
     var firstColor = resultsOnTheRightSide ? transparent : backgroundColor;
     var secondColor = resultsOnTheRightSide ? backgroundColor : transparent;
     var firstPercent = resultsOnTheRightSide ? 0 : 50;
@@ -219,9 +208,8 @@ function resetPicturePosition() {
     $("#move-picture").val(0).change();
 }
 
-function changeTitleAndSubtitleAlignment(alignment) {
-    $("#tournament-title").css("text-align", alignment);
-    $("#tournament-subtitle").css("text-align", alignment);
+function changeHeaderAlignment(alignment) {
+    var flexAlignment = alignment === "right" ? "flex-end" : "flex-start";
+    $("#tournament-results").css("align-items", flexAlignment);
+    $("#tournament-results > *").css("text-align", alignment);
 }
-
-// TODO: change 2 color backgrounds separately
