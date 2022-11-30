@@ -3,7 +3,8 @@ from django.shortcuts import render
 
 IMAGE_GENERATORS = [
     'text-with-friends-background',
-    'tournament-results'
+    'tournament-results',
+    'picture-with-title',
 ]
 
 
