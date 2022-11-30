@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<select id="{{id}}">
+    <option value="#1b2633" {% if selected == "#1b2633" %}selected{% endif %}>{% trans "DGF blue" %}</option>
+    <option value="#8d1950" {% if selected == "#8d1950" %}selected{% endif %}>{% trans "DGF Pink" %}</option>
+    <option value="#ffffff" {% if selected == "#ffffff" %}selected{% endif %}>{% trans "White" %}</option>
+    <option value="#000000" {% if selected == "#000000" %}selected{% endif %}>{% trans "Black" %}</option>
+    <option value="#888888" {% if selected == "#888888" %}selected{% endif %}>{% trans "Gray" %}</option>
+    {% if none_available %}
+        <option value="unset">{% trans "None" %}</option>
+    {% endif %}
+</select>

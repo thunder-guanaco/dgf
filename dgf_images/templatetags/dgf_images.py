@@ -30,3 +30,17 @@ def replace(value, arg):
 
     what, to = replacement
     return value.replace(what, to)
+
+
+@register.filter
+def mobile_or_desktop(request, arg):
+    """
+    Returns first value if mobile and the second if desktop
+    Usage `{{ request|mobile_or_desktop:"25|50" }}`
+    """
+    values = arg.split('|')
+    if len(values) != 2:
+        raise ValueError('Unexpected value. Expected something like "25|50"')
+
+    mobile, desktop = values
+    return mobile if request.user_agent.is_mobile else desktop

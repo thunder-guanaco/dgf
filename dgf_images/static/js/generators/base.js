@@ -1,3 +1,7 @@
+$(window).on("load", function() {
+    loadLessMoreInput();
+});
+
 function capture(jquerySelector) {
     const element = document.querySelector(jquerySelector);
     html2canvas(element, {
@@ -27,5 +31,18 @@ function changeAbsolutePosition(selector, positions) {
     });
     positions.forEach((position) => {
         $(selector).css(position, "0");
+    });
+}
+
+function loadLessMoreInput() {
+    $(".less-more-input .less").click(function(){
+        input = $(this).parent().find('input')[0];
+        input.stepDown();
+        $(input).change();
+    });
+    $(".less-more-input .more").click(function(){
+        input = $(this).parent().find('input')[0];
+        input.stepUp();
+        $(input).change();
     });
 }

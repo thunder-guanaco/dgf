@@ -85,6 +85,21 @@ input {
     padding: 1em;
 }
 
+#configuration .less-more-input button {
+    width: 2em;
+    line-height: 1em;
+    padding: 0.5em;
+    border: 3px solid #1b2633;
+    background-color: white;
+    color: #1b2633;
+    font-weight: bold;
+}
+
+#configuration .less-more-input button:hover {
+    background-color: #1b2633;
+    color: white;
+}
+
 #generated-content {
     position: relative;
 }

@@ -1,0 +1,6 @@
+{% load i18n %}
+
+<select id="dgf-logo-color">
+    <option value="#dgf-logo-blue"  {% if selected == "blue" %}selected{% endif %}>{% trans "DGF blue" %}</option>
+    <option value="#dgf-logo-white" {% if selected == "white" %}selected{% endif %}>{% trans "White" %}</option>
+</select>
