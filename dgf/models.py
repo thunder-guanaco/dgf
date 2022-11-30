@@ -448,8 +448,8 @@ class Attendance(Model):
 class Result(Model):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['tournament', 'friend'],
-                                    name='the same tournament can not be played twice by the same friend'),
+            models.UniqueConstraint(fields=['tournament', 'friend', 'active'],
+                                    name='friend_can_not_play_same_tournament_twice'),
         ]
 
     tournament = models.ForeignKey(Tournament, on_delete=CASCADE, related_name='results', verbose_name=_('Tournament'))
@@ -459,6 +459,7 @@ class Result(Model):
     division = models.ForeignKey(Division, null=True, blank=True, on_delete=SET_NULL, verbose_name=_('Division'))
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(null=False, blank=False, default=True)
 
     @property
     def ordinal_position(self):
