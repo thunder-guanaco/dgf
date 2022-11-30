@@ -18,6 +18,16 @@ def all_friends():
         .order_by('?')
 
 
+@register.simple_tag
+def all_pdga_friends():
+    return Friend.objects \
+        .filter(social_media_agreement=True) \
+        .exclude(pdga_number__isnull=True) \
+        .exclude(main_photo__isnull=True) \
+        .exclude(main_photo='') \
+        .order_by('?')
+
+
 @register.filter
 def replace(value, arg):
     """

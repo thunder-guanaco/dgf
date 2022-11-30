@@ -6,7 +6,7 @@
     <div class="group">
         <div>
             <label>{% trans "Picture width" %}</label>
-            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"250|700" step=request|mobile_or_desktop:"50|100" unit="px" %}
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"250|500" step=request|mobile_or_desktop:"50|100" unit="px" %}
         </div>
         <div>
             <label>{% trans "Add Logo at the beginning?" %}</label>
@@ -22,17 +22,6 @@
     </div>
 
     <div class="group">
-        <div>
-            <label>{% trans "Text" %}</label>
-            <textarea id="text">{% trans 'We are 60 friends now!' %}</textarea>
-        </div>
-    </div>
-
-    <div class="group">
-        <div>
-            <label>{% trans "Text size" %}</label>
-            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="text-size" value=request|mobile_or_desktop:"50|100" unit="px" %}
-        </div>
         <div>
             <label>{% trans "Text color" %}</label>
             {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#8d1950" %}
@@ -58,7 +47,7 @@
              width="100x"
              height="100px"/>
 
-        {% all_friends as friends %}
+        {% all_pdga_friends as friends %}
         {% for friend in friends %}
             <img class="friend"
                  src="{% thumbnail friend.main_photo 500x500 crop %}"

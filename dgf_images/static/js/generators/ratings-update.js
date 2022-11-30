@@ -12,14 +12,6 @@ $(window).on("load", function() {
         showIfChecked("#last-logo", this);
     }).change();
 
-    $("#text").change(function() {
-        $("#generated-text").text($(this).val());
-    }).change();
-
-    $("#text-size").change(function() {
-        $('#generated-text').css('font-size', $(this).val() + 'px');
-    }).change();
-
     $("#text-color").change(function() {
         $('#generated-text').css('color', $(this).val());
     }).change();

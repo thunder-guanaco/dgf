@@ -5,6 +5,7 @@ IMAGE_GENERATORS = [
     'text-with-friends-background',
     'tournament-results',
     'picture-with-title',
+    'ratings-update',
 ]
 
 
