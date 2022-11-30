@@ -1,0 +1,11 @@
+<span class="less-more-input">
+    <button class="less">{{less|default:"-"}}</button>
+    <button class="more">{{more|default:"+"}}</button>
+    <input id="{{id}}"
+           type="number"
+           value="{{value|default:0}}"
+           step="{{step|default:1}}">
+            {% if unit %}
+                <span>{{unit}}</span>
+            {% endif %}
+</span>

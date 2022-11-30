@@ -6,13 +6,7 @@
     <div class="group">
         <div>
             <label>{% trans "Picture width" %}</label>
-            <span>
-                <input id="friends-per-row"
-                       type="number"
-                       value="{% if request.user_agent.is_mobile %}250{% else %}700{% endif %}"
-                       step="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}">
-                <span>px</span>
-            </span>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="friends-per-row" value=request|mobile_or_desktop:"250|700" step=request|mobile_or_desktop:"50|100" unit="px" %}
         </div>
         <div>
             <label>{% trans "Add Logo at the beginning?" %}</label>
@@ -37,33 +31,15 @@
     <div class="group">
         <div>
             <label>{% trans "Text size" %}</label>
-            <span>
-                <input id="text-size"
-                   type="number"
-                   value="{% if request.user_agent.is_mobile %}50{% else %}100{% endif %}">
-                <span>px</span>
-            </span>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="text-size" value=request|mobile_or_desktop:"50|100" unit="px" %}
         </div>
         <div>
             <label>{% trans "Text color" %}</label>
-            <select id="text-color">
-                <option value="#1b2633">{% trans "DGF blue" %}</option>
-                <option value="#8d1950" selected>{% trans "DGF Pink" %}</option>
-                <option value="#fff">{% trans "White" %}</option>
-                <option value="#000">{% trans "Black" %}</option>
-                <option value="#888">{% trans "Gray" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#8d1950" %}
         </div>
         <div>
             <label>{% trans "Overlay color" %}</label>
-            <select id="overlay-color">
-                <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
-                <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#fff">{% trans "White" %}</option>
-                <option value="#000">{% trans "Black" %}</option>
-                <option value="#888">{% trans "Gray" %}</option>
-                <option value="unset">{% trans "None" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="overlay-color" selected="#1b2633" none_available=True %}
         </div>
     </div>
 

@@ -57,60 +57,31 @@
     <div class="group">
         <div>
             <label>{% trans "Text color" %}</label>
-            <select id="text-color">
-                <option value="#1b2633">{% trans "DGF blue" %}</option>
-                <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#ffffff" selected>{% trans "White" %}</option>
-                <option value="#000000">{% trans "Black" %}</option>
-                <option value="#888888">{% trans "Gray" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#ffffff" %}
         </div>
         <div>
             <label>{% trans "Logo color" %}</label>
-            <select id="dgf-logo-color">
-                <option value="#dgf-logo-blue">{% trans "DGF blue" %}</option>
-                <option value="#dgf-logo-white" selected>{% trans "White" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/dgf_logo_color_select.html" with selected="white" %}
         </div>
     </div>
     <div class="group">
         <div>
             <label>{% trans "Background color" %}</label>
-            <select id="background-color">
-                <option value="#1b2633">{% trans "DGF blue" %}</option>
-                <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#ffffff">{% trans "White" %}</option>
-                <option value="#000000" selected>{% trans "Black" %}</option>
-                <option value="#888888">{% trans "Gray" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="background-color" selected="#000000" %}
         </div>
         <div>
             <label>{% trans "Overlay color" %}</label>
-            <select id="overlay-color">
-                <option value="#1b2633" selected>{% trans "DGF blue" %}</option>
-                <option value="#8d1950">{% trans "DGF Pink" %}</option>
-                <option value="#ffffff">{% trans "White" %}</option>
-                <option value="#000000">{% trans "Black" %}</option>
-                <option value="#888888">{% trans "Gray" %}</option>
-            </select>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="overlay-color" selected="#1b2633" %}
         </div>
     </div>
     <div class="group">
         <div>
             <label>{% trans "Background image" %}</label>
-            <input id="background-picture"
-                   type="file"
-                   accept="image/jpeg, image/png, image/jpg">
+            {% include "dgf_images/generators/includes/configuration/picture.html" with id="background-picture" %}
         </div>
         <div>
             <label>{% trans "Move picture" %}</label>
-            <span>
-                <input id="move-picture"
-                       type="number"
-                       value="0"
-                       step="{% if request.user_agent.is_mobile %}25{% else %}50{% endif %}">
-                <span>px</span>
-            </span>
+            {% include "dgf_images/generators/includes/configuration/left_right_input.html" with id="move-picture" step=request|mobile_or_desktop:"25|50" unit="px" %}
         </div>
     </div>
 
@@ -132,17 +103,6 @@
 
     <div id="overlay"></div>
     <img id="tournament-picture"/>
-
-    <img id="dgf-logo-blue"
-         class="dgf-logo"
-         src="{% static 'img/dgf-logo-blue.png' %}"
-         width="100"
-         height="44"/>
-
-    <img id="dgf-logo-white"
-         class="dgf-logo"
-         src="{% static 'img/dgf-logo-white.png' %}"
-         width="100"
-         height="44"/>
+    {% include "dgf_images/generators/includes/content/dgf_logo.html" %}
 
 {% endblock %}
