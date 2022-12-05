@@ -1,7 +1,7 @@
-<span class="less-more-input">
+<span class="less-more-input {{class}}">
     <button class="less">{{less|default:"-"}}</button>
     <button class="more">{{more|default:"+"}}</button>
-    <input id="{{id}}"
+    <input {% if id %}id="{{id}}"{% endif %}
            type="number"
            value="{{value|default:0}}"
            step="{{step|default:1}}">

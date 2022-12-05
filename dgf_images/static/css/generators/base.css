@@ -102,6 +102,8 @@ input {
 
 #generated-content {
     position: relative;
+    text-transform: uppercase;
+    overflow: hidden;
 }
 
 #download-button {

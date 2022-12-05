@@ -1,6 +1,6 @@
 $(window).on("load", function() {
 
-    $("#friends-per-row").change(function() {
+    $("#picture-width").change(function() {
         $("#all-friends").css("width", $(this).val());
     }).change();
 

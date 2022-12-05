@@ -7,6 +7,6 @@
     <option value="#000000" {% if selected == "#000000" %}selected{% endif %}>{% trans "Black" %}</option>
     <option value="#888888" {% if selected == "#888888" %}selected{% endif %}>{% trans "Gray" %}</option>
     {% if none_available %}
-        <option value="unset">{% trans "None" %}</option>
+        <option value="unset" {% if selected == "unset" %}selected{% endif %}>{% trans "None" %}</option>
     {% endif %}
 </select>

@@ -1,0 +1,114 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+    #configuration #move-friends-pictures {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #all-friends .friend {
+        width: 100px;
+        height: 100px;
+    }
+
+    #dgf-banner {
+        height: 111px;
+    }
+
+    #all-friends .friend .rating-difference {
+        font-size: 1.5em;
+    }
+
+    #all-friends .friend .rating {
+        font-size: 1em;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+
+    #move-friends-pictures {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #all-friends .friend {
+        width: 200px;
+        height: 200px;
+    }
+
+    #dgf-banner {
+        height: 222px;
+    }
+
+    #all-friends .friend .rating-difference {
+        font-size: 3em;
+    }
+
+    #all-friends .friend .rating {
+        font-size: 2em;
+    }
+}
+
+#configuration #move-friends-pictures-title {
+    margin-bottom: 1em !important;
+}
+
+#configuration #move-friends-pictures {
+    display: grid;
+    gap: 1em;
+}
+
+#configuration #move-friends-pictures label {
+    width: 3em;
+}
+
+#all-friends {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#all-friends .friend {
+    position: relative;
+    overflow: hidden;
+}
+
+#all-friends .friend img {
+    z-index: 1;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 98%;
+    height: 98%;
+}
+
+#all-friends .friend .mini-overlay {
+    z-index: 2;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 98%;
+    height: 98%;
+}
+
+#all-friends .friend .text {
+    z-index: 3;
+    position: absolute;
+    right: 0;
+    padding: 0.25em;
+    line-height: 100%;
+    text-shadow: 2px 2px #1b2633;
+    letter-spacing: 0.1em;
+}
+
+#all-friends .friend .rating-difference {
+    top: 0;
+    font-weight: bold;
+}
+
+#all-friends .friend .rating {
+    bottom: 0;
+}
+
+#dgf-banner {
+    width: auto;
+}
