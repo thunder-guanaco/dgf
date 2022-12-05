@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 14:14+0100\n"
+"POT-Creation-Date: 2022-12-05 23:25+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,11 +182,11 @@ msgstr "ID"
 
 #: dgf/models.py:34
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:8
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:32
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:26
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:51 dgf/models.py:363 dgf/models.py:478
+#: dgf/models.py:51 dgf/models.py:363 dgf/models.py:479
 #: dgf_cookies/models.py:14
 msgid "Name"
 msgstr "Name"
@@ -253,7 +253,7 @@ msgstr ""
 "Können wir deine Profil-Informationen bei unseren Social Media Konten "
 "benutzen?"
 
-#: dgf/models.py:126 dgf/models.py:459 dgf/models.py:480
+#: dgf/models.py:126 dgf/models.py:459 dgf/models.py:481
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:16
 msgid "Division"
@@ -366,7 +366,7 @@ msgstr "Menge"
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:275 dgf/models.py:440 dgf/models.py:456 dgf/models.py:513
+#: dgf/models.py:275 dgf/models.py:440 dgf/models.py:456 dgf/models.py:514
 #: dgf/templates/dgf/plugins/tour_results.html:70
 msgid "Player"
 msgstr "Spieler"
@@ -437,25 +437,25 @@ msgstr "Platz"
 msgid "Points"
 msgstr "Punkte"
 
-#: dgf/models.py:481
+#: dgf/models.py:482
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:512
+#: dgf/models.py:513
 msgid "Actor"
 msgstr "Akteur"
 
-#: dgf/models.py:514
+#: dgf/models.py:515
 msgid "New number"
 msgstr "Neue Nummer"
 
-#: dgf/models.py:516
+#: dgf/models.py:517
 msgid "Previous number"
 msgstr "Vorherige Nummer"
 
 #: dgf/plugin_models.py:40
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:43
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:100
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:28
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:79
 msgid "Background image"
 msgstr "Hintergrundbild"
 
@@ -1015,110 +1015,97 @@ msgstr "Bitte klick hier"
 msgid "Download"
 msgstr "Download"
 
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:4
+#: dgf_images/templates/dgf_images/generators/includes/configuration/dgf_logo_color_select.html:4
+msgid "DGF blue"
+msgstr "DGF Blau"
+
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:5
+msgid "DGF Pink"
+msgstr "DGF Pink"
+
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:6
+#: dgf_images/templates/dgf_images/generators/includes/configuration/dgf_logo_color_select.html:5
+msgid "White"
+msgstr "Weiß"
+
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:7
+msgid "Black"
+msgstr "Schwarz"
+
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:8
+msgid "Gray"
+msgstr "Grau"
+
+#: dgf_images/templates/dgf_images/generators/includes/configuration/color_select.html:10
+msgid "None"
+msgstr "Keine"
+
 #: dgf_images/templates/dgf_images/generators/index.html:5
 #: dgf_images/templates/dgf_images/generators/index.html:19
 msgid "Image Generators"
 msgstr "Bild Generator"
 
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:14
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:48
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:41
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:37
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:59
 msgid "Text color"
 msgstr "Textfarbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:16
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:26
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:33
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:50
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:60
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:61
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:71
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:80
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:90
-msgid "DGF blue"
-msgstr "DGF Blau"
-
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:17
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:34
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:51
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:61
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:62
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:81
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:91
-msgid "DGF Pink"
-msgstr "DGF Pink"
-
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:18
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:27
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:35
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:52
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:62
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:63
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:72
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:82
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:92
-msgid "White"
-msgstr "Weiß"
-
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:19
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:36
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:53
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:63
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:64
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:83
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:93
-msgid "Black"
-msgstr "Schwarz"
-
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:20
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:37
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:54
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:64
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:65
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:84
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:94
-msgid "Gray"
-msgstr "Grau"
-
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:24
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:69
 msgid "Logo color"
 msgstr "Logos Farbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:31
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:58
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:88
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:22
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:45
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:41
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:73
 msgid "Overlay color"
 msgstr "Overlays Farbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:49
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:106
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:32
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:83
 msgid "Move picture"
 msgstr "Bild verschieben"
 
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:8
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:8
 msgid "Picture width"
 msgstr "Bildbreite"
 
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:18
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:15
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:12
 msgid "Add Logo at the beginning?"
 msgstr "Logo am Anfang?"
 
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:23
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:20
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:17
 msgid "Add Logo at the end?"
 msgstr "Logo am Ende?"
 
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:33
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:28
+msgid "Add Banner at the end?"
+msgstr "Banner am Ende?"
+
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:34
+msgid "Move banner"
+msgstr "Banner verschieben"
+
+#: dgf_images/templates/dgf_images/generators/ratings-update.html:53
+#, fuzzy
+#| msgid "Friends"
+msgid "Move Friends"
+msgstr "Friends"
+
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:27
 msgid "We are 60 friends now!"
 msgstr "Wir sind schon 60 Friends!"
 
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:39
+#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:33
 msgid "Text size"
 msgstr "Textgröße"
-
-#: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:65
-msgid "None"
-msgstr "Keine"
 
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:8
 msgid "Disc Golf Metrix URL"
@@ -1168,6 +1155,6 @@ msgstr "Space around"
 msgid "Space between"
 msgstr "Space between"
 
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:78
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:69
 msgid "Background color"
 msgstr "Hintergrundsfarbe"

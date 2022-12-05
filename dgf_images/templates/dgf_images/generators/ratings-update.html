@@ -6,8 +6,11 @@
     <div class="group">
         <div>
             <label>{% trans "Picture width" %}</label>
-            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"250|500" step=request|mobile_or_desktop:"50|100" unit="px" %}
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"400|800" step=request|mobile_or_desktop:"100|200" unit="px" %}
         </div>
+    </div>
+
+    <div class="group">
         <div>
             <label>{% trans "Add Logo at the beginning?" %}</label>
             <input id="show-first-logo"
@@ -16,19 +19,45 @@
         <div>
             <label>{% trans "Add Logo at the end?" %}</label>
             <input id="show-last-logo"
+                   type="checkbox">
+        </div>
+    </div>
+
+    <div class="group">
+        <div>
+            <label>{% trans "Add Banner at the end?" %}</label>
+            <input id="show-banner"
                    type="checkbox"
                    checked>
+        </div>
+        <div>
+            <label>{% trans "Move banner" %}</label>
+            {% include "dgf_images/generators/includes/configuration/left_right_input.html" with id="move-banner" step=request|mobile_or_desktop:"25|50" unit="px" %}
         </div>
     </div>
 
     <div class="group">
         <div>
             <label>{% trans "Text color" %}</label>
-            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#8d1950" %}
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#ffffff" %}
         </div>
         <div>
             <label>{% trans "Overlay color" %}</label>
-            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="overlay-color" selected="#1b2633" none_available=True %}
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="overlay-color" selected="#1b2633" %}
+        </div>
+    </div>
+
+    {% all_pdga_friends as friends %}
+
+    <div>
+        <label id="move-friends-pictures-title">{% trans "Move Friends" %}</label>
+        <div id="move-friends-pictures">
+            {% for friend in friends %}
+                <div data-friend-username="{{friend.username}}">
+                    <label>{{friend.short_name}}</label>
+                    {% include "dgf_images/generators/includes/configuration/left_right_input.html" with class="move-picture" value=request|mobile_or_desktop:"-10|-20" step=request|mobile_or_desktop:"10|20" unit="px" %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -36,29 +65,36 @@
 
 {% block generated_content %}
 
-    <div id="generated-text"></div>
-
-    <div id="overlay"></div>
-
     <div id="all-friends">
 
         <img id="first-logo"
              src="{% static 'img/dgf-logo-blue-squared.png' %}"
-             width="100x"
-             height="100px"/>
+             width="200x"
+             height="200px"/>
 
         {% all_pdga_friends as friends %}
         {% for friend in friends %}
-            <img class="friend"
-                 src="{% thumbnail friend.main_photo 500x500 crop %}"
-                 width="100x"
-                 height="100px"/>
+            <div class="friend">
+                 <img src="{% thumbnail friend.main_photo 500x500 crop %}"
+                      width="200x"
+                      height="200px"
+                      data-friend-username="{{friend.username}}"/>
+                <div class="mini-overlay"></div>
+                <span class="text rating-difference">{{friend.rating_difference}}</span>
+                <span class="text rating">{{friend.rating}}</span>
+            </div>
         {% endfor %}
 
         <img id="last-logo"
              src="{% static 'img/dgf-logo-blue-squared.png' %}"
-             width="100x"
-             height="100px"/>
+             width="200x"
+             height="200px"/>
+
+        <img id="dgf-banner"
+             src="{% static 'img/dgf-banner.png' %}"
+             width="1200x"
+             height="320px"/>
+
     </div>
 
 {% endblock %}
