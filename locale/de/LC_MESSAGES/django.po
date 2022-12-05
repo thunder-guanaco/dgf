@@ -1094,10 +1094,8 @@ msgid "Move banner"
 msgstr "Banner verschieben"
 
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:53
-#, fuzzy
-#| msgid "Friends"
 msgid "Move Friends"
-msgstr "Friends"
+msgstr "Friends verschieben"
 
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:27
 msgid "We are 60 friends now!"
