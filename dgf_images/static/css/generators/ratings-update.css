@@ -5,7 +5,8 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    #all-friends .friend {
+    #all-friends .friend,
+    #all-friends img.dgf-logo {
         width: 100px;
         height: 100px;
     }
@@ -30,10 +31,12 @@
         grid-template-columns: repeat(3, 1fr);
     }
 
-    #all-friends .friend {
+    #all-friends .friend,
+    #all-friends img.dgf-logo {
         width: 200px;
         height: 200px;
     }
+
 
     #dgf-banner {
         height: 222px;
