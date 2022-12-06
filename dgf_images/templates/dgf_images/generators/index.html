@@ -21,13 +21,18 @@
         <div class="list">
             {% for image_generator in image_generators %}
                 <a href="{% url 'dgf_images:generator' image_generator %}">
-                    <button>{{image_generator|replace:"-| "|title}}</button>
+                    <button onclick="$('#new-page-loader').show();">{{image_generator|replace:"-| "|title}}</button>
                 </a>
             {% empty %}
                 There are no image generators (yet!)
             {% endfor %}
         </div>
 
+    </div>
+
+    <div id="new-page-loader">
+        <div class="loader"></div>
+        <div class="message">{% trans "Downloading the internet and calculating important stuff" %}</div>
     </div>
 
 {% endblock %}

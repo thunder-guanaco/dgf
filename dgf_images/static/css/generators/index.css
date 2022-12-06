@@ -24,3 +24,45 @@
     align-items: center;
     gap: 1em;
 }
+
+#new-page-loader {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #AAAAAACC;
+}
+
+#new-page-loader .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-top: 0.1em solid #8d1950;
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    animation: spin 1s linear infinite;
+}
+
+#new-page-loader .message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10em;
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1em;
+    font-weight: bold;
+    color: #1b2633;
+    text-shadow: 0px 0px 20px white;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
