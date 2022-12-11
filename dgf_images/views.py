@@ -4,6 +4,7 @@ from django.shortcuts import render
 IMAGE_GENERATORS = [
     'text-with-friends-background',
     'tournament-results',
+    'tour-results',
     'picture-with-title',
     'ratings-update',
 ]

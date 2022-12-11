@@ -64,12 +64,12 @@ def youtube_id(url):
     if url is None:
         raise ValueError()
 
-    # full Youtube URL
+    # full YouTube URL
     matches = re.findall('v=[a-zA-Z0-9_-]+', url)
     if matches:
         return matches[0].split('=')[1]
 
-    # short Youtube URL
+    # short YouTube URL
     matches = re.findall('youtu.be/[a-zA-Z0-9_-]+', url)
     if matches:
         return matches[0].split('/')[1]

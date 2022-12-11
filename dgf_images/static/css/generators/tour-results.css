@@ -1,0 +1,125 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+
+    #generated-content {
+        font-size: small;
+        zoom: 0.75;
+    }
+
+    #generated-content img.dgf-logo {
+        width: 75px;
+        height: auto;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 3px 5px;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+
+    .results-table th,
+    .results-table td {
+        padding: 5px 10px;
+    }
+}
+
+#generated-content {
+    height: 700px;
+    width: 700px;
+    text-transform: uppercase;
+    overflow: hidden;
+}
+
+.results-table {
+    border-radius: 0.5em;
+    margin: 0;
+}
+
+.results-table th,
+.results-table td {
+    text-align: center;
+}
+
+.results-table td.points {
+    text-align: left;
+    padding-left: 26px;
+}
+
+.results-table td.points small {
+    font-size: 70%;
+    color: #808080;
+}
+
+.results-table th {
+    font-size: 0.75em;
+}
+
+.results-table th.wide {
+    width: 5em;
+}
+
+.results-table td.position-1:after {
+    content: '\00a0\1F947';
+}
+
+.results-table td.position-2:after {
+    content: '\00a0\1F948';
+}
+
+.results-table td.position-3:after {
+    content: '\00a0\1F949';
+}
+
+.results-table td.name {
+    text-align: left;
+}
+
+.tour-header h1,
+.tour-header h2,
+.tour-header h3 {
+    margin: 0;
+}
+
+.tour-title {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.tour-footnote {
+    font-size: 0.75em;
+}
+
+.dgf-logo {
+    z-index: 4;
+    position: absolute;
+    margin: 1em;
+}
+
+.tour {
+    z-index: 3;
+    position: absolute; /* this has to be absolute, otherwise z-index does not work */
+    padding: 1em;
+    height: auto;
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+}
+
+#overlay {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#tour-picture {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: auto;
+    height: 100%;
+}
