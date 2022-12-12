@@ -21,14 +21,6 @@ def all_friends():
         .order_by('?')
 
 
-@register.simple_tag
-def all_friends_dict():
-    return {
-        friend.id: friend
-        for friend in Friend.all_objects.all()
-    }
-
-
 def get_rating_difference(friends):
     for friend in friends:
         rating_check = cache.get(f'rating_check_{friend.username}')
@@ -70,26 +62,34 @@ def all_tours():
 def parse_results(tour):
     tournaments = tour.tournaments.all().order_by('begin')
     friends_dict = all_friends_dict()
-    return [parse_friend_results(friend_results, friends_dict, tournaments) for friend_results in get_results(tour)]
+    last = last_tournament(tour)
+    parsed_results = [parse_friend_results(friend_results, friends_dict, tournaments, tour, last)
+                      for friend_results in get_results(tour)]
+
+    sorted_results = sorted(parsed_results,
+                            key=lambda result: result["total_points"],
+                            reverse=True)
+
+    sorted_results_before = sorted(parsed_results,
+                                   key=lambda result: result["total_points_before"],
+                                   reverse=True)
+
+    update_position_before(sorted_results, sorted_results_before)
+    return sorted_results
 
 
-def parse_friend_results(friend_results, friends_dict, tournaments):
+def all_friends_dict():
     return {
-        'friend': friends_dict[friend_results['friend']],
-        'tournaments': [parse_tournament(tournament, friend_results) for tournament in tournaments]
-    }
-
-
-def parse_tournament(tournament, friend_results):
-    return {
-        'tournament': tournament,
-        'position': friend_results[f'position_{tournament.id}'],
-        'points': friend_results[f'points_{tournament.id}'],
+        friend.id: friend
+        for friend in Friend.all_objects.all()
     }
 
 
 def get_results(tour):
-    queryset = Result.objects.filter(tournament__tours=tour).values('friend')
+    queryset = Result.objects.filter(tournament__tours=tour,
+                                     division=tour.division,
+                                     active=True) \
+        .values('friend')
     for tournament in tour.tournaments.all():
         # This SUM contains actually JUST ONE element(the result of the Friend for the given Tournament)
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
@@ -97,24 +97,51 @@ def get_results(tour):
     return queryset
 
 
-@register.filter
-def sorted_tour_points(result):
-    points = [
-        value
-        for key, value in result.items()
-        if key.startswith('points_') and value is not None
-    ]
-    return sorted(points, reverse=True)
+def parse_friend_results(friend_results, friends_dict, tournaments, tour, last_tournament):
+    parsed_tournament_results = parse_tournaments(friend_results, tournaments)
+
+    points = [result['points'] for result in parsed_tournament_results]
+    sorted_points = sorted(points, reverse=True)
+
+    points_before = [result['points'] for result in parsed_tournament_results if
+                     result['tournament'].id != last_tournament.id]
+    sorted_points_before = sorted(points_before, reverse=True)
+
+    return {
+        'friend': friends_dict[friend_results['friend']],
+        'tournaments': parsed_tournament_results,
+        'total_points': sum(sorted_points[:tour.evaluate_how_many]),
+        'total_points_before': sum(sorted_points_before[:tour.evaluate_how_many])
+    }
 
 
-@register.filter
-def sorted_tour_points_without_tournament(result, tournament):
-    points = [
-        value
-        for key, value in result.items()
-        if key.startswith('points_') and key != f'points_{tournament.id}' and value is not None
-    ]
-    return sorted(points, reverse=True)
+def parse_tournaments(friend_results, tournaments):
+    parsed_tournaments = []
+    for tournament in tournaments:
+        parsed_tournament = parse_tournament(friend_results, tournament)
+        if parsed_tournament['points'] is not None:
+            parsed_tournaments.append(parsed_tournament)
+
+    return parsed_tournaments
+
+
+def parse_tournament(friend_results, tournament):
+    return {
+        'tournament': tournament,
+        'position': friend_results[f'position_{tournament.id}'],
+        'points': friend_results[f'points_{tournament.id}'],
+    }
+
+
+def update_position_before(results, results_before):
+    position_before = {
+        friend_results['friend'].id: position
+        for position, friend_results in enumerate(results_before, start=1)
+    }
+
+    for position, friend_results in enumerate(results, start=1):
+        friend_results['position'] = position
+        friend_results['position_before'] = position_before[friend_results['friend'].id]
 
 
 @register.filter
@@ -123,16 +150,6 @@ def last_tournament(tour):
         .filter(results_count__gt=0) \
         .order_by('begin') \
         .last()
-
-
-@register.filter
-def points_from_tournament(results, tournament):
-    return results[f"points_{tournament.id}"] or '-'
-
-
-@register.filter
-def position_from_tournament(results, tournament):
-    return results[f"position_{tournament.id}"]
 
 
 @register.simple_tag
@@ -187,6 +204,22 @@ def get(dict, key):
 
 
 @register.filter
-def difference_text(value, value_before):
-    result = value - value_before
-    return f'+{result}' if result > 0 else ''
+def difference_string(value, value_before):
+    difference = value - value_before
+    if difference > 0:
+        return f'+{difference}'
+    elif difference < 0:
+        return difference
+    else:
+        return ''
+
+
+@register.filter
+def difference_arrow_string(value, value_before):
+    difference = value - value_before
+    if difference > 0:
+        return 'up'
+    elif difference < 0:
+        return 'down'
+    else:
+        return 'neutral'

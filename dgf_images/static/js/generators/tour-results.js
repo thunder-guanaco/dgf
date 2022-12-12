@@ -1,19 +1,22 @@
 $(window).on("load", function() {
 
-    sortResultsTable();
-
     $("#selected-tour").change(function() {
         $(".tour").hide();
         $(`#tour-${$(this).val()}`).show();
+        setColumnWidths();
         changeGeneratedContentHeight();
     }).change();
 
     $("#results-amount").change(function() {
         hideNotWantedResults();
-    });
+        setColumnWidths();
+        changeGeneratedContentHeight();
+    }).change();
 
     $("#show-last-changes").change(function() {
-        showIfChecked(".last-tournament", this);
+        showIfChecked(".last-changes", this);
+        setColumnWidths();
+        changeGeneratedContentHeight();
     }).change();
 
     $("#results-position").change(function() {
@@ -66,25 +69,6 @@ $(window).on("load", function() {
 
 });
 
-function sortResultsTable() {
-    $(".tour").each(function() {
-
-        // first: sort the table rows
-        $(this).find(".results-table tbody tr")
-            .sort((a, b) => $(b).data("total-points") - $(a).data("total-points"))
-            .appendTo(`#${this.id} tbody`);
-
-        // second: enumerate them
-        $(this).find(".results-table tbody tr").each(function(index) {
-            var position = index + 1;
-            $(this).prepend(`<td>${position}</td>`);
-            $(this).prepend(`<td class="position-${position}"></td>`);
-        });
-    });
-    // third: hide extra results
-    hideNotWantedResults();
-}
-
 function hideNotWantedResults() {
     var amountOfResultsToBeShown = $("#results-amount").val();
     $(".tour").each(function() {
@@ -98,11 +82,36 @@ function hideNotWantedResults() {
             }
         });
     });
-    changeGeneratedContentHeight();
+}
+
+function setColumnWidths() {
+    $(".tour").each(function() {
+
+        // position
+        var amountOfPositionChanges = $(this).find(".results-table tr td.position small:visible").length;
+        if (amountOfPositionChanges == 0) {
+            $(this).find(".results-table th.position").removeClass("plus-changes");
+            $(this).find(".results-table td.position").removeClass("plus-changes");
+        }
+        else {
+            $(this).find(".results-table th.position").addClass("plus-changes");
+            $(this).find(".results-table td.position").addClass("plus-changes");
+        }
+
+        // points
+        var amountOfPointChanges = $(this).find(".results-table tr td.points small:visible").length;
+        if (amountOfPointChanges == 0) {
+            $(this).find(".results-table th.points").removeClass("plus-changes");
+            $(this).find(".results-table td.points").removeClass("plus-changes");
+        }
+        else {
+            $(this).find(".results-table th.points").addClass("plus-changes");
+            $(this).find(".results-table td.points").addClass("plus-changes");
+        }
+    });
 }
 
 const pxToInt = (text) => parseInt(text.replace("px", ""));
-
 
 function changeGeneratedContentHeight() {
 
@@ -144,5 +153,4 @@ function changeHeaderAlignment(alignment) {
     var flexFlow = alignment === "right" ? "row" : "row-reverse";
     $(".tour").css("align-items", flexAlignment);
     $(".tour > *").css("text-align", alignment);
-    $(".tour-subtitle").css("flex-flow", flexFlow)
 }

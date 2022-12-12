@@ -1,15 +1,7 @@
 {% extends 'dgf_images/generators/base.html' %}
-{% load static i18n thumbnail dgf dgf_images %}
+{% load static i18n thumbnail mathfilters dgf dgf_images %}
 
 {% block configuration%}
-
-    {% comment %}
-
-        TODO:
-            - flechitas de si ha subido o bajado
-            - al lado de las flechitas poner cuantos puestos subido/bajado
-
-    {% endcomment %}
 
     <div class="group">
         <div>
@@ -97,51 +89,56 @@
 {% block generated_content %}
 
     {% all_tours as tours %}
-    {% all_friends_dict as friends_dict %}
     {% for tour in tours %}
         {% with tour|last_tournament as last_tournament %}
             <div id="tour-{{tour.id}}" class="tour">
                 <div class="tour-header">
                     <h1 class="tour-title">{{tour.name}} - {{tour.division.id}}</h1>
-                    <h2 class="last-tournament">{% trans "After" %} {{last_tournament|ts_number}}</h2>
+                    <span class="last-changes">{% trans "Points after" %} {{last_tournament|ts_number}}</span>
                 </div>
-                {% with tour|all_results as results %}
+                {% with tour|parse_results as results %}
                     <table class="results-table">
                         <thead>
                             <tr>
                                 <th></th>
+                                <th class="position"></th>
                                 <th></th>
-                                <th></th>
-                                <th class="wide">{% trans "Total points" %}</th>
-                                <!--th>{{last_tournament|ts_number}}</th-->
-                                <th class="wide">{% trans "Tournaments played" %} *</th>
+                                <th class="points">{% trans "Total points" %}</th>
+                                <th class="played-tournaments">{% trans "Tournaments played" %} *</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for result in results|filter_by_division:tour.division %}
-                                {% with result|sorted_tour_points as sorted_points %}
-                                {% with result|sorted_tour_points_without_tournament:last_tournament as sorted_points_without_last_tournament %}
-                                    <tr data-total-points="{{sorted_points|slice:tour.evaluate_how_many|sum_all}}">
-                                        <td class="name">
-                                            {{friends_dict|get:result.friend}}
-                                        </td>
-                                        {% with sorted_points|slice:tour.evaluate_how_many|sum_all as points %}
-                                        {% with sorted_points_without_last_tournament|slice:tour.evaluate_how_many|sum_all as points_before %}
-                                        <td class="points">
-                                            {{points}}
-                                            <small>{{points|difference_text:points_before}}</small>
-                                        </td>
+                            {% for friend_results in results %}
+                                <tr>
+                                    <td class="medal position-{{friend_results.position}}">
+                                    </td>
+                                    <td class="position">
+                                        {{friend_results.position}}
+                                        {% with friend_results.position_before|difference_string:friend_results.position|abs as position_difference %}
+                                            {% if position_difference %}
+                                                <small class="last-changes arrow-{{friend_results.position_before|difference_arrow_string:friend_results.position}}">
+                                                    {{position_difference}}
+                                                </small>
+                                            {% endif %}
                                         {% endwith %}
+                                    </td>
+                                    <td class="name">
+                                        {{friend_results.friend.short_name}}
+                                    </td>
+                                    <td class="points">
+                                        {{friend_results.total_points}}
+                                        {% with friend_results.total_points|difference_string:friend_results.total_points_before as points_difference %}
+                                            {% if points_difference %}
+                                                <small class="last-changes">
+                                                    {{points_difference}}
+                                                </small>
+                                            {% endif %}
                                         {% endwith %}
-                                        <!--td>
-                                            {{result|points_from_tournament:last_tournament}}
-                                        </td-->
-                                        <td>
-                                            {{sorted_points|length}}
-                                        </td>
-                                    </tr>
-                                {% endwith %}
-                                {% endwith %}
+                                    </td>
+                                    <td>
+                                        {{friend_results.tournaments|length}}
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>

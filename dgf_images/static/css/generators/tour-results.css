@@ -15,6 +15,16 @@
     .results-table td {
         padding: 3px 5px;
     }
+
+    .results-table td.position.plus-changes {
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .results-table td.points.plus-changes {
+        text-align: left;
+        padding-left: 20px;
+    }
 }
 
 /* desktop */
@@ -23,6 +33,16 @@
     .results-table th,
     .results-table td {
         padding: 5px 10px;
+    }
+
+    .results-table td.position.plus-changes {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .results-table td.points.plus-changes {
+        text-align: left;
+        padding-left: 30px;
     }
 }
 
@@ -43,33 +63,67 @@
     text-align: center;
 }
 
-.results-table td.points {
-    text-align: left;
-    padding-left: 26px;
-}
-
-.results-table td.points small {
-    font-size: 70%;
-    color: #808080;
-}
-
 .results-table th {
     font-size: 0.75em;
 }
 
-.results-table th.wide {
+.results-table th.position {
+    width: 2em;
+}
+
+.results-table th.position.plus-changes {
     width: 5em;
 }
 
-.results-table td.position-1:after {
+.results-table th.points.plus-changes {
+    width: 6em;
+}
+
+.results-table th.points {
+    width: 3em;
+}
+
+.results-table th.played-tournaments {
+    width: 5em;
+}
+
+.results-table td.medal {
+    padding-right: 0;
+}
+
+.results-table td small {
+    font-size: 70%;
+}
+
+.results-table td.position small.arrow-up {
+    color: #00a800;;
+}
+
+.results-table td.position small.arrow-up:before {
+    content: '▲';
+}
+
+.results-table td.position small.arrow-down {
+    color: #a80000;
+}
+
+.results-table td.position small.arrow-down:before {
+    content: '▼';
+}
+
+.results-table td.points small {
+    color: #808080;
+}
+
+.results-table td.position-1:before {
     content: '\00a0\1F947';
 }
 
-.results-table td.position-2:after {
+.results-table td.position-2:before {
     content: '\00a0\1F948';
 }
 
-.results-table td.position-3:after {
+.results-table td.position-3:before {
     content: '\00a0\1F949';
 }
 
