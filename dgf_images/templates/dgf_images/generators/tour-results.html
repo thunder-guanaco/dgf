@@ -1,0 +1,157 @@
+{% extends 'dgf_images/generators/base.html' %}
+{% load static i18n thumbnail mathfilters dgf dgf_images %}
+
+{% block configuration%}
+
+    <div class="group">
+        <div>
+            <label>{% trans "Tour" %}</label>
+            {% all_tours as tours %}
+            <select id="selected-tour">
+                {% for tour in tours %}
+                    <option value="{{tour.id}}">{{tour.name}} ({{tour.division}})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Show" %}</label>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="results-amount" value="10" %}
+            <label>{% trans "positions" %}</label>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Show changes since last tournament?" %}</label>
+            <input id="show-last-changes"
+                   type="checkbox"
+                    checked>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Results position" %}</label>
+            <select id="results-position">
+                <option value="left">{% trans "Left" %}</option>
+                <option value="right" selected>{% trans "Right" %}</option>
+            </select>
+        </div>
+        <div>
+            <label>{% trans "Logo position" %}</label>
+            <select id="dgf-logo-position">
+                <option value="top" selected>{% trans "Top" %}</option>
+                <option value="bottom">{% trans "Bottom" %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Justify results" %}</label>
+            <select id="results-justify-content">
+                <option value="center">{% trans "Center" %}</option>
+                <option value="space-around">{% trans "Space around" %}</option>
+                <option value="space-between" selected>{% trans "Space between" %}</option>
+            </select>
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Text color" %}</label>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="text-color" selected="#ffffff" %}
+        </div>
+        <div>
+            <label>{% trans "Logo color" %}</label>
+            {% include "dgf_images/generators/includes/configuration/dgf_logo_color_select.html" with selected="white" %}
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Background color" %}</label>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="background-color" selected="#000000" %}
+        </div>
+        <div>
+            <label>{% trans "Overlay color" %}</label>
+            {% include "dgf_images/generators/includes/configuration/color_select.html" with id="overlay-color" selected="#1b2633" %}
+        </div>
+    </div>
+    <div class="group">
+        <div>
+            <label>{% trans "Background image" %}</label>
+            {% include "dgf_images/generators/includes/configuration/picture.html" with id="background-picture" %}
+        </div>
+        <div>
+            <label>{% trans "Move picture" %}</label>
+            {% include "dgf_images/generators/includes/configuration/left_right_input.html" with id="move-picture" step=request|mobile_or_desktop:"25|50" unit="px" %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block generated_content %}
+
+    {% all_tours as tours %}
+    {% for tour in tours %}
+        {% with tour|last_tournament as last_tournament %}
+            <div id="tour-{{tour.id}}" class="tour">
+                <div class="tour-header">
+                    <h1 class="tour-title">{{tour.name}} - {{tour.division.id}}</h1>
+                    <span class="last-changes">{% trans "Points after" %} {{last_tournament|ts_number}}</span>
+                </div>
+                {% with tour|parse_results as results %}
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="position"></th>
+                                <th></th>
+                                <th class="points">{% trans "Total points" %}</th>
+                                <th class="played-tournaments">{% trans "Tournaments played" %} *</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for friend_results in results %}
+                                <tr>
+                                    <td class="medal position-{{friend_results.position}}">
+                                    </td>
+                                    <td class="position">
+                                        {{friend_results.position}}
+                                        {% with friend_results.position_before|difference_string:friend_results.position|abs as position_difference %}
+                                            {% if position_difference %}
+                                                <small class="last-changes arrow-{{friend_results.position_before|difference_arrow_string:friend_results.position}}">
+                                                    {{position_difference}}
+                                                </small>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                    <td class="name">
+                                        {{friend_results.friend.short_name}}
+                                    </td>
+                                    <td class="points">
+                                        {{friend_results.total_points}}
+                                        {% with friend_results.total_points|difference_string:friend_results.total_points_before as points_difference %}
+                                            {% if points_difference %}
+                                                <small class="last-changes">
+                                                    {{points_difference}}
+                                                </small>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </td>
+                                    <td>
+                                        {{friend_results.tournaments|length}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endwith %}
+                {% if tour.evaluate_how_many < 100 %}
+                    <span class="tour-footnote">* {% blocktranslate with amount=tour.evaluate_how_many %}Only {{amount}} tournaments count for the total year's points{% endblocktranslate %}</span>
+                {% endif %}
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+    <div id="overlay"></div>
+    <img id="tour-picture"/>
+    {% include "dgf_images/generators/includes/content/dgf_logo.html" %}
+
+{% endblock %}
