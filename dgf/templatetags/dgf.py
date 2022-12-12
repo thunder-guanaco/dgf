@@ -192,7 +192,7 @@ def ts_number(tournament, mobile=False):
 
 @register.filter
 def all_results(tour):
-    queryset = Result.objects.filter(tournament__tours=tour).values('friend')
+    queryset = Result.objects.filter(tournament__tours=tour, active=True).values('friend')
     for tournament in tour.tournaments.all():
         # This SUM contains actually JUST ONE element(the result of the Friend for the given Tournament)
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
