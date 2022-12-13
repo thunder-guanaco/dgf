@@ -6,7 +6,7 @@
     <div class="group">
         <div>
             <label>{% trans "Picture width" %}</label>
-            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"400|800" step=request|mobile_or_desktop:"100|200" unit="px" %}
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-width" value=request|mobile_or_desktop:"300|600" step=request|mobile_or_desktop:"100|200" unit="px" %}
         </div>
     </div>
 
@@ -67,11 +67,12 @@
 
     <div id="all-friends">
 
-        <img id="first-logo"
-             class="dgf-logo"
-             src="{% static 'img/dgf-logo-blue-squared.png' %}"
-             width="200x"
-             height="200px"/>
+        <div id="first-logo" class="logo-wrapper">
+            <img class="dgf-logo"
+                 src="{% static 'img/dgf-logo-white-squared.png' %}"
+                 width="200x"
+                 height="200px"/>
+        </div>
 
         {% all_pdga_friends as friends %}
         {% for friend in friends %}
@@ -86,16 +87,18 @@
             </div>
         {% endfor %}
 
-        <img id="last-logo"
-             class="dgf-logo"
-             src="{% static 'img/dgf-logo-blue-squared.png' %}"
-             width="200x"
-             height="200px"/>
+        <div id="last-logo" class="logo-wrapper">
+            <img class="dgf-logo"
+                 src="{% static 'img/dgf-logo-white-squared.png' %}"
+                 width="200x"
+                 height="200px"/>
+        </div>
 
-        <img id="dgf-banner"
-             src="{% static 'img/dgf-banner.png' %}"
-             width="1200x"
-             height="320px"/>
+        <div id="dgf-banner">
+            <img src="{% static 'img/dgf-banner.png' %}"
+                 width="1200x"
+                 height="320px"/>
+        </div>
 
     </div>
 

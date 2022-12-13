@@ -4,6 +4,7 @@ $(window).on("load", function() {
         $("#all-friends").css("width", $(this).val());
         $("#generated-content").css("width", $(this).val());
         $("#generated-content").css("height", $(this).val());
+        $("#dgf-banner").css("width", $(this).val());
     }).change();
 
     $("#show-first-logo").change(function() {
@@ -19,7 +20,7 @@ $(window).on("load", function() {
     }).change();
 
     $("#move-banner").change(function() {
-        $("#dgf-banner").css("margin-left", `${$(this).val()}px`);
+        $("#dgf-banner img").css("margin-left", `${$(this).val()}px`);
     }).change();
 
 
@@ -31,6 +32,7 @@ $(window).on("load", function() {
         var backgroundColor = $(this).val();
         var transparent = "rgba(255, 255, 255, 0)";
         $(".mini-overlay").css("background-image", `linear-gradient(270deg, ${backgroundColor} 33%, ${transparent} 66%)`);
+        $(".dgf-logo").css("background-color", backgroundColor);
     }).change();
 
     $(".move-picture input").change(function() {

@@ -6,12 +6,12 @@
     }
 
     #all-friends .friend,
-    #all-friends img.dgf-logo {
+    #all-friends .logo-wrapper {
         width: 100px;
         height: 100px;
     }
 
-    #dgf-banner {
+    #dgf-banner img {
         height: 111px;
     }
 
@@ -32,14 +32,17 @@
     }
 
     #all-friends .friend,
-    #all-friends img.dgf-logo {
+    #all-friends .logo-wrapper {
         width: 200px;
         height: 200px;
     }
 
-
     #dgf-banner {
-        height: 222px;
+        height: 200px;
+    }
+
+    #dgf-banner img {
+        height: 200px;
     }
 
     #all-friends .friend .rating-difference {
@@ -70,27 +73,33 @@
     justify-content: center;
 }
 
-#all-friends .friend {
+#all-friends .logo-wrapper,
+#all-friends .friend,
+#all-friends #dgf-banner {
     position: relative;
     overflow: hidden;
 }
 
-#all-friends .friend img {
+
+#all-friends .logo-wrapper img.dgf-logo,
+#all-friends .friend img,
+#all-friends #dgf-banner img {
     z-index: 1;
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    width: 98%;
-    height: 98%;
 }
+
 
 #all-friends .friend .mini-overlay {
     z-index: 2;
+}
+
+#all-friends .logo-wrapper img.dgf-logo,
+#all-friends .friend img,
+#all-friends .friend .mini-overlay {
     position: absolute;
-    top: 1%;
-    left: 1%;
-    width: 98%;
-    height: 98%;
+    top: 0;
+    left: 0;
+    width: 99%;
+    height: 99%;
 }
 
 #all-friends .friend .text {
@@ -112,6 +121,9 @@
     bottom: 0;
 }
 
-#dgf-banner {
+#dgf-banner img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: auto;
 }
