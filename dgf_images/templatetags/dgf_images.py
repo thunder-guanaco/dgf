@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from django import template
 from django.core.cache import cache
@@ -21,6 +22,12 @@ def all_friends():
         .order_by('?')
 
 
+def rating_update_from_current_month(current_rating):
+    rating_date = current_rating.find('small', {'class': 'rating-date'})
+    rating_update_month = datetime.strptime(rating_date.text, '(as of %d-%b-%Y)').month
+    return rating_update_month == datetime.today().month
+
+
 def get_rating_difference(friends):
     for friend in friends:
         rating_check = cache.get(f'rating_check_{friend.username}')
@@ -41,7 +48,7 @@ def get_rating_difference(friends):
         current_rating = player_page_soup.find('li', {'class': 'current-rating'})
         if current_rating:
             rating_difference = current_rating.find('a', {'class': 'rating-difference'})
-            if rating_difference:
+            if rating_difference and rating_update_from_current_month(current_rating):
                 friend.rating_difference = rating_difference.text
                 friend.rating = [child.text.strip() for child in current_rating.children
                                  if not child.name and child.text.strip()][0]
