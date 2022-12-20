@@ -1,10 +1,7 @@
 $(window).on("load", function() {
 
-    $("#picture-width").change(function() {
-        $("#all-friends").css("width", $(this).val());
-        $("#generated-content").css("width", $(this).val());
-        $("#generated-content").css("height", $(this).val());
-        $("#dgf-banner").css("width", $(this).val());
+    $("#friends-per-row").change(function() {
+        $("#all-friends").css("grid-template-columns", `repeat(${$(this).val()}, 1fr)`);
     }).change();
 
     $("#show-first-logo").change(function() {
