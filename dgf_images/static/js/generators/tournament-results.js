@@ -4,6 +4,10 @@ $(window).on("load", function() {
         updateResults();
     }).change();
 
+    $("#manual-table").change(function() {
+        updateResults();
+    });
+
     $("#disc-golf-metrix-division").change(function() {
         updateResults();
     });
@@ -59,13 +63,23 @@ $(window).on("load", function() {
 });
 
 function updateResults() {
+    var manualTable = $("#manual-table").is(':checked');
+    if (manualTable) {
+        copyManualTableFromMetrixPage();
+    }
+    else {
+        updateResultsFromMetrixApi();
+    }
+}
+
+function updateResultsFromMetrixApi() {
     var url = $("#disc-golf-metrix-url").val();
     var tournamentId = url.split('/').pop();
     $.ajax({
         type: "GET",
         url: "https://discgolfmetrix.com/api.php?content=result&id=" + tournamentId,
         success: function(response) {
-            handleMetrixResponse(response);
+            handleMetrixApiResponse(response);
         },
         error: function(response, e) {
             console.log(response.statusText);
@@ -74,8 +88,7 @@ function updateResults() {
     });
 }
 
-
-function handleMetrixResponse(response) {
+function handleMetrixApiResponse(response) {
 
     var competition = response["Competition"];
 
@@ -84,6 +97,7 @@ function handleMetrixResponse(response) {
     var table = $("#results-table");
     table.empty();
 
+    console.log('competition', competition);
     if (competition["ShowTourView"] === 1) {
         appendHeader(competition, table);
         appendTourResults(competition, table);
@@ -126,6 +140,8 @@ function appendTourResults(competition, table) {
 
     var division = $("#disc-golf-metrix-division").val();
     var sortedResults = getResultsFromDivision(competition["TourResults"], "Place", division);
+
+    console.log('sortedResults', sortedResults)
 
     sortedResults.forEach(result => {
         var resultTr = $("<tr></tr>");
@@ -185,6 +201,25 @@ function displaySubCompetitions(competitions) {
         i += 1;
     });
     return parsedResults;
+}
+
+function copyManualTableFromMetrixPage() {
+    var url = $("#disc-golf-metrix-url").val();
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function(response) {
+            handleMetrixPageResponse(response);
+        },
+        error: function(response, e) {
+            console.log(response.statusText);
+            console.log(e);
+        }
+    });
+}
+
+function handleMetrixPageResponse(response) {
+    console.log(response)
 }
 
 const pxToInt = (text) => parseInt(text.replace("px", ""));
