@@ -104,7 +104,7 @@
                                 <th class="position"></th>
                                 <th></th>
                                 <th class="points">{% trans "Total points" %}</th>
-                                <th class="played-tournaments">{% trans "Tournaments played" %} *</th>
+                                <th class="played-tournaments">{% trans "Tournaments played" %} {% if tour.evaluate_how_many < 100 %}*{% endif %}</th>
                             </tr>
                         </thead>
                         <tbody>

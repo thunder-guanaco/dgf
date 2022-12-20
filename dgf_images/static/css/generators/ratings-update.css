@@ -5,14 +5,14 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    #all-friends .friend,
-    #all-friends img.dgf-logo {
-        width: 100px;
-        height: 100px;
+    #all-friends {
+        gap: 2px;
     }
 
-    #dgf-banner {
-        height: 111px;
+    #all-friends .friend,
+    #all-friends .logo-wrapper {
+        width: 100px;
+        height: 100px;
     }
 
     #all-friends .friend .rating-difference {
@@ -21,6 +21,15 @@
 
     #all-friends .friend .rating {
         font-size: 1em;
+    }
+
+    #dgf-banner {
+        height: 100px;
+        width: auto;
+    }
+
+    #dgf-banner img {
+        height: 111px;
     }
 }
 
@@ -31,15 +40,14 @@
         grid-template-columns: repeat(3, 1fr);
     }
 
-    #all-friends .friend,
-    #all-friends img.dgf-logo {
-        width: 200px;
-        height: 200px;
+    #all-friends {
+        gap: 5px;
     }
 
-
-    #dgf-banner {
-        height: 222px;
+    #all-friends .friend,
+    #all-friends .logo-wrapper {
+        width: 200px;
+        height: 200px;
     }
 
     #all-friends .friend .rating-difference {
@@ -48,6 +56,15 @@
 
     #all-friends .friend .rating {
         font-size: 2em;
+    }
+
+    #dgf-banner {
+        height: 200px;
+        width: auto;
+    }
+
+    #dgf-banner img {
+        height: 222px;
     }
 }
 
@@ -65,36 +82,45 @@
 }
 
 #all-friends {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    display: grid;
 }
 
-#all-friends .friend {
+#all-friends .logo-wrapper,
+#all-friends .friend,
+#all-friends #dgf-banner {
     position: relative;
+}
+
+#all-friends .logo-wrapper,
+#all-friends .friend{
     overflow: hidden;
 }
 
-#all-friends .friend img {
+#all-friends #dgf-banner img {
     z-index: 1;
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    width: 98%;
-    height: 98%;
+}
+
+#all-friends .logo-wrapper img.dgf-logo,
+#all-friends .friend img {
+    z-index: 2;
 }
 
 #all-friends .friend .mini-overlay {
-    z-index: 2;
+    z-index: 3;
+}
+
+#all-friends .logo-wrapper img.dgf-logo,
+#all-friends .friend img,
+#all-friends .friend .mini-overlay {
     position: absolute;
-    top: 1%;
-    left: 1%;
-    width: 98%;
-    height: 98%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 #all-friends .friend .text {
-    z-index: 3;
+    z-index: 4;
     position: absolute;
     right: 0;
     padding: 0.25em;
@@ -112,6 +138,9 @@
     bottom: 0;
 }
 
-#dgf-banner {
+#dgf-banner img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: auto;
 }
