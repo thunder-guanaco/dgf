@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-20 20:11+0100\n"
+"POT-Creation-Date: 2022-12-27 20:03+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: dgf/models.py:126 dgf/models.py:459 dgf/models.py:481
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:16
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:23
 msgid "Division"
 msgstr "Division"
 
@@ -456,7 +456,7 @@ msgstr "Vorherige Nummer"
 #: dgf/plugin_models.py:40
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:28
 #: dgf_images/templates/dgf_images/generators/tour-results.html:78
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:79
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:98
 msgid "Background image"
 msgstr "Hintergrundbild"
 
@@ -1055,13 +1055,13 @@ msgstr "Wichtige Dinge werden jetzt gerechnet... warte mal kurz"
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:41
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:37
 #: dgf_images/templates/dgf_images/generators/tour-results.html:58
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:59
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:78
 msgid "Text color"
 msgstr "Textfarbe"
 
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:18
 #: dgf_images/templates/dgf_images/generators/tour-results.html:62
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:63
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:82
 msgid "Logo color"
 msgstr "Logos Farbe"
 
@@ -1069,13 +1069,13 @@ msgstr "Logos Farbe"
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:45
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:41
 #: dgf_images/templates/dgf_images/generators/tour-results.html:72
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:73
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:92
 msgid "Overlay color"
 msgstr "Overlays Farbe"
 
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:32
 #: dgf_images/templates/dgf_images/generators/tour-results.html:82
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:83
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:102
 msgid "Move picture"
 msgstr "Bild verschieben"
 
@@ -1134,57 +1134,57 @@ msgid "Show changes since last tournament?"
 msgstr "Änderungen seit dem letzten Turnier zeigen?"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:32
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:33
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:52
 msgid "Results position"
 msgstr "Platzierung der Ergebnisse"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:34
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:35
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:54
 msgid "Left"
 msgstr "Links"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:35
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:36
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:55
 msgid "Right"
 msgstr "Rechts"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:39
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:40
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:59
 msgid "Logo position"
 msgstr "Logos Platzierung"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:41
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:42
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:61
 msgid "Top"
 msgstr "Oben"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:42
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:43
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:62
 msgid "Bottom"
 msgstr "Unten"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:48
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:49
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:68
 msgid "Justify results"
 msgstr "Ausrichtung der Ergebnisse"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:50
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:51
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:70
 msgid "Center"
 msgstr "Center"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:51
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:52
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:71
 msgid "Space around"
 msgstr "Space around"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:52
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:53
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:72
 msgid "Space between"
 msgstr "Space between"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:68
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:69
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:88
 msgid "Background color"
 msgstr "Hintergrundsfarbe"
 
@@ -1205,10 +1205,22 @@ msgstr "Gespielte Turniere"
 msgid "Only %(amount)s tournaments count for the total year's points"
 msgstr "Die beste %(amount)s Turniere werden für die Jahreswertung gerechnet"
 
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:8
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:15
 msgid "Disc Golf Metrix URL"
 msgstr "Disc Golf Metrix URL"
 
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:25
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:31
+msgid "Use manual table?"
+msgstr "Manuell kombinierte Tabelle anzeigen?"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:37
+msgid "Podium ties?"
+msgstr "Stechen beim Treppchen-Plätze?"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:44
 msgid "Only Friends?"
 msgstr "Nur Friends?"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:121
+msgid "Ties decided in sudden death"
+msgstr "Durch Stechen entschieden"

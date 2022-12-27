@@ -3,6 +3,13 @@
 
 {% block configuration%}
 
+    {% if request.user.is_authenticated %}
+        <script>
+            csrfToken = "{{csrf_token}}";
+            proxyUrl = "{% url 'dgf_images:call' %}";
+        </script>
+    {% endif %}
+
     <div class="group">
         <div>
             <label>{% trans "Disc Golf Metrix URL" %}</label>
@@ -23,6 +30,7 @@
         <div>
             <label>{% trans "Use manual table?" %}</label>
             <input id="manual-table"
+                   checked
                    type="checkbox">
         </div>
         <!-- TODO: #5690 activate this
@@ -104,6 +112,7 @@
             <h2 id="tournament-division"></h2>
         </div>
         <table id="results-table"></table>
+        <span id="ties-footnote">* {% trans "Ties decided in sudden death" %}</span>
     </div>
 
     <div id="overlay"></div>
