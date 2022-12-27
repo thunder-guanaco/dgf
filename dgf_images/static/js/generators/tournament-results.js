@@ -65,6 +65,7 @@ $(window).on("load", function() {
 function updateResults() {
     var manualTable = $("#manual-table").is(':checked');
     if (manualTable) {
+        updateTitlesFromMetrixApi();
         copyManualTableFromMetrixPage();
     }
     else {
@@ -72,14 +73,19 @@ function updateResults() {
     }
 }
 
-function updateResultsFromMetrixApi() {
+const ONLY_TITLES = true;
+function updateTitlesFromMetrixApi() {
+    updateResultsFromMetrixApi(ONLY_TITLES);
+}
+
+function updateResultsFromMetrixApi(onlyTitles=false) {
     var url = $("#disc-golf-metrix-url").val();
     var tournamentId = url.split('/').pop();
     $.ajax({
         type: "GET",
         url: "https://discgolfmetrix.com/api.php?content=result&id=" + tournamentId,
         success: function(response) {
-            handleMetrixApiResponse(response);
+            handleMetrixApiResponse(response, onlyTitles);
         },
         error: function(response, e) {
             console.log(response.statusText);
@@ -88,16 +94,19 @@ function updateResultsFromMetrixApi() {
     });
 }
 
-function handleMetrixApiResponse(response) {
+function handleMetrixApiResponse(response, onlyTitles) {
 
     var competition = response["Competition"];
 
     changeTitle(competition);
 
+    if (onlyTitles) {
+        return;
+    }
+
     var table = $("#results-table");
     table.empty();
 
-    console.log('competition', competition);
     if (competition["ShowTourView"] === 1) {
         appendHeader(competition, table);
         appendTourResults(competition, table);
@@ -140,8 +149,6 @@ function appendTourResults(competition, table) {
 
     var division = $("#disc-golf-metrix-division").val();
     var sortedResults = getResultsFromDivision(competition["TourResults"], "Place", division);
-
-    console.log('sortedResults', sortedResults)
 
     sortedResults.forEach(result => {
         var resultTr = $("<tr></tr>");
@@ -207,7 +214,10 @@ function copyManualTableFromMetrixPage() {
     var url = $("#disc-golf-metrix-url").val();
     $.ajax({
         type: "GET",
-        url: url,
+        url: `${proxyUrl}?url=${encodeURIComponent(url)}`,
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
         success: function(response) {
             handleMetrixPageResponse(response);
         },
@@ -219,7 +229,52 @@ function copyManualTableFromMetrixPage() {
 }
 
 function handleMetrixPageResponse(response) {
-    console.log(response)
+
+    copyTable(response);
+    showOnlyOneDivision($("#disc-golf-metrix-division").val());
+    showTiesFootnote();
+    addMedals();
+
+    changeGeneratedContentHeight();
+}
+
+function copyTable(response) {
+    var tmpElement = $("<div></div>");
+    tmpElement.html(response);
+    var metrixManualTable = $("table.data-hover", tmpElement);
+    $("#results-table").html(metrixManualTable.html());
+    $("#results-table thead th").css("max-width", "10em");
+    $("#results-table tbody td[nowrap=nowrap]").addClass("name");
+    $("#results-table thead th:contains('No')").before("<th></th>");
+    $("#results-table thead th:contains('No')").text("");
+    $("#results-table tbody td:first-child()").css("text-align", "left");
+
+}
+
+function showOnlyOneDivision(division) {
+
+    if (division == "Open") {
+        $("#results-table tbody tr:has(th:contains('Amateur'))").nextAll("tr").hide();
+    }
+    else {
+        $("#results-table tbody tr:has(th:contains('Open'))").nextAll("tr").hide();
+        $("#results-table tbody tr:has(th:contains('Amateur'))").nextAll("tr").show();
+    }
+    $("#results-table tbody tr:has(th)").hide();
+
+}
+
+function showTiesFootnote() {
+
+    var ties = $("#results-table td:first-child():visible()").filter((index, node) => $(node).text().includes("*"));
+    $("#ties-footnote").css('display', ties.length > 0 ? 'unset' : 'none');
+
+}
+
+function addMedals() {
+    for (i=1; i<=100; i++) {
+        $("#results-table td:first-child()").filter((index, node) => $(node).text().includes(i)).before(`<td class='position-${i}'></td>`);
+    }
 }
 
 const pxToInt = (text) => parseInt(text.replace("px", ""));

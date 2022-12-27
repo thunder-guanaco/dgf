@@ -4,6 +4,7 @@ from . import views
 
 app_name = 'dgf'
 urlpatterns = [
+    path('call', views.call, name='call'),
     path('', views.index, name='index'),
     path('<str:slug>', views.generator, name='generator'),
 ]
