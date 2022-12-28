@@ -21,13 +21,21 @@ $(window).on("load", function() {
     }).change();
 
     $("#overlay-color").change(function() {
-        changeOverlayColor();
+        changeOverlay();
+    }).change();
+
+    $("#overlay-angle").change(function() {
+        changeOverlay();
+    }).change();
+
+    $("#overlay-depth").change(function() {
+        changeOverlay();
     }).change();
 
     $("#results-position").change(function() {
         changeAbsolutePosition("#tournament-results", ["bottom", $(this).val()]);
         $("#dgf-logo-position").change();
-        changeOverlayColor();
+        changeOverlay();
         resetPicturePosition();
         changeHeaderAlignment($(this).val());
     }).change();
@@ -56,8 +64,16 @@ $(window).on("load", function() {
         reader.readAsDataURL(this.files[0]);
     });
 
-    $("#move-picture").change(function() {
+    $("#picture-zoom").change(function() {
+        $("#tournament-picture").css("height", `${$(this).val()}%`);
+    }).change();
+
+    $("#move-picture-horizontal").change(function() {
         $("#tournament-picture").css("left", `${$(this).val()}px`);
+    }).change();
+
+    $("#move-picture-vertical").change(function() {
+        $("#tournament-picture").css("top", `${$(this).val()}px`);
     }).change();
 
 });
@@ -296,20 +312,25 @@ function changeGeneratedContentHeight() {
     $("#tournament-results").css("height", sideLength);
 }
 
-function changeOverlayColor() {
+function changeOverlay() {
     var backgroundColor = $("#overlay-color").val();
     var transparent = "rgba(255, 255, 255, 0)";
+
+    var overlayAngle = $("#overlay-angle").val();
+    var overlayDepth = $("#overlay-depth").val();
 
     var resultsOnTheRightSide = $("#results-position").val() === "right";
     var firstColor = resultsOnTheRightSide ? transparent : backgroundColor;
     var secondColor = resultsOnTheRightSide ? backgroundColor : transparent;
-    var firstPercent = resultsOnTheRightSide ? 0 : 50;
-    var secondPercent = resultsOnTheRightSide ? 50 : 100;
-    $("#overlay").css("background-image", `linear-gradient(90deg, ${firstColor} ${firstPercent}%, ${secondColor} ${secondPercent}%)`);
+    var firstPercent = resultsOnTheRightSide ? 0 : overlayDepth;
+    var secondPercent = resultsOnTheRightSide ? overlayDepth : 100;
+
+    $("#overlay").css("background-image", `linear-gradient(${overlayAngle}deg, ${firstColor} ${firstPercent}%, ${secondColor} ${secondPercent}%)`);
 }
 
 function resetPicturePosition() {
-    $("#move-picture").val(0).change();
+    $("#move-picture-horizontal").val(0).change();
+    $("#move-picture-vertical").val(0).change();
 }
 
 function changeHeaderAlignment(alignment) {

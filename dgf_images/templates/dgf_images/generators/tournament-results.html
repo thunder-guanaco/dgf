@@ -89,12 +89,31 @@
     </div>
     <div class="group">
         <div>
+            <label>{% trans "Overlay's angle" %}</label>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="overlay-angle" value="90" step="15" unit="º" %}
+        </div>
+        <div>
+            <label>{% trans "Overlay's depth" %}</label>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="overlay-depth" value="50" step="10" %}
+        </div>
+    </div>
+    <div class="group">
+        <div>
             <label>{% trans "Background image" %}</label>
             {% include "dgf_images/generators/includes/configuration/picture.html" with id="background-picture" %}
         </div>
         <div>
+            <label>{% trans "Picture zoom" %}</label>
+            {% include "dgf_images/generators/includes/configuration/less_more_input.html" with id="picture-zoom" value="100" step="10" unit="%" %}
+        </div>
+    </div>
+    <div class="group">
+        <div>
             <label>{% trans "Move picture" %}</label>
-            {% include "dgf_images/generators/includes/configuration/left_right_input.html" with id="move-picture" step=request|mobile_or_desktop:"25|50" unit="px" %}
+            {% include "dgf_images/generators/includes/configuration/left_right_input.html" with id="move-picture-horizontal" step=request|mobile_or_desktop:"25|50" unit="px" %}
+        </div>
+        <div>
+            {% include "dgf_images/generators/includes/configuration/up_down_input.html" with id="move-picture-vertical" step=request|mobile_or_desktop:"25|50" unit="px" %}
         </div>
     </div>
 
