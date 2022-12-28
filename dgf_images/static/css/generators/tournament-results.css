@@ -95,7 +95,5 @@
 #tournament-picture {
     z-index: 1;
     position: absolute;
-    top: 0;
     width: auto;
-    height: 100%;
 }
