@@ -289,7 +289,7 @@ function showTiesFootnote() {
 
 function addMedals() {
     for (i=1; i<=100; i++) {
-        $("#results-table td:first-child()").filter((index, node) => $(node).text().includes(i)).before(`<td class='position-${i}'></td>`);
+        $("#results-table td:first-child()").filter((index, node) => $(node).text().replace("*", "") == i).before(`<td class='position-${i}'></td>`);
     }
 }
 
