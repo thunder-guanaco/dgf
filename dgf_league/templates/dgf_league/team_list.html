@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static cms_tags i18n dgf dgf_league %}
+
+{% block title %}
+    {% trans "Liga" %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dgf_league/css/team_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chosen.min-1.8.7.css' %}">
+    {% include "dgf/includes/background_css.html" %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        const csrfToken = "{{csrf_token}}";
+        const createTeamUrl = "{% url 'dgf_league:team_add' %}";
+    </script>
+    <script type="text/javascript" src="{% static 'dgf_league/js/team_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/chosen.jquery-1.8.7.min.js' %}"></script>
+{% endblock %}
+
+{% block headline %}
+    {% static_placeholder "league_headline" %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="league_overview-header-text">
+        {% static_placeholder "league_content" %}
+    </div>
+
+    <div id="league">
+
+        <h1>{% trans "Results" %}</h1>
+
+        {% if teams %}
+
+            <p>{% blocktranslate with amount=teams.count %}{{amount}} teams registered{% endblocktranslate %}</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Team name" %}</th>
+                        <th>{% trans "Players" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{team.name}}</td>
+                            <td class="members">
+                                {% for membership in team.members.all %}
+                                    {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <p>{% trans "There are no teams yet" %}.</p>
+
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user.friend.memberships.count == 0 %}
+            <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
+                {% trans "Create new team" %}
+            </button>
+        {% endif %}
+
+        {% include "dgf_league/popups/create_new_team.html" %}
+
+    </div>
+
+{% endblock %}
