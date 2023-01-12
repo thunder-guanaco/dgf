@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dgf import tremonia_series
@@ -111,24 +112,23 @@ class TournamentsView(LoginRequiredMixin, ListView):
 
 
 @login_required
+@require_http_methods(['POST', 'DELETE'])
 def attendance(request, tournament_id):
+
     friend = request.user.friend
 
     if request.method == 'POST':
-        attendance, created = Attendance.objects.get_or_create(friend=friend, tournament_id=tournament_id)
+        _, created = Attendance.objects.get_or_create(friend=friend, tournament_id=tournament_id)
         return HttpResponse(status=201 if created else 204)
 
     if request.method == 'DELETE':
         Attendance.objects.filter(friend=friend, tournament_id=tournament_id).delete()
         return HttpResponse(status=204)
 
-    return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')
-
 
 @login_required
+@require_POST
 def bag_tag_claim(request, bag_tag):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     taker = request.user.friend
 
@@ -173,9 +173,8 @@ def get_next_bag_tag():
 
 
 @login_required
+@require_POST
 def bag_tag_new(request):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     actor = request.user.friend
 
@@ -203,9 +202,8 @@ def bag_tag_new(request):
 
 
 @login_required
+@require_POST
 def bag_tag_update(request):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     actor = request.user.friend
 
