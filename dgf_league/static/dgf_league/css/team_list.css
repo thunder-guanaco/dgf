@@ -1,0 +1,64 @@
+/* mobile */
+@media only screen and (max-width: 1024px) {
+    .league-popup {
+        width: 100%;
+    }
+    #league table .friend-ball {
+        margin: 0 0.25em;
+        width: 3em;
+    }
+}
+
+/* desktop */
+@media only screen and (min-width: 1024px) {
+    .container {
+        position: relative;
+    }
+}
+
+#league table {
+    width: 100%;
+}
+
+#league table thead tr {
+  border-bottom: 2px solid #1b2633;
+}
+
+#league table th,
+#league table td {
+    text-align: center;
+    padding: 1em;
+}
+
+#league table td.members {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.league-popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    flex-flow: column nowrap;
+    gap: 1em;
+    background-color: #ffffffee;
+    padding: 2em;
+    border: 2px solid #1b263344;
+    border-radius: 10px;
+}
+
+.league-popup .field {
+    display: flex;
+    flex-flow: column;
+}
+
+.league-popup button {
+    align-self: end;
+}
+
+#create-new-team .error {
+    color: #ff0000;
+}
