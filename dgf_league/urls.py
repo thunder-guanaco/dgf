@@ -6,4 +6,5 @@ app_name = 'dgf_league'
 urlpatterns = [
     path('', views.TeamIndexView.as_view(), name='team_index'),
     path('teams/add', views.team_add, name='team_add'),
+    path('results/add', views.result_add, name='result_add'),
 ]

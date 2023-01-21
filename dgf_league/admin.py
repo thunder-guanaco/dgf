@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Team, TeamMembership
+from .models import Team, TeamMembership, Result
 
 
 class TeamMembershipInline(admin.TabularInline):
@@ -29,3 +29,19 @@ class TeamAdmin(admin.ModelAdmin):
     @admin.display(ordering='team__members', description=_('Members'))
     def get_members(self, obj):
         return [membership.friend for membership in obj.members.all()]
+
+
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('', {
+            'fields': (
+                ('team1', 'points1'),
+                ('team2', 'points2')
+            )}
+         ),
+    )
+
+    list_display = ('team1', 'points1', 'points2', 'team2')
+    search_fields = ('team1', 'team2')
+    list_display_links = search_fields

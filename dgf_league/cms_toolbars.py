@@ -19,6 +19,14 @@ class LeagueToolbar(CMSToolbar):
             name=_('Add team'),
             url=admin_reverse('dgf_league_team_add'),
         )
+        menu.add_sideframe_item(
+            name=_('Results'),
+            url=admin_reverse('dgf_league_result_changelist'),
+        )
+        menu.add_sideframe_item(
+            name=_('Add result'),
+            url=admin_reverse('dgf_league_result_add'),
+        )
 
 
 toolbar_pool.register(LeagueToolbar)

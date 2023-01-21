@@ -38,6 +38,7 @@
 
 .league-popup {
     display: none;
+    width: 20em;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -50,15 +51,45 @@
     border-radius: 10px;
 }
 
+.league-popup .chosen-container {
+    font-size: 1em;
+}
+
 .league-popup .field {
     display: flex;
     flex-flow: column;
+}
+
+.league-popup .row-field {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.league-popup .error {
+    color: #ff0000;
 }
 
 .league-popup button {
     align-self: end;
 }
 
-#create-new-team .error {
-    color: #ff0000;
+.league-popup input[type=number] {
+    text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.league-popup input::-webkit-outer-spin-button,
+.league-popup input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.league-popup input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#add-result .result {
+    width: 2em;
 }
