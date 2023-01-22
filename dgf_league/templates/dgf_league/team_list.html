@@ -37,8 +37,6 @@
 
         {% if teams %}
 
-            <p>{% blocktranslate with amount=teams.count %}{{amount}} teams registered{% endblocktranslate %}</p>
-
             <table>
                 <thead>
                     <tr>
@@ -53,15 +51,23 @@
                 <tbody>
                     {% for team in teams %}
                         <tr>
-                            <td>1</td>
-                            <td>{{team.name}}</td>
+                            <td class="position">
+                                <div class="position-card-container">
+                                    <span class="position-card">{{forloop.counter}}</span>
+                                </div>
+                            </td>
+                            <td class="team-name">{{team.name}}</td>
                             <td class="members">
                                 {% for membership in team.members.all %}
                                     {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True %}
                                 {% endfor %}
                             </td>
-                            <td>{{team.played_matches}} ({{team.played_matches1}} + {{team.played_matches2}})</td>
-                            <td>{{team.points}} ({{team.points1}} + {{team.points2}})</td>
+                            <td>{{team.played_matches}}</td>
+                            <td class="points">
+                                <div class="ball-container">
+                                    <div class="ball">{{team.points}}</div>
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

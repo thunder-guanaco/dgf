@@ -3,9 +3,33 @@
     .league-popup {
         width: 100%;
     }
+
+    #league table th,
+    #league table td {
+        padding: 0.5em 0.25em;
+    }
+
     #league table .friend-ball {
-        margin: 0 0.25em;
-        width: 3em;
+        margin: 0 0 0 0.25em;
+        width: 2em;
+    }
+
+    #league table .friend-ball .friend-name {
+        display: none;
+    }
+
+    #league table td.position .position-card-container {
+        margin: 0;
+    }
+
+    #league table td.points .ball-container {
+        line-height: 1.5em;
+        width: 1.5em;
+        margin: 0;
+    }
+
+    #league table td.points .ball {
+        font-size: 1em;
     }
 }
 
@@ -14,6 +38,25 @@
     .container {
         position: relative;
     }
+
+    #league table th,
+    #league table td {
+        padding: 1em;
+    }
+
+    #league table td.position .position-card-container {
+        margin: 0 1em;
+    }
+
+    #league table td.points .ball-container {
+        line-height: 2.5em;
+        width: 2.5em;
+    }
+
+    #league table td.points .ball {
+        font-size: 1.25em;
+    }
+
 }
 
 #league table {
@@ -27,13 +70,48 @@
 #league table th,
 #league table td {
     text-align: center;
-    padding: 1em;
+    vertical-align: middle;
+}
+
+#league table td.position .position-card-container {
+    background-color: #8d1950;
+    border: solid #8d1950 2px;
+    font-weight: bold;
+    font-size: 1.25em;
+    width: 30px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px white inset;
+}
+
+#league table td.position .position-card {
+    text-align: left;
+    vertical-align: middle;
 }
 
 #league table td.members {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+}
+
+#league table td.members .friend-name {
+    font-weight: normal;
+}
+
+#league table td.points .ball-container {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: #8d1950;
+}
+
+#league table td.points .ball {
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
 }
 
 .league-popup {

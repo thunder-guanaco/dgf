@@ -51,9 +51,9 @@ function createResult() {
         type: "POST",
         url: createResultUrl,
         data: {
-            "own_team_points": $("#own-team-points").val(),
+            "own_points": $("#own-points").val(),
             "rival_team": $("#rival-team").val(),
-            "rival_team_points": $("#rival-team-points").val(),
+            "rival_points": $("#rival-points").val(),
         },
         beforeSend:function(xhr){
             xhr.setRequestHeader("X-CSRFToken", csrfToken);
@@ -62,6 +62,7 @@ function createResult() {
             location.reload();
         },
         error: function(response, error) {
+            console.log(response)
             console.log(response.statusText);
             $("#add-result .error").text(response.statusText);
         }

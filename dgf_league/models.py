@@ -1,11 +1,14 @@
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
+
+MAX_POINTS_PER_MATCH = 10
 
 
 class Team(Model):
@@ -18,12 +21,11 @@ class Team(Model):
     created = models.DateTimeField(auto_now_add=True)
 
     @property
-    def info(self):
-        members = [membership.friend.short_name for membership in self.members.all()]
-        return f'{self.name}: ({" + ".join(members)})'
+    def member_names(self):
+        return " + ".join([membership.friend.short_name for membership in self.members.all()])
 
     def __str__(self):
-        return self.name
+        return f'{self.name}: ({self.member_names})'
 
 
 class TeamMembership(Model):
@@ -39,25 +41,34 @@ class TeamMembership(Model):
         return f'{self.friend} belongs to team {self.team}'
 
 
+class Match(Model):
+    class Meta:
+        verbose_name_plural = "Matches"
+
+    date = models.DateTimeField(auto_now_add=True)
+
+    def results_as_str(self):
+        return " / ".join([f'{result.team.name}: {result.points}' for result in self.results.all()])
+
+    def __str__(self):
+        return f'Match occurred at {self.date}'
+
+
 class Result(Model):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['team1', 'team2'], name='teams_only_play_once_against_each_other'),
+            models.UniqueConstraint(fields=['match', 'team'], name='teams_can_not_play_against_themselves'),
         ]
 
-    team1 = models.ForeignKey(Team, on_delete=CASCADE, related_name='results_as_team_1', verbose_name=_('Team 1'))
-    team2 = models.ForeignKey(Team, on_delete=CASCADE, related_name='results_as_team_2', verbose_name=_('Team 2'))
-    points1 = models.PositiveIntegerField(_('Points Team 1'), validators=[MinValueValidator(0), MaxValueValidator(5)])
-    points2 = models.PositiveIntegerField(_('Points Team 2'), validators=[MinValueValidator(0), MaxValueValidator(5)])
-    created = models.DateTimeField(auto_now_add=True)
-
-    def clean(self, *args, **kwargs):
-        if (self.points1 + self.points2) != 5:
-            raise ValidationError(_('The sum of all points must be 5'))
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
+    match = models.ForeignKey(Match, on_delete=CASCADE, related_name='results', verbose_name=_('Match'))
+    team = models.ForeignKey(Team, on_delete=CASCADE, related_name='results', verbose_name=_('Team'))
+    points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(0),
+                                                                  MaxValueValidator(MAX_POINTS_PER_MATCH)])
 
     def __str__(self):
-        return f'{self.team1} {self.points1} - {self.points2} {self.team2}'
+        return f'{self.team} got {self.points} in a match'
+
+
+@receiver(post_delete, sender=Result)
+def on_delete_result(sender, instance, using, **kwargs):
+    Match.objects.filter(results=instance).delete()

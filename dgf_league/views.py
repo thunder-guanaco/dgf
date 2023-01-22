@@ -1,28 +1,28 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
-from django.db.models import Sum, Count, F
+from django.db.models import Sum, Count
 from django.db.models.functions import Coalesce
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from dgf.models import Friend
-from dgf_league.models import Team, TeamMembership, Result
+from dgf_league.forms import AddResultForm, AddTeamForm
+from dgf_league.models import Team, TeamMembership, Result, Match
 
 
 class TeamIndexView(ListView):
     template_name = 'dgf/team_list.html'
     context_object_name = 'teams'
     queryset = Team.objects.all() \
-        .annotate(points1=Coalesce(Sum('results_as_team_1__id'), 0)) \
-        .annotate(points2=Coalesce(Sum('results_as_team_2__id'), 0)) \
-        .annotate(points=F('points1') + F('points2')) \
-        .annotate(played_matches1=Count('results_as_team_1')) \
-        .annotate(played_matches2=Count('results_as_team_2')) \
-        .annotate(played_matches=F('played_matches1') + F('played_matches2')) \
+        .annotate(played_matches=Count('results')) \
+        .annotate(points=Coalesce(Sum('results__points'), 0)) \
         .order_by('-points')
-    # TODO check why Thunder Guanaco has more points and matches than it should
+
+
+def one_more_value(data, key, value):
+    updated_request = data.copy()
+    updated_request[key] = str(value)
+    return updated_request
 
 
 @login_required
@@ -30,34 +30,17 @@ class TeamIndexView(ListView):
 def team_add(request):
     actor = request.user.friend
 
-    name = request.POST.get('name')
-    if not name:
-        return HttpResponse(status=400, reason=_('Missing name'))
+    form = AddTeamForm(one_more_value(request.POST, 'actor', actor.id))
+    if not form.is_valid():
+        return HttpResponse(status=400, reason=form.errors_as_str())
 
-    partner_id = request.POST.get('partner')
-    if not partner_id:
-        return HttpResponse(status=400, reason=_('Missing partner'))
-
-    if actor.id == int(partner_id):
-        return HttpResponse(status=400, reason=_('You can not select yourself as partner'))
-
-    try:
-        partner = Friend.objects.get(id=partner_id)
-    except Friend.DoesNotExist:
-        return HttpResponse(status=400, reason=_(f'Friend with ID {partner_id} does not exist'))
-
-    if partner.memberships.count() > 0:
-        return HttpResponse(status=400, reason=_('The selected partner is already in another team'))
+    name = form.cleaned_data['name']
+    partner = form.cleaned_data['partner']
 
     team = Team.objects.create(name=name)
     TeamMembership.objects.create(team=team, friend=actor)
     TeamMembership.objects.create(team=team, friend=partner)
-
     return HttpResponse(status=200)
-
-
-# TODO: it is time to start using django-rest-framework or something similar...
-# I'm not proud of this and I will change it
 
 
 @login_required
@@ -67,30 +50,23 @@ def result_add(request):
     if not actor.memberships.count():
         return HttpResponse(status=400, reason=_(f'You don\'t have a team and therefore you can not add results'))
 
-    team1 = actor.memberships.get().team
+    own_team = actor.memberships.get().team
 
-    team2 = request.POST.get('rival_team')
-    if not team2:
-        return HttpResponse(status=400, reason=_('Missing rival team'))
-    team2 = Team.objects.get(id=team2)
+    form = AddResultForm(one_more_value(request.POST, 'own_team', own_team.id))
+    if not form.is_valid():
+        return HttpResponse(status=400, reason=form.errors_as_str())
 
-    points1 = request.POST.get('own_team_points')
-    if not points1:
-        return HttpResponse(status=400, reason=_('Missing own team points'))
+    rival_team = form.cleaned_data['rival_team']
+    own_points = form.cleaned_data['own_points']
+    rival_points = form.cleaned_data['rival_points']
 
-    points2 = request.POST.get('rival_team_points')
-    if not points2:
-        return HttpResponse(status=400, reason=_('Missing rival team points'))
+    existing_match = Match.objects.filter(results__team=own_team).filter(results__team=rival_team)
+    if existing_match.exists():
+        match = existing_match.get()
+    else:
+        match = Match.objects.create()
 
-    try:
-        _, created = Result.objects.update_or_create(
-            team1=team1,
-            team2=team2,
-            defaults={
-                'points1': int(points1),
-                'points2': int(points2)
-            }
-        )
-        return HttpResponse(status=201 if created else 200)
-    except ValidationError as error:
-        return HttpResponse(status=400, reason=error.message)
+    Result.objects.update_or_create(match=match, team=own_team, defaults={'points': own_points})
+    Result.objects.update_or_create(match=match, team=rival_team, defaults={'points': rival_points})
+
+    return HttpResponse(status=200)
