@@ -69,4 +69,3 @@ class MatchAdmin(admin.ModelAdmin):
     list_display_links = ('results_as_str',)
     search_fields = ('results_as_str',)
     inlines = (ResultInline,)
-    # TODO: show results first, not general tab

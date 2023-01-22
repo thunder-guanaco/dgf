@@ -62,7 +62,6 @@ function createResult() {
             location.reload();
         },
         error: function(response, error) {
-            console.log(response)
             console.log(response.statusText);
             $("#add-result .error").text(response.statusText);
         }

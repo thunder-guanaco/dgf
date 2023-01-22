@@ -7,7 +7,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('dgf_league', '0007_delete_result'),
+        ('dgf_league', '0003_create_match'),
     ]
 
     operations = [

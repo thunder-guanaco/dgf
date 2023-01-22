@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('dgf_league', '0005_result_teams_only_play_once_against_each_other'),
+        ('dgf_league', '0002_re_create_membership'),
     ]
 
     operations = [

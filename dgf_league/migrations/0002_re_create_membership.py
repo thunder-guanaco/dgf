@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ('dgf', '0078_allow_2_different_results_for_the_same_tournament'),
-        ('dgf_league', '0002_result'),
+        ('dgf_league', '0001_initial'),
     ]
 
     operations = [
