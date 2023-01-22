@@ -39,7 +39,7 @@ function activateDiscChosen(selector) {
         disable_search_threshold: 10,
         width: "90%"
     });
-    $(selector).on('change', function(event, params) {
+    $(selector).on("change", function(event, params) {
 
         target = event.target;
         typeSelector = target.getAttribute("id").replace(/-disc$/g, "-type");

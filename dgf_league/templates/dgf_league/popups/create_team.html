@@ -1,11 +1,11 @@
-{% load i18n dgf %}
+{% load i18n dgf_league %}
 
 <div id="create-new-team" class="league-popup">
     <div class="field">
         <label>{% trans "Who are you playing with?" %}</label>
         <select id="team-partner">
             <option value="">---</option>
-            {% all_friends as friends %}
+            {% all_friends_without_teams as friends %}
             {% for friend in friends %}
                 {% if friend != request.user.friend %}
                     <option value="{{friend.id}}">{{friend.full_name}}</option>
@@ -15,7 +15,7 @@
     </div>
     <div class="field">
         <label>{% trans "How do you want to call yourselves?" %}</label>
-        <input id="team-name" required>
+        <input id="team-name">
     </div>
     <span class="error"></span>
     <button id="new-team" onclick="createTeam()">
