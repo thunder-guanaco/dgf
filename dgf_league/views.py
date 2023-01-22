@@ -48,7 +48,7 @@ def team_add(request):
 def result_add(request):
     actor = request.user.friend
     if not actor.memberships.count():
-        return HttpResponse(status=400, reason=_(f'You don\'t have a team and therefore you can not add results'))
+        return HttpResponse(status=400, reason=_('You don\'t have a team and therefore you can not add results'))
 
     own_team = actor.memberships.get().team
 
