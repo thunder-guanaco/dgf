@@ -9,17 +9,17 @@
             height: {{instance.height}};
         }
     </style>
-    {% block css %}{% endblock css %}
+    {% block css %}{% endblock %}
 {% endaddtoblock %}
 
 {% addtoblock "js" %}
-    {% block js %}{% endblock js %}
+    {% block js %}{% endblock %}
 {% endaddtoblock %}
 
 <div class="tournament-results-wrapper">
     <img class="background-image" src="{{instance.background_image.url}}">
     <div class="tournament-results">
-        {% block content %}{% endblock content %}
+        {% block content %}{% endblock %}
     </div>
 </div>
 

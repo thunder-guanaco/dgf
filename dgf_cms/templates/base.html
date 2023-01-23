@@ -19,7 +19,7 @@
             <link rel="stylesheet" type="text/css" href="{% static 'css/friends_header.css' %}">
 
             {% block css %}
-            {% endblock css %}
+            {% endblock %}
 
         {% endcompress %}
 
@@ -62,7 +62,7 @@
             {% endif %}
 
             {% block js %}
-            {% endblock js %}
+            {% endblock %}
 
         {% endcompress %}
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class="container">
-            {% block content %}{% endblock content %}
+            {% block content %}{% endblock %}
             {% if request.user.username == 'manolo' %}
                 <span id="dgf-version">Version: {% dgf_version %}</span>
             {% endif %}
