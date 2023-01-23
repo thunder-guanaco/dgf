@@ -1,8 +1,9 @@
 {% load i18n dgf_league %}
 
 <div id="create-new-team" class="league-popup">
+    <span class="close-league-popup">✕</span>
     <div class="field">
-        <label>{% trans "Who are you playing with?" %}</label>
+        <label>{% trans "Select your partner" %}</label>
         <select id="team-partner">
             <option value="">---</option>
             {% all_friends_without_teams as friends %}

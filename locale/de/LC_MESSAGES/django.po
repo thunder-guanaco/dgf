@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 01:34+0100\n"
+"POT-Creation-Date: 2023-01-23 14:30+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -561,7 +561,7 @@ msgid "Thank you for the feedback"
 msgstr "Danke für dein Feedback"
 
 #: dgf/templates/dgf/githubissue_form.html:21
-#: dgf_league/templates/dgf_league/popups/create_result.html:24
+#: dgf_league/templates/dgf_league/popups/create_result.html:26
 msgid "Send"
 msgstr "Senden"
 
@@ -915,6 +915,22 @@ msgstr "Zurück zur Startseite"
 #: dgf_cms/templates/includes/language_chooser.html:8
 msgid "Change to language"
 msgstr "Sprache wechseln"
+
+#: dgf_cms/templates/static_placeholders.html:19
+msgid ""
+"This is the right place to change banners and text from the following pages "
+"(apps)"
+msgstr ""
+"Hier kannst du Banners und Texte für dynamischen Seiten ändern und "
+"veröffentlichen"
+
+#: dgf_cms/templates/static_placeholders.html:21
+msgid "FRIENDS PAGE"
+msgstr "FRIENDS SEITE"
+
+#: dgf_cms/templates/static_placeholders.html:25
+msgid "LEAGUE PAGE"
+msgstr "LIGA SEITE"
 
 #: dgf_cookies/models.py:13 dgf_cookies/models.py:28
 msgid "Language"
@@ -1324,29 +1340,35 @@ msgstr "Team"
 msgid "Match"
 msgstr "Spiel"
 
-#: dgf_league/templates/dgf_league/popups/create_result.html:6
+#: dgf_league/templates/dgf_league/popups/create_result.html:7
 msgid "You already played with every team"
 msgstr "Du hast schon mit allen Teams gespielt"
 
-#: dgf_league/templates/dgf_league/popups/create_result.html:8
+#: dgf_league/templates/dgf_league/popups/create_result.html:9
 msgid "Please select a team and enter the result"
-msgstr "Bitte wähle einen Gegner und gib die Scores ein"
+msgstr ""
+"Bitte wähle einen Gegner und gib das Endergebniss ein (es sind 10 Punkte zu "
+"vergeben)"
 
-#: dgf_league/templates/dgf_league/popups/create_team.html:5
-msgid "Who are you playing with?"
-msgstr "Mit wem spielst du?"
+#: dgf_league/templates/dgf_league/popups/create_result.html:10
+msgid "Team points"
+msgstr "Team-Punkte"
 
-#: dgf_league/templates/dgf_league/popups/create_team.html:17
+#: dgf_league/templates/dgf_league/popups/create_team.html:6
+msgid "Select your partner"
+msgstr "Wähle deinen Teampartner"
+
+#: dgf_league/templates/dgf_league/popups/create_team.html:18
 msgid "How do you want to call yourselves?"
-msgstr "Wie heißt ihr?"
+msgstr "Wie ist euer Teamname?"
 
-#: dgf_league/templates/dgf_league/popups/create_team.html:22
+#: dgf_league/templates/dgf_league/popups/create_team.html:23
 msgid "Create"
 msgstr "Team anmelden"
 
 #: dgf_league/templates/dgf_league/team_list.html:36
-msgid "Results"
-msgstr "Ergebnisse"
+msgid "Standings"
+msgstr "Tabelle"
 
 #: dgf_league/templates/dgf_league/team_list.html:43
 msgid "Place"
