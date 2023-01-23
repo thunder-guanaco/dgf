@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-27 20:03+0100\n"
+"POT-Creation-Date: 2023-01-22 01:34+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,7 @@ msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
 #: dgf/cms_plugins.py:22 dgf/models.py:199 dgf/models.py:208
+#: dgf_league/models.py:38
 msgid "Friend"
 msgstr "Friend"
 
@@ -187,7 +188,7 @@ msgid "Text"
 msgstr "Text"
 
 #: dgf/models.py:51 dgf/models.py:363 dgf/models.py:479
-#: dgf_cookies/models.py:14
+#: dgf_cookies/models.py:14 dgf_league/forms.py:27 dgf_league/models.py:20
 msgid "Name"
 msgstr "Name"
 
@@ -434,6 +435,7 @@ msgid "Position"
 msgstr "Platz"
 
 #: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:71
+#: dgf_league/models.py:65 dgf_league/templates/dgf_league/team_list.html:47
 msgid "Points"
 msgstr "Punkte"
 
@@ -441,7 +443,7 @@ msgstr "Punkte"
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:513
+#: dgf/models.py:513 dgf_league/forms.py:25
 msgid "Actor"
 msgstr "Akteur"
 
@@ -456,7 +458,7 @@ msgstr "Vorherige Nummer"
 #: dgf/plugin_models.py:40
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:28
 #: dgf_images/templates/dgf_images/generators/tour-results.html:78
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:98
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:102
 msgid "Background image"
 msgstr "Hintergrundbild"
 
@@ -559,6 +561,7 @@ msgid "Thank you for the feedback"
 msgstr "Danke für dein Feedback"
 
 #: dgf/templates/dgf/githubissue_form.html:21
+#: dgf_league/templates/dgf_league/popups/create_result.html:24
 msgid "Send"
 msgstr "Senden"
 
@@ -873,11 +876,11 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:343 dgf_cms/settings.py:353
+#: dgf_cms/settings.py:344 dgf_cms/settings.py:354
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:344 dgf_cms/settings.py:360
+#: dgf_cms/settings.py:345 dgf_cms/settings.py:361
 msgid "English"
 msgstr "Englisch"
 
@@ -1055,13 +1058,13 @@ msgstr "Wichtige Dinge werden jetzt gerechnet... warte mal kurz"
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:41
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:37
 #: dgf_images/templates/dgf_images/generators/tour-results.html:58
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:78
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:72
 msgid "Text color"
 msgstr "Textfarbe"
 
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:18
 #: dgf_images/templates/dgf_images/generators/tour-results.html:62
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:82
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:76
 msgid "Logo color"
 msgstr "Logos Farbe"
 
@@ -1069,13 +1072,13 @@ msgstr "Logos Farbe"
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:45
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:41
 #: dgf_images/templates/dgf_images/generators/tour-results.html:72
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:92
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:86
 msgid "Overlay color"
 msgstr "Overlays Farbe"
 
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:32
 #: dgf_images/templates/dgf_images/generators/tour-results.html:82
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:102
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:112
 msgid "Move picture"
 msgstr "Bild verschieben"
 
@@ -1134,57 +1137,57 @@ msgid "Show changes since last tournament?"
 msgstr "Änderungen seit dem letzten Turnier zeigen?"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:32
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:52
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:46
 msgid "Results position"
 msgstr "Platzierung der Ergebnisse"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:34
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:54
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:48
 msgid "Left"
 msgstr "Links"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:35
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:55
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:49
 msgid "Right"
 msgstr "Rechts"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:39
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:59
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:53
 msgid "Logo position"
 msgstr "Logos Platzierung"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:41
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:61
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:55
 msgid "Top"
 msgstr "Oben"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:42
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:62
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:56
 msgid "Bottom"
 msgstr "Unten"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:48
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:68
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:62
 msgid "Justify results"
 msgstr "Ausrichtung der Ergebnisse"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:50
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:70
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:64
 msgid "Center"
 msgstr "Center"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:51
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:71
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:65
 msgid "Space around"
 msgstr "Space around"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:52
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:72
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:66
 msgid "Space between"
 msgstr "Space between"
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:68
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:88
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:82
 msgid "Background color"
 msgstr "Hintergrundsfarbe"
 
@@ -1213,14 +1216,166 @@ msgstr "Disc Golf Metrix URL"
 msgid "Use manual table?"
 msgstr "Manuell kombinierte Tabelle anzeigen?"
 
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:37
-msgid "Podium ties?"
-msgstr "Stechen beim Treppchen-Plätze?"
-
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:44
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:38
 msgid "Only Friends?"
 msgstr "Nur Friends?"
 
-#: dgf_images/templates/dgf_images/generators/tournament-results.html:121
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:92
+msgid "Overlay's angle"
+msgstr "Overlays Winkel"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:96
+msgid "Overlay's depth"
+msgstr "Overlays Höhe"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:106
+msgid "Picture zoom"
+msgstr "Bild Zoom"
+
+#: dgf_images/templates/dgf_images/generators/tournament-results.html:134
 msgid "Ties decided in sudden death"
 msgstr "Durch Stechen entschieden"
+
+#: dgf_league/admin.py:37 dgf_league/forms.py:68
+msgid "Please select 2 different teams"
+msgstr "Bitte selektiere 2 unterschiedliche Teams"
+
+#: dgf_league/admin.py:39
+msgid ""
+"That result already exist. Please select it from the list and change it "
+"instead of creating a new one"
+msgstr ""
+"Dieses Ergebnis existiert bereits. Bitte wähle es aus der Liste und ändere "
+"das anstatt ein neues zu erzeugen"
+
+#: dgf_league/admin.py:45 dgf_league/forms.py:71
+#, python-brace-format
+msgid "Sum of all points should be {MAX_POINTS_PER_MATCH}"
+msgstr "Die Summe muss {MAX_POINTS_PER_MATCH} Punkte sein"
+
+#: dgf_league/cms_toolbars.py:12
+#: dgf_league/templates/dgf_league/team_list.html:5
+msgid "League"
+msgstr "Liga"
+
+#: dgf_league/cms_toolbars.py:15
+msgid "Teams"
+msgstr "Teams"
+
+#: dgf_league/cms_toolbars.py:19
+msgid "Add team"
+msgstr "Team hinzufügen"
+
+#: dgf_league/cms_toolbars.py:23
+msgid "Matches"
+msgstr "Spiele"
+
+#: dgf_league/cms_toolbars.py:27
+msgid "Add match result"
+msgstr "Ergebnis hinzufügen"
+
+#: dgf_league/forms.py:16
+msgid "Error"
+msgstr "Fehler"
+
+#: dgf_league/forms.py:26
+msgid "Partner"
+msgstr "Partner"
+
+#: dgf_league/forms.py:32
+msgid "You are already in another team"
+msgstr "Du bist bereits in einem anderen Team"
+
+#: dgf_league/forms.py:38
+msgid "The selected partner is already in another team"
+msgstr "Der gewählte Partner ist bereits in einem anderen Team"
+
+#: dgf_league/forms.py:44
+msgid "That name is already taken"
+msgstr "Jemand war schneller als du und hat sich diesen Namen schon ausgesucht"
+
+#: dgf_league/forms.py:53
+msgid "You can not select yourself as partner"
+msgstr "Du kannst nicht mit dir seblst spielen"
+
+#: dgf_league/forms.py:57
+msgid "Own team"
+msgstr "Eigenes Team"
+
+#: dgf_league/forms.py:58
+msgid "Rival team"
+msgstr "Gegnerteam"
+
+#: dgf_league/forms.py:59
+msgid "Own points"
+msgstr "Eigene Punkte"
+
+#: dgf_league/forms.py:60
+#, fuzzy
+#| msgid "Total points"
+msgid "Rival points"
+msgstr "Gegner-Punkte"
+
+#: dgf_league/models.py:37 dgf_league/models.py:64
+msgid "Team"
+msgstr "Team"
+
+#: dgf_league/models.py:63
+msgid "Match"
+msgstr "Spiel"
+
+#: dgf_league/templates/dgf_league/popups/create_result.html:6
+msgid "You already played with every team"
+msgstr "Du hast schon mit allen Teams gespielt"
+
+#: dgf_league/templates/dgf_league/popups/create_result.html:8
+msgid "Please select a team and enter the result"
+msgstr "Bitte wähle einen Gegner und gib die Scores ein"
+
+#: dgf_league/templates/dgf_league/popups/create_team.html:5
+msgid "Who are you playing with?"
+msgstr "Mit wem spielst du?"
+
+#: dgf_league/templates/dgf_league/popups/create_team.html:17
+msgid "How do you want to call yourselves?"
+msgstr "Wie heißt ihr?"
+
+#: dgf_league/templates/dgf_league/popups/create_team.html:22
+msgid "Create"
+msgstr "Team anmelden"
+
+#: dgf_league/templates/dgf_league/team_list.html:36
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: dgf_league/templates/dgf_league/team_list.html:43
+msgid "Place"
+msgstr "Platz"
+
+#: dgf_league/templates/dgf_league/team_list.html:44
+msgid "Team name"
+msgstr "Team"
+
+#: dgf_league/templates/dgf_league/team_list.html:45
+msgid "Players"
+msgstr "Spieler"
+
+#: dgf_league/templates/dgf_league/team_list.html:46
+msgid "Games played"
+msgstr "Gespielte Spiele"
+
+#: dgf_league/templates/dgf_league/team_list.html:79
+msgid "There are no teams yet"
+msgstr "Keine Teams haben sich angemeldet"
+
+#: dgf_league/templates/dgf_league/team_list.html:88
+msgid "Create new team"
+msgstr "Neues Team anmelden"
+
+#: dgf_league/templates/dgf_league/team_list.html:96
+msgid "Add result"
+msgstr "Ergebnis hinzufügen"
+
+#: dgf_league/views.py:51
+msgid "You don't have a team and therefore you can not add results"
+msgstr "Du hast kein Team und deswegen dafst du keine Ergebnisse hinzufügen"
