@@ -380,6 +380,7 @@ LOCALE_PATHS = [
 
 CMS_TEMPLATES = (
     ('fullwidth.html', 'Fullwidth'),
+    ('static_placeholders.html', 'Static Placeholders (ONLY FOR ADMINS)'),
 )
 
 CMS_PERMISSION = True

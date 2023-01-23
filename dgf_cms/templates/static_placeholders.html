@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load cms_tags i18n %}
+
+{% block content %}
+
+	<div>{% trans "This is the right place to change banners and text from the following pages (apps)" %}</div>
+
+	<h1>{% trans "FRIENDS PAGE" %}</h1>
+	{% static_placeholder "friends_headline" %}
+	{% static_placeholder "friends_content" %}
+
+	<h1>{% trans "LEAGUE PAGE" %}</h1>
+	{% static_placeholder "league_headline" %}
+	{% static_placeholder "league_content" %}
+
+	<h1>{% trans "DELETE ME" %}</h1>
+	{% static_placeholder "headline" %}
+	{% static_placeholder "content" %}
+
+{% endblock %}
