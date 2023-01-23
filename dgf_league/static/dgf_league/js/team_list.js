@@ -1,11 +1,22 @@
+$(document).keyup(function(e) {
+     if (e.key === "Escape") {
+        closePopups();
+    }
+});
+
 $(window).on("load", function() {
 
     $(".container").click(function() {
-      $(".league-popup").hide();
+        closePopups();
     });
 
     $(".league-popup").click(function(event) {
-      event.stopPropagation();
+        event.stopPropagation();
+    });
+
+    $(".close-league-popup").click(function(event) {
+        closePopups();
+        event.stopPropagation();
     });
 
     $("#team-partner").chosen({
@@ -15,10 +26,14 @@ $(window).on("load", function() {
 
     $("#rival-team").chosen({
         disable_search_threshold: 10,
-        width: "80%"
+        width: "70%"
     });
 
 });
+
+function closePopups() {
+    $(".league-popup").hide();
+}
 
 function showPopup(selector) {
     $(selector).css("display", "flex");

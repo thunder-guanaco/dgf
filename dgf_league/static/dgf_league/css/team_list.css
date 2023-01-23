@@ -129,6 +129,19 @@
     border-radius: 10px;
 }
 
+.close-league-popup {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    color: #1b2633;
+    cursor: pointer;
+}
+
+.league-popup .points {
+    font-size: smaller;
+    text-align: right;
+}
+
 .league-popup .chosen-container {
     font-size: 1em;
 }
@@ -142,6 +155,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
 }
 
 .league-popup .error {
@@ -150,6 +164,16 @@
 
 .league-popup button {
     align-self: end;
+}
+
+.league-popup input {
+    line-height: 2em;
+    border: 1px solid #1b2633;
+    border-radius: 5px;
+}
+
+#add-result.league-popup input {
+    margin-right: 0.75em;
 }
 
 .league-popup input[type=number] {
