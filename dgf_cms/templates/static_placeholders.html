@@ -1,6 +1,19 @@
 {% extends "base.html" %}
 {% load cms_tags i18n %}
 
+{% comment %}
+
+	This is a trick, and a good one.
+
+	There are 2 applications (`dgf` and `dgf_league`) that need some CMS at the top.
+	Since application pages can not publish CMS content here you have the following workaround.
+
+	This template contains some static placeholders that are actually used in the in other applications (right now only `dgf` and `dgf_league`).
+	Of course, you'll need to create a dummy page with this template so that you can publish the content of the static placeholders.
+	That page should be hidden for everyone that is not a CMS content editor.
+
+{% endcomment %}
+
 {% block content %}
 
 	<div>{% trans "This is the right place to change banners and text from the following pages (apps)" %}</div>
@@ -12,9 +25,5 @@
 	<h1>{% trans "LEAGUE PAGE" %}</h1>
 	{% static_placeholder "league_headline" %}
 	{% static_placeholder "league_content" %}
-
-	<h1>{% trans "DELETE ME" %}</h1>
-	{% static_placeholder "headline" %}
-	{% static_placeholder "content" %}
 
 {% endblock %}
