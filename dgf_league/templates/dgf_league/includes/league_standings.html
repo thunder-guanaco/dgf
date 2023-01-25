@@ -1,0 +1,58 @@
+{% load i18n dgf_league %}
+
+<h1>{% trans "Standings" %}</h1>
+
+{% if teams %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Place" %}</th>
+                <th>{% trans "Team name" %}</th>
+                <th>{% trans "Players" %}</th>
+                <th>{% trans "Games played" %}</th>
+                <th>{% trans "Points" %}</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for team in teams %}
+                <tr>
+                    <td class="position">
+                        <div class="position-card-container">
+                            <span class="position-card">{{forloop.counter}}</span>
+                        </div>
+                    </td>
+                    <td class="team-name">{{team.name}}</td>
+                    <td class="members">
+                        {% include "dgf_league/includes/team_members.html" with team=team %}
+                    </td>
+                    <td>{{team.played_matches}}</td>
+                    <td class="points">
+                        <div class="ball-container">
+                            <div class="ball">{{team.points}}</div>
+                        </div>
+                    </td>
+                    <td class="results-button closed"
+                        onclick="switchResults({{team.id}})"
+                        data-team="{{team.id}}">
+                    </td>
+                </tr>
+                {% for match in team|all_team_matches %}
+                    <tr class="results" data-team="{{team.id}}" style="display: none">
+                        <td colspan="100%">
+                            {% include "dgf_league/includes/match.html" with match=match %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+{% else %}
+
+    <p>{% trans "There are no teams yet" %}.</p>
+
+{% endif %}

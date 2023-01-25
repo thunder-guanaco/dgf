@@ -1,0 +1,18 @@
+{% load i18n dgf_league %}
+
+<h1>{% trans "Results" %}</h1>
+
+<div class="results">
+
+    {% all_matches as all_matches %}
+    {% for match in all_matches %}
+
+        {% include "dgf_league/includes/match.html" with match=match %}
+
+    {% empty %}
+
+        <p>{% trans "There are no results yet" %}.</p>
+
+    {% endfor %}
+
+<tr class="results">
