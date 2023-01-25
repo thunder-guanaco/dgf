@@ -1,5 +1,6 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
+
     .league-popup {
         width: 100%;
     }
@@ -9,9 +10,13 @@
         padding: 0.5em 0.25em;
     }
 
-    #league table .friend-ball {
-        margin: 0 0 0 0.25em;
+    #league .friend-ball {
+        margin: 0 0.25em 0 0;
         width: 2em;
+    }
+
+    #league .friend-ball:last-child {
+        margin: 0;
     }
 
     #league table .friend-ball .friend-name {
@@ -35,12 +40,34 @@
     #league table .points .ball {
         font-size: 1em;
     }
+
+    #league table .results .match .result {
+        zoom: 0.75;
+    }
+
+    #league .results .match .result .team {
+        padding: 0 0.5em;
+    }
+
+    #league table .results .match .result .team {
+        padding: 0;
+    }
+
+    .results .match .result .friend-ball {
+        margin: 0.25em;
+        width: 2em;
+    }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
+
     .container {
         position: relative;
+    }
+
+    #league .friend-ball {
+        margin: 0 0.25em;
     }
 
     #league table th,
@@ -61,6 +88,28 @@
         font-size: 1.25em;
     }
 
+    #league .results .match .result .team {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .results .match .result:first-child .team {
+        flex-flow: row;
+    }
+
+    .results .match .result:last-child .team {
+        flex-flow: row-reverse;
+    }
+
+    #league .results .match .result:first-child span {
+        text-align: end;
+    }
+
+    #league .results .match .result:last-child span {
+        text-align: start;
+    }
+
 }
 
 #league div,
@@ -72,7 +121,7 @@
 }
 
 #league table {
-    width: 100%;
+    margin: auto;
 }
 
 #league table thead tr {
@@ -142,7 +191,6 @@
 }
 
 #league table .results .match .result {
-    zoom: 0.75;
     width: 50%;
 }
 
@@ -154,7 +202,7 @@
     padding: 0 1em;
 }
 
-.results .match {
+#league .results .match {
     display: flex;
     flex-flow: row;
     justify-content: center;
@@ -162,7 +210,7 @@
     margin: 2em 0;
 }
 
-.results .match .result {
+#league .results .match .result {
     display: flex;
     flex-flow: row;
     justify-content: flex-end;
@@ -170,37 +218,35 @@
     width: 45%;
 }
 
-.results .match .result:first-child {
+#league .results .match .result:first-child {
     flex-flow: row;
+    margin-right: 0.5em;
 }
 
-.results .match .result:last-child {
+#league .results .match .result:last-child {
     flex-flow: row-reverse;
+    text-align: start;
 }
 
-.results .match .result:first-child::after {
+#league .results .match .result:last-child::after {
     content: ":";
     color: #8d1950;
     font-weight: bold;
-    margin: 0.5em;
+    margin-right: 0.5em;
 }
 
-.results .match .result .members {
+#league .results .match .result .members {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     margin: 0 1em;
 }
 
-.results .match .result .friend-ball {
-    margin: 0 0 0 0.25em;
-}
-
-.results .match .result .friend-ball .friend-name {
+#league .results .match .result .friend-ball .friend-name {
     display: none;
 }
 
-.results .match .result .points-container {
+#league .results .match .result .points-container {
     background-color: #8d1950;
     color: #ffffff;
     font-weight: bold;

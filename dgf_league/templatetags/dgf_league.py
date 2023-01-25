@@ -26,13 +26,12 @@ def all_rival_teams(friend):
 
 @register.simple_tag
 def all_matches():
-    return Match.objects.all()
+    return Match.objects.all().order_by('-date')
 
 
 @register.filter
 def all_team_matches(team):
-    return Match.objects \
-        .filter(results__team=team)
+    return Match.objects.filter(results__team=team).order_by('date')
 
 
 @register.filter

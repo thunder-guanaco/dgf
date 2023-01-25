@@ -1,9 +1,11 @@
 <div class="match">
     {% for result in match.results.all %}
         <div class="result">
-            <span class="team-name">{{result.team.name}}</span>
-            <span class="members">
-                {% include "dgf_league/includes/team_members.html" with team=result.team %}
+            <span class="team">
+                <span class="team-name">{{result.team.name}}</span>
+                <span class="members">
+                    {% include "dgf_league/includes/team_members.html" with team=result.team %}
+                </span>
             </span>
             <div class="points-container">
                 <div class="points">
