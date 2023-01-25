@@ -19,6 +19,7 @@ class Team(Model):
 
     name = models.CharField(_('Name'), max_length=100)
     created = models.DateTimeField(auto_now_add=True)
+    actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='created_teams', verbose_name=_('Actor'))
 
     @property
     def member_names(self):
@@ -46,6 +47,7 @@ class Match(Model):
         verbose_name_plural = "Matches"
 
     date = models.DateTimeField(auto_now_add=True)
+    actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='created_matches', verbose_name=_('Actor'))
 
     def results_as_str(self):
         return " / ".join([f'{result.team.name}: {result.points}' for result in self.results.all()])

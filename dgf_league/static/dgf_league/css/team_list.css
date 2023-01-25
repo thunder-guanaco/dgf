@@ -112,6 +112,7 @@
 
 }
 
+#league p,
 #league div,
 #league span,
 #league tr,
@@ -278,13 +279,22 @@
     cursor: pointer;
 }
 
-.league-popup .points {
+#add-result .points {
     font-size: smaller;
     text-align: right;
 }
 
+.league-popup .chosen-container-single .chosen-single {
+    height: 2em;
+    padding: 0.25em;
+}
+
 .league-popup .chosen-container {
     font-size: 1em;
+}
+
+.league-popup .chosen-container .chosen-results li {
+    line-height: 1.5em;
 }
 
 .league-popup .field {
