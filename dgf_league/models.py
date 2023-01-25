@@ -1,6 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import Model
+from django.db.models import Model, Count
 from django.db.models.deletion import CASCADE
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -52,6 +52,8 @@ class Match(Model):
     def results_as_str(self):
         return " / ".join([f'{result.team.name}: {result.points}' for result in self.results.all()])
 
+    results_as_str.short_description = 'Results'
+
     def __str__(self):
         return f'Match occurred at {self.date}'
 
@@ -71,6 +73,8 @@ class Result(Model):
         return f'{self.team} got {self.points} in a match'
 
 
-@receiver(post_delete, sender=Result)
-def on_delete_result(sender, instance, using, **kwargs):
-    Match.objects.filter(results=instance).delete()
+@receiver(post_delete, sender=Team)
+def cleanup_matches(sender, instance, using, **kwargs):
+    Match.objects.annotate(results_count=Count('results')) \
+        .filter(results_count__lt=2) \
+        .delete()
