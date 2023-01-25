@@ -82,3 +82,9 @@ function createResult() {
         }
     });
 }
+
+function switchResults(teamId) {
+    $(".results-button[data-team='" + teamId + "']").toggleClass("closed");
+    $(".results-button[data-team='" + teamId + "']").toggleClass("open");
+    $(".results[data-team='" + teamId + "']").toggle();
+}

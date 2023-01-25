@@ -4,7 +4,7 @@ from django import template
 from django.db.models import Count, Q
 
 from dgf.models import Friend
-from dgf_league.models import Team
+from dgf_league.models import Team, Match
 
 register = template.Library()
 
@@ -22,6 +22,17 @@ def all_rival_teams(friend):
         .exclude(members__friend=friend) \
         .annotate(against_me=Count('results', filter=Q(results__match__results__team__members__friend=friend))) \
         .filter(against_me=0)
+
+
+@register.simple_tag
+def all_matches():
+    return Match.objects.all()
+
+
+@register.filter
+def all_team_matches(team):
+    return Match.objects \
+        .filter(results__team=team)
 
 
 @register.filter

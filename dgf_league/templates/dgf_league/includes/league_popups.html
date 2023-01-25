@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if request.user.is_authenticated %}
+
+    {% if request.user.friend.memberships.count == 0 %}
+        {% include "dgf_league/popups/create_team.html" %}
+        <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
+            {% trans "Create new team" %}
+        </button>
+    {% endif %}
+
+
+    {% if request.user.friend.memberships.count == 1 %}
+        {% include "dgf_league/popups/create_result.html" %}
+        <button id="add-result-button" onclick="showPopup('#add-result')">
+            {% trans "Add result" %}
+        </button>
+    {% endif %}
+
+
+{% endif %}
