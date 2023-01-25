@@ -18,6 +18,10 @@
         display: none;
     }
 
+    #league table .members {
+        padding: 1em 0.25em 0;
+    }
+
     #league table .position .position-card-container {
         margin: 0;
     }
@@ -61,6 +65,7 @@
 
 #league div,
 #league span,
+#league tr,
 #league td {
     text-align: center;
     vertical-align: middle;
@@ -71,7 +76,8 @@
 }
 
 #league table thead tr {
-  border-bottom: 2px solid #1b2633;
+    border-bottom: 2px solid #1b2633;
+    font-size: smaller;
 }
 
 #league table .position .position-card-container {
@@ -137,7 +143,15 @@
 
 #league table .results .match .result {
     zoom: 0.75;
-    width: 40%;
+    width: 50%;
+}
+
+#league table .results .match .result .members {
+    display: none;
+}
+
+#league table .results .match .result .team-name {
+    padding: 0 1em;
 }
 
 .results .match {
@@ -190,8 +204,8 @@
     background-color: #8d1950;
     color: #ffffff;
     font-weight: bold;
-    min-width: 2em;
-    line-height: 2em;
+    min-width: 1.5em;
+    line-height: 1.5em;
     vertical-align: middle;
 }
 
