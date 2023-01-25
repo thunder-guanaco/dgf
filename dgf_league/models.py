@@ -1,9 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.db.models import Model, Count
+from django.db.models import Model
 from django.db.models.deletion import CASCADE
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
@@ -71,10 +69,3 @@ class Result(Model):
 
     def __str__(self):
         return f'{self.team} got {self.points} in a match'
-
-
-@receiver(post_delete, sender=Team)
-def cleanup_matches(sender, instance, using, **kwargs):
-    Match.objects.annotate(results_count=Count('results')) \
-        .filter(results_count__lt=2) \
-        .delete()
