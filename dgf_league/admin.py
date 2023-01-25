@@ -84,5 +84,5 @@ class MatchAdmin(AdminWithActor):
 
     list_display = ('results_as_str', 'date', 'actor')
     list_display_links = ('results_as_str',)
-    search_fields = ('results_as_str',)
+    search_fields = ('results__team__name',)
     inlines = (ResultInline,)

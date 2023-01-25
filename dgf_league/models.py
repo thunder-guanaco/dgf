@@ -2,8 +2,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
 from django.db.models.deletion import CASCADE
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
@@ -52,6 +50,8 @@ class Match(Model):
     def results_as_str(self):
         return " / ".join([f'{result.team.name}: {result.points}' for result in self.results.all()])
 
+    results_as_str.short_description = 'Results'
+
     def __str__(self):
         return f'Match occurred at {self.date}'
 
@@ -69,8 +69,3 @@ class Result(Model):
 
     def __str__(self):
         return f'{self.team} got {self.points} in a match'
-
-
-@receiver(post_delete, sender=Result)
-def on_delete_result(sender, instance, using, **kwargs):
-    Match.objects.filter(results=instance).delete()
