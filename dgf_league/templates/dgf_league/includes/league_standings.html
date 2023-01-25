@@ -34,10 +34,12 @@
                             <div class="ball">{{team.points}}</div>
                         </div>
                     </td>
-                    <td class="results-button closed"
-                        onclick="switchResults({{team.id}})"
-                        data-team="{{team.id}}">
-                    </td>
+                    {% if team.results.count > 0 %}
+                        <td class="results-button closed"
+                            onclick="switchResults({{team.id}})"
+                            data-team="{{team.id}}">
+                        </td>
+                    {% endif %}
                 </tr>
                 {% for match in team|all_team_matches %}
                     <tr class="results" data-team="{{team.id}}" style="display: none">

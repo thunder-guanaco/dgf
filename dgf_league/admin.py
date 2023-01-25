@@ -6,6 +6,14 @@ from django.utils.translation import gettext_lazy as _
 from .models import Team, TeamMembership, Match, Result, MAX_POINTS_PER_MATCH
 
 
+class AdminWithActor(admin.ModelAdmin):
+
+    def get_changeform_initial_data(self, request):
+        data = super(AdminWithActor, self).get_changeform_initial_data(request)
+        data['actor'] = str(request.user.friend.id)
+        return data
+
+
 class TeamMembershipInline(admin.TabularInline):
     model = TeamMembership
     extra = 0
@@ -15,16 +23,17 @@ class TeamMembershipInline(admin.TabularInline):
 
 
 @admin.register(Team)
-class TeamAdmin(admin.ModelAdmin):
+class TeamAdmin(AdminWithActor):
     fieldsets = (
         ('', {
             'fields': (
                 'name',
+                'actor',
             )}
          ),
     )
 
-    list_display = ('name', 'member_names', 'created')
+    list_display = ('name', 'member_names', 'created', 'actor')
     search_fields = ('name',)
     inlines = (TeamMembershipInline,)
 
@@ -64,8 +73,16 @@ class ResultInline(admin.TabularInline):
 
 
 @admin.register(Match)
-class MatchAdmin(admin.ModelAdmin):
-    list_display = ('results_as_str', 'date')
+class MatchAdmin(AdminWithActor):
+    fieldsets = (
+        ('', {
+            'fields': (
+                'actor',
+            )}
+         ),
+    )
+
+    list_display = ('results_as_str', 'date', 'actor')
     list_display_links = ('results_as_str',)
     search_fields = ('results_as_str',)
     inlines = (ResultInline,)

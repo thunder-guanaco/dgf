@@ -37,7 +37,7 @@ def team_add(request):
     name = form.cleaned_data['name']
     partner = form.cleaned_data['partner']
 
-    team = Team.objects.create(name=name)
+    team = Team.objects.create(name=name, actor=actor)
     TeamMembership.objects.create(team=team, friend=actor)
     TeamMembership.objects.create(team=team, friend=partner)
     return HttpResponse(status=200)
@@ -64,7 +64,7 @@ def result_add(request):
     if existing_match.exists():
         match = existing_match.get()
     else:
-        match = Match.objects.create()
+        match = Match.objects.create(actor=actor)
 
     Result.objects.update_or_create(match=match, team=own_team, defaults={'points': own_points})
     Result.objects.update_or_create(match=match, team=rival_team, defaults={'points': rival_points})
