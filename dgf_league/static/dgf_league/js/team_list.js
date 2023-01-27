@@ -40,6 +40,22 @@ function showPopup(selector) {
     event.stopPropagation();
 }
 
+function searchForTeam() {
+    $.ajax({
+        type: "POST",
+        url: searchForTeamUrl,
+        beforeSend:function(xhr){
+            xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
+        success: function(response) {
+            location.reload();
+        },
+        error: function(response, error) {
+            console.log(response.statusText);
+        }
+    });
+}
+
 function createTeam() {
     $.ajax({
         type: "POST",

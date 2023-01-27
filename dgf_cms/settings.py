@@ -456,7 +456,7 @@ JAZZMIN_SETTINGS = {
     'navigation_expanded': False,
     'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange',
                               'dgf_images', 'dgf_images.imagegenerator',
-                              'dgf_league', 'dgf_league.team', 'dgf_league.match',
+                              'dgf_league', 'dgf_league.team', 'dgf_league.match', 'dgf_league.friendwithoutteam',
                               'auth',
                               'cms'],
 
@@ -474,6 +474,7 @@ JAZZMIN_SETTINGS = {
         'dgf_league': 'fas fa-medal',
         'dgf_league.team': 'fas fa-users',
         'dgf_league.match': 'fas fa-table',
+        'dgf_league.friendwithoutteam': 'fas fa-users',
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.group': 'fas fa-users',
