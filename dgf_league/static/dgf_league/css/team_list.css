@@ -77,6 +77,10 @@
         margin: 0.25em 0.5em;
     }
 
+    #league .results .match .result:last-child::after {
+        margin-bottom: 0.25em
+    }
+
 }
 
 /* desktop */
@@ -116,6 +120,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 0.5em;
     }
 
     .results .match .result:first-child .team {
@@ -247,6 +252,14 @@
 }
 
 #league table .results .match .result:last-child .team {
+    text-align: start;
+}
+
+#league .results .match .result:first-child .team-name {
+    text-align: end;
+}
+
+#league .results .match .result:last-child .team-name {
     text-align: start;
 }
 

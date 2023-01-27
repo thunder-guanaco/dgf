@@ -1,5 +1,9 @@
-<div class="friend-balls-container">
-    {% for membership in team.members.all %}
-        {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True %}
-    {% endfor %}
-</div>
+{% with avoid_click|default_if_none:False as avoid_click %}
+
+    <div class="friend-balls-container">
+        {% for membership in team.members.all %}
+            {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True avoid_click=avoid_click %}
+        {% endfor %}
+    </div>
+
+{% endwith %}

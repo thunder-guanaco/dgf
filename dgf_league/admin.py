@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
 
-from .models import Team, TeamMembership, Match, Result, MAX_POINTS_PER_MATCH
+from .models import Team, TeamMembership, Match, Result, POINTS_PER_MATCH
 
 
 class AdminWithActor(admin.ModelAdmin):
@@ -50,8 +50,8 @@ class ResultInlineFormSet(BaseInlineFormSet):
 
     def check_total_points(self):
         total_points = sum(form.cleaned_data['points'] for form in self.forms)
-        if total_points != MAX_POINTS_PER_MATCH:
-            raise ValidationError(_(f'Sum of all points should be {MAX_POINTS_PER_MATCH}'))
+        if total_points != POINTS_PER_MATCH:
+            raise ValidationError(_(f'Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
 
     def clean(self):
 

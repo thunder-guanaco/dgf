@@ -18,7 +18,7 @@
 
         <tbody>
             {% for team in teams %}
-                <tr>
+                <tr onclick="switchResults({{team.id}}, event)">
                     <td class="position">
                         <div class="position-card-container">
                             <span class="position-card">{{forloop.counter}}</span>
@@ -26,7 +26,7 @@
                     </td>
                     <td class="team-name">{{team.name}}</td>
                     <td class="members">
-                        {% include "dgf_league/includes/team_members.html" with team=team %}
+                        {% include "dgf_league/includes/team_members.html" with team=team avoid_click=True %}
                     </td>
                     <td>{{team.played_matches}}</td>
                     <td class="points">
@@ -36,7 +36,6 @@
                     </td>
                     {% if team.results.count > 0 %}
                         <td class="results-button closed"
-                            onclick="switchResults({{team.id}})"
                             data-team="{{team.id}}">
                         </td>
                     {% endif %}

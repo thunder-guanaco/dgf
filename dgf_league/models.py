@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
 
-MAX_POINTS_PER_MATCH = 10
+POINTS_PER_MATCH = 10
 
 
 class Team(Model):
@@ -65,7 +65,7 @@ class Result(Model):
     match = models.ForeignKey(Match, on_delete=CASCADE, related_name='results', verbose_name=_('Match'))
     team = models.ForeignKey(Team, on_delete=CASCADE, related_name='results', verbose_name=_('Team'))
     points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(0),
-                                                                  MaxValueValidator(MAX_POINTS_PER_MATCH)])
+                                                                  MaxValueValidator(POINTS_PER_MATCH)])
 
     def __str__(self):
         return f'{self.team} got {self.points} in a match'

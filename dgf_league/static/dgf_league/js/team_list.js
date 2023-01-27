@@ -83,8 +83,10 @@ function createResult() {
     });
 }
 
-function switchResults(teamId) {
+function switchResults(teamId, event) {
     $(".results-button[data-team='" + teamId + "']").toggleClass("closed");
     $(".results-button[data-team='" + teamId + "']").toggleClass("open");
     $(".results[data-team='" + teamId + "']").toggle();
+    console.log('event', event)
+    event.stopPropagation();
 }

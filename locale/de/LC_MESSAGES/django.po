@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 14:30+0100\n"
+"POT-Creation-Date: 2023-01-27 13:48+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
 #: dgf/cms_plugins.py:22 dgf/models.py:199 dgf/models.py:208
-#: dgf_league/models.py:38
+#: dgf_league/models.py:37
 msgid "Friend"
 msgstr "Friend"
 
@@ -188,7 +188,7 @@ msgid "Text"
 msgstr "Text"
 
 #: dgf/models.py:51 dgf/models.py:363 dgf/models.py:479
-#: dgf_cookies/models.py:14 dgf_league/forms.py:27 dgf_league/models.py:20
+#: dgf_cookies/models.py:14 dgf_league/forms.py:27 dgf_league/models.py:18
 msgid "Name"
 msgstr "Name"
 
@@ -435,7 +435,8 @@ msgid "Position"
 msgstr "Platz"
 
 #: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:71
-#: dgf_league/models.py:65 dgf_league/templates/dgf_league/team_list.html:47
+#: dgf_league/models.py:67
+#: dgf_league/templates/dgf_league/includes/league_standings.html:14
 msgid "Points"
 msgstr "Punkte"
 
@@ -443,7 +444,8 @@ msgstr "Punkte"
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:513 dgf_league/forms.py:25
+#: dgf/models.py:513 dgf_league/forms.py:25 dgf_league/models.py:20
+#: dgf_league/models.py:48
 msgid "Actor"
 msgstr "Akteur"
 
@@ -714,7 +716,7 @@ msgstr " Bescheid, um dein Bagtag auf der Webseite zu aktivieren."
 msgid "Update profile"
 msgstr "Profil aktualisieren"
 
-#: dgf/templates/dgf/includes/friend_ball.html:24
+#: dgf/templates/dgf/includes/friend_ball.html:25
 msgid "wins"
 msgstr "Siege"
 
@@ -1252,11 +1254,11 @@ msgstr "Bild Zoom"
 msgid "Ties decided in sudden death"
 msgstr "Durch Stechen entschieden"
 
-#: dgf_league/admin.py:37 dgf_league/forms.py:68
+#: dgf_league/admin.py:46 dgf_league/forms.py:68
 msgid "Please select 2 different teams"
 msgstr "Bitte selektiere 2 unterschiedliche Teams"
 
-#: dgf_league/admin.py:39
+#: dgf_league/admin.py:48
 msgid ""
 "That result already exist. Please select it from the list and change it "
 "instead of creating a new one"
@@ -1264,10 +1266,10 @@ msgstr ""
 "Dieses Ergebnis existiert bereits. Bitte wähle es aus der Liste und ändere "
 "das anstatt ein neues zu erzeugen"
 
-#: dgf_league/admin.py:45 dgf_league/forms.py:71
-#, python-brace-format
-msgid "Sum of all points should be {MAX_POINTS_PER_MATCH}"
-msgstr "Die Summe muss {MAX_POINTS_PER_MATCH} Punkte sein"
+#: dgf_league/admin.py:54 dgf_league/forms.py:71
+#, python-format
+msgid "Sum of all points should be %(points)s"
+msgstr "Die Summe muss %(points)s Punkte sein"
 
 #: dgf_league/cms_toolbars.py:12
 #: dgf_league/templates/dgf_league/team_list.html:5
@@ -1327,18 +1329,56 @@ msgid "Own points"
 msgstr "Eigene Punkte"
 
 #: dgf_league/forms.py:60
-#, fuzzy
-#| msgid "Total points"
 msgid "Rival points"
 msgstr "Gegner-Punkte"
 
-#: dgf_league/models.py:37 dgf_league/models.py:64
+#: dgf_league/models.py:36 dgf_league/models.py:66
 msgid "Team"
 msgstr "Team"
 
-#: dgf_league/models.py:63
+#: dgf_league/models.py:65
 msgid "Match"
 msgstr "Spiel"
+
+#: dgf_league/templates/dgf_league/includes/league_popups.html:8
+msgid "Create new team"
+msgstr "Neues Team anmelden"
+
+#: dgf_league/templates/dgf_league/includes/league_popups.html:16
+msgid "Add result"
+msgstr "Ergebnis hinzufügen"
+
+#: dgf_league/templates/dgf_league/includes/league_results.html:3
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: dgf_league/templates/dgf_league/includes/league_results.html:14
+msgid "There are no results yet"
+msgstr "Bis jetzt wurden keine Ergebnisse veröffentlicht"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:3
+msgid "Standings"
+msgstr "Tabelle"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:10
+msgid "Place"
+msgstr "Platz"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:11
+msgid "Team name"
+msgstr "Team"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:12
+msgid "Players"
+msgstr "Spieler"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:13
+msgid "Games played"
+msgstr "Gespielte Spiele"
+
+#: dgf_league/templates/dgf_league/includes/league_standings.html:57
+msgid "There are no teams yet"
+msgstr "Keine Teams haben sich angemeldet"
 
 #: dgf_league/templates/dgf_league/popups/create_result.html:7
 msgid "You already played with every team"
@@ -1365,38 +1405,6 @@ msgstr "Wie ist euer Teamname?"
 #: dgf_league/templates/dgf_league/popups/create_team.html:23
 msgid "Create"
 msgstr "Team anmelden"
-
-#: dgf_league/templates/dgf_league/team_list.html:36
-msgid "Standings"
-msgstr "Tabelle"
-
-#: dgf_league/templates/dgf_league/team_list.html:43
-msgid "Place"
-msgstr "Platz"
-
-#: dgf_league/templates/dgf_league/team_list.html:44
-msgid "Team name"
-msgstr "Team"
-
-#: dgf_league/templates/dgf_league/team_list.html:45
-msgid "Players"
-msgstr "Spieler"
-
-#: dgf_league/templates/dgf_league/team_list.html:46
-msgid "Games played"
-msgstr "Gespielte Spiele"
-
-#: dgf_league/templates/dgf_league/team_list.html:79
-msgid "There are no teams yet"
-msgstr "Keine Teams haben sich angemeldet"
-
-#: dgf_league/templates/dgf_league/team_list.html:88
-msgid "Create new team"
-msgstr "Neues Team anmelden"
-
-#: dgf_league/templates/dgf_league/team_list.html:96
-msgid "Add result"
-msgstr "Ergebnis hinzufügen"
 
 #: dgf_league/views.py:51
 msgid "You don't have a team and therefore you can not add results"
