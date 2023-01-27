@@ -16,7 +16,7 @@ class TeamIndexView(ListView):
     queryset = Team.objects.all() \
         .annotate(played_matches=Count('results')) \
         .annotate(points=Coalesce(Sum('results__points'), 0)) \
-        .order_by('-points')
+        .order_by('-points', '-played_matches', 'created')
 
 
 def one_more_value(data, key, value):
