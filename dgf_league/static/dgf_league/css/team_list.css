@@ -96,7 +96,11 @@
 
     #league table th,
     #league table td {
-        padding: 1em 1em 0;
+        padding: 0.5em 1em;
+    }
+
+    #league table .results td {
+        padding: 0.5em 1em;
     }
 
     #league table .position .position-card-container {
@@ -153,6 +157,11 @@
 
 #league table .team-line {
     cursor: pointer;
+}
+
+#league table .team-line:has(.results-button.open),
+#league table .team-line:hover {
+    background-color: #EEEEEE99;
 }
 
 #league table .position .position-card-container {

@@ -18,7 +18,7 @@
 
         <tbody>
             {% for team in teams %}
-                <tr class="team-line" onclick="switchResults({{team.id}})">
+                <tr {% if team.results.count > 0 %}class="team-line"{% endif %} onclick="switchResults({{team.id}})">
                     <td class="position">
                         <div class="position-card-container">
                             <span class="position-card">{{forloop.counter}}</span>
