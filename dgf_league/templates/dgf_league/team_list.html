@@ -14,6 +14,7 @@
 {% block js %}
     <script>
         const csrfToken = "{{csrf_token}}";
+        const searchForTeamUrl = "{% url 'dgf_league:friend_without_team_add' %}";
         const createTeamUrl = "{% url 'dgf_league:team_add' %}";
         const createResultUrl = "{% url 'dgf_league:result_add' %}";
     </script>
@@ -33,8 +34,9 @@
 
     <div id="league">
         {% include "dgf_league/includes/league_standings.html" with teams=teams %}
-        {% include "dgf_league/includes/league_results.html" with results=results %}
-        {% include "dgf_league/includes/league_popups.html" %}
+        {% include "dgf_league/includes/league_results.html" %}
+        {% include "dgf_league/includes/league_popups_and_buttons.html" %}
+        {% include "dgf_league/includes/friends_without_team.html" %}
     </div>
 
 {% endblock %}

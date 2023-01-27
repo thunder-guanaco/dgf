@@ -1,6 +1,11 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
+    h1 {
+        text-align: center;
+        margin-bottom: 0.25em;
+    }
+
     .league-popup {
         width: 100%;
     }
@@ -81,6 +86,10 @@
         margin-bottom: 0.25em
     }
 
+    #league-buttons {
+        margin: 2em 0 1em;
+    }
+
 }
 
 /* desktop */
@@ -133,6 +142,10 @@
 
     .results .match .result:last-child .team {
         flex-flow: row-reverse;
+    }
+
+    #league-buttons {
+        margin: 4em 0 1em;
     }
 
 }
@@ -302,6 +315,7 @@
 }
 
 .league-popup {
+    z-index: 10;
     display: none;
     width: 20em;
     position: fixed;
@@ -390,4 +404,20 @@
 
 #add-result .result {
     width: 2em;
+}
+
+#league-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: start;
+    align-items: center;
+    gap: 1em;
+}
+
+#friends-without-team {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1em;
+    justify-content: center;
+    margin: 1em;
 }

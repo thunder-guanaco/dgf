@@ -40,3 +40,8 @@ def all_team_matches(team):
 @register.filter
 def team_name(friend):
     return Team.objects.get(members__friend=friend).name
+
+
+@register.simple_tag
+def all_friends_without_team():
+    return Friend.objects.exclude(searching=None)

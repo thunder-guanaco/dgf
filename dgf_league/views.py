@@ -7,7 +7,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
 from dgf_league.forms import AddResultForm, AddTeamForm
-from dgf_league.models import Team, TeamMembership, Result, Match
+from dgf_league.models import Team, TeamMembership, Result, Match, FriendWithoutTeam
 
 
 class TeamIndexView(ListView):
@@ -27,6 +27,14 @@ def one_more_value(data, key, value):
 
 @login_required
 @require_POST
+def friend_without_team_add(request):
+    actor = request.user.friend
+    FriendWithoutTeam.objects.get_or_create(friend=actor)
+    return HttpResponse(status=200)
+
+
+@login_required
+@require_POST
 def team_add(request):
     actor = request.user.friend
 
@@ -40,6 +48,7 @@ def team_add(request):
     team = Team.objects.create(name=name, actor=actor)
     TeamMembership.objects.create(team=team, friend=actor)
     TeamMembership.objects.create(team=team, friend=partner)
+    FriendWithoutTeam.objects.filter(friend_id__in=[actor.id, partner.id]).delete()
     return HttpResponse(status=200)
 
 
