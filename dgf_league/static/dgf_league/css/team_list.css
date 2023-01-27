@@ -15,16 +15,22 @@
         width: 2em;
     }
 
+    #league .friend-ball .avatar-container {
+        width: 2em !important;
+        height: 2em !important;
+    }
+
+    #league .friend-ball .avatar-container .avatar-initials {
+        font-size: inherit !important;
+        line-height: 2em !important;
+    }
+
     #league .friend-ball:last-child {
         margin: 0;
     }
 
     #league table .friend-ball .friend-name {
         display: none;
-    }
-
-    #league table .members {
-        padding: 1em 0.25em 0;
     }
 
     #league table .position .position-card-container {
@@ -39,6 +45,15 @@
 
     #league table .points .ball {
         font-size: 1em;
+    }
+
+    #league .results .match {
+        margin: 1em 0;
+    }
+
+    #league #league-results .match .result {
+        align-self: end;
+        align-items: end;
     }
 
     #league table .results .match .result {
@@ -57,6 +72,15 @@
         margin: 0.25em;
         width: 2em;
     }
+
+    #league #league-results .match .result .points-container {
+        margin: 0.25em 0.5em;
+    }
+
+    #league .results .match .result:last-child::after {
+        margin-bottom: 0.25em
+    }
+
 }
 
 /* desktop */
@@ -88,10 +112,15 @@
         font-size: 1.25em;
     }
 
+    #league .results .match {
+        margin: 2em 0;
+    }
+
     #league .results .match .result .team {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 0.5em;
     }
 
     .results .match .result:first-child .team {
@@ -100,14 +129,6 @@
 
     .results .match .result:last-child .team {
         flex-flow: row-reverse;
-    }
-
-    #league .results .match .result:first-child span {
-        text-align: end;
-    }
-
-    #league .results .match .result:last-child span {
-        text-align: start;
     }
 
 }
@@ -130,6 +151,10 @@
     font-size: smaller;
 }
 
+#league table .team-line {
+    cursor: pointer;
+}
+
 #league table .position .position-card-container {
     background-color: #8d1950;
     border: solid #8d1950 2px;
@@ -145,12 +170,6 @@
 #league table .position .position-card {
     text-align: left;
     vertical-align: middle;
-}
-
-#league table .members {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
 }
 
 #league table .members .friend-name {
@@ -199,8 +218,8 @@
     display: none;
 }
 
-#league table .results .match .result .team-name {
-    padding: 0 1em;
+#league .results .match .result .points-container {
+    margin: 0 0.5em;
 }
 
 #league .results .match {
@@ -208,7 +227,6 @@
     flex-flow: row;
     justify-content: center;
     align-items: center;
-    margin: 2em 0;
 }
 
 #league .results .match .result {
@@ -221,26 +239,38 @@
 
 #league .results .match .result:first-child {
     flex-flow: row;
-    margin-right: 0.5em;
 }
 
 #league .results .match .result:last-child {
     flex-flow: row-reverse;
-    text-align: start;
 }
 
 #league .results .match .result:last-child::after {
     content: ":";
     color: #8d1950;
     font-weight: bold;
-    margin-right: 0.5em;
+}
+
+#league table .results .match .result:first-child .team {
+    text-align: end;
+}
+
+#league table .results .match .result:last-child .team {
+    text-align: start;
+}
+
+#league .results .match .result:first-child .team-name {
+    text-align: end;
+}
+
+#league .results .match .result:last-child .team-name {
+    text-align: start;
 }
 
 #league .results .match .result .members {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    margin: 0 1em;
 }
 
 #league .results .match .result .friend-ball .friend-name {
@@ -254,6 +284,12 @@
     min-width: 1.5em;
     line-height: 1.5em;
     vertical-align: middle;
+}
+
+#league .members .friend-balls-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
 }
 
 .league-popup {

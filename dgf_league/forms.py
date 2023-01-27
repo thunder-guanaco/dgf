@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
-from dgf_league.models import MAX_POINTS_PER_MATCH, Team
+from dgf_league.models import POINTS_PER_MATCH, Team
 
 
 def format_errors(errors):
@@ -56,8 +56,8 @@ class AddTeamForm(DgfLeagueAddForm):
 class AddResultForm(DgfLeagueAddForm):
     own_team = forms.ModelChoiceField(label=_('Own team'), queryset=Team.objects.all())
     rival_team = forms.ModelChoiceField(label=_('Rival team'), queryset=Team.objects.all())
-    own_points = forms.IntegerField(label=_('Own points'), min_value=0, max_value=MAX_POINTS_PER_MATCH)
-    rival_points = forms.IntegerField(label=_('Rival points'), min_value=0, max_value=MAX_POINTS_PER_MATCH)
+    own_points = forms.IntegerField(label=_('Own points'), min_value=0, max_value=POINTS_PER_MATCH)
+    rival_points = forms.IntegerField(label=_('Rival points'), min_value=0, max_value=POINTS_PER_MATCH)
 
     def clean(self):
         if any(self.errors):
@@ -67,5 +67,5 @@ class AddResultForm(DgfLeagueAddForm):
         if self.cleaned_data['own_team'] == self.cleaned_data['rival_team']:
             raise ValidationError(_('Please select 2 different teams'))
 
-        if (self.cleaned_data['own_points'] + self.cleaned_data['rival_points']) != MAX_POINTS_PER_MATCH:
-            raise ValidationError(_(f'Sum of all points should be {MAX_POINTS_PER_MATCH}'))
+        if (self.cleaned_data['own_points'] + self.cleaned_data['rival_points']) != POINTS_PER_MATCH:
+            raise ValidationError(_('Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
