@@ -1,3 +1,5 @@
-{% for membership in team.members.all %}
-    {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True %}
-{% endfor %}
+<div class="friend-balls-container">
+    {% for membership in team.members.all %}
+        {% include "dgf/includes/friend_ball.html" with friend=membership.friend show_name=True %}
+    {% endfor %}
+</div>
