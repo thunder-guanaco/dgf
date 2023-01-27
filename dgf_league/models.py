@@ -40,18 +40,6 @@ class TeamMembership(Model):
         return f'{self.friend} belongs to team {self.team}'
 
 
-class FriendWithoutTeam(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['friend'], name='friend_can_only_search_for_team_once'),
-        ]
-
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='searching', verbose_name=_('Friend'))
-
-    def __str__(self):
-        return f'{self.friend} is searching for a team'
-
-
 class Match(Model):
     class Meta:
         verbose_name_plural = "Matches"
@@ -81,3 +69,16 @@ class Result(Model):
 
     def __str__(self):
         return f'{self.team} got {self.points} in a match'
+
+
+class FriendWithoutTeam(Model):
+    class Meta:
+        verbose_name_plural = "Friends without team"
+        constraints = [
+            models.UniqueConstraint(fields=['friend'], name='friend_can_only_search_for_team_once'),
+        ]
+
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='searching', verbose_name=_('Friend'))
+
+    def __str__(self):
+        return f'{self.friend} is searching for a team'

@@ -1,19 +1,24 @@
 {% load i18n dgf_league %}
 
-{% all_friends_without_team as friends %}
+{% if request.user.friend.memberships.count == 0 %}
 
-{% if friends.count > 0 %}
+    {% all_friends_without_team as friends %}
 
-    <h1>{% trans "Friends without team that would like to play" %}</h1>
+    {% if friends.count > 0 %}
 
-    <div>{% trans "Go talk to them and make a team!" %}</div>
+        <h1>{% trans "Friends without team that would like to play" %}</h1>
 
-    <div id="friends-without-team">
+        <div>{% trans "Go talk to them and make a team!" %}</div>
 
-        {% for friend in friends %}
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
-        {% endfor %}
+        <div id="friends-without-team">
 
-    </div>
+            {% for friend in friends %}
 
+                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
 {% endif %}

@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
 
-from .models import Team, TeamMembership, Match, Result, POINTS_PER_MATCH
+from .models import Team, TeamMembership, Match, Result, POINTS_PER_MATCH, FriendWithoutTeam
 
 
 class AdminWithActor(admin.ModelAdmin):
@@ -86,3 +86,9 @@ class MatchAdmin(AdminWithActor):
     list_display_links = ('results_as_str',)
     search_fields = ('results__team__name',)
     inlines = (ResultInline,)
+
+
+@admin.register(FriendWithoutTeam)
+class FriendWithoutTeamAdmin(admin.ModelAdmin):
+    list_display = ('friend',)
+    search_fields = ('friend__nickname', 'friend__first_name', 'friend__last_name')

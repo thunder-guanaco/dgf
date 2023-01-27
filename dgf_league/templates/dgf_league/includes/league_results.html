@@ -1,18 +1,19 @@
 {% load i18n dgf_league %}
 
-<h1>{% trans "Results" %}</h1>
+{% all_matches as matches %}
 
-<div id="league-results" class="results">
+{% if matches.count > 0 %}
 
-    {% all_matches as all_matches %}
-    {% for match in all_matches %}
+    <h1>{% trans "Results" %}</h1>
 
-        {% include "dgf_league/includes/match.html" with match=match %}
+    <div id="league-results" class="results">
 
-    {% empty %}
+        {% for match in matches %}
 
-        <p>{% trans "There are no results yet" %}.</p>
+            {% include "dgf_league/includes/match.html" with match=match %}
 
-    {% endfor %}
+        {% endfor %}
 
-</div>
+    </div>
+
+{% endif %}
