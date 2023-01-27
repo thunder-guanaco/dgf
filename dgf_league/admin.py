@@ -51,7 +51,7 @@ class ResultInlineFormSet(BaseInlineFormSet):
     def check_total_points(self):
         total_points = sum(form.cleaned_data['points'] for form in self.forms)
         if total_points != POINTS_PER_MATCH:
-            raise ValidationError(_(f'Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
+            raise ValidationError(_('Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
 
     def clean(self):
 

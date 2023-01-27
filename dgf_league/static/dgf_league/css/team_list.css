@@ -151,6 +151,10 @@
     font-size: smaller;
 }
 
+#league table .team-line {
+    cursor: pointer;
+}
+
 #league table .position .position-card-container {
     background-color: #8d1950;
     border: solid #8d1950 2px;

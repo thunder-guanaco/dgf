@@ -68,4 +68,4 @@ class AddResultForm(DgfLeagueAddForm):
             raise ValidationError(_('Please select 2 different teams'))
 
         if (self.cleaned_data['own_points'] + self.cleaned_data['rival_points']) != POINTS_PER_MATCH:
-            raise ValidationError(_(f'Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
+            raise ValidationError(_('Sum of all points should be %(points)s') % {'points': POINTS_PER_MATCH})
