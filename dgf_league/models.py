@@ -24,7 +24,7 @@ class Team(Model):
         return " + ".join([membership.friend.short_name for membership in self.members.all()])
 
     def __str__(self):
-        return f'{self.name}: ({self.member_names})'
+        return f'{self.name} ({self.member_names})'
 
 
 class TeamMembership(Model):

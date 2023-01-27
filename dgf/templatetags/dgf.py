@@ -50,16 +50,6 @@ def favorite_discs(disc_type):
 
 
 @register.filter
-def order_by(friends, ordering):
-    order_list = ordering.split(',')
-    for order in order_list:
-        attribute = order[1:] if order[0] == '-' else order
-        query = Q(**{f'{attribute}__isnull': False})
-        friends = friends.filter(query)
-    return friends.order_by(*order_list)
-
-
-@register.filter
 def youtube_id(url):
     if url is None:
         raise ValueError()

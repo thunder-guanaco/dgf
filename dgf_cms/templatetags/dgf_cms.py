@@ -3,6 +3,7 @@ from json import dumps
 from django import template
 from django.conf import settings
 from django.core.serializers import serialize
+from django.db.models import Q
 from django.db.models.query import QuerySet
 from filer.models.imagemodels import Image
 
@@ -47,3 +48,13 @@ def minimum(a, b):
 @register.filter
 def divided_by(a, b):
     return a / b
+
+
+@register.filter
+def order_by(queryset, ordering):
+    order_list = ordering.split(',')
+    for order in order_list:
+        attribute = order[1:] if order[0] == '-' else order
+        query = Q(**{f'{attribute}__isnull': False})
+        queryset = queryset.filter(query)
+    return queryset.order_by(*order_list)

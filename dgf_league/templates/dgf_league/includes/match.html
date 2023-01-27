@@ -1,5 +1,7 @@
+{% load dgf_cms %}
+
 <div class="match">
-    {% for result in match.results.all %}
+    {% for result in match.results.all|order_by:"pk" %}
         <div class="result">
             <span class="team">
                 <span class="team-name">{{result.team.name}}</span>
