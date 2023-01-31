@@ -34,7 +34,7 @@ $(window).on("load", function() {
 
 function changeOverlayColor() {
     var backgroundColor = $("#overlay-color").val();
-    var transparent = "rgba(255, 255, 255, 0)";
+    var transparent = `${backgroundColor}00`;
     $("#overlay").css("background-image", `linear-gradient(0deg, ${backgroundColor} 0%, ${transparent} 50%)`);
 }
 

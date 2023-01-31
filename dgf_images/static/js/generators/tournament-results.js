@@ -314,7 +314,7 @@ function changeGeneratedContentHeight() {
 
 function changeOverlay() {
     var backgroundColor = $("#overlay-color").val();
-    var transparent = "rgba(255, 255, 255, 0)";
+    var transparent = `${backgroundColor}00`;
 
     var overlayAngle = $("#overlay-angle").val();
     var overlayDepth = $("#overlay-depth").val();
