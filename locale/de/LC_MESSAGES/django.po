@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-27 21:25+0100\n"
+"POT-Creation-Date: 2023-01-31 11:36+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
 #: dgf/cms_plugins.py:22 dgf/models.py:199 dgf/models.py:208
-#: dgf_league/models.py:37 dgf_league/models.py:49
+#: dgf_league/models.py:37 dgf_league/models.py:81
 msgid "Friend"
 msgstr "Friend"
 
@@ -435,7 +435,7 @@ msgid "Position"
 msgstr "Platz"
 
 #: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:71
-#: dgf_league/models.py:79
+#: dgf_league/models.py:67
 #: dgf_league/templates/dgf_league/includes/league_standings.html:14
 msgid "Points"
 msgstr "Punkte"
@@ -445,7 +445,7 @@ msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
 #: dgf/models.py:513 dgf_league/forms.py:25 dgf_league/models.py:20
-#: dgf_league/models.py:60
+#: dgf_league/models.py:48
 msgid "Actor"
 msgstr "Akteur"
 
@@ -1332,19 +1332,19 @@ msgstr "Eigene Punkte"
 msgid "Rival points"
 msgstr "Gegner-Punkte"
 
-#: dgf_league/models.py:36 dgf_league/models.py:78
+#: dgf_league/models.py:36 dgf_league/models.py:66
 msgid "Team"
 msgstr "Team"
 
-#: dgf_league/models.py:77
+#: dgf_league/models.py:65
 msgid "Match"
 msgstr "Spiel"
 
-#: dgf_league/templates/dgf_league/includes/friends_without_team.html:7
+#: dgf_league/templates/dgf_league/includes/friends_without_team.html:9
 msgid "Friends without team that would like to play"
 msgstr "Friends, die ein Partner suchen"
 
-#: dgf_league/templates/dgf_league/includes/friends_without_team.html:9
+#: dgf_league/templates/dgf_league/includes/friends_without_team.html:11
 msgid "Go talk to them and make a team!"
 msgstr "Rede mit ihnen und bilde ein Team!"
 
@@ -1360,13 +1360,9 @@ msgstr "Ergebnis hinzufügen"
 msgid "I don't have a team, but I would like to play"
 msgstr "Ich würde gerne mitmachen aber habe keinen Partner"
 
-#: dgf_league/templates/dgf_league/includes/league_results.html:3
+#: dgf_league/templates/dgf_league/includes/league_results.html:7
 msgid "Results"
 msgstr "Ergebnisse"
-
-#: dgf_league/templates/dgf_league/includes/league_results.html:14
-msgid "There are no results yet"
-msgstr "Bis jetzt wurden keine Ergebnisse veröffentlicht"
 
 #: dgf_league/templates/dgf_league/includes/league_standings.html:3
 msgid "Standings"
