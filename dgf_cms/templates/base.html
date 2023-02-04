@@ -27,23 +27,11 @@
 
     </head>
 
+    {% include "includes/google_tag.html" %}
+
     <body {% if request.toolbar.show_toolbar %}class="with-cms-toolbar"{% endif %}>
 
         <!-- JS -->
-
-        {% comment %}
-            Every file you put it inside the COMPRESS tag must be accessible via COMPRESS_URL ('/static/')
-            otherwise it can't be compressed, and we get compressor.exceptions.UncompressableFileError
-            Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
-        {% endcomment %}
-
-        {% if not debug and not request.user.is_superuser %}
-            {% comment %} We do not want to track admins' activities {% endcomment %}
-            <script async type="{% js_type_for_cookie_consent request 'analytics' %}"
-                    data-varname="analytics"
-                    src="https://www.googletagmanager.com/gtag/js?id=UA-169368121-1">
-            </script>
-        {% endif %}
 
         {% compress js file base_js %}
 

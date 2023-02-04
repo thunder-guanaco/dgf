@@ -1,0 +1,19 @@
+{% comment %}
+    Every file you put it inside the COMPRESS tag must be accessible via COMPRESS_URL ('/static/')
+    otherwise it can't be compressed, and we get compressor.exceptions.UncompressableFileError
+    Therefore: the Google Tag Manager file MUST be outside the COMPRESS tag
+{% endcomment %}
+
+{% if not debug and not request.user.is_superuser %}
+
+    {% comment %} We do not want to track admins' activities {% endcomment %}
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4LCVRV3GCN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4LCVRV3GCN');
+    </script>
+
+{% endif %}
