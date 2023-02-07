@@ -6,7 +6,7 @@
         <span class="hint" id="show-bag-tags-hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %} </span>
         <span class="hint" id="select-bag-tags-hint" style="display: none;">{% trans "Select the bag tags you want to update and then click on 'continue'." %} </span>
         <span class="hint" id="select-metrix-tournament-hint" style="display: none;">{% trans "Select a tournament from the list below" %} </span>
-        <div>
+        <div id="bag-tag-buttons">
             <button id="change-multiple-bag-tags" style="display: none;" onclick="changeMultipleBagTags()">
                 {% trans "Continue" %}
             </button>
@@ -16,14 +16,11 @@
             <button id="exit-multiple-bag-tag-mode" class="negative" style="display: none;" onclick="exitMultipleBagTagMode()">
                 {% trans "Cancel" %}
             </button>
-            {% tournaments_ending_today_with_metrix_id as tournaments %}
-            {% if tournaments %}
-                <button id="enter-select-from-metrix" class="new" style="display: none;" onclick="enterSelectFromMetrix()">
-                    {% trans "Select from Metrix (experimental!)" %}
-                </button>
-                <button id="exit-select-from-metrix" class="negative" style="display: none;" onclick="exitSelectFromMetrix()">
-                    {% trans "Back" %}
-            {% endif %}
+            <button id="enter-select-from-metrix" class="new" style="display: none;" onclick="enterSelectFromMetrix()">
+                {% trans "Select from Metrix (experimental!)" %}
+            </button>
+            <button id="exit-select-from-metrix" class="negative" style="display: none;" onclick="exitSelectFromMetrix()">
+                {% trans "Back" %}
             </button>
         </div>
     </div>

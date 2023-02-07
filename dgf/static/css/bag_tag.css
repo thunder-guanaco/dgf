@@ -68,6 +68,12 @@
     margin-bottom: 1em;
 }
 
+#bag-tag-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.5em;
+}
+
 .header button {
     height: fit-content;
     margin-left: 0.5em;
