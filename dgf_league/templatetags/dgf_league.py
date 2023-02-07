@@ -45,3 +45,20 @@ def team_name(friend):
 @register.simple_tag
 def all_friends_without_team():
     return Friend.objects.exclude(searching=None)
+
+
+@register.filter
+def calculate_positions(teams):
+    last, rest = teams[0], teams[1:]
+    last.position = 1
+
+    for position, team in enumerate(rest, start=2):
+
+        if team.points == last.points:
+            team.position = last.position
+        else:
+            team.position = position
+
+        last = team
+
+    return teams

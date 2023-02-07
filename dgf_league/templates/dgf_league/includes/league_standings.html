@@ -17,11 +17,11 @@
         </thead>
 
         <tbody>
-            {% for team in teams %}
+            {% for team in teams|calculate_positions %}
                 <tr {% if team.results.count > 0 %}class="team-line"{% endif %} onclick="switchResults({{team.id}})">
                     <td class="position">
                         <div class="position-card-container">
-                            <span class="position-card">{{forloop.counter}}</span>
+                            <span class="position-card">{{team.position}}</span>
                         </div>
                     </td>
                     <td class="team-name">{{team.name}}</td>
