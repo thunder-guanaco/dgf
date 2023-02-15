@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dgf import tremonia_series
@@ -16,13 +17,13 @@ from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitH
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, TREMONIA_SERIES_ROOT_ID
 
 
-class IndexView(ListView):
+class FriendListView(ListView):
     template_name = 'dgf/friend_list.html'
     context_object_name = 'friends'
     queryset = Friend.objects.all().order_by('?')
 
 
-class DetailView(DetailView):
+class FriendDetailView(DetailView):
     model = Friend
     slug_field = 'slug'
     template_name = 'dgf/friend_detail.html'
@@ -34,7 +35,7 @@ class DetailView(DetailView):
                 )
 
 
-class UpdateView(LoginRequiredMixin, UpdateView):
+class FriendUpdateView(LoginRequiredMixin, UpdateView):
     model = Friend
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
@@ -81,7 +82,7 @@ class UpdateView(LoginRequiredMixin, UpdateView):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
 
 
-class FeedbackCreate(LoginRequiredMixin, CreateView):
+class FeedbackCreateView(LoginRequiredMixin, CreateView):
     model = GitHubIssue
     fields = ['title', 'body']
 
@@ -94,7 +95,7 @@ class FeedbackCreate(LoginRequiredMixin, CreateView):
         return reverse('dgf:feedback')
 
 
-class MediaIndex(ListView):
+class VideoListView(ListView):
     template_name = 'dgf/media_list.html'
     context_object_name = 'video_urls'
 
@@ -104,32 +105,29 @@ class MediaIndex(ListView):
         return all_videos
 
 
-class TournamentsView(LoginRequiredMixin, ListView):
+class TournamentListView(LoginRequiredMixin, ListView):
     context_object_name = 'tournaments'
     template_name = 'dgf/tournament_list.html'
     queryset = Tournament.objects.filter(begin__gte=datetime.now()).order_by('begin')
 
 
 @login_required
-def attendance(request, tournament_id):
+@require_http_methods(['POST', 'DELETE'])
+def tournament_attendance(request, tournament_id):
     friend = request.user.friend
 
     if request.method == 'POST':
-        attendance, created = Attendance.objects.get_or_create(friend=friend, tournament_id=tournament_id)
+        _, created = Attendance.objects.get_or_create(friend=friend, tournament_id=tournament_id)
         return HttpResponse(status=201 if created else 204)
 
     if request.method == 'DELETE':
         Attendance.objects.filter(friend=friend, tournament_id=tournament_id).delete()
         return HttpResponse(status=204)
 
-    return HttpResponse(status=405, reason='Only POST or DELETE methods are allowed here.')
-
 
 @login_required
+@require_POST
 def bag_tag_claim(request, bag_tag):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
-
     taker = request.user.friend
 
     if not taker.bag_tag:
@@ -165,7 +163,7 @@ def bag_tag_claim(request, bag_tag):
                                 new_number=taker_bag_tag,
                                 timestamp=now)
 
-    return HttpResponse(status=200)
+    return HttpResponse(status=204)
 
 
 def get_next_bag_tag():
@@ -173,10 +171,8 @@ def get_next_bag_tag():
 
 
 @login_required
+@require_POST
 def bag_tag_new(request):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
-
     actor = request.user.friend
 
     if not actor.is_superuser:
@@ -185,27 +181,27 @@ def bag_tag_new(request):
     friends = sorted(Friend.objects.filter(bag_tag__isnull=True).filter(username__in=request.POST.getlist("players[]")),
                      key=lambda f: f.short_name)
 
-    next_bag_tag = get_next_bag_tag()
-    next_bag_tags = list(range(next_bag_tag, next_bag_tag + len(friends)))
+    if friends:
+        next_bag_tag = get_next_bag_tag()
+        next_bag_tags = list(range(next_bag_tag, next_bag_tag + len(friends)))
 
-    now = datetime.now()
+        now = datetime.now()
 
-    for friend, bag_tag in zip(friends, next_bag_tags):
-        friend.bag_tag = bag_tag
-        friend.save()
-        BagTagChange.objects.create(actor=actor,
-                                    friend=friend,
-                                    previous_number=None,
-                                    new_number=bag_tag,
-                                    timestamp=now)
+        for friend, bag_tag in zip(friends, next_bag_tags):
+            friend.bag_tag = bag_tag
+            friend.save()
+            BagTagChange.objects.create(actor=actor,
+                                        friend=friend,
+                                        previous_number=None,
+                                        new_number=bag_tag,
+                                        timestamp=now)
 
-    return HttpResponse(status=200)
+    return HttpResponse(status=204)
 
 
 @login_required
+@require_POST
 def bag_tag_update(request):
-    if request.method != 'POST':
-        return HttpResponse(status=405, reason='Only POST method is allowed here.')
 
     actor = request.user.friend
 
@@ -244,7 +240,7 @@ def bag_tag_update(request):
                                     timestamp=now,
                                     active=new_bag_tags[username] != current_bag_tags[username])
 
-    return HttpResponse(status=200)
+    return HttpResponse(status=204)
 
 
 def ts_next_tournament(request):
