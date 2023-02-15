@@ -1,0 +1,31 @@
+{% load i18n dgf dgf_league %}
+
+<div id="add-result" class="league-popup">
+    <span class="close-league-popup">✕</span>
+    {% with user.friend|all_rival_teams as rival_teams %}
+        {% if rival_teams.count == 0 %}
+            <label>{% trans "You already played with every team" %}</label>
+        {% else %}
+            <label>{% trans "Please select a team and enter the result" %}</label>
+            <span class="points">{% trans "Team points" %}</span>
+            <div class="row-field">
+                <label>{{user.friend|team_name}}</label>
+                <input type="number" id="own-points" class="result">
+            </div>
+            <div class="row-field">
+                <select id="rival-team">
+                    <option value="">---</option>
+                    {% for team in user.friend|all_rival_teams %}
+                        <option value="{{team.id}}">{{team}}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" id="rival-points" class="result">
+            </div>
+            <span class="error"></span>
+            <button id="new-result" onclick="createResult()">
+                {% trans "Send" %}
+            </button>
+        {% endif %}
+    {% endwith %}
+</div>
+

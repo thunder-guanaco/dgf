@@ -27,7 +27,7 @@ $(window).on("load", function() {
 
     $("#overlay-color").change(function() {
         var backgroundColor = $(this).val();
-        var transparent = "rgba(255, 255, 255, 0)";
+        var transparent = `${backgroundColor}00`;
         $(".mini-overlay").css("background-image", `linear-gradient(270deg, ${backgroundColor} 33%, ${transparent} 66%)`);
         $(".dgf-logo").css("background-color", backgroundColor);
     }).change();

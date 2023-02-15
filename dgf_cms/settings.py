@@ -266,6 +266,7 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf_league',
     'dgf_images',
     'dgf_cookies',
     'dgf',
@@ -379,6 +380,7 @@ LOCALE_PATHS = [
 
 CMS_TEMPLATES = (
     ('fullwidth.html', 'Fullwidth'),
+    ('static_placeholders.html', 'Static Placeholders (ONLY FOR ADMINS)'),
 )
 
 CMS_PERMISSION = True
@@ -454,7 +456,9 @@ JAZZMIN_SETTINGS = {
     'navigation_expanded': False,
     'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange',
                               'dgf_images', 'dgf_images.imagegenerator',
-                              'auth', 'cms'],
+                              'dgf_league', 'dgf_league.team', 'dgf_league.match', 'dgf_league.friendwithoutteam',
+                              'auth',
+                              'cms'],
 
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free
     'icons': {
@@ -467,6 +471,10 @@ JAZZMIN_SETTINGS = {
         'dgf.tour': 'fas fa-route',
         'dgf_images': 'fas fa-images',
         'dgf_images.imagegenerator': 'fas fa-print',
+        'dgf_league': 'fas fa-medal',
+        'dgf_league.team': 'fas fa-users',
+        'dgf_league.match': 'fas fa-table',
+        'dgf_league.friendwithoutteam': 'fas fa-users',
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.group': 'fas fa-users',
@@ -476,7 +484,7 @@ JAZZMIN_SETTINGS = {
     'related_modal_active': False,
 
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    'custom_css': None,
+    'custom_css': 'css/admin.css',
     'custom_js': None,
 
     'show_ui_builder': True,

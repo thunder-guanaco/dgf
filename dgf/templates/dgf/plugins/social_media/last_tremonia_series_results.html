@@ -3,7 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/social_media/last_tremonia_series_results.css' %}">
-{% endblock css %}
+{% endblock %}
 
 {% block js %}
 	{% if manual_table_error %}
@@ -12,7 +12,7 @@
 		</script>
 	{% endif %}
     <script type="text/javascript" src="{% static 'js/social_media/last_tremonia_series_results.js' %}"></script>
-{% endblock js %}
+{% endblock %}
 
 {% block content %}
 	<h1>{{title}}</h1>
@@ -35,4 +35,4 @@
 			</div>
 		{% endfor %}
 	</div>
-{% endblock content %}
+{% endblock %}

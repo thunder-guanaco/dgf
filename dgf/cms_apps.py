@@ -27,3 +27,12 @@ class ImagesApphook(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ['dgf_images.urls']
+
+
+@apphook_pool.register
+class LeagueApphook(CMSApp):
+    app_name = 'dgf_league'
+    name = 'League Application'
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ['dgf_league.urls']
