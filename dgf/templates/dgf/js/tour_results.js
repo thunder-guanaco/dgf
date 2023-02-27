@@ -27,11 +27,24 @@ function generateTable(friends) {
 
     var summaryPart = $("#tour-results .table .summary")[0];
 
+    var last_position = 1;
+    var last_points = 0;
+
     friends.forEach(function(friend, index) {
 
         var summaryRow = addElement(summaryPart, "div", ["line"]);
 
-        position = addElement(summaryRow, "div", ["position", "statistics-tooltip"], index + 1);
+        var position;
+        if (friend.results.total == last_points) {
+            position = last_position;
+        }
+        else {
+            position = index + 1;
+            last_position = position;
+            last_points = friend.results.total;
+        }
+
+        position = addElement(summaryRow, "div", ["position", "statistics-tooltip"], position);
         addElement(position, "div", ["statistics", "tooltip-text"], generateStatistics(friend.results));
         addFriendBall(summaryRow, "div", ["player"], friend.id);
 

@@ -264,3 +264,21 @@ def to_set(iterable):
 @register.filter
 def days_since(date):
     return (timezone.now() - date).days
+
+
+def calculate_real_positions(results, get_points, set_position):
+    last_position = 1
+    last_points = 0
+
+    for position, current in enumerate(results, start=1):
+
+        current_points = get_points(current)
+
+        if current_points == last_points:
+            set_position(current, last_position)
+        else:
+            set_position(current, position)
+            last_position = position
+            last_points = current_points
+
+    return results

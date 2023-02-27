@@ -7,6 +7,7 @@ from django.db.models import Count, Q, Sum
 
 from dgf.models import Friend, Tour, Result
 from dgf.pdga.common import get_player_page
+from dgf.templatetags.dgf import calculate_real_positions
 
 register = template.Library()
 
@@ -81,7 +82,7 @@ def parse_results(tour):
                                    key=lambda result: result["total_points_before"],
                                    reverse=True)
 
-    update_position_before(sorted_results, sorted_results_before)
+    calculate_real_position_and_position_before(sorted_results, sorted_results_before)
     return sorted_results
 
 
@@ -140,15 +141,32 @@ def parse_tournament(friend_results, tournament):
     }
 
 
-def update_position_before(results, results_before):
-    position_before = {
-        friend_results['friend'].id: position
-        for position, friend_results in enumerate(results_before, start=1)
+def calculate_real_position_and_position_before(results, results_before):
+    """
+    YES, this function actually iterates 4 TIMES (2 over each list) and the number of iterations could be halved
+    BUT extracting the calculation of the positions is pretty cool and allows me to test it properly
+    SO... I'm going to leave it like this because every iteration is done with lists containing a maximum of 10 elements
+    """
+
+    def set_position_before(friend_results, position):
+        friend_results['position_before'] = position
+
+    results_before = calculate_real_positions(results_before, lambda x: x['total_points_before'], set_position_before)
+
+    def set_position(friend_results, position):
+        friend_results['position'] = position
+
+    results = calculate_real_positions(results, lambda x: x['total_points'], set_position)
+
+    positions_before = {
+        friend_results['friend'].id: friend_results['position_before']
+        for friend_results in results_before
     }
 
-    for position, friend_results in enumerate(results, start=1):
-        friend_results['position'] = position
-        friend_results['position_before'] = position_before[friend_results['friend'].id]
+    for friend_results in results:
+        friend_results['position_before'] = positions_before[friend_results['friend'].id]
+
+    return results
 
 
 @register.filter
@@ -225,8 +243,8 @@ def difference_string(value, value_before):
 def difference_arrow_string(value, value_before):
     difference = value - value_before
     if difference > 0:
-        return 'up'
-    elif difference < 0:
         return 'down'
+    elif difference < 0:
+        return 'up'
     else:
         return 'neutral'
