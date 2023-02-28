@@ -114,9 +114,9 @@
                                     </td>
                                     <td class="position">
                                         {{friend_results.position}}
-                                        {% with friend_results.position_before|difference_string:friend_results.position|abs as position_difference %}
+                                        {% with friend_results.position|difference_string:friend_results.position_before|abs as position_difference %}
                                             {% if position_difference %}
-                                                <small class="last-changes arrow-{{friend_results.position_before|difference_arrow_string:friend_results.position}}">
+                                                <small class="last-changes arrow-{{friend_results.position|difference_arrow_string:friend_results.position_before}}">
                                                     {{position_difference}}
                                                 </small>
                                             {% endif %}

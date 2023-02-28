@@ -4,6 +4,7 @@ from django import template
 from django.db.models import Count, Q
 
 from dgf.models import Friend
+from dgf.templatetags.dgf import calculate_real_positions
 from dgf_league.models import Team, Match
 
 register = template.Library()
@@ -49,16 +50,7 @@ def all_friends_without_team():
 
 @register.filter
 def calculate_positions(teams):
-    last, rest = teams[0], teams[1:]
-    last.position = 1
+    def set_position(team, position):
+        team.position = position
 
-    for position, team in enumerate(rest, start=2):
-
-        if team.points == last.points:
-            team.position = last.position
-        else:
-            team.position = position
-
-        last = team
-
-    return teams
+    return calculate_real_positions(teams, lambda x: x.points, set_position)
