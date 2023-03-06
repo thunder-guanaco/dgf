@@ -1,0 +1,13 @@
+{% load dgf i18n %}
+
+<div class="since" onclick="switchStatistics({{friend.bag_tag}})">
+
+    {% if not request.user_agent.is_mobile and friend.since %}
+        {% blocktranslate with date=friend.since|date days=friend.since|days_since %}Since {{date}} ({{days}} days){% endblocktranslate %}
+    {% endif %}
+
+    <span class="statistics-button closed"
+         data-bag-tag="{{friend.bag_tag}}">
+    </span>
+
+</div>

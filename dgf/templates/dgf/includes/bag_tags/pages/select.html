@@ -1,0 +1,35 @@
+{% load dgf i18n %}
+
+<div id="select-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "Select bag tags" %}</h2>
+
+    <div class="header">
+        <span class="hint">{% trans "Select the bag tags you want to update and then click on 'continue'." %}</span>
+        <button onclick="changeMultipleBagTags()">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#list-bag-tags')">{% trans "Cancel" %}</button>
+        {% tournaments_ending_today_with_metrix_id as tournaments %}
+        {% if tournaments %}
+            <button class="new" onclick="showPage('#metrix-bag-tags')">{% trans "Select from Metrix" %}</button>
+        {% endif %}
+    </div>
+
+    <span class="error" id="at-least-2-bag-tags-hint">{% trans "You have to select at least 2 bag tags!" %}</span>
+
+    <div class="content">
+
+        {% for friend in friends %}
+
+            <div class="line">
+                {% include "dgf/includes/bag_tags/friend.html" with onclick=friend.bag_tag|calling:"selectBagTag" %}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="footer">
+        <button onclick="changeMultipleBagTags()">{% trans "Continue" %}</button>
+    </div>
+
+</div>

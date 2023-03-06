@@ -1,0 +1,32 @@
+{% if request.user.is_authenticated and request.user.friend.bag_tag %}
+
+    <div class="number clickable"
+         data-bag-tag="{{friend.bag_tag}}"
+         data-username="{{friend.username}}"
+         data-url="{% url 'dgf:bag_tag_claim' friend.bag_tag %}"
+         onclick="{{onclick}}">
+        <span>{{friend.bag_tag}}</span>
+    </div>
+    <div class="player clickable"
+         data-bag-tag="{{friend.bag_tag}}"
+         data-username="{{friend.username}}"
+         onclick="{{onclick}}">
+        {% include "dgf/includes/friend_ball.html" with friend=friend %}
+        <div>
+            {{friend.short_name}}
+        </div>
+    </div>
+
+{% else %}
+
+    <div class="number">
+        <span>{{friend.bag_tag}}</span>
+    </div>
+    <div class="player">
+        {% include "dgf/includes/friend_ball.html" with friend=friend %}
+        <div>
+            {{friend.short_name}}
+        </div>
+    </div>
+
+{% endif %}
