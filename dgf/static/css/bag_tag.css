@@ -21,15 +21,19 @@
     }
 
     .header {
-        flex-flow: row wrap;
+        margin-bottom: 1em;
+    }
+
+    .header input {
+        width: 90%;
+    }
+
+    .header .error {
+        margin: 0;
     }
 
     .header button {
         margin: 0 !important;
-    }
-
-    .header .hint {
-        margin-bottom: 1em;
     }
 
     .header > div {
@@ -88,7 +92,7 @@
 
 .header {
     display: flex;
-    flex-direction: row nowrap;
+    flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1em;
