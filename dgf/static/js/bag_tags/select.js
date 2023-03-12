@@ -2,7 +2,7 @@ function selectBagTag(bagTag) {
     $("#select-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
 }
 
-function changeMultipleBagTags() {
+function goToEditMultipleBagTags() {
 
     amountOfSelectedBagTags = $("#select-bag-tags .content .number.selected").length;
     if (amountOfSelectedBagTags < 2) {
@@ -46,7 +46,7 @@ function changeMultipleBagTags() {
 
     showPage('#edit-bag-tags');
 
-    if (Object.keys(metrixResults).length) {
+    if (Object.keys(metrixScores).length) {
         sortBagTags();
         addPlayerInfo();
     }

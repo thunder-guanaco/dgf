@@ -1,4 +1,23 @@
-function tournamentClicked(tournamentId) {
+function extractTournamentId(url) {
+    return url.pathname.split('/')[1].split('?')[0].split('&')[0];
+}
+
+function tournamentUrlEntered(url) {
+
+    try{
+
+        $("#invalid-metrix-tournament-url").hide();
+        var url = new URL(url);
+        tournamentId = extractTournamentId(url);
+        tournamentSelected(tournamentId);
+
+    } catch (error){
+        $("#invalid-metrix-tournament-url").show();
+    }
+
+}
+
+function tournamentSelected(tournamentId) {
     $.ajax({
         type: "GET",
         url: "https://discgolfmetrix.com/api.php?content=result&id=" + tournamentId,
@@ -19,11 +38,7 @@ function parseTourResults(results) {
         var userId = result["UserID"];
         var username = metrixUserIdToFriend[userId];
         if (username) {
-            parsedResults[username] = {
-                "position": result["Place"],
-                "score": result["Total"] || result["Sum"],
-                "all_scores": result["EventResults"],
-            };
+            parsedResults[username] = result["Total"] || result["Sum"];
         }
     });
     return parsedResults;
@@ -37,20 +52,11 @@ function parseSubCompetitions(competitions) {
             var userId = result["UserID"];
             var username = metrixUserIdToFriend[userId];
             if (username) {
-                var score = result["Sum"];
-                var position = result["Place"];
-                var result = parsedResults[username];
-                if (result) {
-                    result["position"] += position;
-                    result["score"] += score;
-                    result["all_scores"].push(score);
+                if (username in parsedResults) {
+                    parsedResults[username] += result["Sum"];
                 }
                 else {
-                    parsedResults[username] = {
-                        "position": position,
-                        "score": score,
-                        "all_scores": [score],
-                    };
+                    parsedResults[username] = result["Sum"];
                 }
             }
         });
@@ -58,41 +64,40 @@ function parseSubCompetitions(competitions) {
     return parsedResults;
 }
 
-metrixResults = {};
-sortBagTagsBy = "score";
+metrixScores = {};
 function handleMetrixResponse(response) {
 
     var competition = response["Competition"];
+    if (competition === null) {
+        $("#invalid-metrix-tournament-url").show();
+        return;
+    }
+
     if (competition["ShowTourView"] == "1") {
-        metrixResults = parseTourResults(competition["TourResults"]);
+        metrixScores = parseTourResults(competition["TourResults"]);
     }
     else {
-        metrixResults = parseSubCompetitions(competition["SubCompetitions"]);
+        metrixScores = parseSubCompetitions(competition["SubCompetitions"]);
     }
 
     $("#select-bag-tags .content .number").removeClass("selected");
-    Object.keys(metrixResults).forEach(username => {
+    Object.keys(metrixScores).forEach(username => {
         $("#select-bag-tags .content .number[data-username='" + username + "']").addClass("selected");
     });
 
-    changeMultipleBagTags();
+    goToEditMultipleBagTags();
 }
 
 function getOrder(li) {
-    var username = $(li).children("div").first().data("username");
-    results = metrixResults[username];
-    if (results) {
-        return results[sortBagTagsBy];
-    }
-    else {
-        return Number. MAX_VALUE;
-    }
+    var player = $(li).children("div").first();
+    var username = $(player).data("username");
+    var bagTag = $(player).data("bag-tag");
+
+    var score = metrixScores[username] || Number. MAX_VALUE;
+    return score * 100 + bagTag;
 }
 
-function sortBagTags(field) {
-    if (field) {
-        sortBagTagsBy = field;
-    }
+function sortBagTags() {
     $("#multiple-bag-tag-players li").sort(function(a, b){
         return getOrder(a) - getOrder(b);
     }).appendTo("#multiple-bag-tag-players");
@@ -101,35 +106,9 @@ function sortBagTags(field) {
 function addPlayerInfo() {
     $("#multiple-bag-tag-players .player").each(function(){
         var username = $(this).data("username");
-        var result = metrixResults[username];
-
-        var position = result["position"];
-        var score = result["score"];
-        var allScores = result["all_scores"];
-
-        var scoreInfo = "<div>(" + score;
-        if (allScores) {
-            scoreInfo += " = " + prettify(allScores) + "";
-        }
-        scoreInfo += ")</div>";
-        $(this).find(".info").append(scoreInfo);
-
-        if (position) {
-            $(this).find(".info").append("<div class='position'>&nbsp;📈 " + position + "</div>");
+        var score = metrixScores[username];
+        if (score) {
+            $(this).find(".info").append("<div>(" + score + ")</div>");
         }
     });
-}
-
-function prettify(all_scores) {
-
-    var scores = all_scores.map(score => {
-        if (!score) {
-            return "⛔";
-        }
-        else {
-            return score;
-        }
-    });
-
-    return scores.join(" + ");
 }

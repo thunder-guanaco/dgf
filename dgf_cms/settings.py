@@ -52,7 +52,7 @@ if ENV == 'dev':
 if ENV in ['dev', 'test']:
     SECRET_KEY = 'not-really-a-secret'
     DEBUG = True
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver'] + [f'192.168.0.{n}' for n in range(0, 256)]
     DATA_DIR = BASE_DIR
     LOG_DIR = BASE_DIR
     LOG_LEVEL = 'INFO'

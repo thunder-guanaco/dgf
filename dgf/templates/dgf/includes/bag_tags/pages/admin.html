@@ -11,7 +11,7 @@
     </div>
 
     <div class="error dynamic-error"></div>
-    <span class="error" id="at-least-1-friend-hint" style="display: none;">{% trans "You have to select at least 1 friend!" %}</span>
+    <span class="error" id="at-least-1-friend-hint">{% trans "You have to select at least 1 friend!" %}</span>
 
     <div class="content">
 
@@ -37,6 +37,7 @@
 
     <div class="footer">
         <button onclick="assignNewBagTags()">{% trans "Assign new bag tag(s)" %}</button>
+        <button class="negative" onclick="showPage('#list-bag-tags')">{% trans "Cancel" %}</button>
     </div>
 
 </div>

@@ -2,6 +2,14 @@
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tag.css' %}">
+    {% if request.user.friend.bag_tag %}
+        <style>
+            /* hide bag tag explanation */
+            div[data-children='.card'] {
+                display: none;
+            }
+        </style>
+    {% endif %}
 {% endaddtoblock %}
 
 {% addtoblock "js" %}
@@ -26,20 +34,25 @@
     </script>
     <script type="text/javascript" src="{% static 'js/bag_tags/common.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bag_tags/list.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bag_tags/select.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bag_tags/edit.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bag_tags/admin.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bag_tags/metrix.js' %}"></script>
+    {% if request.user.friend.bag_tag %}
+        <script type="text/javascript" src="{% static 'js/bag_tags/select.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/edit.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/admin.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/metrix.js' %}"></script>
+    {% endif %}
 {% endaddtoblock %}
 
 <div id="bag-tags-wrapper">
     <div id="bag-tags">
 
         {% include "dgf/includes/bag_tags/pages/list.html" %}
-        {% include "dgf/includes/bag_tags/pages/select.html" %}
-        {% include "dgf/includes/bag_tags/pages/edit.html" %}
-        {% include "dgf/includes/bag_tags/pages/admin.html" %}
-        {% include "dgf/includes/bag_tags/pages/metrix.html" %}
+
+        {% if request.user.friend.bag_tag %}
+            {% include "dgf/includes/bag_tags/pages/select.html" %}
+            {% include "dgf/includes/bag_tags/pages/edit.html" %}
+            {% include "dgf/includes/bag_tags/pages/admin.html" %}
+            {% include "dgf/includes/bag_tags/pages/metrix.html" %}
+        {% endif %}
 
     </div>
 

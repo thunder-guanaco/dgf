@@ -1,9 +1,5 @@
 $(window).on("load", function() {
     checkClickableFriends();
-
-    // TODO: DELETE THIS!!!!!
-    showPage('#metrix-bag-tags');
-
 });
 
 function checkClickableFriends() {

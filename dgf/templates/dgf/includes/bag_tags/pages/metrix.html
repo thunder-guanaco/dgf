@@ -9,12 +9,22 @@
         <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
     </div>
 
+    <div class="header">
+        <span class="hint">{% trans "Or enter a metrix URL" %}</span>
+        <input type="url" id="metrix-tournament-url">
+        <button onclick="tournamentUrlEntered($('#metrix-tournament-url').val())">{% trans "Continue" %}</button>
+    </div>
+
+    <div class="header">
+        <span class="error" id="invalid-metrix-tournament-url">{% trans "Entered Metrix URL is not valid" %}</span>
+    </div>
+
     <div class="content">
         {% tournaments_ending_today_with_metrix_id as tournaments %}
         <ul id="current-tournaments">
             {% for tournament in tournaments %}
                 <li class="tournament">
-                    <a onclick="tournamentClicked({{tournament.metrix_id}})">
+                    <a onclick="tournamentSelected({{tournament.metrix_id}})">
                         {{tournament.name}}
                     </a>
                 </li>

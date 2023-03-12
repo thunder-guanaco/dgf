@@ -4,16 +4,20 @@
 
     <h2>{% trans "Bag Tags" %}</h2>
 
-    {% if request.user.friend.bag_tag %}
+    {% if request.user.is_authenticated %}
 
-        <div class="header">
-            <span class="hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %}</span>
-            <button onclick="showPage('#select-bag-tags')">{% trans "update multiple bag tags" %}</button>
-        </div>
+        {% if request.user.friend.bag_tag %}
 
-    {% else %}
+            <div class="header">
+                <span class="hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %}</span>
+                <button onclick="showPage('#select-bag-tags')">{% trans "update multiple bag tags" %}</button>
+            </div>
 
-        {% include "dgf/includes/bag_tags/friend_without_bag_tag.html" %}
+        {% else %}
+
+            {% include "dgf/includes/bag_tags/friend_without_bag_tag.html" %}
+
+        {% endif %}
 
     {% endif %}
 

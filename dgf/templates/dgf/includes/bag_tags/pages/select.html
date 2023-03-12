@@ -6,7 +6,7 @@
 
     <div class="header">
         <span class="hint">{% trans "Select the bag tags you want to update and then click on 'continue'." %}</span>
-        <button onclick="changeMultipleBagTags()">{% trans "Continue" %}</button>
+        <button onclick="goToEditMultipleBagTags()">{% trans "Continue" %}</button>
         <button class="negative" onclick="showPage('#list-bag-tags')">{% trans "Cancel" %}</button>
         {% tournaments_ending_today_with_metrix_id as tournaments %}
         {% if tournaments %}
@@ -29,7 +29,8 @@
     </div>
 
     <div class="footer">
-        <button onclick="changeMultipleBagTags()">{% trans "Continue" %}</button>
+        <button onclick="goToEditMultipleBagTags()">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#list-bag-tags')">{% trans "Cancel" %}</button>
     </div>
 
 </div>

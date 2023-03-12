@@ -6,15 +6,8 @@
 
     <div class="header">
         <span class="hint">{% trans "Move the friends on the right and don't forget to save!" %}</span>
-        <button onclick="multipleBagTagsSave()">{% trans "Save" %}</button>
+        <button onclick="saveMultipleBagTags()">{% trans "Save" %}</button>
         <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
-    </div>
-
-    <div class="header only-metrix">
-        <span class="hint">{% trans "You can also sort the results by" %}</span>
-        <button class="new" onclick="sortBagTags('position')">{% trans "position" %}</button>
-        <span class="hint">{% trans "or" %}</span>
-        <button class="new" onclick="sortBagTags('score')">{% trans "score" %}</button>
     </div>
 
     <div class="error" id="multiple-bag-tag-error"></div>
@@ -25,6 +18,7 @@
 
     <div class="footer">
         <button onclick="multipleBagTagsSave()">{% trans "Save" %}</button>
+        <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
     </div>
 
 </div>

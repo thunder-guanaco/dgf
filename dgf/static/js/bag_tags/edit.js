@@ -8,7 +8,7 @@ function deleteFriend(index) {
     $("#multiple-bag-tag-delete li:last").remove();
 }
 
-function multipleBagTagsSave() {
+function saveMultipleBagTags() {
 
     var players = [];
     $("#multiple-bag-tag-players li .player").each(function(){
