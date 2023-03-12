@@ -14,27 +14,28 @@
 
 {% addtoblock "js" %}
     <script>
-        const csrfToken = "{{csrf_token}}";
-
-        const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
-        const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
-
-        const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
-        const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
-
-        const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
-        const metrixUserIds = Object.keys(metrixUserIdToFriend);
-
         {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const csrfToken = "{{csrf_token}}";
+
+            const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
+            const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
+
+            const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
+            const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
+
+            const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
+            const metrixUserIds = Object.keys(metrixUserIdToFriend);
+
             const ownBagTagNumer = {{request.user.friend.bag_tag}};
             const disableClickOnFriends = true;
         {% else %}
             const disableClickOnFriends = false;
         {% endif %}
     </script>
-    <script type="text/javascript" src="{% static 'js/bag_tags/common.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bag_tags/list.js' %}"></script>
     {% if request.user.friend.bag_tag %}
+        <script type="text/javascript" src="{% static 'js/bag_tags/common.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/claim.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bag_tags/select.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bag_tags/edit.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bag_tags/admin.js' %}"></script>
