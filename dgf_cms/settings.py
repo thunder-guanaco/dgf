@@ -3,6 +3,8 @@ import os
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
+from dgf_cms.views import csrf_failure
+
 """
 Django settings for dgf_cms project.
 
@@ -109,6 +111,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_METHODS = [
     "GET",
 ]
+
+CSRF_FAILURE_VIEW = csrf_failure
 
 
 # Django DB and media Backups
