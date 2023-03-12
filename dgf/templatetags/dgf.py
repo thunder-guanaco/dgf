@@ -46,7 +46,7 @@ def favorite_discs(disc_type):
                .values('disc__display_name') \
                .annotate(count=Count('disc__display_name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
-        .values_list('disc__display_name', flat=True)
+               .values_list('disc__display_name', flat=True)
 
 
 @register.filter
@@ -98,7 +98,6 @@ def current_tournaments():
 
 @register.simple_tag
 def tournaments_ending_today_with_metrix_id():
-    return Tournament.objects.filter(metrix_id__in=[2433535, 2433008, 2025394])
     return Tournament.objects.filter(metrix_id__isnull=False,
                                      end=datetime.today()) \
         .order_by('begin', 'end', 'name')
@@ -187,7 +186,7 @@ def all_results(tour):
     for tournament in tour.tournaments.all():
         # This SUM contains actually JUST ONE element(the result of the Friend for the given Tournament)
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
-            .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
+                           .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
     return queryset
 
 
@@ -195,8 +194,8 @@ def all_results(tour):
 def players_count(tour):
     return dict(
         tour.tournaments.annotate(players_count=Max('results__position'))
-        .filter(players_count__isnull=False)
-        .values_list('id', 'players_count')
+                        .filter(players_count__isnull=False)
+                        .values_list('id', 'players_count')
     )
 
 
