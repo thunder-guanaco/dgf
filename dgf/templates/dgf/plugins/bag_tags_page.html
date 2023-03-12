@@ -2,50 +2,59 @@
 
 {% addtoblock "css" %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tag.css' %}">
+    {% if request.user.friend.bag_tag %}
+        <style>
+            /* hide bag tag explanation */
+            div[data-children='.card'] {
+                display: none;
+            }
+        </style>
+    {% endif %}
 {% endaddtoblock %}
 
 {% addtoblock "js" %}
     <script>
-        const csrfToken = "{{csrf_token}}";
-
-        const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
-        const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
-
-        const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
-        const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
-
-        const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
-        const metrixUserIds = Object.keys(metrixUserIdToFriend);
-
         {% if request.user.is_authenticated and request.user.friend.bag_tag %}
+            const csrfToken = "{{csrf_token}}";
+
+            const bagTagClaimText = "{% trans "Do you claim bag tag number " %}";
+            const youAlreadyHaveThatBagTag = "{% trans "You already have bag tag number " %}";
+
+            const bagTagUpdateUrl = "{% url 'dgf:bag_tag_update' %}"
+            const assignNewBagTagsUrl = "{% url 'dgf:bag_tag_new' %}"
+
+            const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
+            const metrixUserIds = Object.keys(metrixUserIdToFriend);
+
             const ownBagTagNumer = {{request.user.friend.bag_tag}};
             const disableClickOnFriends = true;
         {% else %}
             const disableClickOnFriends = false;
         {% endif %}
     </script>
-    <script type="text/javascript" src="{% static 'js/bag_tags.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bag_tags/list.js' %}"></script>
+    {% if request.user.friend.bag_tag %}
+        <script type="text/javascript" src="{% static 'js/bag_tags/common.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/claim.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/select.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/edit.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/admin.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/metrix.js' %}"></script>
+    {% endif %}
 {% endaddtoblock %}
 
 <div id="bag-tags-wrapper">
     <div id="bag-tags">
 
-        <h2>{% trans "Bag Tags" %}</h2>
+        {% include "dgf/includes/bag_tags/pages/list.html" %}
 
-        {% if request.user.is_authenticated %}
-            {% include "dgf/includes/bag_tags/top_buttons.html" %}
+        {% if request.user.friend.bag_tag %}
+            {% include "dgf/includes/bag_tags/pages/select.html" %}
+            {% include "dgf/includes/bag_tags/pages/edit.html" %}
+            {% include "dgf/includes/bag_tags/pages/admin.html" %}
+            {% include "dgf/includes/bag_tags/pages/metrix.html" %}
         {% endif %}
-
-        {% include "dgf/includes/bag_tags/list.html" %}
 
     </div>
 
-    {% if request.user.is_authenticated and request.user.friend.bag_tag %}
-        {% include "dgf/includes/bag_tags/edit.html" %}
-        {% include "dgf/includes/bag_tags/metrix.html" %}
-    {% endif %}
-
-    {% if request.user.is_superuser %}
-        {% include "dgf/includes/bag_tags/admin.html" %}
-    {% endif %}
 </div>

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-31 11:36+0100\n"
+"POT-Creation-Date: 2023-03-12 22:31+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -458,7 +458,7 @@ msgid "Previous number"
 msgstr "Vorherige Nummer"
 
 #: dgf/plugin_models.py:40
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:28
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:34
 #: dgf_images/templates/dgf_images/generators/tour-results.html:78
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:102
 msgid "Background image"
@@ -580,137 +580,158 @@ msgstr "davon im Turnier"
 msgid "Open in admin"
 msgstr "Im Admin öffen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:4
-msgid "Admin zone"
+#: dgf/templates/dgf/includes/bag_tags/admin_zone.html:5
+msgid "Admin Zone"
 msgstr "Admin-Bereich"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:7
-#: dgf/templates/dgf/includes/bag_tags/admin.html:31
+#: dgf/templates/dgf/includes/bag_tags/admin_zone.html:8
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:39
 msgid "Assign new bag tag(s)"
 msgstr "Neue Bagtags zuweisen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:8
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:17
-msgid "Cancel"
-msgstr "Abbrechen"
+#: dgf/templates/dgf/includes/bag_tags/friend_without_bag_tag.html:5
+msgid "You don't have a bag tag. If you want one do the following:"
+msgstr "Du hast kein Bagtag. Wenn du eins möchtest, dann:"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:14
+#: dgf/templates/dgf/includes/bag_tags/friend_without_bag_tag.html:9
+msgid "Contact "
+msgstr "Rede mit "
+
+#: dgf/templates/dgf/includes/bag_tags/friend_without_bag_tag.html:11
+msgid " to get one (the bag tags are in the Disc Golf Center)."
+msgstr " um eins zu bekommen (die Bagtags sind im Disc Golf Center)."
+
+#: dgf/templates/dgf/includes/bag_tags/friend_without_bag_tag.html:14
+msgid "Tell "
+msgstr "Sag "
+
+#: dgf/templates/dgf/includes/bag_tags/friend_without_bag_tag.html:16
+msgid " so that he can register it here."
+msgstr " Bescheid, um dein Bagtag auf der Webseite zu aktivieren."
+
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:5
+msgid "Bag Tags - Admin Zone"
+msgstr "Bagtags - Admin-Bereich"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:8
 msgid "Select friends without bag tags and new ones will be assigned"
 msgstr "Wähle Friends ohne Bagtag, um eins oder mehrere zu zuweisen"
 
-#: dgf/templates/dgf/includes/bag_tags/admin.html:34
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:40
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:33
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/admin.html:14
 msgid "You have to select at least 1 friend!"
 msgstr "Du musst mindestens 1 Friend wählen"
 
-#: dgf/templates/dgf/includes/bag_tags/edit.html:4
-msgid "Update the bag tags"
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:5
+msgid "Sort the bag tags"
 msgstr "Aktualisiere die Bagtags"
 
-#: dgf/templates/dgf/includes/bag_tags/edit.html:6
-msgid ""
-"You can either change the numbers on the left or move the friends on the "
-"right. Don't forget to save!"
-msgstr ""
-"Bewege die Friends oder ändere die Nummern. Vergiss nicht zu speichern!"
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:8
+msgid "Move the friends on the right and don't forget to save!"
+msgstr "Bewege die Friends und vergiss nicht zu speichern!"
 
-#: dgf/templates/dgf/includes/bag_tags/edit.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:20
 msgid "Save"
 msgstr "Speichern"
 
-#: dgf/templates/dgf/includes/bag_tags/edit.html:12
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:25
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:21
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:11
 #: dgf_images/templates/dgf_images/generators/base.html:22
 msgid "Back"
 msgstr "Zurück"
 
-#: dgf/templates/dgf/includes/bag_tags/list.html:62
-#: dgf/templates/dgf/includes/bag_tags/list.html:74
-#, python-format
-msgid "Since %(date)s (%(days)s days)"
-msgstr "Seit dem %(date)s (%(days)s Tage)"
+#: dgf/templates/dgf/includes/bag_tags/pages/list.html:5
+#: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:7
+msgid "Bag Tags"
+msgstr "Bagtags"
 
-#: dgf/templates/dgf/includes/bag_tags/list.html:77
-msgid "Best:"
-msgstr "Beste:"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:78
-msgid "Worst:"
-msgstr "Schlechteste:"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:79
-msgid "Average:"
-msgstr "Im Durchschnitt bekommen:"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:80
-msgid "Most received:"
-msgstr "Am häufigsten bekommen:"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:82
-#, python-format
-msgid "1 bag tag change"
-msgid_plural "%(changes)s bag tag changes"
-msgstr[0] "1 Mal Bagtag getauscht"
-msgstr[1] "%(changes)s Male Bagtag getauscht"
-
-#: dgf/templates/dgf/includes/bag_tags/list.html:83
-#, python-format
-msgid "Got their first bag tag on %(first_change)s"
-msgstr "Erstes Bagtag am %(first_change)s bekommen"
-
-#: dgf/templates/dgf/includes/bag_tags/metrix.html:5
-msgid "Tournaments that ended today"
-msgstr "Turniere, die heute enden"
-
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:6
+#: dgf/templates/dgf/includes/bag_tags/pages/list.html:12
 msgid ""
 "You can either select a bag tag to claim it (and change it with its owner) "
 "or "
 msgstr ""
 "Du kannst entweder ein Bagtag nehmen (und mit dem Friend tauschen) oder "
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:7
-msgid "Select the bag tags you want to update and then click on 'continue'."
-msgstr "Wähle die Bagtags, die du aktualisieren willst und dann klick 'Weiter'"
-
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:8
-msgid "Select a tournament from the list below"
-msgstr "Wähle ein Turnier aus der Liste"
-
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:11
-msgid "Continue"
-msgstr "Weiter"
-
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:14
+#: dgf/templates/dgf/includes/bag_tags/pages/list.html:13
 msgid "update multiple bag tags"
 msgstr "mehrere Bagtags aktualisieren"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:22
-msgid "Select from Metrix (experimental!)"
-msgstr "Aus Metrix sortieren (experimentell!)"
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:5
+msgid "Tournaments that ended today"
+msgstr "Turniere, die heute enden"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:30
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:8
+msgid "Select a tournament or enter a metrix URL"
+msgstr "Wähle ein Turnier oder gib eine Metrix URL an"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:32
+msgid "Continue"
+msgstr "Weiter"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:15
+msgid "Entered Metrix URL is not valid"
+msgstr "Die URL ist nicht gültig"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:5
+msgid "Select bag tags"
+msgstr "Wähle die Bagtags"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:8
+msgid "Select the bag tags you want to update and then click on 'continue'."
+msgstr "Wähle die Bagtags, die du aktualisieren willst und dann klick 'Weiter'"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:13
+msgid "Select from Metrix"
+msgstr "Aus Metrix wählen"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:17
 msgid "You have to select at least 2 bag tags!"
 msgstr "Du musst mindestens 2 Bagtags wählen"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:35
-msgid "You don't have a bag tag. If you want one do the following:"
-msgstr "Du hast kein Bagtag. Wenn du eins möchtest, dann:"
+#: dgf/templates/dgf/includes/bag_tags/since.html:6
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:8
+#, python-format
+msgid "Since %(date)s (%(days)s days)"
+msgstr "Seit dem %(date)s (%(days)s Tage)"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:38
-msgid "Contact "
-msgstr "Rede mit"
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:12
+msgid "Best:"
+msgstr "Beste:"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:40
-msgid " to get one (the bag tags are in the Disc Golf Center)."
-msgstr " um eins zu bekommen (die Bagtags sind im Disc Golf Center)."
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:13
+msgid "Worst:"
+msgstr "Schlechteste:"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:43
-msgid "Tell "
-msgstr "Sag"
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:14
+msgid "Average:"
+msgstr "Im Durchschnitt bekommen:"
 
-#: dgf/templates/dgf/includes/bag_tags/top_buttons.html:45
-msgid " so that he can register it here."
-msgstr " Bescheid, um dein Bagtag auf der Webseite zu aktivieren."
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:15
+msgid "Most received:"
+msgstr "Am häufigsten bekommen:"
+
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:18
+#, python-format
+msgid "1 bag tag change"
+msgid_plural "%(changes)s bag tag changes"
+msgstr[0] "1 Mal Bagtag getauscht"
+msgstr[1] "%(changes)s Male Bagtag getauscht"
+
+#: dgf/templates/dgf/includes/bag_tags/statistics.html:19
+#, python-format
+msgid "Got their first bag tag on %(first_change)s"
+msgstr "Erstes Bagtag am %(first_change)s bekommen"
 
 #: dgf/templates/dgf/includes/edit_buttons.html:7
 msgid "Update profile"
@@ -796,11 +817,6 @@ msgstr "Beste Spieler (nach PDGA-Rating)"
 msgid "Best scores in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
-#: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:7
-#: dgf/templates/dgf/plugins/bag_tags_page.html:33
-msgid "Bag Tags"
-msgstr "Bagtags"
-
 #: dgf/templates/dgf/includes/now_playing.html:10
 msgid "follow live"
 msgstr "live folgen"
@@ -813,11 +829,11 @@ msgstr "Medien"
 msgid "Our Videos"
 msgstr "Videos der Friends"
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:11
+#: dgf/templates/dgf/plugins/bag_tags_page.html:19
 msgid "Do you claim bag tag number "
 msgstr "Nimmst du Bagtag Nummer "
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:12
+#: dgf/templates/dgf/plugins/bag_tags_page.html:20
 msgid "You already have bag tag number "
 msgstr "Du hast bereits Bagtag Nummer "
 
@@ -870,11 +886,11 @@ msgstr "Bin nicht dabei"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf/views.py:220 dgf/views.py:228
+#: dgf/views.py:216 dgf/views.py:224
 msgid "This makes no sense. For these users the bag tags should be: "
 msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 
-#: dgf/views.py:224
+#: dgf/views.py:220
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
@@ -1072,7 +1088,7 @@ msgstr "Bild Generator"
 msgid "Downloading the internet and calculating important stuff"
 msgstr "Wichtige Dinge werden jetzt gerechnet... warte mal kurz"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:14
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:20
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:41
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:37
 #: dgf_images/templates/dgf_images/generators/tour-results.html:58
@@ -1080,13 +1096,13 @@ msgstr "Wichtige Dinge werden jetzt gerechnet... warte mal kurz"
 msgid "Text color"
 msgstr "Textfarbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:18
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:24
 #: dgf_images/templates/dgf_images/generators/tour-results.html:62
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:76
 msgid "Logo color"
 msgstr "Logos Farbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:22
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:28
 #: dgf_images/templates/dgf_images/generators/ratings-update.html:45
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:41
 #: dgf_images/templates/dgf_images/generators/tour-results.html:72
@@ -1094,7 +1110,7 @@ msgstr "Logos Farbe"
 msgid "Overlay color"
 msgstr "Overlays Farbe"
 
-#: dgf_images/templates/dgf_images/generators/picture-with-title.html:32
+#: dgf_images/templates/dgf_images/generators/picture-with-title.html:38
 #: dgf_images/templates/dgf_images/generators/tour-results.html:82
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:112
 msgid "Move picture"

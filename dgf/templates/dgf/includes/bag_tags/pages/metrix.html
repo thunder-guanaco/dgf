@@ -1,0 +1,36 @@
+{% load i18n dgf %}
+
+<div id="metrix-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "Tournaments that ended today" %}</h2>
+
+    <div class="header">
+        <span class="hint">{% trans "Select a tournament or enter a metrix URL" %}</span>
+        {% if request.user_agent.is_mobile %}
+            <span class="error" id="invalid-metrix-tournament-url">{% trans "Entered Metrix URL is not valid" %}</span>
+        {% endif %}
+        <input type="url" id="metrix-tournament-url">
+        <button onclick="tournamentUrlEntered($('#metrix-tournament-url').val())">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
+    </div>
+
+    {% if not request.user_agent.is_mobile %}
+        <div class="header">
+            <span class="error" id="invalid-metrix-tournament-url">{% trans "Entered Metrix URL is not valid" %}</span>
+        </div>
+    {% endif %}
+
+    <div class="content">
+        {% tournaments_ending_today_with_metrix_id as tournaments %}
+        <ul id="current-tournaments">
+            {% for tournament in tournaments %}
+                <li class="tournament">
+                    <a onclick="tournamentSelected({{tournament.metrix_id}})">
+                        {{tournament.name}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>

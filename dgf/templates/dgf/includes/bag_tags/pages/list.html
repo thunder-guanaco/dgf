@@ -1,0 +1,46 @@
+{% load dgf i18n %}
+
+<div id="list-bag-tags" class="page">
+
+    <h2>{% trans "Bag Tags" %}</h2>
+
+    {% if request.user.is_authenticated %}
+
+        {% if request.user.friend.bag_tag %}
+
+            <div class="header">
+                <span class="hint">{% trans "You can either select a bag tag to claim it (and change it with its owner) or " %}</span>
+                <button onclick="showPage('#select-bag-tags')">{% trans "update multiple bag tags" %}</button>
+            </div>
+
+        {% else %}
+
+            {% include "dgf/includes/bag_tags/friend_without_bag_tag.html" %}
+
+        {% endif %}
+
+    {% endif %}
+
+    <div class="content">
+
+        {% for friend in friends %}
+
+            <div class="line">
+                {% include "dgf/includes/bag_tags/news.html" %}
+                {% include "dgf/includes/bag_tags/friend.html" with onclick=friend.bag_tag|calling:"claimBagTag" %}
+                {% include "dgf/includes/bag_tags/since.html" %}
+            </div>
+
+            {% if friend.since %}
+                {% include "dgf/includes/bag_tags/statistics.html" %}
+            {% endif %}
+
+        {% endfor %}
+
+        {% if request.user.is_superuser %}
+            {% include "dgf/includes/bag_tags/admin_zone.html" %}
+        {% endif %}
+
+    </div>
+
+</div>

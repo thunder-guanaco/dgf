@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<div id="edit-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "Sort the bag tags" %}</h2>
+
+    <div class="header">
+        <span class="hint">{% trans "Move the friends on the right and don't forget to save!" %}</span>
+        <button onclick="saveMultipleBagTags()">{% trans "Save" %}</button>
+        <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
+    </div>
+
+    <div class="error" id="multiple-bag-tag-error"></div>
+
+    <div class="content">
+        <div id="multiple-bag-tag-list"></div>
+    </div>
+
+    <div class="footer">
+        <button onclick="multipleBagTagsSave()">{% trans "Save" %}</button>
+        <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
+    </div>
+
+</div>

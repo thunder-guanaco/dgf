@@ -194,8 +194,8 @@ def all_results(tour):
 def players_count(tour):
     return dict(
         tour.tournaments.annotate(players_count=Max('results__position'))
-            .filter(players_count__isnull=False)
-            .values_list('id', 'players_count')
+                        .filter(players_count__isnull=False)
+                        .values_list('id', 'players_count')
     )
 
 
@@ -264,6 +264,11 @@ def to_set(iterable):
 @register.filter
 def days_since(date):
     return (timezone.now() - date).days
+
+
+@register.filter
+def calling(parameter, function_name):
+    return f'{function_name}({parameter})'
 
 
 def calculate_real_positions(results, get_points, set_position):

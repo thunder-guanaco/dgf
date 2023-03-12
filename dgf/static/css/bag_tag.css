@@ -12,17 +12,28 @@
         gap: 0.5rem !important;
     }
 
+    #bag-tags #select-bag-tags .line {
+        margin-left: 4em;
+    }
+
+    #multiple-bag-tag-numbers .number {
+        margin: 0 0.5em 0 0 !important;
+    }
+
     .header {
-        flex-direction: column !important;
-        align-items: flex-start !important;
+        margin-bottom: 1em;
+    }
+
+    .header input {
+        width: 90%;
+    }
+
+    .header .error {
+        margin: 0;
     }
 
     .header button {
         margin: 0 !important;
-    }
-
-    .header .hint {
-        margin-bottom: 1em;
     }
 
     .header > div {
@@ -41,6 +52,17 @@
     .news.neutral {
         text-align: center;
     }
+
+    #bag-tags .footer {
+        height: fit-content;
+        width: 100%;
+        padding-top: 2em;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5em;
+    }
 }
 
 /* desktop */
@@ -48,6 +70,10 @@
 
     #bag-tags .content .line {
         margin-left: 5em;
+    }
+
+    #bag-tags #select-bag-tags .line {
+        margin-left: 8em;
     }
 
     #edit-bag-tags {
@@ -58,19 +84,23 @@
         width: 1em;
         text-align: end;
     }
+
+    #bag-tags .footer {
+        display: none;
+    }
 }
 
 .header {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1em;
+    gap: 0.5em;
 }
 
 .header button {
     height: fit-content;
-    margin-left: 0.5em;
 }
 
 #bag-tags {
@@ -93,9 +123,23 @@
     padding: 0.5em 0;
 }
 
-#bag-tags .content .number {
+#list-bag-tags .number,
+#multiple-bag-tag-numbers .number {
     background-color: #8d1950;
     border: solid #8d1950 2px;
+}
+
+#select-bag-tags .number,
+#multiple-bag-tag-players .player .number {
+    background-color: #999999;
+    border: solid #999999 2px;
+}
+
+#list-bag-tags .number.clickable:hover,
+#select-bag-tags .number:hover,
+#select-bag-tags .number.selected {
+    background-color: #1b2633;
+    border-color: #1b2633;
 }
 
 .news {
@@ -147,7 +191,7 @@
 .number {
     font-weight: bold;
     font-size: 1.25em;
-    width: 30px;
+    min-width: 30px;
     line-height: 35px;
     text-align: center;
     color: white;
@@ -156,45 +200,13 @@
     margin: 0 1em;
 }
 
-#bag-tags .number.gray {
-    background-color: #999999;
-    border-color: #999999;
-}
-
-#bag-tags.multiple-mode .since {
-    display: none;
-}
-
-#bag-tags.multiple-mode .news,
-#bag-tags.multiple-mode .news-best {
-    visibility: hidden;
-}
-
-#bag-tags .number.selected {
-    background-color: #1b2633 !important;
-    border-color: #1b2633 !important;
-}
-
 #bag-tags .number.clickable, #bag-tags .player.clickable {
     cursor: pointer;
-}
-
-#bag-tags .number.clickable:hover {
-    background-color: #1b2633;
-    border: solid #1b2633 2px;
 }
 
 #bag-tags .number span {
     display: inline-block;
     vertical-align: middle;
-}
-
-#edit-bag-tags .number input {
-    text-align: center;
-    width: 40px;
-    padding: 0.25em;
-    border-radius: 5px;
-    border: solid #1b2633 2px;
 }
 
 .player {
@@ -240,20 +252,12 @@
     gap: 1rem 2rem;
 }
 
-#bag-tags .footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    margin-top: 2em;
-}
-
 #edit-bag-tags {
     display: flex;
     flex-direction: column;
 }
 
-#multiple-bag-tag-lists {
+#multiple-bag-tag-list{
     display: flex;
     flex-direction: row;
 }
@@ -318,7 +322,7 @@ button.new:hover {
     margin: 1em 1em 0em 1em;
 }
 
-#admin-bag-tags {
+#admin-zone {
     border: dotted black 3px;
     padding: 0em 1em 3em 1em;
     margin-top: 1em;
@@ -326,7 +330,7 @@ button.new:hover {
     flex-flow: column;
 }
 
-#admin-bag-tags #admin-buttons {
+#admin-zone .buttons {
     display: flex;
     flex-flow: column;
     gap: 0.5em;
@@ -361,15 +365,38 @@ button.new:hover {
     position: relative;
 }
 
-#bag-tags-metrix li {
+#metrix-bag-tags li {
     margin-left: 2em;
 }
 
-#bag-tags-metrix a {
+#metrix-bag-tags a {
     color: #8d1950 !important;
     cursor: pointer;
 }
 
-#multiple-bag-tag-players .player .score {
-    margin-left: 0.5em;
+#multiple-bag-tag-players .player {
+    width: 100%;
+}
+
+#multiple-bag-tag-players .player .info {
+    margin: 0 0.5em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#multiple-bag-tag-players .number {
+    margin: 0 0.5em 0 0;
+}
+
+#multiple-bag-tag-delete .delete {
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+input {
+    width: 15em;
+    text-align: center;
 }
