@@ -35,6 +35,7 @@
 
         {% compress js file base_js %}
 
+            {% include "includes/global_js_variables.html" %}
             {% include "includes/admin_js.html" %}
             <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/base.js' %}"></script>

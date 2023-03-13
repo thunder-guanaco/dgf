@@ -1,0 +1,7 @@
+<script>
+    {% if request.user_agent.is_mobile %}
+        const REQUEST_USER_AGENT_IS_MOBILE = true;
+    {% else %}
+        const REQUEST_USER_AGENT_IS_MOBILE = false;
+    {% endif %}
+</script>
