@@ -138,13 +138,13 @@ function loadOther() {
 }
 
 function hideParentElementsOnClick(selector) {
-    $(selector +  " input[name$='DELETE']").change(function() {
+    $(selector + " input[name$='DELETE']").change(function() {
         $(this).parent().addClass("hidden");
     });
 }
 
 function hideGrandParentElementsOnClick(selector) {
-    $(selector +  " input[name$='DELETE']").change(function() {
+    $(selector + " input[name$='DELETE']").change(function() {
         $(this).parent().parent().addClass("hidden");
     });
 }
