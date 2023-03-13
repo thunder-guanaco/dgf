@@ -1,4 +1,5 @@
 import logging
+import traceback
 
 from dgf.models import GitHubIssue
 
@@ -15,9 +16,13 @@ def handle(command, exception, friend=None):
     error_msg = f'{exception_name} while executing management command: {command_class_name}'
 
     exception_args_str = '\n'.join([f'* {arg}' for arg in exception.args])
+    traceback_str = '\n'.join(traceback.format_exception(exception))
 
     logger.exception(f'{friend_msg}: {error_msg}')
     GitHubIssue.objects.create(title=error_msg,
-                               body=f'# {exception_name}\n{exception_args_str}',
+                               body=f'# {exception_name}\n'
+                                    f'{exception_args_str}\n'
+                                    f'Traceback:\n'
+                                    f'```{traceback_str}```',
                                friend=friend,
                                type=GitHubIssue.MANAGEMENT_COMMAND_ERROR)

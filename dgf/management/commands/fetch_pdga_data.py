@@ -15,6 +15,8 @@ class Command(BaseCommand):
 
     def handle_friend(self, pdga_api, friend):
 
+        logger.info(f'Fetching PDGA data for {friend.username}...')
+
         try:
 
             pdga_api.update_friend_rating(friend)

@@ -18,8 +18,8 @@ class PdgaApiError(Exception):
     pass
 
 
-def raise_pdga_api_error(endpoint, field, response):
-    title = f'Missing field \'{field}\' while calling PDGA API endpoint: {endpoint}'
+def raise_pdga_api_error(endpoint, requested_id, missing_field, response):
+    title = f'Missing field \'{missing_field}\' while calling PDGA API endpoint: {endpoint}'
     body = f'API response:\n{nice_json_format(response)}'
     logger.error(title)
     logger.error(body)
@@ -140,7 +140,8 @@ class PdgaApi:
     def get_event(self, tournament_id):
         event = self.query_event(tournament_id=tournament_id)
         if 'events' not in event:
-            raise_pdga_api_error('event', 'events', event)
+            raise_pdga_api_error(endpoint='event', requested_id=tournament_id,
+                                 missing_field='events', response=event)
         return event['events'][0]
 
     def update_friend_rating(self, friend):
@@ -162,7 +163,8 @@ class PdgaApi:
             try:
                 players_statistics = statistics['players']
             except KeyError:
-                raise_pdga_api_error('player-statistics', 'players', statistics)
+                raise_pdga_api_error(endpoint='player-statistics', requested_id=friend.pdga_number,
+                                     missing_field='players', result=statistics)
                 return
 
             money_earned = 0
