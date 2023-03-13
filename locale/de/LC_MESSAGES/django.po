@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-12 22:31+0100\n"
+"POT-Creation-Date: 2023-03-13 22:26+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,7 +281,7 @@ msgid "Job"
 msgstr "Das mache ich beruflich"
 
 #: dgf/models.py:135
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:37
+#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:45
 msgid "Other hobbies"
 msgstr "Andere Hobbies"
 
@@ -393,7 +393,7 @@ msgstr "Bahn"
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:318 dgf/templates/dgf/friend_profile.html:90
+#: dgf/models.py:318 dgf/templates/dgf/friend_profile.html:83
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:5
 msgid "In the bag"
 msgstr "In the Bag"
@@ -488,69 +488,69 @@ msgstr "Erfolge/Statistiken der Disc Golf Friends"
 msgid "Profile"
 msgstr "Profil"
 
-#: dgf/templates/dgf/friend_profile.html:28
+#: dgf/templates/dgf/friend_profile.html:21
 msgid "Your profile"
 msgstr "Dein Profil"
 
-#: dgf/templates/dgf/friend_profile.html:40
-#: dgf/templates/dgf/friend_profile.html:51
+#: dgf/templates/dgf/friend_profile.html:33
+#: dgf/templates/dgf/friend_profile.html:44
 msgid "Clear"
 msgstr "Löschen"
 
-#: dgf/templates/dgf/friend_profile.html:66
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:43
+#: dgf/templates/dgf/friend_profile.html:59
+#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:51
 #: dgf/templates/dgf/includes/friend_list/22_friends_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_profile.html:78
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:53
+#: dgf/templates/dgf/friend_profile.html:71
+#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:61
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_profile.html:94
+#: dgf/templates/dgf/friend_profile.html:87
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:8
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_profile.html:97
+#: dgf/templates/dgf/friend_profile.html:90
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:9
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_profile.html:100
+#: dgf/templates/dgf/friend_profile.html:93
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:10
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:103
+#: dgf/templates/dgf/friend_profile.html:96
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:11
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:121
+#: dgf/templates/dgf/friend_profile.html:114
 #: dgf/templates/dgf/includes/friend_detail/20_friend_aces.html:5
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_profile.html:135
+#: dgf/templates/dgf/friend_profile.html:128
 msgid "Add ace"
 msgstr "Ass hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:139
+#: dgf/templates/dgf/friend_profile.html:132
 #: dgf/templates/dgf/includes/friend_detail/30_friend_videos.html:6
 msgid "Videos"
 msgstr "Videos"
 
-#: dgf/templates/dgf/friend_profile.html:153
+#: dgf/templates/dgf/friend_profile.html:146
 msgid "Add video"
 msgstr "Video hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:156
+#: dgf/templates/dgf/friend_profile.html:149
 msgid "Update"
 msgstr "Speichern"
 
@@ -644,7 +644,7 @@ msgstr "Speichern"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/edit.html:10
 #: dgf/templates/dgf/includes/bag_tags/pages/edit.html:21
-#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:11
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:14
 #: dgf_images/templates/dgf_images/generators/base.html:22
 msgid "Back"
 msgstr "Zurück"
@@ -674,14 +674,15 @@ msgid "Select a tournament or enter a metrix URL"
 msgstr "Wähle ein Turnier oder gib eine Metrix URL an"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:19
+msgid "Entered Metrix URL is not valid"
+msgstr "Die URL ist nicht gültig"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:13
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:9
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:32
 msgid "Continue"
 msgstr "Weiter"
-
-#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:15
-msgid "Entered Metrix URL is not valid"
-msgstr "Die URL ist nicht gültig"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:5
 msgid "Select bag tags"
@@ -699,7 +700,17 @@ msgstr "Aus Metrix wählen"
 msgid "You have to select at least 2 bag tags!"
 msgstr "Du musst mindestens 2 Bagtags wählen"
 
-#: dgf/templates/dgf/includes/bag_tags/since.html:6
+#: dgf/templates/dgf/includes/bag_tags/since.html:8
+msgid "Since today"
+msgstr "Seit heute"
+
+#: dgf/templates/dgf/includes/bag_tags/since.html:10
+#, python-format
+msgid "Since yesterday"
+msgid_plural "Since %(date)s (%(days)s days ago)"
+msgstr[0] "Seit gestern"
+msgstr[1] "Seit dem %(date)s (vor %(days)s Tagen)"
+
 #: dgf/templates/dgf/includes/bag_tags/statistics.html:8
 #, python-format
 msgid "Since %(date)s (%(days)s days)"
@@ -755,15 +766,11 @@ msgstr "aus"
 msgid "Plays disc golf since"
 msgstr "Spielt Disc Golf seit"
 
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:12
-msgid "Best score in Wischlingen (standard 23 - par 71)"
-msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
-
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:25
+#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:33
 msgid "Discovered disc golf..."
 msgstr "... und ist so zum Sport gekommen"
 
-#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:31
+#: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:39
 msgid "That's what I do when I'm not on the disc golf course"
 msgstr "Das mache ich, wenn ich nicht Disc Golf spiele"
 
@@ -829,11 +836,11 @@ msgstr "Medien"
 msgid "Our Videos"
 msgstr "Videos der Friends"
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:19
+#: dgf/templates/dgf/plugins/bag_tags_page.html:20
 msgid "Do you claim bag tag number "
 msgstr "Nimmst du Bagtag Nummer "
 
-#: dgf/templates/dgf/plugins/bag_tags_page.html:20
+#: dgf/templates/dgf/plugins/bag_tags_page.html:21
 msgid "You already have bag tag number "
 msgstr "Du hast bereits Bagtag Nummer "
 
@@ -894,11 +901,11 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:344 dgf_cms/settings.py:354
+#: dgf_cms/settings.py:348 dgf_cms/settings.py:358
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:345 dgf_cms/settings.py:361
+#: dgf_cms/settings.py:349 dgf_cms/settings.py:365
 msgid "English"
 msgstr "Englisch"
 
@@ -1433,3 +1440,6 @@ msgstr "Team anmelden"
 #: dgf_league/views.py:60
 msgid "You don't have a team and therefore you can not add results"
 msgstr "Du hast kein Team und deswegen dafst du keine Ergebnisse hinzufügen"
+
+#~ msgid "Best score in Wischlingen (standard 23 - par 71)"
+#~ msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"

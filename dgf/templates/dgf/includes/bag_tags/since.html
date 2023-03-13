@@ -3,7 +3,14 @@
 <div class="since" onclick="switchStatistics({{friend.bag_tag}})">
 
     {% if not request.user_agent.is_mobile and friend.since %}
-        {% blocktranslate with date=friend.since|date days=friend.since|days_since %}Since {{date}} ({{days}} days){% endblocktranslate %}
+        {% with friend.since|days_since as days %}
+            --{{days}}++
+            {% if days == 0 %}
+                {% trans "Since today" %}
+            {% else %}
+                {% blocktranslate with date=friend.since|date count days=days %}Since yesterday{% plural %}Since {{date}} ({{days}} days ago){% endblocktranslate %}
+            {% endif %}
+        {% endwith %}
     {% endif %}
 
     <span class="statistics-button closed"

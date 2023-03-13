@@ -99,7 +99,7 @@ class FriendAdmin(auth_admin.UserAdmin):
                 'city',
                 'main_photo',
                 'plays_since',
-                # 'best_score_in_wischlingen', TODO: #6282 
+                # 'best_score_in_wischlingen', TODO: #6282
                 'free_text',
                 'job',
                 'hobbies'
