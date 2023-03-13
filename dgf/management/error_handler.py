@@ -20,9 +20,7 @@ def handle(command, exception, friend=None):
 
     logger.exception(f'{friend_msg}: {error_msg}')
     GitHubIssue.objects.create(title=error_msg,
-                               body=f'# {exception_name}\n'
-                                    f'{exception_args_str}\n'
-                                    f'Traceback:\n'
-                                    f'```{traceback_str}```',
+                               body=f'# {exception_name}\n{exception_args_str}\n'
+                                    f'# Traceback\n```{traceback_str}```',
                                friend=friend,
                                type=GitHubIssue.MANAGEMENT_COMMAND_ERROR)
