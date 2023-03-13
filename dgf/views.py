@@ -40,7 +40,7 @@ class FriendUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
               'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'social_media_agreement',
-              'division', 'city', 'plays_since', 'best_score_in_wischlingen', 'free_text',
+              'division', 'city', 'plays_since', 'free_text',  # best_score_in_wischlingen TODO: #6282
               'job', 'hobbies']
     template_name_suffix = '_profile'
     formsets = [('favorite_courses', favorite_course_formset_factory),
