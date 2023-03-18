@@ -8,10 +8,7 @@
         <span class="hint">{% trans "Select the bag tags you want to update and then click on 'continue'." %}</span>
         <button onclick="goToEditMultipleBagTags()">{% trans "Continue" %}</button>
         <button class="negative" onclick="showPage('#list-bag-tags')">{% trans "Cancel" %}</button>
-        {% tournaments_ending_today_with_metrix_id as tournaments %}
-        {% if tournaments %}
-            <button class="new" onclick="showPage('#metrix-bag-tags')">{% trans "Select from Metrix" %}</button>
-        {% endif %}
+        <button class="new" onclick="showPage('#metrix-bag-tags')">{% trans "Select from Metrix" %}</button>
     </div>
 
     <span class="error" id="at-least-2-bag-tags-hint">{% trans "You have to select at least 2 bag tags!" %}</span>
