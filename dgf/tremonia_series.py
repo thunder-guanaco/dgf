@@ -94,21 +94,28 @@ def add_or_update_tournament(ts_tournament):
 def add_tours(tournament):
     divisions = tournament.results.filter(division__isnull=False).values_list('division', flat=True).distinct()
 
+    if not divisions:
+        logger.info(f'Skipping adding tours to {tournament.name} because it has no results (and no divisions)')
+        return
+
     # default tour containing all Tremonia Series
-    name = 'Ewige Tabelle'
-    for division in divisions:
-        default_tour, _ = Tour.objects.get_or_create(name=name,
-                                                     division=Division.objects.get(id=division),
-                                                     defaults={'evaluate_how_many': 10000})
-        tournament.tours.add(default_tour)
+    add_to_tour('Ewige Tabelle', tournament, divisions)
 
     # tournament year's tour
-    name = f'Tremonia Series {tournament.begin.year}'
+    add_to_tour(f'Tremonia Series {tournament.begin.year}', tournament, divisions, evaluate_how_many=7)
+
+
+def add_to_tour(name, tournament, divisions, evaluate_how_many=10000):
     for division in divisions:
-        years_tour, _ = Tour.objects.get_or_create(name=name,
+        tour, created = Tour.objects.get_or_create(name=name,
                                                    division=Division.objects.get(id=division),
-                                                   defaults={'evaluate_how_many': 6})
-        tournament.tours.add(years_tour)
+                                                   defaults={'evaluate_how_many': evaluate_how_many})
+
+        if created:
+            logger.info(f'Created Tour: {tour}')
+
+        tournament.tours.add(tour)
+        logger.info(f'Added {tournament} to {tour}')
 
 
 def create_or_update_tournament(metrix_id):
