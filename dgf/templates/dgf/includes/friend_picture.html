@@ -19,7 +19,7 @@ IMPORTANT NOTE:
 
 {% endcomment %}
 
-    {% if clickable %}
+    {% if clickable and friend.main_photo %}
         <a href="/media/{{friend.main_photo}}" target="_blank">
     {% endif %}
 
@@ -75,7 +75,7 @@ IMPORTANT NOTE:
         {% endif %}
     </div>
 
-    {% if clickable %}
+    {% if clickable and friend.main_photo %}
         </a>
     {% endif %}
 
