@@ -1,41 +1,69 @@
 {% load i18n dgf %}
 
-{% if friend.discs.count %}
+{% with friend.discs.all as all_discs %}
+
+{% if all_discs %}
     <div id="bag" class="big-field">
         <p class="label">{% trans "In the bag" %}</p>
+
+        {% with all_discs|filter_by_type:"P" as putters %}
+        {% with all_discs|filter_by_type:"M" as midranges %}
+        {% with all_discs|filter_by_type:"F" as fairway_drivers%}
+        {% with all_discs|filter_by_type:"D" as distance_drivers %}
+
         <div class="value">
             <div class="table-line">
-                <p>{% trans "Putters" %}</p>
-                <p>{% trans "Mid-ranges" %}</p>
-                <p>{% trans "Fairway drivers" %}</p>
-                <p>{% trans "Distance drivers" %}</p>
+                {% if putters %}
+                    <p>{% trans "Putters" %}</p>
+                {% endif %}
+                {% if midranges %}
+                    <p>{% trans "Mid-ranges" %}</p>
+                {% endif %}
+                {% if fairway_drivers %}
+                    <p>{% trans "Fairway drivers" %}</p>
+                {% endif %}
+                {% if distance_drivers %}
+                    <p>{% trans "Distance drivers" %}</p>
+                {% endif %}
             </div>
             <hr>
             <div class="table-line">
-                {% with friend.discs.all as all_discs %}
+                {% if putters %}
                     <div>
-                        {% for disc in all_discs|filter_by_type:"P" %}
+                        {% for disc in putters %}
                             <p>{{disc.in_the_bag}}</p>
                         {% endfor %}
                     </div>
+                {% endif %}
+                {% if midranges %}
                     <div>
-                        {% for disc in all_discs|filter_by_type:"M" %}
+                        {% for disc in midranges %}
                             <p>{{disc.in_the_bag}}</p>
                         {% endfor %}
                     </div>
+                {% endif %}
+                {% if fairway_drivers %}
                     <div>
-                        {% for disc in all_discs|filter_by_type:"F" %}
+                        {% for disc in fairway_drivers %}
                             <p>{{disc.in_the_bag}}</p>
                         {% endfor %}
                     </div>
+                {% endif %}
+                {% if distance_drivers %}
                     <div>
-                        {% for disc in all_discs|filter_by_type:"D" %}
+                        {% for disc in distance_drivers %}
                             <p>{{disc.in_the_bag}}</p>
                         {% endfor %}
                     </div>
-                {% endwith %}
+                {% endif %}
             </div>
         </div>
+
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+
         {% with friend.videos.all|filter_by_type:"B"|first as bag_video %}
             {% if bag_video %}
                 {% include "dgf/includes/youtube_video.html" with youtube_id=bag_video.url|youtube_id %}
@@ -43,3 +71,5 @@
         {% endwith %}
     </div>
 {% endif %}
+
+{% endwith %}
