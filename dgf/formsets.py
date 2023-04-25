@@ -30,7 +30,7 @@ def favorite_course_formset_factory():
 def highlight_formset_factory():
     return inlineformset_factory(
         Friend, Highlight, fields=('content',),
-        max_num=5, extra=5, validate_max=True
+        max_num=10, extra=10, validate_max=True
     )
 
 
