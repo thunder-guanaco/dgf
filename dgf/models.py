@@ -21,8 +21,6 @@ from dgf_cms.settings import PDGA_EVENT_URL, DISC_GOLF_METRIX_TOURNAMENT_PAGE, G
 
 logger = logging.getLogger(__name__)
 
-MAX_AMOUNT_OF_HIGHLIGHTS = 5
-
 
 class Division(Model):
     """
