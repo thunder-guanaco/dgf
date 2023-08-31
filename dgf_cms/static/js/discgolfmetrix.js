@@ -77,9 +77,11 @@ function loadSubcompetitionButtons(onlyFuture) {
 
 loadCss();
 fixIcons();
+/*
 if (typeof image !== "undefined") {
     loadBanner(image);
 }
+*/
 const onlyFuture = (typeof showOnlyFutureSubcompetitions !== "undefined") && showOnlyFutureSubcompetitions; // default: show all
 loadSubcompetitionButtons(onlyFuture);
 
