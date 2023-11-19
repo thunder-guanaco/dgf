@@ -112,11 +112,11 @@ read
 chmod 400  /etc/nginx/ssl/*
 cat << EOF > /etc/nginx/conf.d/disc-golf-friends.de.conf
 upstream dgf_cms_app_server {
-  # fail_timeout=0 means we always retry an upstream even if it failed
-  # to return a good HTTP response (in case the Unicorn master nukes a
-  # single worker for timing out).
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response (in case the Unicorn master nukes a
+    # single worker for timing out).
 
-  server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
+    server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
 }
 
 server {
@@ -137,15 +137,7 @@ server {
         return 301 https://discgolffriends.de\$request_uri;
     }
 
-    if (\$host = www.vps793990.ovh.net) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    if (\$host = vps793990.ovh.net) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
+    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de;
 
     listen [::]:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
@@ -232,17 +224,9 @@ server {
         return 301 https://discgolffriends.de\$request_uri;
     }
 
-    if (\$host = www.vps793990.ovh.net) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    if (\$host = vps793990.ovh.net) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de vps793990.ovh.net www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de www.vps793990.ovh.net;
+    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de;
     return 301 https://\$host\$request_uri;
 }
 
