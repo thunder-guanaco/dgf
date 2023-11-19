@@ -2,13 +2,22 @@
 # This script will be executed the first time we set up the local server
 
 working_dir=$(dirname $0)
-ROOT_INSTALLATION_PATH=${working_dir}/..
+ROOT_INSTALLATION_PATH=${working_dir}
 
 #####################
 ### UPDATE SYSTEM ###
 #####################
 
 sudo apt-get update
+
+#############
+### MYSQL ###
+#############
+
+sudo apt-get install mysql-server libmysqlclient-dev
+sudo mysql -e "CREATE USER 'dgf'@'localhost' IDENTIFIED BY 'dgf';"
+sudo mysql -e "CREATE DATABASE dgf_cms CHARACTER SET utf8;"
+sudo mysql -e "GRANT ALL PRIVILEGES ON dgf_cms.* TO 'dgf'@'localhost' WITH GRANT OPTION;"
 
 ##############
 ### PYTHON ###
@@ -41,15 +50,6 @@ pip install -r requirements.txt
 scp ubuntu@vps793990.ovh.net:secrets .
 source secrets
 
-#############
-### MYSQL ###
-#############
-
-sudo apt-get install mysql-server libmysqlclient-dev
-sudo mysql -e "CREATE USER 'dgf'@'localhost' IDENTIFIED BY 'dgf';"
-sudo mysql -e "CREATE DATABASE dgf_cms CHARACTER SET utf8;"
-sudo mysql -e "GRANT ALL PRIVILEGES ON dgf_cms.* TO 'dgf'@'localhost' WITH GRANT OPTION;"
-
 ##############
 ### DJANGO ###
 ##############
@@ -66,3 +66,5 @@ else
   python manage.py migrate.
 fi
 
+bash run.bash compilemessages
+bash run.bash runserver
