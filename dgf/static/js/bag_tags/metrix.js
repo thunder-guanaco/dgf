@@ -38,7 +38,8 @@ function parseTourResults(results) {
         var userId = result["UserID"];
         var username = metrixUserIdToFriend[userId];
         if (username) {
-            parsedResults[username] = result["Total"] || result["Sum"];
+            previousResult = parsedResults[username] || 0;
+            parsedResults[username] = (result["Total"] || result["Sum"]) + previousResult;
         }
     });
     return parsedResults;
