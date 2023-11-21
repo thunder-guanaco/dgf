@@ -8,7 +8,7 @@ from cms.plugin_pool import plugin_pool
 from django.db.models import Count, Q, Max, Min, Avg, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from . import tremonia_series
+from .disc_golf_metrix import tremonia_series
 from .models import Friend, UdiscRound, Tournament, BagTagChange
 from .plugin_models import FriendPluginModel, CoursePluginModel, TourPluginModel, \
     ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel, TremoniaSeriesHallOfFamePluginModel

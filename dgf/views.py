@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from dgf import tremonia_series
+from dgf.disc_golf_metrix import tremonia_series
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
