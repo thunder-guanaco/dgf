@@ -4,11 +4,11 @@ from datetime import date
 import responses
 from django.test import TestCase
 
-from dgf import tremonia_series
+from dgf.disc_golf_metrix import tremonia_series
 from dgf.models import Tournament, Friend, Attendance, Result, Tour, Division
 from dgf.test.models.creator import create_divisions
-from dgf.tremonia_series import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, TREMONIA_SERIES_ROOT_ID
-from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
+from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, DISC_GOLF_METRIX_COMPETITION_ENDPOINT
 
 
 class TremoniaSeriesTest(TestCase):

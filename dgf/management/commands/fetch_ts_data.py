@@ -2,7 +2,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-from dgf import tremonia_series
+from dgf.disc_golf_metrix import tremonia_series
 from dgf.management import error_handler
 
 logger = logging.getLogger(__name__)

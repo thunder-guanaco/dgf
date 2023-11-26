@@ -164,7 +164,6 @@ GT_RESULTS_PAGE = 'https://turniere.discgolf.de/index.php?p=events&sp=list-resul
 DISC_GOLF_METRIX_COMPETITION_ENDPOINT = 'https://discgolfmetrix.com/api.php?content=result&id={}'
 DISC_GOLF_METRIX_TOURNAMENT_PAGE = 'https://discgolfmetrix.com/{}'
 DISC_GOLF_METRIX_DATE_FORMAT = '%Y-%m-%d'
-TREMONIA_SERIES_ROOT_ID = '715021'
 
 ROOT_URLCONF = 'dgf_cms.urls'
 LOGIN_URL = 'login'
