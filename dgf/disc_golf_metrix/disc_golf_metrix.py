@@ -4,7 +4,7 @@ from datetime import datetime
 import requests
 
 from dgf import external_user_finder
-from dgf.models import Tournament, Result, Attendance, Tour, Division
+from dgf.models import Tournament, Attendance, Tour, Division, Result
 from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_METRIX_DATE_FORMAT
 
 logger = logging.getLogger(__name__)
@@ -48,14 +48,19 @@ def add_attendance(tournament, dgm_tournament):
             logger.info(f'Added attendance of {friend} to {tournament}\n')
 
 
-def add_results(tournament, dgm_tournament, divisions):
+def default_result_creator(dgm_result, division, friend, tournament):
+    return Result.objects.create(tournament=tournament,
+                                 friend=friend,
+                                 position=get_position(dgm_result),
+                                 division=division)
+
+
+def add_results(tournament, dgm_tournament, divisions, result_creator):
     for dgm_result in get_results(dgm_tournament):
         friend = external_user_finder.find_friend(dgm_result['UserID'], dgm_result['Name'])
         logger.info(f'Using Friend: {friend}')
-        result = Result.objects.create(tournament=tournament,
-                                       friend=friend,
-                                       position=get_position(dgm_result),
-                                       division=get_division(dgm_result, divisions))
+        division = get_division(dgm_result, divisions)
+        result = result_creator(dgm_result, division, friend, tournament)
         logger.info(f'Added result: {result}')
 
 
@@ -108,7 +113,7 @@ def add_to_tour(name, tournament, divisions, evaluate_how_many):
         logger.info(f'Added {tournament} to {tour}')
 
 
-def create_or_update_tournament(metrix_id, point_system, divisions, tour_generator):
+def create_or_update_tournament(metrix_id, point_system, divisions, tour_generator, result_creator):
     dgm_tournament = get_tournament(metrix_id)
     tournament = add_or_update_tournament(dgm_tournament, point_system)
 
@@ -118,18 +123,18 @@ def create_or_update_tournament(metrix_id, point_system, divisions, tour_generat
 
     # tournament was already played and does not have results
     elif tournament.results.count() == 0:
-        add_results(tournament, dgm_tournament, divisions)
+        add_results(tournament, dgm_tournament, divisions, result_creator)
         tournament.recalculate_points()
 
     add_tours(tournament, tour_generator)
 
 
-def update_tournaments(root_id, point_system, divisions, tour_generator):
+def update_tournaments(root_id, point_system, divisions, tour_generator, result_creator=default_result_creator):
     tournament = get_tournament(root_id)
     for event in tournament['Events']:
         if not event['Name'].startswith('[DELETED]'):
             logger.info('\n')
-            create_or_update_tournament(event['ID'], point_system, divisions, tour_generator)
+            create_or_update_tournament(event['ID'], point_system, divisions, tour_generator, result_creator)
             logger.info('--------------------------------------------------------------------------------')
 
 
