@@ -1,4 +1,5 @@
 import logging
+from abc import abstractmethod, ABC
 from datetime import datetime
 
 import requests
@@ -10,132 +11,149 @@ from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT, DISC_GOLF_ME
 logger = logging.getLogger(__name__)
 
 
-def get_tournament(id):
-    url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
-    logger.info(f'GET {url}')
-    return requests.get(url).json()['Competition']
+class DiscGolfMetrixImporter(ABC):
 
+    @property
+    @abstractmethod
+    def root_id(self):
+        ...
 
-def extract_name(dgm_tournament):
-    return dgm_tournament['Name'].split(' &rarr; ')[-1]
+    @property
+    @abstractmethod
+    def point_system(self):
+        ...
 
+    @property
+    @abstractmethod
+    def divisions(self):
+        ...
 
-def get_results(dgm_tournament):
-    try:
-        return dgm_tournament['TourResults']
-    except KeyError:
-        return dgm_tournament['SubCompetitions'][0]['Results']
+    @abstractmethod
+    def extract_name(self, dgm_tournament):
+        ...
 
+    @abstractmethod
+    def generate_tours(self, tournament):
+        ...
 
-def get_position(dgm_result):
-    try:
-        return dgm_result['Place']
-    except KeyError:
-        return dgm_result['OrderNumber']
+    def get_tournament(self, id):
+        url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
+        logger.info(f'GET {url}')
+        return requests.get(url).json()['Competition']
 
+    def get_results(self, dgm_tournament):
+        try:
+            return dgm_tournament['TourResults']
+        except KeyError:
+            return dgm_tournament['SubCompetitions'][0]['Results']
 
-def get_division(dgm_result, divisions):
-    dgm_class = dgm_result.get('ClassName') or 'Open'
-    return Division.objects.get(id=divisions[dgm_class])
+    def get_position(self, dgm_result):
+        try:
+            return dgm_result['Place']
+        except KeyError:
+            return dgm_result['OrderNumber']
 
+    def get_division(self, dgm_result):
+        dgm_class = dgm_result.get('ClassName') or 'Open'
+        return Division.objects.get(id=self.divisions[dgm_class])
 
-def add_attendance(tournament, dgm_tournament):
-    for dgm_result in get_results(dgm_tournament):
-        friend = external_user_finder.find_friend(dgm_result['UserID'], dgm_result['Name'])
-        logger.info(f'Using Friend: {friend}')
-        _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
-        if created:
-            logger.info(f'Added attendance of {friend} to {tournament}\n')
+    def add_attendance(self, tournament, dgm_tournament):
+        for dgm_result in self.get_results(dgm_tournament):
+            friend = external_user_finder.find_friend(dgm_result['UserID'], dgm_result['Name'])
+            logger.info(f'Using Friend: {friend}')
+            _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
+            if created:
+                logger.info(f'Added attendance of {friend} to {tournament}\n')
 
+    def create_result(self, dgm_result, division, friend, tournament):
+        return Result.objects.create(tournament=tournament,
+                                     friend=friend,
+                                     position=self.get_position(dgm_result),
+                                     division=division)
 
-def default_result_creator(dgm_result, division, friend, tournament):
-    return Result.objects.create(tournament=tournament,
-                                 friend=friend,
-                                 position=get_position(dgm_result),
-                                 division=division)
+    def add_results(self, tournament, dgm_tournament):
+        for dgm_result in self.get_results(dgm_tournament):
+            friend = external_user_finder.find_friend(dgm_result['UserID'], dgm_result['Name'])
+            logger.info(f'Using Friend: {friend}')
+            division = self.get_division(dgm_result)
+            result = self.create_result(dgm_result, division, friend, tournament)
+            logger.info(f'Added result: {result}')
 
+    def add_or_update_tournament(self, dgm_tournament):
+        name = self.extract_name(dgm_tournament)
+        date = datetime.strptime(dgm_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
+        dgm_id = dgm_tournament['ID']
 
-def add_results(tournament, dgm_tournament, divisions, result_creator):
-    for dgm_result in get_results(dgm_tournament):
-        friend = external_user_finder.find_friend(dgm_result['UserID'], dgm_result['Name'])
-        logger.info(f'Using Friend: {friend}')
-        division = get_division(dgm_result, divisions)
-        result = result_creator(dgm_result, division, friend, tournament)
-        logger.info(f'Added result: {result}')
-
-
-def add_or_update_tournament(dgm_tournament, point_system):
-    name = extract_name(dgm_tournament)
-    date = datetime.strptime(dgm_tournament['Date'], DISC_GOLF_METRIX_DATE_FORMAT)
-    dgm_id = dgm_tournament['ID']
-
-    tournament, created = Tournament.objects.get_or_create(metrix_id=dgm_id,
-                                                           defaults={
-                                                               'name': name,
-                                                               'begin': date,
-                                                               'end': date,
-                                                               'point_system': point_system,
-                                                           })
-
-    if created:
-        logger.info(f'Created tournament {tournament}\n')
-    else:
-        # Always update, the dates might have changed and the name changes after the tournament
-        tournament.name = name
-        tournament.begin = date
-        tournament.end = date
-        tournament.save()
-
-    return tournament
-
-
-def add_tours(tournament, tour_generator):
-    divisions = tournament.results.filter(division__isnull=False).values_list('division', flat=True).distinct()
-
-    if not divisions:
-        logger.info(f'Skipping adding tours to {tournament.name} because it has no results (and no divisions)')
-        return
-
-    for name, evaluate_how_many in tour_generator(tournament):
-        add_to_tour(name, tournament, divisions, evaluate_how_many)
-
-
-def add_to_tour(name, tournament, divisions, evaluate_how_many):
-    for division in divisions:
-        tour, created = Tour.objects.get_or_create(name=name,
-                                                   division=Division.objects.get(id=division),
-                                                   defaults={'evaluate_how_many': evaluate_how_many})
+        tournament, created = Tournament.objects.get_or_create(metrix_id=dgm_id,
+                                                               defaults={
+                                                                   'name': name,
+                                                                   'begin': date,
+                                                                   'end': date,
+                                                                   'point_system': self.point_system,
+                                                               })
 
         if created:
-            logger.info(f'Created Tour: {tour}')
+            logger.info(f'Created tournament {tournament}\n')
+        else:
+            # Always update, the dates might have changed and the name changes after the tournament
+            tournament.name = name
+            tournament.begin = date
+            tournament.end = date
+            tournament.save()
 
-        tournament.tours.add(tour)
-        logger.info(f'Added {tournament} to {tour}')
+        return tournament
 
+    def add_to_tour(self, name, tournament, divisions, evaluate_how_many):
+        for division in divisions:
+            tour, created = Tour.objects.get_or_create(name=name,
+                                                       division=Division.objects.get(id=division),
+                                                       defaults={'evaluate_how_many': evaluate_how_many})
 
-def create_or_update_tournament(metrix_id, point_system, divisions, tour_generator, result_creator):
-    dgm_tournament = get_tournament(metrix_id)
-    tournament = add_or_update_tournament(dgm_tournament, point_system)
+            if created:
+                logger.info(f'Created Tour: {tour}')
 
-    # tournament is either not played yet or still in play
-    if tournament.begin >= datetime.today():
-        add_attendance(tournament, dgm_tournament)
+            tournament.tours.add(tour)
+            logger.info(f'Added {tournament} to {tour}')
 
-    # tournament was already played and does not have results
-    elif tournament.results.count() == 0:
-        add_results(tournament, dgm_tournament, divisions, result_creator)
-        tournament.recalculate_points()
+    def add_tours(self, tournament):
+        divisions = tournament.results.filter(division__isnull=False).values_list('division', flat=True).distinct()
 
-    add_tours(tournament, tour_generator)
+        if not divisions:
+            logger.info(f'Skipping adding tours to {tournament.name} because it has no results (and no divisions)')
+            return
 
+        for name, evaluate_how_many in self.generate_tours(tournament):
+            self.add_to_tour(name, tournament, divisions, evaluate_how_many)
 
-def update_tournaments(root_id, point_system, divisions, tour_generator, result_creator=default_result_creator):
-    tournament = get_tournament(root_id)
-    for event in tournament['Events']:
-        if not event['Name'].startswith('[DELETED]'):
-            logger.info('\n')
-            create_or_update_tournament(event['ID'], point_system, divisions, tour_generator, result_creator)
-            logger.info('--------------------------------------------------------------------------------')
+    def create_or_update_tournament(self, metrix_id):
+
+        dgm_tournament = self.get_tournament(metrix_id)
+        tournament = self.add_or_update_tournament(dgm_tournament)
+
+        # tournament is either not played yet or still in play
+        if tournament.begin >= datetime.today():
+            self.add_attendance(tournament, dgm_tournament)
+
+        # tournament was already played and does not have results
+        elif tournament.results.count() == 0:
+            self.add_results(tournament, dgm_tournament)
+            tournament.recalculate_points()
+
+        self.add_tours(tournament)
+
+    def get_tournaments(self, dgm_tournament):
+        try:
+            return dgm_tournament['Events']
+        except KeyError:
+            return dgm_tournament['SubCompetitions']
+
+    def update_tournaments(self):
+        dgm_tournament = self.get_tournament(self.root_id)
+        for dgm_event in self.get_tournaments(dgm_tournament):
+            if not dgm_event['Name'].startswith('[DELETED]'):
+                logger.info('\n')
+                self.create_or_update_tournament(dgm_event['ID'])
+                logger.info('--------------------------------------------------------------------------------')
 
 
 def next_tournaments(name):
