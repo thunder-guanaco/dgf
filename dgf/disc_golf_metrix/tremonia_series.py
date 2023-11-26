@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 
 from dgf.disc_golf_metrix import disc_golf_metrix
 from dgf.models import Tournament

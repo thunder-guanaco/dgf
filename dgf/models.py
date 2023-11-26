@@ -365,7 +365,6 @@ class Tournament(Model):
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
     TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
-    TPL_POINTS = 'tpl_points'
     POINT_SYSTEM_CHOICES = (
         (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players')),
     )
