@@ -131,3 +131,9 @@ def update_tournaments(root_id, point_system, divisions, tour_generator):
             logger.info('\n')
             create_or_update_tournament(event['ID'], point_system, divisions, tour_generator)
             logger.info('--------------------------------------------------------------------------------')
+
+
+def next_tournaments(name):
+    return Tournament.objects.filter(name__startswith=name) \
+        .filter(begin__gte=datetime.today()) \
+        .order_by('begin')
