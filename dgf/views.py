@@ -14,7 +14,7 @@ from dgf.disc_golf_metrix import tremonia_series
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
-from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, TREMONIA_SERIES_ROOT_ID
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 
 class FriendListView(ListView):
@@ -248,7 +248,7 @@ def ts_next_tournament(request):
     if next_ts:
         url = next_ts.url
     else:
-        url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(TREMONIA_SERIES_ROOT_ID)
+        url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(tremonia_series.TREMONIA_SERIES_ROOT_ID)
 
     return redirect(url)
 

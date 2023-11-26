@@ -17,7 +17,7 @@ TS_DIVISIONS = {
 def generate_tours(tournament):
     return [
         # default tour containing all Tremonia Series
-        ('Ewige Tabelle', None),
+        ('Ewige Tabelle', 10000),
 
         # tournament year's tour (best 7 tournaments count towards year's leaderboard)
         (f'Tremonia Series {tournament.begin.year}', 7)

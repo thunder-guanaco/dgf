@@ -93,9 +93,9 @@ def add_tours(tournament, tour_generator):
 
     for name, evaluate_how_many in tour_generator(tournament):
         add_to_tour(name, tournament, divisions, evaluate_how_many)
-        
 
-def add_to_tour(name, tournament, divisions, evaluate_how_many=10000):
+
+def add_to_tour(name, tournament, divisions, evaluate_how_many):
     for division in divisions:
         tour, created = Tour.objects.get_or_create(name=name,
                                                    division=Division.objects.get(id=division),
