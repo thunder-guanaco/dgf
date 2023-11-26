@@ -263,7 +263,7 @@ def to_set(iterable):
 
 @register.filter
 def days_since(date):
-    return (timezone.now() - date).days
+    return (timezone.now().date() - date.date()).days
 
 
 @register.filter
