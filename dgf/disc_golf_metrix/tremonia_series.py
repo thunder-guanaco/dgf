@@ -1,30 +1,38 @@
 import logging
 
-from dgf.disc_golf_metrix import disc_golf_metrix
+from dgf.disc_golf_metrix.disc_golf_metrix import DiscGolfMetrixImporter
 from dgf.models import Tournament
 
 logger = logging.getLogger(__name__)
 
 TREMONIA_SERIES_ROOT_ID = '715021'
 
-TS_DIVISIONS = {
-    'Open': 'MPO',
-    'Amateur': 'MA4',
-}
 
+class TremoniaSeriesImporter(DiscGolfMetrixImporter):
 
-def generate_tours(tournament):
-    return [
-        # default tour containing all Tremonia Series
-        ('Ewige Tabelle', 10000),
+    @property
+    def root_id(self):
+        return TREMONIA_SERIES_ROOT_ID
 
-        # tournament year's tour (best 7 tournaments count towards year's leaderboard)
-        (f'Tremonia Series {tournament.begin.year}', 7)
-    ]
+    @property
+    def point_system(self):
+        return Tournament.TS_POINTS_WITH_BEATEN_PLAYERS
 
+    @property
+    def divisions(self):
+        return {
+            'Open': 'MPO',
+            'Amateur': 'MA4',
+        }
 
-def update_tournaments():
-    disc_golf_metrix.update_tournaments(TREMONIA_SERIES_ROOT_ID,
-                                        point_system=Tournament.TS_POINTS_WITH_BEATEN_PLAYERS,
-                                        divisions=TS_DIVISIONS,
-                                        tour_generator=generate_tours)
+    def extract_name(self, dgm_tournament):
+        return dgm_tournament['Name'].split(' &rarr; ')[-1]
+
+    def generate_tours(self, tournament):
+        return [
+            # default tour containing all Tremonia Series
+            ('Ewige Tabelle', 10000),
+
+            # tournament year's tour (best 7 tournaments count towards year's leaderboard)
+            (f'Tremonia Series {tournament.begin.year}', 7)
+        ]

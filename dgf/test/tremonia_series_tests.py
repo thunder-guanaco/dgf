@@ -4,10 +4,9 @@ from datetime import date
 import responses
 from django.test import TestCase
 
-from dgf.disc_golf_metrix import tremonia_series
+from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID, TremoniaSeriesImporter
 from dgf.models import Tournament, Friend, Attendance, Result, Tour, Division
 from dgf.test.models.creator import create_divisions
-from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, DISC_GOLF_METRIX_COMPETITION_ENDPOINT
 
 
@@ -24,7 +23,7 @@ class TremoniaSeriesTest(TestCase):
     def test_tournaments(self):
         self.add_three_tournaments()
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournaments = Tournament.objects.filter(name__startswith='Tremonia Series')
         self.assertEqual(tournaments.count(), 3)
@@ -39,7 +38,7 @@ class TremoniaSeriesTest(TestCase):
                                   end=date(year=1000, month=1, day=1))
         self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
@@ -55,7 +54,7 @@ class TremoniaSeriesTest(TestCase):
                                   end=date(year=1000, month=1, day=1))
         self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
@@ -71,7 +70,7 @@ class TremoniaSeriesTest(TestCase):
                                   end=date(year=1000, month=1, day=3))
         self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         self.assertEqual(tournament.name, 'Tremonia Series #28 (Putter)')
@@ -85,7 +84,7 @@ class TremoniaSeriesTest(TestCase):
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         results = [(result.friend.username, result.position, result.division.id) for result in
@@ -105,7 +104,7 @@ class TremoniaSeriesTest(TestCase):
                                                                       ('anna', 2, 'Amateur'),
                                                                       ('marcel', 3, 'Amateur')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         results = [(result.friend.username, result.position, result.division.id) for result in
@@ -125,7 +124,7 @@ class TremoniaSeriesTest(TestCase):
         Result.objects.create(friend=fede, tournament=tournament, position=1, division=Division.objects.get(id='MPO'))
         self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         self.assertEqual(tournament.results.all().count(), 2)  # no results were added
@@ -139,7 +138,7 @@ class TremoniaSeriesTest(TestCase):
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         results = [(result.friend.username, result.position, result.division.id, result.points) for result in
@@ -154,7 +153,7 @@ class TremoniaSeriesTest(TestCase):
                                 players=[('manolo', 1, ''), ('fede', 2, '')],
                                 other_format=True)
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         results = [(result.friend.username, result.position, result.division.id) for result in
@@ -167,7 +166,7 @@ class TremoniaSeriesTest(TestCase):
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
@@ -183,7 +182,7 @@ class TremoniaSeriesTest(TestCase):
                                   end=date(year=3000, month=1, day=1))
         self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
@@ -200,7 +199,7 @@ class TremoniaSeriesTest(TestCase):
         Attendance.objects.create(tournament=tournament, friend=manolo)
         self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         tournament = Tournament.objects.get(metrix_id=12345)
         attendance = set(tournament.attendance.all().values_list('friend__username', flat=True))
@@ -231,7 +230,7 @@ class TremoniaSeriesTest(TestCase):
 
         self.add_five_tournaments_for_tours(players=[('manolo', 1, ''), ('fede', 2, '')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4})
         self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3})
@@ -252,7 +251,7 @@ class TremoniaSeriesTest(TestCase):
                                   end=date(year=1000, month=2, day=2))
         self.add_five_tournaments_for_tours(players=[('manolo', 1, 'Open'), ('fede', 2, 'Amateur')])
 
-        tremonia_series.update_tournaments()
+        TremoniaSeriesImporter().update_tournaments()
 
         self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4})
         self.assert_tournament_in_tour('Ewige Tabelle', 'MA4', {1, 2, 3, 4})
