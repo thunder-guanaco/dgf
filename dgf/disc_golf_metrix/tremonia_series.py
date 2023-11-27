@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 
 from dgf.disc_golf_metrix import disc_golf_metrix
 from dgf.models import Tournament
@@ -29,9 +28,3 @@ def update_tournaments():
                                         point_system=Tournament.TS_POINTS_WITH_BEATEN_PLAYERS,
                                         divisions=TS_DIVISIONS,
                                         tour_generator=generate_tours)
-
-
-def next_tournaments():
-    return Tournament.objects.filter(name__startswith='Tremonia Series') \
-        .filter(begin__gte=datetime.today()) \
-        .order_by('begin')
