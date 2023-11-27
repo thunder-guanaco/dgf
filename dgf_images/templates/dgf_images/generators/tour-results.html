@@ -94,7 +94,7 @@
             <div id="tour-{{tour.id}}" class="tour">
                 <div class="tour-header">
                     <h1 class="tour-title">{{tour.name}} - {{tour.division.id}}</h1>
-                    <span class="last-changes">{% trans "Points after" %} {{last_tournament|ts_number}}</span>
+                    <span class="last-changes">{% trans "Points after" %} {{last_tournament|short_name}}</span>
                 </div>
                 {% with tour|parse_results as results %}
                     <table class="results-table">

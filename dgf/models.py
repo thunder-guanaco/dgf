@@ -132,7 +132,7 @@ class Friend(User):
     job = models.CharField(_('Job'), max_length=200, null=True, blank=True)
     hobbies = models.CharField(_('Other hobbies'), max_length=200, null=True, blank=True)
 
-    slug = models.SlugField(_('Slug'), max_length=30, null=True, blank=True)
+    slug = models.SlugField(_('Slug'), max_length=50, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[MaxValueValidator(2000)])
     bag_tag = models.PositiveIntegerField(_('Bag Tag'), null=True, blank=True, validators=[MaxValueValidator(500)])
 
@@ -365,8 +365,10 @@ class Tournament(Model):
     metrix_id = models.PositiveIntegerField(_('Disc Golf Metrix ID'), null=True, blank=True)
 
     TS_POINTS_WITH_BEATEN_PLAYERS = 'ts_points_with_beaten_players'
+    KEEP_POINTS_FROM_IMPORT = 'keep_points_from_import'
     POINT_SYSTEM_CHOICES = (
         (TS_POINTS_WITH_BEATEN_PLAYERS, _('Tremonia Series points + half beaten players')),
+        (KEEP_POINTS_FROM_IMPORT, _('Tremonia Putting Liga points (0-200): keep points from import')),
     )
     point_system = models.CharField(_('Point System'), null=True, blank=True,
                                     max_length=100, choices=POINT_SYSTEM_CHOICES)
@@ -465,7 +467,9 @@ class Result(Model):
             4 if 10 <= self.position % 100 < 20 else self.position % 10, "th")
 
     def __str__(self):
-        return f'{self.friend} was {self.ordinal_position} at {self.tournament} in the "{self.division}" division'
+        points = f'({self.points} points) ' if self.points else ''
+        return (f'{self.friend} was {self.ordinal_position} {points}'
+                f'at {self.tournament} in the "{self.division}" division')
 
 
 class Tour(Model):

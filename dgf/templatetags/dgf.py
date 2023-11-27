@@ -46,7 +46,7 @@ def favorite_discs(disc_type):
                .values('disc__display_name') \
                .annotate(count=Count('disc__display_name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
-               .values_list('disc__display_name', flat=True)
+        .values_list('disc__display_name', flat=True)
 
 
 @register.filter
@@ -167,17 +167,37 @@ def metrix_url(tournament):
 
 
 @register.filter
-def ts_number_mobile(tournament):
-    return ts_number(tournament, mobile=True)
+def short_name_mobile(tournament):
+    return short_name(tournament, mobile=True)
 
 
 @register.filter
-def ts_number(tournament, mobile=False):
+def short_name(tournament, mobile=False):
+    name = try_tremonia_series(tournament, mobile)
+    if name:
+        return name
+
+    name = try_tremonia_putting_liga(tournament, mobile)
+    if name:
+        return name
+
+    logger.warning(f'Tournament {tournament} has no fitting name '
+                   f'for a Tremonia Series or Tremonia Putting Liga tournament')
+    return tournament.name
+
+
+def try_tremonia_series(tournament, mobile):
     matches = re.findall(r'#\d+', tournament.name)
     if not matches:
-        logger.warning(f'Tournament {tournament} has no fitting name for a Tremonia Series tournament')
-        return ''
+        return None
     return f'{matches[0]}' if mobile else f'TS{matches[0]}'
+
+
+def try_tremonia_putting_liga(tournament, mobile):
+    matches = re.findall(r'\d+', tournament.name)
+    if not matches:
+        return None
+    return f'{matches[0]}' if mobile else f'{matches[0]}. Spieltag'
 
 
 @register.filter
@@ -186,7 +206,7 @@ def all_results(tour):
     for tournament in tour.tournaments.all():
         # This SUM contains actually JUST ONE element(the result of the Friend for the given Tournament)
         queryset = queryset.annotate(**{f'points_{tournament.id}': Sum('points', filter=Q(tournament=tournament))}) \
-                           .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
+            .annotate(**{f'position_{tournament.id}': Sum('position', filter=Q(tournament=tournament))})
     return queryset
 
 
@@ -194,8 +214,8 @@ def all_results(tour):
 def players_count(tour):
     return dict(
         tour.tournaments.annotate(players_count=Max('results__position'))
-                        .filter(players_count__isnull=False)
-                        .values_list('id', 'players_count')
+        .filter(players_count__isnull=False)
+        .values_list('id', 'players_count')
     )
 
 
