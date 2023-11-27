@@ -1,16 +1,17 @@
-import json
 from datetime import date
 
 import responses
 from django.test import TestCase
 
-from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID, TremoniaSeriesImporter
+from dgf.disc_golf_metrix.tremonia_series import TremoniaSeriesImporter
 from dgf.models import Tournament, Friend, Attendance, Result, Tour, Division
+from dgf.test.disc_golf_metrix.ts_responses import add_one_ts_tournament, add_five_ts_tournaments_for_tours, \
+    add_three_ts_tournaments
 from dgf.test.models.creator import create_divisions
-from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, DISC_GOLF_METRIX_COMPETITION_ENDPOINT
+from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
 
-class TremoniaSeriesTest(TestCase):
+class TremoniaSeriesImportTest(TestCase):
 
     def setUp(self):
         Tournament.objects.all().delete()
@@ -21,8 +22,7 @@ class TremoniaSeriesTest(TestCase):
 
     @responses.activate
     def test_tournaments(self):
-        self.add_three_tournaments()
-
+        add_three_ts_tournaments()
         TremoniaSeriesImporter().update_tournaments()
 
         tournaments = Tournament.objects.filter(name__startswith='Tremonia Series')
@@ -36,7 +36,7 @@ class TremoniaSeriesTest(TestCase):
                                   name='Tremonia Series #28',
                                   begin=date(year=1000, month=1, day=1),
                                   end=date(year=1000, month=1, day=1))
-        self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
+        add_one_ts_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -52,7 +52,7 @@ class TremoniaSeriesTest(TestCase):
                                   name='Tremonia Series #28',
                                   begin=date(year=1000, month=1, day=1),
                                   end=date(year=1000, month=1, day=1))
-        self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
+        add_one_ts_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -68,7 +68,7 @@ class TremoniaSeriesTest(TestCase):
                                   name='Tremonia Series #28',
                                   begin=date(year=1000, month=1, day=2),
                                   end=date(year=1000, month=1, day=3))
-        self.add_one_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
+        add_one_ts_tournament(12345, 'Tremonia Series #28 (Putter)', '1000-01-01')
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -82,7 +82,7 @@ class TremoniaSeriesTest(TestCase):
     def test_tournament_with_results(self):
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
-        self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
+        add_one_ts_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -97,12 +97,12 @@ class TremoniaSeriesTest(TestCase):
         Friend.objects.create(username='david', first_name='David', metrix_user_id='david')
         Friend.objects.create(username='chris', first_name='Chris', metrix_user_id='chris')
         Friend.objects.create(username='marcel', first_name='Marcel', metrix_user_id='marcel')
-        self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, 'Open'),
-                                                                      ('david', 2, 'Open'),
-                                                                      ('chris', 3, 'Open'),
-                                                                      ('jan', 1, 'Amateur'),
-                                                                      ('anna', 2, 'Amateur'),
-                                                                      ('marcel', 3, 'Amateur')])
+        add_one_ts_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, 'Open'),
+                                                                    ('david', 2, 'Open'),
+                                                                    ('chris', 3, 'Open'),
+                                                                    ('jan', 1, 'Amateur'),
+                                                                    ('anna', 2, 'Amateur'),
+                                                                    ('marcel', 3, 'Amateur')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -122,7 +122,7 @@ class TremoniaSeriesTest(TestCase):
         fede = Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         Result.objects.create(friend=manolo, tournament=tournament, position=2, division=Division.objects.get(id='MPO'))
         Result.objects.create(friend=fede, tournament=tournament, position=1, division=Division.objects.get(id='MPO'))
-        self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
+        add_one_ts_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -136,7 +136,7 @@ class TremoniaSeriesTest(TestCase):
     def test_tournament_with_results_and_points(self):
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
-        self.add_one_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
+        add_one_ts_tournament(12345, 'Test', '1000-01-01', players=[('manolo', 1, ''), ('fede', 2, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -149,9 +149,9 @@ class TremoniaSeriesTest(TestCase):
     def test_tournament_with_results_in_other_format(self):
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
-        self.add_one_tournament(12345, 'Test', '1000-01-01',
-                                players=[('manolo', 1, ''), ('fede', 2, '')],
-                                other_format=True)
+        add_one_ts_tournament(12345, 'Test', '1000-01-01',
+                              players=[('manolo', 1, ''), ('fede', 2, '')],
+                              other_format=True)
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -164,7 +164,7 @@ class TremoniaSeriesTest(TestCase):
     def test_tournament_with_attendance(self):
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
-        self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
+        add_one_ts_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -180,7 +180,7 @@ class TremoniaSeriesTest(TestCase):
                                   name='Test',
                                   begin=date(year=3000, month=1, day=1),
                                   end=date(year=3000, month=1, day=1))
-        self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
+        add_one_ts_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -197,7 +197,7 @@ class TremoniaSeriesTest(TestCase):
                                                begin=date(year=3000, month=1, day=1),
                                                end=date(year=3000, month=1, day=1))
         Attendance.objects.create(tournament=tournament, friend=manolo)
-        self.add_one_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
+        add_one_ts_tournament(12345, 'Test', '3000-01-01', players=[('manolo', None, ''), ('fede', None, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -228,7 +228,7 @@ class TremoniaSeriesTest(TestCase):
         ts1.tours.add(default_tour)
         ts1.tours.add(tour_1000)
 
-        self.add_five_tournaments_for_tours(players=[('manolo', 1, ''), ('fede', 2, '')])
+        add_five_ts_tournaments_for_tours(players=[('manolo', 1, ''), ('fede', 2, '')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -249,7 +249,7 @@ class TremoniaSeriesTest(TestCase):
                                   name='Tremonia Series #2',
                                   begin=date(year=1000, month=2, day=2),
                                   end=date(year=1000, month=2, day=2))
-        self.add_five_tournaments_for_tours(players=[('manolo', 1, 'Open'), ('fede', 2, 'Amateur')])
+        add_five_ts_tournaments_for_tours(players=[('manolo', 1, 'Open'), ('fede', 2, 'Amateur')])
 
         TremoniaSeriesImporter().update_tournaments()
 
@@ -265,144 +265,6 @@ class TremoniaSeriesTest(TestCase):
         tour = Tour.objects.get(name=name, division=division)
         tournaments = set(tour.tournaments.all().values_list('metrix_id', flat=True))
         self.assertEqual(tournaments, expected_metrix_ids)
-
-    def add_three_tournaments(self):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': TREMONIA_SERIES_ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': '1',
-                                          'Name': 'Tremonia Series #1 (Putter)'  # past tournament
-                                      },
-                                      {
-                                          'ID': '22',
-                                          'Name': '[DELETED] Tremonia Series #2'  # canceled
-                                      },
-                                      {
-                                          'ID': '2',
-                                          'Name': 'Tremonia Series #2 (Midrange)'  # second tournament again
-                                      },
-                                      {
-                                          'ID': '3',
-                                          'Name': 'Tremonia Series #3'  # future tournament
-                                      }
-                                  ]
-                              }
-                          }),
-                      status=200)
-
-        self.add_tournament(1, 'Tremonia Series #1 (Putter)', '1000-01-01')
-        self.add_tournament(2, 'Tremonia Series #2 (Midrange)', '2000-01-01')
-        self.add_tournament(3, 'Tremonia Series #3', '3000-01-01')
-
-    def add_five_tournaments_for_tours(self, players):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': TREMONIA_SERIES_ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': '1',
-                                          'Name': 'Tremonia Series #1'
-                                      },
-                                      {
-                                          'ID': '2',
-                                          'Name': 'Tremonia Series #2'
-                                      },
-                                      {
-                                          'ID': '3',
-                                          'Name': 'Tremonia Series #3'
-                                      },
-                                      {
-                                          'ID': '4',
-                                          'Name': 'Tremonia Series #4'
-                                      },
-                                      {
-                                          'ID': '5',
-                                          'Name': 'Tremonia Series #5'
-                                      }
-                                  ]
-                              }
-                          }),
-                      status=200)
-
-        self.add_tournament(1, 'Tremonia Series #1', '1000-01-01', players)
-        self.add_tournament(2, 'Tremonia Series #2', '1000-02-02', players)
-        self.add_tournament(3, 'Tremonia Series #3', '1000-03-03', players)
-        self.add_tournament(4, 'Tremonia Series #4', '2000-01-01', players)
-        self.add_tournament(5, 'Tremonia Series #5', '2000-02-02')
-
-    def add_one_tournament(self, id, name, date_as_str, players=None, other_format=False):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': TREMONIA_SERIES_ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': f'{id}',
-                                          'Name': name
-                                      },
-                                  ]
-                              }
-                          }),
-                      status=200)
-
-        if other_format:
-            self.add_tournament_with_other_format(id, name, date_as_str, players=players)
-        else:
-            self.add_tournament(id, name, date_as_str, players=players)
-
-    def add_tournament(self, id, name, date_as_str, players=None):
-        if not players:
-            players = []
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'ID': id,
-                                  'Name': f'Tremonia Series &rarr; {name}',
-                                  'Date': date_as_str,
-                                  'TourResults': [self.result(player, 'Place') for player in players]
-                              }
-                          }),
-                      status=200)
-
-    def add_tournament_with_other_format(self, id, name, date_as_str, players=None):
-        if not players:
-            players = []
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'ID': id,
-                                  'Name': f'Tremonia Series &rarr; {name}',
-                                  'Date': date_as_str,
-                                  'SubCompetitions':
-                                      [
-                                          {
-                                              'Results': [self.result(player, 'OrderNumber') for player in
-                                                          players]
-                                          }
-                                      ]
-                              }
-                          }),
-                      status=200)
-
-    def result(self, player, position_key):
-        return {
-            'UserID': player[0],
-            'Name': player[0],
-            position_key: player[1],
-            'ClassName': player[2],
-        }
 
     def assert_tournament(self, tournaments, id):
         tournament = tournaments.get(metrix_id=id)

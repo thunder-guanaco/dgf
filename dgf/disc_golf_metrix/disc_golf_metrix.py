@@ -1,4 +1,5 @@
 import logging
+import re
 from abc import abstractmethod, ABC
 from datetime import datetime
 
@@ -14,31 +15,31 @@ logger = logging.getLogger(__name__)
 class DiscGolfMetrixImporter(ABC):
 
     @property
-    def unwanted_tournaments_starts(self) -> list[str, ...]:
-        return ['[DELETED]']
+    def unwanted_tournaments_regex(self):
+        return r'^\[DELETED]'
 
     @property
     @abstractmethod
-    def root_id(self):
-        ...
+    def root_id(self):  # pragma: no cover
+        pass
 
     @property
     @abstractmethod
-    def point_system(self):
-        ...
+    def point_system(self):  # pragma: no cover
+        pass
 
     @property
     @abstractmethod
-    def divisions(self):
-        ...
+    def divisions(self):  # pragma: no cover
+        pass
 
     @abstractmethod
-    def extract_name(self, dgm_tournament):
-        ...
+    def extract_name(self, dgm_tournament):  # pragma: no cover
+        pass
 
     @abstractmethod
-    def generate_tours(self, tournament):
-        ...
+    def generate_tours(self, tournament):  # pragma: no cover
+        pass
 
     def get_tournament(self, id):
         url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
@@ -155,11 +156,12 @@ class DiscGolfMetrixImporter(ABC):
     def update_tournaments(self):
         dgm_tournament = self.get_tournament(self.root_id)
         for dgm_event in self.get_tournaments(dgm_tournament):
-            unwanted_name_starts = tuple(f'Tremonia Putting Liga &rarr; {start}'
-                                         for start in self.unwanted_tournaments_starts)
-            if not dgm_event['Name'].startswith(unwanted_name_starts):
+            matches = re.findall(self.unwanted_tournaments_regex, dgm_event['Name'])
+            if matches:
+                logger.info(f'Ignoring {dgm_event["Name"]}')
+            else:
                 self.create_or_update_tournament(dgm_event['ID'])
-                logger.info('--------------------------------------------------------------------------------')
+            logger.info('--------------------------------------------------------------------------------')
 
 
 def next_tournaments(name):

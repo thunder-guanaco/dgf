@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 TREMONIA_PUTTING_LIGA_ROOT_ID = '2766342'
 AMOUNT_OF_ROUNDS = 4
 SCORE_MULTIPLICATORS = [1, 2, 3, 4, 5] * AMOUNT_OF_ROUNDS
+WHATEVER = 999
 
 
 def get_tpl_points(dgm_result):
@@ -15,7 +16,7 @@ def get_tpl_points(dgm_result):
                      for round_results in dgm_result['AllPlayerResults']
                      for station_result in round_results]
 
-    scores = [putts * multiplicator
+    scores = [putts * multiplicator + (1 if putts == 3 else 0)
               for putts, multiplicator in zip(station_putts, SCORE_MULTIPLICATORS)]
 
     return sum(scores)
@@ -24,8 +25,8 @@ def get_tpl_points(dgm_result):
 class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
 
     @property
-    def unwanted_tournaments_starts(self) -> list[str, ...]:
-        return super().unwanted_tournaments_starts + ['Finale', 'Minispiele']
+    def unwanted_tournaments_regex(self):
+        return r'^Tremonia Putting Liga &rarr; (\[DELETED]|Finale|Minispiele)'
 
     @property
     def root_id(self):
@@ -51,7 +52,7 @@ class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
         ]
 
     def get_position(self, dgm_result):
-        return 1000  # in the end, it doesn't even matter: we only count points
+        return WHATEVER  # in the end, it doesn't even matter: we only count points
 
     def get_results(self, dgm_tournament):
         if not dgm_tournament['HasSubcompetitions']:
