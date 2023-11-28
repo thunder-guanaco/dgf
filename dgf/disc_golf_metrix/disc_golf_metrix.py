@@ -1,4 +1,5 @@
 import logging
+import re
 from abc import abstractmethod, ABC
 from datetime import datetime
 
@@ -14,27 +15,31 @@ logger = logging.getLogger(__name__)
 class DiscGolfMetrixImporter(ABC):
 
     @property
-    @abstractmethod
-    def root_id(self):
-        ...
+    def unwanted_tournaments_regex(self):
+        return r'^\[DELETED]'
 
     @property
     @abstractmethod
-    def point_system(self):
-        ...
+    def root_id(self):  # pragma: no cover
+        pass
 
     @property
     @abstractmethod
-    def divisions(self):
-        ...
+    def point_system(self):  # pragma: no cover
+        pass
+
+    @property
+    @abstractmethod
+    def divisions(self):  # pragma: no cover
+        pass
 
     @abstractmethod
-    def extract_name(self, dgm_tournament):
-        ...
+    def extract_name(self, dgm_tournament):  # pragma: no cover
+        pass
 
     @abstractmethod
-    def generate_tours(self, tournament):
-        ...
+    def generate_tours(self, tournament):  # pragma: no cover
+        pass
 
     def get_tournament(self, id):
         url = DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(id)
@@ -42,10 +47,7 @@ class DiscGolfMetrixImporter(ABC):
         return requests.get(url).json()['Competition']
 
     def get_results(self, dgm_tournament):
-        try:
-            return dgm_tournament['TourResults']
-        except KeyError:
-            return dgm_tournament['SubCompetitions'][0]['Results']
+        return dgm_tournament['TourResults']
 
     def get_position(self, dgm_result):
         try:
@@ -63,7 +65,7 @@ class DiscGolfMetrixImporter(ABC):
             logger.info(f'Using Friend: {friend}')
             _, created = Attendance.objects.get_or_create(friend=friend, tournament=tournament)
             if created:
-                logger.info(f'Added attendance of {friend} to {tournament}\n')
+                logger.info(f'Added attendance of {friend} to {tournament}')
 
     def create_result(self, dgm_result, division, friend, tournament):
         return Result.objects.create(tournament=tournament,
@@ -93,13 +95,15 @@ class DiscGolfMetrixImporter(ABC):
                                                                })
 
         if created:
-            logger.info(f'Created tournament {tournament}\n')
+            logger.info(f'Created tournament {tournament}')
         else:
+            logger.info(f'Found tournament {tournament}')
             # Always update, the dates might have changed and the name changes after the tournament
             tournament.name = name
             tournament.begin = date
             tournament.end = date
             tournament.save()
+            logger.info(f'Updated tournament {tournament}')
 
         return tournament
 
@@ -130,14 +134,16 @@ class DiscGolfMetrixImporter(ABC):
         dgm_tournament = self.get_tournament(metrix_id)
         tournament = self.add_or_update_tournament(dgm_tournament)
 
-        # tournament is either not played yet or still in play
         if tournament.begin >= datetime.today():
+            logger.info(f'{tournament.name} is either not played yet or still in play --> add attendance')
             self.add_attendance(tournament, dgm_tournament)
 
-        # tournament was already played and does not have results
         elif tournament.results.count() == 0:
+            logger.info(f'{tournament.name} was already played and does not have results --> add results')
             self.add_results(tournament, dgm_tournament)
             tournament.recalculate_points()
+        else:
+            logger.info(f'{tournament.name} was already played and has results --> do nothing')
 
         self.add_tours(tournament)
 
@@ -150,10 +156,12 @@ class DiscGolfMetrixImporter(ABC):
     def update_tournaments(self):
         dgm_tournament = self.get_tournament(self.root_id)
         for dgm_event in self.get_tournaments(dgm_tournament):
-            if not dgm_event['Name'].startswith('[DELETED]'):
-                logger.info('\n')
+            matches = re.findall(self.unwanted_tournaments_regex, dgm_event['Name'])
+            if matches:
+                logger.info(f'Ignoring {dgm_event["Name"]}')
+            else:
                 self.create_or_update_tournament(dgm_event['ID'])
-                logger.info('--------------------------------------------------------------------------------')
+            logger.info('--------------------------------------------------------------------------------')
 
 
 def next_tournaments(name):

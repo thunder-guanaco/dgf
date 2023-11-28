@@ -167,11 +167,20 @@ class GitHubIssueAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
-def is_current_tournament_tremonia_series(request):
+def get_tournament_from_request(request):
     search = re.search(r'/admin/dgf/tournament/(?P<id>\d+)/change/', request.get_full_path())
     tournament_id = search.group('id')
-    tournament = Tournament.objects.get(id=tournament_id)
+    return Tournament.objects.get(id=tournament_id)
+
+
+def is_tremonia_series(request):
+    tournament = get_tournament_from_request(request)
     return tournament.name.startswith('Tremonia Series #')
+
+
+def is_tremonia_putting_liga(request):
+    tournament = get_tournament_from_request(request)
+    return 'Spieltag Tremonia Putting Liga' in tournament.name
 
 
 class OnlyFriendsInFieldsInline(admin.TabularInline):
@@ -180,7 +189,7 @@ class OnlyFriendsInFieldsInline(admin.TabularInline):
         field_queryset = super().get_field_queryset(db, db_field, request)
 
         if db_field.name == 'friend':
-            if is_current_tournament_tremonia_series(request):
+            if is_tremonia_series(request) or is_tremonia_putting_liga(request):
                 field_queryset = field_queryset.order_by('first_name')
             else:
                 field_queryset = field_queryset.filter(is_active=True)
@@ -191,6 +200,12 @@ class OnlyFriendsInFieldsInline(admin.TabularInline):
 class ResultInline(OnlyFriendsInFieldsInline):
     model = Result
     ordering = ('-division', 'position')
+
+    def get_ordering(self, request):
+        if is_tremonia_putting_liga(request):
+            return '-division', '-points'
+        else:
+            return self.ordering
 
 
 class AttendanceInline(OnlyFriendsInFieldsInline):

@@ -77,9 +77,9 @@ function generateTable(friends) {
                 var headerWrapper = addElement(headerRow, "div", ["results-wrapper"]);
 
                 {% if tournament.url %}
-                    addElement(headerWrapper, "div", ["result"], "{{tournament|ts_number_mobile}}", "{{tournament.url}}", "_blank");
+                    addElement(headerWrapper, "div", ["result"], "{{tournament|short_name_mobile}}", "{{tournament.url}}", "_blank");
                 {% else %}
-                    addElement(headerWrapper, "div", ["result"], "{{tournament|ts_number_mobile}}");
+                    addElement(headerWrapper, "div", ["result"], "{{tournament|short_name_mobile}}");
                 {% endif %}
 
                 result = friend.results[{{tournament.id}}]

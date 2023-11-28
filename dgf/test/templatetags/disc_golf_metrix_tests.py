@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from dgf.templatetags.dgf import metrix_url, ts_number, ts_number_mobile
+from dgf.templatetags.dgf import metrix_url, short_name, short_name_mobile
 from dgf.test.models.creator import create_tournaments
 
 
@@ -18,38 +18,19 @@ class DiscGolfMetrixTemplatetagsTest(TestCase):
         tournament.save()
         self.assertEqual(metrix_url(tournament), '')
 
-    def test_ts_number(self):
-        tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Series #1'
-        tournament.save()
-        self.assertEqual(ts_number(tournament), 'TS#1')
+    def test_short_name(self):
+        self.assert_that(with_name='Tremonia Series #1', expect_short_name='TS#1')
+        self.assert_that(with_name='Tremonia Series #1 (Putter)', expect_short_name='TS#1')
+        self.assert_that(with_name='1. Spieltag Tremonia Putting Liga', expect_short_name='1. Spieltag')
+        self.assert_that(with_name='Tremonia Open 2020', expect_short_name='Tremonia Open 2020')
+        self.assert_that(with_name='Tremonia Series #1', expect_short_name='#1', mobile=True)
+        self.assert_that(with_name='Tremonia Series #1 (Putter)', expect_short_name='#1', mobile=True)
+        self.assert_that(with_name='1. Spieltag Tremonia Putting Liga', expect_short_name='1', mobile=True)
+        self.assert_that(with_name='Tremonia Open 2020', expect_short_name='Tremonia Open 2020', mobile=True)
 
-    def test_ts_number_with_text_after_number(self):
+    def assert_that(self, with_name, expect_short_name, mobile=False):
         tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Series #1 (Putter)'
+        tournament.name = with_name
         tournament.save()
-        self.assertEqual(ts_number(tournament), 'TS#1')
-
-    def test_ts_number_with_no_ts_tournament(self):
-        tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Open 2020'
-        tournament.save()
-        self.assertEqual(ts_number(tournament), '')
-
-    def test_ts_number_mobile(self):
-        tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Series #1'
-        tournament.save()
-        self.assertEqual(ts_number_mobile(tournament), '#1')
-
-    def test_ts_number_mobile_with_text_after_number(self):
-        tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Series #1 (Putter)'
-        tournament.save()
-        self.assertEqual(ts_number_mobile(tournament), '#1')
-
-    def test_ts_number_mobile_with_no_ts_tournament(self):
-        tournament = create_tournaments(1)
-        tournament.name = 'Tremonia Open 2020'
-        tournament.save()
-        self.assertEqual(ts_number_mobile(tournament), '')
+        short_name_result = short_name_mobile(tournament) if mobile else short_name(tournament)
+        self.assertEqual(short_name_result, expect_short_name)
