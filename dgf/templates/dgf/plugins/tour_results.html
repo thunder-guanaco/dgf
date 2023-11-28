@@ -76,9 +76,9 @@
                     {% for tournament in tournaments %}
                         <div class="results-wrapper tournament-tooltip">
                             {% if tournament.url %}
-                                <a href="{{tournament.url}}" target="_blank">{{tournament|ts_number}}</a>
+                                <a href="{{tournament.url}}" target="_blank">{{tournament|short_name}}</a>
                             {% else %}
-                                {{tournament|ts_number}}
+                                {{tournament|short_name}}
                             {% endif %}
                             <span class="tooltip-text">
                                 <span>{{tournament.name}}</span>

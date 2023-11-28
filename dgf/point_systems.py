@@ -24,6 +24,10 @@ def ts_points_with_beaten_players(result):
     return position_points + defeated_players_points
 
 
+def keep_points_from_import(result):
+    return result.points
+
+
 def calculate_points(result):
     point_system = result.tournament.point_system
     calculate_points_function = globals().get(point_system)
