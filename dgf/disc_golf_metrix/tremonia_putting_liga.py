@@ -5,7 +5,7 @@ from dgf.models import Tournament, Result
 
 logger = logging.getLogger(__name__)
 
-TREMONIA_PUTTING_LIGA_ROOT_ID = '2766342'
+ROOT_ID = '2766342'
 AMOUNT_OF_ROUNDS = 4
 SCORE_MULTIPLICATORS = [1, 2, 3, 4, 5] * AMOUNT_OF_ROUNDS
 WHATEVER = 999
@@ -30,7 +30,7 @@ class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
 
     @property
     def root_id(self):
-        return TREMONIA_PUTTING_LIGA_ROOT_ID
+        return ROOT_ID
 
     @property
     def point_system(self):
