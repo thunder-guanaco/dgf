@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 
 from dgf import views
-from dgf.disc_golf_metrix import disc_golf_metrix
-from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID
+from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series
 from dgf.models import Tournament
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
@@ -39,11 +38,11 @@ class DiscGolfMetrixTest(TestCase):
         self.create_tournament('Tremonia Series #1', YESTERDAY)
 
         self.assert_next_tournaments([])
-        self.assert_next_tournament_redirect(TREMONIA_SERIES_ROOT_ID)
+        self.assert_next_tournament_redirect(tremonia_series.ROOT_ID)
 
     def test_next_tournaments_no_tournaments_ever(self):
         self.assert_next_tournaments([])
-        self.assert_next_tournament_redirect(TREMONIA_SERIES_ROOT_ID)
+        self.assert_next_tournament_redirect(tremonia_series.ROOT_ID)
 
     def create_tournament(self, name, date):
         Tournament.objects.create(name=name, begin=date, end=date, metrix_id=name.split('#')[-1])

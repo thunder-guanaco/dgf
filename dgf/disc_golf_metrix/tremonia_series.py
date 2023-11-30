@@ -5,14 +5,14 @@ from dgf.models import Tournament
 
 logger = logging.getLogger(__name__)
 
-TREMONIA_SERIES_ROOT_ID = '715021'
+ROOT_ID = '715021'
 
 
 class TremoniaSeriesImporter(DiscGolfMetrixImporter):
 
     @property
     def root_id(self):
-        return TREMONIA_SERIES_ROOT_ID
+        return ROOT_ID
 
     @property
     def point_system(self):

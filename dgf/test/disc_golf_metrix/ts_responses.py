@@ -2,17 +2,17 @@ import json
 
 import responses
 
-from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID
+from dgf.disc_golf_metrix import tremonia_series
 from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT
 
 
 def add_three_ts_tournaments():
-    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
                   body=json.dumps(
                       {
                           'Competition': {
                               'Name': 'Tremonia Series',
-                              'ID': TREMONIA_SERIES_ROOT_ID,
+                              'ID': tremonia_series.ROOT_ID,
                               'Events': [
                                   {
                                       'ID': '1',
@@ -41,12 +41,12 @@ def add_three_ts_tournaments():
 
 
 def add_five_ts_tournaments_for_tours(players):
-    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
                   body=json.dumps(
                       {
                           'Competition': {
                               'Name': 'Tremonia Series',
-                              'ID': TREMONIA_SERIES_ROOT_ID,
+                              'ID': tremonia_series.ROOT_ID,
                               'Events': [
                                   {
                                       'ID': '1',
@@ -81,12 +81,12 @@ def add_five_ts_tournaments_for_tours(players):
 
 
 def add_one_ts_tournament(id, name, date_as_str, players=None, other_format=False):
-    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_SERIES_ROOT_ID),
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
                   body=json.dumps(
                       {
                           'Competition': {
                               'Name': 'Tremonia Series',
-                              'ID': TREMONIA_SERIES_ROOT_ID,
+                              'ID': tremonia_series.ROOT_ID,
                               'Events': [
                                   {
                                       'ID': f'{id}',

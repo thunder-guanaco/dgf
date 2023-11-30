@@ -2,17 +2,17 @@ import json
 
 import responses
 
-from dgf.disc_golf_metrix.tremonia_putting_liga import TREMONIA_PUTTING_LIGA_ROOT_ID
+from dgf.disc_golf_metrix import tremonia_putting_liga
 from dgf_cms.settings import DISC_GOLF_METRIX_COMPETITION_ENDPOINT
 
 
 def add_three_tpl_tournaments():
-    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_PUTTING_LIGA_ROOT_ID),
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_putting_liga.ROOT_ID),
                   body=json.dumps(
                       {
                           'Competition': {
                               'Name': 'Tremonia Putting Liga',
-                              'ID': TREMONIA_PUTTING_LIGA_ROOT_ID,
+                              'ID': tremonia_putting_liga.ROOT_ID,
                               'HasSubcompetitions': 1,
                               'SubCompetitions': [
                                   {
@@ -46,12 +46,12 @@ def add_three_tpl_tournaments():
 
 
 def add_one_tpl_tournament(id, name, date_as_str, players=None):
-    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(TREMONIA_PUTTING_LIGA_ROOT_ID),
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_putting_liga.ROOT_ID),
                   body=json.dumps(
                       {
                           'Competition': {
                               'Name': 'Tremonia Putting Liga',
-                              'ID': TREMONIA_PUTTING_LIGA_ROOT_ID,
+                              'ID': tremonia_putting_liga.ROOT_ID,
                               'HasSubcompetitions': 1,
                               'SubCompetitions': [
                                   {

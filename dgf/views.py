@@ -10,8 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from dgf.disc_golf_metrix import disc_golf_metrix
-from dgf.disc_golf_metrix.tremonia_series import TREMONIA_SERIES_ROOT_ID
+from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
@@ -254,7 +253,7 @@ def dgm_next_tournament(name, dgm_root_id):
 
 
 def ts_next_tournament(request):
-    return dgm_next_tournament('Tremonia Series', TREMONIA_SERIES_ROOT_ID)
+    return dgm_next_tournament('Tremonia Series', tremonia_series.ROOT_ID)
 
 
 def ts_future_dates(request):
