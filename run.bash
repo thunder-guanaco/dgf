@@ -2,7 +2,14 @@
 
 # VIRTUALENV + DEPENDENCIES
 . env/bin/activate
-pip install -r requirements.txt
+
+last_arg="${@: -1}"
+if [[ "${last_arg}" != "fast" ]]
+then
+  pip install -r requirements.txt
+else
+  echo ">>> fast mode, no requirements install"
+fi
 
 # SECRETS
 source secrets
@@ -26,7 +33,12 @@ case "$1" in
 esac
 
 # DATABASE
-python manage.py migrate
+if [[ "${last_arg}" != "fast" ]]
+then
+  python manage.py migrate
+else
+  echo ">>> fast mode, no migrations"
+fi
 
 # COMMAND
 case "$1" in
@@ -45,5 +57,11 @@ case "$1" in
     python manage.py compilemessages -l de
     ;;
   *)
-    python manage.py $1
+    if [[ "${last_arg}" != "fast" ]]
+    then
+      args=$@
+    else
+      args="${@:1:$(($#-1))}"
+    fi
+    python manage.py $args
 esac
