@@ -9,21 +9,12 @@ ROOT_ID = '715021'
 
 
 class TremoniaSeriesImporter(DiscGolfMetrixImporter):
-
-    @property
-    def root_id(self):
-        return ROOT_ID
-
-    @property
-    def point_system(self):
-        return Tournament.TS_POINTS_WITH_BEATEN_PLAYERS
-
-    @property
-    def divisions(self):
-        return {
-            'Open': 'MPO',
-            'Amateur': 'MA4',
-        }
+    root_id = ROOT_ID
+    point_system = Tournament.TS_POINTS_WITH_BEATEN_PLAYERS
+    divisions = {
+        'Open': 'MPO',
+        'Amateur': 'MA4',
+    }
 
     def extract_name(self, dgm_tournament):
         return dgm_tournament['Name'].split(' &rarr; ')[-1]

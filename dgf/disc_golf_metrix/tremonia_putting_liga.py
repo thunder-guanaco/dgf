@@ -11,36 +11,13 @@ SCORE_MULTIPLICATORS = [1, 2, 3, 4, 5] * AMOUNT_OF_ROUNDS
 WHATEVER = 999
 
 
-def get_tpl_points(dgm_result):
-    station_putts = [int(station_result['Result']) if 'Result' in station_result else 0
-                     for round_results in dgm_result['AllPlayerResults']
-                     for station_result in round_results]
-
-    scores = [putts * multiplicator + (1 if putts == 3 else 0)
-              for putts, multiplicator in zip(station_putts, SCORE_MULTIPLICATORS)]
-
-    return sum(scores)
-
-
 class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
-
-    @property
-    def unwanted_tournaments_regex(self):
-        return r'^Tremonia Putting Liga &rarr; (\[DELETED]|Finale|Minispiele)'
-
-    @property
-    def root_id(self):
-        return ROOT_ID
-
-    @property
-    def point_system(self):
-        return Tournament.KEEP_POINTS_FROM_IMPORT
-
-    @property
-    def divisions(self):
-        return {
-            'Open': 'MPO',
-        }
+    root_id = ROOT_ID
+    unwanted_tournaments_regex = r'^Tremonia Putting Liga &rarr; (\[DELETED]|Finale|Minispiele)'
+    point_system = Tournament.KEEP_POINTS_FROM_IMPORT
+    divisions = {
+        'Open': 'MPO',
+    }
 
     def extract_name(self, dgm_tournament):
         return ' '.join(reversed(dgm_tournament['Name'].split(' &rarr; ')))
@@ -76,5 +53,16 @@ class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
         return Result.objects.create(tournament=tournament,
                                      friend=friend,
                                      position=self.get_position(dgm_result),
-                                     points=get_tpl_points(dgm_result),
+                                     points=self.get_tpl_points(dgm_result),
                                      division=division)
+
+    def get_tpl_points(self, dgm_result):
+        station_putts = [int(station_result['Result']) if 'Result' in station_result else 0
+                         for round_results in dgm_result['AllPlayerResults']
+                         for station_result in round_results]
+
+        return self.calculate_round_score(station_putts)
+
+    def calculate_round_score(self, station_putts):
+        return sum([putts * multiplicator + (1 if putts == 3 else 0)
+                    for putts, multiplicator in zip(station_putts, SCORE_MULTIPLICATORS)])

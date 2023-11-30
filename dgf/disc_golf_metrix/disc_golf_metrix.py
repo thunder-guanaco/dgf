@@ -13,25 +13,12 @@ logger = logging.getLogger(__name__)
 
 
 class DiscGolfMetrixImporter(ABC):
-
-    @property
-    def unwanted_tournaments_regex(self):
-        return r'^\[DELETED]'
-
-    @property
-    @abstractmethod
-    def root_id(self):  # pragma: no cover
-        pass
-
-    @property
-    @abstractmethod
-    def point_system(self):  # pragma: no cover
-        pass
-
-    @property
-    @abstractmethod
-    def divisions(self):  # pragma: no cover
-        pass
+    root_id = None  # children classes must set this!!!
+    unwanted_tournaments_regex = r'^\[DELETED]'
+    point_system = None
+    divisions = {
+        'Open': 'MPO',
+    }
 
     @abstractmethod
     def extract_name(self, dgm_tournament):  # pragma: no cover
@@ -154,6 +141,9 @@ class DiscGolfMetrixImporter(ABC):
             return dgm_tournament['SubCompetitions']
 
     def update_tournaments(self):
+        if not self.root_id:
+            raise NotImplementedError("root_id must be defined!")
+
         dgm_tournament = self.get_tournament(self.root_id)
         for dgm_event in self.get_tournaments(dgm_tournament):
             matches = re.findall(self.unwanted_tournaments_regex, dgm_event['Name'])
