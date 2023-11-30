@@ -142,7 +142,7 @@ class DiscGolfMetrixImporter(ABC):
 
     def update_tournaments(self):
         if not self.root_id:
-            raise NotImplementedError("root_id must be defined!")
+            raise NotImplementedError('root_id must be defined!')
 
         dgm_tournament = self.get_tournament(self.root_id)
         for dgm_event in self.get_tournaments(dgm_tournament):

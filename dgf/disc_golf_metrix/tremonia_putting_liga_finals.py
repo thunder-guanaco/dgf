@@ -1,7 +1,6 @@
 import logging
 
 from dgf.disc_golf_metrix.tremonia_putting_liga import TremoniaPuttingLigaImporter
-from dgf.models import Tournament, Tour
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +9,7 @@ ROOT_ID = '2804918'
 
 class TremoniaPuttingLigaFinalsImporter(TremoniaPuttingLigaImporter):
     root_id = ROOT_ID
-    unwanted_tournaments_regex = r'^\[DELETED]'
+    unwanted_tournaments_regex = r'^Tremonia Putting Liga &rarr; Finale-Runden &rarr; (\[DELETED])'
 
     def extract_name(self, dgm_tournament):
         split_name = dgm_tournament['Name'].split(' &rarr; ')

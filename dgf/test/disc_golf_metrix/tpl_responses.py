@@ -40,9 +40,39 @@ def add_three_tpl_tournaments():
                       }),
                   status=200)
 
-    add_tpl_tournament(1, 'Tremonia Putting Liga &rarr; 1. Spieltag', '1000-01-01')
-    add_tpl_tournament(2, 'Tremonia Putting Liga &rarr; 2. Spieltag', '2000-01-01')
-    add_tpl_tournament(3, 'Tremonia Putting Liga &rarr; 3. Spieltag', '3000-01-01')
+    add_tpl_tournament(1, '1. Spieltag', '1000-01-01')
+    add_tpl_tournament(2, '2. Spieltag', '2000-01-01')
+    add_tpl_tournament(3, '3. Spieltag', '3000-01-01')
+
+
+def add_three_tpl_tournaments_for_tours(players):
+    responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_putting_liga.ROOT_ID),
+                  body=json.dumps(
+                      {
+                          'Competition': {
+                              'Name': 'Tremonia Putting Liga',
+                              'ID': tremonia_putting_liga.ROOT_ID,
+                              'Events': [
+                                  {
+                                      'ID': '1',
+                                      'Name': 'Tremonia Putting Liga &rarr; 1. Spieltag'
+                                  },
+                                  {
+                                      'ID': '2',
+                                      'Name': 'Tremonia Putting Liga &rarr; 2. Spieltag'
+                                  },
+                                  {
+                                      'ID': '3',
+                                      'Name': 'Tremonia Putting Liga &rarr; 3. Spieltag'
+                                  },
+                              ]
+                          }
+                      }),
+                  status=200)
+
+    add_tpl_tournament(1, '1. Spieltag', '1000-01-01', players)
+    add_tpl_tournament(2, '2. Spieltag', '1000-02-02', players)
+    add_tpl_tournament(3, '3. Spieltag', '1000-03-03')
 
 
 def add_one_tpl_tournament(id, name, date_as_str, players=None):
@@ -56,7 +86,7 @@ def add_one_tpl_tournament(id, name, date_as_str, players=None):
                               'SubCompetitions': [
                                   {
                                       'ID': f'{id}',
-                                      'Name': name
+                                      'Name': f'Tremonia Putting Liga &rarr; {name}'
                                   },
                               ]
                           }
@@ -73,7 +103,7 @@ def add_tpl_tournament(id, name, date_as_str, players=None):
     competition = {
         'Competition': {
             'ID': id,
-            'Name': name,
+            'Name': f'Tremonia Putting Liga &rarr; {name}',
             'Date': date_as_str,
             'HasSubcompetitions': 1 if players else 0,
         }
@@ -82,7 +112,7 @@ def add_tpl_tournament(id, name, date_as_str, players=None):
     if players:
         competition['Competition']['SubCompetitions'] = [
             {
-                'Name': f'{name} &rarr; {round_number}. Runde',
+                'Name': f'Tremonia Putting Liga &rarr; {name} &rarr; {round_number}. Runde',
                 'Results': [tpl_result(player, round_number) for player in players]
             }
             for round_number in [1, 2, 3, 4]

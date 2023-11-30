@@ -22,7 +22,7 @@ def set_positions_from_finals():
             result = tournament.results.get(friend=final_result.friend)
             result.position = final_position
             result.save()
-            logger.info('\n')
+        logger.info('')
 
 
 class Command(BaseCommand):
