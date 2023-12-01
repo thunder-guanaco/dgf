@@ -209,6 +209,20 @@ class TremoniaSeriesImportTest(TestCase):
     def test_add_automatic_tours(self):
         Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
         Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
+
+        add_five_ts_tournaments_for_tours(players=[('manolo', 1, ''), ('fede', 2, '')])
+
+        TremoniaSeriesImporter().update_tournaments()
+
+        self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4}, expected_evaluate_how_many=10000)
+        self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3}, expected_evaluate_how_many=7)
+        self.assert_tournament_in_tour('Tremonia Series 2000', 'MPO', {4}, expected_evaluate_how_many=7)
+        # tournament 5 doesn't have any results and therefore there are no divisions, and it won't be added
+
+    @responses.activate
+    def test_add_automatic_tours_with_existing_tours(self):
+        Friend.objects.create(username='manolo', first_name='Manolo', metrix_user_id='manolo')
+        Friend.objects.create(username='fede', first_name='Federico', metrix_user_id='fede')
         mpo, _ = Division.objects.get_or_create(id='MPO')
         default_tour = Tour.objects.create(name='Ewige Tabelle',
                                            division=mpo,
@@ -232,9 +246,9 @@ class TremoniaSeriesImportTest(TestCase):
 
         TremoniaSeriesImporter().update_tournaments()
 
-        self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4})
-        self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3})
-        self.assert_tournament_in_tour('Tremonia Series 2000', 'MPO', {4})
+        self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4}, expected_evaluate_how_many=10000)
+        self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3}, expected_evaluate_how_many=7)
+        self.assert_tournament_in_tour('Tremonia Series 2000', 'MPO', {4}, expected_evaluate_how_many=7)
         # tournament 5 doesn't have any results and therefore there are no divisions, and it won't be added
 
     @responses.activate
@@ -255,16 +269,17 @@ class TremoniaSeriesImportTest(TestCase):
 
         self.assert_tournament_in_tour('Ewige Tabelle', 'MPO', {1, 2, 3, 4})
         self.assert_tournament_in_tour('Ewige Tabelle', 'MA4', {1, 2, 3, 4})
-        self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3})
-        self.assert_tournament_in_tour('Tremonia Series 1000', 'MA4', {1, 2, 3})
-        self.assert_tournament_in_tour('Tremonia Series 2000', 'MPO', {4})
-        self.assert_tournament_in_tour('Tremonia Series 2000', 'MA4', {4})
+        self.assert_tournament_in_tour('Tremonia Series 1000', 'MPO', {1, 2, 3}, expected_evaluate_how_many=7)
+        self.assert_tournament_in_tour('Tremonia Series 1000', 'MA4', {1, 2, 3}, expected_evaluate_how_many=7)
+        self.assert_tournament_in_tour('Tremonia Series 2000', 'MPO', {4}, expected_evaluate_how_many=7)
+        self.assert_tournament_in_tour('Tremonia Series 2000', 'MA4', {4}, expected_evaluate_how_many=7)
         # tournament 5 doesn't have any results and therefore there are no divisions, and it won't be added
 
-    def assert_tournament_in_tour(self, name, division, expected_metrix_ids):
+    def assert_tournament_in_tour(self, name, division, expected_metrix_ids, expected_evaluate_how_many=10000):
         tour = Tour.objects.get(name=name, division=division)
         tournaments = set(tour.tournaments.all().values_list('metrix_id', flat=True))
         self.assertEqual(tournaments, expected_metrix_ids)
+        self.assertEqual(tour.evaluate_how_many, expected_evaluate_how_many)
 
     def assert_tournament(self, tournaments, id):
         tournament = tournaments.get(metrix_id=id)
