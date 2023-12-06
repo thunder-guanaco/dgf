@@ -130,6 +130,7 @@
 }
 
 #select-bag-tags .number,
+#todays-bag-tags .number,
 #multiple-bag-tag-players .player .number {
     background-color: #999999;
     border: solid #999999 2px;
@@ -137,7 +138,9 @@
 
 #list-bag-tags .number.clickable:hover,
 #select-bag-tags .number:hover,
-#select-bag-tags .number.selected {
+#select-bag-tags .number.selected,
+#todays-bag-tags .number:hover,
+#todays-bag-tags .number.selected {
     background-color: #1b2633;
     border-color: #1b2633;
 }

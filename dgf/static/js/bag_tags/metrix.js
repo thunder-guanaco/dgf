@@ -86,7 +86,7 @@ function handleMetrixResponse(response) {
         $("#select-bag-tags .content .number[data-username='" + username + "']").addClass("selected");
     });
 
-    goToEditMultipleBagTags();
+    goToSelectTodaysBagTags();
 }
 
 function getOrder(li) {

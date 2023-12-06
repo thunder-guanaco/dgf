@@ -1,17 +1,19 @@
 function selectBagTag(bagTag) {
+    console.log(`Selected bag tag ${bagTag}`)
     $("#select-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
+    $("#todays-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
 }
 
 function goToEditMultipleBagTags() {
 
     amountOfSelectedBagTags = $("#select-bag-tags .content .number.selected").length;
     if (amountOfSelectedBagTags < 2) {
-        $("#at-least-2-bag-tags-hint").show();
+        $(".at-least-2-bag-tags-hint").show();
         scrollUp();
         return;
     }
     else {
-        $("#at-least-2-bag-tags-hint").hide();
+        $(".at-least-2-bag-tags-hint").hide();
     }
 
     $("#multiple-bag-tag-error").empty();

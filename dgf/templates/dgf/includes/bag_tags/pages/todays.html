@@ -1,0 +1,26 @@
+{% load dgf i18n %}
+
+<div id="todays-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "Select bag tags" %}</h2>
+
+    <div class="header">
+        <span class="hint">{% trans "Select the bag tags you have collected today and click on 'continue'." %}</span>
+        <button onclick="goToEditMultipleBagTags()">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#metrix-bag-tags')">{% trans "Cancel" %}</button>
+    </div>
+
+    <span class="error at-least-2-bag-tags-hint">{% trans "You have to select at least 2 bag tags!" %}</span>
+
+    <div class="content">
+
+        <div id="todays-bag-tag-list"></div>
+
+    </div>
+
+    <div class="footer">
+        <button onclick="goToEditMultipleBagTags()">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#metrix-bag-tags')">{% trans "Cancel" %}</button>
+    </div>
+
+</div>
