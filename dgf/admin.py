@@ -345,6 +345,7 @@ class ManagementCommandExecutionAdmin(admin.ModelAdmin):
                     'timestamp',
                     'duration',
                     'actor',
+                    'exception'
                 )}
              ),
         ) if obj else (
@@ -356,16 +357,19 @@ class ManagementCommandExecutionAdmin(admin.ModelAdmin):
         )
 
     def get_readonly_fields(self, request, obj=None):
-        return ('command', 'timestamp', 'duration', 'actor') if obj else ()
+        return ('command', 'timestamp', 'duration', 'actor', 'exception') if obj else ()
 
     ordering = ('-timestamp',)
-    list_display = ('command', 'timestamp', 'duration', 'actor',)
+    list_display = ('command', 'timestamp', 'duration', 'actor', 'exception')
     list_display_links = ('command',)
     search_fields = ('command', 'actor__nickname', 'actor__first_name', 'actor__last_name')
 
     def save_model(self, request, obj, form, change):
         start = time.time()
-        management.call_command(obj.command)
+        try:
+            management.call_command(obj.command, '--let-exceptions-raise')
+        except Exception as exception:
+            obj.exception = repr(exception)
         end = time.time()
 
         obj.actor = request.user.friend

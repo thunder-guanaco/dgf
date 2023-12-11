@@ -3,15 +3,14 @@ import logging
 
 import requests
 from django.conf import settings
-from django.core.management.base import BaseCommand
 
-from dgf.management import error_handler
+from dgf.management.base_dgf_command import BaseDgfCommand
 from dgf.models import Disc
 
 logger = logging.getLogger(__name__)
 
 
-class Command(BaseCommand):
+class Command(BaseDgfCommand):
     help = 'Updates new PDGA approved discs'
 
     def download_approved_discs(self):
@@ -30,16 +29,10 @@ class Command(BaseCommand):
                 amount += 1
         return amount
 
-    def handle(self, *args, **options):
+    def run(self, *args, **options):
 
-        try:
-            logger.info('Updating new PDGA approved discs...')
+        csv_list = self.download_approved_discs()
+        logger.info('Downloaded all approved discs from the PDGA')
 
-            csv_list = self.download_approved_discs()
-            logger.info('Downloaded all approved discs from the PDGA')
-
-            amount = self.update_discs(csv_list)
-            logger.info(f'{amount} discs have been updated')
-
-        except Exception as e:
-            error_handler.handle(self, e)
+        amount = self.update_discs(csv_list)
+        logger.info(f'{amount} discs have been updated')

@@ -541,6 +541,7 @@ class ManagementCommandExecution(Model):
                               verbose_name=_('Actor'))
     timestamp = models.DateTimeField(auto_now=True, null=False, blank=False)
     duration = models.PositiveIntegerField(_('Duration (in seconds)'), null=False, blank=False)
+    exception = models.CharField(_('Exception'), max_length=500, null=True)
 
     def __str__(self):
         return f'{self.actor} ran "{self.command}" on {self.timestamp} (it took {self.duration} seconds'
