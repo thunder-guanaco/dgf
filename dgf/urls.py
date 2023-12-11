@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import FriendListView, FriendUpdateView, FeedbackCreateView, VideoListView, TournamentListView, \
     bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance
+    tournament_attendance, tpl_next_tournament
 
 app_name = 'dgf'
 urlpatterns = [
@@ -20,8 +20,10 @@ urlpatterns = [
     path('bag-tags/new', bag_tag_new, name='bag_tag_new'),
     path('bag-tags/', bag_tag_update, name='bag_tag_update'),
     path('tremonia-series/next-tournament', ts_next_tournament, name='tremonia_series_next_tournament'),
+    path('tremonia-putting-liga/next-tournament', tpl_next_tournament, name='tremonia_putting_liga_next_tournament'),
 
     # INCLUDES
+    # used here: https://discgolfmetrix.com/715021
     path('tremonia-series/future-dates', ts_future_dates, name='tremonia_series_future_dates'),
 
     # FRIEND PAGE (must be at the end)

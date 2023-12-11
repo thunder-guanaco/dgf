@@ -8,7 +8,7 @@ from cms.plugin_pool import plugin_pool
 from django.db.models import Count, Q, Max, Min, Avg, OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from .disc_golf_metrix import disc_golf_metrix
+from .disc_golf_metrix import tremonia_series as ts
 from .models import Friend, UdiscRound, Tournament, BagTagChange
 from .plugin_models import FriendPluginModel, CoursePluginModel, TourPluginModel, \
     ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel, TremoniaSeriesHallOfFamePluginModel
@@ -176,11 +176,11 @@ class TremoniaSeriesNextTournamentsPluginPublisher(CMSPluginBase):
     model = CMSPlugin
     module = _('Tremonia Series')
     name = _('Next Tournaments')
-    render_template = 'dgf/plugins/tremonia_series_next_tournaments.html'
+    render_template = 'dgf/plugins/next_tournaments.html'
 
     def render(self, context, instance, placeholder):
         context.update({
-            'tournaments': disc_golf_metrix.next_tournaments('Tremonia Series'),
+            'tournaments': ts.next_tournaments(),
         })
         return context
 
@@ -240,7 +240,6 @@ class ConcreteTournamentResultsPluginPublisher(CMSPluginBase):
     render_template = 'dgf/plugins/social_media/concrete_tournament_results.html'
 
     def render(self, context, instance, placeholder):
-
         if not instance.tournament:
             instance.tournament = Tournament.objects \
                 .filter(end__lte=datetime.today()) \

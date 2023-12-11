@@ -1,5 +1,8 @@
 import logging
 
+from django.db.models import Q
+
+from dgf.disc_golf_metrix import disc_golf_metrix
 from dgf.disc_golf_metrix.disc_golf_metrix import DiscGolfMetrixImporter
 from dgf.models import Tournament, Result
 
@@ -66,3 +69,10 @@ class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
     def calculate_round_score(self, station_putts):
         return sum([putts * multiplicator + (1 if putts == 3 else 0)
                     for putts, multiplicator in zip(station_putts, SCORE_MULTIPLICATORS)])
+
+
+FILTER = Q(name__endswith='Spieltag Tremonia Putting Liga')
+
+
+def next_tournaments():
+    return disc_golf_metrix.next_tournaments(FILTER)
