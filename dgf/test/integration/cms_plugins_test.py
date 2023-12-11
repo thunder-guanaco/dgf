@@ -8,9 +8,10 @@ from parameterized import parameterized
 from ..models.creator import create_friends, create_courses
 from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher, SmallerFriendPluginPublisher, \
     BiggerFriendPluginPublisher, UdiscPluginPublisher, GoogleCalendarPluginPublisher, \
-    TremoniaSeriesNextTournamentsPluginPublisher, TremoniaSeriesHallOfFameSmallPluginPublisher, \
-    TremoniaSeriesHallOfFameWholePagePluginPublisher
+    TremoniaSeriesNextTournamentsPluginPublisher, HallOfFameSmallPluginPublisher, \
+    HallOfFameWholePagePluginPublisher
 from ...models import UdiscRound, Tournament, Result, Division
+from ...plugin_models import HallOfFameType
 
 PAST_DAY = date(year=2000, month=1, day=1)
 FUTURE_DAY = date(year=3000, month=1, day=1)
@@ -71,8 +72,8 @@ class CmsPluginsTests(TestCase):
         self.render_plugin(GoogleCalendarPluginPublisher)
 
     @parameterized.expand([
-        (TremoniaSeriesHallOfFameSmallPluginPublisher,),
-        (TremoniaSeriesHallOfFameWholePagePluginPublisher,),
+        (HallOfFameSmallPluginPublisher,),
+        (HallOfFameWholePagePluginPublisher,),
     ])
     def test_tremonia_series_hall_of_fame_plugin(self, plugin_class):
         friends = create_friends(3)
@@ -104,6 +105,7 @@ class CmsPluginsTests(TestCase):
             plugin_class,
             'en',
             target=None,
+            type=HallOfFameType.TREMONIA_SERIES,
             division=mpo
         )
         plugin_instance = model_instance.get_plugin_class_instance()
