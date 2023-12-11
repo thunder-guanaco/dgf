@@ -154,7 +154,7 @@ class DiscGolfMetrixImporter(ABC):
             logger.info('--------------------------------------------------------------------------------')
 
 
-def next_tournaments(name):
-    return Tournament.objects.filter(name__startswith=name) \
+def next_tournaments(query):
+    return Tournament.objects.filter(query) \
         .filter(begin__gte=datetime.today()) \
         .order_by('begin')

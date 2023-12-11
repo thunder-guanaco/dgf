@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods, require_POST
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series
+from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
@@ -242,10 +242,10 @@ def bag_tag_update(request):
     return HttpResponse(status=204)
 
 
-def dgm_next_tournament(name, dgm_root_id):
-    next_ts = disc_golf_metrix.next_tournaments(name).first()
-    if next_ts:
-        url = next_ts.url
+def dgm_next_tournament(query, dgm_root_id):
+    next_tournament = disc_golf_metrix.next_tournaments(query).first()
+    if next_tournament:
+        url = next_tournament.url
     else:
         url = DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(dgm_root_id)
 
@@ -253,11 +253,15 @@ def dgm_next_tournament(name, dgm_root_id):
 
 
 def ts_next_tournament(request):
-    return dgm_next_tournament('Tremonia Series', tremonia_series.ROOT_ID)
+    return dgm_next_tournament(ts.FILTER, ts.ROOT_ID)
+
+
+def tpl_next_tournament(request):
+    return dgm_next_tournament(tpl.FILTER, tpl.ROOT_ID)
 
 
 def ts_future_dates(request):
-    return render(request, 'dgf/plugins/tremonia_series_next_tournaments.html',
+    return render(request, 'dgf/plugins/next_tournaments.html',
                   context={
-                      'tournaments': disc_golf_metrix.next_tournaments('Tremonia Series'),
+                      'tournaments': ts.next_tournaments(),
                   })
