@@ -11,6 +11,7 @@ from ...cms_plugins import FriendPluginPublisher, FriendsHeaderPluginPublisher, 
     TremoniaSeriesNextTournamentsPluginPublisher, HallOfFameSmallPluginPublisher, \
     HallOfFameWholePagePluginPublisher
 from ...models import UdiscRound, Tournament, Result, Division
+from ...plugin_models import HallOfFameType
 
 PAST_DAY = date(year=2000, month=1, day=1)
 FUTURE_DAY = date(year=3000, month=1, day=1)
@@ -104,6 +105,7 @@ class CmsPluginsTests(TestCase):
             plugin_class,
             'en',
             target=None,
+            type=HallOfFameType.TREMONIA_SERIES,
             division=mpo
         )
         plugin_instance = model_instance.get_plugin_class_instance()

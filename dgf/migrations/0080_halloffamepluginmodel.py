@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('cms', '0022_auto_20180620_1551'),
         ('dgf', '0079_auto_20231127_2058'),
@@ -15,9 +14,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='HallOfFamePluginModel',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='dgf_halloffamepluginmodel', serialize=False, to='cms.cmsplugin')),
-                ('type', models.CharField(choices=[('ts', 'Tremonia Series'), ('tpl', 'Tremonia Putting Liga')], max_length=50)),
-                ('division', models.ForeignKey(limit_choices_to={'id__in': ['MPO', 'MA4']}, on_delete=django.db.models.deletion.CASCADE, to='dgf.division')),
+                ('cmsplugin_ptr',
+                 models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True,
+                                      primary_key=True, related_name='dgf_halloffamepluginmodel', serialize=False,
+                                      to='cms.cmsplugin')),
+                ('type', models.CharField(choices=[('ts', 'Tremonia Series'), ('tpl', 'Tremonia Putting Liga')],
+                                          max_length=50)),
+                ('division', models.ForeignKey(limit_choices_to={'id__in': ['MPO', 'MA4']},
+                                               on_delete=django.db.models.deletion.CASCADE, to='dgf.division')),
             ],
             options={
                 'abstract': False,
