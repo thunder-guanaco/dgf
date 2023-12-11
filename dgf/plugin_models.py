@@ -31,7 +31,19 @@ class TourPluginModel(CMSPlugin):
         return f'Tour plugin for {str(self.tour)}'
 
 
+# TODO: delete me!
 class TremoniaSeriesHallOfFamePluginModel(CMSPlugin):
+    division = models.ForeignKey(Division, limit_choices_to={'id__in': ['MPO', 'MA4']},
+                                 null=False, blank=False, on_delete=CASCADE)
+
+
+class HallOfFameType(models.TextChoices):
+    TREMONIA_SERIES = 'ts', 'Tremonia Series'
+    TREMONIA_PUTTING_LIGA = 'tpl', 'Tremonia Putting Liga'
+
+
+class HallOfFamePluginModel(CMSPlugin):
+    type = models.CharField(max_length=50, choices=HallOfFameType.choices)
     division = models.ForeignKey(Division, limit_choices_to={'id__in': ['MPO', 'MA4']},
                                  null=False, blank=False, on_delete=CASCADE)
 

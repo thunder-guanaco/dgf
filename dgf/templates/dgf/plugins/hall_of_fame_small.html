@@ -1,9 +1,5 @@
 {% load i18n %}
 
-{% comment %}
-    TODO: delete me!
-{% endcomment %}
-
 <div class="hall-of-fame-plugin">
     <div class="hall-of-fame-title">
         <h2>
@@ -21,7 +17,7 @@
     </div>
     <div class="row justify-content-md-center">
         {% for friend in friends|slice:":3" %}
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_ts_wins=True %}
+            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True show_wins=True %}
         {% endfor %}
     </div>
 </div>

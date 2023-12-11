@@ -4,10 +4,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/tremonia_series_hall_of_fame.css' %}">
 {% endaddtoblock %}
 
-{% comment %}
-    TODO: delete me!
-{% endcomment %}
-
 <div id="hall-of-fame">
     <div class="hall-of-fame-title">
         <h2>
@@ -21,7 +17,7 @@
         </h3>
     </div>
     <h3>
-        {% trans "All winners of the Tremonia Series" %}
+        {% trans "All winners of the " %}{{title}}
     </h3>
     <div class="header line mobile">
         <div class="numbers">
@@ -50,13 +46,13 @@
                 </div>
                 <div class="numbers">
                     <div class="wins">
-                        {{friend.ts_wins}}
+                        {{friend.wins}}
                     </div>
                     <div class="wins">
-                        {{friend.ts_seconds}}
+                        {{friend.seconds}}
                     </div>
                     <div class="wins">
-                        {{friend.ts_thirds}}
+                        {{friend.thirds}}
                     </div>
                 </div>
             </div>

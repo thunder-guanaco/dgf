@@ -46,7 +46,7 @@ def favorite_discs(disc_type):
                .values('disc__display_name') \
                .annotate(count=Count('disc__display_name')) \
                .order_by('-count')[:AMOUNT_OF_FAVORITE_DISCS] \
-               .values_list('disc__display_name', flat=True)
+        .values_list('disc__display_name', flat=True)
 
 
 @register.filter
