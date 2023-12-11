@@ -5,6 +5,7 @@ from decimal import Decimal
 
 from cms.models import User
 from django.contrib.auth.models import UserManager
+from django.core.management import get_commands
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
@@ -528,4 +529,23 @@ class BagTagChange(Model):
 
     def save(self, *args, **kwargs):
         super(BagTagChange, self).save(*args, **kwargs)
+        logger.info(self)
+
+
+MANAGEMENT_COMMAND_CHOICES = [(command, command) for command, app in get_commands().items() if app == 'dgf']
+
+
+class ManagementCommandExecution(Model):
+    command = models.CharField(_('Command'), max_length=50, choices=MANAGEMENT_COMMAND_CHOICES, null=False, blank=False)
+    actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='executed_management_commands',
+                              verbose_name=_('Actor'))
+    timestamp = models.DateTimeField(auto_now=True, null=False, blank=False)
+    duration = models.PositiveIntegerField(_('Duration (in seconds)'), null=False, blank=False)
+    exception = models.CharField(_('Exception'), max_length=500, null=True)
+
+    def __str__(self):
+        return f'{self.actor} ran "{self.command}" on {self.timestamp} (it took {self.duration} seconds'
+
+    def save(self, *args, **kwargs):
+        super(ManagementCommandExecution, self).save(*args, **kwargs)
         logger.info(self)

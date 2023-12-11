@@ -1,9 +1,8 @@
 import logging
 
-from django.core.management.base import BaseCommand
-
-from dgf.management import error_handler
-from dgf.models import CoursePluginModel, UdiscRound
+from dgf.management.base_dgf_command import BaseDgfCommand
+from dgf.models import UdiscRound
+from dgf.plugin_models import CoursePluginModel
 from dgf.udisc import update_udisc_scores
 
 logger = logging.getLogger(__name__)
@@ -11,14 +10,14 @@ logger = logging.getLogger(__name__)
 RETRIES = 5
 
 
-class Command(BaseCommand):
+class Command(BaseDgfCommand):
     help = 'Updates all UDisc scores for the courses that have a plugin associated to them'
 
     def update_scores(self, course):
         update_udisc_scores(course)
         return UdiscRound.objects.filter(course=course).count()
 
-    def update_all_scores(self):
+    def run(self, *args, **options):
 
         all_plugins = CoursePluginModel.objects.all()
         count = all_plugins.count()
@@ -53,11 +52,3 @@ class Command(BaseCommand):
                     continue
             else:
                 raise UserWarning(f'Could not update course {course}')
-
-    def handle(self, *args, **options):
-
-        try:
-            self.update_all_scores()
-
-        except Exception as e:
-            error_handler.handle(self, e)
