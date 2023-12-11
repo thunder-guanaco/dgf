@@ -12,7 +12,7 @@ from .disc_golf_metrix import tremonia_series as ts
 from .models import Friend, UdiscRound, Tournament, BagTagChange
 from .plugin_models import FriendPluginModel, CoursePluginModel, TourPluginModel, \
     ConcreteTournamentResultsPluginModel, LastTremoniaSeriesResultsPluginModel, HallOfFamePluginModel, \
-    HallOfFameType, TremoniaSeriesHallOfFamePluginModel
+    HallOfFameType
 from .udisc import get_course_url
 
 
@@ -79,17 +79,6 @@ class GoogleCalendarPluginPublisher(CMSPluginBase):
     module = _('Disc Golf Friends')
     name = _('Disc Golf Friends Calendar')
     render_template = 'dgf/plugins/calendar.html'
-
-
-# TODO: delete me!
-def friends_order_by_ts_wins(division):
-    return Friend.all_objects.filter(results__tournament__name__startswith='Tremonia Series',
-                                     results__division=division,
-                                     results__position__in=[1, 2, 3]) \
-        .annotate(wins=Count('results__position', filter=Q(results__position=1))) \
-        .annotate(seconds=Count('results__position', filter=Q(results__position=2))) \
-        .annotate(thirds=Count('results__position', filter=Q(results__position=3))) \
-        .order_by('-wins', '-seconds', '-thirds')
 
 
 def hall_of_fame_title(hall_of_fame_type):
@@ -174,33 +163,6 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
             'friends_without_bag_tag': friends_without_bag_tag(),
         })
         return context
-
-
-# TODO: delete me!
-class TremoniaSeriesHallOfFamePluginPublisher(CMSPluginBase):
-    model = TremoniaSeriesHallOfFamePluginModel
-    module = _('Tremonia Series')
-
-    def render(self, context, instance, placeholder):
-        context.update({
-            'friends': friends_order_by_ts_wins(instance.division),
-            'division': instance.division,
-        })
-        return context
-
-
-# TODO: delete me!
-@plugin_pool.register_plugin
-class TremoniaSeriesHallOfFameSmallPluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
-    name = _('Hall Of Fame (small) [TO BE DELETED]')
-    render_template = 'dgf/plugins/tremonia_series_hall_of_fame_small.html'
-
-
-# TODO: delete me!
-@plugin_pool.register_plugin
-class TremoniaSeriesHallOfFameWholePagePluginPublisher(TremoniaSeriesHallOfFamePluginPublisher):
-    name = _('Hall Of Fame (whole page) [TO BE DELETED]')
-    render_template = 'dgf/plugins/tremonia_series_hall_of_fame_page.html'
 
 
 class HallOfFamePluginPublisher(CMSPluginBase):
