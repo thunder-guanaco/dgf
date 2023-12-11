@@ -1,8 +1,10 @@
 import re
+import time
 
 from django.contrib import admin
 from django.contrib import messages
 from django.contrib.auth import admin as auth_admin
+from django.core import management
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.html import format_html
@@ -11,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 
 from . import german_tour
 from .models import Highlight, DiscInBag, Ace, GitHubIssue, FavoriteCourse, Video, Tournament, Result, Friend, Course, \
-    Attendance, Tour, BagTagChange
+    Attendance, Tour, BagTagChange, ManagementCommandExecution
 
 
 @admin.register(Course)
@@ -331,3 +333,41 @@ class BagTagChangeAdmin(admin.ModelAdmin):
 
     list_display = ('actor', 'friend', 'previous_number', 'new_number', 'timestamp', 'active')
     search_fields = ('friend', 'previous_number', 'new_number')
+
+
+@admin.register(ManagementCommandExecution)
+class ManagementCommandExecutionAdmin(admin.ModelAdmin):
+    def get_fieldsets(self, request, obj=None):
+        return (
+            ('', {
+                'fields': (
+                    'command',
+                    'timestamp',
+                    'duration',
+                    'actor',
+                )}
+             ),
+        ) if obj else (
+            ('', {
+                'fields': (
+                    'command',
+                )}
+             ),
+        )
+
+    def get_readonly_fields(self, request, obj=None):
+        return ('command', 'timestamp', 'duration', 'actor') if obj else ()
+
+    ordering = ('-timestamp',)
+    list_display = ('command', 'timestamp', 'duration', 'actor',)
+    list_display_links = ('command',)
+    search_fields = ('command', 'actor__nickname', 'actor__first_name', 'actor__last_name')
+
+    def save_model(self, request, obj, form, change):
+        start = time.time()
+        management.call_command(obj.command)
+        end = time.time()
+
+        obj.actor = request.user.friend
+        obj.duration = int(end - start)
+        obj.save()
