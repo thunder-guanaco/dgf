@@ -1,12 +1,12 @@
-{% load i18n %}
+{% load i18n dgf_league %}
 
-{% if request.user.is_authenticated %}
+{% if request.user.is_authenticated and year|current_year %}
 
     {% with request.user.friend as friend %}
 
         <div id="league-buttons">
 
-            {% if friend.memberships.count == 0 %}
+            {% if friend.memberships|current_year_count == 0 %}
                 {% include "dgf_league/popups/create_team.html" %}
                 <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
                     {% trans "Create new team" %}

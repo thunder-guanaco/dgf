@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count
 from django.db.models.functions import Coalesce
@@ -10,13 +12,25 @@ from dgf_league.forms import AddResultForm, AddTeamForm
 from dgf_league.models import Team, TeamMembership, Result, Match, FriendWithoutTeam
 
 
+def get_year(kwargs):
+    return kwargs.get('year', datetime.today().year)
+
+
 class TeamIndexView(ListView):
     template_name = 'dgf/team_list.html'
     context_object_name = 'teams'
-    queryset = Team.objects.all() \
-        .annotate(played_matches=Count('results')) \
-        .annotate(points=Coalesce(Sum('results__points'), 0)) \
-        .order_by('-points', '-played_matches', 'created')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['year'] = int(get_year(self.kwargs))
+        return context
+
+    def get_queryset(self):
+        year = get_year(self.kwargs)
+        return Team.objects.filter(created__year=year) \
+            .annotate(played_matches=Count('results')) \
+            .annotate(points=Coalesce(Sum('results__points'), 0)) \
+            .order_by('-points', '-played_matches', 'created')
 
 
 def one_more_value(data, key, value):

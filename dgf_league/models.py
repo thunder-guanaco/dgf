@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model
+from django.db.models.functions.datetime import ExtractYear
 from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
 
@@ -9,10 +10,24 @@ from dgf.models import Friend
 POINTS_PER_MATCH = 10
 
 
-class Team(Model):
+def first_league_year():
+    try:
+        return Team.objects.earliest('created').year
+    except Team.DoesNotExist:
+        return None
+
+
+class YearModel:
+
+    @property
+    def year(self):
+        return self.created.year
+
+
+class Team(Model, YearModel):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['name'], name='unique_team_name'),
+            models.UniqueConstraint(expressions=ExtractYear('created'), fields=['name'], name='unique_team_name'),
         ]
 
     name = models.CharField(_('Name'), max_length=100)
@@ -40,11 +55,11 @@ class TeamMembership(Model):
         return f'{self.friend} belongs to team {self.team}'
 
 
-class Match(Model):
+class Match(Model, YearModel):
     class Meta:
         verbose_name_plural = "Matches"
 
-    date = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     actor = models.ForeignKey(Friend, on_delete=CASCADE, related_name='created_matches', verbose_name=_('Actor'))
 
     def results_as_str(self):
@@ -53,7 +68,7 @@ class Match(Model):
     results_as_str.short_description = 'Results'
 
     def __str__(self):
-        return f'Match occurred at {self.date}'
+        return f'{self.results_as_str()} ({self.created})'
 
 
 class Result(Model):

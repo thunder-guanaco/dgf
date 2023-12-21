@@ -6,6 +6,14 @@
         margin-bottom: 0.25em;
     }
 
+    #league-header {
+        flex-flow: column;
+    }
+
+    #league_year_select_chosen {
+        width: 20% !important;
+    }
+
     .league-popup {
         width: 100%;
     }
@@ -99,6 +107,13 @@
         position: relative;
     }
 
+    #league-header {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     #league .friend-ball {
         margin: 0 0.25em;
     }
@@ -157,6 +172,17 @@
 #league td {
     text-align: center;
     vertical-align: middle;
+}
+
+#league-header-past-years {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#league-header-past-years > * {
+    margin: 0.5em;
 }
 
 #league table {
@@ -343,16 +369,16 @@
     text-align: right;
 }
 
-.league-popup .chosen-container-single .chosen-single {
+#league .chosen-container-single .chosen-single {
     height: 2em;
     padding: 0.25em;
 }
 
-.league-popup .chosen-container {
+#league .chosen-container {
     font-size: 1em;
 }
 
-.league-popup .chosen-container .chosen-results li {
+#league .chosen-container .chosen-results li {
     line-height: 1.5em;
 }
 

@@ -19,6 +19,11 @@ $(window).on("load", function() {
         event.stopPropagation();
     });
 
+    $("#league-year-select").chosen({
+        disable_search_threshold: 10,
+        width: "100%"
+    });
+
     $("#team-partner").chosen({
         disable_search_threshold: 10,
         width: "100%"
@@ -30,6 +35,11 @@ $(window).on("load", function() {
     });
 
 });
+
+function onChangeYear() {
+    selectedYear = $("#league-year-select").val();
+    window.location.pathname = change_year_url.replace('1111', selectedYear);
+}
 
 function closePopups() {
     $(".league-popup").hide();

@@ -6,7 +6,7 @@ from partial_date import PartialDate
 def convert_dates(apps, schema_editor):
     Ace = apps.get_model('dgf', 'Ace')
     for ace in Ace.objects.all():
-        ace.partial_date = PartialDate(ace.date, precision=PartialDate.DAY) if ace.date else None
+        ace.partial_date = PartialDate(ace.created, precision=PartialDate.DAY) if ace.created else None
         ace.save()
 
 

@@ -1,15 +1,31 @@
 import logging
+from datetime import datetime
 
 from django import template
 from django.db.models import Count, Q
 
 from dgf.models import Friend
 from dgf.templatetags.dgf import calculate_real_positions
-from dgf_league.models import Team, Match
+from dgf_league.models import Team, Match, first_league_year
 
 register = template.Library()
 
 logger = logging.getLogger(__name__)
+
+
+@register.simple_tag
+def all_league_years():
+    return range(first_league_year(), datetime.today().year + 1)
+
+
+@register.filter
+def current_year(year):
+    return year == datetime.today().year
+
+
+@register.filter
+def not_in(element, iterable):
+    return element not in iterable
 
 
 @register.simple_tag
@@ -28,14 +44,14 @@ def all_rival_teams(friend):
         .order_by('name')
 
 
-@register.simple_tag
-def all_matches():
-    return Match.objects.all().order_by('date')
+@register.filter
+def matches(year):
+    return Match.objects.filter(created__year=year).order_by('created')
 
 
 @register.filter
 def all_team_matches(team):
-    return Match.objects.filter(results__team=team).order_by('date')
+    return Match.objects.filter(results__team=team).order_by('created')
 
 
 @register.filter
