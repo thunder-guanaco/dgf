@@ -38,7 +38,7 @@ vim secrets
 #############
 
 # Install
-sudo apt-get install mysql-server-8.0 libmysqlclient-dev
+yes | sudo apt-get install mysql-server-8.0 libmysqlclient-dev
 echo "Add a user called 'dgf' and a database called 'dgf_cms'. Check mysql_setup.sql"
 echo -n "Press ENTER to enter the mysql console "
 read
@@ -49,7 +49,7 @@ sudo mysql -u root
 ##############
 
 # install
-sudo apt-get install python3.10 python3.10-venv python3.10-dbg python3.10-dev python3-pip ipython3 tree gettext firefox
+yes |sudo apt-get install python3.10 python3.10-venv python3.10-dbg python3.10-dev python3-pip ipython3 tree gettext firefox
 
 # create virtualenv
 cd ${ROOT_INSTALLATION_PATH}
@@ -93,8 +93,12 @@ bash dgf.bash mediarestore -I ${ROOT_INSTALLATION_PATH}/dgf_media_*.tar
 ################
 
 # install
-sudo apt-get install gunicorn
+yes |sudo apt-get install gunicorn
+
+# either execute the following 3 lines yourself or let the deploy script do it
 cd ${ROOT_INSTALLATION_PATH}/django_project
+cp ci/start_gunicorn.bash ..
+sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
 
 ##################
 ### SUPERVISOR ###
@@ -255,9 +259,10 @@ echo "Set up discgolffriends.de and tremonia-open.de to point to this server bef
 # stop nginx
 sudo service nginx stop
 
-# configuration
+# install
 yes | sudo apt-get install certbot python3-certbot-nginx
 
+# configuration
 echo "Use Let's Encrypt to create certificates: https://letsencrypt.org/"
 echo -n "Press ENTER to create a certificate "
 read
