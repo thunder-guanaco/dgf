@@ -14,19 +14,46 @@ sudo apt-get upgrade
 ### PUBLIC KEYS ###
 ###################
 
-echo "Add your public keys to .ssh/authorized_keys and DO NOT allow login via password"
+echo "Add your public key(s)"
+echo -n "Press ENTER to edit .ssh/authorized_keys "
 read
+vim .ssh/authorized_keys
+echo
+echo "Now disable ssh login via password authentication by editing"
+echo -n "Press ENTER to edit /etc/ssh/sshd_config "
+read
+sudo vim /etc/ssh/sshd_config
+
+###############
+### SECRETS ###
+###############
+
+echo "Fill all the needed secrets (see secrets_template or your local secrets file [NEVER COMMIT THIS])"
+echo -n "Press ENTER to edit secrets "
+read
+vim secrets
+
+#############
+### MYSQL ###
+#############
+
+# Install
+sudo apt-get install mysql-server-8.0 libmysqlclient-dev
+echo "Add a user called 'dgf' and a database called 'dgf_cms'. Check mysql_setup.sql"
+echo -n "Press ENTER to enter the mysql console "
+read
+sudo mysql -u root
 
 ##############
 ### PYTHON ###
 ##############
 
 # install
-sudo apt-get install python3.8 python3.8-venv python3.8-dbg python3.8-dev python3-pip ipython3 tree gettext firefox
+sudo apt-get install python3.10 python3.10-venv python3.10-dbg python3.10-dev python3-pip ipython3 tree gettext firefox
 
 # create virtualenv
 cd ${ROOT_INSTALLATION_PATH}
-python3 -m venv env
+python3.10 -m venv env
 
 # activate the virtual environment
 . ./env/bin/activate
@@ -35,30 +62,31 @@ python3 -m venv env
 pip install --upgrade pip
 
 # basic dependencies
-pip install wheel
+pip install wheel==0.41.3
 pip install svglib==1.1.0 # newer versions are not ok
-
-# install dependencies
-pip install -r django_project/requirements.txt
-
-#############
-### MYSQL ###
-#############
-
-# Install
-sudo apt-get install mysql-server libmysqlclient-dev
-echo "Add a user called 'dgf' and a database called 'dgf_cms'. Check mysql_setup.sql"
-read
 
 ##############
 ### DJANGO ###
 ##############
 
-# Collect static files
-yes yes | python manage.py collectstatic --clear
+echo "Now you should copy the project to the server, preferably in the folder ${ROOT_INSTALLATION_PATH} using deploy.yml stuff"
+echo -n "Press ENTER when you are done "
+read
 
-# Apply migrations
-python manage.py migrate
+bash ${ROOT_INSTALLATION_PATH}/django_project/ci/server_restart.bash
+
+echo "Now you download the backup files (dgf_db...dump and dg_media...tar), copy them to the server, preferably in the folder ${ROOT_INSTALLATION_PATH} and restore them"
+echo -n "Press ENTER when you are done "
+read
+
+# clear database
+sudo mysql -e "DROP DATABASE dgf_cms;"
+sudo mysql -e "CREATE DATABASE dgf_cms CHARACTER SET utf8;"
+
+# restore database and media
+bash dgf.bash dbrestore -I ${ROOT_INSTALLATION_PATH}/dgf_db_*.dump
+bash dgf.bash mediarestore -I ${ROOT_INSTALLATION_PATH}/dgf_media_*.tar
+
 
 ################
 ### GUNICORN ###
@@ -66,17 +94,18 @@ python manage.py migrate
 
 # install
 sudo apt-get install gunicorn
-cp ci/start_gunicorn.bash ..
-sudo chmod u+x ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash
+cd ${ROOT_INSTALLATION_PATH}/django_project
 
 ##################
 ### SUPERVISOR ###
 ##################
 
 # install
-sudo apt-get install supervisor
+yes | sudo apt-get install supervisor
 
 # configuration
+sudo touch /etc/supervisor/conf.d/dgf_cms.conf
+sudo chown ubuntu  /etc/supervisor/conf.d/dgf_cms.conf
 cat << EOF > /etc/supervisor/conf.d/dgf_cms.conf
 [program:dgf_cms]
 command = ${ROOT_INSTALLATION_PATH}/start_gunicorn.bash                   ; Command to start app
@@ -86,6 +115,7 @@ redirect_stderr = true                                                    ; Save
 environment = LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8                         ; Set UTF-8 as default
 stopasgroup = true                                                        ; cascade signals also to its children
 EOF
+sudo chown root  /etc/supervisor/conf.d/dgf_cms.conf
 
 # log folder and file for supervisor
 mkdir -p ${ROOT_INSTALLATION_PATH}/logs
@@ -100,16 +130,13 @@ sudo supervisorctl update
 #############
 
 # install
-sudo apt-get install nginx
+yes | sudo apt-get install nginx
 
 # start
-sudo service nginx start
-
-# configuration
-echo "Use Let's Encrypt to create certificates: https://letsencrypt.org/"
-echo
-read
-chmod 400  /etc/nginx/ssl/*
+sudo service nginx restart
+#sudo chmod 400  /etc/nginx/ssl/*
+sudo touch /etc/nginx/conf.d/disc-golf-friends.de.conf
+sudo chown ubuntu /etc/nginx/conf.d/disc-golf-friends.de.conf
 cat << EOF > /etc/nginx/conf.d/disc-golf-friends.de.conf
 upstream dgf_cms_app_server {
     # fail_timeout=0 means we always retry an upstream even if it failed
@@ -129,22 +156,7 @@ server {
         return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
     }
 
-    if (\$host = www.disc-golf-friends.de) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    if (\$host = disc-golf-friends.de) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de;
-
-    listen [::]:443 ssl ipv6only=on; # managed by Certbot
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/disc-golf-friends.de/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/disc-golf-friends.de/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    server_name discgolffriends.de tremonia-open.de www.discgolffriends.de www.tremonia-open.de;
 
     access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
     error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
@@ -207,35 +219,23 @@ server {
 }
 
 server {
-
-    if (\$host = www.tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
-    }
-
-    if (\$host = tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
-    }
-
-    if (\$host = www.disc-golf-friends.de) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
-    if (\$host = disc-golf-friends.de) {
-        return 301 https://discgolffriends.de\$request_uri;
-    }
-
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.disc-golf-friends.de www.discgolffriends.de www.tremonia-open.de;
+    server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.discgolffriends.de www.tremonia-open.de;
     return 301 https://\$host\$request_uri;
 }
-
 EOF
 
+sudo chown root /etc/nginx/conf.d/disc-golf-friends.de.conf
+
 # set dgf_cms to be the main application in nginx
-ln -s /etc/nginx/sites-available/dgf_cms /etc/nginx/sites-enabled/dgf_cms
-rm /etc/nginx/sites-enabled/default
-service nginx restart
+sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-available/default
+
+# kill nginx, kill it well
+sudo pkill -f nginx
+sudo systemctl start nginx
+sudo service nginx start
 
 # data folders and nginx logs
 mkdir -p ${ROOT_INSTALLATION_PATH}/{static,media,logs}
@@ -243,4 +243,30 @@ touch ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log
 touch ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log
 
 # give ubuntu user all the permissions in the home folder
-chown -R  ubuntu ${ROOT_INSTALLATION_PATH}
+chown -R ubuntu ${ROOT_INSTALLATION_PATH}
+chmod 755 ${ROOT_INSTALLATION_PATH}
+
+###################
+### CERTIFICATE ###
+###################
+
+echo "Set up discgolffriends.de and tremonia-open.de to point to this server before continuing"
+
+# stop nginx
+sudo service nginx stop
+
+# configuration
+yes | sudo apt-get install certbot python3-certbot-nginx
+
+echo "Use Let's Encrypt to create certificates: https://letsencrypt.org/"
+echo -n "Press ENTER to create a certificate "
+read
+sudo certbot --nginx -d discgolffriends.de -d tremonia-open.de
+
+#reload nginx
+sudo service nginx reload
+
+echo "Save the content of the nginx configuration somewhere, please"
+echo -n "Press ENTER to show the contents of /etc/nginx/conf.d/disc-golf-friends.de.conf "
+read
+sudo cat /etc/nginx/conf.d/disc-golf-friends.de.conf
