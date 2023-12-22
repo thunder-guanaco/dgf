@@ -1,0 +1,75 @@
+<html>
+
+    <head>
+        <style>
+            @font-face {
+              font-family: 'Gnuolane';
+              src: url('gnuolane-rg.ttf'); /* IE9 Compat Modes */
+              src: url('gnuolane-rg.ttf')  format('truetype'); /* Safari, Android, iOS */
+            }
+            
+            body {
+                background-image: url('background.jpg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: #1b2633;
+                font-family: Gnuolane;
+                color: #1b2633;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            h1 {
+                -ms-transform: skewX(10deg);
+                transform: skewX(10deg);
+                font-size: 3.5em;
+                text-transform: uppercase;
+            }
+            
+            h2 {
+                -ms-transform: skewX(-10deg);
+                transform: skewX(-10deg);
+                font-size: 3em;
+            }
+            
+            h1, h2, h3 {
+                background-color: rgba(205, 205, 205, 0.5);
+                width: fit-content;
+                padding: 0.5em 1.5em;
+                margin: 0 0 0.5em 0;
+            }
+            
+            .container {
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            a img {
+                height: 3em;
+                margin: 0 1em;
+            }
+
+        </style>
+    </head>
+    
+    <body>
+
+        <div class="container">
+            <h1 class="title">Wir bauen um</h1>
+            <h2>Wir sind gleich wieder da</h2>
+            <div class="links">
+                <a href="https://www.instagram.com/disc_golf_friends/">
+                    <img src="instagram.png"/>
+                </a>
+                <a href="https://www.facebook.com/discgolffriends/">
+                    <img src="facebook.png"/>
+                </a>
+            </div>
+        </div>
+        
+    </body>
+    
+</html>
