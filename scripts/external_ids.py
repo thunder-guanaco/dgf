@@ -2,6 +2,7 @@ from scripts.update_friend_fields import update_friend_fields
 
 fields = ['pdga_number', 'gt_number', 'udisc_username', 'metrix_user_id']
 friends = {
+
     'alex': [126231, 1436, 'alexso', '62515'],
     'angela': [147164, 2129, 'aceangie', '55028'],
     'armin': [147160, 2127, 'putterbomb', '54515'],
@@ -93,12 +94,12 @@ friends = {
     'zinnia': [None, None, None, None],
 
     # old friends
-    'julia-sophie': [None, None, None, None],
-    'lux': [71666, 1582, 'lux', '54523'],
-    'marcelk': [None, 2966, 'marcelge91', '113505'],
-    'ralf': [91363, 2038, 'rollerralf', '41591'],
-    'ralfw': [104566, 429, 'rallewi', '26806'],
-    'tana': [None, 2726, 'tanapat', '101826'],
+    # 'julia-sophie': [None, None, None, None],
+    # 'lux': [71666, 1582, 'lux', '54523'],
+    # 'marcelk': [None, 2966, 'marcelge91', '113505'],
+    # 'ralf': [91363, 2038, 'rollerralf', '41591'],
+    # 'ralfw': [104566, 429, 'rallewi', '26806'],
+    # 'tana': [None, 2726, 'tanapat', '101826'],
 
 }
 
