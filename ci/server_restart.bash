@@ -16,6 +16,9 @@ exit_if_error "Install dependencies" $?
 python manage.py migrate
 exit_if_error "Apply migrations" $?
 
+python manage.py frontend migrate
+exit_if_error "Migrate frontend" $?
+
 # invalidate django compress cache
 rm ${ROOT_INSTALLATION_PATH}/static/CACHE
 

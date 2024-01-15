@@ -25,5 +25,10 @@ cp ~/Downloads/${media_file} media/
 sudo mysql -e "DROP DATABASE dgf_cms;"
 sudo mysql -e "CREATE DATABASE dgf_cms CHARACTER SET utf8;"
 
+echo
+echo "Using DB file: ${db_file}"
 python manage.py dbrestore -i ${db_file}
+
+echo
+echo "Using media file: ${media_file}"
 python manage.py mediarestore -i ${media_file}
