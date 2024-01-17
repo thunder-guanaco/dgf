@@ -25,6 +25,12 @@
                 </button>
             {% endif %}
 
+            {% url 'admin:dgf_league_team_changelist' as team_admin_url %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="team" %}
+
+            {% url 'admin:dgf_league_match_changelist' as team_admin_url %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="match" %}
+
         </div>
 
     {% endwith %}

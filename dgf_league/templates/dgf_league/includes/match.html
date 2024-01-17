@@ -1,7 +1,7 @@
 {% load dgf_cms %}
 
 <div class="match-wrapper">
-    <div class="match-date">{{match.created|date:"SHORT_DATE_FORMAT"}}</div>
+    <div class="match-date">{{match.created|date:"j N"}}</div>
     <div class="match">
         {% for result in match.results.all|order_by:"pk" %}
             <div class="result">
