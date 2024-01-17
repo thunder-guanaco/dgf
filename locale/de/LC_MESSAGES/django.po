@@ -1433,7 +1433,7 @@ msgstr "Keine Teams haben sich angemeldet"
 
 #: dgf_league/templates/dgf_league/popups/create_result.html:7
 msgid "You already played with every team"
-msgstr "Du hast schon mit allen Teams gespielt"
+msgstr "Du hast schon gegen allen Teams gespielt"
 
 #: dgf_league/templates/dgf_league/popups/create_result.html:9
 msgid "Please select a team and enter the result"

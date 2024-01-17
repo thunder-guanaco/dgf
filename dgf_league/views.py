@@ -10,6 +10,7 @@ from django.views.generic import ListView
 
 from dgf_league.forms import AddResultForm, AddTeamForm
 from dgf_league.models import Team, TeamMembership, Result, Match, FriendWithoutTeam
+from dgf_league.templatetags.dgf_league import current_year_membership_exists, current_year_membership
 
 
 def get_year(kwargs):
@@ -70,10 +71,11 @@ def team_add(request):
 @require_POST
 def result_add(request):
     actor = request.user.friend
-    if not actor.memberships.count():
+    current_membership = current_year_membership(actor)
+    if not current_membership.exists():
         return HttpResponse(status=400, reason=_('You don\'t have a team and therefore you can not add results'))
 
-    own_team = actor.memberships.get().team
+    own_team = current_membership.get().team
 
     form = AddResultForm(one_more_value(request.POST, 'own_team', own_team.id))
     if not form.is_valid():

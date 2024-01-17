@@ -6,12 +6,13 @@
         <label>{% trans "Select your partner" %}</label>
         <select id="team-partner">
             <option value="">---</option>
-            {% all_friends_without_teams as friends %}
+            {% with year|all_friends_without_teams as friends %}
             {% for friend in friends %}
                 {% if friend != request.user.friend %}
                     <option value="{{friend.id}}">{{friend.full_name}}</option>
                 {% endif %}
             {% endfor %}
+            {% endwith %}
         </select>
     </div>
     <div class="field">

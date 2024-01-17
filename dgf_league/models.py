@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -31,6 +33,7 @@ class Team(Model):
         return self.created.year
 
     def save(self, *args, **kwargs):
+        self.created = datetime.now()
         if Team.objects.filter(name=self.name, created__year=self.created.year).exists():
             raise ValidationError(_(f'There\'s already a team with that name for the {self.created.year} league'))
         super().save(*args, **kwargs)
@@ -40,16 +43,15 @@ class Team(Model):
 
 
 class TeamMembership(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['friend'], name='only_one_team_per_friend'),
-        ]
     team = models.ForeignKey(Team, on_delete=CASCADE, related_name='members', verbose_name=_('Team'))
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='memberships', verbose_name=_('Friend'))
 
     def save(self, *args, **kwargs):
-        if TeamMembership.objects.filter(friend=self.friend, team__created__year=self.team.created.year).exists():
-            raise ValidationError(_(f'{self.friend} already belongs to a team for the {self.team.created.year} league'))
+        membership = TeamMembership.objects.filter(friend=self.friend, team__created__year=self.team.created.year)
+        if membership.exists():
+            team = membership.get().team
+            raise ValidationError(_(f'{self.friend} already belongs to the team "{team.name}" '
+                                    f'for the {team.created.year} league'))
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -77,11 +79,6 @@ class Match(Model):
 
 
 class Result(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['match', 'team'], name='teams_can_not_play_against_themselves'),
-        ]
-
     match = models.ForeignKey(Match, on_delete=CASCADE, related_name='results', verbose_name=_('Match'))
     team = models.ForeignKey(Team, on_delete=CASCADE, related_name='results', verbose_name=_('Team'))
     points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(0),

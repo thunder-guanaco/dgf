@@ -1,26 +1,25 @@
 {% load i18n dgf_league %}
 
 {% if request.user.is_authenticated and year|current_year %}
-
-    {% with request.user.friend as friend %}
+    {% with request.user.friend as current_friend %}
 
         <div id="league-buttons">
 
-            {% if friend.memberships|current_year_count == 0 %}
+            {% if not current_friend|current_year_membership_exists %}
                 {% include "dgf_league/popups/create_team.html" %}
                 <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
                     {% trans "Create new team" %}
                 </button>
             {% endif %}
 
-            {% if friend.memberships.count == 1 %}
+            {% if current_friend|current_year_membership_exists %}
                 {% include "dgf_league/popups/create_result.html" %}
                 <button id="add-result-button" onclick="showPopup('#add-result')">
                     {% trans "Add result" %}
                 </button>
             {% endif %}
 
-            {% if friend.memberships.count == 0 and friend.searching.count == 0 %}
+            {% if not current_friend|current_year_membership_exists and current_friend.searching.count == 0 %}
                 <button id="search-for-team-button" onclick="searchForTeam()">
                     {% trans "I don't have a team, but I would like to play" %}
                 </button>
@@ -29,5 +28,4 @@
         </div>
 
     {% endwith %}
-
 {% endif %}

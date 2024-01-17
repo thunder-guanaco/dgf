@@ -60,6 +60,21 @@
         font-size: 1em;
     }
 
+    #league-results .match-wrapper {
+        position: relative;
+    }
+
+    #league-results .match-wrapper .match-date {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 25%);
+    }
+
+    #league-results .match-wrapper .match {
+        width: 100% !important;
+    }
+
     #league .results .match {
         margin: 1em 0;
     }
@@ -138,6 +153,10 @@
 
     #league table .points .ball {
         font-size: 1.25em;
+    }
+
+    #league .match-wrapper .match-date {
+        margin-left: 3em;
     }
 
     #league .results .match {
@@ -252,6 +271,23 @@
 
 #league table .results-button.open:after {
     content: '▼';
+}
+
+#league .match-wrapper {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#league .match-wrapper .match-date {
+    font-size: smaller;
+    font-weight: bold;
+    color: gray;
+}
+
+#league .match-wrapper .match {
+    width: 85%;
 }
 
 #league table .results .match {
@@ -406,6 +442,7 @@
     line-height: 2em;
     border: 1px solid #1b2633;
     border-radius: 5px;
+    padding: 0px 10px;
 }
 
 #add-result.league-popup input {
