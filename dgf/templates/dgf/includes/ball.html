@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% with img_size|default:70 as img_size %}
+{% with font_size|default:30 as font_size %}
+{% with circle_text|default:'' as circle_text %}
+{% with text|default:'' as text %}
+{% with url|default:'' as url %}
+
+<a class="friend-ball" href="{{url}}">
+
+    <div class="avatar-container" style="width: {{img_size}}px; height: {{img_size}}px">
+        <div class="avatar-initials" style="font-size: {{font_size}}px; line-height: {{img_size}}px;">
+            {{circle_text}}
+        </div>
+    </div>
+    <div class="friend-name">
+        {{text}}
+    </div>
+
+</a>
+
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endwith %}

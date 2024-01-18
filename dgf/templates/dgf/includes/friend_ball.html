@@ -3,6 +3,7 @@
 {% with avoid_click|default_if_none:False as avoid_click %}
 {% with show_rating|default_if_none:False as show_rating %}
 {% with show_name|default_if_none:False as show_name %}
+{% with show_full_name|default_if_none:False as show_full_name %}
 {% with show_best_score_in_wischlingen|default_if_none:False as show_best_score_in_wischlingen %}
 {% with show_wins|default_if_none:False as show_wins %}
 {% with show_bag_tag|default_if_none:False as show_bag_tag %}
@@ -20,6 +21,7 @@
 
         {% include "dgf/includes/friend_picture.html" with friend=friend img_size=img_size font_size=font_size show_bag_tag=show_bag_tag clickable_bag_tag=False %}
         <div class="friend-name">
+            {% if show_full_name and friend.full_name %}{{friend.full_name}}{% endif %}
             {% if show_name and friend.short_name %}{{friend.short_name}}{% endif %}
             {% if show_rating and friend.rating %} ({{friend.rating}}){% endif %}
             {% if show_wins %} ({{friend.wins}} {% trans "wins" %}){% endif %}
@@ -46,6 +48,7 @@
 
     </a>
 
+{% endwith %}
 {% endwith %}
 {% endwith %}
 {% endwith %}

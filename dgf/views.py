@@ -23,6 +23,12 @@ class FriendListView(ListView):
     queryset = Friend.objects.all().order_by('?')
 
 
+class FriendSearchView(ListView):
+    template_name = 'dgf/friend_search.html'
+    context_object_name = 'friends'
+    queryset = Friend.objects.all().order_by('first_name')
+
+
 class FriendDetailView(DetailView):
     model = Friend
     slug_field = 'slug'
