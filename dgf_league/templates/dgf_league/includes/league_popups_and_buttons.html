@@ -1,33 +1,39 @@
-{% load i18n %}
+{% load i18n dgf_league %}
 
-{% if request.user.is_authenticated %}
-
-    {% with request.user.friend as friend %}
+{% if request.user.is_authenticated and year|current_year %}
+    {% with request.user.friend as current_friend %}
 
         <div id="league-buttons">
 
-            {% if friend.memberships.count == 0 %}
-                {% include "dgf_league/popups/create_team.html" %}
-                <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
-                    {% trans "Create new team" %}
-                </button>
-            {% endif %}
+            {% if current_friend|current_year_membership_exists %}
 
-            {% if friend.memberships.count == 1 %}
                 {% include "dgf_league/popups/create_result.html" %}
                 <button id="add-result-button" onclick="showPopup('#add-result')">
                     {% trans "Add result" %}
                 </button>
+
+            {% else  %}
+
+                {% include "dgf_league/popups/create_team.html" %}
+                <button id="create-new-team-button" onclick="showPopup('#create-new-team')">
+                    {% trans "Create new team" %}
+                </button>
+
+                {% if current_friend.searching.count == 0 %}
+                    <button id="search-for-team-button" onclick="searchForTeam()">
+                        {% trans "I don't have a team, but I would like to play" %}
+                    </button>
+                {% endif %}
+
             {% endif %}
 
-            {% if friend.memberships.count == 0 and friend.searching.count == 0 %}
-                <button id="search-for-team-button" onclick="searchForTeam()">
-                    {% trans "I don't have a team, but I would like to play" %}
-                </button>
-            {% endif %}
+            {% url 'admin:dgf_league_team_changelist' as team_admin_url %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="team" %}
+
+            {% url 'admin:dgf_league_match_changelist' as team_admin_url %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="match" %}
 
         </div>
 
     {% endwith %}
-
 {% endif %}

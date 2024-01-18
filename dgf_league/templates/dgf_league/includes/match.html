@@ -1,19 +1,22 @@
 {% load dgf_cms %}
 
-<div class="match">
-    {% for result in match.results.all|order_by:"pk" %}
-        <div class="result">
-            <span class="team">
-                <span class="team-name">{{result.team.name}}</span>
-                <span class="members">
-                    {% include "dgf_league/includes/team_members.html" with team=result.team %}
+<div class="match-wrapper">
+    <div class="match-date">{{match.created|date:"j N"}}</div>
+    <div class="match">
+        {% for result in match.results.all|order_by:"pk" %}
+            <div class="result">
+                <span class="team">
+                    <span class="team-name">{{result.team.name}}</span>
+                    <span class="members">
+                        {% include "dgf_league/includes/team_members.html" with team=result.team %}
+                    </span>
                 </span>
-            </span>
-            <div class="points-container">
-                <div class="points">
-                    {{result.points}}
+                <div class="points-container">
+                    <div class="points">
+                        {{result.points}}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>

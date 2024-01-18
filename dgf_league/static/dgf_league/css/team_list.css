@@ -6,6 +6,22 @@
         margin-bottom: 0.25em;
     }
 
+    #year-selector-wrapper {
+        justify-content: center;
+    }
+
+    #league-header-past-years {
+        width: 100%;
+    }
+
+    #league-header {
+        flex-flow: column;
+    }
+
+    #league_year_select_chosen {
+        width: 20% !important;
+    }
+
     .league-popup {
         width: 100%;
     }
@@ -50,6 +66,21 @@
 
     #league table .points .ball {
         font-size: 1em;
+    }
+
+    #league-results .match-wrapper {
+        position: relative;
+    }
+
+    #league-results .match-wrapper .match-date {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 25%);
+    }
+
+    #league-results .match-wrapper .match {
+        width: 100% !important;
     }
 
     #league .results .match {
@@ -99,6 +130,17 @@
         position: relative;
     }
 
+    #year-selector-wrapper {
+        justify-content: end;
+    }
+
+    #league-header {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     #league .friend-ball {
         margin: 0 0.25em;
     }
@@ -123,6 +165,10 @@
 
     #league table .points .ball {
         font-size: 1.25em;
+    }
+
+    #league .match-wrapper .match-date {
+        margin-left: 3em;
     }
 
     #league .results .match {
@@ -157,6 +203,23 @@
 #league td {
     text-align: center;
     vertical-align: middle;
+}
+
+#year-selector-wrapper {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+}
+
+#league-header-past-years {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#league-header-past-years > * {
+    margin: 0.5em;
 }
 
 #league table {
@@ -226,6 +289,23 @@
 
 #league table .results-button.open:after {
     content: '▼';
+}
+
+#league .match-wrapper {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#league .match-wrapper .match-date {
+    font-size: smaller;
+    font-weight: bold;
+    color: gray;
+}
+
+#league .match-wrapper .match {
+    width: 85%;
 }
 
 #league table .results .match {
@@ -343,16 +423,16 @@
     text-align: right;
 }
 
-.league-popup .chosen-container-single .chosen-single {
+#league .chosen-container-single .chosen-single {
     height: 2em;
     padding: 0.25em;
 }
 
-.league-popup .chosen-container {
+#league .chosen-container {
     font-size: 1em;
 }
 
-.league-popup .chosen-container .chosen-results li {
+#league .chosen-container .chosen-results li {
     line-height: 1.5em;
 }
 
@@ -380,6 +460,7 @@
     line-height: 2em;
     border: 1px solid #1b2633;
     border-radius: 5px;
+    padding: 0px 10px;
 }
 
 #add-result.league-popup input {

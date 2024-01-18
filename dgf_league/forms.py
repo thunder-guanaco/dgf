@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from dgf.models import Friend
 from dgf_league.models import POINTS_PER_MATCH, Team
+from dgf_league.templatetags.dgf_league import current_year_membership_exists
 
 
 def format_errors(errors):
@@ -28,13 +29,13 @@ class AddTeamForm(DgfLeagueAddForm):
 
     def clean_actor(self):
         actor = self.cleaned_data['actor']
-        if actor.memberships.count() > 0:
+        if current_year_membership_exists(actor):
             raise ValidationError(_('You are already in another team'))
         return actor
 
     def clean_partner(self):
         partner = self.cleaned_data['partner']
-        if partner.memberships.count() > 0:
+        if current_year_membership_exists(partner):
             raise ValidationError(_('The selected partner is already in another team'))
         return partner
 

@@ -1,19 +1,19 @@
 {% load i18n dgf_league %}
 
-{% all_matches as matches %}
+{% with year|matches as matches %}
+    {% if matches.count > 0 %}
 
-{% if matches.count > 0 %}
+        <h1>{% trans "Results" %}</h1>
 
-    <h1>{% trans "Results" %}</h1>
+        <div id="league-results" class="results">
 
-    <div id="league-results" class="results">
+            {% for match in matches %}
 
-        {% for match in matches %}
+                {% include "dgf_league/includes/match.html" with match=match %}
 
-            {% include "dgf_league/includes/match.html" with match=match %}
+            {% endfor %}
 
-        {% endfor %}
+        </div>
 
-    </div>
-
-{% endif %}
+    {% endif %}
+{% endwith %}

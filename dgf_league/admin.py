@@ -1,9 +1,28 @@
+from datetime import datetime
+
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
 
-from .models import Team, TeamMembership, Match, Result, POINTS_PER_MATCH, FriendWithoutTeam
+from .models import Team, TeamMembership, Match, Result, POINTS_PER_MATCH, FriendWithoutTeam, first_league_year
+
+
+class YearFilter(admin.SimpleListFilter):
+    title = _('Year')
+    parameter_name = 'year'
+
+    def lookups(self, request, model_admin):
+        current_year = datetime.today().year
+        return [(year, str(year)) for year in range(first_league_year(), current_year + 1)]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(
+                created__year=self.value(),
+            )
+        else:
+            return queryset
 
 
 class AdminWithActor(admin.ModelAdmin):
@@ -27,14 +46,19 @@ class TeamAdmin(AdminWithActor):
     fieldsets = (
         ('', {
             'fields': (
+                'year',
                 'name',
                 'actor',
+                'created'
             )}
          ),
     )
 
-    list_display = ('name', 'member_names', 'created', 'actor')
-    search_fields = ('name',)
+    list_display = ('year', 'name', 'member_names', 'actor', 'created')
+    list_display_links = ('name',)
+    list_filter = [YearFilter]
+    readonly_fields = ('year', 'created')
+    search_fields = ('name', 'year')
     inlines = (TeamMembershipInline,)
 
 
@@ -77,14 +101,18 @@ class MatchAdmin(AdminWithActor):
     fieldsets = (
         ('', {
             'fields': (
+                'year',
                 'actor',
+                'created'
             )}
          ),
     )
 
-    list_display = ('results_as_str', 'date', 'actor')
+    list_display = ('year', 'results_as_str', 'actor', 'created')
     list_display_links = ('results_as_str',)
-    search_fields = ('results__team__name',)
+    list_filter = [YearFilter]
+    readonly_fields = ('year', 'created')
+    search_fields = ('results__team__name', 'year')
     inlines = (ResultInline,)
 
 
