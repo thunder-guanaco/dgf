@@ -33,6 +33,7 @@
     </div>
 
     <div id="league">
+        {% include "dgf_league/includes/year_selector.html" %}
         {% include "dgf_league/includes/league_standings.html" with teams=teams %}
         {% include "dgf_league/includes/league_results.html" %}
         {% include "dgf_league/includes/friends_without_team.html" %}

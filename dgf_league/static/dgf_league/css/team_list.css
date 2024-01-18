@@ -6,6 +6,14 @@
         margin-bottom: 0.25em;
     }
 
+    #year-selector-wrapper {
+        justify-content: center;
+    }
+
+    #league-header-past-years {
+        width: 100%;
+    }
+
     #league-header {
         flex-flow: column;
     }
@@ -122,6 +130,10 @@
         position: relative;
     }
 
+    #year-selector-wrapper {
+        justify-content: end;
+    }
+
     #league-header {
         display: flex;
         flex-flow: row;
@@ -191,6 +203,12 @@
 #league td {
     text-align: center;
     vertical-align: middle;
+}
+
+#year-selector-wrapper {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
 }
 
 #league-header-past-years {

@@ -5,40 +5,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 20:24+0100\n"
+"POT-Creation-Date: 2024-01-18 09:12+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dgf/admin.py:226
+#: dgf/admin.py:228
 msgid "Recalculate points"
 msgstr "Punkte neu berechnen"
 
-#: dgf/admin.py:234
+#: dgf/admin.py:236
 msgid "Reimport attendance from turniere.discgolf.de"
 msgstr "Teilnehmerliste aus turniere.discgolf.de neu portieren"
 
-#: dgf/admin.py:242
+#: dgf/admin.py:244
 msgid "Reimport results from turniere.discgolf.de"
 msgstr "Ergebnisse aus turniere.discgolf.de neu portieren"
 
-#: dgf/admin.py:278
+#: dgf/admin.py:280
 msgid "OK"
 msgstr "OK"
 
-#: dgf/admin.py:281
+#: dgf/admin.py:283
 msgid "please check"
 msgstr "bitte überprüfen"
 
 #: dgf/cms_plugins.py:22 dgf/cms_plugins.py:50 dgf/cms_plugins.py:62
-#: dgf/cms_plugins.py:79 dgf/cms_plugins.py:159 dgf/cms_plugins.py:167
+#: dgf/cms_plugins.py:79 dgf/cms_plugins.py:148 dgf/cms_plugins.py:156
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
-#: dgf/cms_plugins.py:23 dgf/models.py:197 dgf/models.py:206
-#: dgf_league/models.py:37 dgf_league/models.py:81
+#: dgf/cms_plugins.py:23 dgf/models.py:198 dgf/models.py:207
+#: dgf_league/models.py:47 dgf_league/models.py:104
 msgid "Friend"
 msgstr "Friend"
 
@@ -62,63 +62,63 @@ msgstr "Beste Runden aus UDisc"
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:160
+#: dgf/cms_plugins.py:149
 msgid "Tour Results"
 msgstr "Tourergebnisse"
 
-#: dgf/cms_plugins.py:168
+#: dgf/cms_plugins.py:157
 msgid "Bag Tags (whole page)"
 msgstr "Bagtags (ganze Seite)"
 
-#: dgf/cms_plugins.py:182 dgf/cms_plugins.py:208 dgf/cms_plugins.py:234
+#: dgf/cms_plugins.py:170 dgf/cms_plugins.py:196
 msgid "Tremonia Series"
 msgstr "Tremonia Series"
 
-#: dgf/cms_plugins.py:221
+#: dgf/cms_plugins.py:183
 msgid "Hall Of Fame (small)"
 msgstr "Hall Of Fame (klein)"
 
-#: dgf/cms_plugins.py:227
+#: dgf/cms_plugins.py:189
 msgid "Hall Of Fame (whole page)"
 msgstr "Hall Of Fame (ganze Seite)"
 
-#: dgf/cms_plugins.py:235
+#: dgf/cms_plugins.py:197
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:248
+#: dgf/cms_plugins.py:210
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
-#: dgf/cms_plugins.py:250
+#: dgf/cms_plugins.py:212
 msgid "Only desktop"
 msgstr "Nur am Desktop sichtbar"
 
-#: dgf/cms_plugins.py:264
+#: dgf/cms_plugins.py:226
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:271
+#: dgf/cms_plugins.py:233
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:272
+#: dgf/cms_plugins.py:234
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:287
+#: dgf/cms_plugins.py:249
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
-#: dgf/cms_plugins.py:295 dgf/cms_plugins.py:312
+#: dgf/cms_plugins.py:257 dgf/cms_plugins.py:274
 msgid "Social Media"
 msgstr "Soziale Netzwerke"
 
-#: dgf/cms_plugins.py:296
+#: dgf/cms_plugins.py:258
 msgid "Concrete Tournament Results"
 msgstr "Bestimmtes Turnier"
 
-#: dgf/cms_plugins.py:313
+#: dgf/cms_plugins.py:275
 msgid "Last Tremonia Series Results"
 msgstr "Letzte Tremonia Series Ergebnisse"
 
@@ -177,302 +177,314 @@ msgstr "Ordner"
 msgid "All folders"
 msgstr "Alle Ordner"
 
-#: dgf/models.py:31
+#: dgf/models.py:32
 msgid "ID"
 msgstr "ID"
 
-#: dgf/models.py:32
+#: dgf/models.py:33
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:8
 #: dgf_images/templates/dgf_images/generators/text-with-friends-background.html:26
 msgid "Text"
 msgstr "Text"
 
-#: dgf/models.py:49 dgf/models.py:361 dgf/models.py:481
-#: dgf_cookies/models.py:14 dgf_league/forms.py:27 dgf_league/models.py:18
+#: dgf/models.py:50 dgf/models.py:362 dgf/models.py:482
+#: dgf_cookies/models.py:14 dgf_league/forms.py:30 dgf_league/models.py:23
 msgid "Name"
 msgstr "Name"
 
-#: dgf/models.py:50
+#: dgf/models.py:51
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: dgf/models.py:51 dgf/models.py:125
+#: dgf/models.py:52 dgf/models.py:126
 msgid "City"
 msgstr "Stadt"
 
-#: dgf/models.py:52
+#: dgf/models.py:53
 msgid "Country"
 msgstr "Land"
 
-#: dgf/models.py:53
+#: dgf/models.py:54
 msgid "UDisc ID"
 msgstr "UDisc ID"
 
-#: dgf/models.py:54
+#: dgf/models.py:55
 msgid "Main Layout"
 msgstr "Haupt-Layout"
 
-#: dgf/models.py:109
+#: dgf/models.py:110
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: dgf/models.py:110
+#: dgf/models.py:111
 msgid "Club role"
 msgstr "Vereinsrolle"
 
-#: dgf/models.py:112
+#: dgf/models.py:113
 msgid "Sponsor"
 msgstr "Sponsor"
 
-#: dgf/models.py:113
+#: dgf/models.py:114
 msgid "Sponsor logo"
 msgstr "Sponsors Logo"
 
-#: dgf/models.py:114
+#: dgf/models.py:115
 msgid "Sponsor link"
 msgstr "Sponsors URL"
 
-#: dgf/models.py:116
+#: dgf/models.py:117
 msgid "PDGA Number"
 msgstr "PDGA Nummer"
 
-#: dgf/models.py:117
+#: dgf/models.py:118
 msgid "GT Number"
 msgstr "GT Nummer"
 
-#: dgf/models.py:118
+#: dgf/models.py:119
 msgid "UDisc Username"
 msgstr "UDisc-Benutzername"
 
-#: dgf/models.py:119
+#: dgf/models.py:120
 msgid "Disc Golf Metrix User ID"
 msgstr "Disc Golf Metrix Benutzer ID"
 
-#: dgf/models.py:121
+#: dgf/models.py:122
 msgid "Can we use this profile information in our social media accounts?"
 msgstr ""
 "Können wir deine Profil-Informationen bei unseren Social Media Konten "
 "benutzen?"
 
-#: dgf/models.py:124 dgf/models.py:459 dgf/models.py:483
+#: dgf/models.py:125 dgf/models.py:460 dgf/models.py:484
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:64
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:23
 msgid "Division"
 msgstr "Division"
 
-#: dgf/models.py:126
+#: dgf/models.py:127
 msgid "Main photo"
 msgstr "Hauptbild"
 
-#: dgf/models.py:127
+#: dgf/models.py:128
 msgid "Plays since"
 msgstr "Ich spiele Disc Golf seit"
 
-#: dgf/models.py:129
+#: dgf/models.py:130
 msgid "Best score in Wischlingen (relative to par)"
 msgstr "Beste Runde in Wischlingen (relativ zu par 71)"
 
-#: dgf/models.py:131
+#: dgf/models.py:132
 msgid "Started playing"
 msgstr "Ich bin zum Sport gekommen..."
 
-#: dgf/models.py:132
+#: dgf/models.py:133
 msgid "Job"
 msgstr "Das mache ich beruflich"
 
-#: dgf/models.py:133
+#: dgf/models.py:134
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:45
 msgid "Other hobbies"
 msgstr "Andere Hobbies"
 
-#: dgf/models.py:135
+#: dgf/models.py:136
 msgid "Slug"
 msgstr "Slug"
 
-#: dgf/models.py:136
+#: dgf/models.py:137
 #: dgf/templates/dgf/includes/friend_detail/00_friend_header.html:70
 #: dgf/templates/dgf/includes/friend_picture.html:56
 msgid "Rating"
 msgstr "Rating"
 
-#: dgf/models.py:137
+#: dgf/models.py:138
 msgid "Bag Tag"
 msgstr "Bagtag"
 
-#: dgf/models.py:139
+#: dgf/models.py:140
 msgid "Total tournaments"
 msgstr "Gespielte Turniere"
 
-#: dgf/models.py:140
+#: dgf/models.py:141
 msgid "Total earnings"
 msgstr "Gesamtgewinn im Turniere"
 
-#: dgf/models.py:184
+#: dgf/models.py:185
 msgid "Last score from UDisc"
 msgstr "Letzte Runde aus UDisc"
 
-#: dgf/models.py:196 dgf/models.py:295
+#: dgf/models.py:197 dgf/models.py:296
 msgid "Course"
 msgstr "Parcours"
 
-#: dgf/models.py:204
+#: dgf/models.py:205
 msgid "Title"
 msgstr "Titel"
 
-#: dgf/models.py:205
+#: dgf/models.py:206
 msgid "Body"
 msgstr "Inhalt"
 
-#: dgf/models.py:217 dgf/models.py:270 dgf/models.py:297 dgf/models.py:320
+#: dgf/models.py:218 dgf/models.py:271 dgf/models.py:298 dgf/models.py:321
 msgid "Type"
 msgstr "Art"
 
-#: dgf/models.py:234
+#: dgf/models.py:235
 msgid "Content"
 msgstr "Inhalt"
 
-#: dgf/models.py:242
+#: dgf/models.py:243
 msgid "Manufacturer"
 msgstr "Hersteller"
 
-#: dgf/models.py:243
+#: dgf/models.py:244
 msgid "Mold"
 msgstr "Scheibenmodell"
 
-#: dgf/models.py:244
+#: dgf/models.py:245
 msgid "Display name"
 msgstr "Scheibenname"
 
-#: dgf/models.py:265
+#: dgf/models.py:266
 msgid "Putter"
 msgstr "Putter"
 
-#: dgf/models.py:266
+#: dgf/models.py:267
 msgid "Mid-Range"
 msgstr "Midrange"
 
-#: dgf/models.py:267
+#: dgf/models.py:268
 msgid "Fairway Driver"
 msgstr "Fairway Driver"
 
-#: dgf/models.py:268
+#: dgf/models.py:269
 msgid "Distance Driver"
 msgstr "Distance Driver"
 
-#: dgf/models.py:271
+#: dgf/models.py:272
 msgid "Amount"
 msgstr "Menge"
 
-#: dgf/models.py:272 dgf/models.py:294
+#: dgf/models.py:273 dgf/models.py:295
 msgid "Disc"
 msgstr "Scheibe"
 
-#: dgf/models.py:273 dgf/models.py:440 dgf/models.py:456 dgf/models.py:516
+#: dgf/models.py:274 dgf/models.py:441 dgf/models.py:457 dgf/models.py:517
 #: dgf/templates/dgf/plugins/tour_results.html:70
 msgid "Player"
 msgstr "Spieler"
 
-#: dgf/models.py:289
+#: dgf/models.py:290
 msgid "Practice"
 msgstr "Übung"
 
-#: dgf/models.py:290
+#: dgf/models.py:291
 msgid "Casual Round"
 msgstr "Spaßrunde"
 
-#: dgf/models.py:291 dgf/models.py:439 dgf/models.py:455
+#: dgf/models.py:292 dgf/models.py:440 dgf/models.py:456
 #: dgf/templates/dgf/tournament_list.html:22
 msgid "Tournament"
 msgstr "Turnier"
 
-#: dgf/models.py:296
+#: dgf/models.py:297
 msgid "Hole"
 msgstr "Bahn"
 
-#: dgf/models.py:298 dgf/templates/dgf/tournament_list.html:23
+#: dgf/models.py:299 dgf/templates/dgf/tournament_list.html:23
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:316 dgf/templates/dgf/friend_profile.html:83
+#: dgf/models.py:317 dgf/templates/dgf/friend_profile.html:83
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:7
 msgid "In the bag"
 msgstr "In the Bag"
 
-#: dgf/models.py:317
+#: dgf/models.py:318
 msgid "Ace"
 msgstr "Ass"
 
-#: dgf/models.py:318
+#: dgf/models.py:319
 msgid "Other"
 msgstr "Andere"
 
-#: dgf/models.py:321
+#: dgf/models.py:322
 msgid "URL"
 msgstr "URL Addresse"
 
-#: dgf/models.py:363
+#: dgf/models.py:364
 msgid "PDGA ID"
 msgstr "PDGA ID"
 
-#: dgf/models.py:364
+#: dgf/models.py:365
 msgid "GT ID"
 msgstr "GT ID"
 
-#: dgf/models.py:365
+#: dgf/models.py:366
 msgid "Disc Golf Metrix ID"
 msgstr "Disc Golf Metrix ID"
 
-#: dgf/models.py:370
+#: dgf/models.py:371
 msgid "Tremonia Series points + half beaten players"
 msgstr "Tremonia Series Punkte + Hälfte der geschlagenen Spieler"
 
-#: dgf/models.py:371
+#: dgf/models.py:372
 msgid "Tremonia Putting Liga points (0-200): keep points from import"
 msgstr "Tremonia Putting Liga Punkte (0-200): behalte Punkte vom Import"
 
-#: dgf/models.py:373
+#: dgf/models.py:374
 msgid "Point System"
 msgstr "Punktsystem"
 
-#: dgf/models.py:457 dgf/templates/dgf/plugins/tour_results.html:69
+#: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:69
 msgid "Position"
 msgstr "Platz"
 
-#: dgf/models.py:458 dgf/templates/dgf/plugins/tour_results.html:71
-#: dgf_league/models.py:67
-#: dgf_league/templates/dgf_league/includes/league_standings.html:14
+#: dgf/models.py:459 dgf/templates/dgf/plugins/tour_results.html:71
+#: dgf_league/models.py:84
+#: dgf_league/templates/dgf_league/includes/league_standings.html:39
 msgid "Points"
 msgstr "Punkte"
 
-#: dgf/models.py:484
+#: dgf/models.py:485
 msgid "How many tournaments should be evaluated?"
 msgstr "Wie viele Turniere zählen für die Gesamtwertung"
 
-#: dgf/models.py:515 dgf_league/forms.py:25 dgf_league/models.py:20
-#: dgf_league/models.py:48
+#: dgf/models.py:516 dgf/models.py:541 dgf_league/forms.py:28
+#: dgf_league/models.py:25 dgf_league/models.py:66
 msgid "Actor"
 msgstr "Akteur"
 
-#: dgf/models.py:517
+#: dgf/models.py:518
 msgid "New number"
 msgstr "Neue Nummer"
 
-#: dgf/models.py:519
+#: dgf/models.py:520
 msgid "Previous number"
 msgstr "Vorherige Nummer"
 
-#: dgf/plugin_models.py:52
+#: dgf/models.py:539
+msgid "Command"
+msgstr "Kommando"
+
+#: dgf/models.py:543
+msgid "Duration (in seconds)"
+msgstr "Dauer (in Sekunden)"
+
+#: dgf/models.py:544
+msgid "Exception"
+msgstr "Exception"
+
+#: dgf/plugin_models.py:46
 #: dgf_images/templates/dgf_images/generators/picture-with-title.html:34
 #: dgf_images/templates/dgf_images/generators/tour-results.html:78
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:102
 msgid "Background image"
 msgstr "Hintergrundbild"
 
-#: dgf/plugin_models.py:53
+#: dgf/plugin_models.py:47
 msgid "Width"
 msgstr "Breite"
 
-#: dgf/plugin_models.py:54
+#: dgf/plugin_models.py:48
 msgid "Height"
 msgstr "Höhe"
 
@@ -580,7 +592,7 @@ msgstr "GESAMT"
 msgid "in a tournament"
 msgstr "davon im Turnier"
 
-#: dgf/templates/dgf/includes/admin_button.html:8
+#: dgf/templates/dgf/includes/admin_button.html:14
 msgid "Open in admin"
 msgstr "Im Admin öffen"
 
@@ -699,7 +711,8 @@ msgstr "Wähle die Bagtags"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:8
 msgid "Select the bag tags you want to update and then click on 'continue'."
-msgstr "Wähle die Bagtags, die du aktualisieren willst und dann klicke 'Weiter'"
+msgstr ""
+"Wähle die Bagtags, die du aktualisieren willst und dann klicke 'Weiter'"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:11
 msgid "Select from Metrix"
@@ -814,7 +827,6 @@ msgstr "Wo spielen wir gerade..."
 #: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:9
 #: dgf/templates/dgf/includes/show_all_less.html:4
 #: dgf/templates/dgf/plugins/hall_of_fame_small.html:15
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_small.html:19
 msgid "(show all)"
 msgstr "(alle anzeigen)"
 
@@ -861,8 +873,6 @@ msgstr "Du hast bereits Bagtag Nummer "
 
 #: dgf/templates/dgf/plugins/hall_of_fame_page.html:10
 #: dgf/templates/dgf/plugins/hall_of_fame_small.html:6
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:14
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_small.html:10
 msgid "Hall Of Fame"
 msgstr "Hall Of Fame"
 
@@ -871,17 +881,14 @@ msgid "All winners of the "
 msgstr "Alle Gewinner der "
 
 #: dgf/templates/dgf/plugins/hall_of_fame_page.html:32
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:36
 msgid "Wins"
 msgstr "Siege"
 
 #: dgf/templates/dgf/plugins/hall_of_fame_page.html:33
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:37
 msgid "Second places"
 msgstr "Zweitplatzierungen"
 
 #: dgf/templates/dgf/plugins/hall_of_fame_page.html:34
-#: dgf/templates/dgf/plugins/tremonia_series_hall_of_fame_page.html:38
 msgid "Third places"
 msgstr "Drittplatzierungen"
 
@@ -1185,9 +1192,10 @@ msgstr "Textgröße"
 msgid "Tour"
 msgstr "Tour"
 
+# Leave this with a space. It makes sense because the next one contains the text.
 #: dgf_images/templates/dgf_images/generators/tour-results.html:17
 msgid "Show"
-msgstr ""
+msgstr " "
 
 #: dgf_images/templates/dgf_images/generators/tour-results.html:19
 msgid "positions"
@@ -1297,11 +1305,16 @@ msgstr "Bild Zoom"
 msgid "Ties decided in sudden death"
 msgstr "Durch Stechen entschieden"
 
-#: dgf_league/admin.py:46 dgf_league/forms.py:68
+#: dgf_league/admin.py:12
+#: dgf_league/templates/dgf_league/includes/league_standings.html:14
+msgid "Year"
+msgstr "Jahr"
+
+#: dgf_league/admin.py:70 dgf_league/forms.py:71
 msgid "Please select 2 different teams"
 msgstr "Bitte selektiere 2 unterschiedliche Teams"
 
-#: dgf_league/admin.py:48
+#: dgf_league/admin.py:72
 msgid ""
 "That result already exist. Please select it from the list and change it "
 "instead of creating a new one"
@@ -1309,7 +1322,7 @@ msgstr ""
 "Dieses Ergebnis existiert bereits. Bitte wähle es aus der Liste und ändere "
 "das anstatt ein neues zu erzeugen"
 
-#: dgf_league/admin.py:54 dgf_league/forms.py:71
+#: dgf_league/admin.py:78 dgf_league/forms.py:74
 #, python-format
 msgid "Sum of all points should be %(points)s"
 msgstr "Die Summe muss %(points)s Punkte sein"
@@ -1335,53 +1348,69 @@ msgstr "Spiele"
 msgid "Add match result"
 msgstr "Ergebnis hinzufügen"
 
-#: dgf_league/forms.py:16
+#: dgf_league/forms.py:19
 msgid "Error"
 msgstr "Fehler"
 
-#: dgf_league/forms.py:26
+#: dgf_league/forms.py:29
 msgid "Partner"
 msgstr "Partner"
 
-#: dgf_league/forms.py:32
+#: dgf_league/forms.py:35
 msgid "You are already in another team"
 msgstr "Du bist bereits in einem anderen Team"
 
-#: dgf_league/forms.py:38
+#: dgf_league/forms.py:41
 msgid "The selected partner is already in another team"
 msgstr "Der gewählte Partner ist bereits in einem anderen Team"
 
-#: dgf_league/forms.py:44
+#: dgf_league/forms.py:47
 msgid "That name is already taken"
 msgstr "Jemand war schneller als du und hat sich diesen Namen schon ausgesucht"
 
-#: dgf_league/forms.py:53
+#: dgf_league/forms.py:56
 msgid "You can not select yourself as partner"
 msgstr "Du kannst nicht mit dir seblst spielen"
 
-#: dgf_league/forms.py:57
+#: dgf_league/forms.py:60
 msgid "Own team"
 msgstr "Eigenes Team"
 
-#: dgf_league/forms.py:58
+#: dgf_league/forms.py:61
 msgid "Rival team"
 msgstr "Gegnerteam"
 
-#: dgf_league/forms.py:59
+#: dgf_league/forms.py:62
 msgid "Own points"
 msgstr "Eigene Punkte"
 
-#: dgf_league/forms.py:60
+#: dgf_league/forms.py:63
 msgid "Rival points"
 msgstr "Gegner-Punkte"
 
-#: dgf_league/models.py:36 dgf_league/models.py:66
+#: dgf_league/models.py:38
+#, python-brace-format
+msgid ""
+"There's already a team with that name for the {self.created.year} league"
+msgstr "Es gibt schon ein Team mit dem Namen für die {self.created.year} Liga"
+
+#: dgf_league/models.py:46 dgf_league/models.py:83
 msgid "Team"
 msgstr "Team"
 
-#: dgf_league/models.py:65
+#: dgf_league/models.py:53
+#, python-brace-format
+msgid "{self.friend} already belongs to the team \"{team.name}\" "
+msgstr "{self.friend} ist schon im Team \"{team.name}\" "
+
+#: dgf_league/models.py:82
 msgid "Match"
 msgstr "Spiel"
+
+#: dgf_league/models.py:89
+#, python-brace-format
+msgid "There's already a result for {self.team} "
+msgstr "Ein Ergebnis für {self.team} existiert bereits"
 
 #: dgf_league/templates/dgf_league/includes/friends_without_team.html:9
 msgid "Friends without team that would like to play"
@@ -1391,43 +1420,43 @@ msgstr "Friends, die ein Partner suchen"
 msgid "Go talk to them and make a team!"
 msgstr "Rede mit ihnen und bilde ein Team!"
 
-#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:12
+#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:11
 msgid "Create new team"
 msgstr "Neues Team anmelden"
 
-#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:19
+#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:18
 msgid "Add result"
 msgstr "Ergebnis hinzufügen"
 
-#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:25
+#: dgf_league/templates/dgf_league/includes/league_popups_and_buttons.html:24
 msgid "I don't have a team, but I would like to play"
 msgstr "Ich würde gerne mitmachen aber habe keinen Partner"
 
-#: dgf_league/templates/dgf_league/includes/league_results.html:7
+#: dgf_league/templates/dgf_league/includes/league_results.html:6
 msgid "Results"
 msgstr "Ergebnisse"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:3
+#: dgf_league/templates/dgf_league/includes/league_standings.html:9
 msgid "Standings"
 msgstr "Tabelle"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:10
+#: dgf_league/templates/dgf_league/includes/league_standings.html:35
 msgid "Place"
 msgstr "Platz"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:11
+#: dgf_league/templates/dgf_league/includes/league_standings.html:36
 msgid "Team name"
 msgstr "Team"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:12
+#: dgf_league/templates/dgf_league/includes/league_standings.html:37
 msgid "Players"
 msgstr "Spieler"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:13
+#: dgf_league/templates/dgf_league/includes/league_standings.html:38
 msgid "Games played"
 msgstr "Gespielte Spiele"
 
-#: dgf_league/templates/dgf_league/includes/league_standings.html:57
+#: dgf_league/templates/dgf_league/includes/league_standings.html:82
 msgid "There are no teams yet"
 msgstr "Keine Teams haben sich angemeldet"
 
@@ -1449,15 +1478,15 @@ msgstr "Team-Punkte"
 msgid "Select your partner"
 msgstr "Wähle deinen Teampartner"
 
-#: dgf_league/templates/dgf_league/popups/create_team.html:18
+#: dgf_league/templates/dgf_league/popups/create_team.html:19
 msgid "How do you want to call yourselves?"
 msgstr "Wie ist euer Teamname?"
 
-#: dgf_league/templates/dgf_league/popups/create_team.html:23
+#: dgf_league/templates/dgf_league/popups/create_team.html:24
 msgid "Create"
 msgstr "Team anmelden"
 
-#: dgf_league/views.py:60
+#: dgf_league/views.py:76
 msgid "You don't have a team and therefore you can not add results"
 msgstr "Du hast kein Team und deswegen dafst du keine Ergebnisse hinzufügen"
 

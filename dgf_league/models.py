@@ -75,7 +75,7 @@ class Match(Model):
     results_as_str.short_description = 'Results'
 
     def __str__(self):
-        return f'{self.results_as_str()} ({self.created})'
+        return f'{self.results_as_str()} [{self.created.year}]'
 
 
 class Result(Model):

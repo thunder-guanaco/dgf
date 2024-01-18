@@ -10,7 +10,7 @@ from django.views.generic import ListView
 
 from dgf_league.forms import AddResultForm, AddTeamForm
 from dgf_league.models import Team, TeamMembership, Result, Match, FriendWithoutTeam
-from dgf_league.templatetags.dgf_league import current_year_membership_exists, current_year_membership
+from dgf_league.templatetags.dgf_league import current_year_membership
 
 
 def get_year(kwargs):

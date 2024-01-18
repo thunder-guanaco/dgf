@@ -1,29 +1,8 @@
 {% load i18n dgf_league %}
 
-<script>
-    const change_year_url = "{% url 'dgf_league:team_index_year' 1111 %}";
-</script>
-
 <div id="league-header">
 
-    <h1>{% blocktranslate with year=year %}Standings {{year}}{% endblocktranslate %}</h1>
-
-    <div id="league-header-past-years">
-        {% all_league_years as all_years %}
-        {% if all_years %}
-            <h2>{% trans "Year" %}</h2>
-            <select id="league-year-select" onchange="onChangeYear()">
-                {% if year|not_in:all_years  %}
-                    <option selected>-----</option>
-                {% endif %}
-                {% for selectable_year in all_years %}
-                    <option {% if year == selectable_year %}selected{% endif %}>
-                        {{selectable_year}}
-                    </option>
-                {% endfor %}
-            </select>
-        {% endif %}
-    </div>
+    <h1>{% trans "Standings" %}</h1>
 
 </div>
 
