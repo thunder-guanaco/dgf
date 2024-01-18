@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static cms_tags i18n %}
+
+{% block title %}
+    {% trans "Friends" %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_search.css' %}">
+    {% include "dgf/includes/background_css.html" %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/friend_search.js' %}"></script>
+{% endblock %}
+
+{% block headline %}
+    {% static_placeholder "friends_headline" %}
+{% endblock %}
+
+{% block content %}
+
+    <form id="friend-search">
+
+        {% trans "Type a friend's name" as placeholder %}
+        <input id="search-friend-input" type="text" placeholder="{{placeholder}}" maxlength="50">
+
+        {% if friends %}
+            <div class="all-friends">
+                {% for friend in friends %}
+                    <div class="friend-wrapper" data-search="{{friend.first_name|default:''|lower}} {{friend.last_name|default:''|lower}} {{friend.nickname|default:''|lower}}">
+                        {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>There are no friends.</p>
+        {% endif %}
+
+    </form>
+
+{% endblock %}

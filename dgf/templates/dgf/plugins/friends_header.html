@@ -1,7 +1,12 @@
+{% load i18n%}
+
 <div id="friends-header" class="slide-right">
     {% if friends %}
         <div class="arrow-left" onclick="scrollBack()"></div>
         <div id="scrollable-header" class="hidden-scrollbar">
+            {% trans "Find friend" as search_text %}
+            {% url 'dgf:friend_search' as search_url %}
+            {% include "dgf/includes/ball.html" with circle_text="🔍" text=search_text url=search_url %}
             {% for friend in friends %}
                 {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
             {% endfor %}
