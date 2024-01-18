@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -41,7 +43,7 @@ class AddTeamForm(DgfLeagueAddForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if Team.objects.filter(name=name).exists():
+        if Team.objects.filter(created__year=datetime.today().year, name=name).exists():
             raise ValidationError(_('That name is already taken'))
         return name
 
