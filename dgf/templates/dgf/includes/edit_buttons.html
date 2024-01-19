@@ -17,3 +17,7 @@
 
 {% url 'admin:dgf_friend_change' friend.id as admin_url %}
 {% include "dgf/includes/admin_button.html" with url=admin_url %}
+
+{% trans "Impersonate" as text %}
+{% url 'impersonate-start' friend.id as impersonate_url %}
+{% include "dgf/includes/admin_button.html" with url=impersonate_url text=text icon="&#127917;" %}

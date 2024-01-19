@@ -1,14 +1,30 @@
 {% load dgf %}
 
-{% if request.user.username == 'manolo' %}
-    {% problematic_tournaments as tournaments %}
-    {% if tournaments|length %}
-        <div id="admin-info">
-            {% for tournament in tournaments %}
-                <a href="{% url 'admin:dgf_tournament_change' tournament.id %}">
-                     ⚠ {{tournament.name}} ({{tournament.date}})
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
+{% problematic_tournaments as tournaments %}
+{% if request.user.username == 'manolo' and tournaments or user.is_impersonate %}
+
+    <div id="admin-info">
+
+        {% if request.user.username == 'manolo' %}
+
+            {% if tournaments|length %}
+                <div id="admin-warnings">
+                    {% for tournament in tournaments %}
+                        <a href="{% url 'admin:dgf_tournament_change' tournament.id %}">
+                            &#9888; {{tournament.name}} ({{tournament.date}})
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if user.is_impersonate %}
+            <div id="impersonate-info">
+                <a href="{% url 'impersonate-stop' %}">&#128721;</a>
+                {{request.real_user}} acting as {{request.user}}
+            </div>
+        {% endif %}
+
+    </div>
+
 {% endif %}

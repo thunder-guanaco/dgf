@@ -158,6 +158,10 @@
         height: 3em;
     }
 
+    #admin-info ~ .language-chooser {
+        margin-top: 40px;
+    }
+
     .language-chooser .cms-language .full {
         display: none;
     }
@@ -183,6 +187,10 @@
     body.with-cms-toolbar .language-chooser,
     body.with-cms-toolbar #navigation-bar.sticky {
         margin-top: 46px;
+    }
+
+    body.with-cms-toolbar #admin-info ~ .language-chooser {
+        margin-top: 80px;
     }
 
     body.with-cms-toolbar #navigation-bar.sticky .language-chooser {
@@ -463,14 +471,12 @@ input[type=button]:active {
 }
 
 #admin-info {
-    position: absolute;
-    top: 1em;
-    left: 1em;
+    width: 100%;
+    min-height: 2em;
+    padding: 0.25em;
     text-align: center;
     background: #8d1950;
     color: white !important;
-    padding: 0.25em;
-    z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: start;
