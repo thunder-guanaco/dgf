@@ -271,6 +271,7 @@ MIDDLEWARE = [
     'cms.middleware.language.LanguageCookieMiddleware',
     'compression_middleware.middleware.CompressionMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'impersonate.middleware.ImpersonateMiddleware',
 ]
 
 INSTALLED_APPS = [
@@ -287,6 +288,7 @@ INSTALLED_APPS = [
     'django_light',
     'jazzmin',
     'corsheaders',
+    'impersonate',
 
     'djangocms_admin_style',
     'django.contrib.auth',

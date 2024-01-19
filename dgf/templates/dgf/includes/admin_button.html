@@ -1,14 +1,22 @@
 {% load i18n %}
 
 {% with full_on_mobile|default_if_none:False as full_on_mobile %}
+{% with icon|default_if_none:'aaa' as icon %}
+{% with text|default_if_none:'' as text %}
 {% with model|default_if_none:'' as model %}
 
 {% if request.user.friend.username == 'manolo' %}
     <a href={{url}}>
         <button class="admin-button">
-            &#128221;
+            {% if icon %}
+                {{icon}}
+            {% else %}
+                &#128221;
+            {% endif %}
             <span class="{% if not full_on_mobile %}desktop{% endif %}">
-                {% if model %}
+                {% if text %}
+                    {{text}}
+                {% elif model %}
                     {{model|title}} admin
                 {% else %}
                     {% trans 'Open in admin' %}
@@ -18,5 +26,7 @@
     </a>
 {% endif %}
 
+{% endwith %}
+{% endwith %}
 {% endwith %}
 {% endwith %}
