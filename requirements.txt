@@ -47,6 +47,7 @@ ipython==8.10.0
 django-mathfilters==1.0.0
 mysqlclient==2.1.0
 parameterized==0.8.1
+paramiko==3.4.0
 Pillow==10.0.1
 pycodestyle==2.7.0
 pyflakes==2.3.1

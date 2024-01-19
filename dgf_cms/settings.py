@@ -122,9 +122,14 @@ def dbbackup_cleanup_filter(filename):
 
 
 if ENV == 'prod':
-    DBBACKUP_STORAGE = 'storages.backends.ftp.FTPStorage'
+    DBBACKUP_STORAGE = 'storages.backends.sftpstorage.SFTPStorage'
     DBBACKUP_STORAGE_OPTIONS = {
-        'location': get_env_or_die('DJANGO_FTP_CONNECTION_STRING')
+        'host': get_env_or_die('DJANGO_FTP_HOST'),
+        'root_path': '/backups',
+        'params': {
+            'username': get_env_or_die('DJANGO_FTP_USERNAME'),
+            'password': get_env_or_die('DJANGO_FTP_PASSWORD'),
+        }
     }
     DBBACKUP_DATE_FORMAT = '%Y-%m-%d_%H-%M-%S'
     DBBACKUP_CLEANUP_FILTER = dbbackup_cleanup_filter

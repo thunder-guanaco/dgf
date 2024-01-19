@@ -10,7 +10,7 @@ echo "Download the following backup files from Netcup:"
 echo " - dgf_db_<date>.dump"
 echo " - dgf_media_<date>.tar"
 read -p "Press ENTER to open Netcup's File Manager on chrome " x
-google-chrome "https://a2f90.webhosting.systems/smb/file-manager/list"
+google-chrome "https://mein.ionos.de/webhosting/2e73d4d8-0017-4794-b4ac-ce73b8823f86/webspace-explorer"
 read -p "Press ENTER when you finish downloading files (and leave them in the Downloads folder) " x
 
 mkdir -p media
@@ -22,8 +22,7 @@ cp ~/Downloads/${db_file} media/
 cp ~/Downloads/${media_file} media/
 
 # CLEAR DATABASE
-sudo mysql -e "DROP DATABASE dgf_cms;"
-sudo mysql -e "CREATE DATABASE dgf_cms CHARACTER SET utf8;"
+sudo mysql -e "DROP DATABASE dgf_cms; CREATE DATABASE dgf_cms CHARACTER SET utf8;"
 
 python manage.py dbrestore -i ${db_file}
 python manage.py mediarestore -i ${media_file}
