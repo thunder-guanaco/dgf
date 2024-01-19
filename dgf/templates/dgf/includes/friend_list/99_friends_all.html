@@ -1,9 +1,12 @@
 {% load i18n %}
 <li>
-    <h2>{% trans "All friends" %}</h2>
-    <div class="all-friends">
-        {% for friend in friends %}
-            {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
-        {% endfor %}
-    </div>
+    <form class="friend-search">
+        <h2>{% trans "All friends" %}</h2>
+
+        {% trans "Find friend" as placeholder %}
+        {% include "dgf/includes/friend_search_field.html" with placeholder=placeholder %}
+    </form>
+
+    {% include "dgf/includes/friend_search.html" %}
+
 </li>

@@ -1,7 +1,7 @@
 $(window).on("load", () => {
 
-    $("#search-friend-input").keyup(searchFriends);
-    $("#friend-search").submit(submitForm);
+    $(".friend-search-field").keyup(searchFriends);
+    $(".friend-search").submit(submitForm);
 
 });
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 21:18+0100\n"
+"POT-Creation-Date: 2024-01-19 11:05+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +132,7 @@ msgid "Bag tag changes"
 msgstr "Bagtag Änderungen"
 
 #: dgf/cms_toolbars.py:21
-#: dgf/templates/dgf/includes/friend_list/99_friends_all.html:3
+#: dgf/templates/dgf/includes/friend_list/99_friends_all.html:4
 msgid "All friends"
 msgstr "Alle Friends"
 
@@ -497,7 +497,7 @@ msgstr "Zum Profil"
 msgid "Save and go to profile"
 msgstr "Speichern und zum Profil"
 
-#: dgf/templates/dgf/friend_list.html:33
+#: dgf/templates/dgf/friend_list.html:34
 msgid "Stats"
 msgstr "Erfolge/Statistiken der Disc Golf Friends"
 
@@ -571,7 +571,7 @@ msgstr "Video hinzufügen"
 msgid "Update"
 msgstr "Speichern"
 
-#: dgf/templates/dgf/friend_search.html:26
+#: dgf/templates/dgf/friend_search.html:29
 msgid "Type a friend's name"
 msgstr "Tippe einen Namen..."
 
@@ -856,6 +856,11 @@ msgstr "Beste Spieler (nach PDGA-Rating)"
 msgid "Best scores in Wischlingen (standard 23 - par 71)"
 msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
 
+#: dgf/templates/dgf/includes/friend_list/99_friends_all.html:6
+#: dgf/templates/dgf/plugins/friends_header.html:7
+msgid "Find friend"
+msgstr "Friend finden"
+
 #: dgf/templates/dgf/includes/now_playing.html:10
 msgid "follow live"
 msgstr "live folgen"
@@ -875,10 +880,6 @@ msgstr "Nimmst du Bagtag Nummer "
 #: dgf/templates/dgf/plugins/bag_tags_page.html:21
 msgid "You already have bag tag number "
 msgstr "Du hast bereits Bagtag Nummer "
-
-#: dgf/templates/dgf/plugins/friends_header.html:7
-msgid "Find friend"
-msgstr "Friend finden"
 
 #: dgf/templates/dgf/plugins/hall_of_fame_page.html:10
 #: dgf/templates/dgf/plugins/hall_of_fame_small.html:6

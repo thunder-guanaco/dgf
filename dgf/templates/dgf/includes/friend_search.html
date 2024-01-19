@@ -1,0 +1,16 @@
+{% with hide_first|default_if_none:False as hide_first %}
+
+{% if friends %}
+    <div class="all-friends {% if hide_first %}hidden{% endif %}" >
+        {% for friend in friends %}
+            <div class="friend-wrapper"
+                 data-search="{{friend.first_name|default:''|lower}} {{friend.last_name|default:''|lower}} {{friend.nickname|default:''|lower}}">
+                {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>There are no friends.</p>
+{% endif %}
+
+{% endwith %}
