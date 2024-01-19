@@ -79,16 +79,15 @@ class Match(Model):
 
 
 class Result(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['match', 'team'], name='teams_can_not_play_against_themselves'),
+        ]
+
     match = models.ForeignKey(Match, on_delete=CASCADE, related_name='results', verbose_name=_('Match'))
     team = models.ForeignKey(Team, on_delete=CASCADE, related_name='results', verbose_name=_('Team'))
     points = models.PositiveIntegerField(_('Points'), validators=[MinValueValidator(0),
                                                                   MaxValueValidator(POINTS_PER_MATCH)])
-
-    def save(self, *args, **kwargs):
-        if Result.objects.filter(match__created__year=self.match.created.year, team=self.team).exists():
-            raise ValidationError(_(f'There\'s already a result for {self.team} '
-                                    f'for the {self.match.created.year} league'))
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.team} got {self.points} in a match'
