@@ -367,10 +367,7 @@ class ManagementCommandExecutionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         start = time.time()
         try:
-            if 'backup' in obj.command:
-                management.call_command(obj.command)
-            else:
-                management.call_command(obj.command, '--let-exceptions-raise')
+            management.call_command(obj.command, '--let-exceptions-raise')
         except Exception as exception:
             obj.exception = repr(exception)
         end = time.time()
