@@ -15,10 +15,6 @@
     <script type="text/javascript" src="{% static 'js/friend_search.js' %}"></script>
 {% endblock %}
 
-{% block headline %}
-    {% static_placeholder "friends_headline" %}
-{% endblock %}
-
 {% block content %}
 
     <form id="friend-search">
@@ -27,7 +23,7 @@
         <input id="search-friend-input" type="text" placeholder="{{placeholder}}" maxlength="50">
 
         {% if friends %}
-            <div class="all-friends">
+            <div class="all-friends {% if request.user_agent.is_mobile %}hidden{% endif %}" >
                 {% for friend in friends %}
                     <div class="friend-wrapper" data-search="{{friend.first_name|default:''|lower}} {{friend.last_name|default:''|lower}} {{friend.nickname|default:''|lower}}">
                         {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
