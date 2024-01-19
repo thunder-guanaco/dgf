@@ -1,7 +1,6 @@
 {% load i18n %}
 
 {% with full_on_mobile|default_if_none:False as full_on_mobile %}
-{% with icon|default_if_none:'aaa' as icon %}
 {% with text|default_if_none:'' as text %}
 {% with model|default_if_none:'' as model %}
 
@@ -26,7 +25,6 @@
     </a>
 {% endif %}
 
-{% endwith %}
 {% endwith %}
 {% endwith %}
 {% endwith %}
