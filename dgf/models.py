@@ -532,7 +532,8 @@ class BagTagChange(Model):
         logger.info(self)
 
 
-MANAGEMENT_COMMAND_CHOICES = [(command, command) for command, app in get_commands().items() if app == 'dgf']
+MANAGEMENT_COMMAND_CHOICES = [(command, command) for command, app in get_commands().items() if app == 'dgf'] + \
+                             [('dbbackup', 'dbbackup'), ('mediabackup', 'mediabackup')]
 
 
 class ManagementCommandExecution(Model):
