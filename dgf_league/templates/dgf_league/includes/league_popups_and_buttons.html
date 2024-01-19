@@ -28,10 +28,10 @@
             {% endif %}
 
             {% url 'admin:dgf_league_team_changelist' as team_admin_url %}
-            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="team" %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="team" full_on_mobile=True %}
 
             {% url 'admin:dgf_league_match_changelist' as team_admin_url %}
-            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="match" %}
+            {% include "dgf/includes/admin_button.html" with url=team_admin_url model="match" full_on_mobile=True %}
 
         </div>
 

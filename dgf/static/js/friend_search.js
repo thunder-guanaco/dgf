@@ -1,17 +1,9 @@
 $(window).on("load", () => {
 
-//    hideAllIfMobile();
     $("#search-friend-input").keyup(searchFriends);
     $("#friend-search").submit(submitForm);
 
 });
-
-//function hideAllIfMobile () {
-//
-//    if (REQUEST_USER_AGENT_IS_MOBILE) {
-//        $(".all-friends .friend-wrapper").hide();
-//    }
-//}
 
 function searchFriends() {
 
