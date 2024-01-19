@@ -1,5 +1,6 @@
 $(window).on("load", () => {
 
+    $("#friends-header").slideUp();
     $("#search-friend-input").keyup(searchFriends);
     $("#friend-search").submit(submitForm);
 

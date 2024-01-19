@@ -1,22 +1,11 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    /*
-    #friend-search {
-        flex-flow: column-reverse;
-    }
-    */
 }
 
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
-
-    /*
-    #friend-search {
-        flex-flow: column;
-    }
-    */
 
     #search-friend-input {
         width: 10em;
