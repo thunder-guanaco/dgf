@@ -28,7 +28,7 @@
 
         {% trans "Type a friend's name" as placeholder %}
         {% include "dgf/includes/friend_search_field.html" with placeholder=placeholder %}
-        {% include "dgf/includes/friend_search.html" with hide_first=request.user_agent.is_mobile %}
+        {% include "dgf/includes/friend_search.html" %}
 
     </form>
 
