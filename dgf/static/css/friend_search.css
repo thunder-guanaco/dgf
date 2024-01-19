@@ -1,34 +1,23 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    /*
-    #friend-search {
-        flex-flow: column-reverse;
-    }
-    */
 }
 
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    /*
-    #friend-search {
-        flex-flow: column;
-    }
-    */
-
-    #search-friend-input {
+    .friend-search-field {
         width: 10em;
     }
 }
 
-#friend-search {
+.friend-search {
     display: flex;
     flex-flow: column;
     align-items: center;
 }
 
-#search-friend-input {
+.friend-search-field {
     margin: 2em 0;
 }

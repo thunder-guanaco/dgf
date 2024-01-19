@@ -131,6 +131,18 @@
     font-weight: normal;
 }
 
+.friend-search {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+#statistics li .friend-search h2 {
+    margin: 0;
+}
+
 .all-friends {
     display: flex;
     flex-direction: row;

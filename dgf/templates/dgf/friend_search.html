@@ -13,26 +13,22 @@
 
 {% block js %}
     <script type="text/javascript" src="{% static 'js/friend_search.js' %}"></script>
+    {% if request.user_agent.is_mobile %}
+        <script type="text/javascript">
+            $(window).on("load", () => {
+                $("#friends-header").slideUp();
+            });
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
-    <form id="friend-search">
+    <form class="friend-search">
 
         {% trans "Type a friend's name" as placeholder %}
-        <input id="search-friend-input" type="text" placeholder="{{placeholder}}" maxlength="50">
-
-        {% if friends %}
-            <div class="all-friends {% if request.user_agent.is_mobile %}hidden{% endif %}" >
-                {% for friend in friends %}
-                    <div class="friend-wrapper" data-search="{{friend.first_name|default:''|lower}} {{friend.last_name|default:''|lower}} {{friend.nickname|default:''|lower}}">
-                        {% include "dgf/includes/friend_ball.html" with friend=friend show_name=True %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>There are no friends.</p>
-        {% endif %}
+        {% include "dgf/includes/friend_search_field.html" with placeholder=placeholder %}
+        {% include "dgf/includes/friend_search.html" with hide_first=request.user_agent.is_mobile %}
 
     </form>
 
