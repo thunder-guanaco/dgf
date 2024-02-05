@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-19 11:05+0100\n"
+"POT-Creation-Date: 2024-02-05 20:40+0100\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
 #: dgf/cms_plugins.py:23 dgf/models.py:198 dgf/models.py:207
-#: dgf_league/models.py:47 dgf_league/models.py:104
+#: dgf_league/models.py:47 dgf_league/models.py:103
 msgid "Friend"
 msgstr "Friend"
 
@@ -440,7 +440,7 @@ msgid "Position"
 msgstr "Platz"
 
 #: dgf/models.py:459 dgf/templates/dgf/plugins/tour_results.html:71
-#: dgf_league/models.py:84
+#: dgf_league/models.py:89
 #: dgf_league/templates/dgf_league/includes/league_standings.html:18
 msgid "Points"
 msgstr "Punkte"
@@ -597,7 +597,7 @@ msgstr "GESAMT"
 msgid "in a tournament"
 msgstr "davon im Turnier"
 
-#: dgf/templates/dgf/includes/admin_button.html:14
+#: dgf/templates/dgf/includes/admin_button.html:21
 msgid "Open in admin"
 msgstr "Im Admin öffen"
 
@@ -780,6 +780,10 @@ msgstr "Erstes Bagtag am %(first_change)s bekommen"
 msgid "Update profile"
 msgstr "Profil aktualisieren"
 
+#: dgf/templates/dgf/includes/edit_buttons.html:21
+msgid "Impersonate"
+msgstr "Impersonate"
+
 #: dgf/templates/dgf/includes/friend_ball.html:27
 msgid "wins"
 msgstr "Siege"
@@ -938,11 +942,11 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:347 dgf_cms/settings.py:357
+#: dgf_cms/settings.py:354 dgf_cms/settings.py:364
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:348 dgf_cms/settings.py:364
+#: dgf_cms/settings.py:355 dgf_cms/settings.py:371
 msgid "English"
 msgstr "Englisch"
 
@@ -1270,22 +1274,34 @@ msgstr "Space between"
 msgid "Background color"
 msgstr "Hintergrundsfarbe"
 
-#: dgf_images/templates/dgf_images/generators/tour-results.html:97
+#: dgf_images/templates/dgf_images/generators/tour-results.html:99
+msgid "Points after last match:"
+msgstr "Punkte nach dem"
+
+#: dgf_images/templates/dgf_images/generators/tour-results.html:101
 msgid "Points after"
 msgstr "Punkte nach der"
 
-#: dgf_images/templates/dgf_images/generators/tour-results.html:106
+#: dgf_images/templates/dgf_images/generators/tour-results.html:112
 msgid "Total points"
 msgstr "Punkte"
 
-#: dgf_images/templates/dgf_images/generators/tour-results.html:107
+#: dgf_images/templates/dgf_images/generators/tour-results.html:113
 msgid "Tournaments played"
 msgstr "Gespielte Turniere"
 
-#: dgf_images/templates/dgf_images/generators/tour-results.html:147
+#: dgf_images/templates/dgf_images/generators/tour-results.html:155
 #, python-format
-msgid "Only %(amount)s tournaments count for the total year's points"
-msgstr "Die beste %(amount)s Turniere werden für die Jahreswertung gerechnet"
+msgid ""
+"Only %(amount)s matches are taken into account for the total year's points"
+msgstr "Die besten %(amount)s Spieltage zählen für die Jahreswertung"
+
+#: dgf_images/templates/dgf_images/generators/tour-results.html:157
+#, python-format
+msgid ""
+"Only %(amount)s tournaments are taken into account for the total year's "
+"points"
+msgstr "Die besten %(amount)s Turniere zählen für die Jahreswertung"
 
 #: dgf_images/templates/dgf_images/generators/tournament-results.html:15
 msgid "Disc Golf Metrix URL"
@@ -1404,7 +1420,7 @@ msgid ""
 "There's already a team with that name for the {self.created.year} league"
 msgstr "Es gibt schon ein Team mit dem Namen für die {self.created.year} Liga"
 
-#: dgf_league/models.py:46 dgf_league/models.py:83
+#: dgf_league/models.py:46 dgf_league/models.py:88
 msgid "Team"
 msgstr "Team"
 
@@ -1413,14 +1429,9 @@ msgstr "Team"
 msgid "{self.friend} already belongs to the team \"{team.name}\" "
 msgstr "{self.friend} ist schon im Team \"{team.name}\" "
 
-#: dgf_league/models.py:82
+#: dgf_league/models.py:87
 msgid "Match"
 msgstr "Spiel"
-
-#: dgf_league/models.py:89
-#, python-brace-format
-msgid "There's already a result for {self.team} "
-msgstr "Ein Ergebnis für {self.team} existiert bereits"
 
 #: dgf_league/templates/dgf_league/includes/friends_without_team.html:9
 msgid "Friends without team that would like to play"
