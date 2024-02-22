@@ -9,9 +9,9 @@ cd ${ROOT_INSTALLATION_PATH}
 echo "Download the following backup files from Netcup:"
 echo " - dgf_db_<date>.dump"
 echo " - dgf_media_<date>.tar"
-read -p "Press ENTER to open Netcup's File Manager on chrome " x
+read -p "Press ENTER to open Ionos' File Manager on chrome "
 google-chrome "https://mein.ionos.de/webhosting/2e73d4d8-0017-4794-b4ac-ce73b8823f86/webspace-explorer"
-read -p "Press ENTER when you finish downloading files (and leave them in the Downloads folder) " x
+read -p "Press ENTER when you finish downloading files (and leave them in the Downloads folder) "
 
 mkdir -p media
 
