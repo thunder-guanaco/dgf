@@ -47,7 +47,8 @@ pip install -r requirements.txt
 ### SECRETS ###
 ###############
 
-scp ubuntu@vps793990.ovh.net:secrets .
+cp secrets_template secrets
+read -p "Fill the secrets file and press [ENTER] when you're done " answer
 source secrets
 
 ##############
