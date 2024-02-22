@@ -94,7 +94,13 @@
             <div id="tour-{{tour.id}}" class="tour">
                 <div class="tour-header">
                     <h1 class="tour-title">{{tour.name}} - {{tour.division.id}}</h1>
-                    <span class="last-changes">{% trans "Points after" %} {{last_tournament|short_name}}</span>
+                    <span class="last-changes">
+                        {% if 'Tremonia Putting Liga' in tour.name %}
+                            {% trans "Points after last match:" %} {{last_tournament|short_name}}
+                        {% else %}
+                            {% trans "Points after" %} {{last_tournament|short_name}}
+                        {% endif %}
+                    </span>
                 </div>
                 {% with tour|parse_results as results %}
                     <table class="results-table">
@@ -144,7 +150,13 @@
                     </table>
                 {% endwith %}
                 {% if tour.evaluate_how_many < 100 %}
-                    <span class="tour-footnote">* {% blocktranslate with amount=tour.evaluate_how_many %}Only {{amount}} tournaments count for the total year's points{% endblocktranslate %}</span>
+                    <span class="tour-footnote">
+                        {% if 'Tremonia Putting Liga' in tour.name %}
+                            * {% blocktranslate with amount=tour.evaluate_how_many %}Only {{amount}} matches are taken into account for the total year's points{% endblocktranslate %}
+                        {% else %}
+                            * {% blocktranslate with amount=tour.evaluate_how_many %}Only {{amount}} tournaments are taken into account for the total year's points{% endblocktranslate %}
+                        {% endif %}
+                    </span>
                 {% endif %}
             </div>
         {% endwith %}
