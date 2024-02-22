@@ -110,10 +110,6 @@ class Friend(User):
     nickname = models.CharField(_('Nickname'), max_length=30, null=True, blank=True)
     club_role = models.CharField(_('Club role'), max_length=200, null=True, blank=True)
 
-    sponsor = models.CharField(_('Sponsor'), max_length=200, null=True, blank=True)
-    sponsor_logo = models.ImageField(_('Sponsor logo'), null=True, blank=True)
-    sponsor_link = models.URLField(_('Sponsor link'), null=True, blank=True)
-
     pdga_number = models.PositiveIntegerField(_('PDGA Number'), null=True, blank=True)
     gt_number = models.PositiveIntegerField(_('GT Number'), null=True, blank=True)
     udisc_username = models.CharField(_('UDisc Username'), max_length=100, null=True, blank=True)
@@ -549,3 +545,19 @@ class ManagementCommandExecution(Model):
     def save(self, *args, **kwargs):
         super(ManagementCommandExecution, self).save(*args, **kwargs)
         logger.info(self)
+
+
+class Sponsor(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['friend', 'name'],
+                                    name='each sponsor can only be assigned once to the friend'),
+        ]
+
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='sponsors', verbose_name=_('Friend'))
+    name = models.CharField(_('name'), max_length=200, null=True, blank=True, )
+    link = models.URLField(_('link'), null=True, blank=True)
+    logo = models.ImageField(_('logo'), null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name}'

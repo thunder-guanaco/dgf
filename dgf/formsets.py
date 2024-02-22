@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.forms import inlineformset_factory
 
-from dgf.models import Highlight, FavoriteCourse, Friend, DiscInBag, Ace, Video, Disc, Course
+from dgf.models import Highlight, FavoriteCourse, Friend, DiscInBag, Ace, Video, Disc, Course, Sponsor
 from dgf.widgets import AlreadyFetchedObjectsSelect, PartialDateWidget
 
 
@@ -21,9 +21,7 @@ ALL_DISCS = all_objects(Disc, 'mold')
 def favorite_course_formset_factory():
     return inlineformset_factory(
         Friend, FavoriteCourse, fields=('course',),
-        max_num=5, extra=5, validate_max=True, widgets={
-            'course': AlreadyFetchedObjectsSelect(available_options=all_courses())
-        }
+        max_num=5, extra=5, validate_max=True
     )
 
 
@@ -60,4 +58,11 @@ def video_formset_factory():
     return inlineformset_factory(
         Friend, Video, fields=('url', 'type'),
         extra=0
+    )
+
+
+def sponsors_formset_factory():
+    return inlineformset_factory(
+        Friend, Sponsor, fields=('name', 'link', 'logo'),
+        max_num=3, extra=3, validate_max=True, can_delete=False
     )

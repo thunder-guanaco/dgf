@@ -281,3 +281,9 @@ input[name$="DELETE"]:before {
 #videos div.field {
     margin: 0 0 1em 0 !important;
 }
+
+.field-change-sponsor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
