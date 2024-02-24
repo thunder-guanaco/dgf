@@ -66,5 +66,5 @@ def video_formset_factory():
 def sponsors_formset_factory():
     return inlineformset_factory(
         Friend, Sponsor, fields=('name', 'link', 'logo'),
-        max_num=3, extra=3, validate_max=True, can_delete=False
+        max_num=3, extra=3, validate_max=True
     )
