@@ -5,17 +5,17 @@
         <a href="{{ sponsor.link }}" rel="noopener" target="_blank">
     {% endif %}
 
-<div class="friend-tooltip">
-    <img src="/media/{{ sponsor.logo }}"
-         class="avatar-img"
-         width="{{ img_size }}px"
-         height="{{ img_size }}px" alt="Sponsor Logo"/>
-    {% if sponsor.name and not request.user_agent.is_mobile %}
-        <span class="tooltip-text">
-                <span>{{ sponsor.name }}</span>
-            </span>
-    {% endif %}
-</div>
+    <div class="friend-tooltip">
+        <img src="/media/{{ sponsor.logo }}"
+             class="avatar-img"
+             width="{{ img_size }}px"
+             height="{{ img_size }}px" alt="Sponsor Logo"/>
+        {% if sponsor.name and not request.user_agent.is_mobile %}
+            <span class="tooltip-text">
+                    <span>{{ sponsor.name }}</span>
+                </span>
+        {% endif %}
+    </div>
 
 {% if sponsor.link %}
     </a>
