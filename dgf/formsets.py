@@ -21,7 +21,9 @@ ALL_DISCS = all_objects(Disc, 'mold')
 def favorite_course_formset_factory():
     return inlineformset_factory(
         Friend, FavoriteCourse, fields=('course',),
-        max_num=5, extra=5, validate_max=True
+        max_num=5, extra=5, validate_max=True, widgets={
+            'course': AlreadyFetchedObjectsSelect(available_options=all_courses())
+        }
     )
 
 
