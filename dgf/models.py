@@ -560,4 +560,4 @@ class Sponsor(Model):
     logo = models.ImageField(_('logo'), null=True, blank=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} ({self.link})'
