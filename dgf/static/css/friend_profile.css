@@ -305,6 +305,6 @@ input[name$="DELETE"]:before {
     flex-basis: 15%;
 }
 
-.sponsor-form > *:nth-child(2n) {
+.sponsor-form > input {
     flex-basis: 80%;
 }
