@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -264,6 +264,11 @@ def ts_next_tournament(request):
 
 def tpl_next_tournament(request):
     return dgm_next_tournament(tpl.FILTER, tpl.ROOT_ID)
+
+
+def all_friend_ids(request):
+    all_ids = list(Friend.objects.filter(metrix_user_id__isnull=False).values_list('metrix_user_id', flat=True))
+    return JsonResponse({'ids': all_ids})
 
 
 def ts_future_dates(request):

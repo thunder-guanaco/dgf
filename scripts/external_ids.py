@@ -63,11 +63,13 @@ friends = {
 
     # incomplete
     'andreas': [None, None, None, '185330'],
+    'andreass': [None, 1735, 'Andy@andyst', None],
     'ann-kathrin': [None, None, None, '170405'],
     'anna': [None, None, None, '114401'],
     'christian': [None, 3911, None, '137742'],
     'gustav': [None, None, 'guddu001', '189094'],
     'jesko': [None, None, 'jeko81', '116360'],
+    'johannes': [None, None, None, '170231'],
     'lars': [None, 3889, None, '166334'],
     'lukas': [None, None, None, '156575'],
     'marcelr': [None, None, None, '92056'],
