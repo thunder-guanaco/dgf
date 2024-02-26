@@ -555,7 +555,7 @@ class Sponsor(Model):
         ]
 
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='sponsors', verbose_name=_('Friend'))
-    name = models.CharField(_('name'), max_length=200, null=True, blank=True, )
+    name = models.CharField(_('name'), max_length=200, null=False, blank=False)
     link = models.URLField(_('link'), null=True, blank=True)
     logo = models.ImageField(_('logo'), null=True, blank=True)
 

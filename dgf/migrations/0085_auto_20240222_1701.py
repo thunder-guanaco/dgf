@@ -8,7 +8,8 @@ def migrate_sponsor(apps, schema_editor):
     Friend = apps.get_model('dgf', 'Friend')
     Sponsor = apps.get_model('dgf', 'Sponsor')
     for friend in Friend.objects.all():
-        Sponsor.objects.create(friend=friend, name=friend.sponsor, link=friend.sponsor_link, logo=friend.sponsor_logo)
+        if friend.sponsor:
+            Sponsor.objects.create(friend=friend, name=friend.sponsor, link=friend.sponsor_link, logo=friend.sponsor_logo)
 
 
 class Migration(migrations.Migration):
@@ -21,7 +22,7 @@ class Migration(migrations.Migration):
             name='Sponsor',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=200, null=True, verbose_name='name')),
+                ('name', models.CharField(blank=False, max_length=200, null=False, verbose_name='name')),
                 ('link', models.URLField(blank=True, null=True, verbose_name='link')),
                 ('logo', models.ImageField(blank=True, null=True, upload_to='', verbose_name='logo')),
                 ('friend', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sponsors',
