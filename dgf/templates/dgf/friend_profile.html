@@ -48,13 +48,11 @@
                 <h2>{% trans "Sponsors" %}</h2>
             </div>
             <div id="sponsors">
-                <h3>{% trans "Main Sponsor" %}</h3>
-                {% include "dgf/includes/friend_profile/friend_sponsor.html" with sponsor=sponsors.0 %}
-                <h3>{% trans "Secondary Sponsor" %}</h3>
-                {% include "dgf/includes/friend_profile/friend_sponsor.html" with sponsor=sponsors.1 %}
-
-                <h3>{% trans "Third Sponsor" %}</h3>
-                {% include "dgf/includes/friend_profile/friend_sponsor.html" with sponsor=sponsors.2 %}
+                {% for sponsor in sponsors %}
+                    <div class="highlight sponsor-form">
+                        {{ sponsor }}
+                    </div>
+                {% endfor %}
             </div>
 
             {{ favorite_courses.management_form }}

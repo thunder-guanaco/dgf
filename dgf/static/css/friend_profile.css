@@ -196,7 +196,7 @@ select {
 }
 
 #bag {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -254,7 +254,7 @@ input[name$="DELETE"] {
 }
 
 input[name$="DELETE"]:before {
-  content:"❌";
+    content: "❌";
 }
 
 .ace > li {
@@ -286,4 +286,25 @@ input[name$="DELETE"]:before {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.sponsor-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sponsor-form:not(:first-child) {
+    margin-top: 2rem;
+}
+
+.sponsor-form > *:not(:first-child) {
+    margin-top: .5rem;
+}
+
+.sponsor-form > label {
+    flex-basis: 15%;
+}
+
+.sponsor-form > *:nth-child(2n) {
+    flex-basis: 80%;
 }
