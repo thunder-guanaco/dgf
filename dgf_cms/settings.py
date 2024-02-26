@@ -57,7 +57,7 @@ if ENV in ['dev', 'test']:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver'] + [f'192.168.0.{n}' for n in range(0, 256)]
     DATA_DIR = BASE_DIR
     LOG_DIR = BASE_DIR
-    LOG_LEVEL = 'INFO'
+    LOG_LEVEL = 'INFO' if ENV == 'dev' else 'ERROR'
     DGF_VERSION = 'dev'
     GITHUB_TOKEN = 'nothing'
 else:
