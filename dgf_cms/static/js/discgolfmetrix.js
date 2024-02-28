@@ -7,82 +7,43 @@ function loadCss() {
     });
 }
 
-function fixIcons(){
-    $(".main-header-meta svg").after("<i class='fi-map'></i> ");
-    $(".main-header-meta svg").remove();
+function loadDiscGolfMetrixScript() {
+    $.ajax({
+        url: "https://raw.githubusercontent.com/manologg/discgolfmetrix/main/discgolfmetrix.js",
+        success: function(response) {
+            $("body").append("<script>" + response); // yes, the ending "script" tag is missing
+        }
+    });
+
 }
 
-function isMobile() {
-    return window.matchMedia("only screen and (max-width: 1024px)").matches;
-}
+var DGF_LOGO_IMG = "<img class='dgf-logo' src='https://discgolffriends.de/static/img/logo.png' width='40px'/>"
 
-function loadBanner(image) {
-    const childName = $("#competition-submenu .selected b").text();
-    const textRegex = /#\d+|\d+er\ Runde|Finale|\d+\.\ Runde/gm;
-    const bannerText = (childName.match(textRegex) || ['']).pop(); // empty in case it doesn't match
-    const largerClass = bannerText.length < 4 ? 'larger' : ''; // if the name is something like "#123" it will be larger
-    const bannerDiv = `<div class='discgolffriends-banner'><img src='${image}'></img><span class='${largerClass}'>${bannerText}</span></div>`;
-    if (isMobile()) {
-        $("#content").before(`<div class='mobile'>${bannerDiv}</div>`);
-    }
-    else {
-        $(".breadcrumbs").after(`<div class='desktop'>${bannerDiv}</div>`);
-    }
-}
-
-function loadSubcompetitionButtons(onlyFuture) {
+function markFriends() {
     $.ajax({
         type: "GET",
-        url: "https://discgolfmetrix.com/api.php?content=result&id=" + document.URL.split('/').pop(),
+        url: "https://discgolffriends.de/friends/disc-golf-metrix/all-friend-ids",
         success: function(response) {
-            const today = new Date().toISOString().slice(0, 10);
-            const sortNextTournaments = () => {
-                const allTournaments = $("#subcompetitions .button").sort((a, b) => $(a).data('date') > $(b).data('date') ? 1 : -1);
-                $("#subcompetitions .button").remove();
-                allTournaments.each(function(){$("#subcompetitions").append(this.outerHTML)});
-            };
-            const childName = (competition) => competition.Name.split(" &rarr; ").pop();
-            if (response.Competition.Events) {
-                $(".main-header .main-title").after("<div id='subcompetitions'/>");
-            }
-            response.Competition.Events?.forEach(function(event){
-                $.ajax({
-                    type: "GET",
-                    url: "https://discgolfmetrix.com/api.php?content=result&id=" + event.ID,
-                    success: function(response) {
-                        const competition = response.Competition;
-                        if (!onlyFuture || competition.Date > today) {
-                            $("#subcompetitions").append(`<a
-                                                                class='button'
-                                                                href='https://discgolfmetrix.com/${competition.ID}'
-                                                                data-date='${competition.Date} ${competition.Time}'>
-                                                            ${childName(competition)}
-                                                        </a>
-                                                        `);
-                            sortNextTournaments();
-                        }
-                    }
-                });
+
+            response.ids.forEach(id => {
+
+                // results page
+                $(`a.profile-link[href="/player/${id}"]`)
+                    .hide()
+                    .first().prepend(DGF_LOGO_IMG).show()
+                    .children("svg").remove();
+
+                // registration page
+                $(`a:not(.profile-link)[href="/player/${id}"]`)
+                    .parent()
+                    .append(DGF_LOGO_IMG);
+
             });
-        },
-        error: function(response, e) {
-            console.log(response.statusText);
-            console.log(response);
-            console.log(e);
         }
     });
 }
 
 /* MAIN */
-
 loadCss();
-fixIcons();
-/*
-if (typeof image !== "undefined") {
-    loadBanner(image);
-}
-*/
-const onlyFuture = (typeof showOnlyFutureSubcompetitions !== "undefined") && showOnlyFutureSubcompetitions; // default: show all
-loadSubcompetitionButtons(onlyFuture);
-
-$(".breadcrumbs").hide();
+loadDiscGolfMetrixScript();
+markFriends();
