@@ -1529,9 +1529,3 @@ msgstr "Team anmelden"
 #: dgf_league/views.py:76
 msgid "You don't have a team and therefore you can not add results"
 msgstr "Du hast kein Team und deswegen dafst du keine Ergebnisse hinzufügen"
-
-#~ msgid "Sponsor link"
-#~ msgstr "Sponsors URL"
-
-#~ msgid "Best score in Wischlingen (standard 23 - par 71)"
-#~ msgstr "Beste Runde in Wischlingen (Standard 23 - par 71)"
