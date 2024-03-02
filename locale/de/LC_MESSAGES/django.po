@@ -463,8 +463,6 @@ msgid "Exception"
 msgstr "Exception"
 
 #: dgf/models.py:558
-#, fuzzy
-#| msgid "Nickname"
 msgid "name"
 msgstr "Name"
 
@@ -517,27 +515,19 @@ msgid "Clear"
 msgstr "Löschen"
 
 #: dgf/templates/dgf/friend_profile.html:48
-#, fuzzy
-#| msgid "Sponsor"
 msgid "Sponsors"
 msgstr "Sponsoren"
 
 #: dgf/templates/dgf/friend_profile.html:51
-#, fuzzy
-#| msgid "Sponsor"
 msgid "Main Sponsor"
 msgstr "Hauptsponsor"
 
 #: dgf/templates/dgf/friend_profile.html:53
-#, fuzzy
-#| msgid "Second places"
 msgid "Secondary Sponsor"
 msgstr "Zweiter Sponsor"
 
 #: dgf/templates/dgf/friend_profile.html:56
-#, fuzzy
-#| msgid "Sponsor"
-msgid "Third Sponsor"
+msgid "Tertiary Sponsor"
 msgstr "Dritter Sponsor"
 
 #: dgf/templates/dgf/friend_profile.html:62
@@ -891,8 +881,6 @@ msgid "Find friend"
 msgstr "Friend finden"
 
 #: dgf/templates/dgf/includes/friend_profile/friend_sponsor.html:14
-#, fuzzy
-#| msgid "Sponsor logo"
 msgid "Sponsor Logo"
 msgstr "Sponsor Logo"
 
