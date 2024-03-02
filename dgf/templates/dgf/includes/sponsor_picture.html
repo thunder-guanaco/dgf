@@ -6,10 +6,11 @@
     {% endif %}
 
     <div class="friend-tooltip">
-        <img src="/media/{{ sponsor.logo }}"
+    {% thumbnail sponsor.logo img_size|add:'x'|add:img_size as thumb %}
+        <img src="{{ thumb.url }}"
              class="avatar-img"
-             width="{{ img_size }}px"
-             height="{{ img_size }}px" alt="Sponsor Logo"/>
+             width="{{ thumb.width }}"
+             height="{{ thumb.height }}" alt="Sponsor Logo"/>
         {% if sponsor.name and not request.user_agent.is_mobile %}
             <span class="tooltip-text">
                     <span>{{ sponsor.name }}</span>
