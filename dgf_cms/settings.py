@@ -74,7 +74,7 @@ if ENV == 'dev':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': 'localhost',
+            'HOST': '127.0.0.1',
             'PORT': '3306',
             'NAME': 'dgf_cms',
             'USER': 'dgf',

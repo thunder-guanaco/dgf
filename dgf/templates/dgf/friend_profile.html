@@ -35,17 +35,6 @@
                     </div>
                     <input class="change_avatar" type="file" name="main_photo" accept="image/*" id="id_main_photo">
                     {{ field.errors }}
-                {% elif field.html_name == "sponsor_logo" %}
-                    {{ field.label_tag }}
-                    <div class="field field-image">
-                        <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="30px" height="30x"/>
-                        <div class="row">
-                            <input type="checkbox" name="sponsor_logo-clear" id="sponsor_logo-clear_id">
-                            <label for="sponsor_logo-clear_id">{% trans "Clear" %}</label>
-                        </div>
-                    </div>
-                    <input class="change_avatar" type="file" name="sponsor_logo" accept="image/*" id="id_sponsor_logo">
-                    {{ field.errors }}
                 {% else %}
                     <div class="field">
                         {{ field.label_tag }} {{ field }}
@@ -53,6 +42,18 @@
                     </div>
                 {% endif %}
             {% endfor %}
+
+            {{ sponsors.management_form }}
+            <div class="field">
+                <h2>{% trans "Sponsors" %}</h2>
+            </div>
+            <div id="sponsors">
+                {% for sponsor in sponsors %}
+                    <div class="highlight sponsor-form">
+                        {{ sponsor }}
+                    </div>
+                {% endfor %}
+            </div>
 
             {{ favorite_courses.management_form }}
             <div class="field">
