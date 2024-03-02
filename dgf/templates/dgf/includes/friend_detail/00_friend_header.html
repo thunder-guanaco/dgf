@@ -12,7 +12,7 @@
                 {% if friend.sponsors.count %}
                     <div id="sponsor-logos">
                         {% for sponsor in all_sponsors %}
-                            {% include "dgf/includes/sponsor_picture.html" with sponsor=sponsor img_size="50" %}
+                            {% include "dgf/includes/friend_detail/40_sponsor_picture.html" with sponsor=sponsor img_size="50" %}
                         {% endfor %}
                     </div>
                 {% endif %}
