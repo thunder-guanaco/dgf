@@ -1,7 +1,6 @@
 import json
 import logging
 from datetime import date, timedelta
-from decimal import Decimal
 from urllib.parse import urlencode
 
 import requests
@@ -155,36 +154,6 @@ class PdgaApi:
             else:
                 logger.info(
                     f'{friend.username} had no rating in the PDGA. Possible reasons: membership outdated or new member')
-
-    def update_friend_tournament_statistics(self, friend):
-        if friend.pdga_number:
-            statistics = self.query_player_statistics(pdga_number=friend.pdga_number)
-
-            try:
-                players_statistics = statistics['players']
-            except KeyError:
-                raise_pdga_api_error(endpoint='player-statistics', requested_id=friend.pdga_number,
-                                     missing_field='players', result=statistics)
-                return
-
-            money_earned = 0
-            tournaments = 0
-
-            for yearly_stats in players_statistics:
-                try:
-                    money_earned += Decimal(yearly_stats['prize'])
-                except KeyError:
-                    logger.warning(f'{friend.username} has no prices for a given year in their PDGA profile. '
-                                   f'Possible reasons: player didn\'t win anything')
-                try:
-                    tournaments += int(yearly_stats['tournaments'])
-                except KeyError:
-                    logger.warning(f'{friend.username} has no tournaments for one given year in their PDGA profile. '
-                                   f'Possible reasons: player didn\'t play any tournaments')
-
-            friend.total_earnings = money_earned
-            friend.total_tournaments = tournaments
-            friend.save()
 
     def _query_pdga(self, url, query_parameters):
         query = urlencode({x: y for x, y in query_parameters.items() if y is not None})
