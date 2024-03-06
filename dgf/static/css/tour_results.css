@@ -180,6 +180,7 @@
 
 #tour-results .position-X {
     color: #666;
+    text-decoration: line-through;
 }
 
 .tournament-tooltip {

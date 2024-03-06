@@ -154,7 +154,6 @@ function getBestResults(results, evaluateHowMany) {
                 total += points;
             }
             else {
-                points = "[" + points + "]";
                 position = "X";
             }
 
