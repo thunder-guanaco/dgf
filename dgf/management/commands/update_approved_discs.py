@@ -23,9 +23,11 @@ class Command(BaseDgfCommand):
 
         amount = 0
         for disc in loaded_discs:
-            if disc['Disc Model'] not in stored_discs:
-                Disc.objects.create(mold=disc['Disc Model'],
-                                    manufacturer=disc['Manufacturer / Distributor'])
+            mold = disc['Disc Model']
+            if mold not in stored_discs:
+                Disc.objects.update_or_create(mold__iexact=mold,
+                                              manufacturer=disc['Manufacturer / Distributor'],
+                                              defaults={'mold': mold})
                 amount += 1
         return amount
 
