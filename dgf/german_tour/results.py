@@ -20,6 +20,10 @@ DIVISION_MAPPING = {
     'M60': 'MP60',
     'M70': 'MP70',
     'WM40': 'FP40',
+
+    # yes, this is a mistake they made in a tournament.
+    # See it yourself: https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=1713
+    'MJ18p': 'MJ18'
 }
 
 
