@@ -1,7 +1,6 @@
 import logging
 import re
 from datetime import datetime, timedelta
-from decimal import Decimal
 
 from cms.models import User
 from django.contrib.auth.models import UserManager
@@ -132,9 +131,6 @@ class Friend(User):
     slug = models.SlugField(_('Slug'), max_length=50, null=True, blank=True)
     rating = models.PositiveIntegerField(_('Rating'), null=True, blank=True, validators=[MaxValueValidator(2000)])
     bag_tag = models.PositiveIntegerField(_('Bag Tag'), null=True, blank=True, validators=[MaxValueValidator(500)])
-
-    total_tournaments = models.PositiveIntegerField(_('Total tournaments'), null=True, blank=True, default=0)
-    total_earnings = models.DecimalField(_('Total earnings'), max_digits=10, decimal_places=2, default=Decimal(0.00))
 
     @property
     def first_and_last_name(self):

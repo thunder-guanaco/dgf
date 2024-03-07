@@ -17,7 +17,6 @@ class Command(BaseDgfCommand):
 
         try:
             pdga_api.update_friend_rating(friend)
-            pdga_api.update_friend_tournament_statistics(friend)
             pdga.update_friend_tournaments(friend, pdga_api)
 
         except Exception as exception:
