@@ -25,7 +25,7 @@ for i in range(FIRST_ISSUE, LAST_ISSUE + 1):
 
     closed = False
     for term in SEARCH_TERMS:
-        if term in issue['title']:
+        if term in issue['title'] or (issue['body'] and term in issue['body']):
             response = requests.patch(url + f'/{i}', json.dumps({"state": "closed"}), headers=headers)
             if response.status_code == 200:
                 print(f'Issue #{i} was closed because it matches "{term}"')
