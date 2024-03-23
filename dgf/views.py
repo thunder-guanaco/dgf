@@ -271,6 +271,12 @@ def all_friend_ids(request):
     return JsonResponse({'ids': all_ids})
 
 
+def friends_info(request):
+    friends = Friend.objects.filter(metrix_user_id__isnull=False) \
+                            .values('metrix_user_id', 'bag_tag')
+    return JsonResponse({'friends': list(friends)})
+
+
 def ts_future_dates(request):
     return render(request, 'dgf/plugins/next_tournaments.html',
                   context={
