@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import FriendListView, FriendUpdateView, FeedbackCreateView, VideoListView, TournamentListView, \
     bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance, tpl_next_tournament, FriendSearchView, all_friend_ids
+    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info
 
 app_name = 'dgf'
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
 
     # API for Disc Golf Metrix JS scripts
     path('disc-golf-metrix/all-friend-ids', all_friend_ids, name='disc_golf_metrix_all_friend_ids'),
+    path('disc-golf-metrix/friends', friends_info, name='disc_golf_metrix_friends'),
 
     # INCLUDES
     # used here: https://discgolfmetrix.com/715021
