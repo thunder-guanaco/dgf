@@ -18,7 +18,7 @@ function loadDiscGolfMetrixScript() {
 }
 
 var DGF_LOGO_IMG = "<img class='dgf-logo' src='https://discgolffriends.de/static/img/logo.png' width='40px'/>";
-var DGF_BAG_TAG = (number) => `<div class='bag-tag-number' style='display: none;'><span>${number}</span></div>`;
+var DGF_BAG_TAG = (number) => `<div class='bag-tag-number' style='display: none;'><span>${number || "❌"}}</span></div>`;
 var DGF_PART = (number) => `<div class='dgf-part'>${DGF_LOGO_IMG}${DGF_BAG_TAG(number)}</div>`;
 
 function markFriends() {
