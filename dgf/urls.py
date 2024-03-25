@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import FriendListView, FriendUpdateView, FeedbackCreateView, VideoListView, TournamentListView, \
     bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info
+    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids
 
 app_name = 'dgf'
 urlpatterns = [
