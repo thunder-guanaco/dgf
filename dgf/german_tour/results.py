@@ -92,14 +92,18 @@ def tournament_has_no_results(results_soup):
 
 
 def update_tournament_results(tournament):
-    results_soup = get(GT_RESULTS_PAGE.format(tournament.gt_id))
 
-    if tournament_has_no_results(results_soup):
-        logger.info(f'Tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}) has no results yet')
-        return
+    try:
+        results_soup = get(GT_RESULTS_PAGE.format(tournament.gt_id))
 
-    results_tables = results_soup.find_all('table')
-    for results_table in results_tables:
-        table_header = results_table.find('thead')
-        table_content = results_table.find('tbody')
-        update_results_from_table(table_header, table_content, tournament)
+        if tournament_has_no_results(results_soup):
+            logger.info(f'Tournament {tournament} (PDGA={tournament.pdga_id}, GT={tournament.gt_id}) has no results yet')
+            return
+
+        results_tables = results_soup.find_all('table')
+        for results_table in results_tables:
+            table_header = results_table.find('thead')
+            table_content = results_table.find('tbody')
+            update_results_from_table(table_header, table_content, tournament)
+    except Exception as e:
+        e.args = (*e.args, f'tournament id="{tournament.gt_id}"')
