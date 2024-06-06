@@ -107,3 +107,4 @@ def update_tournament_results(tournament):
             update_results_from_table(table_header, table_content, tournament)
     except Exception as e:
         e.args = (*e.args, f'tournament id="{tournament.gt_id}"')
+        raise e
