@@ -173,6 +173,20 @@ server {
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
+    location /static/js/discgolfmetrix.js {
+        alias       ${ROOT_INSTALLATION_PATH}/static/js/discgolfmetrix.js;
+        add_header  Pragma public;
+        add_header  Cache-Control "public, max-age=0";
+        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
+    }
+
+    location /static/css/discgolfmetrix.css {
+        alias       ${ROOT_INSTALLATION_PATH}/static/css/discgolfmetrix.css;
+        add_header  Pragma public;
+        add_header  Cache-Control "public, max-age=0";
+        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
+    }
+
     location /media/ {
         alias       ${ROOT_INSTALLATION_PATH}/media/;
         expires     1y;

@@ -240,6 +240,10 @@
     color: #8d1950;
 }
 
+#bag-tags .warning {
+    color: red;
+}
+
 #bag-tags .statistics-button.closed:after {
     content: '▶';
 }
