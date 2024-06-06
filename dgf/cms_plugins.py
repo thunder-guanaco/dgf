@@ -131,6 +131,7 @@ def friends_order_by_bag_tag():
         .annotate(bag_tag_changes_count=Count('bag_tag_changes',
                                               filter=Q(bag_tag_changes__previous_number__isnull=False))) \
         .annotate(first_bag_tag_change=Min('bag_tag_changes__timestamp')) \
+        .annotate(last_bag_tag_change=Max('bag_tag_changes__timestamp')) \
         .annotate(best_bag_tag=Min('bag_tag_changes__new_number')) \
         .annotate(worst_bag_tag=Max('bag_tag_changes__new_number')) \
         .annotate(average_bag_tag=Avg('bag_tag_changes__new_number')) \
