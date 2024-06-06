@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import FriendListView, FriendUpdateView, FeedbackCreateView, VideoListView, TournamentListView, \
+from .views import FriendListView, FeedbackCreateView, VideoListView, TournamentListView, \
     bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids
+    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids, \
+    FriendUpdateView, ExtendedFriendUpdateView
 
 app_name = 'dgf'
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('', FriendListView.as_view(), name='friend_index'),
     path('search/', FriendSearchView.as_view(), name='friend_search'),
     path('profile/', FriendUpdateView.as_view(), name='friend_update'),
+    path('profile-extended/', ExtendedFriendUpdateView.as_view(), name='friend_update_extended'),  # called from HTMX
     path('feedback/', FeedbackCreateView.as_view(), name='feedback'),
     path('media/', VideoListView.as_view(), name='media'),
     path('tournaments/', TournamentListView.as_view(), name='tournament_index'),
