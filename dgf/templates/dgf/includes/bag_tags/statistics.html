@@ -28,7 +28,7 @@
     <span>
         🔄&nbsp;{% blocktranslate count changes=friend.bag_tag_changes_count %}1 bag tag change{% plural %}{{changes}} bag tag changes{% endblocktranslate %}
     </span>
-    <span {% if friend.last_bag_tag_change|days_since > 180 %}class="warning"{% endif %}>
+    <span {% if friend.last_bag_tag_change|days_since|exceeds_bag_tag_limit %}class="warning"{% endif %}>
         🥏&nbsp;
         {% with friend.last_bag_tag_change|days_since as days %}
             {% if days == 0 %}
@@ -37,7 +37,7 @@
                 {% blocktranslate with date=friend.last_bag_tag_change|date count days=days %}Played yesterday for the bag tag{% plural %}The last time they played for the bag tag was on {{date}} ({{days}} days ago){% endblocktranslate %}
             {% endif %}
         {% endwith %}
-        {% if friend.last_bag_tag_change|days_since > 180 %}❗{% endif %}
+        {% if friend.last_bag_tag_change|days_since|exceeds_bag_tag_limit %}❗{% endif %}
     </span>
 
 </div>

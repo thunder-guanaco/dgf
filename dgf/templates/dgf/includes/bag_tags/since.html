@@ -2,7 +2,7 @@
 
 <div class="since" onclick="switchStatistics({{friend.bag_tag}})">
 
-    {% if friend.last_bag_tag_change|days_since > 180 %}
+    {% if friend.last_bag_tag_change|days_since|exceeds_bag_tag_limit %}
         <span class="warning-icon">⚠️</span>
     {% endif %}
 

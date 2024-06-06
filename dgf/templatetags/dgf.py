@@ -287,6 +287,11 @@ def days_since(date):
 
 
 @register.filter
+def exceeds_bag_tag_limit(days_since):
+    return days_since > 365
+
+
+@register.filter
 def calling(parameter, function_name):
     return f'{function_name}({parameter})'
 
