@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-06 15:13+0200\n"
+"POT-Creation-Date: 2024-06-08 10:54+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -386,7 +386,7 @@ msgstr "Bahn"
 msgid "Date"
 msgstr "Datum"
 
-#: dgf/models.py:313 dgf/templates/dgf/friend_profile.html:83
+#: dgf/models.py:313 dgf/templates/dgf/friend_profile_extended.html:29
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:7
 msgid "In the bag"
 msgstr "In the Bag"
@@ -506,62 +506,62 @@ msgstr "Dein Profil"
 msgid "Clear"
 msgstr "Löschen"
 
-#: dgf/templates/dgf/friend_profile.html:59
+#: dgf/templates/dgf/friend_profile.html:63
+msgid "Update"
+msgstr "Speichern"
+
+#: dgf/templates/dgf/friend_profile_extended.html:5
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:51
 #: dgf/templates/dgf/includes/friend_list/22_friends_favorite_courses.html:3
 msgid "Favorite courses"
 msgstr "Lieblingsparcours"
 
-#: dgf/templates/dgf/friend_profile.html:71
+#: dgf/templates/dgf/friend_profile_extended.html:17
 #: dgf/templates/dgf/includes/friend_detail/01_friend_simple_fields.html:61
 msgid "Highlights"
 msgstr "Highlights"
 
-#: dgf/templates/dgf/friend_profile.html:87
+#: dgf/templates/dgf/friend_profile_extended.html:33
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:17
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:6
 msgid "Putters"
 msgstr "Putters"
 
-#: dgf/templates/dgf/friend_profile.html:90
+#: dgf/templates/dgf/friend_profile_extended.html:36
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:20
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:7
 msgid "Mid-ranges"
 msgstr "Midranges"
 
-#: dgf/templates/dgf/friend_profile.html:93
+#: dgf/templates/dgf/friend_profile_extended.html:39
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:23
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:8
 msgid "Fairway drivers"
 msgstr "Fairway Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:96
+#: dgf/templates/dgf/friend_profile_extended.html:42
 #: dgf/templates/dgf/includes/friend_detail/21_friend_discs.html:26
 #: dgf/templates/dgf/includes/friend_list/21_friends_favorite_discs.html:9
 msgid "Distance drivers"
 msgstr "Distance Drivers"
 
-#: dgf/templates/dgf/friend_profile.html:114
+#: dgf/templates/dgf/friend_profile_extended.html:60
 #: dgf/templates/dgf/includes/friend_detail/20_friend_aces.html:5
 msgid "Aces"
 msgstr "Asse"
 
-#: dgf/templates/dgf/friend_profile.html:128
+#: dgf/templates/dgf/friend_profile_extended.html:74
 msgid "Add ace"
 msgstr "Ass hinzufügen"
 
-#: dgf/templates/dgf/friend_profile.html:132
+#: dgf/templates/dgf/friend_profile_extended.html:78
 #: dgf/templates/dgf/includes/friend_detail/30_friend_videos.html:6
 msgid "Videos"
 msgstr "Videos"
 
-#: dgf/templates/dgf/friend_profile.html:146
+#: dgf/templates/dgf/friend_profile_extended.html:92
 msgid "Add video"
 msgstr "Video hinzufügen"
-
-#: dgf/templates/dgf/friend_profile.html:149
-msgid "Update"
-msgstr "Speichern"
 
 #: dgf/templates/dgf/friend_search.html:29
 msgid "Type a friend's name"
@@ -724,11 +724,11 @@ msgstr "Du musst mindestens 2 Bagtags wählen"
 msgid "Select the bag tags you have collected today and click on 'continue'."
 msgstr "Wähle die Bagtags, die du gesammelt hast und dann klicke auf 'Weiter'"
 
-#: dgf/templates/dgf/includes/bag_tags/since.html:8
+#: dgf/templates/dgf/includes/bag_tags/since.html:12
 msgid "Since today"
 msgstr "Seit heute"
 
-#: dgf/templates/dgf/includes/bag_tags/since.html:10
+#: dgf/templates/dgf/includes/bag_tags/since.html:14
 #, python-format
 msgid "Since yesterday"
 msgid_plural "Since %(date)s (%(days)s days ago)"
@@ -945,21 +945,25 @@ msgstr "Bin nicht dabei"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf/views.py:221 dgf/views.py:229
+#: dgf/views.py:226 dgf/views.py:234
 msgid "This makes no sense. For these users the bag tags should be: "
 msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 
-#: dgf/views.py:225
+#: dgf/views.py:230
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:354 dgf_cms/settings.py:364
+#: dgf_cms/settings.py:355 dgf_cms/settings.py:365
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:355 dgf_cms/settings.py:371
+#: dgf_cms/settings.py:356 dgf_cms/settings.py:372
 msgid "English"
 msgstr "Englisch"
+
+#: dgf_cms/settings.py:527
+msgid "Period in which the bag tag must be played for as days"
+msgstr "Zeitraum, in dem um das Bagtag gespielt werden muss als Tage"
 
 #: dgf_cms/templates/403.html:5 dgf_cms/templates/403.html:15
 msgid "403 - Foot fault!"
