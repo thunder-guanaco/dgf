@@ -289,7 +289,7 @@ def days_since(date):
 
 @register.filter
 def exceeds_bag_tag_limit(days_since):
-    return days_since > config.BAGTAG_THRESHOLD_INACTIVE_DAYS
+    return days_since > config.BAG_TAG_THRESHOLD_INACTIVE_DAYS
 
 
 @register.filter
