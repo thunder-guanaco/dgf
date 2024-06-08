@@ -525,4 +525,3 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'BAG_TAG_THRESHOLD_INACTIVE_DAYS': (365, _('Period in which the bag tag must be played for as days'), int),
 }
-
