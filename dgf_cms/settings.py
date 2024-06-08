@@ -523,7 +523,6 @@ JAZZMIN_UI_TWEAKS = {
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
-    # ToDo i18n is missing here
-    'BAGTAG_THRESHOLD_INACTIVE_DAYS': (365, 'Zeitraum in dem um das Bagtag gespielt werden muss als Tage', int),
+    'BAGTAG_THRESHOLD_INACTIVE_DAYS': (365,  _('Period in which the bag tag must be played for as days'), int),
 }
 
