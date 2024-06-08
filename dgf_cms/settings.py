@@ -289,6 +289,7 @@ INSTALLED_APPS = [
     'jazzmin',
     'corsheaders',
     'impersonate',
+    'constance',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -519,3 +520,10 @@ JAZZMIN_UI_TWEAKS = {
         'success': 'btn-outline-success'
     },
 }
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    # ToDo i18n is missing here
+    'BAGTAG_THRESHOLD_INACTIVE_DAYS': (365, 'Zeitraum in dem um das Bagtag gespielt werden muss als Tage', int),
+}
+

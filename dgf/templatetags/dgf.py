@@ -1,5 +1,6 @@
 import logging
 import re
+from constance import config
 from datetime import datetime
 
 from django import template
@@ -288,7 +289,7 @@ def days_since(date):
 
 @register.filter
 def exceeds_bag_tag_limit(days_since):
-    return days_since > 365
+    return days_since > config.BAGTAG_THRESHOLD_INACTIVE_DAYS
 
 
 @register.filter
