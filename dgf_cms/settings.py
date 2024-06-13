@@ -225,6 +225,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
+    'sass_processor.finders.CssFinder',
 ]
 
 REVIEWER_GROUP = 'Reviewer'
@@ -294,6 +295,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'impersonate',
     'constance',
+    'sass_processor',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -499,7 +501,7 @@ JAZZMIN_SETTINGS = {
     'related_modal_active': False,
 
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    'custom_css': 'css/admin.css',
+    'custom_css': 'css/admin.scss',
     'custom_js': None,
 
     'show_ui_builder': True,

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load static i18n sekizai_tags %}
+{% load static i18n sekizai_tags sass_tags %}
 
 {% block title %}
     {% trans "Feedback" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/feedback.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/feedback.scss' %}">
 {% endblock %}
 
 {% block js %}

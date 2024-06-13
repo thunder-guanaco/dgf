@@ -1,8 +1,8 @@
 {% extends "dgf/plugins/social_media/results.html" %}
-{% load sekizai_tags static dgf dgf_cms %}
+{% load sekizai_tags static dgf dgf_cms sass_tags %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/social_media/concrete_tournament_results.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/social_media/concrete_tournament_results.scss' %}">
 {% endblock %}
 
 {% block js %}

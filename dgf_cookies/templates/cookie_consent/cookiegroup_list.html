@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load i18n static %}
+{% load i18n static sass_tags %}
 
 {% block title %}
     Cookies
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'dgf_cookies/css/cookies.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'dgf_cookies/css/cookies.scss' %}">
 {% endblock %}
 
 {% block js %}

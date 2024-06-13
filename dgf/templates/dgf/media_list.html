@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n dgf cookie_consent_tags %}
+{% load static cms_tags i18n dgf cookie_consent_tags sass_tags %}
 
 {% block title %}
     {% trans "Media" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/grt-youtube-popup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/media.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/grt-youtube-popup.scss' %}">
 {% endblock %}
 
 {% block js %}

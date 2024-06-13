@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load i18n static dgf_images %}
+{% load i18n static dgf_images sass_tags %}
 
 {% block title %}
     {% trans "Image Generators" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/generators/index.scss' %}">
 {% endblock %}
 
 {% block js %}

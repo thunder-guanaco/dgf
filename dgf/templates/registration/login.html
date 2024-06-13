@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load i18n static %}
+{% load i18n static sass_tags %}
 
 {% block title %}
     Login
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/login.scss' %}">
 {% endblock %}
 
 {% block content %}
