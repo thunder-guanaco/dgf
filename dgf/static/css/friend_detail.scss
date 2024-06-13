@@ -1,3 +1,5 @@
+@import "base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -211,7 +213,7 @@
 
 .division div {
     color: #ffffff;
-    background-color: #8d1950;
+    background-color: $color-club-highlight;
     padding: 0.3em;
     margin-left: 0.5em;
     display: inline;

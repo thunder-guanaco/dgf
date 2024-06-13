@@ -1,139 +1,143 @@
+@import "base/variables_friends";
+
+$color-background: #999999;
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    .friend-ball img {
-        width: 70px !important;
-        height: 70px !important;
-    }
+  .friend-ball img {
+    width: 70px !important;
+    height: 70px !important;
+  }
 
-    #bag-tags .statistics {
-        margin: 1rem 0 2rem 3rem !important;
-        flex-flow: column !important;
-        gap: 0.5rem !important;
-    }
+  #bag-tags .statistics {
+    margin: 1rem 0 2rem 3rem !important;
+    flex-flow: column !important;
+    gap: 0.5rem !important;
+  }
 
-    #bag-tags #select-bag-tags .line {
-        margin-left: 4em;
-    }
+  #bag-tags #select-bag-tags .line {
+    margin-left: 4em;
+  }
 
-    #multiple-bag-tag-numbers .number {
-        margin: 0 0.5em 0 0 !important;
-    }
+  #multiple-bag-tag-numbers .number {
+    margin: 0 0.5em 0 0 !important;
+  }
 
-    .header {
-        margin-bottom: 1em;
-    }
+  .header {
+    margin-bottom: 1em;
+  }
 
-    .header input {
-        width: 90%;
-    }
+  .header input {
+    width: 90%;
+  }
 
-    .header .error {
-        margin: 0;
-    }
+  .header .error {
+    margin: 0;
+  }
 
-    .header button {
-        margin: 0 !important;
-    }
+  .header button {
+    margin: 0 !important;
+  }
 
-    .header > div {
-        align-self: flex-end;
-    }
+  .header > div {
+    align-self: flex-end;
+  }
 
-    .number {
-        margin: 0 1em 0 0 !important;
-    }
+  .number {
+    margin: 0 1em 0 0 !important;
+  }
 
-    .news {
-        width: 2em;
-        text-align: start;
-    }
+  .news {
+    width: 2em;
+    text-align: start;
+  }
 
-    .news.neutral {
-        text-align: center;
-    }
+  .news.neutral {
+    text-align: center;
+  }
 
-    #bag-tags .footer {
-        height: fit-content;
-        width: 100%;
-        padding-top: 2em;
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 0.5em;
-    }
+  #bag-tags .footer {
+    height: fit-content;
+    width: 100%;
+    padding-top: 2em;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5em;
+  }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #bag-tags .content .line {
-        margin-left: 5em;
-    }
+  #bag-tags .content .line {
+    margin-left: 5em;
+  }
 
-    #bag-tags #select-bag-tags .line {
-        margin-left: 8em;
-    }
+  #bag-tags #select-bag-tags .line {
+    margin-left: 8em;
+  }
 
-    #edit-bag-tags {
-        margin: 1em;
-    }
+  #edit-bag-tags {
+    margin: 1em;
+  }
 
-    .news {
-        width: 1em;
-        text-align: end;
-    }
+  .news {
+    width: 1em;
+    text-align: end;
+  }
 
-    #bag-tags .footer {
-        display: none;
-    }
+  #bag-tags .footer {
+    display: none;
+  }
 }
 
 .header {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1em;
-    gap: 0.5em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1em;
+  gap: 0.5em;
 }
 
 .header button {
-    height: fit-content;
+  height: fit-content;
 }
 
 #bag-tags {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #bag-tags .content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .line {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0.5em 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5em 0;
 }
 
 #list-bag-tags .number,
 #multiple-bag-tag-numbers .number {
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+  background-color: $color-club-highlight;
+  border: solid $color-club-highlight 2px;
 }
 
 #select-bag-tags .number,
 #todays-bag-tags .number,
 #multiple-bag-tag-players .player .number {
-    background-color: #999999;
-    border: solid #999999 2px;
+  background-color: $color-background;
+  border: solid $color-background 2px;
 }
 
 #list-bag-tags .number.clickable:hover,
@@ -141,115 +145,115 @@
 #select-bag-tags .number.selected,
 #todays-bag-tags .number:hover,
 #todays-bag-tags .number.selected {
-    background-color: #1b2633;
-    border-color: #1b2633;
+  background-color: #1b2633;
+  border-color: #1b2633;
 }
 
 .news {
-    font-weight: bold;
-    margin: 0 0.25em;
+  font-weight: bold;
+  margin: 0 0.25em;
 }
 
 .news.positive {
-    color: #00a800;
+  color: $color-positive;
 }
 
 .news.negative {
-    color: #a80000;
+  color: $color-negative;
 }
 
 .news.neutral {
-    color: #545454;
+  color: $color-neutral;
 }
 
 .news.positive span:before {
-    content: '▲';
+  content: '▲';
 }
 
 .news.negative span:before {
-    content: '▼';
+  content: '▼';
 }
 
 .news.neutral:before {
-    content: '-';
+  content: '-';
 }
 
 .news.neutral span {
-    display: none;
+  display: none;
 }
 
 .news-best {
-    width: 1.5em;
-    text-align: center;
+  width: 1.5em;
+  text-align: center;
 }
 
 .news-best.fire:before {
-    content: '🔥';
+  content: '🔥';
 }
 
 .news-best.sad:before {
-    content: attr(data-content);
+  content: attr(data-content);
 }
 
 .number {
-    font-weight: bold;
-    font-size: 1.25em;
-    min-width: 30px;
-    line-height: 35px;
-    text-align: center;
-    color: white;
-    border-radius: 2px;
-    box-shadow: 0px 0px 2px 1px white inset;
-    margin: 0 1em;
+  font-weight: bold;
+  font-size: 1.25em;
+  min-width: 30px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 1px white inset;
+  margin: 0 1em;
 }
 
 #bag-tags .number.clickable, #bag-tags .player.clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #bag-tags .number span {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .player {
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .player .friend-ball {
-    margin: 0 1em 0 0 !important;
+  margin: 0 1em 0 0 !important;
 }
 
 .player .friend-ball .friend-name {
-    display: none;
+  display: none;
 }
 
 #bag-tags .since {
-    margin: 0 1em;
-    display: flex;
-    flex-flow: row;
-    align-items: flex-start;
-    gap: 1rem;
+  margin: 0 1em;
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 #bag-tags .since:hover {
-    cursor: pointer;
-    color: #8d1950;
+  cursor: pointer;
+  color: $color-club-highlight;
 }
 
 #bag-tags .warning {
-    color: red;
+  color: red;
 }
 
 #bag-tags .statistics-button.closed:after {
-    content: '▶';
+  content: '▶';
 }
 
 #bag-tags .statistics-button.open:after {
-    content: '▼';
+  content: '▼';
 }
 
 #bag-tags .history {
@@ -269,157 +273,157 @@
 }
 
 #bag-tags .statistics {
-    margin: 1rem 0 2rem 12em;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 1rem 2rem;
+  margin: 1rem 0 2rem 12em;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem 2rem;
 }
 
 #edit-bag-tags {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-#multiple-bag-tag-list{
-    display: flex;
-    flex-direction: row;
+#multiple-bag-tag-list {
+  display: flex;
+  flex-direction: row;
 }
 
 #edit-bag-tags ul li {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0.25em;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0.25em;
 }
 
-#multiple-bag-tag-players li{
-    background-color: #f3f3f3;
-    border: 1px solid #ccc!important;
-    border-radius: 10px;
-    padding: 0.5em !important;
+#multiple-bag-tag-players li {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc !important;
+  border-radius: 10px;
+  padding: 0.5em !important;
 }
 
 #s-l-base li {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .draggedPlayer {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .error {
-    color: red;
-    margin-bottom: 1em;
+  color: red;
+  margin-bottom: 1em;
 }
 
 button.negative {
-    background-color: #999999 !important;
+  background-color: $color-background !important;
 }
 
 button.negative:hover {
-    background:linear-gradient(to top, #666666 5%, #999999 100%) !important;
+  background: linear-gradient(to top, #666666 5%, $color-background 100%) !important;
 }
 
 button.new {
-    background-color: #8d1950 !important;
+  background-color: $color-club-highlight !important;
 }
 
 button.new:hover {
-    background:linear-gradient(to top, #5a001d 5%, #8d1950 100%) !important;
+  background: linear-gradient(to top, $color-club-highlight-dark 5%, $color-club-highlight 100%) !important;
 }
 
 #you-dont-have-bag-tags {
-    border: dotted #a80000 3px;
-    padding: 1em;
-    margin-bottom: 1em;
+  border: dotted #a80000 3px;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 #you-dont-have-bag-tags ul {
-    margin: 1em 1em 0em 1em;
+  margin: 1em 1em 0em 1em;
 }
 
 #admin-zone {
-    border: dotted black 3px;
-    padding: 0em 1em 3em 1em;
-    margin-top: 1em;
-    display: flex;
-    flex-flow: column;
+  border: dotted black 3px;
+  padding: 0em 1em 3em 1em;
+  margin-top: 1em;
+  display: flex;
+  flex-flow: column;
 }
 
 #admin-zone .buttons {
-    display: flex;
-    flex-flow: column;
-    gap: 0.5em;
-    align-self: flex-end;
-    align-items: flex-end;
+  display: flex;
+  flex-flow: column;
+  gap: 0.5em;
+  align-self: flex-end;
+  align-items: flex-end;
 }
 
 #admin-bag-tags #admin-buttons button {
-    width: fit-content;
+  width: fit-content;
 }
 
 #admin-bag-tags .number {
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+  background-color: $color-club-highlight;
+  border: solid $color-club-highlight 2px;
 }
 
 #admin-bag-tags .number:hover {
-    background-color: #1b2633;
-    border: solid #1b2633 2px;
+  background-color: #1b2633;
+  border: solid #1b2633 2px;
 }
 
 #admin-bag-tags .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #admin-bag-tags .number.selected {
-    background-color: #1b2633 !important;
-    border-color: #1b2633 !important;
+  background-color: #1b2633 !important;
+  border-color: #1b2633 !important;
 }
 
 #bag-tags-wrapper {
-    position: relative;
+  position: relative;
 }
 
 #metrix-bag-tags li {
-    margin-left: 2em;
+  margin-left: 2em;
 }
 
 #metrix-bag-tags a {
-    color: #8d1950 !important;
-    cursor: pointer;
+  color: $color-club-highlight !important;
+  cursor: pointer;
 }
 
 #multiple-bag-tag-players .player {
-    width: 100%;
+  width: 100%;
 }
 
 #multiple-bag-tag-players .player .info {
-    margin: 0 0.5em;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  margin: 0 0.5em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 #multiple-bag-tag-players .number {
-    margin: 0 0.5em 0 0;
+  margin: 0 0.5em 0 0;
 }
 
 #multiple-bag-tag-delete .delete {
-    margin: 0.5em;
-    cursor: pointer;
+  margin: 0.5em;
+  cursor: pointer;
 }
 
 input {
-    width: 15em;
-    text-align: center;
+  width: 15em;
+  text-align: center;
 }

@@ -1,3 +1,5 @@
+@import "base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -63,9 +65,9 @@
 }
 
 input[type=submit].withdraw {
-    background-color: #8d1950 !important;
+    background-color: $color-club-highlight !important;
 }
 
 input[type=submit].withdraw:hover {
-    background:linear-gradient(to top, #c04c83 5%, #8d1950 100%) !important;
+    background:linear-gradient(to top, #c04c83 5%, $color-club-highlight 100%) !important;
 }

@@ -1,3 +1,5 @@
+@import "base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -67,7 +69,7 @@ h2 .show-less {
     width: 2.5em;
     object-fit: cover;
     object-position: center;
-    background: #8d1950;
+    background: $color-club-highlight;
 }
 
 .ball {
@@ -228,9 +230,9 @@ hr {
     transition: transform .2s;
     position: relative;
     margin: 1em;
-    -webkit-box-shadow: 0px 0px 8px 0px #8d1950;
-    -moz-box-shadow: 0px 0px 8px 0px #8d1950;
-    box-shadow: 0px 0px 8px 0px #8d1950;
+    -webkit-box-shadow: 0px 0px 8px 0px $color-club-highlight;
+    -moz-box-shadow: 0px 0px 8px 0px $color-club-highlight;
+    box-shadow: 0px 0px 8px 0px $color-club-highlight;
 }
 
 .youtube-video:hover {
@@ -253,7 +255,7 @@ hr {
 .youtube-video .play-button-container {
     width: 50px;
     height: 50px;
-    background-color: #8d1950;
+    background-color: $color-club-highlight;
     border-radius: 50%;
     position: absolute;
     left: 50%;
@@ -294,8 +296,8 @@ hr {
     border-radius: 2px;
     box-shadow: 0px 0px 2px 1px white inset;
     margin: 0;
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+    background-color: $color-club-highlight;
+    border: solid $color-club-highlight 2px;
 }
 
 .hall-of-fame-title {

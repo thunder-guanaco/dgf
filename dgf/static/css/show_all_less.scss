@@ -1,3 +1,5 @@
+@import "base/variables_friends";
+
 .hidden {
     display: none !important;
 }
@@ -5,6 +7,6 @@
 .show-all-less .show-all,
 .show-all-less .show-less {
     cursor: pointer;
-    color: #8d1950;
+    color: $color-club-highlight;
     font-weight: normal;
 }
