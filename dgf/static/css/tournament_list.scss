@@ -4,8 +4,8 @@
 @media only screen and (max-width: 1024px) {
 
   .friend-ball img {
-    width: 70px !important;
-    height: 70px !important;
+    width: $user-ball-diameter !important;
+    height: $user-ball-diameter !important;
   }
 
   #tournaments input {
