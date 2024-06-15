@@ -1,86 +1,95 @@
+@import "base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    #hall-of-fame .header.line {
-        justify-content: flex-end;
+  #hall-of-fame {
+    .header.line {
+      justify-content: flex-end;
     }
 
-    #hall-of-fame .content .line {
+    .content {
+      .line {
         justify-content: space-between;
-    }
+      }
 
-    #hall-of-fame .content .numbers .wins {
+      .numbers .wins {
         padding: 0 0.6em;
+      }
     }
 
-    #hall-of-fame .friend-ball img {
-        width: 70px !important;
-        height: 70px !important;
+    .friend-ball img {
+      width: $user-ball-diameter !important;
+      height: $user-ball-diameter !important;
     }
-
+  }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #hall-of-fame .line {
-        width: 100%;
-        justify-content: center;
+  #hall-of-fame {
+    .line {
+      width: 100%;
+      justify-content: center;
     }
 
-    #hall-of-fame .player {
-        width: 30%;
+    .player {
+      width: 30%;
     }
 
-    #hall-of-fame .numbers {
-        width: 60%;
-    }
+    .numbers {
+      width: 60%;
 
-    #hall-of-fame .numbers .wins {
+      .wins {
         width: 33%;
         display: flex;
         justify-content: center;
+      }
     }
+  }
 }
 
-#hall-of-fame .header {
+#hall-of-fame {
+  .header {
     font-weight: bold;
     font-size: 1.25em;
-}
+  }
 
-#hall-of-fame .content {
+  .content {
     display: flex;
     flex-direction: column;
-}
+  }
 
-#hall-of-fame .line {
+  .line {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 0.25em 0;
-}
 
-#hall-of-fame .player {
+    .numbers {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25em 0;
+    }
+  }
+
+  .player {
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
-}
 
-#hall-of-fame .player .friend-ball {
-    margin: 0 1em 0 0 !important;
-}
+    .friend-ball {
+      margin: 0 1em 0 0 !important;
 
-#hall-of-fame  .player .friend-ball .friend-name {
-    display: none;
-}
-
-#hall-of-fame .line .numbers {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.25em 0;
+      .friend-name {
+        display: none;
+      }
+    }
+  }
 }
