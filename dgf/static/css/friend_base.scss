@@ -90,7 +90,7 @@ h2 .show-less {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  background: #1b2633;
+  background: $color-club-background;
 }
 
 .avatar-initials {
@@ -107,7 +107,7 @@ h2 .show-less {
     visibility: hidden;
     width: max-content;
     line-height: normal;
-    background-color: #1b2633cc;
+    background-color: $color-club-background;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -130,7 +130,7 @@ h2 .show-less {
       margin-top: 0;
       border-width: 10px;
       border-style: solid;
-      border-color: transparent #1b2633cc transparent transparent;
+      border-color: transparent $color-club-background transparent transparent;
     }
   }
 
@@ -149,7 +149,7 @@ h2 .show-less {
 
 .friend-name {
   margin-top: 0.5em;
-  color: #1b2633;
+  color: $color-club-background;
   text-align: center;
   font-weight: bold;
 }
@@ -162,7 +162,7 @@ hr {
   border: none;
   height: 2px;
   width: -webkit-fill-available;
-  background-color: #1b2633;
+  background-color: $color-club-background;
 }
 
 #aces, #bag {
@@ -235,9 +235,9 @@ hr {
   transition: transform .2s;
   position: relative;
   margin: 1em;
-  -webkit-box-shadow: 0px 0px 8px 0px $color-club-highlight;
-  -moz-box-shadow: 0px 0px 8px 0px $color-club-highlight;
-  box-shadow: 0px 0px 8px 0px $color-club-highlight;
+  -webkit-box-shadow: 0 0 8px 0 $color-club-highlight;
+  -moz-box-shadow: 0 0 8px 0 $color-club-highlight;
+  box-shadow: 0 0 8px 0 $color-club-highlight;
 
   img {
     object-fit: cover;
@@ -289,8 +289,8 @@ hr {
 
 .bag-tag-number {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
   font-weight: bold;
   font-size: 1.25em;
   width: 30px;
@@ -298,7 +298,7 @@ hr {
   text-align: center;
   color: white;
   border-radius: 2px;
-  box-shadow: 0px 0px 2px 1px white inset;
+  box-shadow: 0 0 2px 1px white inset;
   margin: 0;
   background-color: $color-club-highlight;
   border: solid $color-club-highlight 2px;

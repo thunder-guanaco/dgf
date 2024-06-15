@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -125,7 +127,7 @@
     right: 0;
     padding: 0.25em;
     line-height: 100%;
-    text-shadow: 2px 2px #1b2633;
+    text-shadow: 2px 2px $color-club-background;
     letter-spacing: 0.1em;
 }
 

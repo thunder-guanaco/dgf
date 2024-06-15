@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -227,7 +229,7 @@
 }
 
 #league table thead tr {
-    border-bottom: 2px solid #1b2633;
+    border-bottom: 2px solid $color-club-background;
     font-size: smaller;
 }
 
@@ -241,8 +243,8 @@
 }
 
 #league table .position .position-card-container {
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+    background-color: $color-club-highlight;
+    border: solid $color-club-highlight 2px;
     font-weight: bold;
     font-size: 1.25em;
     width: 30px;
@@ -265,7 +267,7 @@
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
-    background: #8d1950;
+    background: $color-club-highlight;
     margin: 0 auto;
 }
 
@@ -280,7 +282,7 @@
 
 #league table .results-button:hover {
     cursor: pointer;
-    color: #8d1950;
+    color: $color-club-highlight;
 }
 
 #league table .results-button.closed:after {
@@ -349,7 +351,7 @@
 
 #league .results .match .result:last-child::after {
     content: ":";
-    color: #8d1950;
+    color: $color-club-highlight;
     font-weight: bold;
 }
 
@@ -380,7 +382,7 @@
 }
 
 #league .results .match .result .points-container {
-    background-color: #8d1950;
+    background-color: $color-club-highlight;
     color: #ffffff;
     font-weight: bold;
     min-width: 1.5em;
@@ -406,7 +408,7 @@
     gap: 1em;
     background-color: #ffffffee;
     padding: 2em;
-    border: 2px solid #1b263344;
+    border: 2px solid $color-club-background44;
     border-radius: 10px;
 }
 
@@ -414,7 +416,7 @@
     position: absolute;
     top: 0.5em;
     right: 0.5em;
-    color: #1b2633;
+    color: $color-club-background;
     cursor: pointer;
 }
 
@@ -458,7 +460,7 @@
 
 .league-popup input {
     line-height: 2em;
-    border: 1px solid #1b2633;
+    border: 1px solid $color-club-background;
     border-radius: 5px;
     padding: 0px 10px;
 }

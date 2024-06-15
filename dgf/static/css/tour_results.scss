@@ -205,7 +205,7 @@
     visibility: hidden;
     width: max-content;
     line-height: normal;
-    background-color: #1b2633cc;
+    background-color: $color-club-backgroundcc;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -228,7 +228,7 @@
       margin-top: 0;
       border-width: 10px;
       border-style: solid;
-      border-color: transparent #1b2633cc transparent transparent;
+      border-color: transparent $color-club-backgroundcc transparent transparent;
     }
   }
 
@@ -244,7 +244,7 @@
     visibility: hidden;
     width: max-content;
     line-height: normal;
-    background-color: #1b2633cc;
+    background-color: $color-club-backgroundcc;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -262,7 +262,7 @@
       margin-top: 0;
       border-width: 10px;
       border-style: solid;
-      border-color: transparent transparent transparent #1b2633cc;
+      border-color: transparent transparent transparent $color-club-backgroundcc;
     }
   }
 

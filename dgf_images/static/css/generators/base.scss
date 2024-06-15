@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -89,14 +91,14 @@ input {
     width: 2em;
     line-height: 1em;
     padding: 0.5em;
-    border: 3px solid #1b2633;
+    border: 3px solid $color-club-background;
     background-color: white;
-    color: #1b2633;
+    color: $color-club-background;
     font-weight: bold;
 }
 
 #configuration .less-more-input button:hover {
-    background-color: #1b2633;
+    background-color: $color-club-background;
     color: white;
 }
 

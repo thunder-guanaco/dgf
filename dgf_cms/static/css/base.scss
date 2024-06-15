@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 @font-face {
   font-family: 'Gnuolane';
   src: url('../font/gnuolane-rg.ttf'); /* IE9 Compat Modes */
@@ -53,7 +55,7 @@
         align-items: center;
         height: 3em;
         width: 100%;
-        background-color: #1b2633;
+        background-color: $color-club-background;
         text-transform: uppercase;
     }
 
@@ -104,7 +106,7 @@
 
     #mobile-navigation-bar .navbar-nav,
     #mobile-navigation-bar .dropdown-menu {
-        background-color: #1b2633;
+        background-color: $color-club-background;
         padding: 0;
         border: 0;
     }
@@ -131,13 +133,13 @@
     #mobile-navigation-bar a:active,
     #mobile-navigation-bar a:focus {
         color: #ffffff;
-        background-color: #1b2633;
+        background-color: $color-club-background;
         font-weight: bold;
     }
 
     #mobile-navigation-bar a.open,
     #mobile-navigation-bar a:focus {
-        color: #8d1950 !important;
+        color: $color-club-highlight !important;
     }
 
     #mobile-mini-headline {
@@ -203,7 +205,7 @@
 
     #navigation-bar ul {
         width: 100%;
-        background-color: #1b2633;
+        background-color: $color-club-background;
     }
 
     #navigation-bar ul {
@@ -254,7 +256,7 @@
     #navigation-bar .selected a:hover,
     #navigation-bar .selected a:active,
     #navigation-bar .selected a:visited {
-        color: #8d1950;
+        color: $color-club-highlight;
     }
 
     #navigation-bar .ancestor a:link,
@@ -289,7 +291,7 @@
 
 html {
     background-color: #ffffff;
-    color: #1b2633;
+    color: $color-club-background;
     font-family: Gnuolane !important;
     font-size: 1.25em;
     font-weight: lighter;
@@ -298,7 +300,7 @@ html {
 }
 
 a:link, a:hover, a:active, a:visited {
-    color: #8d1950;
+    color: $color-club-highlight;
     text-decoration: none !important;
 }
 
@@ -312,7 +314,7 @@ body {
 #header {
     padding: 1em;
     text-align: center;
-    background-color: #1b2633;
+    background-color: $color-club-background;
     color: #ffffff;
     position: relative;
 }
@@ -333,7 +335,7 @@ body {
 }
 
 .language-chooser .cms-language .active {
-    color: #8d1950 !important;
+    color: $color-club-highlight !important;
 }
 
 .language-chooser .cms-language .vertical-bar {
@@ -376,12 +378,12 @@ ul {
     display: flex;
     flex-flow: column;
     align-items: center;
-    background-color: #1b2633;
+    background-color: $color-club-background;
 }
 
 footer {
     padding: 2em;
-    background-color: #1b2633;
+    background-color: $color-club-background;
     color: #ffffff;
     font-size: larger;
 }
@@ -422,7 +424,7 @@ form input[type=number] {
 button,
 input[type=submit],
 input[type=button] {
-    background-color: #1b2633;
+    background-color: $color-club-background;
     color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
@@ -432,11 +434,11 @@ input[type=button] {
 }
 
 button.admin-button {
-    background-color: #8d1950 !important;
+    background-color: $color-club-highlight !important;
 }
 
 button.admin-button:hover {
-    background:linear-gradient(to top, #a34672 5%, #8d1950 100%);
+    background:linear-gradient(to top, #a34672 5%, $color-club-highlight 100%);
 }
 
 input[type=button] {
@@ -445,7 +447,7 @@ input[type=button] {
 
 button:hover,
 input[type=submit]:hover {
-    background:linear-gradient(to top, #48515b 5%, #1b2633 100%);
+    background:linear-gradient(to top, #48515b 5%, $color-club-background 100%);
 }
 
 input[type=button]:hover {
@@ -475,7 +477,7 @@ input[type=button]:active {
     min-height: 2em;
     padding: 0.25em;
     text-align: center;
-    background: #8d1950;
+    background: $color-club-highlight;
     color: white !important;
     display: flex;
     flex-direction: column;
@@ -492,13 +494,13 @@ input[type=button]:active {
 
 .badge-dark {
     color: #ffffff !important;
-    background-color: #1b2633 !important;
+    background-color: $color-club-background !important;
     cursor: pointer;
 }
 
 .cms-screenblock {
     height: auto !important;
-    background: #8d1950 !important;
+    background: $color-club-highlight !important;
 }
 
 .cms-screenblock-inner {
@@ -518,7 +520,7 @@ input[type=button]:active {
     margin-left: auto;
     height: 50px;
     width: 50px;
-    border-top: 0.1em solid #8d1950;
+    border-top: 0.1em solid $color-club-highlight;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }

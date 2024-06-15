@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 td.player-cell {
     padding-right: 8px !important;
 }
@@ -32,19 +34,19 @@ td.player-cell .profile-link {
     border-radius: 2px;
     box-shadow: 0px 0px 2px 1px white inset;
     margin: 0;
-    background-color: #8d1950;
-    border: solid #8d1950 2px;
+    background-color: $dgf-purple;
+    border: solid $dgf-purple 2px;
 }
 
 .bag-tag-number.empty {
-    color: #8d1950;
+    color: $dgf-purple;
     background-color: white;
     border-style: dashed;
     padding: 2px;
 }
 
 .bag-tag-number.empty span {
-    border: dashed #8d1950 2px;
+    border: dashed $dgf-purple 2px;
     display: block;
     width: 15px;
     height: 22px;

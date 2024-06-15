@@ -1,3 +1,5 @@
+@import "dgf/static/css/base/variables_friends";
+
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
@@ -107,6 +109,6 @@
 }
 
 .cookie-group-description a {
-    color: #8d1950 !important;
+    color: $color-club-highlight !important;
     cursor: pointer;
 }
