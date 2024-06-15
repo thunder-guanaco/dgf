@@ -3,255 +3,262 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    #friend {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
+  #friend {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 
-    #friend button {
-        font-size: smaller;
+    button {
+      font-size: smaller;
     }
+  }
 
-    #friend-picture {
-        margin-bottom: 1em;
+  #friend-picture {
+    margin-bottom: 1em;
+
+    img {
+      width: $user-picture-diameter !important;
+      height: $user-picture-diameter !important;
     }
+  }
 
-    #friend-picture img {
-        width: 150px !important;
-        height: 150px !important;
+  #friend-header {
+    display: flex;
+    flex-direction: column;
+
+    h1 img {
+      width: $user-ball-header-diameter !important;
+      height: $user-ball-header-diameter !important;
     }
+  }
 
-    #friend-header {
-        display: flex;
-        flex-direction: column;
-    }
+  #friend-info {
+    width: 100%;
+  }
 
-    #friend-header h1 img {
-        width: 50px !important;
-        height: 50px !important;
-    }
+  #mobile-edit-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
-    #friend-picture {
-        margin-bottom: 1em;
-    }
-
-    #friend-info {
-        width: 100%;
-    }
-
-    #mobile-edit-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        align-items: center;
-        margin: 0;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    #friend-body > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin: 1em 0;
-    }
-
-    #friend-body div .label {
+  #friend-body {
+    div {
+      .label {
         font-weight: bold;
-    }
+      }
 
-    #friend-body div .value {
+      .value {
         width: 100%;
+      }
     }
 
-    #videos .value {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 1em 0;
     }
+  }
 
-    .youtube-video {
-        align-self: center;
+  #videos .value {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .youtube-video {
+    align-self: center;
+
+    img {
+      height: -webkit-fill-available !important;
     }
-
-    .youtube-video img {
-        height: -webkit-fill-available !important;
-    }
-
+  }
 }
+
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #friend {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        position: relative;
-    }
-
-    #friend button {
-        font-size: large;
-    }
-
-    #friend-picture {
-        margin-right: 2em;
-    }
-
-    #friend #friend-info h1 #desktop-edit-buttons {
-        display: flex;
-        flex-flow: row;
-        gap: 0.5rem;
-        align-items: center;
-    }
-
-    #desktop-edit-buttons button {
-        vertical-align: text-top;
-    }
-
-    #friend-info {
-        width: 80%;
-    }
-
-    #friend-body > div {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        margin: 1em 0;
-    }
-
-    #friend-body .big-field {
-        margin: 2em 0 !important;
-    }
-
-    #friend-body div .label {
-        width: 20%;
-    }
-
-    #friend-body div .value {
-        width: 60%;
-        margin-left: 2em;
-    }
-
-    #friend-body div#videos .value {
-        width: 80% !important;
-    }
-
-    #aces .youtube-video,
-    #bag .youtube-video {
-        margin: 0 0 0 1em !important;
-    }
-
-    #videos .value {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    #videos .youtube-video {
-        margin: 0 1em 1em 0 !important;
-    }
-}
-
-#friend-info h1 {
-    font-size: 1.5em;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
-}
-
-#friend-info h1 div {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-}
-
-#friend-info h1 img {
-    margin-left: 0.5em;
-}
-
-#friend .friend-header-line {
+  #friend {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+
+    button {
+      font-size: large;
+    }
+
+    .friend-header-line {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      label {
+        margin: 0;
+      }
+    }
+
+    .external-ids {
+      font-size: 1.5em;
+    }
+
+    .larger {
+      padding: 0.25em 0;
+    }
+  }
+
+  #friend-picture {
+    margin-right: 2em;
+  }
+
+  #friend #friend-info h1 #desktop-edit-buttons {
+    display: flex;
+    flex-flow: row;
+    gap: 0.5rem;
     align-items: center;
-}
+  }
 
-#friend .friend-header-line label {
-    margin: 0;
-}
+  #desktop-edit-buttons button {
+    vertical-align: text-top;
+  }
 
-#friend .external-ids {
-    font-size: 1.5em;
-}
+  #friend-info {
+    width: 80%;
 
-#friend .larger {
-    padding: 0.25em 0;
-}
+    h1 {
+      font-size: 1.5em;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
 
-#friend-info p {
-    margin: 0;
+      div {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+      }
+
+      img {
+        margin-left: 0.5em;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  #friend-body {
+    > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin: 1em 0;
+    }
+
+    .big-field {
+      margin: 2em 0 !important;
+    }
+
+    div {
+      .label {
+        width: 20%;
+      }
+
+      .value {
+        width: 60%;
+        margin-left: 2em;
+      }
+
+      &#videos .value {
+        width: 80% !important;
+      }
+    }
+  }
+
+
+  #aces, #bag {
+    .youtube-video {
+      margin: 0 0 0 1em !important;
+    }
+  }
+
+  #videos {
+    .value {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .youtube-video {
+      margin: 0 1em 1em 0 !important;
+    }
+  }
 }
 
 .division,
 .rating {
-    font-weight: bold;
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .division div {
-    color: #ffffff;
-    background-color: $color-club-highlight;
-    padding: 0.3em;
-    margin-left: 0.5em;
-    display: inline;
+  color: #ffffff;
+  background-color: $color-club-highlight;
+  padding: 0.3em;
+  margin-left: 0.5em;
+  display: inline;
 }
 
 .rating .ball-container {
-    margin-left: 0.5em;
+  margin-left: 0.5em;
 }
 
 #friend-header {
-    margin-bottom: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 #friend-body {
-    display: flex;
-    flex-direction: column;
-}
+  display: flex;
+  flex-direction: column;
 
-#friend-body ul {
+  ul {
     margin: 0;
-}
+  }
 
-#friend-body .value {
+  .value {
     list-style-type: none;
-}
+  }
 
-#friend-body .favorite-courses li:before,
-#friend-body .now-playing li:before {
+  .favorite-courses li:before, .now-playing li:before {
     content: '>\00a0\00a0\00a0';
+  }
 }
 
 .bag-tag-number {
-    font-size: 2em !important;
-    width: 45px !important;
-    line-height: 53px !important;
+  font-size: 2em !important;
+  width: 45px !important;
+  line-height: 53px !important;
 }
 
 .friend-division {
-    color: #1b2633;
-    padding: 0.1em 0.3em;
+  color: #1b2633;
+  padding: 0.1em 0.3em;
 }
