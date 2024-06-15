@@ -3,193 +3,205 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    #tour-results .table .summary {
+  #tour-results {
+    .table {
+      .summary {
         width: 100%;
-    }
 
-    .link {
-        color: $color-club-highlight;
-        font-weight: bold;
-        text-decoration: none !important;
-    }
+        > .line {
 
-    #tour-results .table .details {
+          padding: 0.75em 0;
+        }
+
+        > .header {
+          z-index: 1;
+        }
+
+        .details .line.header .results-wrapper {
+          background-color: rgba(0, 0, 0, .05);
+        }
+      }
+
+      .line {
+        .results-wrapper {
+          padding: 0.75em 0;
+        }
+
+        .result {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .details {
         font-size: 0.75em;
+
+        .results-wrapper.empty {
+          background: none !important;
+        }
+      }
     }
 
-    #tour-results .table .summary > .line,
-    #tour-results .table .line .results-wrapper {
-        padding: 0.75em 0;
+    .position-1 {
+      color: #f9ad0e;
     }
 
-    #tour-results .table .summary > .header {
-        z-index: 1;
+    .position-2 {
+      color: #d1d7da;
     }
 
-    #tour-results .table .summary .details .line.header .results-wrapper {
-        background-color: rgba(0,0,0,.05);
+    .position-3 {
+      color: #df7e08;
     }
+  }
 
-    #tour-results .table .details .results-wrapper.empty {
-        background: none !important;
-    }
-
-    #tour-results .table .line .result {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #tour-results .position-1 {
-        color: #f9ad0e;
-    }
-
-    #tour-results .position-2 {
-        color: #d1d7da;
-    }
-
-    #tour-results .position-3 {
-        color: #df7e08;
-    }
+  .link {
+    color: $color-club-highlight;
+    font-weight: bold;
+    text-decoration: none !important;
+  }
 }
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    #tour-results .table .summary {
+  #tour-results {
+    .table {
+      .summary {
         width: 30%;
-    }
 
-    #tour-results .table .details {
+        .line {
+          padding: 0.75em 0;
+
+          &:nth-of-type(even) {
+            background-color: rgba(0, 0, 0, .05);
+          }
+        }
+      }
+
+      .details {
         width: 70%;
+
+        .line {
+          .results-wrapper {
+            padding: 0.75em 0;
+          }
+
+          &:nth-of-type(even) .results-wrapper {
+            background-color: rgba(0, 0, 0, .05);
+          }
+        }
+
+        .result {
+          height: $user-ball-diameter !important;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+        }
+      }
     }
 
-    #tour-results .table .summary .line:nth-of-type(even),
-    #tour-results .table .details .line:nth-of-type(even) .results-wrapper {
-        background-color: rgba(0,0,0,.05);
-    }
-
-    #tour-results .table .summary .line,
-    #tour-results .table .details .line .results-wrapper {
-        padding: 0.75em 0;
-    }
-
-    #tour-results .table .details .line .result {
-        height: 70px !important;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #tour-results .position-1:before {
+    .position-1, .position-2, .position-3 {
+      &:before {
         content: '\00a0\00a0';
+      }
     }
 
-    #tour-results .position-1:after {
-        content: '\00a0\1F947';
+    .position-1:after {
+      content: '\00a0\1F947';
     }
 
-    #tour-results .position-2:before {
-        content: '\00a0\00a0';
+    .position-2:after {
+      content: '\00a0\1F948';
     }
 
-    #tour-results .position-2:after {
-        content: '\00a0\1F948';
+    .position-3:after {
+      content: '\00a0\1F949';
     }
+  }
 
-    #tour-results .position-3:before {
-        content: '\00a0\00a0';
-    }
-
-    #tour-results .position-3:after {
-        content: '\00a0\1F949';
-    }
-
-}
-
-.container {
-    position: relative;
-}
-
-#tour-results button.admin-button {
+  button.admin-button {
     position: absolute;
     top: 0;
     right: 0;
     margin-right: 1rem;
-}
+  }
 
-#tour-results h2,
-#tour-results h3 {
+  h2, h3 {
     text-align: center;
+  }
 }
 
-#tour-results .friend-ball {
+.container {
+  position: relative;
+}
+
+#tour-results {
+  .friend-ball {
+    img {
+      width: $user-ball-diameter !important;
+      height: $user-ball-diameter !important;
+    }
+
     flex-direction: row !important;
-}
 
-#tour-results .friend-ball .friend-name {
-    margin: 0 0 0 0.5em !important;
-}
+    .friend-name {
+      margin: 0 0 0 0.5em !important;
+    }
+  }
 
-#tour-results .table .header,
-#tour-results .table .position,
-#tour-results .table .points {
-    font-weight: bold;
-}
-
-#tour-results .table {
+  .table {
     display: flex;
     flex-direction: row;
-}
 
-#tour-results .table .summary {
-    display: flex;
-    flex-direction: column;
-}
+    .summary {
+      display: flex;
+      flex-direction: column;
 
-#tour-results .table .details {
-    display: block;
-}
+      .line {
+        .position {
+          width: 25%;
+        }
 
-#tour-results .table .line {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+        .player {
+          width: 50%;
+        }
 
-#tour-results .friend-ball img {
-    width: 70px !important;
-    height: 70px !important;
-}
+        .points {
+          width: 25%;
+        }
+      }
+    }
 
-#tour-results .table .line {
-    text-align: center;
-}
+    .line {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-align: center;
+    }
 
-#tour-results .table .summary .line .position {
-    width: 25%;
-}
+    .details {
+      display: block;
+    }
 
-#tour-results .table .summary .line .player {
-    width: 50%;
-}
+    .header, .position, .points {
+      font-weight: bold;
+    }
+  }
 
-#tour-results .table .summary .line .points {
-    width: 25%;
-}
-
-#tour-results .position-X {
+  .position-X {
     color: #666;
     text-decoration: line-through;
+  }
 }
 
 .tournament-tooltip {
-    position: relative;
-}
+  position: relative;
 
-.tournament-tooltip .tooltip-text {
+  .tooltip-text {
     visibility: hidden;
     width: max-content;
     line-height: normal;
@@ -202,33 +214,33 @@
     position: absolute;
     top: 5%;
     left: 95%;
-}
 
-.tournament-tooltip:hover .tooltip-text {
+    .tooltip-smaller-text {
+      font-size: smaller;
+      font-weight: normal;
+    }
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 25%;
+      right: 100%; /* To the left of the tooltip */
+      margin-top: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent #1b2633cc transparent transparent;
+    }
+  }
+
+  &:hover .tooltip-text {
     visibility: visible;
-}
-
-.tournament-tooltip .tooltip-text .tooltip-smaller-text {
-    font-size: smaller;
-    font-weight: normal;
-}
-
-.tournament-tooltip .tooltip-text::after {
-    content: " ";
-    position: absolute;
-    top: 25%;
-    right: 100%; /* To the left of the tooltip */
-    margin-top: 0;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent #1b2633cc transparent transparent;
+  }
 }
 
 .statistics-tooltip {
-    position: relative;
-}
+  position: relative;
 
-.statistics-tooltip .tooltip-text {
+  .tooltip-text {
     visibility: hidden;
     width: max-content;
     line-height: normal;
@@ -241,20 +253,20 @@
     position: absolute;
     top: -33%;
     left: -176%;
-}
 
-.statistics-tooltip:hover .tooltip-text {
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 25%;
+      left: 100%; /* To the right of the tooltip */
+      margin-top: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent transparent #1b2633cc;
+    }
+  }
+
+  &:hover .tooltip-text {
     visibility: visible;
+  }
 }
-
-.statistics-tooltip .tooltip-text::after {
-    content: " ";
-    position: absolute;
-    top: 25%;
-    left: 100%; /* To the right of the tooltip */
-    margin-top: 0;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent transparent transparent #1b2633cc;
-}
-
