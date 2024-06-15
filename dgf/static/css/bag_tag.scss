@@ -1,13 +1,14 @@
 @import "base/variables_friends";
 
 $color-background: #999999;
+$user-ball-diameter: 70px;
 
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
   .friend-ball img {
-    width: 70px !important;
-    height: 70px !important;
+    width: $user-ball-diameter !important;
+    height: $user-ball-diameter !important;
   }
 
   #bag-tags .statistics {
@@ -26,22 +27,22 @@ $color-background: #999999;
 
   .header {
     margin-bottom: 1em;
-  }
 
-  .header input {
-    width: 90%;
-  }
+    input {
+      width: 90%;
+    }
 
-  .header .error {
-    margin: 0;
-  }
+    .error {
+      margin: 0;
+    }
 
-  .header button {
-    margin: 0 !important;
-  }
+    button {
+      margin: 0 !important;
+    }
 
-  .header > div {
-    align-self: flex-end;
+    > div {
+      align-self: flex-end;
+    }
   }
 
   .number {
@@ -51,10 +52,10 @@ $color-background: #999999;
   .news {
     width: 2em;
     text-align: start;
-  }
 
-  .news.neutral {
-    text-align: center;
+    &.neutral {
+      text-align: center;
+    }
   }
 
   #bag-tags .footer {
@@ -72,12 +73,18 @@ $color-background: #999999;
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-  #bag-tags .content .line {
-    margin-left: 5em;
-  }
+  #bag-tags {
+    .content .line {
+      margin-left: 5em;
+    }
 
-  #bag-tags #select-bag-tags .line {
-    margin-left: 8em;
+    #select-bag-tags .line {
+      margin-left: 8em;
+    }
+
+    .footer {
+      display: none;
+    }
   }
 
   #edit-bag-tags {
@@ -88,10 +95,6 @@ $color-background: #999999;
     width: 1em;
     text-align: end;
   }
-
-  #bag-tags .footer {
-    display: none;
-  }
 }
 
 .header {
@@ -101,20 +104,20 @@ $color-background: #999999;
   align-items: center;
   margin-bottom: 1em;
   gap: 0.5em;
-}
 
-.header button {
-  height: fit-content;
+  button {
+    height: fit-content;
+  }
 }
 
 #bag-tags {
   display: flex;
   flex-direction: column;
-}
 
-#bag-tags .content {
-  display: flex;
-  flex-direction: column;
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .line {
@@ -133,66 +136,72 @@ $color-background: #999999;
   border: solid $color-club-highlight 2px;
 }
 
-#select-bag-tags .number,
-#todays-bag-tags .number,
+#list-bag-tags .number.clickable:hover {
+  background-color: #1b2633;
+  border-color: #1b2633;
+}
+
+#select-bag-tags, #todays-bag-tags {
+  .number {
+    background-color: $color-background;
+    border: solid $color-background 2px;
+  }
+
+  .number:hover, .number.selected {
+    background-color: #1b2633;
+    border-color: #1b2633;
+  }
+}
+
 #multiple-bag-tag-players .player .number {
   background-color: $color-background;
   border: solid $color-background 2px;
 }
 
-#list-bag-tags .number.clickable:hover,
-#select-bag-tags .number:hover,
-#select-bag-tags .number.selected,
-#todays-bag-tags .number:hover,
-#todays-bag-tags .number.selected {
-  background-color: #1b2633;
-  border-color: #1b2633;
-}
-
 .news {
   font-weight: bold;
   margin: 0 0.25em;
-}
 
-.news.positive {
-  color: $color-positive;
-}
+  &.positive {
+    color: $color-positive;
 
-.news.negative {
-  color: $color-negative;
-}
+    span:before {
+      content: '▲';
+    }
+  }
 
-.news.neutral {
-  color: $color-neutral;
-}
+  &.negative {
+    color: $color-negative;
 
-.news.positive span:before {
-  content: '▲';
-}
+    span:before {
+      content: '▼';
+    }
+  }
 
-.news.negative span:before {
-  content: '▼';
-}
+  &.neutral {
+    color: $color-neutral;
 
-.news.neutral:before {
-  content: '-';
-}
+    &:before {
+      content: '-';
+    }
 
-.news.neutral span {
-  display: none;
+    span {
+      display: none;
+    }
+  }
 }
 
 .news-best {
   width: 1.5em;
   text-align: center;
-}
 
-.news-best.fire:before {
-  content: '🔥';
-}
+  &.fire:before {
+    content: '🔥';
+  }
 
-.news-best.sad:before {
-  content: attr(data-content);
+  &.sad:before {
+    content: attr(data-content);
+  }
 }
 
 .number {
@@ -203,17 +212,70 @@ $color-background: #999999;
   text-align: center;
   color: white;
   border-radius: 2px;
-  box-shadow: 0px 0px 2px 1px white inset;
+  box-shadow: 0 0 2px 1px white inset;
   margin: 0 1em;
 }
 
-#bag-tags .number.clickable, #bag-tags .player.clickable {
-  cursor: pointer;
-}
+#bag-tags {
+  .number.clickable, .player.clickable {
+    cursor: pointer;
+  }
 
-#bag-tags .number span {
-  display: inline-block;
-  vertical-align: middle;
+  .number span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .since {
+    margin: 0 1em;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .since:hover {
+    cursor: pointer;
+    color: $color-club-highlight;
+  }
+
+  .warning {
+    color: red;
+  }
+
+  .statistics {
+    margin: 1rem 0 2rem 12em;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem 2rem;
+  }
+
+  .statistics-button {
+    &.closed:after {
+      content: '▶';
+    }
+
+    &.open:after {
+      content: '▼';
+    }
+  }
+
+  .history {
+    cursor: pointer;
+    &:hover {
+      color: #8d1950;
+    }
+  }
+
+  .history-button {
+    &.closed:after {
+      content: '▶';
+    }
+
+    &.open:after {
+      content: '▼';
+    }
+  }
 }
 
 .player {
@@ -221,84 +283,36 @@ $color-background: #999999;
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  .friend-ball {
+    margin: 0 1em 0 0 !important;
+
+    .friend-name {
+      display: none;
+    }
+  }
 }
 
-.player .friend-ball {
-  margin: 0 1em 0 0 !important;
-}
-
-.player .friend-ball .friend-name {
-  display: none;
-}
-
-#bag-tags .since {
-  margin: 0 1em;
-  display: flex;
-  flex-flow: row;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-#bag-tags .since:hover {
-  cursor: pointer;
-  color: $color-club-highlight;
-}
-
-#bag-tags .warning {
-  color: red;
-}
-
-#bag-tags .statistics-button.closed:after {
-  content: '▶';
-}
-
-#bag-tags .statistics-button.open:after {
-  content: '▼';
-}
-
-#bag-tags .history {
-    cursor: pointer;
-}
-
-#bag-tags .history:hover {
-    color: #8d1950;
-}
-
-#bag-tags .history-button.closed:after {
-    content: '▶';
-}
-
-#bag-tags .history-button.open:after {
-    content: '▼';
-}
-
-#bag-tags .statistics {
-  margin: 1rem 0 2rem 12em;
-  display: flex;
-  flex-flow: row wrap;
-  gap: 1rem 2rem;
-}
 
 #edit-bag-tags {
   display: flex;
   flex-direction: column;
+
+  ul li {
+    list-style-type: none;
+    padding: 0;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0.25em;
+  }
 }
 
 #multiple-bag-tag-list {
   display: flex;
   flex-direction: row;
-}
-
-#edit-bag-tags ul li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  height: 90px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 0.25em;
 }
 
 #multiple-bag-tag-players li {
@@ -323,100 +337,110 @@ $color-background: #999999;
   margin-bottom: 1em;
 }
 
-button.negative {
-  background-color: $color-background !important;
-}
+button {
+  &.negative {
+    background-color: $color-background !important;
 
-button.negative:hover {
-  background: linear-gradient(to top, #666666 5%, $color-background 100%) !important;
-}
+    &:hover {
+      background: linear-gradient(to top, #666666 5%, $color-background 100%) !important;
+    }
+  }
 
-button.new {
-  background-color: $color-club-highlight !important;
-}
+  &.new {
+    background-color: $color-club-highlight !important;
 
-button.new:hover {
-  background: linear-gradient(to top, $color-club-highlight-dark 5%, $color-club-highlight 100%) !important;
+    &:hover {
+      background: linear-gradient(to top, $color-club-highlight-dark 5%, $color-club-highlight 100%) !important;
+    }
+  }
 }
 
 #you-dont-have-bag-tags {
   border: dotted #a80000 3px;
   padding: 1em;
   margin-bottom: 1em;
-}
 
-#you-dont-have-bag-tags ul {
-  margin: 1em 1em 0em 1em;
+  ul {
+    margin: 1em 1em 0 1em;
+  }
 }
 
 #admin-zone {
   border: dotted black 3px;
-  padding: 0em 1em 3em 1em;
+  padding: 0 1em 3em 1em;
   margin-top: 1em;
   display: flex;
   flex-flow: column;
+
+  .buttons {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5em;
+    align-self: flex-end;
+    align-items: flex-end;
+  }
 }
 
-#admin-zone .buttons {
-  display: flex;
-  flex-flow: column;
-  gap: 0.5em;
-  align-self: flex-end;
-  align-items: flex-end;
+#admin-bag-tags {
+  #admin-buttons button {
+    width: fit-content;
+  }
+
+  .number {
+    background-color: $color-club-highlight;
+    border: solid $color-club-highlight 2px;
+
+    &.selected {
+      background-color: #1b2633 !important;
+      border-color: #1b2633 !important;
+    }
+
+    &:hover {
+      background-color: #1b2633;
+      border: solid #1b2633 2px;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
 }
 
-#admin-bag-tags #admin-buttons button {
-  width: fit-content;
-}
-
-#admin-bag-tags .number {
-  background-color: $color-club-highlight;
-  border: solid $color-club-highlight 2px;
-}
-
-#admin-bag-tags .number:hover {
-  background-color: #1b2633;
-  border: solid #1b2633 2px;
-}
-
-#admin-bag-tags .clickable {
-  cursor: pointer;
-}
-
-#admin-bag-tags .number.selected {
-  background-color: #1b2633 !important;
-  border-color: #1b2633 !important;
-}
 
 #bag-tags-wrapper {
   position: relative;
 }
 
-#metrix-bag-tags li {
-  margin-left: 2em;
+#metrix-bag-tags {
+  li {
+    margin-left: 2em;
+  }
+
+  a {
+    color: $color-club-highlight !important;
+    cursor: pointer;
+  }
 }
 
-#metrix-bag-tags a {
-  color: $color-club-highlight !important;
-  cursor: pointer;
+#multiple-bag-tag-players {
+  .player {
+    width: 100%;
+
+    .info {
+      margin: 0 0.5em;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  .number {
+    margin: 0 0.5em 0 0;
+  }
 }
 
-#multiple-bag-tag-players .player {
-  width: 100%;
-}
-
-#multiple-bag-tag-players .player .info {
-  margin: 0 0.5em;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-#multiple-bag-tag-players .number {
-  margin: 0 0.5em 0 0;
-}
 
 #multiple-bag-tag-delete .delete {
   margin: 0.5em;
