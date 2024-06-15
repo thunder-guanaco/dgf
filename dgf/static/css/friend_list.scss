@@ -3,261 +3,268 @@
 /* mobile */
 @media only screen and (max-width: 1024px) {
 
-    .all-friends .friend-ball img {
-        width: 70px !important;
-        height: 70px !important;
-    }
+  .all-friends .friend-ball {
+    margin: 0.5em !important;
 
-    .all-friends .friend-ball {
-        margin: 0.5em !important;
+    img {
+      width: $user-ball-diameter !important;
+      height: $user-ball-diameter !important;
     }
+  }
 
-    #friends li .inner-content {
-        margin: 0 !important;
-    }
+  #friends li .inner-content {
+    margin: 0 !important;
+  }
 
-    #statistics .list {
-        flex-direction: column;
-        align-items: center;
-    }
+  #statistics {
+    .list {
+      flex-direction: column;
+      align-items: center;
 
-    #statistics .show-all-less .list {
-        align-items: flex-start;
-    }
-
-    #statistics .list .item {
+      .item {
         justify-content: flex-start !important;
         margin: 0.5em 0 !important;
+      }
     }
 
-    .show-all-less .friend-ball {
-        flex-direction: row !important;
-        margin-left: 60%;
+    .show-all-less .list {
+      align-items: flex-start;
     }
 
-    .show-all-less .friend-ball .friend-name {
-        margin: 0 0 0 0.5em !important;
+    img {
+      width: 70px !important;
+    }
+  }
+
+  .show-all-less .friend-ball {
+    flex-direction: row !important;
+    margin-left: 60%;
+
+    .friend-name {
+      margin: 0 0 0 0.5em !important;
+    }
+  }
+
+  .tournament {
+    .top-info {
+      flex-direction: column !important;
+      align-items: flex-start !important;
     }
 
-    #statistics img {
-        width: 70px !important;
-    }
+    .players {
+      width: 100% !important;
 
-    .tournament .top-info {
-        flex-direction: column !important;
-        align-items: flex-start !important;
+      .friend-ball {
+        margin: 1em 0 1em -2em !important;
+      }
     }
+  }
 
-    .tournament .players {
-        width: 100% !important;
-    }
-
-    .tournament .players .friend-ball {
-        margin: 1em 0em 1em -2em !important;
-    }
-
-    #podiums .tournament .players .friend-ball {
-        margin: 1em 0em 1em 0 !important;
-    }
-
+  #podiums .tournament .players .friend-ball {
+    margin: 1em 0 1em 0 !important;
+  }
 }
 
 
 /* desktop */
 @media only screen and (min-width: 1024px) {
 
-    .all-friends .friend-ball {
-        margin: 1em !important;
-    }
+  .show-all-less .friend-ball {
+    margin: 1em 2em !important;
+  }
 
-    .show-all-less .friend-ball {
-        margin: 1em 2em !important;
-    }
+  .tournament .players .friend-ball {
+    margin: 1em 1em 1em -2em !important;
+  }
 
-    #statistics .list {
-        flex-direction: row;
-    }
-
-    .tournament .players .friend-ball {
-        margin: 1em 1em 1em -2em !important;
-    }
-
-    #podiums .tournament .players .friend-ball {
-        margin: 1em 1em 1em 0 !important;
-    }
+  #podiums .tournament .players .friend-ball {
+    margin: 1em 1em 1em 0 !important;
+  }
 
 }
 
 #friend-list-header-text {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #friend-list-header-text > img {
-    align-self: center;
+  align-self: center;
 }
 
-#statistics li {
-    list-style-type: none;
-    margin-top: 3em;
-}
-
-#statistics li h2 {
-    margin-bottom: 0.5em;
-}
-
-#statistics .line {
-    display: flex;
+#statistics {
+  .list {
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#statistics .list {
     display: flex;
     justify-content: center;
-}
 
-#statistics .list .item {
-    width: 20%;
-    text-align: center;
-    margin: 0;
-}
+    .item {
+      width: 20%;
+      text-align: center;
+      margin: 0;
+    }
+  }
 
-#statistics .show-all,
-#statistics .show-less,
-#statistics .show-all-tournaments,
-#statistics .show-less-tournaments {
+  li {
+    list-style-type: none;
+    margin-top: 3em;
+
+    h2 {
+      margin-bottom: 0.5em;
+    }
+
+    .line {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .friend-search h2 {
+      margin: 0;
+    }
+
+    &.show-all-less .inner-content > div {
+      justify-content: center;
+    }
+  }
+
+  .show-all, .show-less, .show-all-tournaments, .show-less-tournaments {
     cursor: pointer;
     color: $color-club-highlight;
     font-weight: normal;
+  }
 }
+
 
 .friend-search {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5em;
-}
-
-#statistics li .friend-search h2 {
-    margin: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
 }
 
 .all-friends {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-}
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
 
-#friends .ball-container {
+  .ball-container {
     line-height: 3em;
     width: 3em;
+  }
+
+  .friend-ball {
+    margin: 1em !important;
+  }
 }
 
-#friends .ball {
+#friends {
+  .ball {
     font-size: 1.75em;
-}
+  }
 
-#friends li .inner-content {
-    margin-left: 20%;
-}
+  li {
+    .inner-content {
+      margin-left: 20%;
+    }
 
-#friends li.show-all-less .inner-content {
-    margin-left: 10%;
+    &.show-all-less .inner-content {
+      margin-left: 10%;
+    }
+  }
 }
 
 .show-all-less {
-    min-height: 8em;
-}
+  min-height: 8em;
 
-.show-all-less .all {
+  .all {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
+  }
 }
 
-#statistics li.show-all-less .inner-content > div {
-    justify-content: center;
-}
-
-.tournament .top-info {
+.tournament {
+  .top-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1em;
-}
+  }
 
-.tournament .name {
+  .name {
     width: 65%;
     font-weight: bold;
-}
+  }
 
-.tournament .date {
+  .date {
     font-weight: normal;
     font-style: italic;
-}
+  }
 
-.tournament .players {
+  .players {
     width: 35%;
     display: flex;
     flex-direction: row-reverse;
+  }
 }
+
 
 .inner-content .tournament {
-    margin: 1em 0em !important;
-    min-height: 5em !important;
+  margin: 1em 0 !important;
+  min-height: 5em !important;
 }
 
-h2 .show-all-tournaments,
-h2 .show-less-tournaments {
+h2 {
+  .show-all-tournaments, .show-less-tournaments {
     font-size: 0.75em;
     font-weight: normal;
+  }
 }
 
-#now-playing .inner-content ul,
-#podiums .inner-content ul ,
-#tournaments .inner-content ul {
+#now-playing, #podiums, #tournaments {
+  .inner-content ul {
     width: 100%;
+  }
 }
 
 #podiums .friend-ball {
-    position: relative;
-}
+  position: relative;
 
-#podiums .friend-ball .friend-result {
+  .friend-result {
     position: absolute;
     bottom: -10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
+  }
 
-#podiums .friend-ball .friend-position {
+  .friend-position {
     font-size: 1.5em;
-}
+  }
 
-#podiums .friend-ball .friend-division {
+  .friend-division {
     background-color: #1b2633;
     color: white;
     border-radius: 0.25em;
     padding: 0.1em 0.3em;
     height: fit-content;
     width: max-content;
+  }
 }
 
 #bag-tags .friend-ball {
-    position: relative;
-}
+  position: relative;
 
-#bag-tags .friend-ball .friend-bag-tag {
+  .friend-bag-tag {
     position: absolute;
     font-size: 1.5em;
     bottom: 80px;
@@ -268,17 +275,18 @@ h2 .show-less-tournaments {
     text-align: center;
     color: white;
     border: solid $color-club-highlight 2px;
-    box-shadow: 0px 0px 2px 1px white inset;
-}
+    box-shadow: 0 0 2px 1px white inset;
 
-#bag-tags .friend-ball .friend-bag-tag span {
-    display: inline-block;
-    vertical-align: middle;
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
 }
 
 .bag-tag-number {
-    top: auto !important;
-    left: auto !important;
-    bottom: -5px !important;
-    right: -5px !important;
+  top: auto !important;
+  left: auto !important;
+  bottom: -5px !important;
+  right: -5px !important;
 }
