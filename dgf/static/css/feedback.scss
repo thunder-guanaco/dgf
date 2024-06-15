@@ -1,23 +1,23 @@
 .container {
-    align-items: center;
+  align-items: center;
 }
 
 form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+  }
 
-form p {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-form label {
+  label {
     margin-right: 1em;
-}
+  }
 
-form button {
+  button {
     align-self: flex-end;
+  }
 }
