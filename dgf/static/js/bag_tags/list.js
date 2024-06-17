@@ -81,14 +81,6 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
     Plotly.newPlot(`chart-${friendSlug}`, data, layout, config);
 }
 
-function datesUntilToday(startYear) {
-    var allDates = [];
-    for (var year = startYear; year <= new Date().getFullYear(); year++) {
-        allDates.push(new Date(year));
-    }
-    return allDates;
-}
-
 function switchHistory(friendSlug) {
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("closed");
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("open");
