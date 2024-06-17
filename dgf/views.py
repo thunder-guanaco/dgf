@@ -3,11 +3,12 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F, Func, Value, CharField
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
@@ -175,6 +176,24 @@ def bag_tag_claim(request, bag_tag):
                                 timestamp=now)
 
     return HttpResponse(status=204)
+
+
+def bag_tag_changes_list(friend):
+    return list(friend.bag_tag_changes.all()
+                .annotate(day=Func(F('timestamp'),
+                                   Value('%Y-%m-%d %H:%i:%s'),
+                                   function='DATE_FORMAT',
+                                   output_field=CharField()))
+                .values_list('day', 'new_number')
+                )
+
+
+@require_GET
+def bag_tag_history(request):
+    return JsonResponse({
+        friend.slug: bag_tag_changes_list(friend)
+        for friend in Friend.objects.filter(bag_tag__isnull=False)
+    })
 
 
 def get_next_bag_tag():
