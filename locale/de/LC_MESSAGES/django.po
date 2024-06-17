@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-17 22:14+0200\n"
+"POT-Creation-Date: 2024-06-17 22:23+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -957,13 +957,17 @@ msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
 msgid "This makes no sense. For these bag tags the users should be: "
 msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
 
-#: dgf_cms/settings.py:354 dgf_cms/settings.py:364
+#: dgf_cms/settings.py:355 dgf_cms/settings.py:365
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:355 dgf_cms/settings.py:371
+#: dgf_cms/settings.py:356 dgf_cms/settings.py:372
 msgid "English"
 msgstr "Englisch"
+
+#: dgf_cms/settings.py:526
+msgid "Period in which the bag tag must be played for as days"
+msgstr "Zeitraum, in dem um das Bagtag gespielt werden muss als Tage"
 
 #: dgf_cms/templates/403.html:5 dgf_cms/templates/403.html:15
 msgid "403 - Foot fault!"
