@@ -252,6 +252,22 @@
     content: '▼';
 }
 
+#bag-tags .history {
+    cursor: pointer;
+}
+
+#bag-tags .history:hover {
+    color: #8d1950;
+}
+
+#bag-tags .history-button.closed:after {
+    content: '▶';
+}
+
+#bag-tags .history-button.open:after {
+    content: '▼';
+}
+
 #bag-tags .statistics {
     margin: 1rem 0 2rem 12em;
     display: flex;

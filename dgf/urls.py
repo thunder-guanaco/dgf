@@ -1,8 +1,8 @@
 from django.urls import path
 
 from .views import FriendListView, FeedbackCreateView, VideoListView, TournamentListView, \
-    bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids, \
+    bag_tag_claim, bag_tag_history, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, \
+    FriendDetailView, tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids, \
     FriendUpdateView, ExtendedFriendUpdateView
 
 app_name = 'dgf'
@@ -20,6 +20,7 @@ urlpatterns = [
     # API
     path('tournaments/<int:tournament_id>/attendance', tournament_attendance, name='tournament_attendance'),
     path('bag-tags/<int:bag_tag>/claim', bag_tag_claim, name='bag_tag_claim'),
+    path('bag-tags/history', bag_tag_history, name='bag_tag_history'),
     path('bag-tags/new', bag_tag_new, name='bag_tag_new'),
     path('bag-tags/', bag_tag_update, name='bag_tag_update'),
     path('tremonia-series/next-tournament', ts_next_tournament, name='tremonia_series_next_tournament'),
