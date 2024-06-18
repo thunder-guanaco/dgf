@@ -69,7 +69,7 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
         dtick = "D1";
     }
     var autorangeInclude = bestBagTag;
-    if (bestBagTag < 10) {
+    if (bestBagTag < 5) {
         autorangeInclude = 0;
     }
 
@@ -85,7 +85,9 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
         },
         autosize: true,
         margin: {
-            l: 30,
+            t: 25,
+            b: 25,
+            l: 25,
             r: 0
         }
     };
