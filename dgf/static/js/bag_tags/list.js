@@ -49,33 +49,52 @@ function loadBagTagHistory() {
 
 function plotBagTagHistory([friendSlug, bagTagChanges]) {
     var changesAsObject = Object.fromEntries(bagTagChanges);
+    var dates = Object.keys(changesAsObject);
+    var bagTags = Object.values(changesAsObject);
 
     var data = [{
-        x: Object.keys(changesAsObject),
-        y: Object.values(changesAsObject),
+        x: dates,
+        y: bagTags,
         type: 'scatter',
         mode: 'lines+markers',
         line: {
             color: '#8d1950'
-        },
-        marker: {
-            color: '#000000',
-      }
+        }
     }];
+
+    var bestBagTag = Math.min(...bagTags);
+    var worstBagTag = Math.max(...bagTags);
+    var dtick = 5;
+    if (worstBagTag - bestBagTag < 10) {
+        dtick = "D1";
+    }
+    var autorangeInclude = bestBagTag;
+    if (bestBagTag < 5) {
+        autorangeInclude = 0;
+    }
 
     var layout = {
         yaxis: {
             autorange: "reversed",
-            zeroline: false
+            autorangeoptions: {
+                include: autorangeInclude
+            },
+            zeroline: false,
+            tick0: 0,
+            dtick: dtick
         },
         autosize: true,
         margin: {
-            l: 30
+            t: 25,
+            b: 25,
+            l: 25,
+            r: 0
         }
     };
 
     var config = {
-        responsive: true
+        responsive: true,
+        staticPlot: true
     }
 
     Plotly.newPlot(`chart-${friendSlug}`, data, layout, config);
@@ -85,4 +104,10 @@ function switchHistory(friendSlug) {
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("closed");
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("open");
     $(`#chart-${friendSlug}`).toggle();
+    if ($(`#chart-${friendSlug}`).is(":visible")) {
+        Plotly.relayout(`chart-${friendSlug}`, {
+            "xaxis.autorange": true,
+            "yaxis.autorange": true
+        });
+    }
 }
