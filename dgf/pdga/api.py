@@ -158,10 +158,10 @@ class PdgaApi:
     def _query_pdga(self, url, query_parameters):
         query = urlencode({x: y for x, y in query_parameters.items() if y is not None})
         response = requests.get(f'{settings.PDGA_BASE_URL}/{url}?{query}',
-                                       headers={
-                                           'Cookie': f'{self.credentials["session_name"]}='
-                                                     f'{self.credentials["sessid"]}'
-                                       })
+                                headers={
+                                    'Cookie': f'{self.credentials["session_name"]}='
+                                              f'{self.credentials["sessid"]}'
+                                })
         try:
             return json.loads(response.content)
         except Exception as e:
