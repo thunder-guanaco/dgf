@@ -1,5 +1,6 @@
 $(window).on("load", function() {
     showBestBagTagImprovement();
+    loadBagTagHistory();
 });
 
 const SAD_EMOJIS = ['😭', '😞', '💩', '🥶', '😢', '🥲', '📉', '🧊', '☃️', '❄️'];
@@ -29,4 +30,84 @@ function switchStatistics(bagTag) {
     $(".statistics-button[data-bag-tag='" + bagTag + "']").toggleClass("closed");
     $(".statistics-button[data-bag-tag='" + bagTag + "']").toggleClass("open");
     $(".statistics[data-bag-tag='" + bagTag + "']").toggle();
+}
+
+function loadBagTagHistory() {
+
+    $.ajax({
+        type: "GET",
+        url: getBagTagHistoryUrl,
+        success: function(response) {
+            Object.entries(response).forEach(entry => plotBagTagHistory(entry));
+        },
+        error: function(response, e) {
+            console.log(response.statusText);
+            console.log(e);
+        }
+    });
+}
+
+function plotBagTagHistory([friendSlug, bagTagChanges]) {
+    var changesAsObject = Object.fromEntries(bagTagChanges);
+    var dates = Object.keys(changesAsObject);
+    var bagTags = Object.values(changesAsObject);
+
+    var data = [{
+        x: dates,
+        y: bagTags,
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: {
+            color: '#8d1950'
+        }
+    }];
+
+    var bestBagTag = Math.min(...bagTags);
+    var worstBagTag = Math.max(...bagTags);
+    var dtick = 5;
+    if (worstBagTag - bestBagTag < 10) {
+        dtick = "D1";
+    }
+    var autorangeInclude = bestBagTag;
+    if (bestBagTag < 5) {
+        autorangeInclude = 0;
+    }
+
+    var layout = {
+        yaxis: {
+            autorange: "reversed",
+            autorangeoptions: {
+                include: autorangeInclude
+            },
+            zeroline: false,
+            tick0: 0,
+            dtick: dtick
+        },
+        autosize: true,
+        margin: {
+            t: 25,
+            b: 25,
+            l: 25,
+            r: 0
+        }
+    };
+
+    var config = {
+        responsive: true,
+        staticPlot: true
+    }
+
+    Plotly.newPlot(`chart-${friendSlug}`, data, layout, config);
+}
+
+function switchHistory(friendSlug) {
+    $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("closed");
+    $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("open");
+    $(`#chart-${friendSlug}`).toggle();
+    if ($(`#chart-${friendSlug}`).is(":visible")) {
+        Plotly.relayout(`chart-${friendSlug}`, {
+            "xaxis.autorange": true,
+            "yaxis.autorange": true
+        });
+    }
 }

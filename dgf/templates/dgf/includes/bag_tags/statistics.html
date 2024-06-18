@@ -1,4 +1,10 @@
-{% load dgf i18n %}
+{% load dgf i18n sekizai_tags %}
+
+{% addtoblock "js" %}
+    <script>
+        const getBagTagHistoryUrl = "{% url 'dgf:bag_tag_history' %}";
+    </script>
+{% endaddtoblock %}
 
 <div class="statistics"
      data-bag-tag="{{friend.bag_tag}}"
@@ -39,5 +45,15 @@
         {% endwith %}
         {% if friend.last_bag_tag_change|days_since|exceeds_bag_tag_limit %}❗{% endif %}
     </span>
+
+    <div class="history" onclick="switchHistory('{{friend.slug}}')">
+        <span>📈 {% trans "Show history" %}</span>
+        <span>&nbsp;</span>
+        <span class="history-button closed"
+             data-bag-tag="{{friend.slug}}">
+        </span>
+    </div>
+
+    <div id="chart-{{friend.slug}}" style="width:100%; max-width:100%; display:none;"></div>
 
 </div>

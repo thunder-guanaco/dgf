@@ -1,0 +1,92 @@
+{% load i18n static %}
+
+{{ favorite_courses.management_form }}
+<div class="field">
+    <h2>{% trans "Favorite courses" %}</h2>
+</div>
+<div id="favorite-courses">
+    {% for form in favorite_courses %}
+        <div class="favorite-course field">
+            {{ form }}
+        </div>
+    {% endfor %}
+</div>
+
+{{ highlights.management_form }}
+<div class="field">
+    <h2>{% trans "Highlights" %}</h2>
+</div>
+<div id="highlights">
+    {% for form in highlights %}
+        <div class="highlight field">
+            {{ form }}
+        </div>
+    {% endfor %}
+</div>
+
+{{ discs.management_form }}
+<div class="field">
+    <h2>{% trans "In the bag" %}</h2>
+</div>
+<div id="bag" class="field">
+    <div data-type="P" class="bag-part">
+        <h3>{% trans "Putters" %}</h3>
+    </div>
+    <div data-type="M" class="bag-part">
+        <h3>{% trans "Mid-ranges" %}</h3>
+    </div>
+    <div data-type="F" class="bag-part">
+        <h3>{% trans "Fairway drivers" %}</h3>
+    </div>
+    <div data-type="D" class="bag-part">
+        <h3>{% trans "Distance drivers" %}</h3>
+    </div>
+</div>
+<div id="all-discs">
+    {% for form in discs %}
+        <div class="disc">
+            {{ form }}
+        </div>
+    {% endfor %}
+</div>
+<div id="empty-disc-form" class="hidden">
+    <div class="disc">
+        {{ discs.empty_form }}
+    </div>
+</div>
+
+{{ aces.management_form }}
+<div class="field">
+    <h2>{% trans "Aces" %}</h2>
+</div>
+<div id="aces">
+    {% for form in aces %}
+        <div class="ace">
+            {{ form.as_ul }}
+        </div>
+    {% endfor %}
+</div>
+<div id="empty-ace-form" class="hidden">
+    <div class="ace">
+        {{ aces.empty_form.as_ul }}
+    </div>
+</div>
+<input id="add-ace" type="button" value="{% trans 'Add ace' %}">
+
+{{ videos.management_form }}
+<div class="field">
+    <h2>{% trans "Videos" %}</h2>
+</div>
+<div id="videos">
+    {% for form in videos %}
+        <div class="field">
+            {{ form }}
+        </div>
+    {% endfor %}
+</div>
+<div id="empty-video-form" class="hidden">
+    <div class="field">
+        {{ videos.empty_form }}
+    </div>
+</div>
+<input id="add-video" type="button" value="{% trans 'Add video' %}">

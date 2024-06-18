@@ -18,7 +18,7 @@ function loadDiscGolfMetrixScript() {
 }
 
 var DGF_LOGO_IMG = "<img class='dgf-logo' src='https://discgolffriends.de/static/img/logo.png' width='40px'/>";
-var DGF_BAG_TAG = (number) => `<div class='bag-tag-number' style='display: none;'><span>${number || "❌"}</span></div>`;
+var DGF_BAG_TAG = (number) => `<div class='${number ? "bag-tag-number" : "bag-tag-number empty"}' style='display: none;'><span>${number || "&nbsp"}</span></div>`;
 var DGF_PART = (number) => `<div class='dgf-part'>${DGF_LOGO_IMG}${DGF_BAG_TAG(number)}</div>`;
 
 function markFriends() {
@@ -39,9 +39,8 @@ function markFriends() {
 
                 // results page
                 $(`a.profile-link[href="/player/${friend.metrix_user_id}"]`)
-                    .hide()
-                    .first().prepend(DGF_PART(friend.bag_tag)).show()
-                    .children("svg").remove();
+                    .parent()
+                    .append(DGF_PART(friend.bag_tag));
 
                 // registration page
                 $(`a:not(.profile-link)[href="/player/${friend.metrix_user_id}"]`)
@@ -49,6 +48,8 @@ function markFriends() {
                     .append(DGF_PART(friend.bag_tag));
 
             });
+
+            $("tbody:has(.dgf-part").addClass("dgf-table")
 
             if (show_bag_tags) {
                 $(".bag-tag-number").show();

@@ -3,11 +3,12 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F, Func, Value, CharField
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
@@ -43,17 +44,20 @@ class FriendDetailView(DetailView):
 
 class FriendUpdateView(LoginRequiredMixin, UpdateView):
     model = Friend
+    template_name_suffix = '_profile'
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
               'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'social_media_agreement',
               'division', 'city', 'plays_since', 'free_text',  # best_score_in_wischlingen TODO: #6282
               'job', 'hobbies']
-    template_name_suffix = '_profile'
     formsets = [('favorite_courses', favorite_course_formset_factory),
                 ('highlights', highlight_formset_factory),
                 ('discs', disc_formset_factory),
                 ('aces', ace_formset_factory),
                 ('videos', video_formset_factory)]
+
+    def get_object(self, queryset=None):
+        return self.request.user.friend
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -81,11 +85,13 @@ class FriendUpdateView(LoginRequiredMixin, UpdateView):
         # save the parent form
         return super().form_valid(form)
 
-    def get_object(self, queryset=None):
-        return self.request.user.friend
-
     def get_success_url(self):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+
+
+class ExtendedFriendUpdateView(FriendUpdateView):
+    template_name_suffix = '_profile_extended'
+    fields = []
 
 
 class FeedbackCreateView(LoginRequiredMixin, CreateView):
@@ -170,6 +176,24 @@ def bag_tag_claim(request, bag_tag):
                                 timestamp=now)
 
     return HttpResponse(status=204)
+
+
+def bag_tag_changes_list(friend):
+    return list(friend.bag_tag_changes.all()
+                .annotate(day=Func(F('timestamp'),
+                                   Value('%Y-%m-%d %H:%i:%s'),
+                                   function='DATE_FORMAT',
+                                   output_field=CharField()))
+                .values_list('day', 'new_number')
+                )
+
+
+@require_GET
+def bag_tag_history(request):
+    return JsonResponse({
+        friend.slug: bag_tag_changes_list(friend)
+        for friend in Friend.objects.filter(bag_tag__isnull=False)
+    })
 
 
 def get_next_bag_tag():
