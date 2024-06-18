@@ -57,10 +57,7 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
         mode: 'lines+markers',
         line: {
             color: '#8d1950'
-        },
-        marker: {
-            color: '#000000',
-      }
+        }
     }];
 
     var layout = {
@@ -70,12 +67,15 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
         },
         autosize: true,
         margin: {
-            l: 30
+            l: 30,
+            t: 0,
+            r: 0
         }
     };
 
     var config = {
-        responsive: true
+        responsive: true,
+        staticPlot: true
     }
 
     Plotly.newPlot(`chart-${friendSlug}`, data, layout, config);
@@ -85,4 +85,10 @@ function switchHistory(friendSlug) {
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("closed");
     $(".history-button[data-bag-tag='" + friendSlug + "']").toggleClass("open");
     $(`#chart-${friendSlug}`).toggle();
+    if ($(`#chart-${friendSlug}`).is(":visible")) {
+        Plotly.relayout(`chart-${friendSlug}`, {
+            "xaxis.autorange": true,
+            "yaxis.autorange": true
+        });
+    }
 }
