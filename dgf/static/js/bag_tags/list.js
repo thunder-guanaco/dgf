@@ -49,10 +49,12 @@ function loadBagTagHistory() {
 
 function plotBagTagHistory([friendSlug, bagTagChanges]) {
     var changesAsObject = Object.fromEntries(bagTagChanges);
+    var dates = Object.keys(changesAsObject);
+    var bagTags = Object.values(changesAsObject);
 
     var data = [{
-        x: Object.keys(changesAsObject),
-        y: Object.values(changesAsObject),
+        x: dates,
+        y: bagTags,
         type: 'scatter',
         mode: 'lines+markers',
         line: {
@@ -60,15 +62,30 @@ function plotBagTagHistory([friendSlug, bagTagChanges]) {
         }
     }];
 
+    var bestBagTag = Math.min(...bagTags);
+    var worstBagTag = Math.max(...bagTags);
+    var dtick = 5;
+    if (worstBagTag - bestBagTag < 10) {
+        dtick = "D1";
+    }
+    var autorangeInclude = bestBagTag;
+    if (bestBagTag < 10) {
+        autorangeInclude = 0;
+    }
+
     var layout = {
         yaxis: {
             autorange: "reversed",
-            zeroline: false
+            autorangeoptions: {
+                include: autorangeInclude
+            },
+            zeroline: false,
+            tick0: 0,
+            dtick: dtick
         },
         autosize: true,
         margin: {
             l: 30,
-            t: 0,
             r: 0
         }
     };
