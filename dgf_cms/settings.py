@@ -105,13 +105,15 @@ elif ENV == 'test':
         }
     }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://discgolfmetrix.com',
-    'https://discgolfunion.de',
-    'https://discgolfiserlohn.de',
-    'https://www.discgolfunion.de',
-    'https://www.discgolfiserlohn.de',
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     'https://discgolfmetrix.com',
+#     'https://discgolfunion.de',
+#     'https://discgolfiserlohn.de',
+#     'https://www.discgolfunion.de',
+#     'https://www.discgolfiserlohn.de',
+# ]
 CORS_ALLOW_METHODS = [
     "GET", "OPTIONS"
 ]
