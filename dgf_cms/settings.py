@@ -113,7 +113,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.discgolfiserlohn.de',
 ]
 CORS_ALLOW_METHODS = [
-    "GET",
+    "GET", "OPTIONS"
 ]
 
 CSRF_FAILURE_VIEW = csrf_failure
