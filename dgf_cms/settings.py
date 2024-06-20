@@ -107,6 +107,8 @@ elif ENV == 'test':
 
 CORS_ALLOWED_ORIGINS = [
     'https://discgolfmetrix.com',
+    'https://discgolfunion.de',
+    'https://discgolfiserlohn.de',
 ]
 CORS_ALLOW_METHODS = [
     "GET",
