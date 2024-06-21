@@ -3,504 +3,529 @@
 // mobile
 @media only screen and (max-width: 1024px) {
 
-    h1 {
-        text-align: center;
-        margin-bottom: 0.25em;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 0.25em;
+  }
 
-    #year-selector-wrapper {
-        justify-content: center;
-    }
+  #year-selector-wrapper {
+    justify-content: center;
+  }
 
-    #league-header-past-years {
-        width: 100%;
-    }
+  #league-header-past-years {
+    width: 100%;
+  }
 
-    #league-header {
-        flex-flow: column;
-    }
+  #league-header {
+    flex-flow: column;
+  }
 
-    #league_year_select_chosen {
-        width: 20% !important;
-    }
+  #league_year_select_chosen {
+    width: 20% !important;
+  }
 
-    .league-popup {
-        width: 100%;
-    }
+  .league-popup {
+    width: 100%;
+  }
 
-    #league table th,
-    #league table td {
+  #league {
+    table {
+      th, td {
         padding: 0.5em 0.25em;
+      }
+
+      .friend-ball .friend-name {
+        display: none;
+      }
+
+      .position .position-card-container {
+        margin: 0;
+      }
+
+      .points {
+        .ball-container {
+          line-height: 1.5em;
+          width: 1.5em;
+          margin: 0;
+        }
+
+        .ball {
+          font-size: 1em;
+        }
+      }
+
+      .results .match .result {
+        zoom: 0.75;
+
+        .team {
+          padding: 0;
+        }
+
+      }
     }
 
-    #league .friend-ball {
-        margin: 0 0.25em 0 0;
-        width: 2em;
-    }
+    .friend-ball {
+      margin: 0 0.25em 0 0;
+      width: 2em;
 
-    #league .friend-ball .avatar-container {
+      &:last-child {
+        margin: 0;
+      }
+
+      .avatar-container {
         width: 2em !important;
         height: 2em !important;
+
+        .avatar-initials {
+          font-size: inherit !important;
+          line-height: 2em !important;
+        }
+      }
     }
 
-    #league .friend-ball .avatar-container .avatar-initials {
-        font-size: inherit !important;
-        line-height: 2em !important;
+    .results .match {
+      margin: 1em 0;
+
+      .result .team {
+        padding: 0 0.5em;
+      }
+
+      .result:last-child::after {
+        margin-bottom: 0.25em
+      }
     }
 
-    #league .friend-ball:last-child {
-        margin: 0;
-    }
+    #league-results .match .result {
+      align-self: end;
+      align-items: end;
 
-    #league table .friend-ball .friend-name {
-        display: none;
+      .points-container {
+        margin: 0.25em 0.5em;
+      }
     }
+  }
 
-    #league table .position .position-card-container {
-        margin: 0;
-    }
+  .results .match .result .friend-ball {
+    margin: 0.25em;
+    width: 2em;
+  }
 
-    #league table .points .ball-container {
-        line-height: 1.5em;
-        width: 1.5em;
-        margin: 0;
-    }
 
-    #league table .points .ball {
-        font-size: 1em;
-    }
+  #league-results {
+    .match-wrapper {
+      position: relative;
 
-    #league-results .match-wrapper {
-        position: relative;
-    }
-
-    #league-results .match-wrapper .match-date {
+      .match-date {
         position: absolute;
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 25%);
-    }
+      }
 
-    #league-results .match-wrapper .match {
+      .match {
         width: 100% !important;
+      }
     }
+  }
 
-    #league .results .match {
-        margin: 1em 0;
-    }
-
-    #league #league-results .match .result {
-        align-self: end;
-        align-items: end;
-    }
-
-    #league table .results .match .result {
-        zoom: 0.75;
-    }
-
-    #league .results .match .result .team {
-        padding: 0 0.5em;
-    }
-
-    #league table .results .match .result .team {
-        padding: 0;
-    }
-
-    .results .match .result .friend-ball {
-        margin: 0.25em;
-        width: 2em;
-    }
-
-    #league #league-results .match .result .points-container {
-        margin: 0.25em 0.5em;
-    }
-
-    #league .results .match .result:last-child::after {
-        margin-bottom: 0.25em
-    }
-
-    #league-buttons {
-        margin: 2em 0 1em;
-    }
-
+  #league-buttons {
+    margin: 2em 0 1em;
+  }
 }
 
 // desktop
 @media only screen and (min-width: 1024px) {
 
-    .container {
-        position: relative;
-    }
+  .container {
+    position: relative;
+  }
 
-    #year-selector-wrapper {
-        justify-content: end;
-    }
+  #year-selector-wrapper {
+    justify-content: end;
+  }
 
-    #league-header {
-        display: flex;
-        flex-flow: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+  #league-header {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    #league .friend-ball {
-        margin: 0 0.25em;
-    }
+  #league {
+    table {
+      th, td {
 
-    #league table th,
-    #league table td {
         padding: 0.5em 1em;
-    }
+      }
 
-    #league table .results td {
-        padding: 0.5em 1em;
-    }
+      .results {
+        td {
+          padding: 0.5em 1em;
+        }
+      }
 
-    #league table .position .position-card-container {
+      .position .position-card-container {
         margin: 0 1em;
+      }
+
+      .points {
+        .ball-container {
+          line-height: 2.5em;
+          width: 2.5em;
+        }
+
+        .ball {
+          font-size: 1.25em;
+        }
+      }
     }
 
-    #league table .points .ball-container {
-        line-height: 2.5em;
-        width: 2.5em;
+    .friend-ball {
+      margin: 0 0.25em;
     }
 
-    #league table .points .ball {
-        font-size: 1.25em;
+    .match-wrapper .match-date {
+      margin-left: 3em;
     }
 
-    #league .match-wrapper .match-date {
-        margin-left: 3em;
-    }
+    .results .match {
+      margin: 2em 0;
 
-    #league .results .match {
-        margin: 2em 0;
-    }
-
-    #league .results .match .result .team {
+      .result .team {
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 0.5em;
+      }
     }
 
-    .results .match .result:first-child .team {
-        flex-flow: row;
+    p, div, span, tr, td {
+      text-align: center;
+      vertical-align: middle;
     }
 
-    .results .match .result:last-child .team {
-        flex-flow: row-reverse;
+  }
+
+
+  .results .match .result {
+    &:first-child .team {
+      flex-flow: row;
     }
 
-    #league-buttons {
-        margin: 4em 0 1em;
+    &:last-child .team {
+      flex-flow: row-reverse;
     }
+  }
 
-}
-
-#league p,
-#league div,
-#league span,
-#league tr,
-#league td {
-    text-align: center;
-    vertical-align: middle;
+  #league-buttons {
+    margin: 4em 0 1em;
+  }
 }
 
 #year-selector-wrapper {
-    display: flex;
-    flex-flow: row;
-    width: 100%;
+  display: flex;
+  flex-flow: row;
+  width: 100%;
 }
 
 #league-header-past-years {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-around;
-    align-items: center;
-}
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
 
-#league-header-past-years > * {
+  > * {
     margin: 0.5em;
+  }
 }
 
-#league table {
+
+#league {
+  table {
     margin: auto;
-}
 
-#league table thead tr {
-    border-bottom: 2px solid $color-club-background;
-    font-size: smaller;
-}
+    thead {
+      tr {
+        border-bottom: 2px solid $color-club-background;
+        font-size: smaller;
+      }
+    }
 
-#league table .team-line {
-    cursor: pointer;
-}
+    .team-line {
+      cursor: pointer;
 
-#league table .team-line:has(.results-button.open),
-#league table .team-line:hover {
-    background-color: #EEEEEE99;
-}
+      &:has(.results-button.open), &:hover {
+        background-color: #EEEEEE99;
+      }
+    }
 
-#league table .position .position-card-container {
-    background-color: $color-club-highlight;
-    border: solid $color-club-highlight 2px;
-    font-weight: bold;
-    font-size: 1.25em;
-    width: 30px;
-    line-height: 35px;
-    color: white;
-    border-radius: 2px;
-    box-shadow: 0px 0px 2px 1px white inset;
-}
+    .position {
+      .position-card-container {
+        background-color: $color-club-highlight;
+        border: solid $color-club-highlight 2px;
+        font-weight: bold;
+        font-size: 1.25em;
+        width: 30px;
+        line-height: 35px;
+        color: white;
+        border-radius: 2px;
+        box-shadow: 0px 0px 2px 1px white inset;
+      }
 
-#league table .position .position-card {
-    text-align: left;
-    vertical-align: middle;
-}
+      .position-card {
+        text-align: left;
+        vertical-align: middle;
+      }
+    }
 
-#league table .members .friend-name {
-    font-weight: normal;
-}
+    .members .friend-name {
+      font-weight: normal;
+    }
 
-#league table .points .ball-container {
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    background: $color-club-highlight;
-    margin: 0 auto;
-}
+    .points {
+      .ball-container {
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        background: $color-club-highlight;
+        margin: 0 auto;
+      }
 
-#league table .points .ball {
-    width: 100%;
-    color: #ffffff;
-}
+      .ball {
+        width: 100%;
+        color: #ffffff;
+      }
+    }
 
-#league table .results-button {
-    width: 3em;
-}
+    .results-button {
+      width: 3em;
 
-#league table .results-button:hover {
-    cursor: pointer;
-    color: $color-club-highlight;
-}
+      &:hover {
+        cursor: pointer;
+        color: $color-club-highlight;
+      }
 
-#league table .results-button.closed:after {
-    content: '▶';
-}
+      &.closed:after {
+        content: '▶';
+      }
 
-#league table .results-button.open:after {
-    content: '▼';
-}
+      &.open:after {
+        content: '▼';
+      }
+    }
 
-#league .match-wrapper {
+    .results .match {
+      margin: 0;
+
+      .result {
+        width: 50%;
+
+        &:first-child .team {
+          text-align: end;
+        }
+
+        &:last-child .team {
+          text-align: start;
+        }
+
+        .members {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .match-wrapper {
     display: flex;
     flex-flow: row;
     align-items: center;
     justify-content: space-between;
-}
 
-#league .match-wrapper .match-date {
-    font-size: smaller;
-    font-weight: bold;
-    color: gray;
-}
+    .match-date {
+      font-size: smaller;
+      font-weight: bold;
+      color: gray;
+    }
 
-#league .match-wrapper .match {
-    width: 85%;
-}
+    .match {
+      width: 85%;
+    }
+  }
 
-#league table .results .match {
-    margin: 0;
-}
-
-#league table .results .match .result {
-    width: 50%;
-}
-
-#league table .results .match .result .members {
-    display: none;
-}
-
-#league .results .match .result .points-container {
-    margin: 0 0.5em;
-}
-
-#league .results .match {
+  .results .match {
     display: flex;
     flex-flow: row;
     justify-content: center;
     align-items: center;
-}
 
-#league .results .match .result {
-    display: flex;
-    flex-flow: row;
-    justify-content: flex-end;
-    align-items: center;
-    width: 45%;
-}
+    .result {
+      display: flex;
+      flex-flow: row;
+      justify-content: flex-end;
+      align-items: center;
+      width: 45%;
 
-#league .results .match .result:first-child {
-    flex-flow: row;
-}
+      &:first-child {
+        flex-flow: row;
 
-#league .results .match .result:last-child {
-    flex-flow: row-reverse;
-}
+        .team-name {
+          text-align: end;
+        }
+      }
 
-#league .results .match .result:last-child::after {
-    content: ":";
-    color: $color-club-highlight;
-    font-weight: bold;
-}
+      &:last-child {
+        flex-flow: row-reverse;
 
-#league table .results .match .result:first-child .team {
-    text-align: end;
-}
+        .team-name {
+          text-align: start;
+        }
 
-#league table .results .match .result:last-child .team {
-    text-align: start;
-}
+        &::after {
+          content: ":";
+          color: $color-club-highlight;
+          font-weight: bold;
+        }
+      }
 
-#league .results .match .result:first-child .team-name {
-    text-align: end;
-}
+      .members {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+      }
 
-#league .results .match .result:last-child .team-name {
-    text-align: start;
-}
+      .points-container {
+        background-color: $color-club-highlight;
+        color: #ffffff;
+        font-weight: bold;
+        min-width: 1.5em;
+        line-height: 1.5em;
+        vertical-align: middle;
+        margin: 0 0.5em;
+      }
 
-#league .results .match .result .members {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-}
+      .friend-ball .friend-name {
+        display: none;
+      }
+    }
+  }
 
-#league .results .match .result .friend-ball .friend-name {
-    display: none;
-}
-
-#league .results .match .result .points-container {
-    background-color: $color-club-highlight;
-    color: #ffffff;
-    font-weight: bold;
-    min-width: 1.5em;
-    line-height: 1.5em;
-    vertical-align: middle;
-}
-
-#league .members .friend-balls-container {
+  .members .friend-balls-container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+  }
+
+  .chosen-container-single .chosen-single {
+    height: 2em;
+    padding: 0.25em;
+  }
+
+  .chosen-container {
+    font-size: 1em;
+
+    .chosen-results li {
+      line-height: 1.5em;
+    }
+  }
+
 }
 
 .league-popup {
-    z-index: 10;
-    display: none;
-    width: 20em;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    flex-flow: column nowrap;
-    gap: 1em;
-    background-color: #ffffffee;
-    padding: 2em;
-    border: 2px solid $color-club-background44;
-    border-radius: 10px;
+  z-index: 10;
+  display: none;
+  width: 20em;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  flex-flow: column nowrap;
+  gap: 1em;
+  background-color: #ffffffee;
+  padding: 2em;
+  border: 2px solid $color-club-background44;
+  border-radius: 10px;
 }
 
 .close-league-popup {
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    color: $color-club-background;
-    cursor: pointer;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  color: $color-club-background;
+  cursor: pointer;
 }
 
 #add-result .points {
-    font-size: smaller;
-    text-align: right;
+  font-size: smaller;
+  text-align: right;
 }
 
-#league .chosen-container-single .chosen-single {
-    height: 2em;
-    padding: 0.25em;
-}
-
-#league .chosen-container {
-    font-size: 1em;
-}
-
-#league .chosen-container .chosen-results li {
-    line-height: 1.5em;
-}
-
-.league-popup .field {
+.league-popup {
+  .field {
     display: flex;
     flex-flow: column;
-}
+  }
 
-.league-popup .row-field {
+  .row-field {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-}
+  }
 
-.league-popup .error {
+  .error {
     color: #ff0000;
-}
+  }
 
-.league-popup button {
+  button {
     align-self: end;
-}
+  }
 
-.league-popup input {
+  input {
     line-height: 2em;
     border: 1px solid $color-club-background;
     border-radius: 5px;
     padding: 0px 10px;
-}
+  }
 
-#add-result.league-popup input {
-    margin-right: 0.75em;
-}
-
-.league-popup input[type=number] {
+  input[type=number] {
     text-align: center;
+  }
+
+  // Chrome, Safari, Edge, Opera
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // Firefox
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }
 
-/* Chrome, Safari, Edge, Opera */
-.league-popup input::-webkit-outer-spin-button,
-.league-popup input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+#add-result {
+  &.league-popup input {
+    margin-right: 0.75em;
+  }
 
-/* Firefox */
-.league-popup input[type=number] {
-  -moz-appearance: textfield;
-}
-
-#add-result .result {
+  .result {
     width: 2em;
+  }
 }
+
 
 #league-buttons {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: start;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  align-items: center;
+  gap: 1em;
 }
 
 #friends-without-team {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 1em;
-    justify-content: center;
-    margin: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1em;
+  justify-content: center;
+  margin: 1em;
 }
