@@ -3,146 +3,146 @@
 // mobile
 @media only screen and (max-width: 1024px) {
 
-    #configuration #move-friends-pictures {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  #configuration #move-friends-pictures {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    #all-friends {
-        gap: 2px;
-    }
+  #all-friends {
+    gap: 2px;
 
-    #all-friends .friend,
-    #all-friends .logo-wrapper {
-        width: 100px;
-        height: 100px;
-    }
-
-    #all-friends .friend .rating-difference {
+    .friend {
+      .rating-difference {
         font-size: 1.5em;
-    }
+      }
 
-    #all-friends .friend .rating {
+      .rating {
         font-size: 1em;
+      }
     }
 
-    #dgf-banner {
-        height: 100px;
-        width: auto;
+    .friend, .logo-wrapper {
+      width: 100px;
+      height: 100px;
     }
+  }
 
-    #dgf-banner img {
-        height: 111px;
+  #dgf-banner {
+    height: 100px;
+    width: auto;
+
+    img {
+      height: 111px;
     }
+  }
 }
 
 // desktop
 @media only screen and (min-width: 1024px) {
 
-    #move-friends-pictures {
-        grid-template-columns: repeat(3, 1fr);
+  #move-friends-pictures {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #all-friends {
+    gap: 5px;
+
+    .friend, .logo-wrapper {
+      width: 200px;
+      height: 200px;
     }
 
-    #all-friends {
-        gap: 5px;
-    }
-
-    #all-friends .friend,
-    #all-friends .logo-wrapper {
-        width: 200px;
-        height: 200px;
-    }
-
-    #all-friends .friend .rating-difference {
+    .friend {
+      .rating-difference {
         font-size: 3em;
-    }
+      }
 
-    #all-friends .friend .rating {
+      .rating {
         font-size: 2em;
+      }
     }
+  }
 
-    #dgf-banner {
-        height: 200px;
-        width: auto;
-    }
+  #dgf-banner {
+    height: 200px;
+    width: auto;
 
-    #dgf-banner img {
-        height: 222px;
+    img {
+      height: 222px;
     }
+  }
 }
 
-#configuration #move-friends-pictures-title {
+#configuration {
+  #move-friends-pictures-title {
     margin-bottom: 1em !important;
-}
+  }
 
-#configuration #move-friends-pictures {
+  #move-friends-pictures {
     display: grid;
     gap: 1em;
-}
 
-#configuration #move-friends-pictures label {
-    width: 3em;
+    label {
+      width: 3em;
+    }
+  }
 }
 
 #all-friends {
-    display: grid;
-}
+  display: grid;
 
-#all-friends .logo-wrapper,
-#all-friends .friend,
-#all-friends #dgf-banner {
+  .logo-wrapper, .friend, #dgf-banner {
     position: relative;
-}
+  }
 
-#all-friends .logo-wrapper,
-#all-friends .friend{
+  .logo-wrapper, .friend {
     overflow: hidden;
-}
+  }
 
-#all-friends #dgf-banner img {
+  #dgf-banner img {
     z-index: 1;
-}
+  }
 
-#all-friends .logo-wrapper img.dgf-logo,
-#all-friends .friend img {
+  .logo-wrapper img.dgf-logo, .friend img {
     z-index: 2;
-}
+  }
 
-#all-friends .friend .mini-overlay {
-    z-index: 3;
-}
+  .friend {
+    .mini-overlay {
+      z-index: 3;
+    }
 
-#all-friends .logo-wrapper img.dgf-logo,
-#all-friends .friend img,
-#all-friends .friend .mini-overlay {
+    .text {
+      z-index: 4;
+      position: absolute;
+      right: 0;
+      padding: 0.25em;
+      line-height: 100%;
+      text-shadow: 2px 2px $color-club-background;
+      letter-spacing: 0.1em;
+    }
+
+    .rating-difference {
+      top: 0;
+      font-weight: bold;
+    }
+
+    .rating {
+      bottom: 0;
+    }
+  }
+
+  .logo-wrapper img.dgf-logo, .friend img, .friend .mini-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-#all-friends .friend .text {
-    z-index: 4;
-    position: absolute;
-    right: 0;
-    padding: 0.25em;
-    line-height: 100%;
-    text-shadow: 2px 2px $color-club-background;
-    letter-spacing: 0.1em;
-}
-
-#all-friends .friend .rating-difference {
-    top: 0;
-    font-weight: bold;
-}
-
-#all-friends .friend .rating {
-    bottom: 0;
+  }
 }
 
 #dgf-banner img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
 }
