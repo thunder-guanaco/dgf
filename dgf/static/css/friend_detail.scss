@@ -18,8 +18,8 @@
     margin-bottom: 1em;
 
     img {
-      width: $user-picture-diameter !important;
-      height: $user-picture-diameter !important;
+      width: $friend-picture-diameter !important;
+      height: $friend-picture-diameter !important;
     }
   }
 
@@ -28,8 +28,8 @@
     flex-direction: column;
 
     h1 img {
-      width: $user-ball-header-diameter !important;
-      height: $user-ball-header-diameter !important;
+      width: $friend-ball-header-diameter !important;
+      height: $friend-ball-header-diameter !important;
     }
   }
 
