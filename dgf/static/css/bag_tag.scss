@@ -2,7 +2,7 @@
 
 $color-background: #999999;
 
-/* mobile */
+// mobile
 @media only screen and (max-width: 1024px) {
 
   .friend-ball img {
@@ -69,7 +69,7 @@ $color-background: #999999;
   }
 }
 
-/* desktop */
+// desktop
 @media only screen and (min-width: 1024px) {
 
   #bag-tags {

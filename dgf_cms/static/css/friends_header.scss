@@ -1,6 +1,6 @@
 @import "dgf/static/css/base/variables_friends";
 
-/* mobile */
+// mobile
 @media only screen and (max-width: 1024px) {
 
     #friends-header {
@@ -20,7 +20,7 @@
     }
 }
 
-/* desktop */
+// desktop
 @media only screen and (min-width: 1024px) {
 
     #friends-header {
