@@ -1,88 +1,82 @@
-/* mobile */
+// mobile
 @media only screen and (max-width: 1024px) {
 
-    .container .text {
-        padding: 2em;
+  .container .text {
+    padding: 2em;
+
+    * {
+      padding: 0.25em 0.5em;
+      margin: 0 0 0.25em 0;
     }
 
-    .container .text * {
-        padding: 0.25em 0.5em;
-        margin: 0 0 0.25em 0;
+    h1 {
+      font-size: 1em;
     }
 
-    .container .text h1 {
-        font-size: 1em;
+    h2 {
+      font-size: 0.75em;
     }
-
-    .container .text h2 {
-        font-size: 0.75em;
-    }
-
+  }
 }
 
-/* desktop */
+// desktop
 @media only screen and (min-width: 1024px) {
 
-    .container .text {
-        padding: 6em;
+  .container .text {
+    padding: 6em;
+
+    * {
+      padding: 0.5em 1.5em;
+      margin: 0 0 0.5em 0;
     }
 
-    .container .text * {
-        padding: 0.5em 1.5em;
-        margin: 0 0 0.5em 0;
+    h1 {
+      font-size: 3.5em;
     }
 
-    .container .text h1 {
-        font-size: 3.5em;
+    h2 {
+      font-size: 3em;
     }
-
-    .container .text h2 {
-        font-size: 3em;
-    }
+  }
 }
 
 .container {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-}
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 
-.container img {
+  img {
     width: 100%;
-}
+  }
 
-.container .text {
+  .text {
     position: absolute;
     top: 0;
     right: 0;
     display: flex;
     flex-flow: column;
     align-items: flex-end;
+
+    h1, h2, h3 {
+      background-color: rgba(205, 205, 205, 0.5);
+      width: fit-content;
+    }
+
+    h1 {
+      -ms-transform: skewX(10deg);
+      transform: skewX(10deg);
+    }
+
+    h2 {
+      -ms-transform: skewX(-10deg);
+      transform: skewX(-10deg);
+    }
+
+    h3 {
+      -ms-transform: skewX(-10deg);
+      transform: skewX(-10deg);
+    }
+  }
 }
-
-
-.container .text h1,
-.container .text h2,
-.container .text h3 {
-    background-color: rgba(205, 205, 205, 0.5);
-    width: fit-content;
-}
-
-.container .text h1 {
-    -ms-transform: skewX(10deg);
-    transform: skewX(10deg);
-}
-
-.container .text h2 {
-    -ms-transform: skewX(-10deg);
-    transform: skewX(-10deg);
-}
-
-.container .text h3 {
-    -ms-transform: skewX(-10deg);
-    transform: skewX(-10deg);
-}
-
-
