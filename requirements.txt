@@ -48,6 +48,7 @@ gunicorn==20.1.0
 html5lib==1.1
 ipdb==0.13.9
 ipython==8.10.0
+libsass==0.23.0
 django-mathfilters==1.0.0
 mysqlclient==2.1.0
 parameterized==0.8.1
