@@ -40,6 +40,16 @@ See [local_setup.bash](setup/local_setup.bash)
 All of this can be done at once by running the script [run.bash]
 `bash run.bash runserver`
 
+### Running mysql with podman
+* Start DB `podman run --replace -v "<local_path_to_mysql_data_dir>":"/var/lib/mysql":z --userns keep-id:uid=<user_id_for_data_dir>,gid=<group_id_for_data_dir> -p 3306:3306 --name dgf_mysql -e MYSQL_ROOT_PASSWORD==<root_pw> -d mysql:8`
+* Set `127.0.0.1` instead of `localhost` inside of [settings.py](dgf_cms/settings.py) for your dev database connection
+* Execute DGF mysql_setup.sql `podman exec -i dgf_mysql sh -c 'exec mysql -u root -p "$MYSQL_ROOT_PASSWORD"' < <dgf_project>/setup/mysql_setup.sql`
+* More Infos: [Dockerhub](https://hub.docker.com/_/mysql)
+
+
+#### Restoring a backup
+`podman exec -i dgf_mysql sh -c 'exec mysql -u root -p "$MYSQL_ROOT_PASSWORD"' < /some/path/on/your/host/all-databases.sql`
+
 ## PDGA support:
 
 ### ATTRIBUTION
