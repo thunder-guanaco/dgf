@@ -1,4 +1,4 @@
-{% load static cms_tags sekizai_tags compress dgf_cms cookie_consent_tags %}
+{% load static cms_tags sekizai_tags compress dgf_cms cookie_consent_tags sass_tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,10 +13,10 @@
         {% compress css file base_css %}
 
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'dgf_cookies/css/cookie_consent.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'css/friend_base.css' %}">
-            <link rel="stylesheet" type="text/css" href="{% static 'css/friends_header.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% sass_src 'css/base.scss' %}">
+            <link rel="stylesheet" type="text/css" href="{% sass_src 'dgf_cookies/css/cookie_consent.scss' %}">
+            <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friend_base.scss' %}">
+            <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friends_header.scss' %}">
 
             {% block css %}
             {% endblock %}

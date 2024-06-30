@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n sass_tags %}
 
 {% block title %}
     {% trans "404 - Out of Bounds!" %}
 {% endblock %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'css/error.scss' %}">
 {% endblock %}
 
 {% block content %}

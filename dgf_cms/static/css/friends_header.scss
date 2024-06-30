@@ -1,0 +1,101 @@
+@import "dgf/static/css/base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  #friends-header {
+    padding: 0.5em;
+
+    .arrow-left {
+      margin: 1em 0.25em 0 0;
+    }
+
+    .arrow-right {
+      margin: 1em 0 0 0.25em;
+    }
+  }
+
+  #scrollable-header {
+    overflow-x: scroll;
+  }
+}
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+  #friends-header {
+    padding: 0.5em;
+
+    .arrow-left {
+      margin: 1em 1em 0 0;
+    }
+
+    .arrow-right {
+      margin: 1em 0 0 1em;
+    }
+  }
+
+  #scrollable-header {
+    overflow: hidden;
+  }
+}
+
+#friends-header {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  .arrow-left {
+    align-self: flex-start;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-right: 1em solid $color-club-background;
+  }
+
+  .arrow-right {
+    align-self: flex-start;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-left: 1em solid $color-club-background;
+  }
+
+  a {
+    &:link, &:hover, &:active, &:visited {
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
+
+  img, .avatar-container {
+    height: 60px !important;
+    width: 60px !important;
+  }
+
+  .avatar-initials {
+    line-height: 60px !important;
+  }
+}
+
+#scrollable-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  .friend-ball {
+    &:first-child {
+      margin: 0 1em 0 0 !important;
+    }
+
+    &:last-child {
+      margin: 0 0 0 1em !important;
+    }
+  }
+}

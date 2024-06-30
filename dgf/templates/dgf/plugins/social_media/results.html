@@ -1,7 +1,7 @@
-{% load sekizai_tags static %}
+{% load sekizai_tags static sass_tags %}
 
 {% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/social_media/results.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/social_media/results.scss' %}">
     <style>
         .tournament-results-wrapper,
         .background-image {

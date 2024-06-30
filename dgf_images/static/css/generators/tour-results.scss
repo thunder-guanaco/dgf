@@ -1,0 +1,191 @@
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  #generated-content {
+    font-size: small;
+    zoom: 0.75;
+
+    img.dgf-logo {
+      width: 75px;
+      height: auto;
+    }
+  }
+
+
+  .results-table {
+    th, td {
+      padding: 3px 5px;
+    }
+
+    td {
+      &.position.plus-changes {
+        text-align: left;
+        padding-left: 10px;
+      }
+
+      &.points.plus-changes {
+        text-align: left;
+        padding-left: 20px;
+      }
+    }
+  }
+}
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+  .results-table {
+    th, td {
+      padding: 5px 10px;
+    }
+
+    td {
+      &.position.plus-changes {
+        text-align: left;
+        padding-left: 15px;
+      }
+
+      &.points.plus-changes {
+        text-align: left;
+        padding-left: 30px;
+      }
+    }
+  }
+}
+
+#generated-content {
+  height: 700px;
+  width: 700px;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.results-table {
+  border-radius: 0.5em;
+  margin: 0;
+
+  th, td {
+    text-align: center;
+  }
+
+  th {
+    font-size: 0.75em;
+
+    &.position {
+      width: 2em;
+
+      &.plus-changes {
+        width: 5em;
+      }
+    }
+
+    &.points {
+      width: 3em;
+
+      .plus-changes {
+        width: 6em;
+      }
+    }
+
+    &.played-tournaments {
+      width: 5em;
+    }
+  }
+
+  td {
+    &.medal {
+      padding-right: 0;
+    }
+
+    small {
+      font-size: 70%;
+    }
+
+    &.position {
+      small {
+        &.arrow-up {
+          color: #00a800;
+
+          &:before {
+            content: '▲';
+          }
+        }
+
+        &.arrow-down {
+          color: #a80000;
+
+          &:before {
+            content: '▼';
+          }
+        }
+      }
+    }
+
+    &.points small {
+      color: #808080;
+    }
+
+    &.name {
+      text-align: left;
+    }
+
+    &.position-1:before {
+      content: '\00a0\1F947';
+    }
+
+    &.position-2:before {
+      content: '\00a0\1F948';
+    }
+
+    &.position-3:before {
+      content: '\00a0\1F949';
+    }
+  }
+}
+
+.tour-header {
+  h1, h2, h3 {
+    margin: 0;
+  }
+}
+
+.tour-title {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.tour-footnote {
+  font-size: 0.75em;
+}
+
+.dgf-logo {
+  z-index: 4;
+  position: absolute;
+  margin: 1em;
+}
+
+.tour {
+  z-index: 3;
+  position: absolute; /* this has to be absolute, otherwise z-index does not work */
+  padding: 1em;
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+#overlay {
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#tour-picture {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: auto;
+  height: 100%;
+}

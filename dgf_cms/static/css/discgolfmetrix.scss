@@ -1,0 +1,56 @@
+@import "dgf/static/css/base/variables_friends";
+
+td.player-cell {
+  padding-right: 8px !important;
+
+  .profile-link {
+    display: none !important;
+  }
+}
+
+.dgf-table {
+  tr {
+    &, td.player-cell {
+      height: 46px !important;
+      vertical-align: middle !important;
+    }
+  }
+}
+
+.dgf-part {
+  display: flex;
+  width: fit-content;
+  float: right;
+  flex-flow: row;
+  justify-content: end;
+  align-items: center;
+  gap: 5px;
+}
+
+.bag-tag-number {
+  font-weight: bold;
+  font-size: 1em;
+  width: 23px;
+  line-height: 26px;
+  text-align: center;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0 0 2px 1px white inset;
+  margin: 0;
+  background-color: $dgf-purple;
+  border: solid $dgf-purple 2px;
+
+  &.empty {
+    color: $dgf-purple;
+    background-color: white;
+    border-style: dashed;
+    padding: 2px;
+
+    span {
+      border: dashed $dgf-purple 2px;
+      display: block;
+      width: 15px;
+      height: 22px;
+    }
+  }
+}

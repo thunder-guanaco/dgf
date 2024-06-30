@@ -1,0 +1,73 @@
+@import "base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  .friend-ball img {
+    width: $friend-ball-diameter !important;
+    height: $friend-ball-diameter !important;
+  }
+
+  #tournaments input {
+    width: 50% !important;
+    margin: 1em;
+  }
+}
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+}
+
+#tournaments {
+  display: flex;
+  flex-direction: column;
+
+  #tournament-header {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+
+  .line {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25em 0;
+  }
+
+  .friend-ball {
+    margin: 0.5em !important;
+  }
+
+  .name {
+    font-weight: bold;
+    width: 70%;
+  }
+
+  .date {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+  }
+
+  input {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell {
+    padding: 0 0.25em;
+  }
+}
+
+input[type=submit].withdraw {
+  background-color: $color-club-highlight !important;
+
+  &:hover {
+    background: linear-gradient(to top, $color-club-highlight-light 5%, $color-club-highlight 100%) !important;
+  }
+}

@@ -1,0 +1,13 @@
+@import "base/variables_friends";
+
+.hidden {
+  display: none !important;
+}
+
+.show-all-less {
+  .show-all, .show-less {
+    cursor: pointer;
+    color: $color-club-highlight;
+    font-weight: normal;
+  }
+}

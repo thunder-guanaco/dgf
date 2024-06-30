@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n dgf %}
+{% load static cms_tags i18n dgf sass_tags %}
 
 {% block title %}
     {% trans "Tournaments" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tournament_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/tournament_list.scss' %}">
 {% endblock %}
 
 {% block js %}

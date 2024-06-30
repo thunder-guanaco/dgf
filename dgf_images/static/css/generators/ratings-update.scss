@@ -1,0 +1,148 @@
+@import "dgf/static/css/base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  #configuration #move-friends-pictures {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #all-friends {
+    gap: 2px;
+
+    .friend {
+      .rating-difference {
+        font-size: 1.5em;
+      }
+
+      .rating {
+        font-size: 1em;
+      }
+    }
+
+    .friend, .logo-wrapper {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  #dgf-banner {
+    height: 100px;
+    width: auto;
+
+    img {
+      height: 111px;
+    }
+  }
+}
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+  #move-friends-pictures {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #all-friends {
+    gap: 5px;
+
+    .friend, .logo-wrapper {
+      width: 200px;
+      height: 200px;
+    }
+
+    .friend {
+      .rating-difference {
+        font-size: 3em;
+      }
+
+      .rating {
+        font-size: 2em;
+      }
+    }
+  }
+
+  #dgf-banner {
+    height: 200px;
+    width: auto;
+
+    img {
+      height: 222px;
+    }
+  }
+}
+
+#configuration {
+  #move-friends-pictures-title {
+    margin-bottom: 1em !important;
+  }
+
+  #move-friends-pictures {
+    display: grid;
+    gap: 1em;
+
+    label {
+      width: 3em;
+    }
+  }
+}
+
+#all-friends {
+  display: grid;
+
+  .logo-wrapper, .friend, #dgf-banner {
+    position: relative;
+  }
+
+  .logo-wrapper, .friend {
+    overflow: hidden;
+  }
+
+  #dgf-banner img {
+    z-index: 1;
+  }
+
+  .logo-wrapper img.dgf-logo, .friend img {
+    z-index: 2;
+  }
+
+  .friend {
+    .mini-overlay {
+      z-index: 3;
+    }
+
+    .text {
+      z-index: 4;
+      position: absolute;
+      right: 0;
+      padding: 0.25em;
+      line-height: 100%;
+      text-shadow: 2px 2px $color-club-background;
+      letter-spacing: 0.1em;
+    }
+
+    .rating-difference {
+      top: 0;
+      font-weight: bold;
+    }
+
+    .rating {
+      bottom: 0;
+    }
+  }
+
+  .logo-wrapper img.dgf-logo, .friend img, .friend .mini-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#dgf-banner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+}

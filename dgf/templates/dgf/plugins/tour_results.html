@@ -1,4 +1,4 @@
-{% load sekizai_tags static i18n dgf dgf_cms %}
+{% load sekizai_tags static i18n dgf dgf_cms sass_tags %}
 
 {% with instance.tour as tour %}
 {% with tour.tournaments.all|order_by:"begin" as tournaments %}
@@ -15,7 +15,7 @@
 {% endfor %}
 
 {% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tour_results.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/tour_results.scss' %}">
     <style>
         #tour-results .table .details .line .results-wrapper {
             min-width: {{tournament_column_width}}%;

@@ -1,0 +1,292 @@
+@import "base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  .all-friends .friend-ball {
+    margin: 0.5em !important;
+
+    img {
+      width: $friend-ball-diameter !important;
+      height: $friend-ball-diameter !important;
+    }
+  }
+
+  #friends li .inner-content {
+    margin: 0 !important;
+  }
+
+  #statistics {
+    .list {
+      flex-direction: column;
+      align-items: center;
+
+      .item {
+        justify-content: flex-start !important;
+        margin: 0.5em 0 !important;
+      }
+    }
+
+    .show-all-less .list {
+      align-items: flex-start;
+    }
+
+    img {
+      width: 70px !important;
+    }
+  }
+
+  .show-all-less .friend-ball {
+    flex-direction: row !important;
+    margin-left: 60%;
+
+    .friend-name {
+      margin: 0 0 0 0.5em !important;
+    }
+  }
+
+  .tournament {
+    .top-info {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+
+    .players {
+      width: 100% !important;
+
+      .friend-ball {
+        margin: 1em 0 1em -2em !important;
+      }
+    }
+  }
+
+  #podiums .tournament .players .friend-ball {
+    margin: 1em 0 1em 0 !important;
+  }
+}
+
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+  .show-all-less .friend-ball {
+    margin: 1em 2em !important;
+  }
+
+  .tournament .players .friend-ball {
+    margin: 1em 1em 1em -2em !important;
+  }
+
+  #podiums .tournament .players .friend-ball {
+    margin: 1em 1em 1em 0 !important;
+  }
+
+}
+
+#friend-list-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+#friend-list-header-text > img {
+  align-self: center;
+}
+
+#statistics {
+  .list {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+
+    .item {
+      width: 20%;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  li {
+    list-style-type: none;
+    margin-top: 3em;
+
+    h2 {
+      margin-bottom: 0.5em;
+    }
+
+    .line {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .friend-search h2 {
+      margin: 0;
+    }
+
+    &.show-all-less .inner-content > div {
+      justify-content: center;
+    }
+  }
+
+  .show-all, .show-less, .show-all-tournaments, .show-less-tournaments {
+    cursor: pointer;
+    color: $color-club-highlight;
+    font-weight: normal;
+  }
+}
+
+
+.friend-search {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+
+.all-friends {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  .ball-container {
+    line-height: 3em;
+    width: 3em;
+  }
+
+  .friend-ball {
+    margin: 1em !important;
+  }
+}
+
+#friends {
+  .ball {
+    font-size: 1.75em;
+  }
+
+  li {
+    .inner-content {
+      margin-left: 20%;
+    }
+
+    &.show-all-less .inner-content {
+      margin-left: 10%;
+    }
+  }
+}
+
+.show-all-less {
+  min-height: 8em;
+
+  .all {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+.tournament {
+  .top-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+
+  .name {
+    width: 65%;
+    font-weight: bold;
+  }
+
+  .date {
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  .players {
+    width: 35%;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+
+.inner-content .tournament {
+  margin: 1em 0 !important;
+  min-height: 5em !important;
+}
+
+h2 {
+  .show-all-tournaments, .show-less-tournaments {
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+}
+
+#now-playing, #podiums, #tournaments {
+  .inner-content ul {
+    width: 100%;
+  }
+}
+
+#podiums .friend-ball {
+  position: relative;
+
+  .friend-result {
+    position: absolute;
+    bottom: -10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .friend-position {
+    font-size: 1.5em;
+  }
+
+  .friend-division {
+    background-color: $color-club-background;
+    color: white;
+    border-radius: 0.25em;
+    padding: 0.1em 0.3em;
+    height: fit-content;
+    width: max-content;
+  }
+}
+
+#bag-tags .friend-ball {
+  position: relative;
+
+  .friend-bag-tag {
+    position: absolute;
+    font-size: 1.5em;
+    bottom: 80px;
+    right: 50px;
+    background-color: $color-club-highlight;
+    width: 30px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    border: solid $color-club-highlight 2px;
+    box-shadow: 0 0 2px 1px white inset;
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+.bag-tag-number {
+  top: auto !important;
+  left: auto !important;
+  bottom: -5px !important;
+  right: -5px !important;
+}

@@ -1,7 +1,7 @@
-{% load sekizai_tags static i18n dgf %}
+{% load sekizai_tags static i18n dgf sass_tags %}
 
 {% addtoblock "css" %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bag_tag.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/bag_tag.scss' %}">
     {% if request.user.friend.bag_tag %}
         <style>
             /* hide bag tag explanation */

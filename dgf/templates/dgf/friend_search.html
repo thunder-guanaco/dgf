@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load static cms_tags i18n %}
+{% load static cms_tags i18n sass_tags %}
 
 {% block title %}
     {% trans "Friends" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_list.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_search.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friend_list.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friend_search.scss' %}">
     {% include "dgf/includes/background_css.html" %}
 {% endblock %}
 

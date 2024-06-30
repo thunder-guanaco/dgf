@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
-{% load static i18n dgf %}
+{% load static i18n dgf sass_tags %}
 
 {% block title %}
     {{friend.full_name}}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_detail.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/grt-youtube-popup.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/show_all_less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friend_detail.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/grt-youtube-popup.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/show_all_less.scss' %}">
     {% include "dgf/includes/background_css.html" with friend=friend %}
 {% endblock %}
 

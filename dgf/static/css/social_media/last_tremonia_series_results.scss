@@ -1,0 +1,60 @@
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  .tournament-results h1 {
+    font-size: 1.25em;
+  }
+
+  .last-tremonia-series-results-wrapper {
+    flex-direction: column !important;
+    font-size: 0.75em;
+
+    h2 {
+      margin-top: 1em !important;
+    }
+  }
+
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.last-tremonia-series-results-wrapper {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.75em;
+
+  .table-wrapper {
+    margin: 0 2em;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
+  }
+
+  tr {
+    &:nth-child(1) td:first-child:before {
+      content: '\00a0\1F947';
+    }
+
+    &:nth-child(2) td:first-child:before {
+      content: '\00a0\1F948';
+    }
+
+    &:nth-child(3) td:first-child:before {
+      content: '\00a0\1F949';
+    }
+
+    td:first-child:before {
+      content: '\00a0\00a0\00a0\00a0\00a0\00a0';
+    }
+  }
+
+  td:nth-child(2) {
+    font-weight: bold;
+  }
+}

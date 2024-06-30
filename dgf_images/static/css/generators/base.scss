@@ -1,0 +1,112 @@
+@import "dgf/static/css/base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  #back-to-image-generators {
+    text-align: center;
+  }
+
+  #image-generator-title {
+    text-align: center;
+  }
+
+  #configuration {
+    width: 100%;
+
+    .group {
+      flex-flow: column;
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+  #configuration .group {
+    flex-flow: row;
+  }
+}
+
+#image-generator {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 1em;
+}
+
+#configuration {
+  z-index: 100;
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+
+  label {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  input[type=number] {
+    width: 3em;
+  }
+
+  input[type=url] {
+    width: 500px;
+  }
+
+  textarea {
+    overflow: auto;
+    resize: none;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    padding: 1em;
+  }
+
+  .less-more-input button {
+    width: 2em;
+    line-height: 1em;
+    padding: 0.5em;
+    border: 3px solid $color-club-background;
+    background-color: white;
+    color: $color-club-background;
+    font-weight: bold;
+
+    &:hover {
+      background-color: $color-club-background;
+      color: white;
+    }
+  }
+
+  .group {
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+
+    > * {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1em;
+    }
+  }
+}
+
+input {
+  text-align: center;
+}
+
+#generated-content {
+  position: relative;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+#download-button {
+  width: fit-content;
+}

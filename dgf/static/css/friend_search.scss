@@ -1,0 +1,23 @@
+// mobile
+@media only screen and (max-width: 1024px) {
+
+}
+
+
+// desktop
+@media only screen and (min-width: 1024px) {
+
+    .friend-search-field {
+        width: 10em;
+    }
+}
+
+.friend-search {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.friend-search-field {
+    margin: 2em 0;
+}

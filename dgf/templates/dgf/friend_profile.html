@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load i18n static %}
+{% load i18n static sass_tags %}
 
 {% block title %}
     {% trans "Profile" %}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/friend_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/friend_profile.scss' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/chosen.min-1.8.7.css' %}">
 {% endblock %}
 

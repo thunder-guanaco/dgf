@@ -1,0 +1,292 @@
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  form {
+    width: 100%;
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type=text],
+    input[type=password],
+    input[type=url],
+    input[type=number] {
+      width: 100%;
+    }
+
+
+    #favorite-courses .field,
+    #highlights .field,
+    #bag .disc {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 1em 0;
+    }
+
+    .field-image label {
+      font-weight: normal;
+    }
+  }
+
+  label[for="id_sponsor_logo"] + .field-image img {
+    width: 33% !important;
+  }
+
+  #videos {
+    .field {
+      position: relative;
+    }
+
+    select[name$="type"] {
+      margin: 0.5em 0;
+    }
+
+    input[name$="url"] {
+      width: 90%
+    }
+
+    input[name$=DELETE] {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .disc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    > * {
+      margin: 0.25em;
+    }
+  }
+}
+
+
+// desktop
+@media only screen and (min-width: 1024px) {
+  form {
+    width: 70%;
+
+    label {
+      margin-right: 1em;
+    }
+
+    input[type=text],
+    input[type=password],
+    input[type=url],
+    input[type=number] {
+      width: 70%;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 1em 0;
+    }
+
+
+    .favorite-course,
+    .highlight {
+      margin-left: 2em;
+    }
+  }
+
+
+  #videos input[name$="url"] {
+    width: 65%
+  }
+
+  .disc {
+    margin-left: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    > * {
+      margin: 1em;
+    }
+  }
+
+  label[for="id_main_photo"] + .field-image img {
+    width: 80% !important;
+    height: auto;
+  }
+
+  label[for="id_sponsor_logo"] + .field-image img {
+    width: 10% !important;
+    height: auto;
+  }
+}
+
+.container {
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  textarea {
+    width: -webkit-fill-available;
+    border-radius: 5px;
+  }
+
+  .field-image {
+    flex-direction: column;
+    align-items: center !important;
+
+    input[type=checkbox] {
+      margin: 0 0.25em 0 1em;
+    }
+
+    .row label {
+      margin-bottom: 0em;
+    }
+  }
+
+  .chosen-container-single {
+    .chosen-single {
+      height: 2.5em;
+      font-size: 1.5em;
+      padding: 0.5em;
+
+      div {
+        right: 0.5em;
+        top: 0.25em;
+      }
+    }
+  }
+
+  .chosen-container .chosen-results li,
+  .chosen-container-single .chosen-search input[type=text],
+  .chosen-container-single .chosen-single div b {
+    zoom: 1.5;
+  }
+
+
+  .favorite-course select,
+  .highlight input[type=text] {
+    width: 90%;
+  }
+
+  #submit {
+    align-self: flex-end;
+    margin-top: 2em;
+  }
+}
+
+#favorite-courses, #highlights, #bag, #videos {
+  label {
+    display: none !important;
+  }
+}
+
+select {
+  font-family: Gnuolane !important;
+}
+
+.disc {
+  input[type=number] {
+    width: 2.5em;
+    text-align: center;
+  }
+
+  &:last-child input[name$=DELETE] {
+    display: none;
+  }
+}
+
+#bag {
+  display: flex;
+  flex-direction: column;
+
+  .chosen-container-single .chosen-single span {
+    min-width: 15em;
+  }
+}
+
+.bag-part {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  width: 80%;
+}
+
+.field-image {
+  justify-content: flex-start !important;
+  margin: 0 !important;
+
+  img {
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+
+.errorlist {
+  color: red;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input[name$="DELETE"] {
+  -webkit-appearance: initial;
+  appearance: initial;
+  border: none;
+  cursor: pointer;
+
+  &:before {
+    content: "❌";
+  }
+}
+
+.ace {
+  margin-bottom: 2em;
+
+  li label {
+    margin-right: 1em;
+  }
+
+  > li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  input[name$=hole] {
+    width: 3em;
+    text-align: center;
+  }
+}
+
+#videos div.field {
+  margin: 0 0 1em 0 !important;
+}

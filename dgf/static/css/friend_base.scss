@@ -1,0 +1,312 @@
+@import "base/variables_friends";
+
+// mobile
+@media only screen and (max-width: 1024px) {
+
+  .smaller-on-mobile .friend-ball > img {
+    width: 25% !important;
+  }
+
+  .youtube-video {
+    align-self: center;
+  }
+
+  .youtube-video img {
+    height: -webkit-fill-available !important;
+  }
+
+  .hall-of-fame-plugin .friend-ball img {
+    width: $friend-ball-diameter !important;
+    height: $friend-ball-diameter !important;
+  }
+
+  .hall-of-fame-plugin .friend-ball {
+    flex-direction: row !important;
+    margin: 0.5em;
+  }
+
+  .hall-of-fame-plugin .friend-ball .friend-name {
+    margin: 0 0 0 0.5em !important;
+  }
+
+  .hall-of-fame-plugin .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #container-ts-points table {
+    width: max-content !important;
+  }
+}
+
+h2 .show-all,
+h2 .show-less {
+  font-size: 0.75em;
+  font-weight: normal;
+}
+
+.udisc .friends {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.contains-pdga-attribution {
+  position: relative;
+  min-height: inherit;
+  padding-bottom: 3em;
+}
+
+#pdga-attribution {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.ball-container {
+  border-radius: 50%;
+  line-height: 2.5em;
+  width: 2.5em;
+  object-fit: cover;
+  object-position: center;
+  background: $color-club-highlight;
+}
+
+.ball {
+  font-size: 1.25em;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.avatar-img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.avatar-container {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background: $color-club-background;
+}
+
+.avatar-initials {
+  text-align: center;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.friend-tooltip {
+  position: relative;
+  display: inline-block;
+
+  .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    line-height: normal;
+    background-color: $color-club-background;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 105%;
+
+    .tooltip-smaller-text {
+      font-size: smaller;
+      font-weight: normal;
+    }
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 25%;
+      right: 100%; /* To the left of the tooltip */
+      margin-top: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent $color-club-background transparent transparent;
+    }
+  }
+
+  &:hover .tooltip-text {
+    visibility: visible;
+  }
+}
+
+.friend-ball {
+  margin: 0 1em;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend-name {
+  margin-top: 0.5em;
+  color: $color-club-background;
+  text-align: center;
+  font-weight: bold;
+}
+
+p.value:before {
+  content: '>\00a0\00a0\00a0';
+}
+
+hr {
+  border: none;
+  height: 2px;
+  width: -webkit-fill-available;
+  background-color: $color-club-background;
+}
+
+#aces, #bag {
+  .value {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.table-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  > p, > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0.25em;
+  }
+
+  > div > p {
+    text-align: center;
+    font-size: 0.8em;
+    margin: 0.25em !important;
+  }
+}
+
+#aces {
+  .table-line {
+    align-items: center;
+
+    > p, > div {
+      width: 20%;
+    }
+  }
+
+  .ball-container {
+    line-height: 2em;
+    width: 2em;
+  }
+
+  .ball {
+    font-size: 1em;
+  }
+}
+
+#bag {
+  .table-line {
+    > p, > div {
+      width: 25%;
+    }
+
+    &:first-child {
+      align-items: flex-end;
+    }
+
+    &:last-child {
+      align-items: flex-start;
+    }
+  }
+}
+
+
+.youtube-video {
+  width: 192px;
+  height: 108px;
+  cursor: pointer;
+  transition: transform .2s;
+  position: relative;
+  margin: 1em;
+  -webkit-box-shadow: 0 0 8px 0 $color-club-highlight;
+  -moz-box-shadow: 0 0 8px 0 $color-club-highlight;
+  box-shadow: 0 0 8px 0 $color-club-highlight;
+
+  img {
+    object-fit: cover;
+    object-position: center;
+    filter: opacity(60%);
+    transition: transform .5s;
+
+    &:hover {
+      filter: opacity(100%);
+    }
+  }
+
+  .play-button-container {
+    width: 50px;
+    height: 50px;
+    background-color: $color-club-highlight;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    filter: opacity(75%);
+
+    .play-button {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 20px solid #ffffff;
+      text-align: center;
+      position: absolute;
+      left: 55%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    :hover {
+      filter: opacity(100%);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    z-index: 2;
+  }
+
+}
+
+.bag-tag-number {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-weight: bold;
+  font-size: 1.25em;
+  width: 30px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 0 0 2px 1px white inset;
+  margin: 0;
+  background-color: $color-club-highlight;
+  border: solid $color-club-highlight 2px;
+}
+
+.hall-of-fame-title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 1em;
+}

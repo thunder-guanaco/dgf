@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load static i18n dgf_images %}
+{% load static i18n dgf_images sass_tags %}
 
 {% block title %}
     {{image_generator}}
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generators/'|add:image_generator|add:'.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'sass_src/generators/base.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'css/generators/'|add:image_generator|add:'.css' %}">
 {% endblock %}
 
 {% block js %}

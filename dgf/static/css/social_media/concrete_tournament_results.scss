@@ -1,0 +1,46 @@
+.concrete-tournament-results-wrapper {
+  height: 80%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  .table-wrapper {
+    display: block;
+    margin: 1em;
+
+    table {
+      margin: auto;
+    }
+  }
+
+  td {
+    padding: 0.25em 0.5em;
+    white-space: nowrap;
+
+    &.position {
+      font-weight: bold;
+      text-align: right;
+    }
+
+    &.name {
+      text-align: left;
+    }
+
+    &.medal {
+      padding: 0;
+      text-align: left;
+    }
+
+    &.medal-1:before {
+      content: '\00a0\1F947';
+    }
+
+    &.medal-2:before {
+      content: '\00a0\1F948';
+    }
+
+    &.medal-3:before {
+      content: '\00a0\1F949';
+    }
+  }
+}
