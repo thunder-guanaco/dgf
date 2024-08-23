@@ -16,6 +16,10 @@
         margin-left: 4em;
     }
 
+    #multiple-bag-tag-numbers {
+        width: 2.5em;
+    }
+
     #multiple-bag-tag-numbers .number {
         margin: 0 0.5em 0 0 !important;
     }
@@ -78,6 +82,10 @@
 
     #edit-bag-tags {
         margin: 1em;
+    }
+
+    #multiple-bag-tag-numbers {
+        width: 5em;
     }
 
     .news {
@@ -300,7 +308,7 @@
     margin: 0.25em;
 }
 
-#multiple-bag-tag-players li{
+#multiple-bag-tag-players li {
     background-color: #f3f3f3;
     border: 1px solid #ccc!important;
     border-radius: 10px;
