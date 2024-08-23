@@ -2,6 +2,18 @@ function selectBagTag(bagTag) {
     console.log(`Selected bag tag ${bagTag}`)
     $("#select-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
     $("#todays-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
+    $("#unassigned-bag-tags .number[data-bag-tag='" + bagTag + "']").toggleClass("selected");
+}
+
+function sortBagTagNumbers() {
+    $("#multiple-bag-tag-numbers li").sort(function(a, b){
+        return $(a).data("bag-tag") - $(b).data("bag-tag");
+    }).appendTo("#multiple-bag-tag-numbers");
+}
+
+function addUnassignedTitle() {
+    var amountOfPlayers = $("#multiple-bag-tag-players .player").length;
+    var unassignedTitle = $("#unassigned-bag-tags h2").clone().insertAfter($("#multiple-bag-tag-numbers li:nth-child(" + amountOfPlayers + ")"));
 }
 
 function goToEditMultipleBagTags() {
@@ -37,6 +49,13 @@ function goToEditMultipleBagTags() {
         $(playerListItem).append("<span class='delete' onclick='deleteFriend(" + index + ")'>❌</span>");
     });
 
+     $("#unassigned-bag-tags .content .number.selected").each(function(index) {
+        var number = $(this).data("bag-tag");
+
+        var numberListItem = $("#multiple-bag-tag-numbers").append("<li data-bag-tag='" + number + "'></li>").children("li:last-child");
+        $("#unassigned-bag-tags .content .number[data-bag-tag='" + number + "']").clone().appendTo(numberListItem);
+    });
+
     $("#multiple-bag-tag-players").sortableLists({
         currElClass: "draggedPlayer",
         listSelector: "ul",
@@ -55,5 +74,8 @@ function goToEditMultipleBagTags() {
     else {
         $("#edit-bag-tags .only-metrix").hide();
     }
+
+    sortBagTagNumbers();
+    addUnassignedTitle();
 
 }

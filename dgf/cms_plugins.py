@@ -143,6 +143,13 @@ def friends_without_bag_tag():
     return sorted(Friend.objects.filter(bag_tag__isnull=True), key=lambda f: f.short_name)
 
 
+def unassigned_bag_tags():
+    given_bag_tags = set(Friend.objects.filter(bag_tag__isnull=False).values_list('bag_tag', flat=True))
+    worst_bag_tag = max(given_bag_tags) if given_bag_tags else 0
+    all_bag_tags = set(range(1, worst_bag_tag + 1))
+    return sorted(all_bag_tags - given_bag_tags)
+
+
 @plugin_pool.register_plugin
 class TourResultsPluginPublisher(CMSPluginBase):
     model = TourPluginModel
@@ -162,6 +169,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
         context.update({
             'friends': friends_order_by_bag_tag(),
             'friends_without_bag_tag': friends_without_bag_tag(),
+            'unassigned_bag_tags': unassigned_bag_tags(),
         })
         return context
 

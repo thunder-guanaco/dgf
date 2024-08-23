@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+from dgf.cms_plugins import unassigned_bag_tags
 from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
@@ -229,6 +230,10 @@ def bag_tag_new(request):
     return HttpResponse(status=204)
 
 
+def any_bag_tag_is_given(bag_tags):
+    return Friend.objects.filter(bag_tag__in=bag_tags).exists()
+
+
 @login_required
 @require_POST
 def bag_tag_update(request):
@@ -238,20 +243,18 @@ def bag_tag_update(request):
         return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to change them.')
 
     current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list('username', 'bag_tag'))
-
-    try:
-        new_bag_tags = {key: int(value) for key, value in request.POST.items()}
-    except ValueError:
-        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
-                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
+    new_bag_tags = {key: int(value) for key, value in request.POST.items()}
 
     if set(current_bag_tags.keys()) != set(new_bag_tags.keys()):
         return HttpResponse(status=400, reason=_('This makes no sense. For these bag tags the users should be: '
                                                  f'{str(sorted(current_bag_tags.keys()))[1:-1]}'))
 
     if set(current_bag_tags.values()) != set(new_bag_tags.values()):
-        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
-                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
+        bag_tags_diff = set(new_bag_tags.values()) - set(current_bag_tags.values())
+        if any_bag_tag_is_given(bag_tags_diff):
+            return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
+                                                     f'{str(sorted(current_bag_tags.values()))[1:-1]} '
+                                                     'or any other free bag tag'))
 
     # take bag tags away
     Friend.objects.filter(username__in=request.POST.keys()).update(bag_tag=None)
@@ -297,7 +300,7 @@ def all_friend_ids(request):
 
 def friends_info(request):
     friends = Friend.objects.filter(metrix_user_id__isnull=False) \
-                            .values('metrix_user_id', 'bag_tag')
+        .values('metrix_user_id', 'bag_tag')
     return JsonResponse({'friends': list(friends)})
 
 

@@ -16,9 +16,14 @@ function saveMultipleBagTags() {
     });
 
     var bagTags = [];
-    $("#multiple-bag-tag-numbers li .number").each(function(){
-        bagTags.push($(this).data("bag-tag"));
+    $("#multiple-bag-tag-numbers li .number").each(function(index){
+        if (index < players.length) {
+            bagTags.push($(this).data("bag-tag"));
+        }
     });
+
+    console.log(`players: ${players}`);
+    console.log(`bag tags: ${bagTags}`);
 
     var data = {};
     players.forEach((player, i) => data[player] = bagTags[i]);

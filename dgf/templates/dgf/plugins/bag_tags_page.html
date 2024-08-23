@@ -25,8 +25,8 @@
 
             const metrixUserIdToFriend = {{friends|with_metrix_user_id|values_list:"metrix_user_id,username"|to_dict|safe}};
             const metrixUserIds = Object.keys(metrixUserIdToFriend);
-
             const ownBagTagNumer = {{request.user.friend.bag_tag}};
+
             const disableClickOnFriends = true;
         {% else %}
             const disableClickOnFriends = false;
@@ -55,6 +55,7 @@
             {% include "dgf/includes/bag_tags/pages/admin.html" %}
             {% include "dgf/includes/bag_tags/pages/metrix.html" %}
             {% include "dgf/includes/bag_tags/pages/todays.html" %}
+            {% include "dgf/includes/bag_tags/pages/unassigned.html" %}
         {% endif %}
 
     </div>
