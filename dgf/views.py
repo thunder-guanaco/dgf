@@ -300,7 +300,7 @@ def all_friend_ids(request):
 
 def friends_info(request):
     friends = Friend.objects.filter(metrix_user_id__isnull=False) \
-        .values('metrix_user_id', 'bag_tag')
+                            .values('metrix_user_id', 'bag_tag')
     return JsonResponse({'friends': list(friends)})
 
 

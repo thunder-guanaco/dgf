@@ -22,9 +22,6 @@ function saveMultipleBagTags() {
         }
     });
 
-    console.log(`players: ${players}`);
-    console.log(`bag tags: ${bagTags}`);
-
     var data = {};
     players.forEach((player, i) => data[player] = bagTags[i]);
 

@@ -86,9 +86,6 @@ function handleMetrixResponse(response) {
     Object.keys(metrixScores).forEach(username => {
         $("#select-bag-tags .content .number[data-username='" + username + "']").addClass("selected");
     });
-//    freeBagTags.forEach((bagTag) => {
-//        $("#select-bag-tags .content .number[data-bag-tag='" + bagTag + "']").addClass("selected");
-//    });
 
     goToSelectTodaysBagTags();
 }
