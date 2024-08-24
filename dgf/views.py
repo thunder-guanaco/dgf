@@ -238,10 +238,6 @@ def not_free_for_assignment(bag_tags):
     return True
 
 
-def any_bag_tag_is_given(bag_tags):
-    return Friend.objects.filter(bag_tag__in=bag_tags).exists()
-
-
 @login_required
 @require_POST
 def bag_tag_update(request):
@@ -310,7 +306,7 @@ def all_friend_ids(request):
 
 def friends_info(request):
     friends = Friend.objects.filter(metrix_user_id__isnull=False) \
-        .values('metrix_user_id', 'bag_tag')
+                            .values('metrix_user_id', 'bag_tag')
     return JsonResponse({'friends': list(friends)})
 
 

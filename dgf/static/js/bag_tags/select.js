@@ -11,11 +11,6 @@ function sortBagTagNumbers() {
     }).appendTo("#multiple-bag-tag-numbers");
 }
 
-function addUnassignedTitle() {
-    var amountOfPlayers = $("#multiple-bag-tag-players .player").length;
-    var unassignedTitle = $("#unassigned-bag-tags h2").clone().insertAfter($("#multiple-bag-tag-numbers li:nth-child(" + amountOfPlayers + ")"));
-}
-
 function goToEditMultipleBagTags() {
 
     amountOfSelectedBagTags = $("#select-bag-tags .content .number.selected").length;
