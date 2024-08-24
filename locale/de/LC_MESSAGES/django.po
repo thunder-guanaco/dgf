@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-17 22:23+0200\n"
+"POT-Creation-Date: 2024-08-24 22:45+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgid "please check"
 msgstr "bitte überprüfen"
 
 #: dgf/cms_plugins.py:22 dgf/cms_plugins.py:50 dgf/cms_plugins.py:62
-#: dgf/cms_plugins.py:79 dgf/cms_plugins.py:149 dgf/cms_plugins.py:157
+#: dgf/cms_plugins.py:79 dgf/cms_plugins.py:156 dgf/cms_plugins.py:164
 msgid "Disc Golf Friends"
 msgstr "Disc Golf Friends"
 
@@ -62,63 +62,63 @@ msgstr "Beste Runden aus UDisc"
 msgid "Disc Golf Friends Calendar"
 msgstr "Disc Golf Friends Kalendar"
 
-#: dgf/cms_plugins.py:150
+#: dgf/cms_plugins.py:157
 msgid "Tour Results"
 msgstr "Tourergebnisse"
 
-#: dgf/cms_plugins.py:158
+#: dgf/cms_plugins.py:165
 msgid "Bag Tags (whole page)"
 msgstr "Bagtags (ganze Seite)"
 
-#: dgf/cms_plugins.py:171 dgf/cms_plugins.py:197
+#: dgf/cms_plugins.py:179 dgf/cms_plugins.py:205
 msgid "Tremonia Series"
 msgstr "Tremonia Series"
 
-#: dgf/cms_plugins.py:184
+#: dgf/cms_plugins.py:192
 msgid "Hall Of Fame (small)"
 msgstr "Hall Of Fame (klein)"
 
-#: dgf/cms_plugins.py:190
+#: dgf/cms_plugins.py:198
 msgid "Hall Of Fame (whole page)"
 msgstr "Hall Of Fame (ganze Seite)"
 
-#: dgf/cms_plugins.py:198
+#: dgf/cms_plugins.py:206
 msgid "Next Tournaments"
 msgstr "Nächste Turniere"
 
-#: dgf/cms_plugins.py:211
+#: dgf/cms_plugins.py:219
 msgid "Disc Golf Friends Custom CMS"
 msgstr "Disc Golf Friends CMS"
 
-#: dgf/cms_plugins.py:213
+#: dgf/cms_plugins.py:221
 msgid "Only desktop"
 msgstr "Nur am Desktop sichtbar"
 
-#: dgf/cms_plugins.py:227
+#: dgf/cms_plugins.py:235
 msgid "Only mobile"
 msgstr "Nur auf Mobile-Geräte sichtbar"
 
-#: dgf/cms_plugins.py:234
+#: dgf/cms_plugins.py:242
 msgid "Disc Golf Friends Facebook Pages"
 msgstr "Disc Golf Friends Facebook Seiten"
 
-#: dgf/cms_plugins.py:235
+#: dgf/cms_plugins.py:243
 msgid "Facebook - Disc Golf Friends"
 msgstr "Facebook - Disc Golf Friends"
 
-#: dgf/cms_plugins.py:250
+#: dgf/cms_plugins.py:258
 msgid "Facebook - Tremonia Open"
 msgstr "Facebook - Tremonia Open"
 
-#: dgf/cms_plugins.py:258 dgf/cms_plugins.py:275
+#: dgf/cms_plugins.py:266 dgf/cms_plugins.py:283
 msgid "Social Media"
 msgstr "Soziale Netzwerke"
 
-#: dgf/cms_plugins.py:259
+#: dgf/cms_plugins.py:267
 msgid "Concrete Tournament Results"
 msgstr "Bestimmtes Turnier"
 
-#: dgf/cms_plugins.py:276
+#: dgf/cms_plugins.py:284
 msgid "Last Tremonia Series Results"
 msgstr "Letzte Tremonia Series Ergebnisse"
 
@@ -724,6 +724,10 @@ msgstr "Du musst mindestens 2 Bagtags wählen"
 msgid "Select the bag tags you have collected today and click on 'continue'."
 msgstr "Wähle die Bagtags, die du gesammelt hast und dann klicke auf 'Weiter'"
 
+#: dgf/templates/dgf/includes/bag_tags/pages/unassigned.html:5
+msgid "Unassigned Bag Tags"
+msgstr "Freie Bagtags"
+
 #: dgf/templates/dgf/includes/bag_tags/since.html:12
 msgid "Since today"
 msgstr "Seit heute"
@@ -949,23 +953,27 @@ msgstr "Bin nicht dabei"
 msgid "Login"
 msgstr "Anmelden"
 
-#: dgf/views.py:245 dgf/views.py:253
-msgid "This makes no sense. For these users the bag tags should be: "
-msgstr "Das macht keinen Sin. Folgende Benutzer sollten gewählt werden: "
+#: dgf/views.py:253
+msgid "This makes no sense. Duplicated bag tags are not allowed"
+msgstr "Das macht keinen Sinn. Ein Bagtag kann nicht mehrmals vergeben werden"
 
-#: dgf/views.py:249
+#: dgf/views.py:256
 msgid "This makes no sense. For these bag tags the users should be: "
-msgstr "Das macht keinen Sin. Folgende Bagtags sollten gewählt werden: "
+msgstr "Das macht keinen Sinn. Für diese Bagtags folgende Benutzer sollten dabei sein: "
 
-#: dgf_cms/settings.py:355 dgf_cms/settings.py:365
+#: dgf/views.py:262
+msgid "This makes no sense. These bag tags are not free for you to"
+msgstr "Das macht keinen Sinn. Diese Bagtags sind nicht frei"
+
+#: dgf_cms/settings.py:359 dgf_cms/settings.py:369
 msgid "German"
 msgstr "Deutsch"
 
-#: dgf_cms/settings.py:356 dgf_cms/settings.py:372
+#: dgf_cms/settings.py:360 dgf_cms/settings.py:376
 msgid "English"
 msgstr "Englisch"
 
-#: dgf_cms/settings.py:526
+#: dgf_cms/settings.py:530
 msgid "Period in which the bag tag must be played for as days"
 msgstr "Zeitraum, in dem um das Bagtag gespielt werden muss als Tage"
 
