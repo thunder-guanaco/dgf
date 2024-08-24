@@ -131,6 +131,7 @@
 
 #select-bag-tags .number,
 #todays-bag-tags .number,
+#unassigned-bag-tags .number,
 #multiple-bag-tag-players .player .number {
     background-color: #999999;
     border: solid #999999 2px;
@@ -140,7 +141,9 @@
 #select-bag-tags .number:hover,
 #select-bag-tags .number.selected,
 #todays-bag-tags .number:hover,
-#todays-bag-tags .number.selected {
+#todays-bag-tags .number.selected,
+#unassigned-bag-tags .number:hover,
+#unassigned-bag-tags .number.selected {
     background-color: #1b2633;
     border-color: #1b2633;
 }
@@ -297,7 +300,7 @@
     margin: 0.25em;
 }
 
-#multiple-bag-tag-players li{
+#multiple-bag-tag-players li {
     background-color: #f3f3f3;
     border: 1px solid #ccc!important;
     border-radius: 10px;
@@ -419,7 +422,7 @@ button.new:hover {
     cursor: pointer;
 }
 
-input {
+input[type=text] {
     width: 15em;
     text-align: center;
 }
