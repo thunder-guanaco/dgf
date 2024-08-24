@@ -45,11 +45,9 @@
 
             {% comment %}
                 Documentation about sortable lists (drag and drop): http://camohub.github.io/jquery-sortable-lists/index.html
-                Fix for mobile touch: https://github.com/furf/jquery-ui-touch-punch
             {% endcomment %}
             {% if request.user_agent.is_mobile %}
                 <script type="text/javascript" src="{% static 'js/jquery-sortable-lists-mobile.min.js' %}"></script>
-                <script type="text/javascript" src="{%  static 'js/jquery.ui.touch-punch.min.js' %}"></script>
             {% else %}
                 <script type="text/javascript" src="{% static 'js/jquery-sortable-lists.min.js' %}"></script>
             {% endif %}

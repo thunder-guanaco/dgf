@@ -82,7 +82,6 @@ function handleMetrixResponse(response) {
     }
 
     $("#select-bag-tags .content .number").removeClass("selected");
-    console.log("metrixScores", metrixScores)
     Object.keys(metrixScores).forEach(username => {
         $("#select-bag-tags .content .number[data-username='" + username + "']").addClass("selected");
     });

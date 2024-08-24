@@ -76,6 +76,5 @@ function goToEditMultipleBagTags() {
     }
 
     sortBagTagNumbers();
-    addUnassignedTitle();
 
 }
