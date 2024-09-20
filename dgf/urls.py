@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import FriendListView, FriendUpdateView, FeedbackCreateView, VideoListView, TournamentListView, \
-    bag_tag_claim, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, FriendDetailView, \
-    tournament_attendance, tpl_next_tournament, FriendSearchView, all_friend_ids
+from .views import FriendListView, FeedbackCreateView, VideoListView, TournamentListView, \
+    bag_tag_claim, bag_tag_history, bag_tag_new, bag_tag_update, ts_next_tournament, ts_future_dates, \
+    FriendDetailView, tournament_attendance, tpl_next_tournament, FriendSearchView, friends_info, all_friend_ids, \
+    FriendUpdateView, ExtendedFriendUpdateView
 
 app_name = 'dgf'
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('', FriendListView.as_view(), name='friend_index'),
     path('search/', FriendSearchView.as_view(), name='friend_search'),
     path('profile/', FriendUpdateView.as_view(), name='friend_update'),
+    path('profile-extended/', ExtendedFriendUpdateView.as_view(), name='friend_update_extended'),  # called from HTMX
     path('feedback/', FeedbackCreateView.as_view(), name='feedback'),
     path('media/', VideoListView.as_view(), name='media'),
     path('tournaments/', TournamentListView.as_view(), name='tournament_index'),
@@ -18,6 +20,7 @@ urlpatterns = [
     # API
     path('tournaments/<int:tournament_id>/attendance', tournament_attendance, name='tournament_attendance'),
     path('bag-tags/<int:bag_tag>/claim', bag_tag_claim, name='bag_tag_claim'),
+    path('bag-tags/history', bag_tag_history, name='bag_tag_history'),
     path('bag-tags/new', bag_tag_new, name='bag_tag_new'),
     path('bag-tags/', bag_tag_update, name='bag_tag_update'),
     path('tremonia-series/next-tournament', ts_next_tournament, name='tremonia_series_next_tournament'),
@@ -25,6 +28,7 @@ urlpatterns = [
 
     # API for Disc Golf Metrix JS scripts
     path('disc-golf-metrix/all-friend-ids', all_friend_ids, name='disc_golf_metrix_all_friend_ids'),
+    path('disc-golf-metrix/friends', friends_info, name='disc_golf_metrix_friends'),
 
     # INCLUDES
     # used here: https://discgolfmetrix.com/715021

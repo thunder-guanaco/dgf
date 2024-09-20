@@ -107,9 +107,13 @@ elif ENV == 'test':
 
 CORS_ALLOWED_ORIGINS = [
     'https://discgolfmetrix.com',
+    'https://discgolfunion.de',
+    'https://discgolfiserlohn.de',
+    'https://www.discgolfunion.de',
+    'https://www.discgolfiserlohn.de',
 ]
 CORS_ALLOW_METHODS = [
-    "GET",
+    'GET',
 ]
 
 CSRF_FAILURE_VIEW = csrf_failure
@@ -289,6 +293,7 @@ INSTALLED_APPS = [
     'jazzmin',
     'corsheaders',
     'impersonate',
+    'constance',
 
     'djangocms_admin_style',
     'django.contrib.auth',
@@ -518,4 +523,9 @@ JAZZMIN_UI_TWEAKS = {
         'danger': 'btn-outline-danger',
         'success': 'btn-outline-success'
     },
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'BAG_TAG_THRESHOLD_INACTIVE_DAYS': (365, _('Period in which the bag tag must be played for as days'), int),
 }

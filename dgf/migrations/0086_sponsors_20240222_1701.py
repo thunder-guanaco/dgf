@@ -14,7 +14,7 @@ def migrate_sponsor(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('dgf', '0084_delete_tremoniaserieshalloffamepluginmodel'),
+        ('dgf', '0085_auto_20240306_2128'),
     ]
 
     operations = [

@@ -1,6 +1,6 @@
 ALL_DISC_TYPES = ["P", "M", "F", "D"];
 
-$(window).on("load", function() {
+document.body.addEventListener('htmx:afterSwap', function(evt) {
     scrollToErrors();
     loadInTheBag();
     loadFavoriteCourses();

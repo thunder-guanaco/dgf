@@ -21,8 +21,15 @@ DIVISION_MAPPING = {
     'M70': 'MP70',
     'WM40': 'FP40',
 
-    # yes, this is a mistake they made in a tournament.
-    # See it yourself: https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=1713
+    # These next 4 divisions are just a wild guess based on this tournament
+    # https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=2191
+    'FE': 'FA4',
+    'FA': 'FA3',
+    'FF': 'FA2',
+    'FT': 'FA1',
+
+    # This is a mistake they made in a tournament
+    # https://turniere.discgolf.de/index.php?p=events&sp=list-results&id=1713
     'MJ18p': 'MJ18'
 }
 

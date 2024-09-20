@@ -1,5 +1,6 @@
 import logging
 import re
+from constance import config
 from datetime import datetime
 
 from django import template
@@ -284,6 +285,11 @@ def to_set(iterable):
 @register.filter
 def days_since(date):
     return (timezone.now().date() - date.date()).days
+
+
+@register.filter
+def exceeds_bag_tag_limit(days_since):
+    return days_since > config.BAG_TAG_THRESHOLD_INACTIVE_DAYS
 
 
 @register.filter

@@ -2,6 +2,10 @@
 
 <div class="since" onclick="switchStatistics({{friend.bag_tag}})">
 
+    {% if friend.last_bag_tag_change|days_since|exceeds_bag_tag_limit %}
+        <span class="warning-icon">⚠️</span>
+    {% endif %}
+
     {% if not request.user_agent.is_mobile and friend.since %}
         {% with friend.since|days_since as days %}
             {% if days == 0 %}
