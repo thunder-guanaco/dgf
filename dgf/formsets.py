@@ -18,6 +18,13 @@ def all_courses():
 ALL_DISCS = all_objects(Disc, 'mold')
 
 
+def sponsors_formset_factory():
+    return inlineformset_factory(
+        Friend, Sponsor, fields=('name', 'link', 'logo'),
+        max_num=3, extra=3, validate_max=True
+    )
+
+
 def favorite_course_formset_factory():
     return inlineformset_factory(
         Friend, FavoriteCourse, fields=('course',),
@@ -60,11 +67,4 @@ def video_formset_factory():
     return inlineformset_factory(
         Friend, Video, fields=('url', 'type'),
         extra=0
-    )
-
-
-def sponsors_formset_factory():
-    return inlineformset_factory(
-        Friend, Sponsor, fields=('name', 'link', 'logo'),
-        max_num=3, extra=3, validate_max=True
     )

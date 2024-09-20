@@ -180,6 +180,22 @@ class UdiscRound(Model):
         return f'{self.friend} scored {self.score} in {self.course}'
 
 
+class Sponsor(Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['friend', 'name'],
+                                    name='each sponsor can only be assigned once to the friend'),
+        ]
+
+    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='sponsors', verbose_name=_('Friend'))
+    name = models.CharField(_('name'), max_length=200, null=False, blank=False)
+    link = models.URLField(_('link'), null=True, blank=True)
+    logo = models.ImageField(_('logo'), null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name} ({self.link})'
+
+
 class FavoriteCourse(Model):
     class Meta:
         constraints = [
@@ -541,19 +557,3 @@ class ManagementCommandExecution(Model):
     def save(self, *args, **kwargs):
         super(ManagementCommandExecution, self).save(*args, **kwargs)
         logger.info(self)
-
-
-class Sponsor(Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['friend', 'name'],
-                                    name='each sponsor can only be assigned once to the friend'),
-        ]
-
-    friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='sponsors', verbose_name=_('Friend'))
-    name = models.CharField(_('name'), max_length=200, null=False, blank=False)
-    link = models.URLField(_('link'), null=True, blank=True)
-    logo = models.ImageField(_('logo'), null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.name} ({self.link})'
