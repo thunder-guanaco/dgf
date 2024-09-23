@@ -253,3 +253,13 @@
     color: #1b2633;
     padding: 0.1em 0.3em;
 }
+
+#first-headline {
+    display: flex;
+    justify-content: space-between;
+}
+
+#first-headline > div:first-child {
+    display: flex;
+    gap: .5rem;
+}
