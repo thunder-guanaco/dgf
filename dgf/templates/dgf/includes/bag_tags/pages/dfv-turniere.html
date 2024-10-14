@@ -1,0 +1,22 @@
+{% load i18n dgf %}
+
+<div id="dfv-turniere-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "DFV-Tournament" %}</h2>
+    <div class="header">
+        <span class="hint">{% trans "Enter a turniere.discgolf.de URL" %}</span>
+        {% if request.user_agent.is_mobile %}
+            <span class="error" id="invalid-dfv-tournament-url">{% trans "Entered turniere.discgolf.de URL is not valid" %}</span>
+        {% endif %}
+        <input type="url" id="dfv-tournament-url">
+        <button onclick="dfvTournamentUrlEntered($('#dfv-tournament-url').val())">{% trans "Continue" %}</button>
+        <button class="negative" onclick="showPage('#select-bag-tags')">{% trans "Back" %}</button>
+    </div>
+
+    {% if not request.user_agent.is_mobile %}
+        <div class="header">
+            <span class="error" id="invalid-dfv-tournament-url">{% trans "Entered turniere.discgolf.de URL is not valid" %}</span>
+        </div>
+    {% endif %}
+
+</div>

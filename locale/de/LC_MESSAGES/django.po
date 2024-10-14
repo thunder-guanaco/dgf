@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DGF\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-24 22:45+0200\n"
+"POT-Creation-Date: 2024-10-14 17:09+0200\n"
 "Language: DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -634,7 +634,7 @@ msgstr "Wähle Friends ohne Bagtag, um eins oder mehrere zu zuweisen"
 #: dgf/templates/dgf/includes/bag_tags/pages/admin.html:10
 #: dgf/templates/dgf/includes/bag_tags/pages/admin.html:40
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:10
-#: dgf/templates/dgf/includes/bag_tags/pages/select.html:30
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:31
 #: dgf/templates/dgf/includes/bag_tags/pages/todays.html:10
 #: dgf/templates/dgf/includes/bag_tags/pages/todays.html:23
 msgid "Cancel"
@@ -643,6 +643,42 @@ msgstr "Abbrechen"
 #: dgf/templates/dgf/includes/bag_tags/pages/admin.html:14
 msgid "You have to select at least 1 friend!"
 msgstr "Du musst mindestens 1 Friend wählen"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:5
+#, fuzzy
+#| msgid "Tournament"
+msgid "DFV-Tournament"
+msgstr "DFV-Turnier"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:7
+#, fuzzy
+#| msgid "Reimport attendance from turniere.discgolf.de"
+msgid "Enter a turniere.discgolf.de URL"
+msgstr "Teilnehmerliste aus turniere.discgolf.de neu portieren"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:18
+#, fuzzy
+#| msgid "Entered Metrix URL is not valid"
+msgid "Entered turniere.discgolf.de URL is not valid"
+msgstr "Die turniere.discgolf.de URL ist nicht gültig"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:12
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:13
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:30
+#: dgf/templates/dgf/includes/bag_tags/pages/todays.html:9
+#: dgf/templates/dgf/includes/bag_tags/pages/todays.html:22
+msgid "Continue"
+msgstr "Weiter"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/dfv-turniere.html:13
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:10
+#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:21
+#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:14
+#: dgf_images/templates/dgf_images/generators/base.html:22
+msgid "Back"
+msgstr "Zurück"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/edit.html:5
 msgid "Sort the bag tags"
@@ -656,13 +692,6 @@ msgstr "Bewege die Friends und vergiss nicht zu speichern!"
 #: dgf/templates/dgf/includes/bag_tags/pages/edit.html:20
 msgid "Save"
 msgstr "Speichern"
-
-#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:10
-#: dgf/templates/dgf/includes/bag_tags/pages/edit.html:21
-#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:14
-#: dgf_images/templates/dgf_images/generators/base.html:22
-msgid "Back"
-msgstr "Zurück"
 
 #: dgf/templates/dgf/includes/bag_tags/pages/list.html:5
 #: dgf/templates/dgf/includes/friend_list/32_friends_bagtags.html:7
@@ -693,14 +722,6 @@ msgstr "Wähle ein Turnier oder gib eine Metrix URL an"
 msgid "Entered Metrix URL is not valid"
 msgstr "Die URL ist nicht gültig"
 
-#: dgf/templates/dgf/includes/bag_tags/pages/metrix.html:13
-#: dgf/templates/dgf/includes/bag_tags/pages/select.html:9
-#: dgf/templates/dgf/includes/bag_tags/pages/select.html:29
-#: dgf/templates/dgf/includes/bag_tags/pages/todays.html:9
-#: dgf/templates/dgf/includes/bag_tags/pages/todays.html:22
-msgid "Continue"
-msgstr "Weiter"
-
 #: dgf/templates/dgf/includes/bag_tags/pages/select.html:5
 #: dgf/templates/dgf/includes/bag_tags/pages/todays.html:5
 msgid "Select bag tags"
@@ -715,7 +736,13 @@ msgstr ""
 msgid "Select from Metrix"
 msgstr "Aus Metrix wählen"
 
-#: dgf/templates/dgf/includes/bag_tags/pages/select.html:14
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:12
+#, fuzzy
+#| msgid "Select from Metrix"
+msgid "Select from DFV"
+msgstr "Aus turniere.discgolf.de wählen"
+
+#: dgf/templates/dgf/includes/bag_tags/pages/select.html:15
 #: dgf/templates/dgf/includes/bag_tags/pages/todays.html:13
 msgid "You have to select at least 2 bag tags!"
 msgstr "Du musst mindestens 2 Bagtags wählen"
@@ -959,7 +986,9 @@ msgstr "Das macht keinen Sinn. Ein Bagtag kann nicht mehrmals vergeben werden"
 
 #: dgf/views.py:256
 msgid "This makes no sense. For these bag tags the users should be: "
-msgstr "Das macht keinen Sinn. Für diese Bagtags folgende Benutzer sollten dabei sein: "
+msgstr ""
+"Das macht keinen Sinn. Für diese Bagtags folgende Benutzer sollten dabei "
+"sein: "
 
 #: dgf/views.py:262
 msgid "This makes no sense. These bag tags are not free for you to"

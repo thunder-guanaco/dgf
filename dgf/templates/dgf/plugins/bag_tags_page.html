@@ -41,6 +41,7 @@
         <script type="text/javascript" src="{% static 'js/bag_tags/admin.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bag_tags/metrix.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bag_tags/todays.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bag_tags/dfv-turniere.js' %}"></script>
     {% endif %}
 {% endaddtoblock %}
 
@@ -56,6 +57,7 @@
             {% include "dgf/includes/bag_tags/pages/metrix.html" %}
             {% include "dgf/includes/bag_tags/pages/todays.html" %}
             {% include "dgf/includes/bag_tags/pages/unassigned.html" %}
+            {% include "dgf/includes/bag_tags/pages/dfv-turniere.html" %}
         {% endif %}
 
     </div>
