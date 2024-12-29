@@ -131,6 +131,7 @@ def friends_order_by_bag_tag():
         .annotate(bag_tag_changes_count=Count('bag_tag_changes',
                                               filter=Q(bag_tag_changes__previous_number__isnull=False))) \
         .annotate(first_bag_tag_change=Min('bag_tag_changes__timestamp')) \
+        .annotate(last_bag_tag_change=Max('bag_tag_changes__timestamp')) \
         .annotate(best_bag_tag=Min('bag_tag_changes__new_number')) \
         .annotate(worst_bag_tag=Max('bag_tag_changes__new_number')) \
         .annotate(average_bag_tag=Avg('bag_tag_changes__new_number')) \
@@ -140,6 +141,13 @@ def friends_order_by_bag_tag():
 
 def friends_without_bag_tag():
     return sorted(Friend.objects.filter(bag_tag__isnull=True), key=lambda f: f.short_name)
+
+
+def unassigned_bag_tags():
+    given_bag_tags = set(Friend.objects.filter(bag_tag__isnull=False).values_list('bag_tag', flat=True))
+    worst_bag_tag = max(given_bag_tags) if given_bag_tags else 0
+    all_bag_tags = set(range(1, worst_bag_tag + 1))
+    return sorted(all_bag_tags - given_bag_tags)
 
 
 @plugin_pool.register_plugin
@@ -161,6 +169,7 @@ class BagTagsPagePluginPublisher(CMSPluginBase):
         context.update({
             'friends': friends_order_by_bag_tag(),
             'friends_without_bag_tag': friends_without_bag_tag(),
+            'unassigned_bag_tags': unassigned_bag_tags(),
         })
         return context
 

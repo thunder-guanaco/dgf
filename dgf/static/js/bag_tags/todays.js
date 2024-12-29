@@ -6,6 +6,6 @@ function goToSelectTodaysBagTags() {
 
     $(".at-least-2-bag-tags-hint").hide();
 
-    showPage('#todays-bag-tags');
+    showPage('#todays-bag-tags,#unassigned-bag-tags');
 
 }

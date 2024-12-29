@@ -3,13 +3,15 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F, Func, Value, CharField
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_GET
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+from dgf.cms_plugins import unassigned_bag_tags
 from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
     highlight_formset_factory, video_formset_factory
@@ -43,17 +45,20 @@ class FriendDetailView(DetailView):
 
 class FriendUpdateView(LoginRequiredMixin, UpdateView):
     model = Friend
+    template_name_suffix = '_profile'
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
               'sponsor', 'sponsor_logo', 'sponsor_link',
               'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'social_media_agreement',
               'division', 'city', 'plays_since', 'free_text',  # best_score_in_wischlingen TODO: #6282
               'job', 'hobbies']
-    template_name_suffix = '_profile'
     formsets = [('favorite_courses', favorite_course_formset_factory),
                 ('highlights', highlight_formset_factory),
                 ('discs', disc_formset_factory),
                 ('aces', ace_formset_factory),
                 ('videos', video_formset_factory)]
+
+    def get_object(self, queryset=None):
+        return self.request.user.friend
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -81,11 +86,13 @@ class FriendUpdateView(LoginRequiredMixin, UpdateView):
         # save the parent form
         return super().form_valid(form)
 
-    def get_object(self, queryset=None):
-        return self.request.user.friend
-
     def get_success_url(self):
         return reverse('dgf:friend_detail', args=[self.request.user.friend.slug])
+
+
+class ExtendedFriendUpdateView(FriendUpdateView):
+    template_name_suffix = '_profile_extended'
+    fields = []
 
 
 class FeedbackCreateView(LoginRequiredMixin, CreateView):
@@ -172,6 +179,24 @@ def bag_tag_claim(request, bag_tag):
     return HttpResponse(status=204)
 
 
+def bag_tag_changes_list(friend):
+    return list(friend.bag_tag_changes.all()
+                .annotate(day=Func(F('timestamp'),
+                                   Value('%Y-%m-%d %H:%i:%s'),
+                                   function='DATE_FORMAT',
+                                   output_field=CharField()))
+                .values_list('day', 'new_number')
+                )
+
+
+@require_GET
+def bag_tag_history(request):
+    return JsonResponse({
+        friend.slug: bag_tag_changes_list(friend)
+        for friend in Friend.objects.filter(bag_tag__isnull=False)
+    })
+
+
 def get_next_bag_tag():
     return Friend.objects.filter(bag_tag__isnull=False).order_by("-bag_tag")[0].bag_tag + 1
 
@@ -205,6 +230,14 @@ def bag_tag_new(request):
     return HttpResponse(status=204)
 
 
+def not_free_for_assignment(bag_tags):
+    free_bag_tags = unassigned_bag_tags()
+    for bag_tag in bag_tags:
+        if bag_tag not in free_bag_tags:
+            return False
+    return True
+
+
 @login_required
 @require_POST
 def bag_tag_update(request):
@@ -214,20 +247,20 @@ def bag_tag_update(request):
         return HttpResponse(status=400, reason='Only friends with a bag tag are allowed to change them.')
 
     current_bag_tags = dict(Friend.objects.filter(username__in=request.POST.keys()).values_list('username', 'bag_tag'))
+    new_bag_tags = {key: int(value) for key, value in request.POST.items()}
 
-    try:
-        new_bag_tags = {key: int(value) for key, value in request.POST.items()}
-    except ValueError:
-        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
-                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
+    if len(new_bag_tags.values()) != len(set(new_bag_tags.values())):
+        return HttpResponse(status=400, reason=_('This makes no sense. Duplicated bag tags are not allowed'))
 
     if set(current_bag_tags.keys()) != set(new_bag_tags.keys()):
         return HttpResponse(status=400, reason=_('This makes no sense. For these bag tags the users should be: '
                                                  f'{str(sorted(current_bag_tags.keys()))[1:-1]}'))
 
     if set(current_bag_tags.values()) != set(new_bag_tags.values()):
-        return HttpResponse(status=400, reason=_('This makes no sense. For these users the bag tags should be: '
-                                                 f'{str(sorted(current_bag_tags.values()))[1:-1]}'))
+        bag_tags_diff = set(new_bag_tags.values()) - set(current_bag_tags.values())
+        if not not_free_for_assignment(bag_tags_diff):
+            return HttpResponse(status=400, reason=_('This makes no sense. These bag tags are not free for you to'
+                                                     f'assign them: {str(sorted(bag_tags_diff))[1:-1]}'))
 
     # take bag tags away
     Friend.objects.filter(username__in=request.POST.keys()).update(bag_tag=None)

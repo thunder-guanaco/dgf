@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div id="unassigned-bag-tags" class="page" style="display: none;">
+
+    <h2>{% trans "Unassigned Bag Tags" %}</h2>
+
+    <div class="content">
+        {% for bag_tag in unassigned_bag_tags %}
+
+            <div class="line">
+                <div class="number clickable"
+                     data-bag-tag="{{bag_tag}}"
+                     onclick="selectBagTag({{bag_tag}})">
+                    <span>{{bag_tag}}</span>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+
