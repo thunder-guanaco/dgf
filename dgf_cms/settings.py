@@ -107,9 +107,13 @@ elif ENV == 'test':
 
 CORS_ALLOWED_ORIGINS = [
     'https://discgolfmetrix.com',
+    'https://discgolfunion.de',
+    'https://discgolfiserlohn.de',
+    'https://www.discgolfunion.de',
+    'https://www.discgolfiserlohn.de',
 ]
 CORS_ALLOW_METHODS = [
-    "GET",
+    'GET',
 ]
 
 CSRF_FAILURE_VIEW = csrf_failure
