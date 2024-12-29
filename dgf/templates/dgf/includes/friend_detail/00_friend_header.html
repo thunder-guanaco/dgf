@@ -1,4 +1,6 @@
-{% load static i18n %}
+{% load static i18n dgf %}
+
+{% with friend|sponsors_ordered_by_rank as sponsors %}
 
 <div id="friend-header">
     <div id="first-headline">
@@ -6,29 +8,29 @@
             <h1>
                 {{friend.full_name}}
             </h1>
-
-            {% if friend.sponsor_logo %}
-                {% if friend.sponsor_link %}
-                    <a href="{{friend.sponsor_link}}" target="_blank">
-                        <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="50px" height="50px"/>
-                    </a>
-                {% else %}
-                    <img src="/media/{{friend.sponsor_logo}}" class="avatar-img" width="50px" height="50px"/>
-                {% endif %}
-            {% endif %}
+            {% include "dgf/includes/friend_detail/01_friend_sponsor_logos.html" with sponsors=sponsors img_size="50" %}
         </div>
 
         <div id="desktop-edit-buttons" class="desktop">
             {% include "dgf/includes/edit_buttons.html" with friend=friend %}
         </div>
     </div>
-    {% if friend.sponsor %}
-        <div class="larger">
-            {% if friend.sponsor_link %}
-                <p>{% trans "Sponsored by" %} <a href="{{friend.sponsor_link}}" target="_blank">{{friend.sponsor}}</a></p>
-            {% else %}
-                <p>{% trans "Sponsored by" %} {{friend.sponsor}}</p>
-            {% endif %}
+    {% if sponsors %}
+        <div id="sponsor-names" class="larger">
+            <p>{% trans "Sponsored by" %}
+                {% for sponsor in sponsors %}
+
+                    {% if not forloop.first %}
+                    +
+                    {% endif %}
+                    {% if sponsor.link %}
+                        <a href="{{ sponsor.link }}" rel="noopener"
+                           target="_blank">{{ sponsor.name }}</a>
+                    {% else %}
+                        {{ sponsor.name }}
+                    {% endif %}
+                {% endfor %}
+            </p>
         </div>
     {% endif %}
     {% if friend.club_role %}
@@ -80,3 +82,5 @@
         {% endif %}
     </div>
 </div>
+
+{% endwith %}

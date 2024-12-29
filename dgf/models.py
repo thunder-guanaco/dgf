@@ -185,9 +185,12 @@ class Sponsor(Model):
         constraints = [
             models.UniqueConstraint(fields=['friend', 'name'],
                                     name='each sponsor can only be assigned once to the friend'),
+            models.UniqueConstraint(fields=['friend', 'rank'],
+                                    name='2 sponsors can not have the same rank'),
         ]
 
     friend = models.ForeignKey(Friend, on_delete=CASCADE, related_name='sponsors', verbose_name=_('Friend'))
+    rank = models.PositiveSmallIntegerField(_('rank'), null=True, blank=True)
     name = models.CharField(_('name'), max_length=200, null=False, blank=False)
     link = models.URLField(_('link'), null=True, blank=True)
     logo = models.ImageField(_('logo'), null=True, blank=True)

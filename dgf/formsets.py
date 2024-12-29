@@ -20,7 +20,7 @@ ALL_DISCS = all_objects(Disc, 'mold')
 
 def sponsors_formset_factory():
     return inlineformset_factory(
-        Friend, Sponsor, fields=('name', 'link', 'logo'),
+        Friend, Sponsor, fields=('rank', 'name', 'link', 'logo'),
         max_num=3, extra=3, validate_max=True
     )
 
