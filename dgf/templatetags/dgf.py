@@ -188,7 +188,7 @@ def short_name(tournament, mobile=False):
 
 
 def try_tremonia_series(tournament, mobile):
-    matches = re.findall(r'^Tremonia Series (#\d+)', tournament.name)
+    matches = re.findall(r'Tremonia Series (#\d+)', tournament.name)
     if not matches:
         return None
     return f'{matches[0]}' if mobile else f'TS{matches[0]}'
