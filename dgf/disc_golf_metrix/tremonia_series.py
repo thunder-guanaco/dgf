@@ -20,7 +20,7 @@ class TremoniaSeriesImporter(DiscGolfMetrixImporter):
     }
 
     def extract_name(self, dgm_tournament):
-        return dgm_tournament['Name'].split(' &rarr; ')[-1]
+        return dgm_tournament['Name'].split('&rarr;')[-1].strip()
 
     def generate_tours(self, tournament):
         return [
