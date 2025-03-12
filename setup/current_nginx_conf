@@ -21,11 +21,31 @@ server {
     access_log /home/ubuntu/logs/nginx-access.log;
     error_log /home/ubuntu/logs/nginx-error.log;
 
+    location /bild-generierung/ {
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        roxy_send_timeout 300;
+    }
+
     location /static/ {
         alias       /home/ubuntu/static/;
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
+        add_header  Access-Control-Allow-Origin *;
+    }
+
+    location /static/js/discgolfmetrix.js {
+        alias       /home/ubuntu/static/js/discgolfmetrix.js;
+        add_header  Pragma public;
+        add_header  Cache-Control "public, max-age=0";
+        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
+    }
+
+    location /static/css/discgolfmetrix.css {
+        alias       /home/ubuntu/static/css/discgolfmetrix.css;
+        add_header  Pragma public;
+        add_header  Cache-Control "public, max-age=0";
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
@@ -36,6 +56,7 @@ server {
         add_header  Cache-Control "public";
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
+
 
     location / {
         # an HTTP header important enough to have its own Wikipedia entry:
@@ -67,6 +88,7 @@ server {
             proxy_pass http://dgf_cms_app_server;
             break;
         }
+
     }
 
     # Error pages
