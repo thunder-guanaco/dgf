@@ -21,6 +21,12 @@ server {
     access_log /home/ubuntu/logs/nginx-access.log;
     error_log /home/ubuntu/logs/nginx-error.log;
 
+    location /bild-generierung/ {
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        roxy_send_timeout 300;
+    }
+
     location /static/ {
         alias       /home/ubuntu/static/;
         expires     1y;
