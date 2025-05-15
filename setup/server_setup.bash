@@ -147,58 +147,65 @@ upstream dgf_cms_app_server {
     # to return a good HTTP response (in case the Unicorn master nukes a
     # single worker for timing out).
 
-    server unix:${ROOT_INSTALLATION_PATH}/gunicorn.sock fail_timeout=0;
+    server unix:/home/ubuntu/gunicorn.sock fail_timeout=0;
 }
 
 server {
 
-    if (\$host = www.tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
+    if ($host = www.tremonia-open.de) {
+        return 301 https://discgolffriends.de/turniere/tremonia-open$request_uri;
     }
 
-    if (\$host = tremonia-open.de) {
-        return 301 https://discgolffriends.de/turniere/tremonia-open\$request_uri;
+    if ($host = tremonia-open.de) {
+        return 301 https://discgolffriends.de/turniere/tremonia-open$request_uri;
     }
 
     server_name discgolffriends.de tremonia-open.de www.discgolffriends.de www.tremonia-open.de;
 
-    access_log ${ROOT_INSTALLATION_PATH}/logs/nginx-access.log;
-    error_log ${ROOT_INSTALLATION_PATH}/logs/nginx-error.log;
+    access_log /home/ubuntu/logs/nginx-access.log;
+    error_log /home/ubuntu/logs/nginx-error.log;
+
+    location /bild-generierung/ {
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+        proxy_send_timeout 300;
+    }
 
     location /static/ {
-        alias       ${ROOT_INSTALLATION_PATH}/static/;
+        alias       /home/ubuntu/static/;
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
-        add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
+        add_header  Access-Control-Allow-Origin *;
     }
 
     location /static/js/discgolfmetrix.js {
-        alias       ${ROOT_INSTALLATION_PATH}/static/js/discgolfmetrix.js;
+        alias       /home/ubuntu/static/js/discgolfmetrix.js;
         add_header  Pragma public;
         add_header  Cache-Control "public, max-age=0";
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
     location /static/css/discgolfmetrix.css {
-        alias       ${ROOT_INSTALLATION_PATH}/static/css/discgolfmetrix.css;
+        alias       /home/ubuntu/static/css/discgolfmetrix.css;
         add_header  Pragma public;
         add_header  Cache-Control "public, max-age=0";
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
     location /media/ {
-        alias       ${ROOT_INSTALLATION_PATH}/media/;
+        alias       /home/ubuntu/media/;
         expires     1y;
         add_header  Pragma public;
         add_header  Cache-Control "public";
         add_header  Access-Control-Allow-Origin https://discgolfmetrix.com;
     }
 
+
     location / {
         # an HTTP header important enough to have its own Wikipedia entry:
         #   http://en.wikipedia.org/wiki/X-Forwarded-For
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
         # enable this if and only if you use HTTPS, this helps Rack
         # set the proper protocol for doing redirects:
@@ -206,7 +213,7 @@ server {
 
         # pass the Host: header from the client right along so redirects
         # can be set properly within the Rack application
-        proxy_set_header Host \$http_host;
+        proxy_set_header Host $http_host;
 
         # we don't want nginx trying to do something clever with
         # redirects, we set the Host: header above already.
@@ -221,27 +228,44 @@ server {
 
         # Try to serve static files from nginx, no point in making an
         # *application* server like Unicorn/Rainbows! serve static files.
-        if (!-f \$request_filename) {
+        if (!-f $request_filename) {
             proxy_pass http://dgf_cms_app_server;
             break;
         }
+
     }
 
     # Error pages
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root ${ROOT_INSTALLATION_PATH}/static/;
+        root /home/ubuntu/static/;
     }
 
     client_max_body_size 100M;
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/discgolffriends.de/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/discgolffriends.de/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
+    if ($host = tremonia-open.de) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = discgolffriends.de) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
     listen 80 default_server;
     listen [::]:80 default_server;
     server_name disc-golf-friends.de discgolffriends.de tremonia-open.de www.discgolffriends.de www.tremonia-open.de;
-    return 301 https://\$host\$request_uri;
+    return 301 https://$host$request_uri;
 }
+
 EOF
 
 sudo chown root /etc/nginx/conf.d/disc-golf-friends.de.conf
