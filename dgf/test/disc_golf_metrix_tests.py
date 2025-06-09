@@ -105,5 +105,5 @@ class DiscGolfMetrixTest(TestCase):
         self.assertEqual([tournament.metrix_id for tournament in tournaments], expected_tournaments)
 
     def assert_next_tpl_redirect(self, expected_metrix_id):
-        redirect = views.tpl_next_tournament_redirect(None)
+        redirect = views.tpl_next_tournament(None)
         self.assertEqual(redirect.url, DISC_GOLF_METRIX_TOURNAMENT_PAGE.format(expected_metrix_id))
