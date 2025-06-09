@@ -279,6 +279,7 @@ MIDDLEWARE = [
 ]
 
 INSTALLED_APPS = [
+    'dgf_tremonia_series',
     'dgf_league',
     'dgf_images',
     'dgf_cookies',
