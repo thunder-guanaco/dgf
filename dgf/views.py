@@ -14,7 +14,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from dgf.cms_plugins import unassigned_bag_tags
 from dgf.disc_golf_metrix import disc_golf_metrix, tremonia_series as ts, tremonia_putting_liga as tpl
 from dgf.formsets import ace_formset_factory, disc_formset_factory, favorite_course_formset_factory, \
-    highlight_formset_factory, video_formset_factory
+    highlight_formset_factory, video_formset_factory, sponsors_formset_factory
 from dgf.models import Friend, Video, Tournament, Attendance, BagTagChange, GitHubIssue
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
 
@@ -39,7 +39,8 @@ class FriendDetailView(DetailView):
                                                       'highlights',
                                                       'discs__disc',
                                                       'aces',
-                                                      'videos')
+                                                      'videos',
+                                                      'sponsors')
                 )
 
 
@@ -47,7 +48,6 @@ class FriendUpdateView(LoginRequiredMixin, UpdateView):
     model = Friend
     template_name_suffix = '_profile'
     fields = ['main_photo', 'first_name', 'last_name', 'nickname', 'club_role',
-              'sponsor', 'sponsor_logo', 'sponsor_link',
               'gt_number', 'udisc_username', 'pdga_number', 'metrix_user_id', 'social_media_agreement',
               'division', 'city', 'plays_since', 'free_text',  # best_score_in_wischlingen TODO: #6282
               'job', 'hobbies']
@@ -55,7 +55,9 @@ class FriendUpdateView(LoginRequiredMixin, UpdateView):
                 ('highlights', highlight_formset_factory),
                 ('discs', disc_formset_factory),
                 ('aces', ace_formset_factory),
-                ('videos', video_formset_factory)]
+                ('videos', video_formset_factory),
+                ('sponsors', sponsors_formset_factory),
+                ]
 
     def get_object(self, queryset=None):
         return self.request.user.friend
