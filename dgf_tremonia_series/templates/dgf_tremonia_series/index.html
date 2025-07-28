@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static cms_tags i18n %}
+
+{% block title %}
+{% trans "Tremonia Series" %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% include "dgf/includes/background_css.html" %}
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}
+
+{% block headline %}
+{% static_placeholder "tremonia_series_headline" %}
+{% endblock %}
+
+{% block content %}
+
+{% static_placeholder "tremonia_series_top_content" %}
+
+<h2>{% trans "Nächste Termine" %}</h2>
+<div id="next-tournaments">
+    {% include "includes/next_tournaments.html" %}
+</div>
+
+<h2>{% trans "Tabelle" %}</h2>
+TBD
+
+<h2>{% trans "Ewige Tabelle" %}</h2>
+TBD
+
+<h2>{% trans "Hall of Fame" %}</h2>
+TBD
+
+{% static_placeholder "tremonia_series_bottom_content" %}
+
+{% endblock %}
