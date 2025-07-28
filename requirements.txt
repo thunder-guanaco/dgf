@@ -24,7 +24,7 @@ django-constance==3.1.0
 django-cors-headers==3.13.0
 django-countries==7.2.1
 django-dbbackup==3.3.0
-django-filer==2.1.2
+django-filer==3.3.0
 django-formtools==2.3
 django-impersonate==1.9.2
 django-jazzmin==2.5.0
