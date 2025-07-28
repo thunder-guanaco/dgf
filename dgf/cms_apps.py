@@ -36,3 +36,12 @@ class LeagueApphook(CMSApp):
 
     def get_urls(self, page=None, language=None, **kwargs):
         return ['dgf_league.urls']
+
+
+@apphook_pool.register
+class TremoniaSeriesApphook(CMSApp):
+    app_name = 'dgf_tremonia_series'
+    name = 'Tremonia Series Application'
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return ['dgf_tremonia_series.urls']
