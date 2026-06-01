@@ -1,4 +1,5 @@
 import logging
+import re
 
 from django.db.models import Q
 
@@ -69,6 +70,25 @@ class TremoniaPuttingLigaImporter(DiscGolfMetrixImporter):
     def calculate_round_score(self, station_putts):
         return sum([putts * multiplicator + (1 if putts == 3 else 0)
                     for putts, multiplicator in zip(station_putts, SCORE_MULTIPLICATORS)])
+
+    def get_tournaments(self, dgm_tournament):
+        try:
+            return dgm_tournament['Events']
+        except KeyError:
+            return dgm_tournament['SubCompetitions']
+
+    def update_tournaments(self):
+        if not self.root_id:
+            raise NotImplementedError('root_id must be defined!')
+
+        dgm_tournament = self.get_tournament(self.root_id)
+        for dgm_event in self.get_tournaments(dgm_tournament):
+            matches = re.findall(self.unwanted_tournaments_regex, dgm_event['Name'])
+            if matches:
+                logger.info(f'Ignoring {dgm_event["Name"]}')
+            else:
+                self.create_or_update_tournament(dgm_event['ID'])
+            logger.info('--------------------------------------------------------------------------------')
 
 
 FILTER = Q(name__endswith='Spieltag Tremonia Putting Liga')
