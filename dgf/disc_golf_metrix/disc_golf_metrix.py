@@ -1,5 +1,4 @@
 import logging
-import re
 from abc import abstractmethod, ABC
 from datetime import datetime
 
@@ -13,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 class DiscGolfMetrixImporter(ABC):
-    root_id = None  # children classes must set this!!!
     unwanted_tournaments_regex = r'^\[DELETED]'
     point_system = None
     divisions = {
@@ -133,25 +131,6 @@ class DiscGolfMetrixImporter(ABC):
             logger.info(f'{tournament.name} was already played and has results --> do nothing')
 
         self.add_tours(tournament)
-
-    def get_tournaments(self, dgm_tournament):
-        try:
-            return dgm_tournament['Events']
-        except KeyError:
-            return dgm_tournament['SubCompetitions']
-
-    def update_tournaments(self):
-        if not self.root_id:
-            raise NotImplementedError('root_id must be defined!')
-
-        dgm_tournament = self.get_tournament(self.root_id)
-        for dgm_event in self.get_tournaments(dgm_tournament):
-            matches = re.findall(self.unwanted_tournaments_regex, dgm_event['Name'])
-            if matches:
-                logger.info(f'Ignoring {dgm_event["Name"]}')
-            else:
-                self.create_or_update_tournament(dgm_event['ID'])
-            logger.info('--------------------------------------------------------------------------------')
 
 
 def next_tournaments(query):

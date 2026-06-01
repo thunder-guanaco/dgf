@@ -473,6 +473,7 @@ JAZZMIN_SETTINGS = {
     'order_with_respect_to': ['dgf', 'dgf.friend', 'dgf.tournament', 'dgf.bagtagchange',
                               'dgf_images', 'dgf_images.imagegenerator',
                               'dgf_league', 'dgf_league.team', 'dgf_league.match', 'dgf_league.friendwithoutteam',
+                              'dgf_tremonia_series', 'dgf_tremonia_series.metrixids'
                               'auth',
                               'cms'],
 
@@ -491,6 +492,8 @@ JAZZMIN_SETTINGS = {
         'dgf_league.team': 'fas fa-users',
         'dgf_league.match': 'fas fa-table',
         'dgf_league.friendwithoutteam': 'fas fa-users',
+        'dgf_tremonia_series': 'fas fa-trophy',
+        'dgf_tremonia_series.metrixids': 'fas fa-hashtag',
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.group': 'fas fa-users',
