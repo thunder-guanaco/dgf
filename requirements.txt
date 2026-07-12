@@ -69,4 +69,4 @@ svglib==1.1.0
 urllib3==1.26.19
 user-agents==2.2.0
 uWSGI==2.0.23
-wheel==0.41.3
+wheel==0.46.2
