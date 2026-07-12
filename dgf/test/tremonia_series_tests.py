@@ -4,11 +4,11 @@ from datetime import date
 import responses
 from django.test import TestCase
 
-from dgf.disc_golf_metrix import tremonia_series
 from dgf.disc_golf_metrix.tremonia_series import TremoniaSeriesImporter
 from dgf.models import Tournament, Friend, Attendance, Result, Tour, Division
 from dgf.test.models.creator import create_divisions
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE, DISC_GOLF_METRIX_COMPETITION_ENDPOINT
+from dgf_tremonia_series.models import MetrixIds
 
 
 class TremoniaSeriesTest(TestCase):
@@ -268,70 +268,15 @@ class TremoniaSeriesTest(TestCase):
         self.assertEqual(tournaments, expected_metrix_ids)
 
     def add_three_tournaments(self):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': tremonia_series.ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': '1',
-                                          'Name': 'Tremonia Series #1 (Putter)'  # past tournament
-                                      },
-                                      {
-                                          'ID': '22',
-                                          'Name': '[DELETED] Tremonia Series #2'  # canceled
-                                      },
-                                      {
-                                          'ID': '2',
-                                          'Name': 'Tremonia Series #2 (Midrange)'  # second tournament again
-                                      },
-                                      {
-                                          'ID': '3',
-                                          'Name': 'Tremonia Series #3'  # future tournament
-                                      }
-                                  ]
-                              }
-                          }),
-                      status=200)
+        MetrixIds.objects.create(ids='1,2,3')
 
         self.add_tournament(1, 'Tremonia Series #1 (Putter)', '1000-01-01')
         self.add_tournament(2, 'Tremonia Series #2 (Midrange)', '2000-01-01')
         self.add_tournament(3, 'Tremonia Series #3', '3000-01-01')
 
     def add_five_tournaments_for_tours(self, players):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': tremonia_series.ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': '1',
-                                          'Name': 'Tremonia Series #1'
-                                      },
-                                      {
-                                          'ID': '2',
-                                          'Name': 'Tremonia Series #2'
-                                      },
-                                      {
-                                          'ID': '3',
-                                          'Name': 'Tremonia Series #3'
-                                      },
-                                      {
-                                          'ID': '4',
-                                          'Name': 'Tremonia Series #4'
-                                      },
-                                      {
-                                          'ID': '5',
-                                          'Name': 'Tremonia Series #5'
-                                      }
-                                  ]
-                              }
-                          }),
-                      status=200)
+        MetrixIds.objects.create(ids='1,2,3')
+        MetrixIds.objects.create(ids='4,5')
 
         self.add_tournament(1, 'Tremonia Series #1', '1000-01-01', players)
         self.add_tournament(2, 'Tremonia Series #2', '1000-02-02', players)
@@ -340,21 +285,7 @@ class TremoniaSeriesTest(TestCase):
         self.add_tournament(5, 'Tremonia Series #5', '2000-02-02')
 
     def add_one_tournament(self, id, name, date_as_str, players=None, other_format=False):
-        responses.add(responses.GET, DISC_GOLF_METRIX_COMPETITION_ENDPOINT.format(tremonia_series.ROOT_ID),
-                      body=json.dumps(
-                          {
-                              'Competition': {
-                                  'Name': 'Tremonia Series',
-                                  'ID': tremonia_series.ROOT_ID,
-                                  'Events': [
-                                      {
-                                          'ID': f'{id}',
-                                          'Name': name
-                                      },
-                                  ]
-                              }
-                          }),
-                      status=200)
+        MetrixIds.objects.create(ids=f'{id}')
 
         if other_format:
             self.add_tournament_with_other_format(id, name, date_as_str, players=players)
