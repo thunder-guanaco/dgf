@@ -1,5 +1,17 @@
 {% load i18n static %}
 
+{{ sponsors.management_form }}
+<div class="field">
+    <h2>{% trans "Sponsors" %}</h2>
+</div>
+<div id="sponsors">
+    {% for sponsor in sponsors %}
+        <div class="highlight sponsor-form">
+            {{ sponsor }}
+        </div>
+    {% endfor %}
+</div>
+
 {{ favorite_courses.management_form }}
 <div class="field">
     <h2>{% trans "Favorite courses" %}</h2>

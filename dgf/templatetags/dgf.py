@@ -1,10 +1,10 @@
 import logging
 import re
-from constance import config
 from datetime import datetime
 
+from constance import config
 from django import template
-from django.db.models import Count, Max, Q, Sum
+from django.db.models import Count, Max, Q, Sum, F
 from django.utils import timezone
 
 from dgf_cms.settings import DISC_GOLF_METRIX_TOURNAMENT_PAGE
@@ -140,6 +140,10 @@ def problematic_tournaments():
     return [tournament for tournament in Tournament.objects.filter(name__startswith='Tremonia Series') if
             not tournament.first_positions_are_ok]
 
+
+@register.filter
+def sponsors_ordered_by_rank(friend):
+    return friend.sponsors.all().order_by(F('rank').asc(nulls_last=True))
 
 @register.filter
 def now_playing(friend):
