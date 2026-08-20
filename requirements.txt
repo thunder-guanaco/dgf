@@ -4,7 +4,7 @@ Django==3.2.25
 django-admin-list-filter-dropdown==1.0.3
 django-appconf==1.0.5
 django-classy-tags==3.0.1
-django-cms==3.9.0
+django-cms==5.0.9
 djangocms-admin-style==3.0.0
 djangocms-attributes-field==2.0.0
 djangocms-bootstrap4==2.0.0
