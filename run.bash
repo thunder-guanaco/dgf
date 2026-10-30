@@ -6,7 +6,7 @@
 last_arg="${@: -1}"
 if [[ "${last_arg}" != "fast" ]]
 then
-  pip install -r requirements.txt
+  uv pip install -r requirements.txt
 else
   echo ">>> fast mode, no requirements install"
 fi
