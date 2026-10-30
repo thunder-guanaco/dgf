@@ -69,13 +69,10 @@ def get_or_create_inactive_friend(metrix_user_id, slugified_name, first_name, la
     return friend
 
 
-def update_friend(friend, metrix_user_id, slugified_name, first_name, last_name):
+def update_friend(friend, metrix_user_id, first_name, last_name):
     if not friend.is_active:
         if metrix_user_id:
             friend.metrix_user_id = metrix_user_id
-        if slugified_name:
-            friend.username = slugified_name
-            friend.slug = slugified_name
         if first_name:
             friend.first_name = first_name
         if last_name:
@@ -85,21 +82,21 @@ def update_friend(friend, metrix_user_id, slugified_name, first_name, last_name)
 
 
 def find_friend(metrix_user_id, name):
-    slugified_name = slugify(name)
     names = name.split(' ')
     first_name = names[0]
     last_name = ' '.join(names[1:])
 
     friend = find_friend_by_metrix_user_id(metrix_user_id)
     if friend is not None:
-        return update_friend(friend, metrix_user_id, slugified_name, first_name, last_name)
+        return update_friend(friend, metrix_user_id, first_name, last_name)
 
+    slugified_name = slugify(name)
     friend = find_friend_by_slugified_username(slugified_name)
     if friend is not None:
-        return update_friend(friend, metrix_user_id, slugified_name, first_name, last_name)
+        return update_friend(friend, metrix_user_id, first_name, last_name)
 
     friend = find_friend_by_name(first_name, last_name)
     if friend is not None:
-        return update_friend(friend, metrix_user_id, slugified_name, first_name, last_name)
+        return update_friend(friend, metrix_user_id, first_name, last_name)
 
     return get_or_create_inactive_friend(metrix_user_id, slugified_name, first_name, last_name)
