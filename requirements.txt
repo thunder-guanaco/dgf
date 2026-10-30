@@ -64,6 +64,7 @@ pytz==2021.3
 requests==2.32.4
 responses==0.17.0
 selenium==4.1.0
+setuptools<81
 six==1.16.0
 svglib==1.1.0
 urllib3==1.26.19
